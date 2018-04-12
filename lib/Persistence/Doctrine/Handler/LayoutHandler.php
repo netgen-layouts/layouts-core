@@ -440,9 +440,7 @@ final class LayoutHandler implements LayoutHandlerInterface
             throw new BadStateException('locale', 'Main translation cannot be removed from the layout.');
         }
 
-        $updatedLayout = clone $layout;
-        $updatedLayout->modified = time();
-        $this->queryHandler->updateLayout($updatedLayout);
+        $this->updateLayoutModifiedDate($layout);
 
         $this->queryHandler->deleteLayoutTranslations($layout->id, $layout->status, $locale);
 
@@ -462,5 +460,17 @@ final class LayoutHandler implements LayoutHandlerInterface
         }
 
         return $this->loadLayout($layout->id, $layout->status);
+    }
+
+    /**
+     * Updates the layout modified date to the current timestamp.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     */
+    private function updateLayoutModifiedDate(Layout $layout)
+    {
+        $updatedLayout = clone $layout;
+        $updatedLayout->modified = time();
+        $this->queryHandler->updateLayout($updatedLayout);
     }
 }

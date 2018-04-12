@@ -966,6 +966,44 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     */
+    public function testRestoreFromArchive()
+    {
+        $originalLayout = $this->layoutService->loadLayoutDraft(2);
+        $publishedLayout = $this->layoutService->loadLayout(2);
+        $restoredLayout = $this->layoutService->restoreFromArchive(2);
+
+        $this->assertInstanceOf(Layout::class, $restoredLayout);
+        $this->assertEquals(Layout::STATUS_DRAFT, $restoredLayout->getStatus());
+        $this->assertEquals($publishedLayout->getName(), $restoredLayout->getName());
+
+        $this->assertEquals($originalLayout->getCreated(), $restoredLayout->getCreated());
+        $this->assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "1"
+     */
+    public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingArchivedVersion()
+    {
+        $this->layoutService->restoreFromArchive(1);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "2"
+     */
+    public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingPublishedVersion()
+    {
+        $this->persistenceHandler->getLayoutHandler()->deleteLayout(2, Layout::STATUS_PUBLISHED);
+        $this->layoutService->restoreFromArchive(2);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find layout with identifier "1"

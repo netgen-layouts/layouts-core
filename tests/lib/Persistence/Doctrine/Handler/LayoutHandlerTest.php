@@ -1467,6 +1467,7 @@ final class LayoutHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      */
     public function testDeleteLayoutTranslation()
@@ -1489,6 +1490,7 @@ final class LayoutHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find block with identifier "31"

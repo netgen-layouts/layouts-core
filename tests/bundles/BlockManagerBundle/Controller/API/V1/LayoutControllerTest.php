@@ -1399,6 +1399,48 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::restoreFromArchive
+     */
+    public function testRestoreFromArchive()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/2/restore',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::restoreFromArchive
+     */
+    public function testRestoreFromArchiveWithNonExistentLayout()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/9999/restore',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::delete
      */
     public function testDelete()

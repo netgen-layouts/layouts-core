@@ -307,6 +307,19 @@ interface LayoutService extends Service
     public function publishLayout(Layout $layout);
 
     /**
+     * Restores the archived version of a layout to a draft. If draft already exists,
+     * it will be removed.
+     *
+     * @param int|string $layoutId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with provided ID does not have an archived version
+     *                                                          If layout with provided ID does not have a published version to restore the name from
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function restoreFromArchive($layoutId);
+
+    /**
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

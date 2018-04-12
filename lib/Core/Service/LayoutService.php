@@ -13,8 +13,10 @@ use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
@@ -553,6 +555,40 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
 
         return $this->mapper->mapLayout($publishedLayout);
+    }
+
+    public function restoreFromArchive($layoutId)
+    {
+        $archivedLayout = $this->layoutHandler->loadLayout($layoutId, Value::STATUS_ARCHIVED);
+        $publishedLayout = $this->layoutHandler->loadLayout($layoutId, Value::STATUS_PUBLISHED);
+
+        $draftLayout = null;
+        try {
+            $draftLayout = $this->layoutHandler->loadLayout($layoutId, Value::STATUS_DRAFT);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $draftLayout = $this->transaction(
+            function () use ($draftLayout, $publishedLayout, $archivedLayout) {
+                if ($draftLayout instanceof PersistenceLayout) {
+                    $this->layoutHandler->deleteLayout($draftLayout->id, $draftLayout->status);
+                }
+
+                $draftLayout = $this->layoutHandler->createLayoutStatus($archivedLayout, Value::STATUS_DRAFT);
+
+                return $this->layoutHandler->updateLayout(
+                    $draftLayout,
+                    new LayoutUpdateStruct(
+                        array(
+                            'name' => $publishedLayout->name,
+                        )
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapLayout($draftLayout);
     }
 
     public function deleteLayout(Layout $layout)

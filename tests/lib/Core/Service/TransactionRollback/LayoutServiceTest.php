@@ -345,6 +345,40 @@ final class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testRestoreFromArchive()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(2))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(3))
+            ->method('deleteLayout')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->restoreFromArchive(2);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
