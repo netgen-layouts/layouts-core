@@ -12,7 +12,7 @@ final class RuleCreateStructTest extends TestCase
         $ruleCreateStruct = new RuleCreateStruct();
 
         $this->assertNull($ruleCreateStruct->layoutId);
-        $this->assertEquals(0, $ruleCreateStruct->priority);
+        $this->assertNull($ruleCreateStruct->priority);
         $this->assertFalse($ruleCreateStruct->enabled);
         $this->assertNull($ruleCreateStruct->comment);
     }

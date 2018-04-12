@@ -267,7 +267,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
     public function testCreateRule()
     {
@@ -292,7 +294,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
     public function testCreateRuleWithNoPriority()
     {
@@ -305,9 +309,39 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertEquals(22, $createdRule->id);
         $this->assertNull($createdRule->layoutId);
-        $this->assertEquals(0, $createdRule->priority);
+        $this->assertEquals(-10, $createdRule->priority);
         $this->assertFalse($createdRule->enabled);
         $this->assertEquals('', $createdRule->comment);
+        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     */
+    public function testCreateRuleWithNoPriorityAndNoRules()
+    {
+        // First delete all rules
+        $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
+        foreach ($rules as $rule) {
+            $this->handler->deleteRule($rule->id);
+        }
+
+        $rules = $this->handler->loadRules(Value::STATUS_DRAFT);
+        foreach ($rules as $rule) {
+            $this->handler->deleteRule($rule->id);
+        }
+
+        $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+
+        $createdRule = $this->handler->createRule($ruleCreateStruct);
+
+        $this->assertInstanceOf(Rule::class, $createdRule);
+
+        $this->assertEquals(0, $createdRule->priority);
         $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
     }
 

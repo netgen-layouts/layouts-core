@@ -282,6 +282,25 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns the lowest priority from the list of all the rules.
+     *
+     * @return int
+     */
+    public function getLowestRulePriority()
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('priority')
+            ->from('ngbm_rule_data');
+
+        $query->addOrderBy('priority', 'ASC');
+        $this->applyOffsetAndLimit($query, 0, 1);
+
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        return isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
+    }
+
+    /**
      * Creates a rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule

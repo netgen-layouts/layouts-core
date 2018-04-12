@@ -138,9 +138,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'status' => $ruleCreateStruct->status,
                 'layoutId' => $ruleCreateStruct->layoutId,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
-                'priority' => $ruleCreateStruct->priority !== null ?
-                    (int) $ruleCreateStruct->priority :
-                    0,
+                'priority' => $this->getRulePriority($ruleCreateStruct),
                 'comment' => trim($ruleCreateStruct->comment),
             )
         );
@@ -321,5 +319,32 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function deleteCondition(Condition $condition)
     {
         $this->queryHandler->deleteCondition($condition->id, $condition->status);
+    }
+
+    /**
+     * Returns the rule priority when creating a new rule.
+     *
+     * If priority is specified in the struct, it is used automatically. Otherwise,
+     * the returned priority is the lowest available priority subtracted by 10 (to allow
+     * inserting rules in between).
+     *
+     * If no rules exist, priority is 0.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
+     *
+     * @return int
+     */
+    private function getRulePriority(RuleCreateStruct $ruleCreateStruct)
+    {
+        if ($ruleCreateStruct->priority !== null) {
+            return (int) $ruleCreateStruct->priority;
+        }
+
+        $lowestRulePriority = $this->queryHandler->getLowestRulePriority();
+        if ($lowestRulePriority !== null) {
+            return $lowestRulePriority - 10;
+        }
+
+        return 0;
     }
 }

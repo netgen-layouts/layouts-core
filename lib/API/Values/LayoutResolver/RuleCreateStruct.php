@@ -18,7 +18,7 @@ final class RuleCreateStruct extends Value
      *
      * @var int
      */
-    public $priority = 0;
+    public $priority;
 
     /**
      * Specifies if the rule will be enabled or not.
