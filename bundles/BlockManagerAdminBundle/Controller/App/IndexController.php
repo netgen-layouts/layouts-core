@@ -16,7 +16,7 @@ final class IndexController extends Controller
      */
     public function index(Request $request)
     {
-        $appEnvironment = $request->attributes->get('_ngbm_environment', '');
+        $appEnvironment = $request->attributes->get('_ngbm_environment');
 
         return $this->render(
             !empty($appEnvironment) ?
