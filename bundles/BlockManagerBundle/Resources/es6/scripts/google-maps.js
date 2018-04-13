@@ -35,7 +35,6 @@ window.addEventListener('load', function() {
 
     const googleMaps = document.getElementsByClassName('ngbm-map-embed');
     [].forEach.call(googleMaps, (el) => {
-        console.log(el);
         const googleMap = new GoogleMap(el);
     });
 });
