@@ -15,7 +15,7 @@ class GoogleMap {
           center: {lat: this.latitude, lng: this.longitude},
           zoom: this.zoom,
           mapTypeId: google.maps.MapTypeId[this.mapType],
-          scrollwheel: false
+          scrollwheel: true
         });
 
         if (this.showMarker){
