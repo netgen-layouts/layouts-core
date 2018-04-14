@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
@@ -67,14 +68,23 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * Returns all data for all rules.
      *
      * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param int $offset
      * @param int $limit
      *
      * @return array
      */
-    public function loadRulesData($status, $offset = 0, $limit = null)
+    public function loadRulesData($status, Layout $layout = null, $offset = 0, $limit = null)
     {
         $query = $this->getRuleSelectQuery();
+
+        if ($layout instanceof Layout) {
+            $query->andWhere(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layout->id, Type::INTEGER);
+        }
+
         $query->addOrderBy('rd.priority', 'DESC');
 
         $this->applyStatusCondition($query, $status, 'r.status');
@@ -84,22 +94,27 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns the number of rules pointing to provided layout.
+     * Returns the number of rules.
      *
-     * @param int|string $layoutId
+     * If the layout is provided, the count of rules pointing to provided layout is returned.
+     *
      * @param int $ruleStatus
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
      * @return int
      */
-    public function getRuleCount($layoutId, $ruleStatus)
+    public function getRuleCount($ruleStatus, Layout $layout = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_rule')
-            ->where(
+            ->from('ngbm_rule');
+
+        if ($layout instanceof Layout) {
+            $query->andWhere(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('layout_id', $layout->id, Type::INTEGER);
+        }
 
         $this->applyStatusCondition($query, $ruleStatus);
 

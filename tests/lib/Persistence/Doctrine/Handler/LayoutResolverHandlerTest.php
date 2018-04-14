@@ -90,7 +90,28 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
 
-        $this->assertNotEmpty($rules);
+        $this->assertCount(20, $rules);
+
+        foreach ($rules as $index => $rule) {
+            $this->assertInstanceOf(Rule::class, $rule);
+            if ($index > 0) {
+                $this->assertLessThanOrEqual($rules[$index - 1]->priority, $rules[$index]->priority);
+            }
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
+     */
+    public function testLoadRulesWithLayout()
+    {
+        $rules = $this->handler->loadRules(
+            Value::STATUS_PUBLISHED,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
+        );
+
+        $this->assertCount(3, $rules);
 
         foreach ($rules as $index => $rule) {
             $this->assertInstanceOf(Rule::class, $rule);
@@ -105,6 +126,17 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
      */
     public function testGetRuleCount()
+    {
+        $rules = $this->handler->getRuleCount();
+
+        $this->assertEquals(20, $rules);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
+     */
+    public function testGetRuleCountWithLayout()
     {
         $rules = $this->handler->getRuleCount(
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)

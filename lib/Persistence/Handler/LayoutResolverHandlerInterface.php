@@ -31,22 +31,27 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads all rules.
      *
+     * If the layout is provided, only rules pointing to provided layout are returned.
+     *
      * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRules($status, $offset = 0, $limit = null);
+    public function loadRules($status, Layout $layout = null, $offset = 0, $limit = null);
 
     /**
-     * Returns the number of rules pointing to provided layout.
+     * Returns the number of published rules.
+     *
+     * If the layout is provided, the count of rules pointing to provided layout is returned.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
      * @return int
      */
-    public function getRuleCount(Layout $layout);
+    public function getRuleCount(Layout $layout = null);
 
     /**
      * Returns all rules that match specified target type and value.

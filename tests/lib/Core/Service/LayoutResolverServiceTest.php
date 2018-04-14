@@ -77,7 +77,24 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         $rules = $this->layoutResolverService->loadRules();
 
-        $this->assertNotEmpty($rules);
+        $this->assertCount(20, $rules);
+
+        foreach ($rules as $rule) {
+            $this->assertTrue($rule->isPublished());
+            $this->assertInstanceOf(Rule::class, $rule);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
+     */
+    public function testLoadRulesWithLayout()
+    {
+        $rules = $this->layoutResolverService->loadRules(
+            $this->layoutService->loadLayout(1)
+        );
+
+        $this->assertCount(3, $rules);
 
         foreach ($rules as $rule) {
             $this->assertTrue($rule->isPublished());
@@ -89,6 +106,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
      */
     public function testGetRuleCount()
+    {
+        $ruleCount = $this->layoutResolverService->getRuleCount();
+
+        $this->assertEquals(20, $ruleCount);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
+     */
+    public function testGetRuleCountWithLayout()
     {
         $ruleCount = $this->layoutResolverService->getRuleCount(
             $this->layoutService->loadLayout(1)

@@ -50,9 +50,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    public function loadRules($status, $offset = 0, $limit = null)
+    public function loadRules($status, Layout $layout = null, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadRulesData($status, $offset, $limit);
+        $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
 
         if (empty($data)) {
             return array();
@@ -63,9 +63,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $data;
     }
 
-    public function getRuleCount(Layout $layout)
+    public function getRuleCount(Layout $layout = null)
     {
-        return $this->queryHandler->getRuleCount($layout->id, Value::STATUS_PUBLISHED);
+        return $this->queryHandler->getRuleCount(Value::STATUS_PUBLISHED, $layout);
     }
 
     public function matchRules($targetType, $targetValue)

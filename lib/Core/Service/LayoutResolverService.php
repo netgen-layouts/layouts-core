@@ -97,12 +97,25 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRules($offset = 0, $limit = null)
+    public function loadRules(Layout $layout = null, $offset = 0, $limit = null)
     {
+        if ($layout instanceof Layout && !$layout->isPublished()) {
+            throw new BadStateException('layout', 'Only published layouts can be used in rules.');
+        }
+
         $this->validator->validateOffsetAndLimit($offset, $limit);
+
+        $persistenceLayout = null;
+        if ($layout instanceof Layout) {
+            $persistenceLayout = $this->layoutHandler->loadLayout(
+                $layout->getId(),
+                Value::STATUS_PUBLISHED
+            );
+        }
 
         $persistenceRules = $this->handler->loadRules(
             Value::STATUS_PUBLISHED,
+            $persistenceLayout,
             $offset,
             $limit
         );
@@ -115,16 +128,19 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $rules;
     }
 
-    public function getRuleCount(Layout $layout)
+    public function getRuleCount(Layout $layout = null)
     {
-        if (!$layout->isPublished()) {
+        if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout(
-            $layout->getId(),
-            Value::STATUS_PUBLISHED
-        );
+        $persistenceLayout = null;
+        if ($layout instanceof Layout) {
+            $persistenceLayout = $this->layoutHandler->loadLayout(
+                $layout->getId(),
+                Value::STATUS_PUBLISHED
+            );
+        }
 
         return $this->handler->getRuleCount($persistenceLayout);
     }
