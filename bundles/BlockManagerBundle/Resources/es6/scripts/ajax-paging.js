@@ -18,7 +18,7 @@ const templateEngine = (html, options) => {
     return new Function(code.replace(/[\r\t\n]/g, '')).apply(options);
 };
 
-class AjaxBlock {
+class AjaxPaging {
     constructor(el) {
         this.el = el;
         this.container = el.querySelector('.ajax-container');
@@ -79,7 +79,7 @@ class AjaxBlock {
         }).then((html) => {
             this.loadingStop();
             pageParam && this.setNextPage(nextPage);
-            this.renderNewBlocks(html);
+            this.renderNewPage(html);
         })
         .catch((err) => {
             this.loadingStop();
@@ -92,7 +92,7 @@ class AjaxBlock {
         this.renderNavigation();
     }
 
-    renderNewBlocks(html) {
+    renderNewPage(html) {
         switch (this.pagerData.type) {
             case 'load_more':
                 this.container.insertAdjacentHTML('beforeend', html);
@@ -100,7 +100,7 @@ class AjaxBlock {
             default:
                 this.container.innerHTML = html;
         }
-        this.el.dispatchEvent(new CustomEvent('ajax-blocks-added', { bubbles: true, cancelable: true }));
+        this.el.dispatchEvent(new CustomEvent('ajax-paging-added', { bubbles: true, cancelable: true }));
     }
 
     loadingStart() {
@@ -115,6 +115,6 @@ class AjaxBlock {
 window.addEventListener('load', function() {
     const ajaxCollections = document.getElementsByClassName('ajax-collection');
     [].forEach.call(ajaxCollections, (el) => {
-        const ajaxBlock = new AjaxBlock(el);
+        const ajaxPaging = new AjaxPaging(el);
     });
 });

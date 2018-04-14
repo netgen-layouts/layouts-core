@@ -1,2 +1,2 @@
-import './scripts/ajax-blocks';
+import './scripts/ajax-paging';
 import './scripts/google-maps';
