@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\Reference;
 final class LayoutTypePass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.layout.registry.layout_type';
-    private static $tagName = 'netgen_block_manager.layout.layout_type';
 
     public function process(ContainerBuilder $container)
     {

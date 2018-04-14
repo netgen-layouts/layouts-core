@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 final class ValueTypePass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.item.registry.value_type';
-    private static $tagName = 'netgen_block_manager.item.value_type';
 
     public function process(ContainerBuilder $container)
     {

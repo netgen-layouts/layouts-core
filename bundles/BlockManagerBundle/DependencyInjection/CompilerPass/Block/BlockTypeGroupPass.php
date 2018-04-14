@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 final class BlockTypeGroupPass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.block.registry.block_type_group';
-    private static $tagName = 'netgen_block_manager.block.block_type_group';
 
     public function process(ContainerBuilder $container)
     {
