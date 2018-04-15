@@ -27,7 +27,7 @@ abstract class Value
                 );
             }
 
-            $this->$property = $value;
+            $this->{$property} = $value;
         }
     }
 }

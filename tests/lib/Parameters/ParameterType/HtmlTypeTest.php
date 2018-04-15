@@ -83,8 +83,8 @@ final class HtmlTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)

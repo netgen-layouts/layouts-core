@@ -1213,8 +1213,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlock()
     {
@@ -1236,8 +1236,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockToDifferentPlaceholder()
     {
@@ -1261,8 +1261,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockToDifferentBlock()
     {
@@ -1392,8 +1392,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZone()
     {
@@ -1414,8 +1414,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToDifferentZone()
     {

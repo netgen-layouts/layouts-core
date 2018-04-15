@@ -26,8 +26,7 @@ final class Rule extends Visitor
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule */
-
+        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule */
         $layout = $rule->getLayout();
 
         return array(

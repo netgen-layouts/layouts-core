@@ -29,7 +29,8 @@ final class Version000900 extends AbstractMigration
 
         $this->addSql('ALTER TABLE ngbm_layout ADD COLUMN main_locale varchar(255) NOT NULL');
 
-        $this->addSql(<<<'EOT'
+        $this->addSql(
+            <<<'EOT'
 CREATE TABLE `ngbm_layout_translation` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
@@ -50,7 +51,8 @@ EOT
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN main_locale varchar(255) NOT NULL');
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN always_available tinyint NOT NULL');
 
-        $this->addSql(<<<'EOT'
+        $this->addSql(
+            <<<'EOT'
 CREATE TABLE `ngbm_block_translation` (
   `block_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
@@ -75,7 +77,8 @@ EOT
         $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN main_locale varchar(255) NOT NULL');
         $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN always_available tinyint NOT NULL');
 
-        $this->addSql(<<<'EOT'
+        $this->addSql(
+            <<<'EOT'
 CREATE TABLE `ngbm_collection_translation` (
   `collection_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
@@ -93,7 +96,8 @@ EOT
 
         // Collection query table translations
 
-        $this->addSql(<<<'EOT'
+        $this->addSql(
+            <<<'EOT'
 CREATE TABLE `ngbm_collection_query_translation` (
   `query_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,

@@ -62,7 +62,7 @@ final class TimeTest extends TestCase
      */
     public function testMatches($value, $matches)
     {
-        /* Friday March 23, 2018 21:13:20, Antarctica/Casey */
+        // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1521800000);
 
         $this->assertEquals($matches, $this->conditionType->matches(Request::create('/'), $value));

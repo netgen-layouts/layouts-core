@@ -730,10 +730,10 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      */
     public function testBuildParameterDefinitions()
     {
@@ -815,10 +815,10 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      */
     public function testBuildParameterDefinitionsAfterBuildingParameters()
     {
@@ -856,10 +856,10 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      */
     public function testBuildParameterDefinitionsWithDefaultOptions()
     {
@@ -886,10 +886,10 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "required" with value "true" is expected to be of type "bool", but is of type "string".
      */
@@ -907,10 +907,10 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "groups" with value "group" is expected to be of type "array", but is of type "string".
      */
@@ -928,10 +928,10 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "label" with value true is invalid.
      */

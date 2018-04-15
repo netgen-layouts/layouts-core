@@ -83,8 +83,8 @@ final class EmailTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)

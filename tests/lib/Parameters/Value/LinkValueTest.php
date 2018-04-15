@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 final class LinkValueTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLink
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkSuffix
+     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getNewWindow
      */
     public function testSetDefaultProperties()
@@ -24,9 +24,9 @@ final class LinkValueTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLink
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkSuffix
+     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getNewWindow
      */
     public function testSetProperties()

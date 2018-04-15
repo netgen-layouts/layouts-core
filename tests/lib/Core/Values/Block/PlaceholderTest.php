@@ -13,8 +13,8 @@ final class PlaceholderTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getBlocks
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
      */
     public function testSetDefaultProperties()
     {
@@ -26,10 +26,10 @@ final class PlaceholderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIterator
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::count
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getBlocks
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIterator
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetExists
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetGet
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetSet

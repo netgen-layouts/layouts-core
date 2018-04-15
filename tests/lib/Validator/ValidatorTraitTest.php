@@ -30,8 +30,8 @@ final class ValidatorTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::setValidator
+     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
      */
     public function testValidate()
     {

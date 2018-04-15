@@ -100,12 +100,12 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
      */
     public function testSubmitValidData()
     {
@@ -155,12 +155,12 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
      */
     public function testDisableUntranslatableFormsOnNonMainLocale()
     {
@@ -187,12 +187,12 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
      */
     public function testDisableUntranslatableFormsOnMainLocale()
     {

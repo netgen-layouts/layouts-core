@@ -7,9 +7,9 @@ use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\Route;
 final class RouteTest extends AbstractTargetHandlerTest
 {
     /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\Route::handleQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\Route::handleQuery
      */
     public function testMatchRules()
     {

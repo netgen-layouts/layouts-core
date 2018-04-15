@@ -43,8 +43,8 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequest()
     {
@@ -108,8 +108,8 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::isDecodeable
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidMethod()
     {
@@ -128,8 +128,8 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::isDecodeable
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidContentType()
     {

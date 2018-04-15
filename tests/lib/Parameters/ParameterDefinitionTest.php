@@ -11,13 +11,13 @@ final class ParameterDefinitionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getName
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getType
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getName
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getType
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      */
     public function testSetDefaultProperties()
     {
@@ -33,15 +33,15 @@ final class ParameterDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getName
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getType
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::hasOption
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOption
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getName
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOption
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getType
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::hasOption
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      */
     public function testSetProperties()
     {

@@ -103,8 +103,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
     public function testMoveToPosition()
     {
@@ -117,8 +117,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
     public function testMoveToLowerPosition()
     {
@@ -151,8 +151,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::removePosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::removePosition
      */
     public function testRemovePosition()
     {
@@ -179,8 +179,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::getNextPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::applyConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::getNextPosition
      */
     public function testGetNextPosition()
     {

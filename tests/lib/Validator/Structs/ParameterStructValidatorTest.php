@@ -72,9 +72,9 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate($value, $required, $isValid)

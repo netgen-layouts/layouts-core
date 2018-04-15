@@ -60,8 +60,8 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
      */
     public function testLoadItem()
     {
@@ -114,9 +114,9 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
      */
     public function testGetSubItems()
     {
@@ -139,9 +139,9 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
      */
     public function testGetSubItemsWithOffsetAndLimit()
     {

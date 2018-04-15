@@ -155,10 +155,10 @@ final class ContentEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\ContentEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\ContentEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
     public function testDisableUntranslatableFormsOnNonMainLocale()
     {
@@ -185,10 +185,10 @@ final class ContentEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\ContentEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\ContentEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
     public function testDisableUntranslatableFormsOnMainLocale()
     {

@@ -21,8 +21,8 @@ final class BlockMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
      */
     public function testMapBlocks()
     {

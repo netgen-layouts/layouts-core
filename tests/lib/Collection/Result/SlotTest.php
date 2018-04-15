@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 final class SlotTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Slot::getValue
-     * @covers \Netgen\BlockManager\Collection\Result\Slot::getRemoteId
-     * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueType
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getName
-     * @covers \Netgen\BlockManager\Collection\Result\Slot::isVisible
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getObject
+     * @covers \Netgen\BlockManager\Collection\Result\Slot::getRemoteId
+     * @covers \Netgen\BlockManager\Collection\Result\Slot::getValue
+     * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueType
+     * @covers \Netgen\BlockManager\Collection\Result\Slot::isVisible
      */
     public function testObject()
     {

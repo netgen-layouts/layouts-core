@@ -317,7 +317,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             new ItemDefinition(array('valueType' => 'ezcontent')),
-            Item::TYPE_MANUAL, '66'
+            Item::TYPE_MANUAL,
+            '66'
         );
 
         $collection = $this->collectionService->loadCollectionDraft(1);
@@ -341,7 +342,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             new ItemDefinition(array('valueType' => 'ezcontent')),
-            Item::TYPE_MANUAL, '66'
+            Item::TYPE_MANUAL,
+            '66'
         );
 
         $collection = $this->collectionService->loadCollection(4);
@@ -362,7 +364,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             new ItemDefinition(array('valueType' => 'ezcontent')),
-            Item::TYPE_MANUAL, '66'
+            Item::TYPE_MANUAL,
+            '66'
         );
 
         $collection = $this->collectionService->loadCollectionDraft(1);
@@ -720,7 +723,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
             ),
             $this->collectionService->newItemCreateStruct(
                 new ItemDefinition(array('valueType' => 'ezcontent')),
-                Item::TYPE_OVERRIDE, '42'
+                Item::TYPE_OVERRIDE,
+                '42'
             )
         );
     }

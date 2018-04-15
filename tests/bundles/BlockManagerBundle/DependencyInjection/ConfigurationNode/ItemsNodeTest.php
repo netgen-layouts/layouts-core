@@ -14,8 +14,8 @@ final class ItemsNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
      */
     public function testItemsSettings()
     {

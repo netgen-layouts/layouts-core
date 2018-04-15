@@ -26,9 +26,9 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getAppDir
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
     public function testProcess()
     {
@@ -94,9 +94,9 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getAppDir
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
     public function testProcessWithoutTwigDefaultPath()
     {
@@ -159,9 +159,9 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getAppDir
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
     public function testProcessWithRootDir()
     {

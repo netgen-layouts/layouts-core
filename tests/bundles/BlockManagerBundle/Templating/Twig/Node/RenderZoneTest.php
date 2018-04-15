@@ -67,7 +67,7 @@ EOT
                 <<<EOT
 // line 1
 \$ngbmZone = {$this->getNodeGetter('zone')};
-\$ngbmContext = Netgen\BlockManager\View\ViewInterface::CONTEXT_DEFAULT;
+\$ngbmContext = Netgen\\BlockManager\\View\\ViewInterface::CONTEXT_DEFAULT;
 \$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
     \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$ngbmTemplate);

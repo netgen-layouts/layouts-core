@@ -83,8 +83,8 @@ final class FragmentRendererTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\FragmentRenderer::__construct
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
     public function testRenderValue()
     {
@@ -167,8 +167,8 @@ final class FragmentRendererTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
     public function testRenderValueWithNoSupportedFragmentRenderer()
     {
@@ -197,8 +197,8 @@ final class FragmentRendererTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
     public function testRenderValueWithNoFragmentRenderers()
     {

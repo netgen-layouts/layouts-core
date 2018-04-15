@@ -155,8 +155,8 @@ final class ItemLinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)
@@ -186,9 +186,9 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
      */
     public function testExport()
     {
@@ -196,9 +196,9 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
      */
     public function testImport()
     {

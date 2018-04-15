@@ -83,8 +83,8 @@ final class TextTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\TextType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)

@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 final class ParameterTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
      * @covers \Netgen\BlockManager\Parameters\Parameter::getName
      * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
      * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
-     * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
      */
     public function testSetDefaultProperties()
     {
@@ -27,11 +27,11 @@ final class ParameterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
      * @covers \Netgen\BlockManager\Parameters\Parameter::getName
      * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
      * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
-     * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
      */
     public function testSetProperties()
     {

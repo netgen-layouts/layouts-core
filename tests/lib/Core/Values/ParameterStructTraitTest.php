@@ -32,8 +32,8 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValues
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValues
      */
     public function testSetParameterValues()
     {

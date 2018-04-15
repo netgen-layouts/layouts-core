@@ -112,7 +112,9 @@ final class DateTimeUtils
 
         if (count($parts) > 2) {
             return array($parts[0], $parts[1] . ' / ' . $parts[2]);
-        } elseif (count($parts) > 1) {
+        }
+
+        if (count($parts) > 1) {
             return array($parts[0], $parts[1]);
         }
 

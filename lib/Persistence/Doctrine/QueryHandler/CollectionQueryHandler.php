@@ -336,7 +336,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->execute();
     }
 
-    /*
+    /**
      * Deletes collection translations.
      *
      * @param int|string $collectionId

@@ -17,26 +17,26 @@ final class BlockTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollection
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
      */
     public function testSetDefaultProperties()
     {
@@ -64,29 +64,29 @@ final class BlockTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollection
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLocale
      */
     public function testSetProperties()
     {
@@ -184,9 +184,9 @@ final class BlockTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::buildDynamicParameters
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDynamicParameter
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasDynamicParameter
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::buildDynamicParameters
      */
     public function testGetDynamicParameter()
     {

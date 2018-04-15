@@ -14,14 +14,14 @@ final class RuleTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayout
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getPriority
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
      */
     public function testSetDefaultProperties()
     {
@@ -39,14 +39,14 @@ final class RuleTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayout
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getPriority
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isPublished
      */
     public function testSetProperties()

@@ -473,8 +473,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
     public function testCreateInZone()
@@ -505,8 +505,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNoPosition()

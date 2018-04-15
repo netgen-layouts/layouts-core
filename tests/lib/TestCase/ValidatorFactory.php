@@ -42,30 +42,46 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 
         if ($name === 'ngbm_block_view_type') {
             return new Validator\BlockViewTypeValidator();
-        } elseif ($name === 'ngbm_block_item_view_type') {
+        }
+
+        if ($name === 'ngbm_block_item_view_type') {
             return new Validator\BlockItemViewTypeValidator();
-        } elseif ($name === 'ngbm_value_type') {
+        }
+
+        if ($name === 'ngbm_value_type') {
             $valueTypeRegistry = new ValueTypeRegistry();
             $valueTypeRegistry->addValueType('value', new ValueType(array('isEnabled' => true)));
             $valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
 
             return new Validator\ValueTypeValidator($valueTypeRegistry);
-        } elseif ($name === 'ngbm_datetime') {
+        }
+
+        if ($name === 'ngbm_datetime') {
             return new Validator\DateTimeValidator();
-        } elseif ($name === 'ngbm_link') {
+        }
+
+        if ($name === 'ngbm_link') {
             return new Validator\Parameters\LinkValidator();
-        } elseif ($name === 'ngbm_item_link') {
+        }
+
+        if ($name === 'ngbm_item_link') {
             $itemLoader = $this->testCase
                 ->getMockBuilder(ItemLoaderInterface::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 
             return new Validator\Parameters\ItemLinkValidator($itemLoader);
-        } elseif ($name === 'ngbm_parameter_struct') {
+        }
+
+        if ($name === 'ngbm_parameter_struct') {
             return new Validator\Structs\ParameterStructValidator(new ParameterFilterRegistry());
-        } elseif ($name === 'ngbm_block_update_struct') {
+        }
+
+        if ($name === 'ngbm_block_update_struct') {
             return new Validator\Structs\BlockUpdateStructValidator();
-        } elseif ($name === 'ngbm_query_update_struct') {
+        }
+
+        if ($name === 'ngbm_query_update_struct') {
             return new Validator\Structs\QueryUpdateStructValidator();
         }
 

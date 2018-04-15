@@ -208,9 +208,13 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                     function (Block $block, $context) {
                         if ($block->getDefinition()->getIdentifier() === 'twig_block') {
                             return 'rendered twig block' . PHP_EOL;
-                        } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
+                        }
+
+                        if ($context === ViewInterface::CONTEXT_DEFAULT) {
                             return 'rendered block' . PHP_EOL;
-                        } elseif ($context === 'json') {
+                        }
+
+                        if ($context === 'json') {
                             return '{"block_id": 5}' . PHP_EOL;
                         }
 

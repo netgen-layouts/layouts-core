@@ -11,10 +11,10 @@ final class ConditionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::__construct
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getConditionType
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
      */
     public function testSetDefaultProperties()
@@ -30,10 +30,10 @@ final class ConditionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::__construct
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getConditionType
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::isPublished
      */

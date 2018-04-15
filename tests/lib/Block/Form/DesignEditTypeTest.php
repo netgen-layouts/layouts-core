@@ -120,9 +120,9 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
      */
     public function testSubmitValidData()
     {
@@ -165,10 +165,10 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
     public function testDisableUntranslatableFormsOnNonMainLocale()
     {
@@ -196,10 +196,10 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
     public function testDisableUntranslatableFormsOnMainLocale()
     {

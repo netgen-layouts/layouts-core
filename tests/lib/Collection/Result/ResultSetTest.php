@@ -13,17 +13,17 @@ use Traversable;
 final class ResultSetTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::count
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getCollection
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getIterator
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getLimit
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getOffset
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getResults
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getTotalCount
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getOffset
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getLimit
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getIterator
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetExists
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetGet
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetSet
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetUnset
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::count
      */
     public function testObject()
     {

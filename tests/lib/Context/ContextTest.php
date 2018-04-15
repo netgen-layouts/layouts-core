@@ -20,9 +20,9 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::set
      * @covers \Netgen\BlockManager\Context\Context::get
      * @covers \Netgen\BlockManager\Context\Context::has
+     * @covers \Netgen\BlockManager\Context\Context::set
      */
     public function testSet()
     {

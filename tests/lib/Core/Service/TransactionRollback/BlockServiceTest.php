@@ -263,8 +263,8 @@ final class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
@@ -307,8 +307,8 @@ final class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */

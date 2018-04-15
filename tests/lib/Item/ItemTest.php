@@ -9,12 +9,12 @@ use stdClass;
 final class ItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\Item::getValue
-     * @covers \Netgen\BlockManager\Item\Item::getRemoteId
-     * @covers \Netgen\BlockManager\Item\Item::getValueType
      * @covers \Netgen\BlockManager\Item\Item::getName
-     * @covers \Netgen\BlockManager\Item\Item::isVisible
      * @covers \Netgen\BlockManager\Item\Item::getObject
+     * @covers \Netgen\BlockManager\Item\Item::getRemoteId
+     * @covers \Netgen\BlockManager\Item\Item::getValue
+     * @covers \Netgen\BlockManager\Item\Item::getValueType
+     * @covers \Netgen\BlockManager\Item\Item::isVisible
      */
     public function testObject()
     {

@@ -28,7 +28,8 @@ final class MainMenuBuilderTest extends TestCase
         $urlGeneratorMock
             ->expects($this->any())
             ->method('generate')
-            ->will($this->returnCallback(
+            ->will(
+                $this->returnCallback(
                     function ($route) {
                         return $route;
                     }

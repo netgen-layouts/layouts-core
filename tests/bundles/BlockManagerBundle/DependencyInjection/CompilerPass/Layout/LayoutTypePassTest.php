@@ -12,8 +12,8 @@ use Symfony\Component\DependencyInjection\Reference;
 final class LayoutTypePassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
      */
     public function testProcess()
@@ -45,8 +45,8 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" layout type does not exist.

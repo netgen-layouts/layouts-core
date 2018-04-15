@@ -20,8 +20,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::setContext
      * @covers \Netgen\BlockManager\View\View::getContext
+     * @covers \Netgen\BlockManager\View\View::setContext
      */
     public function testSetContext()
     {
@@ -31,8 +31,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::setTemplate
      * @covers \Netgen\BlockManager\View\View::getTemplate
+     * @covers \Netgen\BlockManager\View\View::setTemplate
      */
     public function testSetTemplate()
     {
@@ -68,8 +68,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::setResponse
      * @covers \Netgen\BlockManager\View\View::getResponse
+     * @covers \Netgen\BlockManager\View\View::setResponse
      */
     public function testSetResponse()
     {

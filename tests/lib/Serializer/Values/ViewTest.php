@@ -21,8 +21,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Values\View::setViewParameters
      * @covers \Netgen\BlockManager\Serializer\Values\View::getViewParameters
+     * @covers \Netgen\BlockManager\Serializer\Values\View::setViewParameters
      */
     public function testViewParameters()
     {

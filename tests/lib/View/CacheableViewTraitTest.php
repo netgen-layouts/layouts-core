@@ -18,8 +18,8 @@ final class CacheableViewTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\CacheableViewTrait::isCacheable
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::getSharedMaxAge
+     * @covers \Netgen\BlockManager\View\CacheableViewTrait::isCacheable
      */
     public function testDefaultValues()
     {
@@ -28,8 +28,8 @@ final class CacheableViewTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\CacheableViewTrait::setIsCacheable
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::isCacheable
+     * @covers \Netgen\BlockManager\View\CacheableViewTrait::setIsCacheable
      */
     public function testGetSetIsCacheable()
     {
@@ -38,8 +38,8 @@ final class CacheableViewTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\CacheableViewTrait::setSharedMaxAge
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::getSharedMaxAge
+     * @covers \Netgen\BlockManager\View\CacheableViewTrait::setSharedMaxAge
      */
     public function testGetSetSharedMaxAge()
     {

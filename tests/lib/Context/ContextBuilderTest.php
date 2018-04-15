@@ -27,8 +27,8 @@ final class ContextBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\ContextBuilder::registerProvider
      * @covers \Netgen\BlockManager\Context\ContextBuilder::buildContext
+     * @covers \Netgen\BlockManager\Context\ContextBuilder::registerProvider
      */
     public function testBuildContext()
     {

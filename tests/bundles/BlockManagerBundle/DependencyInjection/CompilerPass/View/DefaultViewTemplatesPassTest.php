@@ -10,9 +10,9 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
 {
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::addDefaultRule
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::updateRules
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::addDefaultRule
      */
     public function testProcess()
     {

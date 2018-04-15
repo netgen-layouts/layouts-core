@@ -9,12 +9,12 @@ final class NullItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\NullItem::__construct
-     * @covers \Netgen\BlockManager\Item\NullItem::getValue
-     * @covers \Netgen\BlockManager\Item\NullItem::getRemoteId
-     * @covers \Netgen\BlockManager\Item\NullItem::getValueType
      * @covers \Netgen\BlockManager\Item\NullItem::getName
-     * @covers \Netgen\BlockManager\Item\NullItem::isVisible
      * @covers \Netgen\BlockManager\Item\NullItem::getObject
+     * @covers \Netgen\BlockManager\Item\NullItem::getRemoteId
+     * @covers \Netgen\BlockManager\Item\NullItem::getValue
+     * @covers \Netgen\BlockManager\Item\NullItem::getValueType
+     * @covers \Netgen\BlockManager\Item\NullItem::isVisible
      */
     public function testObject()
     {

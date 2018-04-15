@@ -45,13 +45,13 @@ final class DynamicCollectionRunnerTest extends TestCase
      * @param int $limit
      *
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__invoke
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildOverrideResult
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildManualResult
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryValue
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryIterator
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildOverrideResult
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getManualItemsCount
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryIterator
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryValue
      *
      * @dataProvider dynamicCollectionProvider
      */

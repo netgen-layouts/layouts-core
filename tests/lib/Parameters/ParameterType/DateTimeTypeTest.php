@@ -114,8 +114,8 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)

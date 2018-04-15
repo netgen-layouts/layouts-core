@@ -150,8 +150,8 @@ final class CollectionMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQuery()
     {

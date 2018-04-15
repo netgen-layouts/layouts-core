@@ -12,16 +12,16 @@ final class QueryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      */
     public function testSetDefaultProperties()
     {
@@ -41,19 +41,19 @@ final class QueryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getLocale
      */
     public function testSetProperties()
     {

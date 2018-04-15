@@ -13,18 +13,18 @@ final class CollectionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      */
     public function testSetDefaultProperties()
     {
@@ -46,29 +46,29 @@ final class CollectionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasItem
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::filterItems
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasManualItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasOverrideItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasManualItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLocale
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      */
     public function testSetProperties()
     {

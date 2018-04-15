@@ -148,7 +148,7 @@ trait ParameterStructTrait
 
         foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
-                $parameterDefinition->getType()->$importMethod($parameterDefinition, $values[$parameterDefinition->getName()]) :
+                $parameterDefinition->getType()->{$importMethod}($parameterDefinition, $values[$parameterDefinition->getName()]) :
                 $parameterDefinition->getDefaultValue();
 
             $this->setParameterValue($parameterDefinition->getName(), $value);

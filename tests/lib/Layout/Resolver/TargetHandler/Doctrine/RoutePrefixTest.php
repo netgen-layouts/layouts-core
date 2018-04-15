@@ -7,9 +7,9 @@ use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix;
 final class RoutePrefixTest extends AbstractTargetHandlerTest
 {
     /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix::handleQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix::handleQuery
      */
     public function testMatchRules()
     {

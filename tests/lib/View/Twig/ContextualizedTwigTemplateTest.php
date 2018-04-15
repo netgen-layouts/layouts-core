@@ -27,12 +27,13 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->expects($this->any())
             ->method('displayBlock')
             ->with($this->equalTo('block_name'))
-            ->will($this->returnCallback(
-                function ($blockName) {
-                    echo 'rendered';
-                }
-            )
-        );
+            ->will(
+                $this->returnCallback(
+                    function ($blockName) {
+                        echo 'rendered';
+                    }
+                )
+            );
 
         $template = new ContextualizedTwigTemplate($templateMock);
 

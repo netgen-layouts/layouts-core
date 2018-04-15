@@ -67,12 +67,16 @@ final class AppKernel extends Kernel
         parent::prepareContainer($container);
 
         if (Kernel::VERSION_ID < 30200) {
-            // @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
-            // so we need to set the parameter to the container manually
+            /*
+             * @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
+             * so we need to set the parameter to the container manually
+             */
             $container->setParameter('kernel.project_dir', __DIR__);
 
-            // @deprecated Symfony 2.8 does not support runtime environment variables,
-            // so we need to set the database parameter to the container manually
+            /*
+             * @deprecated Symfony 2.8 does not support runtime environment variables,
+             * so we need to set the database parameter to the container manually
+             */
             $container->setParameter('env(DATABASE)', getenv('DATABASE'));
         }
     }

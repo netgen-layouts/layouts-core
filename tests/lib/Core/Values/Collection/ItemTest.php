@@ -17,15 +17,15 @@ final class ItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      */
     public function testSetDefaultProperties()
     {
@@ -44,15 +44,15 @@ final class ItemTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetProperties()

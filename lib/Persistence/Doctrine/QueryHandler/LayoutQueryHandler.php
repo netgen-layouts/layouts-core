@@ -525,7 +525,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->execute();
     }
 
-    /*
+    /**
      * Deletes layout translations.
      *
      * @param int|string $layoutId

@@ -83,8 +83,8 @@ final class UrlTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)

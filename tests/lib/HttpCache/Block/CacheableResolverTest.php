@@ -21,8 +21,8 @@ final class CacheableResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::setVoters
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::isCacheable
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::setVoters
      *
      * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[] $voters
      * @param bool $result

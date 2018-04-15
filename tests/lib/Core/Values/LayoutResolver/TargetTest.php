@@ -12,8 +12,8 @@ final class TargetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::__construct
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
      */
@@ -31,8 +31,8 @@ final class TargetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::__construct
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::isPublished

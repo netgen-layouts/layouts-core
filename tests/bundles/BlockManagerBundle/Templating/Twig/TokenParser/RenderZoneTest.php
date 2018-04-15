@@ -43,8 +43,8 @@ final class RenderZoneTest extends TestCase
      * @param string $source
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone $node
      *
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::getTag
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
      *
      * @dataProvider compileProvider
      */
@@ -56,8 +56,8 @@ final class RenderZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::getTag
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
      * @expectedException \Twig\Error\SyntaxError
      * @expectedExceptionMessage Unexpected token "name" of value "foo" at line 1.
      */

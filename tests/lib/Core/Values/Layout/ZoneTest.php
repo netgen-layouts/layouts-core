@@ -12,9 +12,9 @@ final class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::__construct
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      */
     public function testSetDefaultProperties()
     {
@@ -31,9 +31,9 @@ final class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::__construct
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::isPublished
      */
     public function testSetProperties()

@@ -21,7 +21,7 @@ final class DateTimeUtilsTest extends TestCase
      */
     public function testCreateFromTimestamp()
     {
-        /* Friday March 23, 2018 21:13:20, Antarctica/Casey */
+        // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1521800000);
 
         $dateTime = DateTimeUtils::createFromTimestamp();
@@ -129,9 +129,9 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::buildOffsetString
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::getTimeZoneList
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::parseTimeZone
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::buildOffsetString
      */
     public function testGetTimeZoneList()
     {

@@ -82,9 +82,9 @@ final class ContextListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUri
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
     public function testOnKernelRequestWithContextFromUri()
     {
@@ -134,9 +134,9 @@ final class ContextListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUri
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
     public function testOnKernelRequestWithContextFromRequestOverrideAttribute()
     {
@@ -163,9 +163,9 @@ final class ContextListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUri
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
     public function testOnKernelRequestWithContextFromUriAndFailedHashCheck()
     {

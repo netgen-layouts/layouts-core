@@ -13,12 +13,12 @@ final class ManualItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ManualItem::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getCollectionItem
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValue
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getRemoteId
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValueType
      * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getName
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::isVisible
      * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getObject
+     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getRemoteId
+     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValue
+     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValueType
+     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::isVisible
      */
     public function testObject()
     {

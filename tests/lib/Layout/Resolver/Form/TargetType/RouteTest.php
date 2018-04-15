@@ -39,8 +39,8 @@ final class RouteTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::handleForm
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route::getFormType
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route::getFormOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route::getFormType
      */
     public function testSubmitValidData()
     {

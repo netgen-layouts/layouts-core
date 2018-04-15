@@ -22,8 +22,8 @@ final class ConfigAwareValueTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::getConfigs
      * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::getConfig
+     * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::getConfigs
      * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::hasConfig
      */
     public function testSetProperties()

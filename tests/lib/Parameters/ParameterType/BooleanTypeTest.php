@@ -117,8 +117,8 @@ final class BooleanTypeTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $required, $isValid)

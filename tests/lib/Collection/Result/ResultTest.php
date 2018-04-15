@@ -10,8 +10,8 @@ final class ResultTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Result::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
      * @covers \Netgen\BlockManager\Collection\Result\Result::getItem
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
      * @covers \Netgen\BlockManager\Collection\Result\Result::getSubItem
      */
     public function testObject()

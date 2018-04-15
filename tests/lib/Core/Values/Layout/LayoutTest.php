@@ -16,20 +16,20 @@ final class LayoutTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getCreated
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getDescription
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getId
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getLayoutType
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getDescription
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getCreated
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
      */
     public function testSetDefaultProperties()
     {
@@ -53,27 +53,27 @@ final class LayoutTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getId
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getLayoutType
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getDescription
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::count
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getCreated
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getDescription
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getIterator
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getLayoutType
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getIterator
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::count
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetExists
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetGet
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetSet
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetUnset
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
      */
     public function testSetProperties()
     {

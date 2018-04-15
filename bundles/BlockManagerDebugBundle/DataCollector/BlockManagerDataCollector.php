@@ -170,7 +170,9 @@ final class BlockManagerDataCollector extends DataCollector
     {
         if (method_exists($this, 'cloneVar')) {
             return $this->cloneVar($var);
-        } elseif (method_exists($this, 'varToString')) {
+        }
+
+        if (method_exists($this, 'varToString')) {
             // @deprecated Remove when support for Symfony 2.8 ends
             return $this->varToString($var);
         }

@@ -130,8 +130,8 @@ final class LinkTypeTest extends TestCase
      * @param array $valueTypes
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getValueConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isRequired, $valueTypes, $isValid)
@@ -300,9 +300,9 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      * @dataProvider exportProvider
      */
     public function testExport($value, $convertedValue)
@@ -326,8 +326,8 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      */
     public function testExportWithNullItem()
     {
@@ -420,9 +420,9 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      * @dataProvider importProvider
      */
     public function testImport($value, $convertedValue)
@@ -446,8 +446,8 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      */
     public function testImportWithNullItem()
     {

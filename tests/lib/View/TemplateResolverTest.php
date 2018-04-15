@@ -38,9 +38,9 @@ final class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplate()
     {
@@ -87,9 +87,9 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateWithEmptyMatchConfig()
     {
@@ -120,9 +120,9 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateWithMultipleMatches()
     {
@@ -154,9 +154,9 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateWithFallbackContext()
     {
@@ -212,8 +212,8 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
      * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
@@ -250,8 +250,8 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
      * @expectedExceptionMessage No template matcher could be found with identifier "definition_identifier".
      */
