@@ -37,6 +37,5 @@ final class Slot implements ItemInterface
 
     public function getObject()
     {
-        return null;
     }
 }

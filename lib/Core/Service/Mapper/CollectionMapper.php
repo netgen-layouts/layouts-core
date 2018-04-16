@@ -113,7 +113,7 @@ final class CollectionMapper
                 try {
                     $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
                 } catch (NotFoundException $e) {
-                    return null;
+                    return;
                 }
 
                 return $this->mapQuery($persistenceQuery, $locales, false);

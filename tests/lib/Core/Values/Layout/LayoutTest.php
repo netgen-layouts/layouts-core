@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
-use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
@@ -77,10 +77,10 @@ final class LayoutTest extends TestCase
      */
     public function testSetProperties()
     {
-        $createdDate = new DateTime();
+        $createdDate = new DateTimeImmutable();
         $createdDate->setTimestamp(123);
 
-        $modifiedDate = new DateTime();
+        $modifiedDate = new DateTimeImmutable();
         $modifiedDate->setTimestamp(456);
 
         $zones = array(

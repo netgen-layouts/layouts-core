@@ -118,7 +118,7 @@ final class Collection extends Value implements APICollection
                     return $item;
                 }
 
-                return null;
+                return;
             }
         }
     }

@@ -72,7 +72,7 @@ final class Collection extends Visitor
     private function visitQuery(CollectionValue $collection, VisitorInterface $subVisitor)
     {
         if (!$collection->hasQuery()) {
-            return null;
+            return;
         }
 
         return $subVisitor->visit($collection->getQuery());

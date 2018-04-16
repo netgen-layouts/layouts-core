@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -52,7 +53,7 @@ final class LayoutNormalizerTest extends TestCase
      */
     public function testNormalizeLayout()
     {
-        $currentDate = new DateTime();
+        $currentDate = new DateTimeImmutable();
         $currentDate->setTimestamp(time());
 
         $block = new Block(

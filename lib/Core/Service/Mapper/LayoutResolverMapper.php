@@ -73,7 +73,7 @@ final class LayoutResolverMapper
 
                     return $this->layoutMapper->mapLayout($layout);
                 } catch (NotFoundException $e) {
-                    return null;
+                    return;
                 }
             },
             'enabled' => $rule->enabled,

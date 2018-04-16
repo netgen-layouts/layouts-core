@@ -46,7 +46,7 @@ final class LayoutMapper
             'status' => $zone->status,
             'linkedZone' => function () use ($zone) {
                 if ($zone->linkedLayoutId === null || $zone->linkedZoneIdentifier === null) {
-                    return null;
+                    return;
                 }
 
                 try {
@@ -59,7 +59,7 @@ final class LayoutMapper
 
                     return $this->mapZone($linkedZone);
                 } catch (NotFoundException $e) {
-                    return null;
+                    return;
                 }
             },
         );

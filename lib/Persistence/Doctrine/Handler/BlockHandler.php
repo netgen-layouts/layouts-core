@@ -302,7 +302,7 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null)
     {
-        if (strpos($targetBlock->path, $block->path) === 0) {
+        if (mb_strpos($targetBlock->path, $block->path) === 0) {
             throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
         }
 
@@ -348,7 +348,7 @@ final class BlockHandler implements BlockHandlerInterface
             throw new BadStateException('targetBlock', 'Block is already in specified target block and placeholder.');
         }
 
-        if (strpos($targetBlock->path, $block->path) === 0) {
+        if (mb_strpos($targetBlock->path, $block->path) === 0) {
             throw new BadStateException('targetBlock', 'Block cannot be moved below itself or its children.');
         }
 

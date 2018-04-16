@@ -24,7 +24,7 @@ final class Modified implements ColumnValueProviderInterface
     public function getValue(ItemInterface $item)
     {
         if (!$item instanceof LayoutInterface) {
-            return null;
+            return;
         }
 
         return $item->getLayout()->getModified()->format(

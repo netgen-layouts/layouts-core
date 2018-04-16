@@ -55,7 +55,7 @@ final class Zone extends Visitor
     private function visitLinkedZone(ZoneValue $zone)
     {
         if (!$zone->hasLinkedZone()) {
-            return null;
+            return;
         }
 
         return array(

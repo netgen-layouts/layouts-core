@@ -68,7 +68,7 @@ final class FilesystemLoader implements LoaderInterface
      */
     private function getRealName($name)
     {
-        if (strpos($name, '@ngbm/') !== 0) {
+        if (mb_strpos($name, '@ngbm/') !== 0) {
             return $name;
         }
 

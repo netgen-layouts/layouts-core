@@ -271,7 +271,7 @@ final class RenderingRuntime
     private function getTwigTemplate(array $context)
     {
         if (!isset($context['twig_template'])) {
-            return null;
+            return;
         }
 
         return $context['twig_template'];

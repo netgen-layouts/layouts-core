@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
@@ -48,9 +47,9 @@ final class DateTimeTypeTest extends TestCase
     {
         return array(
             array(null, true),
-            array(new DateTime(), false),
             array(new DateTimeImmutable(), false),
-            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
+            array(new DateTimeImmutable(), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
             array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
         );
     }
@@ -80,7 +79,7 @@ final class DateTimeTypeTest extends TestCase
             array(array('datetime' => '', 'timezone' => ''), null),
             array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
             array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
-            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
         );
     }
 
@@ -138,13 +137,13 @@ final class DateTimeTypeTest extends TestCase
     {
         return array(
             array(null, true),
-            array(new DateTime(), true),
             array(new DateTimeImmutable(), true),
-            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
+            array(new DateTimeImmutable(), true),
             array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
-            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
             array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
-            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
             array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
         );
     }

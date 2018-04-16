@@ -83,7 +83,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
         if (!$collectionItem->isValid()) {
             if (!$queryValue instanceof CmsItem) {
-                return null;
+                return;
             }
 
             return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
@@ -108,7 +108,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         if (!$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItem) {
-                return null;
+                return;
             }
 
             return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
@@ -127,7 +127,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     private function getQueryValue(Iterator $queryIterator)
     {
         if (!$queryIterator->valid()) {
-            return null;
+            return;
         }
 
         $queryValue = $queryIterator->current();

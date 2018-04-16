@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
-use DateTime;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\View\TemplateResolverInterface;
 use Netgen\BlockManager\View\ViewBuilder;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ViewBuilderTest extends TestCase
@@ -38,14 +38,14 @@ final class ViewBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage View provider "DateTime" needs to implement "Netgen\BlockManager\View\Provider\ViewProviderInterface" interface.
+     * @expectedExceptionMessage View provider "stdClass" needs to implement "Netgen\BlockManager\View\Provider\ViewProviderInterface" interface.
      */
     public function testConstructorThrowsInvalidInterfaceExceptionWithNoViewProviderInterface()
     {
         new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            array(new DateTime())
+            array(new stdClass())
         );
     }
 

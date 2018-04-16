@@ -58,8 +58,6 @@ final class LayoutResolver implements LayoutResolverInterface
                 return $resolvedRule;
             }
         }
-
-        return null;
     }
 
     public function resolveRules(Request $request = null, array $enabledConditions = null)

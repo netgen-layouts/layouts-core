@@ -64,7 +64,7 @@ final class LinkType extends ParameterType
     public function toHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!$value instanceof LinkValue) {
-            return null;
+            return;
         }
 
         return array(
@@ -94,7 +94,7 @@ final class LinkType extends ParameterType
     public function export(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!$value instanceof LinkValue) {
-            return null;
+            return;
         }
 
         $valueLink = $value->getLink();

@@ -42,7 +42,7 @@ final class ContainerRuntimeLoader implements RuntimeLoaderInterface
     public function load($class)
     {
         if (!array_key_exists($class, $this->runtimeMap)) {
-            return null;
+            return;
         }
 
         return $this->container->get($this->runtimeMap[$class]);

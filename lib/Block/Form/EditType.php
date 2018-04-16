@@ -185,8 +185,8 @@ abstract class EditType extends TranslatableType
                 $includedParameters = $blockDefinitionParameters;
             } elseif (!empty($validParameters)) {
                 foreach ($validParameters as $validParameter) {
-                    strpos($validParameter, '!') === 0 ?
-                        $excludedParameters[] = substr($validParameter, 1) :
+                    mb_strpos($validParameter, '!') === 0 ?
+                        $excludedParameters[] = mb_substr($validParameter, 1) :
                         $includedParameters[] = $validParameter;
 
                     if (empty($includedParameters)) {

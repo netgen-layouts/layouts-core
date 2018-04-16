@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
-use DateTime;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\TemplateResolver;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class TemplateResolverTest extends TestCase
 {
@@ -25,13 +25,13 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Template matcher "DateTime" needs to implement "Netgen\BlockManager\View\Matcher\MatcherInterface" interface.
+     * @expectedExceptionMessage Template matcher "stdClass" needs to implement "Netgen\BlockManager\View\Matcher\MatcherInterface" interface.
      */
     public function testConstructorThrowsInvalidInterfaceExceptionIfNoMatcherInterface()
     {
         new TemplateResolver(
             array(
-                'definition_identifier' => new DateTime(),
+                'definition_identifier' => new stdClass(),
             )
         );
     }

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
@@ -64,13 +63,13 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     {
         return array(
             array(null, true),
-            array(new DateTime(), true),
             array(new DateTimeImmutable(), true),
-            array(new DateTime('now', new DateTimeZone('Antarctica/Casey')), true),
+            array(new DateTimeImmutable(), true),
             array(new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey')), true),
-            array(new DateTime('now', new DateTimeZone('+01:00')), false),
+            array(new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey')), true),
             array(new DateTimeImmutable('now', new DateTimeZone('+01:00')), false),
-            array(new DateTime('now', new DateTimeZone('CAST')), false),
+            array(new DateTimeImmutable('now', new DateTimeZone('+01:00')), false),
+            array(new DateTimeImmutable('now', new DateTimeZone('CAST')), false),
             array(new DateTimeImmutable('now', new DateTimeZone('CAST')), false),
             array(array('datetime' => '2018-02-01 00:00:00'), false),
             array(array('timezone' => 'Antarctica/Casey'), false),

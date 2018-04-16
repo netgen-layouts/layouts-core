@@ -11,7 +11,7 @@ final class LayoutId implements ColumnValueProviderInterface
     public function getValue(ItemInterface $item)
     {
         if (!$item instanceof LayoutInterface) {
-            return null;
+            return;
         }
 
         return $item->getLayout()->getId();

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Utils;
 
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Netgen\BlockManager\Utils\DateTimeUtils;
@@ -67,28 +66,28 @@ final class DateTimeUtilsTest extends TestCase
      */
     public function testIsBetweenDates(DateTimeInterface $from = null, DateTimeInterface $to = null, $result = false)
     {
-        $this->assertEquals($result, DateTimeUtils::isBetweenDates(new DateTime('@15000'), $from, $to));
+        $this->assertEquals($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
 
     public function isBetweenDatesProvider()
     {
         return array(
-            array(new DateTime('@10000'), new DateTime('@20000'), true),
-            array(new DateTime('@17000'), new DateTime('@20000'), false),
-            array(new DateTime('@10000'), new DateTime('@13000'), false),
-            array(new DateTime('@10000'), new DateTime('@15000'), true),
-            array(new DateTime('@15000'), new DateTime('@20000'), true),
-            array(new DateTime('@20000'), new DateTime('@10000'), false),
-            array(new DateTime('@20000'), new DateTime('@17000'), false),
-            array(new DateTime('@13000'), new DateTime('@10000'), false),
-            array(new DateTime('@15000'), new DateTime('@10000'), false),
-            array(new DateTime('@20000'), new DateTime('@15000'), false),
-            array(null, new DateTime('@20000'), true),
-            array(null, new DateTime('@15000'), true),
-            array(null, new DateTime('@10000'), false),
-            array(new DateTime('@10000'), null, true),
-            array(new DateTime('@15000'), null, true),
-            array(new DateTime('@20000'), null, false),
+            array(new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true),
+            array(new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false),
+            array(new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false),
+            array(new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true),
+            array(new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true),
+            array(new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false),
+            array(new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false),
+            array(new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false),
+            array(new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false),
+            array(new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false),
+            array(null, new DateTimeImmutable('@20000'), true),
+            array(null, new DateTimeImmutable('@15000'), true),
+            array(null, new DateTimeImmutable('@10000'), false),
+            array(new DateTimeImmutable('@10000'), null, true),
+            array(new DateTimeImmutable('@15000'), null, true),
+            array(new DateTimeImmutable('@20000'), null, false),
             array(null, null, true),
         );
     }

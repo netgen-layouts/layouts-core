@@ -59,7 +59,7 @@ final class ChoiceType extends ParameterType
     public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if ($value === null || $value === array()) {
-            return null;
+            return;
         }
 
         if ($parameterDefinition->getOption('multiple')) {

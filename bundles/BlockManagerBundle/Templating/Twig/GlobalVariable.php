@@ -122,7 +122,7 @@ final class GlobalVariable
     {
         $layoutView = $this->getLayoutView();
         if (!$layoutView instanceof LayoutViewInterface) {
-            return null;
+            return;
         }
 
         return $layoutView->getLayout();
@@ -137,7 +137,7 @@ final class GlobalVariable
     {
         $layoutView = $this->getLayoutView();
         if (!$layoutView instanceof LayoutViewInterface) {
-            return null;
+            return;
         }
 
         return $layoutView->getParameter('rule');
@@ -208,7 +208,7 @@ final class GlobalVariable
             // happened before the rendering) or that it is already resolved
             // (if the error happened in subrequest), so this is a subsequent
             // call where we can safely return null in all cases.
-            return null;
+            return;
         }
 
         if (
@@ -218,7 +218,7 @@ final class GlobalVariable
             // This is the case where we request the main layout more than once
             // within the regular page display, without the exception, so again
             // we return null.
-            return null;
+            return;
         }
 
         // Once we're here, we either request the main layout when there's no
