@@ -6,6 +6,16 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 
 final class ContextualQueryRunner implements QueryRunnerInterface
 {
+    /**
+     * @var int
+     */
+    private $queryCount;
+
+    public function __construct($queryCount)
+    {
+        $this->queryCount = $queryCount;
+    }
+
     public function __invoke(Query $query, $offset = 0, $limit = null)
     {
         for ($i = 0; $i < $limit; ++$i) {
@@ -15,6 +25,6 @@ final class ContextualQueryRunner implements QueryRunnerInterface
 
     public function count(Query $query)
     {
-        return 0;
+        return $this->queryCount;
     }
 }

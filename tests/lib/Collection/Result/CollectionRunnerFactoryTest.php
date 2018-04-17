@@ -27,7 +27,7 @@ final class CollectionRunnerFactoryTest extends TestCase
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory($this->itemBuilderMock);
+        $this->factory = new CollectionRunnerFactory($this->itemBuilderMock, 12);
     }
 
     /**

@@ -15,7 +15,7 @@ final class ContextualQueryRunnerTest extends TestCase
      */
     public function testRunner()
     {
-        $queryRunner = new ContextualQueryRunner();
+        $queryRunner = new ContextualQueryRunner(12);
 
         $values = array();
         foreach ($queryRunner(new Query(), 0, 5) as $value) {
@@ -23,6 +23,6 @@ final class ContextualQueryRunnerTest extends TestCase
         }
 
         $this->assertEquals(array(new Slot(), new Slot(), new Slot(), new Slot(), new Slot()), $values);
-        $this->assertEquals(0, $queryRunner->count(new Query()));
+        $this->assertEquals(12, $queryRunner->count(new Query()));
     }
 }

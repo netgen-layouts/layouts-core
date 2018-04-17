@@ -66,7 +66,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $limit = 200
     ) {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $factory = new CollectionRunnerFactory($this->itemBuilderMock);
+        $factory = new CollectionRunnerFactory($this->itemBuilderMock, 12);
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 
