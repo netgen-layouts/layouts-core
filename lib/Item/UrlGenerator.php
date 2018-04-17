@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
-use Netgen\BlockManager\Exception\Item\ValueException;
 
 final class UrlGenerator implements UrlGeneratorInterface
 {
@@ -33,7 +32,7 @@ final class UrlGenerator implements UrlGeneratorInterface
     public function generate(ItemInterface $item)
     {
         if (!isset($this->valueUrlGenerators[$item->getValueType()])) {
-            throw ValueException::noValueUrlGenerator($item->getValueType());
+            return;
         }
 
         return $this->valueUrlGenerators[$item->getValueType()]->generate(

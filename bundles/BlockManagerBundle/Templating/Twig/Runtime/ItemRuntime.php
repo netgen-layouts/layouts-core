@@ -93,7 +93,12 @@ final class ItemRuntime
                 throw ItemException::canNotLoadItem();
             }
 
-            return $this->urlGenerator->generate($item);
+            $itemPath = $this->urlGenerator->generate($item);
+            if ($itemPath === null) {
+                return '';
+            }
+
+            return $itemPath;
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
 

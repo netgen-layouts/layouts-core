@@ -10,11 +10,11 @@ interface UrlGeneratorInterface
     /**
      * Returns the item path.
      *
+     * If value URL generator for a specific value type does not exist, this simply returns null.
+     *
      * @param \Netgen\BlockManager\Item\ItemInterface $item
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ValueException if value URL generator does not exist
-     *
-     * @return string
+     * @return string|null
      */
     public function generate(ItemInterface $item);
 }

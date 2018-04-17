@@ -48,13 +48,13 @@ final class UrlGeneratorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
-     * @expectedException \Netgen\BlockManager\Exception\Item\ValueException
-     * @expectedExceptionMessage Value URL generator for "unknown" value type does not exist.
      */
     public function testGenerateWithNoUrlGenerator()
     {
-        $this->urlGenerator->generate(
-            new Item(array('valueType' => 'unknown'))
+        $this->assertNull(
+            $this->urlGenerator->generate(
+                new Item(array('valueType' => 'unknown'))
+            )
         );
     }
 }
