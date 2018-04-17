@@ -1,13 +1,13 @@
 {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
 
 {% trans_default_domain 'ngbm_admin' %}
-{% set rule_target_type = rule.targets is not empty ? rule.targets[0].targetType.type : null %}
+{% set target_type = rule.targets is not empty ? rule.targets[0].targetType.type : '' %}
 
 <div class="nl-rule-cell rule-priority">{{ rule.priority }}</div>
 <div class="nl-rule-content
     {% if not rule.enabled %}disabled{% endif %}"
     data-id="{{ rule.id }}"
-    data-target-type="{{ rule_target_type }}"
+    data-target-type="{{ target_type }}"
     >
     <div class="nl-rule-head">
         <div class="nl-rule-cell rule-layout">
@@ -24,8 +24,6 @@
         </div>
         <div class="nl-rule-cell rule-targets">
             {% if rule.targets is not empty %}
-                {% set target_type = rule.targets[0].targetType.type %}
-
                 {% if rule.targets|length == 1 %}
                     <p>{{ ('layout_resolver.target.' ~ target_type)|trans({}, 'ngbm') }}:</p>
                     <ul>
