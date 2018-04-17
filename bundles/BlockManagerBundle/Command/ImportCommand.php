@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Throwable;
 
 /**
  * Command to import Netgen Layouts entities.
@@ -90,10 +91,17 @@ final class ImportCommand extends Command
                 $layout = $this->importer->importLayout($layoutData);
 
                 $this->io->note(sprintf('Imported layout #%d into layout ID %d', $index, $layout->getId()));
+            } catch (Throwable $t) {
+                $this->io->error(sprintf('Could not import layout with ID #%d', $index));
+                $this->io->section('Error stack:');
+                $this->renderThrowableStack($t);
+                $this->io->newLine();
+
+                ++$errorCount;
             } catch (Exception $e) {
                 $this->io->error(sprintf('Could not import layout with ID #%d', $index));
-                $this->io->section('Exception stack:');
-                $this->renderExceptionStack($e);
+                $this->io->section('Error stack:');
+                $this->renderThrowableStack($e);
                 $this->io->newLine();
 
                 ++$errorCount;
@@ -104,24 +112,24 @@ final class ImportCommand extends Command
     }
 
     /**
-     * Renders all stacked exception messages for the given $exception.
+     * Renders all stacked exception messages for the given $throwable.
      *
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @param int $number
      */
-    private function renderExceptionStack(Exception $exception, $number = 0)
+    private function renderThrowableStack(/* Throwable */ $throwable, $number = 0)
     {
         $this->io->writeln(sprintf(' #%d:', $number));
-        $exceptionClass = get_class($exception);
-        $this->io->writeln(sprintf('  - <comment>exception:</comment> %s', $exceptionClass));
-        $this->io->writeln(sprintf('  - <comment>file:</comment> <info>%s</info>', $exception->getFile()));
-        $this->io->writeln(sprintf('  - <comment>line:</comment> %d', $exception->getLine()));
-        $this->io->writeln(sprintf('  - <comment>message:</comment> %s', $exception->getMessage()));
+        $throwableClass = get_class($throwable);
+        $this->io->writeln(sprintf('  - <comment>exception:</comment> %s', $throwableClass));
+        $this->io->writeln(sprintf('  - <comment>file:</comment> <info>%s</info>', $throwable->getFile()));
+        $this->io->writeln(sprintf('  - <comment>line:</comment> %d', $throwable->getLine()));
+        $this->io->writeln(sprintf('  - <comment>message:</comment> %s', $throwable->getMessage()));
 
-        $previous = $exception->getPrevious();
+        $previous = $throwable->getPrevious();
 
-        if ($previous instanceof Exception) {
-            $this->renderExceptionStack($previous, $number + 1);
+        if ($previous !== null) {
+            $this->renderThrowableStack($previous, $number + 1);
         }
     }
 
