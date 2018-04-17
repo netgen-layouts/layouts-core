@@ -18,8 +18,8 @@ final class LayoutTypeView extends View implements LayoutTypeViewInterface
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'layoutType' => $this->getLayoutType()->getIdentifier(),
-        );
+        ];
     }
 }

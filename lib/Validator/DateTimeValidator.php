@@ -40,11 +40,11 @@ final class DateTimeValidator extends ConstraintValidator
         if (is_array($value)) {
             $validator->atPath('datetime')->validate(
                 isset($value['datetime']) ? $value['datetime'] : '',
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? array('format' => DateTimeType::DATE_FORMAT) : array()),
-                )
+                    new Constraints\Type(['type' => 'string']),
+                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? ['format' => DateTimeType::DATE_FORMAT] : []),
+                ]
             );
         }
 
@@ -54,10 +54,10 @@ final class DateTimeValidator extends ConstraintValidator
 
         $validator->atPath('timezone')->validate(
             $timeZone,
-            array(
-                new Constraints\Type(array('type' => 'string')),
+            [
+                new Constraints\Type(['type' => 'string']),
                 new Constraints\Callback(
-                    array(
+                    [
                         'callback' => function ($timeZoneName, ExecutionContextInterface $context) use ($constraint) {
                             if (in_array($timeZoneName, DateTimeZone::listIdentifiers(), true)) {
                                 return;
@@ -67,9 +67,9 @@ final class DateTimeValidator extends ConstraintValidator
                                 ->setParameter('%timeZone%', $timeZoneName)
                                 ->addViolation();
                         },
-                    )
+                    ]
                 ),
-            )
+            ]
         );
     }
 }

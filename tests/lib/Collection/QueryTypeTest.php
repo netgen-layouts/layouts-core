@@ -18,19 +18,19 @@ final class QueryTypeTest extends TestCase
     public function setUp()
     {
         $this->queryType = new QueryType(
-            array(
-                'handler' => new QueryTypeHandler(array('val1', 'val2')),
+            [
+                'handler' => new QueryTypeHandler(['val1', 'val2']),
                 'type' => 'query_type',
                 'name' => 'Query type',
-                'forms' => array(
+                'forms' => [
                     'full' => new Form(
-                        array(
+                        [
                             'identifier' => 'full',
                             'type' => 'form_type',
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
     }
 
@@ -57,9 +57,9 @@ final class QueryTypeTest extends TestCase
     public function testGetForms()
     {
         $this->assertEquals(
-            array(
-                'full' => new Form(array('identifier' => 'full', 'type' => 'form_type')),
-            ),
+            [
+                'full' => new Form(['identifier' => 'full', 'type' => 'form_type']),
+            ],
             $this->queryType->getForms()
         );
     }
@@ -79,7 +79,7 @@ final class QueryTypeTest extends TestCase
     public function testGetForm()
     {
         $this->assertEquals(
-            new Form(array('identifier' => 'full', 'type' => 'form_type')),
+            new Form(['identifier' => 'full', 'type' => 'form_type']),
             $this->queryType->getForm('full')
         );
     }
@@ -99,7 +99,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetValues()
     {
-        $this->assertEquals(array('val1', 'val2'), $this->queryType->getValues(new Query()));
+        $this->assertEquals(['val1', 'val2'], $this->queryType->getValues(new Query()));
     }
 
     /**

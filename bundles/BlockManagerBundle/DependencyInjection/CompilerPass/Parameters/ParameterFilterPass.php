@@ -31,7 +31,7 @@ final class ParameterFilterPass implements CompilerPassInterface
             }
         );
 
-        $parameterFiltersPerType = array();
+        $parameterFiltersPerType = [];
         foreach ($parameterFilters as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['type'])) {
@@ -48,7 +48,7 @@ final class ParameterFilterPass implements CompilerPassInterface
             foreach ($filters as $filter) {
                 $parameterFilterRegistry->addMethodCall(
                     'addParameterFilter',
-                    array($type, $filter)
+                    [$type, $filter]
                 );
             }
         }

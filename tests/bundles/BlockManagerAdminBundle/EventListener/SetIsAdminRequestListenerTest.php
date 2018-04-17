@@ -31,7 +31,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::REQUEST => array('onKernelRequest', 30)),
+            [KernelEvents::REQUEST => ['onKernelRequest', 30]],
             $this->listener->getSubscribedEvents()
         );
     }

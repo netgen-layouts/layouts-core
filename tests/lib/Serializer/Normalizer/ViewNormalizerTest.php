@@ -48,7 +48,7 @@ final class ViewNormalizerTest extends TestCase
             ->expects($this->once())
             ->method('normalize')
             ->with($this->equalTo(new VersionedValue(new Value(), 1)))
-            ->will($this->returnValue(array('id' => 42)));
+            ->will($this->returnValue(['id' => 42]));
 
         $this->viewRendererMock
             ->expects($this->once())
@@ -57,20 +57,20 @@ final class ViewNormalizerTest extends TestCase
                 $this->equalTo(new Value()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
-                    array(
+                    [
                         'api_version' => 1,
                         'param' => 'value',
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered view'));
 
         $view = new View(new Value(), 1);
-        $view->setViewParameters(array('param' => 'value'));
+        $view->setViewParameters(['param' => 'value']);
 
         $data = $this->normalizer->normalize($view);
 
-        $this->assertEquals(array('id' => 42, 'html' => 'rendered view'), $data);
+        $this->assertEquals(['id' => 42, 'html' => 'rendered view'], $data);
     }
 
     /**
@@ -92,18 +92,18 @@ final class ViewNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Block(), false),
-            array(new VersionedValue(new Block(), 1), false),
-            array(new View(new Block(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Block(), false],
+            [new VersionedValue(new Block(), 1), false],
+            [new View(new Block(), 1), true],
+        ];
     }
 }

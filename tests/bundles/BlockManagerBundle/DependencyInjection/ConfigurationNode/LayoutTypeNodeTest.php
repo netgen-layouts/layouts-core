@@ -19,37 +19,37 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettings()
     {
-        $config = array(
-            array(
-                'layout_types' => array(
-                    'layout' => array(
+        $config = [
+            [
+                'layout_types' => [
+                    'layout' => [
                         'name' => 'layout',
                         'icon' => '/icon.svg',
-                        'zones' => array(
-                            'zone' => array(
+                        'zones' => [
+                            'zone' => [
                                 'name' => 'zone',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'layout_types' => array(
-                'layout' => array(
+        $expectedConfig = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'layout',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                    'zones' => array(
-                        'zone' => array(
+                    'zones' => [
+                        'zone' => [
                             'name' => 'zone',
-                            'allowed_block_definitions' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            'allowed_block_definitions' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -65,21 +65,21 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithNoIcon()
     {
-        $config = array(
-            array(
-                'layout_types' => array(
-                    'layout' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'layout_types' => [
+                    'layout' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'layout_types' => array(
-                'layout' => array(
+        $expectedConfig = [
+            'layout_types' => [
+                'layout' => [
                     'icon' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -95,23 +95,23 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithNullIcon()
     {
-        $config = array(
-            array(
-                'layout_types' => array(
-                    'layout' => array(
+        $config = [
+            [
+                'layout_types' => [
+                    'layout' => [
                         'icon' => null,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'layout_types' => array(
-                'layout' => array(
+        $expectedConfig = [
+            'layout_types' => [
+                'layout' => [
                     'icon' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -128,53 +128,53 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsNoZonesMerge()
     {
-        $config = array(
-            array(
-                'layout_types' => array(
-                    'layout' => array(
-                        'zones' => array(
-                            'left' => array(
+        $config = [
+            [
+                'layout_types' => [
+                    'layout' => [
+                        'zones' => [
+                            'left' => [
                                 'name' => 'Left',
-                            ),
-                            'right' => array(
+                            ],
+                            'right' => [
                                 'name' => 'Right',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'layout_types' => array(
-                    'layout' => array(
-                        'zones' => array(
-                            'top' => array(
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'layout_types' => [
+                    'layout' => [
+                        'zones' => [
+                            'top' => [
                                 'name' => 'Top',
-                            ),
-                            'bottom' => array(
+                            ],
+                            'bottom' => [
                                 'name' => 'Bottom',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'zones' => array(
-                        'top' => array(
+        $expectedConfig = [
+            'layout_types' => [
+                'layout' => [
+                    'zones' => [
+                        'top' => [
                             'name' => 'Top',
-                            'allowed_block_definitions' => array(),
-                        ),
-                        'bottom' => array(
+                            'allowed_block_definitions' => [],
+                        ],
+                        'bottom' => [
                             'name' => 'Bottom',
-                            'allowed_block_definitions' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            'allowed_block_definitions' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -191,31 +191,31 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithAllowedBlockDefinitions()
     {
-        $config = array(
-            array(
-                'layout_types' => array(
-                    'layout' => array(
-                        'zones' => array(
-                            'zone' => array(
-                                'allowed_block_definitions' => array('title', 'text'),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'layout_types' => [
+                    'layout' => [
+                        'zones' => [
+                            'zone' => [
+                                'allowed_block_definitions' => ['title', 'text'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'zones' => array(
-                        'zone' => array(
-                            'allowed_block_definitions' => array('title', 'text'),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'layout_types' => [
+                'layout' => [
+                    'zones' => [
+                        'zone' => [
+                            'allowed_block_definitions' => ['title', 'text'],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -232,31 +232,31 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithNonUniqueAllowedBlockDefinitions()
     {
-        $config = array(
-            array(
-                'layout_types' => array(
-                    'layout' => array(
-                        'zones' => array(
-                            'zone' => array(
-                                'allowed_block_definitions' => array('title', 'text', 'title'),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'layout_types' => [
+                    'layout' => [
+                        'zones' => [
+                            'zone' => [
+                                'allowed_block_definitions' => ['title', 'text', 'title'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'zones' => array(
-                        'zone' => array(
-                            'allowed_block_definitions' => array('title', 'text'),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'layout_types' => [
+                'layout' => [
+                    'zones' => [
+                        'zone' => [
+                            'allowed_block_definitions' => ['title', 'text'],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -271,8 +271,8 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithEmptyLayouts()
     {
-        $config = array('layout_types' => array());
-        $this->assertConfigurationIsInvalid(array($config));
+        $config = ['layout_types' => []];
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -281,8 +281,8 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithNoName()
     {
-        $config = array('layout_types' => array('layout' => array()));
-        $this->assertConfigurationIsInvalid(array($config));
+        $config = ['layout_types' => ['layout' => []]];
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -291,15 +291,15 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithNoZones()
     {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
+        $config = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'layout',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -308,16 +308,16 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeWithEmptyIcon()
     {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
+        $config = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'Layout',
                     'icon' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -326,16 +326,16 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeWithNonStringIcon()
     {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
+        $config = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'Layout',
                     'icon' => 42,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -344,16 +344,16 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithEmptyZones()
     {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
+        $config = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'layout',
-                    'zones' => array(),
-                ),
-            ),
-        );
+                    'zones' => [],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -362,16 +362,16 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithNoZoneName()
     {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
+        $config = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'layout',
-                    'zones' => array(),
-                ),
-            ),
-        );
+                    'zones' => [],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -380,19 +380,19 @@ final class LayoutTypeNodeTest extends TestCase
      */
     public function testLayoutTypeSettingsWithEmptyAllowedBlockDefinitions()
     {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
+        $config = [
+            'layout_types' => [
+                'layout' => [
                     'name' => 'layout',
-                    'zones' => array(
+                    'zones' => [
                         'name' => 'zone',
-                        'allowed_block_definitions' => array(),
-                    ),
-                ),
-            ),
-        );
+                        'allowed_block_definitions' => [],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

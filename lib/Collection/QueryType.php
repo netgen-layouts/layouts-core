@@ -27,7 +27,7 @@ class QueryType extends Value implements QueryTypeInterface
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
      */
-    protected $forms = array();
+    protected $forms = [];
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface

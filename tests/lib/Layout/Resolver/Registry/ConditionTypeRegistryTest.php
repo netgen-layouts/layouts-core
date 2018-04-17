@@ -33,7 +33,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionTypes()
     {
-        $this->assertEquals(array('type' => $this->conditionType), $this->registry->getConditionTypes());
+        $this->assertEquals(['type' => $this->conditionType], $this->registry->getConditionTypes());
     }
 
     /**
@@ -77,7 +77,7 @@ final class ConditionTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $conditionTypes = array();
+        $conditionTypes = [];
         foreach ($this->registry as $identifier => $conditionType) {
             $conditionTypes[$identifier] = $conditionType;
         }

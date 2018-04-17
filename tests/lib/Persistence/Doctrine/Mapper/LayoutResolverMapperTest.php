@@ -26,47 +26,47 @@ final class LayoutResolverMapperTest extends TestCase
      */
     public function testMapRules()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'layout_id' => 24,
                 'enabled' => true,
                 'priority' => 2,
                 'comment' => 'Comment',
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-            array(
+            ],
+            [
                 'id' => 43,
                 'layout_id' => 25,
                 'enabled' => false,
                 'priority' => 3,
                 'comment' => null,
                 'status' => Value::STATUS_DRAFT,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Rule(
-                array(
+                [
                     'id' => 42,
                     'layoutId' => 24,
                     'enabled' => true,
                     'priority' => 2,
                     'comment' => 'Comment',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             new Rule(
-                array(
+                [
                     'id' => 43,
                     'layoutId' => 25,
                     'enabled' => false,
                     'priority' => 3,
                     'comment' => null,
                     'status' => Value::STATUS_DRAFT,
-                )
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapRules($data));
     }
@@ -76,43 +76,43 @@ final class LayoutResolverMapperTest extends TestCase
      */
     public function testMapTargets()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'rule_id' => 1,
                 'type' => 'target',
                 'value' => '32',
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-            array(
+            ],
+            [
                 'id' => 43,
                 'rule_id' => 2,
                 'type' => 'target2',
                 'value' => '42',
                 'status' => Value::STATUS_DRAFT,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Target(
-                array(
+                [
                     'id' => 42,
                     'ruleId' => 1,
                     'type' => 'target',
                     'value' => '32',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             new Target(
-                array(
+                [
                     'id' => 43,
                     'ruleId' => 2,
                     'type' => 'target2',
                     'value' => '42',
                     'status' => Value::STATUS_DRAFT,
-                )
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapTargets($data));
     }
@@ -122,45 +122,45 @@ final class LayoutResolverMapperTest extends TestCase
      */
     public function testMapConditions()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'rule_id' => 1,
                 'type' => 'condition',
                 'value' => '24',
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-            array(
+            ],
+            [
                 'id' => 43,
                 'rule_id' => 2,
                 'type' => 'condition2',
                 'value' => '{"param":"value"}',
                 'status' => Value::STATUS_DRAFT,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Condition(
-                array(
+                [
                     'id' => 42,
                     'ruleId' => 1,
                     'type' => 'condition',
                     'value' => '24',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             new Condition(
-                array(
+                [
                     'id' => 43,
                     'ruleId' => 2,
                     'type' => 'condition2',
-                    'value' => array(
+                    'value' => [
                         'param' => 'value',
-                    ),
+                    ],
                     'status' => Value::STATUS_DRAFT,
-                )
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapConditions($data));
     }

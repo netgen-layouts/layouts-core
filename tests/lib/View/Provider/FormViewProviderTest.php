@@ -41,10 +41,10 @@ final class FormViewProviderTest extends TestCase
         $this->assertEquals($form, $view->getForm());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'form_object' => $form,
                 'form' => $formView,
-            ),
+            ],
             $view->getParameters()
         );
     }
@@ -68,10 +68,10 @@ final class FormViewProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Value(), false),
-            array($this->createMock(FormInterface::class), true),
-            array(new Layout(), false),
-        );
+        return [
+            [new Value(), false],
+            [$this->createMock(FormInterface::class), true],
+            [new Layout(), false],
+        ];
     }
 }

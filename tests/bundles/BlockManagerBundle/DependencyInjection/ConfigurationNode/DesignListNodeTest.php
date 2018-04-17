@@ -19,33 +19,33 @@ final class DesignListNodeTest extends TestCase
      */
     public function testDesignListSettings()
     {
-        $config = array(
-            array(
-                'design_list' => array(
-                    'design1' => array(
+        $config = [
+            [
+                'design_list' => [
+                    'design1' => [
                         'theme1',
                         'theme2',
-                    ),
-                    'design2' => array(
+                    ],
+                    'design2' => [
                         'theme2',
                         'theme3',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'design_list' => array(
-                'design1' => array(
+        $expectedConfig = [
+            'design_list' => [
+                'design1' => [
                     'theme1',
                     'theme2',
-                ),
-                'design2' => array(
+                ],
+                'design2' => [
                     'theme2',
                     'theme3',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -62,13 +62,13 @@ final class DesignListNodeTest extends TestCase
      */
     public function testDesignListSettingsWithEmptyDesignList()
     {
-        $config = array(
-            'design_list' => array(),
-        );
+        $config = [
+            'design_list' => [],
+        ];
 
-        $expectedConfig = array(
-            'design_list' => array(),
-        );
+        $expectedConfig = [
+            'design_list' => [],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -82,19 +82,19 @@ final class DesignListNodeTest extends TestCase
      */
     public function testDesignListSettingsWithEmptyDesign()
     {
-        $config = array(
-            array(
-                'design_list' => array(
-                    'design' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'design_list' => [
+                    'design' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'design_list' => array(
-                'design' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'design_list' => [
+                'design' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -108,15 +108,15 @@ final class DesignListNodeTest extends TestCase
      */
     public function testDesignListSettingsWithEmptyThemeName()
     {
-        $config = array(
-            array(
-                'design_list' => array(
-                    'design' => array(
+        $config = [
+            [
+                'design_list' => [
+                    'design' => [
                         '',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design_list.design.0" cannot contain an empty value, but got "".');
     }

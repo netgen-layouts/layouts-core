@@ -122,16 +122,16 @@ final class CollectionService extends Service implements APICollectionService
                 return $this->handler->updateCollection(
                     $persistenceCollection,
                     new CollectionUpdateStruct(
-                        array(
+                        [
                             'offset' => $collectionUpdateStruct->offset,
                             'limit' => $collectionUpdateStruct->limit,
-                        )
+                        ]
                     )
                 );
             }
         );
 
-        return $this->mapper->mapCollection($updatedCollection, array($collection->getLocale()));
+        return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
     }
 
     public function loadItem($itemId)
@@ -194,7 +194,7 @@ final class CollectionService extends Service implements APICollectionService
 
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC), true)) {
+        if (!in_array($newType, [Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC], true)) {
             throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
         }
 
@@ -212,9 +212,9 @@ final class CollectionService extends Service implements APICollectionService
                     $persistenceCollection = $this->handler->updateCollection(
                         $persistenceCollection,
                         new CollectionUpdateStruct(
-                            array(
+                            [
                                 'offset' => 0,
-                            )
+                            ]
                         )
                     );
 
@@ -225,13 +225,13 @@ final class CollectionService extends Service implements APICollectionService
                     $this->handler->createQuery(
                         $persistenceCollection,
                         new QueryCreateStruct(
-                            array(
+                            [
                                 'type' => $queryCreateStruct->queryType->getType(),
                                 'parameters' => $this->parameterMapper->serializeValues(
                                     $queryCreateStruct->queryType,
                                     $queryCreateStruct->getParameterValues()
                                 ),
-                            )
+                            ]
                         )
                     );
                 }
@@ -240,7 +240,7 @@ final class CollectionService extends Service implements APICollectionService
 
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        return $this->mapper->mapCollection($persistenceCollection, array($collection->getLocale()));
+        return $this->mapper->mapCollection($persistenceCollection, [$collection->getLocale()]);
     }
 
     public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
@@ -264,7 +264,7 @@ final class CollectionService extends Service implements APICollectionService
                 return $this->handler->addItem(
                     $persistenceCollection,
                     new ItemCreateStruct(
-                        array(
+                        [
                             'position' => $position,
                             'value' => $itemCreateStruct->value,
                             'valueType' => $itemCreateStruct->definition->getValueType(),
@@ -273,7 +273,7 @@ final class CollectionService extends Service implements APICollectionService
                                 $itemCreateStruct->getConfigStructs(),
                                 $itemCreateStruct->definition->getConfigDefinitions()
                             ),
-                        )
+                        ]
                     )
                 );
             }
@@ -297,13 +297,13 @@ final class CollectionService extends Service implements APICollectionService
                 return $this->handler->updateItem(
                     $persistenceItem,
                     new ItemUpdateStruct(
-                        array(
+                        [
                             'config' => $this->configMapper->serializeValues(
                                 $itemUpdateStruct->getConfigStructs(),
                                 $item->getDefinition()->getConfigDefinitions(),
                                 $persistenceItem->config
                             ),
-                        )
+                        ]
                     )
                 );
             }
@@ -356,7 +356,7 @@ final class CollectionService extends Service implements APICollectionService
         }
 
         if ($itemType !== null) {
-            if (!in_array($itemType, array(Item::TYPE_MANUAL, Item::TYPE_OVERRIDE), true)) {
+            if (!in_array($itemType, [Item::TYPE_MANUAL, Item::TYPE_OVERRIDE], true)) {
                 throw new BadStateException('itemType', 'Provided item type is not valid.');
             }
         }
@@ -369,7 +369,7 @@ final class CollectionService extends Service implements APICollectionService
             }
         );
 
-        return $this->mapper->mapCollection($updatedCollection, array($collection->getLocale()));
+        return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
     }
 
     public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
@@ -396,7 +396,7 @@ final class CollectionService extends Service implements APICollectionService
             }
         );
 
-        return $this->mapper->mapQuery($updatedQuery, array($query->getLocale()));
+        return $this->mapper->mapQuery($updatedQuery, [$query->getLocale()]);
     }
 
     public function newCollectionCreateStruct(APIQueryCreateStruct $queryCreateStruct = null)
@@ -451,13 +451,13 @@ final class CollectionService extends Service implements APICollectionService
                 $persistenceQuery,
                 $queryUpdateStruct->locale,
                 new QueryTranslationUpdateStruct(
-                    array(
+                    [
                         'parameters' => $this->parameterMapper->serializeValues(
                             $query->getQueryType(),
                             $queryUpdateStruct->getParameterValues(),
                             $persistenceQuery->parameters[$persistenceQuery->mainLocale]
                         ),
-                    )
+                    ]
                 )
             );
         }
@@ -467,7 +467,7 @@ final class CollectionService extends Service implements APICollectionService
             $persistenceQuery->parameters[$persistenceQuery->mainLocale]
         );
 
-        $localesToUpdate = array($queryUpdateStruct->locale);
+        $localesToUpdate = [$queryUpdateStruct->locale];
         if ($persistenceQuery->mainLocale === $queryUpdateStruct->locale) {
             $localesToUpdate = $persistenceQuery->availableLocales;
 
@@ -490,9 +490,9 @@ final class CollectionService extends Service implements APICollectionService
                 $persistenceQuery,
                 $locale,
                 new QueryTranslationUpdateStruct(
-                    array(
+                    [
                         'parameters' => $untranslatableParams + $params,
-                    )
+                    ]
                 )
             );
         }

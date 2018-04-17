@@ -28,12 +28,12 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraints()
     {
         $this->assertEquals(
-            array(new Constraints\NotNull()),
+            [new Constraints\NotNull()],
             $this->parameterType->getConstraints(
                 new ParameterDefinition(
-                    array(
+                    [
                         'type' => new ParameterType(),
-                    )
+                    ]
                 ),
                 42
             )
@@ -48,13 +48,13 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraintsWithRequiredParameter()
     {
         $this->assertEquals(
-            array(new Constraints\NotBlank(), new Constraints\NotNull()),
+            [new Constraints\NotBlank(), new Constraints\NotNull()],
             $this->parameterType->getConstraints(
                 new ParameterDefinition(
-                    array(
+                    [
                         'type' => new ParameterType(),
                         'isRequired' => true,
-                    )
+                    ]
                 ),
                 42
             )
@@ -69,7 +69,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraintsThrowsParameterTypeException()
     {
         $this->parameterType->getConstraints(
-            new ParameterDefinition(array('type' => new TextType())),
+            new ParameterDefinition(['type' => new TextType()]),
             42
         );
     }

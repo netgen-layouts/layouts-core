@@ -21,79 +21,79 @@ abstract class HttpCacheConfigTest extends BlockTest
      */
     public function configDataProvider()
     {
-        return array(
-            array(
-                array(),
-                array(
+        return [
+            [
+                [],
+                [
                     'use_http_cache' => false,
                     'shared_max_age' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'use_http_cache' => false,
-                ),
-                array(
+                ],
+                [
                     'use_http_cache' => false,
                     'shared_max_age' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'use_http_cache' => false,
                     'shared_max_age' => 300,
-                ),
-                array(
+                ],
+                [
                     'use_http_cache' => false,
                     'shared_max_age' => 300,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'use_http_cache' => false,
                     'shared_max_age' => 0,
-                ),
-                array(
+                ],
+                [
                     'use_http_cache' => false,
                     'shared_max_age' => 0,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'use_http_cache' => true,
-                ),
-                array(
+                ],
+                [
                     'use_http_cache' => true,
                     'shared_max_age' => null,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'use_http_cache' => true,
                     'shared_max_age' => 0,
-                ),
-                array(
+                ],
+                [
                     'use_http_cache' => true,
                     'shared_max_age' => 0,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'use_http_cache' => true,
                     'shared_max_age' => 300,
-                ),
-                array(
+                ],
+                [
                     'use_http_cache' => true,
                     'shared_max_age' => 300,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'unknown' => 'unknown',
-                ),
-                array(),
-            ),
-        );
+                ],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -101,24 +101,24 @@ abstract class HttpCacheConfigTest extends BlockTest
      */
     public function invalidConfigDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'use_http_cache' => 42,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'shared_max_age' => '42',
-                ),
-                array('use_http_cache', 'shared_max_age'),
-            ),
-            array(
-                array(
+                ],
+                ['use_http_cache', 'shared_max_age'],
+            ],
+            [
+                [
                     'shared_max_age' => -5,
-                ),
-                array('use_http_cache', 'shared_max_age'),
-            ),
-        );
+                ],
+                ['use_http_cache', 'shared_max_age'],
+            ],
+        ];
     }
 }

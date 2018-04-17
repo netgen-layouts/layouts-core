@@ -31,10 +31,10 @@ final class CollectionDataMapperTest extends DataMapperTest
         $data->limit = 5;
 
         $forms = new ArrayIterator(
-            array(
+            [
                 'offset' => $this->getForm('offset'),
                 'limit' => $this->getForm('limit'),
-            )
+            ]
         );
 
         $this->mapper->mapDataToForms($data, $forms);
@@ -53,10 +53,10 @@ final class CollectionDataMapperTest extends DataMapperTest
         $data->limit = 0;
 
         $forms = new ArrayIterator(
-            array(
+            [
                 'offset' => $this->getForm('offset'),
                 'limit' => $this->getForm('limit'),
-            )
+            ]
         );
 
         $this->mapper->mapDataToForms($data, $forms);
@@ -71,10 +71,10 @@ final class CollectionDataMapperTest extends DataMapperTest
     public function testMapFormsToData()
     {
         $forms = new ArrayIterator(
-            array(
+            [
                 'offset' => $this->getForm('offset', 10),
                 'limit' => $this->getForm('limit', 5),
-            )
+            ]
         );
 
         $data = new CollectionUpdateStruct();
@@ -83,10 +83,10 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => 10,
                     'limit' => 5,
-                )
+                ]
             ),
             $data
         );
@@ -98,10 +98,10 @@ final class CollectionDataMapperTest extends DataMapperTest
     public function testMapFormsToDataWithNoLimit()
     {
         $forms = new ArrayIterator(
-            array(
+            [
                 'offset' => $this->getForm('offset', 10),
                 'limit' => $this->getForm('limit'),
-            )
+            ]
         );
 
         $data = new CollectionUpdateStruct();
@@ -110,10 +110,10 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => 10,
                     'limit' => 0,
-                )
+                ]
             ),
             $data
         );

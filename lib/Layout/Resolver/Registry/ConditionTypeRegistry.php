@@ -12,7 +12,7 @@ final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface[]
      */
-    private $conditionTypes = array();
+    private $conditionTypes = [];
 
     public function addConditionType(ConditionTypeInterface $conditionType)
     {

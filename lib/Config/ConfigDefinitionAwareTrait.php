@@ -7,7 +7,7 @@ trait ConfigDefinitionAwareTrait
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
      */
-    protected $configDefinitions = array();
+    protected $configDefinitions = [];
 
     public function getConfigDefinitions()
     {

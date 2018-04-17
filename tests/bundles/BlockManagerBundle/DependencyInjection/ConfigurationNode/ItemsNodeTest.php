@@ -19,36 +19,36 @@ final class ItemsNodeTest extends TestCase
      */
     public function testItemsSettings()
     {
-        $config = array(
-            array(
-                'items' => array(
-                    'value_types' => array(
-                        'value1' => array(
+        $config = [
+            [
+                'items' => [
+                    'value_types' => [
+                        'value1' => [
                             'name' => 'Value 1',
-                        ),
-                        'value2' => array(
+                        ],
+                        'value2' => [
                             'enabled' => false,
                             'name' => 'Value 2',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'items' => array(
-                'value_types' => array(
-                    'value1' => array(
+        $expectedConfig = [
+            'items' => [
+                'value_types' => [
+                    'value1' => [
                         'name' => 'Value 1',
                         'enabled' => true,
-                    ),
-                    'value2' => array(
+                    ],
+                    'value2' => [
                         'name' => 'Value 2',
                         'enabled' => false,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -63,13 +63,13 @@ final class ItemsNodeTest extends TestCase
      */
     public function testItemsSettingsWithNoValueTypes()
     {
-        $config = array(array('items' => array()));
+        $config = [['items' => []]];
 
-        $expectedConfig = array(
-            'items' => array(
-                'value_types' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'items' => [
+                'value_types' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -84,13 +84,13 @@ final class ItemsNodeTest extends TestCase
      */
     public function testItemsSettingsWithEmptyValueTypes()
     {
-        $config = array(array('items' => array('value_types' => array())));
+        $config = [['items' => ['value_types' => []]]];
 
-        $expectedConfig = array(
-            'items' => array(
-                'value_types' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'items' => [
+                'value_types' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -105,8 +105,8 @@ final class ItemsNodeTest extends TestCase
      */
     public function testValueTypesSettingsWithNoName()
     {
-        $config = array(array('items' => array('value_types' => array('value' => array()))));
-        $this->assertConfigurationIsInvalid(array($config));
+        $config = [['items' => ['value_types' => ['value' => []]]]];
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

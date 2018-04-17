@@ -42,7 +42,7 @@ class BlockType extends Value
     /**
      * @var array
      */
-    protected $defaults = array();
+    protected $defaults = [];
 
     /**
      * Returns the block type identifier.
@@ -141,6 +141,6 @@ class BlockType extends Value
      */
     public function getDefaultParameters()
     {
-        return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : array();
+        return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : [];
     }
 }

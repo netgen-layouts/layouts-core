@@ -31,12 +31,12 @@ final class SharedTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $layout = new Layout(
-            array(
+            [
                 'shared' => true,
-            )
+            ]
         );
 
-        $view = new LayoutView(array('layout' => $layout));
+        $view = new LayoutView(['layout' => $layout]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -48,12 +48,12 @@ final class SharedTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), true),
-            array(array(true), true),
-            array(array(false), false),
-            array(array('something_else'), false),
-        );
+        return [
+            [[], true],
+            [[true], true],
+            [[false], false],
+            [['something_else'], false],
+        ];
     }
 
     /**
@@ -61,6 +61,6 @@ final class SharedTest extends TestCase
      */
     public function testMatchWithNoLayoutView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

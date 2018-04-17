@@ -16,36 +16,36 @@ final class LayoutTypeFactoryTest extends TestCase
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
-            array(
+            [
                 'name' => '4 zones A',
                 'icon' => '/icon.svg',
                 'enabled' => false,
-                'zones' => array(
-                    'left' => array(
+                'zones' => [
+                    'left' => [
                         'name' => 'Left',
-                        'allowed_block_definitions' => array('title', 'text'),
-                    ),
-                ),
-            )
+                        'allowed_block_definitions' => ['title', 'text'],
+                    ],
+                ],
+            ]
         );
 
         $this->assertEquals(
             new LayoutType(
-                array(
+                [
                     'identifier' => '4_zones_a',
                     'isEnabled' => false,
                     'name' => '4 zones A',
                     'icon' => '/icon.svg',
-                    'zones' => array(
+                    'zones' => [
                         'left' => new Zone(
-                            array(
+                            [
                                 'identifier' => 'left',
                                 'name' => 'Left',
-                                'allowedBlockDefinitions' => array('title', 'text'),
-                            )
+                                'allowedBlockDefinitions' => ['title', 'text'],
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             ),
             $layoutType
         );

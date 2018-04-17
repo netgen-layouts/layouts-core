@@ -22,10 +22,10 @@ final class Condition extends Visitor
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition */
 
-        return array(
+        return [
             'id' => $condition->getId(),
             'type' => $condition->getConditionType()->getType(),
             'value' => $condition->getValue(),
-        );
+        ];
     }
 }

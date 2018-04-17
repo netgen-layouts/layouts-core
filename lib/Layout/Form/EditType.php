@@ -28,37 +28,37 @@ final class EditType extends AbstractType
         $builder->add(
             'name',
             TextType::class,
-            array(
+            [
                 'label' => 'layout.name',
                 'required' => true,
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
                     new LayoutName(
-                        array(
+                        [
                             'excludedLayoutId' => $options['layout']->getId(),
-                        )
+                        ]
                     ),
-                ),
+                ],
                 'property_path' => 'name',
-            )
+            ]
         );
 
         $builder->add(
             'description',
             TextareaType::class,
-            array(
+            [
                 'label' => 'layout.description',
                 'required' => false,
-                'constraints' => array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                'constraints' => [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'property_path' => 'description',
                 // null and empty string have different meanings for description
                 // so we set the default value to a single space (instead of
                 // an empty string) because of
                 // https://github.com/symfony/symfony/issues/5906
                 'empty_data' => ' ',
-            )
+            ]
         );
     }
 }

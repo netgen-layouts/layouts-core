@@ -28,7 +28,7 @@ final class Query extends Value implements APIQuery
     /**
      * @var string[]
      */
-    protected $availableLocales = array();
+    protected $availableLocales = [];
 
     /**
      * @var string

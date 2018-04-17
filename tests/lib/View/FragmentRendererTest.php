@@ -60,9 +60,9 @@ final class FragmentRendererTest extends TestCase
             $this->viewBuilderMock,
             $this->viewRendererMock,
             $this->fragmentHandlerMock,
-            array(
+            [
                 $this->blockFragmentRendererMock,
-            )
+            ]
         );
     }
 
@@ -77,7 +77,7 @@ final class FragmentRendererTest extends TestCase
             $this->viewBuilderMock,
             $this->viewRendererMock,
             $this->fragmentHandlerMock,
-            array(new stdClass())
+            [new stdClass()]
         );
     }
 

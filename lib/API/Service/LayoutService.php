@@ -271,7 +271,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array(), $preserveSharedZones = true);
+    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true);
 
     /**
      * Creates a layout draft.

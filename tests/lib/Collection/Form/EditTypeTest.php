@@ -37,10 +37,10 @@ final class EditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'offset' => 10,
             'limit' => 5,
-        );
+        ];
 
         $updatedStruct = new CollectionUpdateStruct();
         $updatedStruct->offset = null;
@@ -49,7 +49,7 @@ final class EditTypeTest extends FormTestCase
         $form = $this->factory->create(
             EditType::class,
             new CollectionUpdateStruct(),
-            array('collection' => $this->collection)
+            ['collection' => $this->collection]
         );
 
         $form->submit($submittedData);
@@ -74,12 +74,12 @@ final class EditTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithDynamicCollection()
     {
-        $this->collection = new Collection(array('query' => new Query()));
+        $this->collection = new Collection(['query' => new Query()]);
 
-        $submittedData = array(
+        $submittedData = [
             'offset' => 10,
             'limit' => 5,
-        );
+        ];
 
         $updatedStruct = new CollectionUpdateStruct();
         $updatedStruct->offset = 10;
@@ -88,7 +88,7 @@ final class EditTypeTest extends FormTestCase
         $form = $this->factory->create(
             EditType::class,
             new CollectionUpdateStruct(),
-            array('collection' => $this->collection)
+            ['collection' => $this->collection]
         );
 
         $form->submit($submittedData);
@@ -118,10 +118,10 @@ final class EditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'collection' => $this->collection,
                 'data' => new CollectionUpdateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->collection, $options['collection']);
@@ -157,9 +157,9 @@ final class EditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'collection' => '',
-            )
+            ]
         );
     }
 
@@ -176,10 +176,10 @@ final class EditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'collection' => $this->collection,
                 'data' => '',
-            )
+            ]
         );
     }
 }

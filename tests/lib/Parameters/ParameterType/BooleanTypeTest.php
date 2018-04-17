@@ -71,14 +71,14 @@ final class BooleanTypeTest extends TestCase
      */
     public function defaultValueProvider()
     {
-        return array(
-            array(array(), true, null, false),
-            array(array(), false, null, null),
-            array(array(), true, false, false),
-            array(array(), false, false, false),
-            array(array(), true, true, true),
-            array(array(), false, true, true),
-        );
+        return [
+            [[], true, null, false],
+            [[], false, null, null],
+            [[], true, false, false],
+            [[], false, false, false],
+            [[], true, true, true],
+            [[], false, true, true],
+        ];
     }
 
     /**
@@ -88,12 +88,12 @@ final class BooleanTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array(),
-            ),
-        );
+        return [
+            [
+                [],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -103,13 +103,13 @@ final class BooleanTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -123,7 +123,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testValidation($value, $required, $isValid)
     {
-        $parameter = $this->getParameterDefinition(array(), $required);
+        $parameter = $this->getParameterDefinition([], $required);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -137,18 +137,18 @@ final class BooleanTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('12', false, false),
-            array(12.3, false, false),
-            array(true, false, true),
-            array(false, false, true),
-            array(null, false, true),
-            array(true, true, true),
-            array(false, true, true),
-            array(null, true, false),
-            array(array(), false, false),
-            array(12, false, false),
-        );
+        return [
+            ['12', false, false],
+            [12.3, false, false],
+            [true, false, true],
+            [false, false, true],
+            [null, false, true],
+            [true, true, true],
+            [false, true, true],
+            [null, true, false],
+            [[], false, false],
+            [12, false, false],
+        ];
     }
 
     /**
@@ -170,10 +170,10 @@ final class BooleanTypeTest extends TestCase
      */
     public function emptyProvider()
     {
-        return array(
-            array(null, true),
-            array(false, false),
-            array(true, false),
-        );
+        return [
+            [null, true],
+            [false, false],
+            [true, false],
+        ];
     }
 }

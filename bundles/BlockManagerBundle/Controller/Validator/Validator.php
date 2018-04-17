@@ -22,11 +22,11 @@ abstract class Validator
         if (!empty($offset)) {
             $this->validate(
                 $offset,
-                array(
-                    new Constraints\Type(array('type' => 'numeric')),
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
+                [
+                    new Constraints\Type(['type' => 'numeric']),
+                    new Constraints\GreaterThanOrEqual(['value' => 0]),
                     new Constraints\NotBlank(),
-                ),
+                ],
                 'offset'
             );
         }
@@ -34,11 +34,11 @@ abstract class Validator
         if (!empty($limit)) {
             $this->validate(
                 $limit,
-                array(
-                    new Constraints\Type(array('type' => 'numeric')),
-                    new Constraints\GreaterThan(array('value' => 0)),
+                [
+                    new Constraints\Type(['type' => 'numeric']),
+                    new Constraints\GreaterThan(['value' => 0]),
                     new Constraints\NotBlank(),
-                ),
+                ],
                 'limit'
             );
         }

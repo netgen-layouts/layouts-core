@@ -25,8 +25,8 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testPreProcessConfiguration()
     {
-        $processedConfig = $this->plugin->preProcessConfiguration(array());
-        $this->assertEquals(array(), $processedConfig);
+        $processedConfig = $this->plugin->preProcessConfiguration([]);
+        $this->assertEquals([], $processedConfig);
     }
 
     /**
@@ -34,8 +34,8 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testPostProcessConfiguration()
     {
-        $processedConfig = $this->plugin->postProcessConfiguration(array());
-        $this->assertEquals(array(), $processedConfig);
+        $processedConfig = $this->plugin->postProcessConfiguration([]);
+        $this->assertEquals([], $processedConfig);
     }
 
     /**
@@ -48,18 +48,18 @@ final class ExtensionPluginTest extends TestCase
 
         $this->plugin = $this->getMockForAbstractClass(
             ExtensionPlugin::class,
-            array(),
+            [],
             '',
             true,
             true,
             true,
-            array('getConfigurationNodes')
+            ['getConfigurationNodes']
         );
 
         $this->plugin
             ->expects($this->once())
             ->method('getConfigurationNodes')
-            ->will($this->returnValue(array($node1, $node2)));
+            ->will($this->returnValue([$node1, $node2]));
 
         $rootNodeMock = $this->createMock(ArrayNodeDefinition::class);
         $nodeBuilderMock = $this->createMock(NodeBuilder::class);
@@ -87,7 +87,7 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testGetConfigurationNodes()
     {
-        $this->assertEquals(array(), $this->plugin->getConfigurationNodes());
+        $this->assertEquals([], $this->plugin->getConfigurationNodes());
     }
 
     /**
@@ -95,6 +95,6 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testAppendConfigurationFiles()
     {
-        $this->assertEquals(array(), $this->plugin->appendConfigurationFiles());
+        $this->assertEquals([], $this->plugin->appendConfigurationFiles());
     }
 }

@@ -27,24 +27,24 @@ final class BlockTypeGroupNormalizerTest extends TestCase
     public function testNormalize()
     {
         $blockTypeGroup = new BlockTypeGroup(
-            array(
+            [
                 'identifier' => 'identifier',
                 'isEnabled' => true,
                 'name' => 'Block group',
-                'blockTypes' => array(
-                    new BlockType(array('isEnabled' => false, 'identifier' => 'type1')),
-                    new BlockType(array('isEnabled' => true, 'identifier' => 'type2')),
-                ),
-            )
+                'blockTypes' => [
+                    new BlockType(['isEnabled' => false, 'identifier' => 'type1']),
+                    new BlockType(['isEnabled' => true, 'identifier' => 'type2']),
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'identifier' => $blockTypeGroup->getIdentifier(),
                 'enabled' => true,
                 'name' => $blockTypeGroup->getName(),
-                'block_types' => array('type2'),
-            ),
+                'block_types' => ['type2'],
+            ],
             $this->normalizer->normalize(new VersionedValue($blockTypeGroup, 1))
         );
     }
@@ -68,19 +68,19 @@ final class BlockTypeGroupNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new BlockTypeGroup(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new BlockTypeGroup(), 2), false),
-            array(new VersionedValue(new BlockTypeGroup(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new BlockTypeGroup(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new BlockTypeGroup(), 2), false],
+            [new VersionedValue(new BlockTypeGroup(), 1), true],
+        ];
     }
 }

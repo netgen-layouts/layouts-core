@@ -23,7 +23,7 @@ final class ParameterTypePass implements CompilerPassInterface
         foreach ($parameterTypeServices as $parameterTypeService) {
             $registry->addMethodCall(
                 'addParameterType',
-                array(new Reference($parameterTypeService))
+                [new Reference($parameterTypeService)]
             );
         }
     }

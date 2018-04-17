@@ -45,13 +45,13 @@ final class DateTimeTypeTest extends TestCase
      */
     public function emptyProvider()
     {
-        return array(
-            array(null, true),
-            array(new DateTimeImmutable(), false),
-            array(new DateTimeImmutable(), false),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
-        );
+        return [
+            [null, true],
+            [new DateTimeImmutable(), false],
+            [new DateTimeImmutable(), false],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false],
+        ];
     }
 
     /**
@@ -68,19 +68,19 @@ final class DateTimeTypeTest extends TestCase
 
     public function toHashProvider()
     {
-        return array(
-            array(42, null),
-            array(null, null),
-            array(array(), null),
-            array(array('datetime' => '2018-02-01 00:00:00'), null),
-            array(array('timezone' => 'Antarctica/Casey'), null),
-            array(array('datetime' => '2018-02-01 00:00:00', 'timezone' => ''), null),
-            array(array('datetime' => '', 'timezone' => 'Antarctica/Casey'), null),
-            array(array('datetime' => '', 'timezone' => ''), null),
-            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
-        );
+        return [
+            [42, null],
+            [null, null],
+            [[], null],
+            [['datetime' => '2018-02-01 00:00:00'], null],
+            [['timezone' => 'Antarctica/Casey'], null],
+            [['datetime' => '2018-02-01 00:00:00', 'timezone' => ''], null],
+            [['datetime' => '', 'timezone' => 'Antarctica/Casey'], null],
+            [['datetime' => '', 'timezone' => ''], null],
+            [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], ['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey']],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), ['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey']],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), ['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey']],
+        ];
     }
 
     /**
@@ -97,16 +97,16 @@ final class DateTimeTypeTest extends TestCase
 
     public function fromHashProvider()
     {
-        return array(
-            array(null, null),
-            array(array(), null),
-            array(array('datetime' => '2018-02-01 00:00:00'), null),
-            array(array('timezone' => 'Antarctica/Casey'), null),
-            array(array('datetime' => '2018-02-01 00:00:00', 'timezone' => ''), null),
-            array(array('datetime' => '', 'timezone' => 'Antarctica/Casey'), null),
-            array(array('datetime' => '', 'timezone' => ''), null),
-            array(array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey'), new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'))),
-        );
+        return [
+            [null, null],
+            [[], null],
+            [['datetime' => '2018-02-01 00:00:00'], null],
+            [['timezone' => 'Antarctica/Casey'], null],
+            [['datetime' => '2018-02-01 00:00:00', 'timezone' => ''], null],
+            [['datetime' => '', 'timezone' => 'Antarctica/Casey'], null],
+            [['datetime' => '', 'timezone' => ''], null],
+            [['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey'], new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'))],
+        ];
     }
 
     /**
@@ -135,16 +135,16 @@ final class DateTimeTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(null, true),
-            array(new DateTimeImmutable(), true),
-            array(new DateTimeImmutable(), true),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
-            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
-        );
+        return [
+            [null, true],
+            [new DateTimeImmutable(), true],
+            [new DateTimeImmutable(), true],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false],
+            [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false],
+        ];
     }
 }

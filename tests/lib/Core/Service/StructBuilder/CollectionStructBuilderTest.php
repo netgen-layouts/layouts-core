@@ -40,11 +40,11 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionCreateStruct(
-                array(
+                [
                     'offset' => 0,
                     'limit' => null,
                     'queryCreateStruct' => new QueryCreateStruct(),
-                )
+                ]
             ),
             $this->structBuilder->newCollectionCreateStruct(new QueryCreateStruct())
         );
@@ -57,10 +57,10 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => null,
                     'limit' => null,
-                )
+                ]
             ),
             $this->structBuilder->newCollectionUpdateStruct()
         );
@@ -73,10 +73,10 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => 4,
                     'limit' => 2,
-                )
+                ]
             ),
             $this->structBuilder->newCollectionUpdateStruct(
                 $this->collectionService->loadCollectionDraft(3)
@@ -91,10 +91,10 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => 0,
                     'limit' => 0,
-                )
+                ]
             ),
             $this->structBuilder->newCollectionUpdateStruct(
                 $this->collectionService->loadCollectionDraft(1)
@@ -109,11 +109,11 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new ItemCreateStruct(
-                array(
+                [
                     'definition' => new ItemDefinition(),
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
-                )
+                ]
             ),
             $this->structBuilder->newItemCreateStruct(new ItemDefinition(), Item::TYPE_OVERRIDE, '42')
         );
@@ -141,19 +141,19 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new ItemUpdateStruct(
-                array(
-                    'configStructs' => array(
+                [
+                    'configStructs' => [
                         'visibility' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'visibility_status' => null,
                                     'visible_from' => null,
                                     'visible_to' => null,
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->structBuilder->newItemUpdateStruct($item)
         );
@@ -170,13 +170,13 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new QueryCreateStruct(
-                array(
+                [
                     'queryType' => new QueryType('ezcontent_search'),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
                         'param2' => null,
-                    ),
-                )
+                    ],
+                ]
             ),
             $queryCreateStruct
         );
@@ -189,9 +189,9 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new QueryUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
-                )
+                ]
             ),
             $this->structBuilder->newQueryUpdateStruct('en')
         );
@@ -206,13 +206,13 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new QueryUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
                         'param2' => 0,
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->structBuilder->newQueryUpdateStruct('en', $query)
         );

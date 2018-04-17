@@ -21,9 +21,9 @@ final class QueryHandlerTest extends TestCase
     public function setUp()
     {
         $this->databaseConnection = DriverManager::getConnection(
-            array(
+            [
                 'url' => 'sqlite://:memory:',
-            )
+            ]
         );
 
         $this->queryHandler = $this->getMockBuilder(QueryHandler::class)
@@ -40,7 +40,7 @@ final class QueryHandlerTest extends TestCase
         $query = $this->databaseConnection->createQueryBuilder();
         $this->queryHandler->applyStatusCondition($query, 1);
 
-        $this->assertEquals(array('status' => 1), $query->getParameters());
+        $this->assertEquals(['status' => 1], $query->getParameters());
     }
 
     /**

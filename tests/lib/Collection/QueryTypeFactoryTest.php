@@ -46,20 +46,20 @@ final class QueryTypeFactoryTest extends TestCase
         $queryType = $this->factory->buildQueryType(
             'type',
             $this->createMock(QueryTypeHandlerInterface::class),
-            array(
-                'forms' => array(
-                    'full' => array(
+            [
+                'forms' => [
+                    'full' => [
                         'enabled' => true,
                         'identifier' => 'full',
                         'type' => 'form_type',
-                    ),
-                    'disabled' => array(
+                    ],
+                    'disabled' => [
                         'enabled' => false,
                         'identifier' => 'disabled',
                         'type' => 'form_type',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);

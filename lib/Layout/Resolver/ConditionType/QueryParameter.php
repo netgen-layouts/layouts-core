@@ -15,33 +15,33 @@ final class QueryParameter implements ConditionTypeInterface
 
     public function getConstraints()
     {
-        return array(
+        return [
             new Constraints\NotBlank(),
             new Constraints\Collection(
-                array(
-                    'fields' => array(
+                [
+                    'fields' => [
                         'parameter_name' => new Constraints\Required(
-                            array(
+                            [
                                 new Constraints\NotBlank(),
-                                new Constraints\Type(array('type' => 'string')),
-                            )
+                                new Constraints\Type(['type' => 'string']),
+                            ]
                         ),
                         'parameter_values' => new Constraints\Required(
-                            array(
-                                new Constraints\Type(array('type' => 'array')),
+                            [
+                                new Constraints\Type(['type' => 'array']),
                                 new Constraints\All(
-                                    array(
-                                        'constraints' => array(
-                                            new Constraints\Type(array('type' => 'scalar')),
-                                        ),
-                                    )
+                                    [
+                                        'constraints' => [
+                                            new Constraints\Type(['type' => 'scalar']),
+                                        ],
+                                    ]
                                 ),
-                            )
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function matches(Request $request, $value)

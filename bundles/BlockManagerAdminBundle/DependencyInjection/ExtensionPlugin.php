@@ -13,9 +13,9 @@ final class ExtensionPlugin extends BaseExtensionPlugin
      */
     public function getConfigurationNodes()
     {
-        return array(
+        return [
             new ConfigurationNode\AdminNode(),
             new ConfigurationNode\AppNode(),
-        );
+        ];
     }
 }

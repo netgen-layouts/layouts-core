@@ -52,7 +52,7 @@ final class CreateType extends AbstractType
         $builder->add(
             'layoutType',
             ChoiceType::class,
-            array(
+            [
                 'label' => 'layout.type',
                 'required' => true,
                 'choices' => $this->layoutTypeRegistry->getLayoutTypes(true),
@@ -62,66 +62,66 @@ final class CreateType extends AbstractType
                 },
                 'choice_translation_domain' => false,
                 'expanded' => true,
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
-                ),
+                ],
                 'property_path' => 'layoutType',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
             'name',
             TextType::class,
-            array(
+            [
                 'label' => 'layout.name',
                 'required' => true,
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
                     new LayoutName(),
-                ),
+                ],
                 'property_path' => 'name',
-            )
+            ]
         );
 
         $builder->add(
             'mainLocale',
             ChoiceType::class,
-            array(
+            [
                 'label' => 'layout.main_locale',
                 'required' => true,
                 'choices' => array_flip($this->localeProvider->getAvailableLocales()),
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
+                    new Constraints\Type(['type' => 'string']),
                     new Constraints\Locale(),
-                ),
+                ],
                 'property_path' => 'mainLocale',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
             'description',
             TextareaType::class,
-            array(
+            [
                 'label' => 'layout.description',
                 'required' => false,
-                'constraints' => array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                'constraints' => [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'property_path' => 'description',
-            )
+            ]
         );
 
         $builder->add(
             'shared',
             CheckboxType::class,
-            array(
+            [
                 'label' => 'layout.shared',
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotNull(),
-                ),
+                ],
                 'property_path' => 'shared',
-            )
+            ]
         );
     }
 

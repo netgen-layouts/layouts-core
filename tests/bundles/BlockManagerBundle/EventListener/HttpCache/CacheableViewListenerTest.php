@@ -30,10 +30,10 @@ final class CacheableViewListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(
+            [
                 KernelEvents::VIEW => 'onView',
-                KernelEvents::RESPONSE => array('onKernelResponse', -255),
-            ),
+                KernelEvents::RESPONSE => ['onKernelResponse', -255],
+            ],
             $this->listener->getSubscribedEvents()
         );
     }

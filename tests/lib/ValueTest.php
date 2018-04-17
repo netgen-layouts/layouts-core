@@ -13,10 +13,10 @@ final class ValueTest extends TestCase
     public function testSetProperties()
     {
         $value = new Value(
-            array(
+            [
                 'someProperty' => 42,
                 'someOtherProperty' => 84,
-            )
+            ]
         );
 
         $this->assertEquals(42, $value->someProperty);
@@ -31,9 +31,9 @@ final class ValueTest extends TestCase
     public function testSetNonExistingProperties()
     {
         new Value(
-            array(
+            [
                 'someNonExistingProperty' => 42,
-            )
+            ]
         );
     }
 }

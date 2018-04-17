@@ -38,7 +38,7 @@ final class Block extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Block\Block $block */
 
-        return array(
+        return [
             'id' => $block->getId(),
             'definition_identifier' => $block->getDefinition()->getIdentifier(),
             'is_translatable' => $block->isTranslatable(),
@@ -52,7 +52,7 @@ final class Block extends Visitor
             'parameters' => $this->visitParameters($block, $subVisitor),
             'configuration' => $this->visitConfiguration($block, $subVisitor),
             'collections' => $this->visitCollections($block, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -65,7 +65,7 @@ final class Block extends Visitor
      */
     private function visitPlaceholders(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($block->getPlaceholders() as $placeholder) {
             $hash[$placeholder->getIdentifier()] = $subVisitor->visit($placeholder);
@@ -86,9 +86,9 @@ final class Block extends Visitor
      */
     private function visitParameters(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $parametersByLanguage = array(
+        $parametersByLanguage = [
             $block->getLocale() => $this->visitTranslationParameters($block, $subVisitor),
-        );
+        ];
 
         foreach ($block->getAvailableLocales() as $availableLocale) {
             if ($availableLocale === $block->getLocale()) {
@@ -97,7 +97,7 @@ final class Block extends Visitor
 
             $translatedBlock = $this->blockService->loadBlock(
                 $block->getId(),
-                array($availableLocale),
+                [$availableLocale],
                 false
             );
 
@@ -122,7 +122,7 @@ final class Block extends Visitor
      */
     private function visitTranslationParameters(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($block->getParameters() as $parameter) {
             $hash[$parameter->getName()] = $subVisitor->visit($parameter);
@@ -141,7 +141,7 @@ final class Block extends Visitor
      */
     private function visitConfiguration(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($block->getConfigs() as $config) {
             $hash[$config->getConfigKey()] = $subVisitor->visit($config);
@@ -160,7 +160,7 @@ final class Block extends Visitor
      */
     private function visitCollections(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($block->getCollections() as $identifier => $collection) {
             $hash[$identifier] = $subVisitor->visit($collection);

@@ -23,10 +23,10 @@ final class DynamicContainerDefinitionTest extends TestCase
         $this->handler = new DynamicContainerDefinitionHandler();
 
         $this->blockDefinition = new ContainerDefinition(
-            array(
+            [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-            )
+            ]
         );
     }
 
@@ -35,7 +35,7 @@ final class DynamicContainerDefinitionTest extends TestCase
      */
     public function testGetPlaceholders()
     {
-        $this->assertEquals(array(), $this->blockDefinition->getPlaceholders());
+        $this->assertEquals([], $this->blockDefinition->getPlaceholders());
     }
 
     /**

@@ -20,7 +20,7 @@ final class FragmentRendererPass implements CompilerPassInterface
         $fragmentRenderer = $container->findDefinition(self::$serviceName);
         $viewRendererServices = $container->findTaggedServiceIds(self::$tagName);
 
-        $viewRenderers = array();
+        $viewRenderers = [];
         foreach ($viewRendererServices as $serviceName => $tag) {
             $viewRenderers[] = new Reference($serviceName);
         }

@@ -15,9 +15,9 @@ final class CommonParametersPlugin extends Plugin
     /**
      * @var array
      */
-    private $defaultGroups = array();
+    private $defaultGroups = [];
 
-    public function __construct(array $defaultGroups = array())
+    public function __construct(array $defaultGroups = [])
     {
         $this->defaultGroups = $defaultGroups;
     }
@@ -32,31 +32,31 @@ final class CommonParametersPlugin extends Plugin
         $builder->add(
             'css_class',
             ParameterType\TextLineType::class,
-            array(
+            [
                 'groups' => $this->defaultGroups,
                 'label' => 'block.common_params.css_class',
                 'translatable' => false,
-            )
+            ]
         );
 
         $builder->add(
             'css_id',
             ParameterType\TextLineType::class,
-            array(
+            [
                 'groups' => $this->defaultGroups,
                 'label' => 'block.common_params.css_id',
                 'translatable' => false,
-            )
+            ]
         );
 
         $builder->add(
             'set_container',
             ParameterType\BooleanType::class,
-            array(
+            [
                 'groups' => $this->defaultGroups,
                 'label' => 'block.common_params.set_container',
                 'translatable' => false,
-            )
+            ]
         );
     }
 }

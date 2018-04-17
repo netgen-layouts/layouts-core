@@ -16,21 +16,21 @@ final class BlockTypeGroupFactoryTest extends TestCase
     {
         $blockTypeGroup = BlockTypeGroupFactory::buildBlockTypeGroup(
             'simple_blocks',
-            array(
+            [
                 'enabled' => false,
                 'name' => 'Simple blocks',
-            ),
-            array(new BlockType(array('identifier' => 'title')))
+            ],
+            [new BlockType(['identifier' => 'title'])]
         );
 
         $this->assertEquals(
             new BlockTypeGroup(
-                array(
+                [
                     'identifier' => 'simple_blocks',
                     'isEnabled' => false,
                     'name' => 'Simple blocks',
-                    'blockTypes' => array(new BlockType(array('identifier' => 'title'))),
-                )
+                    'blockTypes' => [new BlockType(['identifier' => 'title'])],
+                ]
             ),
             $blockTypeGroup
         );

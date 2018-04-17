@@ -11,7 +11,7 @@ final class ValueNormalizer implements NormalizerInterface, SerializerAwareInter
 {
     use SerializerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         return $this->serializer->normalize($object->getValue(), $format, $context);
     }

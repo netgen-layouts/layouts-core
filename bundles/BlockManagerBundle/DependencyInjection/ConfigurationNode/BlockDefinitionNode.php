@@ -55,7 +55,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                             return false;
                                         }
 
-                                        return $v['valid_item_types'] === array() && $v['valid_query_types'] === array();
+                                        return $v['valid_item_types'] === [] && $v['valid_query_types'] === [];
                                     })
                                     ->thenInvalid('Collections need to allow at least one item type or at least one query type.')
                                 ->end()
@@ -170,12 +170,12 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     return $v['enabled'] !== true;
                                 })
                                 ->then(function ($v) {
-                                    return array(
+                                    return [
                                         'name' => 'Disabled',
                                         'enabled' => false,
-                                        'item_view_types' => array(),
+                                        'item_view_types' => [],
                                         'valid_parameters' => null,
-                                    );
+                                    ];
                                 })
                             ->end()
                             ->children()
@@ -184,7 +184,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->cannotBeEmpty()
                                 ->end()
                                 ->arrayNode('item_view_types')
-                                    ->defaultValue(array('standard' => array('name' => 'Standard', 'enabled' => true)))
+                                    ->defaultValue(['standard' => ['name' => 'Standard', 'enabled' => true]])
                                     ->requiresAtLeastOneElement()
                                     ->useAttributeAsKey('item_view_type')
                                     ->prototype('array')
@@ -200,10 +200,10 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                                 return $v['enabled'] !== true;
                                             })
                                             ->then(function ($v) {
-                                                return array(
+                                                return [
                                                     'name' => 'Disabled',
                                                     'enabled' => false,
-                                                );
+                                                ];
                                             })
                                         ->end()
                                         ->children()

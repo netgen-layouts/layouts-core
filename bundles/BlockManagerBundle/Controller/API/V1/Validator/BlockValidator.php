@@ -19,10 +19,10 @@ final class BlockValidator extends Validator
     {
         $this->validate(
             $request->request->get('block_type'),
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
+                new Constraints\Type(['type' => 'string']),
+            ],
             'block_type'
         );
     }

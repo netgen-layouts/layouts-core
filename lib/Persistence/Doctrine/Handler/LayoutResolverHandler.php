@@ -55,7 +55,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
 
         if (empty($data)) {
-            return array();
+            return [];
         }
 
         $data = $this->mapper->mapRules($data);
@@ -73,7 +73,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $data = $this->queryHandler->matchRules($targetType, $targetValue);
 
         if (empty($data)) {
-            return array();
+            return [];
         }
 
         $data = $this->mapper->mapRules($data);
@@ -134,13 +134,13 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function createRule(RuleCreateStruct $ruleCreateStruct)
     {
         $newRule = new Rule(
-            array(
+            [
                 'status' => $ruleCreateStruct->status,
                 'layoutId' => $ruleCreateStruct->layoutId,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $this->getRulePriority($ruleCreateStruct),
                 'comment' => trim($ruleCreateStruct->comment),
-            )
+            ]
         );
 
         return $this->queryHandler->createRule($newRule);
@@ -265,12 +265,12 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
         $newTarget = new Target(
-            array(
+            [
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
                 'type' => $targetCreateStruct->type,
                 'value' => $targetCreateStruct->value,
-            )
+            ]
         );
 
         return $this->queryHandler->addTarget($newTarget);
@@ -294,12 +294,12 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
     {
         $newCondition = new Condition(
-            array(
+            [
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
                 'type' => $conditionCreateStruct->type,
                 'value' => $conditionCreateStruct->value,
-            )
+            ]
         );
 
         return $this->queryHandler->addCondition($newCondition);

@@ -53,10 +53,10 @@ final class CollectionPagerRuntimeTest extends TestCase
             ->with(
                 $this->equalTo($pagerfanta),
                 $this->equalTo($this->routeGenerator),
-                array(
+                [
                     'block' => new Block(),
                     'collection_identifier' => 'default',
-                )
+                ]
             )
             ->will($this->returnValue('rendered view'));
 
@@ -81,11 +81,11 @@ final class CollectionPagerRuntimeTest extends TestCase
             ->with(
                 $this->equalTo($pagerfanta),
                 $this->equalTo($this->routeGenerator),
-                array(
+                [
                     'block' => new Block(),
                     'collection_identifier' => 'default',
                     'var' => 'value',
-                )
+                ]
             )
             ->will($this->returnValue('rendered view'));
 
@@ -93,9 +93,9 @@ final class CollectionPagerRuntimeTest extends TestCase
             $pagerfanta,
             new Block(),
             'default',
-            array(
+            [
                 'var' => 'value',
-            )
+            ]
         );
 
         $this->assertEquals('rendered view', $renderedPagerfanta);

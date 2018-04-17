@@ -27,24 +27,24 @@ final class CollectionNormalizerTest extends TestCase
     public function testNormalize()
     {
         $collection = new Collection(
-            array(
+            [
                 'id' => 42,
                 'query' => new Query(),
                 'isTranslatable' => true,
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'mainLocale' => 'en',
-            )
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
                 'is_translatable' => $collection->isTranslatable(),
                 'main_locale' => $collection->getMainLocale(),
                 'always_available' => $collection->isAlwaysAvailable(),
                 'available_locales' => $collection->getAvailableLocales(),
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($collection, 1))
         );
     }
@@ -68,19 +68,19 @@ final class CollectionNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Collection(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Collection(), 2), false),
-            array(new VersionedValue(new Collection(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Collection(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Collection(), 2), false],
+            [new VersionedValue(new Collection(), 1), true],
+        ];
     }
 }

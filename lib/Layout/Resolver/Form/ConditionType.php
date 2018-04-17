@@ -21,7 +21,7 @@ final class ConditionType extends AbstractType
     /**
      * @param \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[] $mappers
      */
-    public function __construct(array $mappers = array())
+    public function __construct(array $mappers = [])
     {
         foreach ($mappers as $conditionType => $mapper) {
             if (!$mapper instanceof MapperInterface) {
@@ -56,13 +56,13 @@ final class ConditionType extends AbstractType
 
         $mapper = $this->mappers[$conditionType->getType()];
 
-        $defaultOptions = array(
+        $defaultOptions = [
             'required' => true,
             'label' => sprintf('layout_resolver.condition.%s', $conditionType->getType()),
             'property_path' => 'value',
             'constraints' => $conditionType->getConstraints(),
             'error_bubbling' => false,
-        );
+        ];
 
         $valueForm = $builder->create(
             'value',

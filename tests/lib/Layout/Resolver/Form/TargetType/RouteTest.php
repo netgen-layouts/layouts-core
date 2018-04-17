@@ -29,9 +29,9 @@ final class RouteTest extends FormTestCase
     public function getMainType()
     {
         return new TargetType(
-            array(
+            [
                 'route' => new RouteMapper(),
-            )
+            ]
         );
     }
 
@@ -44,9 +44,9 @@ final class RouteTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'value' => 'route_name',
-        );
+        ];
 
         $updatedStruct = new TargetCreateStruct();
         $updatedStruct->value = 'route_name';
@@ -54,7 +54,7 @@ final class RouteTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             new TargetCreateStruct(),
-            array('targetType' => $this->targetType)
+            ['targetType' => $this->targetType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

@@ -14,7 +14,7 @@ final class FormTest extends TestCase
 
     public function setUp()
     {
-        $this->form = new Form(array('identifier' => 'content', 'type' => 'form_type'));
+        $this->form = new Form(['identifier' => 'content', 'type' => 'form_type']);
     }
 
     /**

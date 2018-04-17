@@ -23,14 +23,14 @@ final class RuleTest extends TestCase
     public function testSetProperties()
     {
         $rule = new Rule(
-            array(
+            [
                 'id' => 43,
                 'layoutId' => 25,
                 'enabled' => true,
                 'priority' => 3,
                 'comment' => 'Comment',
                 'status' => Value::STATUS_DRAFT,
-            )
+            ]
         );
 
         $this->assertEquals(43, $rule->id);

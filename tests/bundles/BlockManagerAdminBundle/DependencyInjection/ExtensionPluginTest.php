@@ -26,10 +26,10 @@ final class ExtensionPluginTest extends TestCase
         $nodes = $this->plugin->getConfigurationNodes();
 
         $this->assertEquals(
-            array(
+            [
                 new ConfigurationNode\AdminNode(),
                 new ConfigurationNode\AppNode(),
-            ),
+            ],
             $nodes
         );
     }

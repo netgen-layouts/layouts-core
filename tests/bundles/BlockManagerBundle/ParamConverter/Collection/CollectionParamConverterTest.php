@@ -33,7 +33,7 @@ final class CollectionParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('collectionId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['collectionId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -68,10 +68,10 @@ final class CollectionParamConverterTest extends TestCase
         $this->assertEquals(
             $collection,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'collectionId' => 42,
                     'published' => true,
-                )
+                ]
             )
         );
     }
@@ -92,10 +92,10 @@ final class CollectionParamConverterTest extends TestCase
         $this->assertEquals(
             $collection,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'collectionId' => 42,
                     'published' => false,
-                )
+                ]
             )
         );
     }

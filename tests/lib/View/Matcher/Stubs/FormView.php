@@ -27,6 +27,6 @@ final class FormView extends View implements FormViewInterface
 
     public function jsonSerialize()
     {
-        return array();
+        return [];
     }
 }

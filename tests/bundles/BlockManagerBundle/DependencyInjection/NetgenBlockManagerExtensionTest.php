@@ -10,11 +10,11 @@ use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserE
 
 final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
-    private $minimalConfig = array(
-        'design_list' => array(
-            'standard' => array(),
-        ),
-    );
+    private $minimalConfig = [
+        'design_list' => [
+            'standard' => [],
+        ],
+    ];
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
@@ -75,14 +75,14 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->load($this->minimalConfig);
 
         $this->assertContainerBuilderHasParameter('netgen_block_manager.route_prefix', '/bm');
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_definitions', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_types', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_type_groups', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.layout_types', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.view', array());
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_definitions', []);
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_types', []);
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_type_groups', []);
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.layout_types', []);
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', []);
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.view', []);
         $this->assertContainerBuilderHasParameter('netgen_block_manager.http_cache');
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.design_list', array('standard' => array()));
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.design_list', ['standard' => []]);
         $this->assertContainerBuilderHasParameter('netgen_block_manager.design', 'standard');
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.pagelayout',
@@ -142,7 +142,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     {
         $extension = $this->container->getExtension('netgen_block_manager');
 
-        $configuration = $extension->getConfiguration(array(), $this->container);
+        $configuration = $extension->getConfiguration([], $this->container);
         $this->assertInstanceOf(Configuration::class, $configuration);
     }
 
@@ -153,7 +153,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testPrepend()
     {
-        $this->container->setParameter('kernel.bundles', array('NetgenContentBrowserBundle' => true));
+        $this->container->setParameter('kernel.bundles', ['NetgenContentBrowserBundle' => true]);
         $this->container->registerExtension(new NetgenContentBrowserExtension());
 
         $extension = $this->container->getExtension('netgen_block_manager');
@@ -204,10 +204,10 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayHasKey('test_type', $config['block_types']);
 
         $this->assertEquals(
-            array(
+            [
                 'name' => 'Test type',
                 'definition_identifier' => 'title',
-            ),
+            ],
             $config['block_types']['test_type']
         );
     }
@@ -221,12 +221,12 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.default.block',
-            array()
+            []
         );
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.block_definition',
-            array()
+            []
         );
     }
 
@@ -238,7 +238,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testNonExistingCurrentDesign()
     {
-        $this->load($this->minimalConfig + array('design' => 'non_existing'));
+        $this->load($this->minimalConfig + ['design' => 'non_existing']);
     }
 
     /**
@@ -247,7 +247,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testStandardAsCurrentDesign()
     {
-        $this->load($this->minimalConfig + array('design' => 'standard'));
+        $this->load($this->minimalConfig + ['design' => 'standard']);
 
         // Avoids a warning in test runner about tests which do not assert anything
         $this->assertTrue(true);
@@ -260,9 +260,9 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     public function testCustomDesignAsCurrentDesign()
     {
         $designList = $this->minimalConfig;
-        $designList['design_list']['custom'] = array();
+        $designList['design_list']['custom'] = [];
 
-        $this->load($designList + array('design' => 'custom'));
+        $this->load($designList + ['design' => 'custom']);
 
         // Avoids a warning in test runner about tests which do not assert anything
         $this->assertTrue(true);
@@ -279,6 +279,6 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $extension = new NetgenBlockManagerExtension();
         $extension->addPlugin(new ExtensionPlugin());
 
-        return array($extension);
+        return [$extension];
     }
 }

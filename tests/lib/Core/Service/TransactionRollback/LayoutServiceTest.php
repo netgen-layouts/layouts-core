@@ -32,22 +32,22 @@ final class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('shared' => false))));
+            ->will($this->returnValue(new PersistenceLayout(['shared' => false])));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(array('layoutId' => 1))));
+            ->will($this->returnValue(new PersistenceZone(['layoutId' => 1])));
 
         $this->layoutHandlerMock
             ->expects($this->at(2))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('shared' => true))));
+            ->will($this->returnValue(new PersistenceLayout(['shared' => true])));
 
         $this->layoutHandlerMock
             ->expects($this->at(3))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(array('layoutId' => 2))));
+            ->will($this->returnValue(new PersistenceZone(['layoutId' => 2])));
 
         $this->layoutHandlerMock
             ->expects($this->at(4))
@@ -59,8 +59,8 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            new Zone(array('status' => Value::STATUS_DRAFT)),
-            new Zone(array('status' => Value::STATUS_PUBLISHED))
+            new Zone(['status' => Value::STATUS_DRAFT]),
+            new Zone(['status' => Value::STATUS_PUBLISHED])
         );
     }
 
@@ -85,7 +85,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(new Zone(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutService->unlinkZone(new Zone(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -111,7 +111,7 @@ final class LayoutServiceTest extends ServiceTestCase
 
         $this->layoutService->createLayout(
             new LayoutCreateStruct(
-                array('layoutType' => new LayoutType())
+                ['layoutType' => new LayoutType()]
             )
         );
     }
@@ -129,10 +129,10 @@ final class LayoutServiceTest extends ServiceTestCase
             ->will(
                 $this->returnValue(
                     new PersistenceLayout(
-                        array(
+                        [
                             'mainLocale' => 'en',
-                            'availableLocales' => array('en'),
-                        )
+                            'availableLocales' => ['en'],
+                        ]
                     )
                 )
             );
@@ -146,7 +146,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->addTranslation(new Layout(array('status' => Value::STATUS_DRAFT)), 'hr', 'en');
+        $this->layoutService->addTranslation(new Layout(['status' => Value::STATUS_DRAFT]), 'hr', 'en');
     }
 
     /**
@@ -162,10 +162,10 @@ final class LayoutServiceTest extends ServiceTestCase
             ->will(
                 $this->returnValue(
                     new PersistenceLayout(
-                        array(
+                        [
                             'mainLocale' => 'en',
-                            'availableLocales' => array('en', 'hr'),
-                        )
+                            'availableLocales' => ['en', 'hr'],
+                        ]
                     )
                 )
             );
@@ -179,7 +179,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->removeTranslation(new Layout(array('status' => Value::STATUS_DRAFT)), 'hr');
+        $this->layoutService->removeTranslation(new Layout(['status' => Value::STATUS_DRAFT]), 'hr');
     }
 
     /**
@@ -209,8 +209,8 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->updateLayout(
-            new Layout(array('status' => Value::STATUS_DRAFT)),
-            new LayoutUpdateStruct(array('name' => 'New name'))
+            new Layout(['status' => Value::STATUS_DRAFT]),
+            new LayoutUpdateStruct(['name' => 'New name'])
         );
     }
 
@@ -264,7 +264,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->changeLayoutType(new Layout(), new LayoutType(array('identifier' => 'layout_1')));
+        $this->layoutService->changeLayoutType(new Layout(), new LayoutType(['identifier' => 'layout_1']));
     }
 
     /**
@@ -293,7 +293,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(new Layout(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutService->createDraft(new Layout(['status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -317,7 +317,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->discardDraft(new Layout(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutService->discardDraft(new Layout(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -341,7 +341,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(new Layout(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutService->publishLayout(new Layout(['status' => Value::STATUS_DRAFT]));
     }
 
     /**

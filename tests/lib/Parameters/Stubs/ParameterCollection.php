@@ -9,7 +9,7 @@ final class ParameterCollection implements ParameterCollectionInterface
 {
     use ParameterCollectionTrait;
 
-    public function __construct(array $parameterDefinitions = array())
+    public function __construct(array $parameterDefinitions = [])
     {
         $this->parameterDefinitions = $parameterDefinitions;
     }

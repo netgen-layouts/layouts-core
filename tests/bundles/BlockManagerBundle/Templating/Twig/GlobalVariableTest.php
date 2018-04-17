@@ -92,7 +92,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    new Rule(['layout' => new Layout()])
                 )
             );
 
@@ -101,7 +101,7 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView')
             ->will(
                 $this->returnValue(
-                    new LayoutView(array('layout' => new Layout()))
+                    new LayoutView(['layout' => new Layout()])
                 )
             );
 
@@ -145,7 +145,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    new Rule(['layout' => new Layout()])
                 )
             );
 
@@ -154,14 +154,14 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView')
             ->will(
                 $this->returnValue(
-                    new LayoutView(array('layout' => new Layout()))
+                    new LayoutView(['layout' => new Layout()])
                 )
             );
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
-        $this->assertEquals(new LayoutView(array('layout' => new Layout())), $this->globalVariable->getLayoutView());
+        $this->assertEquals(new LayoutView(['layout' => new Layout()]), $this->globalVariable->getLayoutView());
     }
 
     /**
@@ -178,7 +178,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    new Rule(['layout' => new Layout()])
                 )
             );
 
@@ -187,14 +187,14 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView')
             ->will(
                 $this->returnValue(
-                    new LayoutView(array('layout' => new Layout()))
+                    new LayoutView(['layout' => new Layout()])
                 )
             );
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
-        $this->assertEquals(new LayoutView(array('layout' => new Layout())), $this->globalVariable->getLayoutView());
+        $this->assertEquals(new LayoutView(['layout' => new Layout()]), $this->globalVariable->getLayoutView());
     }
 
     /**
@@ -235,7 +235,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    new Rule(['layout' => new Layout()])
                 )
             );
 
@@ -244,14 +244,14 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView')
             ->will(
                 $this->returnValue(
-                    new LayoutView(array('layout' => new Layout(), 'rule' => new Rule(array('layout' => new Layout()))))
+                    new LayoutView(['layout' => new Layout(), 'rule' => new Rule(['layout' => new Layout()])])
                 )
             );
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
-        $this->assertEquals(new Rule(array('layout' => new Layout())), $this->globalVariable->getRule());
+        $this->assertEquals(new Rule(['layout' => new Layout()]), $this->globalVariable->getRule());
     }
 
     /**
@@ -289,11 +289,11 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    new Rule(['layout' => new Layout()])
                 )
             );
 
-        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
 
         $this->viewBuilderMock
@@ -320,7 +320,7 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithAlreadyExistingResolvedLayout()
     {
-        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
 
         $this->requestStack->getCurrentRequest()->attributes->set('ngbmLayoutView', $layoutView);
@@ -357,11 +357,11 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    new Rule(['layout' => new Layout()])
                 )
             );
 
-        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
 
         $this->viewBuilderMock
@@ -388,7 +388,7 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithExceptionWithAlreadyExistingResolvedLayout()
     {
-        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
 
         $this->requestStack->getCurrentRequest()->attributes->set('ngbmExceptionLayoutView', $layoutView);

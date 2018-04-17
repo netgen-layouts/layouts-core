@@ -15,6 +15,6 @@ final class CompoundParameterType extends BaseCompoundParameterType
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(new NotNull());
+        return [new NotNull()];
     }
 }

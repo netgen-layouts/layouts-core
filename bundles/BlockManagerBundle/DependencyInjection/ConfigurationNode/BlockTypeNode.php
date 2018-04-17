@@ -66,7 +66,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                                 ->defaultValue('')
                             ->end()
                             ->arrayNode('parameters')
-                                ->defaultValue(array())
+                                ->defaultValue([])
                                 ->performNoDeepMerging()
                                 ->requiresAtLeastOneElement()
                                 ->useAttributeAsKey('parameter')

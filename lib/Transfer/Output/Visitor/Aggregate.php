@@ -17,14 +17,14 @@ final class Aggregate extends Visitor
      *
      * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface[]
      */
-    private $visitors = array();
+    private $visitors = [];
 
     /**
      * Construct from the optional array of $visitors.
      *
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface[] $visitors
      */
-    public function __construct(array $visitors = array())
+    public function __construct(array $visitors = [])
     {
         foreach ($visitors as $visitor) {
             if (!$visitor instanceof VisitorInterface) {

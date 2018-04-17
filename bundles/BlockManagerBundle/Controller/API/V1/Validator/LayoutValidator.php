@@ -19,20 +19,20 @@ final class LayoutValidator extends Validator
     {
         $this->validate(
             $request->request->get('layout_type'),
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
+                new Constraints\Type(['type' => 'string']),
+            ],
             'layout_type'
         );
 
         $this->validate(
             $request->request->get('locale'),
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Type(['type' => 'string']),
                 new Constraints\Locale(),
-            ),
+            ],
             'locale'
         );
     }

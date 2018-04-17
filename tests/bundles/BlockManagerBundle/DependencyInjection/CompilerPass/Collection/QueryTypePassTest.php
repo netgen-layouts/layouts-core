@@ -16,13 +16,13 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $queryTypes = array('query_type' => array('config'));
+        $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition();
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', array('type' => 'query_type'));
+        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'query_type']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -34,10 +34,10 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.collection.registry.query_type',
             'addQueryType',
-            array(
+            [
                 'query_type',
                 new Reference('netgen_block_manager.collection.query_type.query_type'),
-            )
+            ]
         );
     }
 
@@ -46,13 +46,13 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithCustomHandler()
     {
-        $queryTypes = array('query_type' => array('handler' => 'custom'));
+        $queryTypes = ['query_type' => ['handler' => 'custom']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition();
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', array('type' => 'custom'));
+        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'custom']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -64,10 +64,10 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.collection.registry.query_type',
             'addQueryType',
-            array(
+            [
                 'query_type',
                 new Reference('netgen_block_manager.collection.query_type.query_type'),
-            )
+            ]
         );
     }
 
@@ -78,7 +78,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithNoTagType()
     {
-        $queryTypes = array('query_type' => array('config'));
+        $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
@@ -97,13 +97,13 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithNoHandler()
     {
-        $queryTypes = array('query_type' => array('config'));
+        $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition();
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', array('type' => 'other'));
+        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'other']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -116,13 +116,13 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithNoCustomHandler()
     {
-        $queryTypes = array('query_type' => array('handler' => 'custom'));
+        $queryTypes = ['query_type' => ['handler' => 'custom']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition();
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', array('type' => 'other'));
+        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'other']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();

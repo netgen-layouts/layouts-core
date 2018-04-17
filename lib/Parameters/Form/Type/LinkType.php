@@ -28,9 +28,9 @@ final class LinkType extends AbstractType
 
         $resolver->setDefault('translation_domain', 'ngbm_forms');
 
-        $resolver->setRequired(array('value_types'));
+        $resolver->setRequired(['value_types']);
         $resolver->setAllowedTypes('value_types', 'array');
-        $resolver->setDefault('value_types', array());
+        $resolver->setDefault('value_types', []);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -38,52 +38,52 @@ final class LinkType extends AbstractType
         $builder->add(
             'link_type',
             ChoiceType::class,
-            array(
+            [
                 'label' => 'link.link_type',
-                'choices' => array(
+                'choices' => [
                     'link.link_type.url' => LinkValue::LINK_TYPE_URL,
                     'link.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
                     'link.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
                     'link.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
-                ),
+                ],
                 'required' => true,
                 'property_path' => 'linkType',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
             LinkValue::LINK_TYPE_URL,
             UrlType::class,
-            array(
+            [
                 'label' => 'link.link_type.url',
                 'required' => false,
-            )
+            ]
         );
 
         $builder->add(
             LinkValue::LINK_TYPE_EMAIL,
             EmailType::class,
-            array(
+            [
                 'label' => 'link.link_type.email',
-            )
+            ]
         );
 
         $builder->add(
             LinkValue::LINK_TYPE_PHONE,
             TextType::class,
-            array(
+            [
                 'label' => 'link.link_type.phone',
-            )
+            ]
         );
 
         $internalLinkForm = $builder->create(
             LinkValue::LINK_TYPE_INTERNAL,
             ContentBrowserDynamicType::class,
-            array(
+            [
                 'label' => 'link.link_type.internal',
                 'item_types' => $options['value_types'],
                 'error_bubbling' => false,
-            )
+            ]
         );
 
         $internalLinkForm->setDataMapper(new ItemLinkDataMapper());
@@ -97,30 +97,30 @@ final class LinkType extends AbstractType
         $builder->add(
             'link',
             HiddenType::class,
-            array(
+            [
                 'mapped' => false,
                 'error_bubbling' => false,
                 'property_path' => 'link',
-            )
+            ]
         );
 
         $builder->add(
             'link_suffix',
             TextType::class,
-            array(
+            [
                 'label' => 'link.link_suffix',
                 'property_path' => 'linkSuffix',
-            )
+            ]
         );
 
         $builder->add(
             'new_window',
             CheckboxType::class,
-            array(
+            [
                 'label' => 'link.new_window',
                 'required' => true,
                 'property_path' => 'newWindow',
-            )
+            ]
         );
     }
 

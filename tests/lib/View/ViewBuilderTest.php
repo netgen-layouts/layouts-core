@@ -45,7 +45,7 @@ final class ViewBuilderTest extends TestCase
         new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            array(new stdClass())
+            [new stdClass()]
         );
     }
 
@@ -57,7 +57,7 @@ final class ViewBuilderTest extends TestCase
     public function testBuildView()
     {
         $value = new Value();
-        $view = new View(array('value' => $value));
+        $view = new View(['value' => $value]);
 
         $this->viewProviderMock
             ->expects($this->once())
@@ -83,19 +83,19 @@ final class ViewBuilderTest extends TestCase
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            array($this->viewProviderMock)
+            [$this->viewProviderMock]
         );
 
-        $viewParameters = array('some_param' => 'some_value');
+        $viewParameters = ['some_param' => 'some_value'];
         $builtView = $viewBuilder->buildView($value, 'context', $viewParameters);
 
         $this->assertInstanceOf(View::class, $builtView);
         $this->assertEquals('context', $builtView->getContext());
         $this->assertEquals(
-            array(
+            [
                 'value' => new Value(),
                 'view_context' => $builtView->getContext(),
-            ) + $viewParameters,
+            ] + $viewParameters,
             $builtView->getParameters()
         );
     }
@@ -145,7 +145,7 @@ final class ViewBuilderTest extends TestCase
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            array($this->viewProviderMock)
+            [$this->viewProviderMock]
         );
 
         $viewBuilder->buildView($value);

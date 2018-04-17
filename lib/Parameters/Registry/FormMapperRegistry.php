@@ -12,7 +12,7 @@ final class FormMapperRegistry implements FormMapperRegistryInterface
     /**
      * @var \Netgen\BlockManager\Parameters\Form\MapperInterface[]
      */
-    private $formMappers = array();
+    private $formMappers = [];
 
     public function addFormMapper($parameterType, MapperInterface $formMapper)
     {

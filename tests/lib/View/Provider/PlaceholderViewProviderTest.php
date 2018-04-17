@@ -31,9 +31,9 @@ final class PlaceholderViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\PlaceholderViewInterface $view */
         $view = $this->placeholderViewProvider->provideView(
             $placeholder,
-            array(
+            [
                 'block' => new Block(),
-            )
+            ]
         );
 
         $this->assertInstanceOf(PlaceholderViewInterface::class, $view);
@@ -42,10 +42,10 @@ final class PlaceholderViewProviderTest extends TestCase
         $this->assertEquals(new Block(), $view->getBlock());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'placeholder' => new Placeholder(),
                 'block' => new Block(),
-            ),
+            ],
             $view->getParameters()
         );
     }
@@ -67,7 +67,7 @@ final class PlaceholderViewProviderTest extends TestCase
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock()
     {
-        $this->placeholderViewProvider->provideView(new Placeholder(), array('block' => 42));
+        $this->placeholderViewProvider->provideView(new Placeholder(), ['block' => 42]);
     }
 
     /**
@@ -89,10 +89,10 @@ final class PlaceholderViewProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Value(), false),
-            array(new Placeholder(), true),
-            array(new Block(), false),
-        );
+        return [
+            [new Value(), false],
+            [new Placeholder(), true],
+            [new Block(), false],
+        ];
     }
 }

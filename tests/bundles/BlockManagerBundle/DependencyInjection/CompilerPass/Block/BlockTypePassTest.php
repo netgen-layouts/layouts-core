@@ -21,24 +21,24 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'test',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -49,10 +49,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
-            )
+            ]
         );
     }
 
@@ -66,29 +66,29 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
                     'icon' => '/icon2.svg',
                     'definition_identifier' => 'other',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                ),
-                'other' => array(
+                ],
+                'other' => [
                     'name' => 'Other',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -101,11 +101,11 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('test', $blockTypes);
 
         $this->assertEquals(
-            array(
+            [
                 'enabled' => true,
                 'icon' => '/icon2.svg',
                 'definition_identifier' => 'other',
-            ),
+            ],
             $blockTypes['test']
         );
 
@@ -113,10 +113,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
-            )
+            ]
         );
     }
 
@@ -130,20 +130,20 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'test' => array(),
-            )
+            [
+                'test' => [],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -156,12 +156,12 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('test', $blockTypes);
 
         $this->assertEquals(
-            array(
+            [
                 'name' => 'Test',
                 'icon' => '/icon.svg',
                 'enabled' => true,
                 'definition_identifier' => 'test',
-            ),
+            ],
             $blockTypes['test']
         );
 
@@ -169,10 +169,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
-            )
+            ]
         );
     }
 
@@ -184,17 +184,17 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithNonExistingBlockType()
     {
-        $this->setParameter('netgen_block_manager.block_types', array());
+        $this->setParameter('netgen_block_manager.block_types', []);
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -205,13 +205,13 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('test', $blockTypes);
 
         $this->assertEquals(
-            array(
+            [
                 'name' => 'Test',
                 'icon' => '/icon.svg',
                 'enabled' => true,
                 'definition_identifier' => 'test',
-                'defaults' => array(),
-            ),
+                'defaults' => [],
+            ],
             $blockTypes['test']
         );
 
@@ -219,10 +219,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
-            )
+            ]
         );
     }
 
@@ -236,24 +236,24 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'type' => array(
+            [
+                'type' => [
                     'enabled' => false,
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'title' => array(
+            [
+                'title' => [
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -266,11 +266,11 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('type', $blockTypes);
 
         $this->assertEquals(
-            array(
+            [
                 'enabled' => false,
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
-            ),
+            ],
             $blockTypes['type']
         );
 
@@ -278,10 +278,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'type',
                 new Reference('netgen_block_manager.block.block_type.type'),
-            )
+            ]
         );
     }
 
@@ -295,24 +295,24 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'title' => array(
+            [
+                'title' => [
                     'enabled' => true,
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'title' => array(
+            [
+                'title' => [
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => false,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -325,12 +325,12 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('title', $blockTypes);
 
         $this->assertEquals(
-            array(
+            [
                 'enabled' => false,
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
                 'name' => 'Title',
-            ),
+            ],
             $blockTypes['title']
         );
 
@@ -338,10 +338,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'title',
                 new Reference('netgen_block_manager.block.block_type.title'),
-            )
+            ]
         );
     }
 
@@ -355,24 +355,24 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'type' => array(
+            [
+                'type' => [
                     'enabled' => true,
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array(
-                'title' => array(
+            [
+                'title' => [
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => false,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
@@ -385,11 +385,11 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('type', $blockTypes);
 
         $this->assertEquals(
-            array(
+            [
                 'enabled' => false,
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
-            ),
+            ],
             $blockTypes['type']
         );
 
@@ -397,10 +397,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
-            array(
+            [
                 'type',
                 new Reference('netgen_block_manager.block.block_type.type'),
-            )
+            ]
         );
     }
 
@@ -416,16 +416,16 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
-                ),
-            )
+                ],
+            ]
         );
 
-        $this->setParameter('netgen_block_manager.block_definitions', array());
+        $this->setParameter('netgen_block_manager.block_definitions', []);
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 

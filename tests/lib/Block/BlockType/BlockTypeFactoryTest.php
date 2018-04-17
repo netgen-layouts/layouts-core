@@ -18,30 +18,30 @@ final class BlockTypeFactoryTest extends TestCase
 
         $blockType = BlockTypeFactory::buildBlockType(
             'title',
-            array(
+            [
                 'name' => 'Title',
                 'icon' => '/icon.svg',
                 'enabled' => false,
                 'definition_identifier' => 'title',
-                'defaults' => array(
+                'defaults' => [
                     'viewType' => 'default',
-                ),
-            ),
+                ],
+            ],
             $blockDefinition
         );
 
         $this->assertEquals(
             new BlockType(
-                array(
+                [
                     'identifier' => 'title',
                     'isEnabled' => false,
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'definition' => $blockDefinition,
-                    'defaults' => array(
+                    'defaults' => [
                         'viewType' => 'default',
-                    ),
-                )
+                    ],
+                ]
             ),
             $blockType
         );

@@ -22,7 +22,7 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.item.url_generator', $urlGenerator);
 
         $valueUrlGenerator = new Definition();
-        $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator', array('value_type' => 'test'));
+        $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator', ['value_type' => 'test']);
         $this->setDefinition('netgen_block_manager.item.value_url_generator.test', $valueUrlGenerator);
 
         $this->compile();
@@ -30,9 +30,9 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.item.url_generator',
             0,
-            array(
+            [
                 'test' => new Reference('netgen_block_manager.item.value_url_generator.test'),
-            )
+            ]
         );
     }
 
@@ -46,7 +46,7 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.item.url_generator', new Definition());
 
         $valueUrlGenerator = new Definition();
-        $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator', array('value_type' => '123'));
+        $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator', ['value_type' => '123']);
         $this->setDefinition('netgen_block_manager.item.value_url_generator.test', $valueUrlGenerator);
 
         $this->compile();

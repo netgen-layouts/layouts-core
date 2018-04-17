@@ -43,10 +43,10 @@ final class DateTimeType extends ParameterType
             $value = $this->fromHash($parameterDefinition, $value);
         }
 
-        return array(
+        return [
             'datetime' => $value->format(self::$storageDateFormat),
             'timezone' => $value->getTimezone()->getName(),
-        );
+        ];
     }
 
     public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
@@ -56,8 +56,8 @@ final class DateTimeType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(
+        return [
             new DateTimeConstraint(),
-        );
+        ];
     }
 }

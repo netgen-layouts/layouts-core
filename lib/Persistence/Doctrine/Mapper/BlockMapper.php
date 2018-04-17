@@ -14,16 +14,16 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function mapBlocks(array $data = array())
+    public function mapBlocks(array $data = [])
     {
-        $blocks = array();
+        $blocks = [];
 
         foreach ($data as $dataItem) {
             $blockId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
             if (!isset($blocks[$blockId])) {
-                $blocks[$blockId] = array(
+                $blocks[$blockId] = [
                     'id' => $blockId,
                     'layoutId' => (int) $dataItem['layout_id'],
                     'depth' => (int) $dataItem['depth'],
@@ -40,7 +40,7 @@ final class BlockMapper
                     'alwaysAvailable' => (bool) $dataItem['always_available'],
                     'status' => (int) $dataItem['status'],
                     'config' => $this->buildParameters($dataItem['config']),
-                );
+                ];
             }
 
             $blocks[$blockId]['parameters'][$locale] = $this->buildParameters($dataItem['parameters']);
@@ -64,19 +64,19 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
-    public function mapCollectionReferences(array $data = array())
+    public function mapCollectionReferences(array $data = [])
     {
-        $collectionReferences = array();
+        $collectionReferences = [];
 
         foreach ($data as $dataItem) {
             $collectionReferences[] = new CollectionReference(
-                array(
+                [
                     'blockId' => (int) $dataItem['block_id'],
                     'blockStatus' => (int) $dataItem['block_status'],
                     'collectionId' => (int) $dataItem['collection_id'],
                     'collectionStatus' => (int) $dataItem['collection_status'],
                     'identifier' => $dataItem['identifier'],
-                )
+                ]
             );
         }
 
@@ -92,8 +92,8 @@ final class BlockMapper
      */
     private function buildParameters($parameters)
     {
-        $parameters = !empty($parameters) ? json_decode($parameters, true) : array();
+        $parameters = !empty($parameters) ? json_decode($parameters, true) : [];
 
-        return is_array($parameters) ? $parameters : array();
+        return is_array($parameters) ? $parameters : [];
     }
 }

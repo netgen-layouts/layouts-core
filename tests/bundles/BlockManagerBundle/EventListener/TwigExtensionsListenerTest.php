@@ -37,7 +37,7 @@ final class TwigExtensionsListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::REQUEST => 'onKernelRequest'),
+            [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener->getSubscribedEvents()
         );
     }

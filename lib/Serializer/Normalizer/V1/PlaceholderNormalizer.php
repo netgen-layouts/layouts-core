@@ -14,20 +14,20 @@ final class PlaceholderNormalizer implements NormalizerInterface, SerializerAwar
 {
     use SerializerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
 
-        $blocks = array();
+        $blocks = [];
         foreach ($placeholder as $block) {
             $blocks[] = new View($block, $object->getVersion());
         }
 
-        return array(
+        return [
             'identifier' => $placeholder->getIdentifier(),
             'blocks' => $this->serializer->normalize($blocks, $format, $context),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)

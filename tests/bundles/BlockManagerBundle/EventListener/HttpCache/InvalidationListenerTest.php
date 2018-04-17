@@ -44,13 +44,13 @@ final class InvalidationListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(
+            [
                 KernelEvents::TERMINATE => 'onKernelTerminate',
                 KernelEvents::EXCEPTION => 'onKernelException',
                 ConsoleEvents::TERMINATE => 'onConsoleTerminate',
                 'console.exception' => 'onConsoleTerminate',
                 'console.error' => 'onConsoleTerminate',
-            ),
+            ],
             $this->listener->getSubscribedEvents()
         );
     }

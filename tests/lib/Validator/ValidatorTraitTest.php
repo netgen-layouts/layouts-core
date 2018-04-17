@@ -40,11 +40,11 @@ final class ValidatorTraitTest extends TestCase
             ->method('validate')
             ->with(
                 $this->equalTo('some value'),
-                $this->equalTo(array(new Constraints\NotBlank()))
+                $this->equalTo([new Constraints\NotBlank()])
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $this->validator->validate('some value', array(new Constraints\NotBlank()));
+        $this->validator->validate('some value', [new Constraints\NotBlank()]);
     }
 
     /**
@@ -59,21 +59,21 @@ final class ValidatorTraitTest extends TestCase
             ->method('validate')
             ->with(
                 $this->equalTo('some value'),
-                $this->equalTo(array(new Constraints\NotBlank()))
+                $this->equalTo([new Constraints\NotBlank()])
             )->will(
                 $this->returnValue(
                     new ConstraintViolationList(
-                        array(
+                        [
                             $this->createConfiguredMock(
                                 ConstraintViolationInterface::class,
-                                array('getMessage' => 'Value should not be blank')
+                                ['getMessage' => 'Value should not be blank']
                             ),
-                        )
+                        ]
                     )
                 )
             );
 
-        $this->validator->validate('some value', array(new Constraints\NotBlank()), 'value');
+        $this->validator->validate('some value', [new Constraints\NotBlank()], 'value');
     }
 
     /**
@@ -90,6 +90,6 @@ final class ValidatorTraitTest extends TestCase
                 $this->throwException(new Exception('Test exception text'))
             );
 
-        $this->validator->validate('some value', array(new Constraints\NotBlank()));
+        $this->validator->validate('some value', [new Constraints\NotBlank()]);
     }
 }

@@ -33,7 +33,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetTypes()
     {
-        $this->assertEquals(array('type' => $this->targetType), $this->registry->getTargetTypes());
+        $this->assertEquals(['type' => $this->targetType], $this->registry->getTargetTypes());
     }
 
     /**
@@ -77,7 +77,7 @@ final class TargetTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $targetTypes = array();
+        $targetTypes = [];
         foreach ($this->registry as $identifier => $targetType) {
             $targetTypes[$identifier] = $targetType;
         }

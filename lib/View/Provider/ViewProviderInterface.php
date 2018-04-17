@@ -18,7 +18,7 @@ interface ViewProviderInterface
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView($value, array $parameters = array());
+    public function provideView($value, array $parameters = []);
 
     /**
      * Returns if this view provider supports the given value.

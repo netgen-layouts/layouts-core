@@ -61,9 +61,9 @@ final class LayoutsController extends Controller
     {
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/layouts/index.html.twig',
-            array(
+            [
                 'layouts' => $this->layoutService->loadLayouts(true),
-            )
+            ]
         );
     }
 
@@ -82,15 +82,15 @@ final class LayoutsController extends Controller
         $form = $this->createForm(
             CopyType::class,
             $copyStruct,
-            array(
+            [
                 'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layouts_layout_copy',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -108,7 +108,7 @@ final class LayoutsController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -124,7 +124,7 @@ final class LayoutsController extends Controller
     {
         $layoutIds = array_unique($request->request->get('layout_ids'));
 
-        $serializedLayouts = array();
+        $serializedLayouts = [];
         foreach ($layoutIds as $layoutId) {
             try {
                 $layout = $this->layoutService->loadLayout($layoutId);
@@ -175,7 +175,7 @@ final class LayoutsController extends Controller
      */
     public function clearLayoutCache(Layout $layout)
     {
-        $this->httpCacheClient->invalidateLayouts(array($layout->getId()));
+        $this->httpCacheClient->invalidateLayouts([$layout->getId()]);
 
         $cacheCleared = $this->httpCacheClient->commit();
 
@@ -185,10 +185,10 @@ final class LayoutsController extends Controller
 
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/layouts/cache/layout.html.twig',
-            array(
+            [
                 'error' => !$cacheCleared,
                 'layout' => $layout,
-            ),
+            ],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -224,15 +224,15 @@ final class LayoutsController extends Controller
         $form = $this->createForm(
             ClearBlocksCacheType::class,
             null,
-            array(
+            [
                 'blocks' => $cacheableBlocks,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layouts_cache_blocks',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -259,11 +259,11 @@ final class LayoutsController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(
+            [
                 'error' => !$cacheCleared,
                 'layout' => $layout,
                 'blocks' => array_values($cacheableBlocks),
-            ),
+            ],
             new Response(
                 null,
                 $form->isSubmitted() || !$cacheCleared ?

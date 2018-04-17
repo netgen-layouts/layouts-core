@@ -55,12 +55,12 @@ final class IdentifierTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array(),
-            ),
-        );
+        return [
+            [
+                [],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -70,13 +70,13 @@ final class IdentifierTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -89,7 +89,7 @@ final class IdentifierTypeTest extends TestCase
      */
     public function testValidation($value, $required, $isValid)
     {
-        $parameter = $this->getParameterDefinition(array(), $required);
+        $parameter = $this->getParameterDefinition([], $required);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -103,17 +103,17 @@ final class IdentifierTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('a123abcASD', true, true),
-            array('a123abc_ASD', true, true),
-            array('a123abcASD', false, true),
-            array('a123abc_ASD', false, true),
-            array(null, false, true),
-            array(null, true, false),
-            array('a123abc ASD', false, false),
-            array('a123a-bcASD', false, false),
-            array('a123abc.ASD', false, false),
-            array('123abcASD', false, false),
-        );
+        return [
+            ['a123abcASD', true, true],
+            ['a123abc_ASD', true, true],
+            ['a123abcASD', false, true],
+            ['a123abc_ASD', false, true],
+            [null, false, true],
+            [null, true, false],
+            ['a123abc ASD', false, false],
+            ['a123a-bcASD', false, false],
+            ['a123abc.ASD', false, false],
+            ['123abcASD', false, false],
+        ];
     }
 }

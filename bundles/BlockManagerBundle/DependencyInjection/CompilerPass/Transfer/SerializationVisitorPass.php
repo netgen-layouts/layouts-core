@@ -23,7 +23,7 @@ final class SerializationVisitorPass implements CompilerPassInterface
         $aggregateVisitorDefinition = $container->findDefinition(self::$serviceName);
         $visitors = array_keys($container->findTaggedServiceIds(self::$tagName));
 
-        $visitorServices = array();
+        $visitorServices = [];
         foreach ($visitors as $visitor) {
             $visitorServices[] = new Reference($visitor);
         }

@@ -73,19 +73,19 @@ final class ChoiceTypeTest extends TestCase
     public function defaultValueProvider()
     {
         $optionsClosure = function () {
-            return array('Option' => 'option');
+            return ['Option' => 'option'];
         };
 
-        return array(
-            array(array('options' => array('Option' => 'option')), true, null, 'option'),
-            array(array('options' => array('Option' => 'option')), false, null, null),
-            array(array('options' => array('Option' => 'option')), true, 'value', 'value'),
-            array(array('options' => array('Option' => 'option')), false, 'value', 'value'),
-            array(array('options' => $optionsClosure), true, null, null),
-            array(array('options' => $optionsClosure), false, null, null),
-            array(array('options' => $optionsClosure), true, 'value', 'value'),
-            array(array('options' => $optionsClosure), false, 'value', 'value'),
-        );
+        return [
+            [['options' => ['Option' => 'option']], true, null, 'option'],
+            [['options' => ['Option' => 'option']], false, null, null],
+            [['options' => ['Option' => 'option']], true, 'value', 'value'],
+            [['options' => ['Option' => 'option']], false, 'value', 'value'],
+            [['options' => $optionsClosure], true, null, null],
+            [['options' => $optionsClosure], false, null, null],
+            [['options' => $optionsClosure], true, 'value', 'value'],
+            [['options' => $optionsClosure], false, 'value', 'value'],
+        ];
     }
 
     /**
@@ -95,104 +95,104 @@ final class ChoiceTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(
-                    'options' => array(
+        return [
+            [
+                [
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'multiple' => false,
                     'expanded' => false,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'multiple' => false,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'multiple' => false,
                     'expanded' => false,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'multiple' => true,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'multiple' => true,
                     'expanded' => false,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'expanded' => false,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'multiple' => false,
                     'expanded' => false,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'expanded' => true,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'multiple' => false,
                     'expanded' => true,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'options' => function () {
                     },
-                ),
-                array(
+                ],
+                [
                     'multiple' => false,
                     'expanded' => false,
                     'options' => function () {
                     },
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -202,44 +202,44 @@ final class ChoiceTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'multiple' => 'true',
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'expanded' => 'true',
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
-                    ),
-                ),
-            ),
-            array(
-                array(
+                    ],
+                ],
+            ],
+            [
+                [
                     'options' => 'options',
-                ),
-            ),
-            array(
-                array(
-                    'options' => array(),
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
+                    'options' => [],
+                ],
+            ],
+            [
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-            array(
-                array(),
-            ),
-        );
+                ],
+            ],
+            [
+                [],
+            ],
+        ];
     }
 
     /**
@@ -251,7 +251,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $parameter = $this->getParameterDefinition(array('options' => array('One' => 1, 'Two' => 2)));
+        $parameter = $this->getParameterDefinition(['options' => ['One' => 1, 'Two' => 2]]);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -268,10 +268,10 @@ final class ChoiceTypeTest extends TestCase
     public function testValidationWithClosure($value, $isValid)
     {
         $closure = function () {
-            return array('One' => 1, 'Two' => 2);
+            return ['One' => 1, 'Two' => 2];
         };
 
-        $parameter = $this->getParameterDefinition(array('options' => $closure));
+        $parameter = $this->getParameterDefinition(['options' => $closure]);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -285,14 +285,14 @@ final class ChoiceTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(1, true),
-            array('One', false),
-            array(2, true),
-            array('Two', false),
-            array('123abc.ASD', false),
-            array(0, false),
-        );
+        return [
+            [1, true],
+            ['One', false],
+            [2, true],
+            ['Two', false],
+            ['123abc.ASD', false],
+            [0, false],
+        ];
     }
 
     /**
@@ -309,10 +309,10 @@ final class ChoiceTypeTest extends TestCase
             $convertedValue,
             $this->type->fromHash(
                 $this->getParameterDefinition(
-                    array(
+                    [
                         'multiple' => $multiple,
-                        'options' => array(42 => 42),
-                    )
+                        'options' => [42 => 42],
+                    ]
                 ),
                 $value
             )
@@ -321,48 +321,48 @@ final class ChoiceTypeTest extends TestCase
 
     public function fromHashProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 null,
                 null,
                 false,
-            ),
-            array(
-                array(),
+            ],
+            [
+                [],
                 null,
                 false,
-            ),
-            array(
+            ],
+            [
                 42,
                 42,
                 false,
-            ),
-            array(
-                array(42, 43),
+            ],
+            [
+                [42, 43],
                 42,
                 false,
-            ),
-            array(
+            ],
+            [
                 null,
                 null,
                 true,
-            ),
-            array(
-                array(),
+            ],
+            [
+                [],
                 null,
                 true,
-            ),
-            array(
+            ],
+            [
                 42,
-                array(42),
+                [42],
                 true,
-            ),
-            array(
-                array(42, 43),
-                array(42, 43),
+            ],
+            [
+                [42, 43],
+                [42, 43],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -384,14 +384,14 @@ final class ChoiceTypeTest extends TestCase
      */
     public function emptyProvider()
     {
-        return array(
-            array(null, true),
-            array(array(), true),
-            array(42, false),
-            array(array(42), false),
-            array(0, false),
-            array('42', false),
-            array('', false),
-        );
+        return [
+            [null, true],
+            [[], true],
+            [42, false],
+            [[42], false],
+            [0, false],
+            ['42', false],
+            ['', false],
+        ];
     }
 }

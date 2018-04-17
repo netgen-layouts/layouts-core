@@ -20,7 +20,7 @@ class ParameterDefinition extends Value implements ParameterDefinitionInterface
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @var bool
@@ -40,7 +40,7 @@ class ParameterDefinition extends Value implements ParameterDefinitionInterface
     /**
      * @var array
      */
-    protected $groups = array();
+    protected $groups = [];
 
     public function getName()
     {

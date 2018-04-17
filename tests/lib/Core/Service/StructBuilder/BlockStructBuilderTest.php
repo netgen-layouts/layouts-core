@@ -37,17 +37,17 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new BlockCreateStruct(
-                array(
+                [
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'definition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'some-class',
                         'css_id' => null,
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->structBuilder->newBlockCreateStruct($blockDefinition)
         );
@@ -76,27 +76,27 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new BlockUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => $block->getViewType(),
                     'itemViewType' => $block->getItemViewType(),
                     'name' => $block->getName(),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'CSS class',
                         'css_id' => null,
-                    ),
-                    'configStructs' => array(
+                    ],
+                    'configStructs' => [
                         'http_cache' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'use_http_cache' => null,
                                     'shared_max_age' => null,
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->structBuilder->newBlockUpdateStruct('en', $block)
         );

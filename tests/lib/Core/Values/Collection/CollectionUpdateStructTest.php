@@ -18,10 +18,10 @@ final class CollectionUpdateStructTest extends TestCase
     public function testSetProperties()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct(
-            array(
+            [
                 'offset' => 6,
                 'limit' => 3,
-            )
+            ]
         );
 
         $this->assertEquals(6, $collectionUpdateStruct->offset);

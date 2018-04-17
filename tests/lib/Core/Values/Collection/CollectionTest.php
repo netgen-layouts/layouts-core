@@ -35,11 +35,11 @@ final class CollectionTest extends TestCase
         $this->assertNull($collection->getOffset());
         $this->assertNull($collection->getLimit());
         $this->assertNull($collection->getMainLocale());
-        $this->assertEquals(array(), $collection->getAvailableLocales());
+        $this->assertEquals([], $collection->getAvailableLocales());
         $this->assertNull($collection->isTranslatable());
         $this->assertNull($collection->isAlwaysAvailable());
         $this->assertNull($collection->getLocale());
-        $this->assertEquals(array(), $collection->getItems());
+        $this->assertEquals([], $collection->getItems());
         $this->assertNull($collection->getQuery());
         $this->assertFalse($collection->hasQuery());
     }
@@ -72,25 +72,25 @@ final class CollectionTest extends TestCase
      */
     public function testSetProperties()
     {
-        $items = array(
-            new Item(array('type' => Item::TYPE_MANUAL, 'position' => 3)),
-            new Item(array('type' => Item::TYPE_OVERRIDE, 'position' => 5)),
-        );
+        $items = [
+            new Item(['type' => Item::TYPE_MANUAL, 'position' => 3]),
+            new Item(['type' => Item::TYPE_OVERRIDE, 'position' => 5]),
+        ];
 
         $collection = new Collection(
-            array(
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'offset' => 5,
                 'limit' => 10,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr'),
+                'availableLocales' => ['en', 'hr'],
                 'isTranslatable' => true,
                 'alwaysAvailable' => false,
                 'locale' => 'en',
                 'items' => new ArrayCollection($items),
                 'query' => new Query(),
-            )
+            ]
         );
 
         $this->assertEquals(42, $collection->getId());
@@ -100,7 +100,7 @@ final class CollectionTest extends TestCase
         $this->assertEquals(10, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
         $this->assertEquals('en', $collection->getMainLocale());
-        $this->assertEquals(array('en', 'hr'), $collection->getAvailableLocales());
+        $this->assertEquals(['en', 'hr'], $collection->getAvailableLocales());
         $this->assertTrue($collection->isTranslatable());
         $this->assertFalse($collection->isAlwaysAvailable());
         $this->assertEquals('en', $collection->getLocale());
@@ -142,9 +142,9 @@ final class CollectionTest extends TestCase
     public function testGetOffsetForManualCollection()
     {
         $collection = new Collection(
-            array(
+            [
                 'offset' => 5,
-            )
+            ]
         );
 
         $this->assertEquals(0, $collection->getOffset());

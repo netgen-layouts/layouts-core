@@ -18,9 +18,9 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         $this->constraint = new QueryUpdateStructConstraint();
 
         $this->constraint->payload = new Query(
-            array(
+            [
                 'queryType' => new QueryType('query_type'),
-            )
+            ]
         );
 
         parent::setUp();
@@ -81,85 +81,85 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array(
-                array(
-                    'parameterValues' => array(
+        return [
+            [
+                [
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => null,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => '',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 42,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'nonexistent',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => '',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(),
-                ),
+                    'parameterValues' => [],
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 }

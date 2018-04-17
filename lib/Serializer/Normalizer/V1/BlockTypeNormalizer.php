@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class BlockTypeNormalizer implements NormalizerInterface
 {
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Block\BlockType\BlockType $blockType */
         $blockType = $object->getValue();
@@ -18,7 +18,7 @@ final class BlockTypeNormalizer implements NormalizerInterface
 
         $isContainer = $blockDefinition instanceof ContainerDefinitionInterface;
 
-        return array(
+        return [
             'identifier' => $blockType->getIdentifier(),
             'enabled' => $blockType->isEnabled(),
             'name' => $blockType->getName(),
@@ -27,7 +27,7 @@ final class BlockTypeNormalizer implements NormalizerInterface
             'is_container' => $isContainer,
             'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),
             'defaults' => $blockType->getDefaults(),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)

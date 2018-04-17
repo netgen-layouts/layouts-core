@@ -49,21 +49,21 @@ final class ConfigValidatorTest extends TestCase
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $configStructs = array();
+        $configStructs = [];
         foreach ($config as $configKey => $configValues) {
             $configStructs[$configKey] = new ConfigStruct(
-                array(
+                [
                     'parameterValues' => $configValues,
-                )
+                ]
             );
         }
 
         $this->configValidator->validateConfigStructs(
             $configStructs,
-            array(
+            [
                 'test' => new ConfigDefinition('test'),
                 'test2' => new ConfigDefinition('test2'),
-            )
+            ]
         );
     }
 
@@ -75,70 +75,70 @@ final class ConfigValidatorTest extends TestCase
     public function testValidateConfigStructsWithInvalidStruct()
     {
         $this->configValidator->validateConfigStructs(
-            array(
+            [
                 'test' => new stdClass(),
-            ),
-            array(
+            ],
+            [
                 'test' => new ConfigDefinition('test'),
                 'test2' => new ConfigDefinition('test2'),
-            )
+            ]
         );
     }
 
     public function validateConfigStructDataProvider()
     {
-        return array(
-            array(
-                array(),
+        return [
+            [
+                [],
                 true,
-            ),
-            array(
-                array(
-                    'test' => array(
+            ],
+            [
+                [
+                    'test' => [
                         'param' => 'value',
-                    ),
-                    'test2' => array(
+                    ],
+                    'test2' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'test' => array(
+            ],
+            [
+                [
+                    'test' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'test2' => array(
+            ],
+            [
+                [
+                    'test2' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'test' => array(
+            ],
+            [
+                [
+                    'test' => [
                         'param' => 'value',
-                    ),
-                    'test2' => array(
+                    ],
+                    'test2' => [
                         'param' => 42,
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
-                    'test' => array(
+            ],
+            [
+                [
+                    'test' => [
                         'param' => 'value',
-                    ),
-                    'unknown' => array(),
-                ),
+                    ],
+                    'unknown' => [],
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 }

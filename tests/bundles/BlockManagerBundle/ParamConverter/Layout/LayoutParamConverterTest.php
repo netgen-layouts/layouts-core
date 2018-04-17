@@ -33,7 +33,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('layoutId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['layoutId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -67,7 +67,7 @@ final class LayoutParamConverterTest extends TestCase
 
         $this->assertEquals(
             $layout,
-            $this->paramConverter->loadValue(array('layoutId' => 42, 'published' => true))
+            $this->paramConverter->loadValue(['layoutId' => 42, 'published' => true])
         );
     }
 
@@ -87,10 +87,10 @@ final class LayoutParamConverterTest extends TestCase
         $this->assertEquals(
             $layout,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'layoutId' => 42,
                     'published' => false,
-                )
+                ]
             )
         );
     }

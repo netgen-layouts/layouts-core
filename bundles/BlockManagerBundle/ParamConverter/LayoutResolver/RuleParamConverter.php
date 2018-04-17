@@ -20,7 +20,7 @@ final class RuleParamConverter extends ParamConverter
 
     public function getSourceAttributeNames()
     {
-        return array('ruleId');
+        return ['ruleId'];
     }
 
     public function getDestinationAttributeName()

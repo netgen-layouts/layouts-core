@@ -36,7 +36,7 @@ final class QueryTypeFactory
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
-        $forms = array();
+        $forms = [];
 
         if (isset($config['forms'])) {
             foreach ($config['forms'] as $formIdentifier => $formConfig) {
@@ -45,22 +45,22 @@ final class QueryTypeFactory
                 }
 
                 $forms[$formIdentifier] = new Form(
-                    array(
+                    [
                         'identifier' => $formIdentifier,
                         'type' => $formConfig['type'],
-                    )
+                    ]
                 );
             }
         }
 
         return new QueryType(
-            array(
+            [
                 'type' => $type,
                 'name' => isset($config['name']) ? $config['name'] : '',
                 'forms' => $forms,
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
-            )
+            ]
         );
     }
 }

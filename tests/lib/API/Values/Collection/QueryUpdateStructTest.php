@@ -30,22 +30,22 @@ final class QueryUpdateStructTest extends TestCase
     {
         $queryType = $this->buildQueryType();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
             'compound' => false,
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParameters($queryType, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id',
                 'compound' => false,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -57,20 +57,20 @@ final class QueryUpdateStructTest extends TestCase
     {
         $queryType = $this->buildQueryType();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParameters($queryType, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
                 'compound' => true,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -83,34 +83,34 @@ final class QueryUpdateStructTest extends TestCase
         $queryType = $this->buildQueryType();
 
         $query = new Query(
-            array(
+            [
                 'queryType' => $queryType,
-                'parameters' => array(
+                'parameters' => [
                     'css_class' => new Parameter(
-                        array(
+                        [
                             'value' => 'css',
                             'parameterDefinition' => $queryType->getParameterDefinition('css_class'),
-                        )
+                        ]
                     ),
                     'inner' => new Parameter(
-                        array(
+                        [
                             'value' => 'inner',
                             'parameterDefinition' => $queryType->getParameterDefinition('compound')->getParameterDefinition('inner'),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->struct->fillParametersFromQuery($query);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => null,
                 'compound' => null,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -122,22 +122,22 @@ final class QueryUpdateStructTest extends TestCase
     {
         $queryType = $this->buildQueryType();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
             'compound' => false,
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParametersFromHash($queryType, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id',
                 'compound' => false,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -149,20 +149,20 @@ final class QueryUpdateStructTest extends TestCase
     {
         $queryType = $this->buildQueryType();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParametersFromHash($queryType, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
                 'compound' => true,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -173,40 +173,40 @@ final class QueryUpdateStructTest extends TestCase
     private function buildQueryType()
     {
         $compoundParameter = new CompoundParameterDefinition(
-            array(
+            [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
-                'parameterDefinitions' => array(
+                'parameterDefinitions' => [
                     'inner' => new ParameterDefinition(
-                        array(
+                        [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
                             'defaultValue' => 'inner_default',
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $parameterDefinitions = array(
+        $parameterDefinitions = [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
-                )
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'id_default',
-                )
+                ]
             ),
             'compound' => $compoundParameter,
-        );
+        ];
 
-        return new QueryType(array('parameterDefinitions' => $parameterDefinitions));
+        return new QueryType(['parameterDefinitions' => $parameterDefinitions]);
     }
 }

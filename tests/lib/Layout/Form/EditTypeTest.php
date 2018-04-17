@@ -35,10 +35,10 @@ final class EditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'name' => 'New name',
             'description' => 'New description',
-        );
+        ];
 
         $updatedStruct = new LayoutUpdateStruct();
         $updatedStruct->name = 'New name';
@@ -47,9 +47,9 @@ final class EditTypeTest extends FormTestCase
         $form = $this->factory->create(
             EditType::class,
             new LayoutUpdateStruct(),
-            array(
+            [
                 'layout' => $this->layout,
-            )
+            ]
         );
 
         $form->submit($submittedData);
@@ -76,10 +76,10 @@ final class EditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'layout' => $this->layout,
                 'data' => new LayoutUpdateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->layout, $options['layout']);
@@ -114,9 +114,9 @@ final class EditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'layout' => '',
-            )
+            ]
         );
     }
 
@@ -133,10 +133,10 @@ final class EditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'layout' => $this->layout,
                 'data' => '',
-            )
+            ]
         );
     }
 }

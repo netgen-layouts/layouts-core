@@ -28,18 +28,18 @@ final class ParameterMapperTest extends TestCase
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
         $blockDefinition = new BlockDefinition(
-            array(
+            [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            )
+            ]
         );
 
         $mappedParameters = $this->mapper->mapParameters(
             $blockDefinition,
-            array(
+            [
                 'css_id' => 'some-id',
                 'compound' => true,
                 'inner' => 'inner-value',
-            )
+            ]
         );
 
         $this->assertCount(4, $mappedParameters);
@@ -76,26 +76,26 @@ final class ParameterMapperTest extends TestCase
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
         $blockDefinition = new BlockDefinition(
-            array(
+            [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            )
+            ]
         );
 
         $serializedParameters = $this->mapper->serializeValues(
             $blockDefinition,
-            array(
+            [
                 'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
-            )
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
-            ),
+            ],
             $serializedParameters
         );
     }
@@ -107,28 +107,28 @@ final class ParameterMapperTest extends TestCase
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
         $blockDefinition = new BlockDefinition(
-            array(
+            [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            )
+            ]
         );
 
         $untranslatableParams = $this->mapper->extractUntranslatableParameters(
             $blockDefinition,
-            array(
+            [
                 'css_id' => 'some-id',
                 'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
-            )
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'css_id' => 'some-id',
                 'compound' => true,
                 'inner' => 'inner-value',
                 'other' => null,
-            ),
+            ],
             $untranslatableParams
         );
     }

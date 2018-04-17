@@ -40,17 +40,17 @@ final class IdProviderTest extends TestCase
             ->will(
                 $this->returnValue(
                     new Layout(
-                        array(
+                        [
                             'id' => 42,
                             'shared' => false,
-                        )
+                        ]
                     )
                 )
             );
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertEquals(array(42), $providedIds);
+        $this->assertEquals([42], $providedIds);
     }
 
     /**
@@ -70,7 +70,7 @@ final class IdProviderTest extends TestCase
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertEquals(array(42), $providedIds);
+        $this->assertEquals([42], $providedIds);
     }
 
     /**
@@ -79,10 +79,10 @@ final class IdProviderTest extends TestCase
     public function testProvideIdsWithSharedLayout()
     {
         $sharedLayout = new Layout(
-            array(
+            [
                 'id' => 42,
                 'shared' => true,
-            )
+            ]
         );
 
         $this->layoutServiceMock
@@ -97,23 +97,23 @@ final class IdProviderTest extends TestCase
             ->with($this->equalTo($sharedLayout))
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Layout(
-                            array(
+                            [
                                 'id' => 43,
-                            )
+                            ]
                         ),
                         new Layout(
-                            array(
+                            [
                                 'id' => 44,
-                            )
+                            ]
                         ),
-                    )
+                    ]
                 )
             );
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertEquals(array(42, 43, 44), $providedIds);
+        $this->assertEquals([42, 43, 44], $providedIds);
     }
 }

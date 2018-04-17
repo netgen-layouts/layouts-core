@@ -9,14 +9,14 @@ abstract class AbstractView extends AbstractVersionedValue
     /**
      * @var array
      */
-    private $viewParameters = array();
+    private $viewParameters = [];
 
     /**
      * Sets the view parameters.
      *
      * @param array $viewParameters
      */
-    public function setViewParameters(array $viewParameters = array())
+    public function setViewParameters(array $viewParameters = [])
     {
         $this->viewParameters = $viewParameters;
     }

@@ -41,75 +41,75 @@ final class BlockValidator extends Validator
     {
         $this->validate(
             $blockCreateStruct->definition,
-            array(
+            [
                 new Constraints\NotNull(),
-                new Constraints\Type(array('type' => BlockDefinitionInterface::class)),
-            ),
+                new Constraints\Type(['type' => BlockDefinitionInterface::class]),
+            ],
             'definition'
         );
 
         $this->validate(
             $blockCreateStruct->viewType,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definition' => $blockCreateStruct->definition)),
-            ),
+                new Constraints\Type(['type' => 'string']),
+                new BlockViewType(['definition' => $blockCreateStruct->definition]),
+            ],
             'viewType'
         );
 
         $this->validate(
             $blockCreateStruct->itemViewType,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Type(['type' => 'string']),
                 new BlockItemViewType(
-                    array(
+                    [
                         'viewType' => $blockCreateStruct->viewType,
                         'definition' => $blockCreateStruct->definition,
-                    )
+                    ]
                 ),
-            ),
+            ],
             'itemViewType'
         );
 
         if ($blockCreateStruct->name !== null) {
             $this->validate(
                 $blockCreateStruct->name,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'name'
             );
         }
 
         $this->validate(
             $blockCreateStruct->isTranslatable,
-            array(
+            [
                 new Constraints\NotNull(),
-                new Constraints\Type(array('type' => 'bool')),
-            ),
+                new Constraints\Type(['type' => 'bool']),
+            ],
             'isTranslatable'
         );
 
         $this->validate(
             $blockCreateStruct->alwaysAvailable,
-            array(
+            [
                 new Constraints\NotNull(),
-                new Constraints\Type(array('type' => 'bool')),
-            ),
+                new Constraints\Type(['type' => 'bool']),
+            ],
             'alwaysAvailable'
         );
 
         $this->validate(
             $blockCreateStruct,
-            array(
+            [
                 new ParameterStruct(
-                    array(
+                    [
                         'parameterCollection' => $blockCreateStruct->definition,
-                    )
+                    ]
                 ),
-            ),
+            ],
             'parameterValues'
         );
 
@@ -138,13 +138,13 @@ final class BlockValidator extends Validator
     {
         $this->validate(
             $blockUpdateStruct,
-            array(
+            [
                 new BlockUpdateStructConstraint(
-                    array(
+                    [
                         'payload' => $block,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->configValidator->validateConfigStructs(

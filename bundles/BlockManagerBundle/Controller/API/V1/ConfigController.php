@@ -68,9 +68,9 @@ final class ConfigController extends Controller
     public function getConfig()
     {
         return new Value(
-            array(
+            [
                 'csrf_token' => $this->getCsrfToken(),
-            )
+            ]
         );
     }
 
@@ -81,23 +81,23 @@ final class ConfigController extends Controller
      */
     public function getBlockTypes()
     {
-        $blockTypeGroups = array();
+        $blockTypeGroups = [];
         foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {
             if (!empty($blockTypeGroup->getBlockTypes(true))) {
                 $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
             }
         }
 
-        $blockTypes = array();
+        $blockTypes = [];
         foreach ($this->blockTypeRegistry->getBlockTypes(true) as $blockType) {
             $blockTypes[] = new VersionedValue($blockType, Version::API_V1);
         }
 
         return new Value(
-            array(
+            [
                 'block_type_groups' => $blockTypeGroups,
                 'block_types' => $blockTypes,
-            )
+            ]
         );
     }
 
@@ -108,7 +108,7 @@ final class ConfigController extends Controller
      */
     public function getLayoutTypes()
     {
-        $layoutTypes = array();
+        $layoutTypes = [];
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
             $layoutTypes[] = new View($layoutType, Version::API_V1);
         }

@@ -30,7 +30,7 @@ final class DebugErrorHandler implements ErrorHandlerInterface
         $this->debug = $debug;
     }
 
-    public function handleError(/* Throwable */ $throwable, $message = null, array $context = array())
+    public function handleError(/* Throwable */ $throwable, $message = null, array $context = [])
     {
         $this->logError($throwable, $message, $context);
 
@@ -46,7 +46,7 @@ final class DebugErrorHandler implements ErrorHandlerInterface
      * @param string $message
      * @param array $context
      */
-    private function logError(/* Throwable */ $throwable, $message = null, array $context = array())
+    private function logError(/* Throwable */ $throwable, $message = null, array $context = [])
     {
         if ($message === null) {
             $message = $throwable->getMessage();

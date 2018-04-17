@@ -14,7 +14,7 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
     public static function getSubscribedEvents()
     {
         // Priority needs to be higher than built in exception listener
-        return array(KernelEvents::EXCEPTION => array('onException', 20));
+        return [KernelEvents::EXCEPTION => ['onException', 20]];
     }
 
     /**

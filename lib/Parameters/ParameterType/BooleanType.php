@@ -40,22 +40,22 @@ final class BooleanType extends ParameterType
     protected function getRequiredConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if ($parameterDefinition->isRequired()) {
-            return array(
+            return [
                 new Constraints\NotNull(),
-            );
+            ];
         }
 
-        return array();
+        return [];
     }
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(
+        return [
             new Constraints\Type(
-                array(
+                [
                     'type' => 'bool',
-                )
+                ]
             ),
-        );
+        ];
     }
 }

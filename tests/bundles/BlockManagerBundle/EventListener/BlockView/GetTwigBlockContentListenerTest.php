@@ -35,7 +35,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(BlockManagerEvents::RENDER_VIEW => 'onRenderView'),
+            [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -47,17 +47,17 @@ final class GetTwigBlockContentListenerTest extends TestCase
     public function testOnRenderView()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'definition' => new TwigBlockDefinition(
-                    array(
+                    [
                         'handler' => new TwigBlockDefinitionHandler(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
-        $blockView = new BlockView(array('block' => $block));
+        $blockView = new BlockView(['block' => $block]);
 
         $twigTemplateMock = $this->createMock(Template::class);
 
@@ -86,17 +86,17 @@ final class GetTwigBlockContentListenerTest extends TestCase
     public function testOnRenderViewWithNoTwigBlock()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'definition' => new BlockDefinition(),
-            )
+            ]
         );
 
-        $blockView = new BlockView(array('block' => $block));
+        $blockView = new BlockView(['block' => $block]);
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 
     /**
@@ -106,13 +106,13 @@ final class GetTwigBlockContentListenerTest extends TestCase
     public function testOnRenderViewInvalidTwigTemplate()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'definition' => new TwigBlockDefinition(),
-            )
+            ]
         );
 
-        $blockView = new BlockView(array('block' => $block));
+        $blockView = new BlockView(['block' => $block]);
         $blockView->addParameter('twig_template', new stdClass());
 
         $event = new CollectViewParametersEvent($blockView);
@@ -129,13 +129,13 @@ final class GetTwigBlockContentListenerTest extends TestCase
     public function testOnRenderViewWithNoTwigTemplate()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'definition' => new TwigBlockDefinition(),
-            )
+            ]
         );
 
-        $blockView = new BlockView(array('block' => $block));
+        $blockView = new BlockView(['block' => $block]);
 
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
@@ -149,10 +149,10 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoBlockView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 }

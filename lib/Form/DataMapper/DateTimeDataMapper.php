@@ -41,9 +41,9 @@ final class DateTimeDataMapper implements DataMapperInterface
             return;
         }
 
-        $data = array(
+        $data = [
             'datetime' => $dateTime,
             'timezone' => $timeZone,
-        );
+        ];
     }
 }

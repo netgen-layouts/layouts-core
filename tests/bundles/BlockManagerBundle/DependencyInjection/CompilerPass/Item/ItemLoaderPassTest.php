@@ -18,11 +18,11 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition(
             'netgen_block_manager.item.item_loader',
-            new Definition(null, array(null, null))
+            new Definition(null, [null, null])
         );
 
         $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_block_manager.item.value_loader', array('value_type' => 'test'));
+        $valueLoader->addTag('netgen_block_manager.item.value_loader', ['value_type' => 'test']);
         $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
 
         $this->compile();
@@ -30,9 +30,9 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.item.item_loader',
             1,
-            array(
+            [
                 'test' => new Reference('netgen_block_manager.item.value_loader.test'),
-            )
+            ]
         );
     }
 
@@ -46,7 +46,7 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_block_manager.item.value_loader', array('value_type' => '123'));
+        $valueLoader->addTag('netgen_block_manager.item.value_loader', ['value_type' => '123']);
         $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
 
         $this->compile();

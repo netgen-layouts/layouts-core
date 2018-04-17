@@ -46,26 +46,26 @@ final class VarnishClientTest extends TestCase
             ->expects($this->at(0))
             ->method('provideIds')
             ->with($this->equalTo(24))
-            ->will($this->returnValue(array(24, 25, 26)));
+            ->will($this->returnValue([24, 25, 26]));
 
         $this->idProviderMock
             ->expects($this->at(1))
             ->method('provideIds')
             ->with($this->equalTo(42))
-            ->will($this->returnValue(array(42)));
+            ->will($this->returnValue([42]));
 
         $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(
                 $this->equalTo(
-                    array(
+                    [
                         'X-Layout-Id' => '^(24|25|26|42)$',
-                    )
+                    ]
                 )
             );
 
-        $this->client->invalidateLayouts(array(24, 42));
+        $this->client->invalidateLayouts([24, 42]);
     }
 
     /**
@@ -81,7 +81,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->never())
             ->method('invalidate');
 
-        $this->client->invalidateLayouts(array());
+        $this->client->invalidateLayouts([]);
     }
 
     /**
@@ -98,9 +98,9 @@ final class VarnishClientTest extends TestCase
             ->method('invalidate')
             ->with(
                 $this->equalTo(
-                    array(
+                    [
                         'X-Layout-Id' => '.*',
-                    )
+                    ]
                 )
             );
 
@@ -117,13 +117,13 @@ final class VarnishClientTest extends TestCase
             ->method('invalidate')
             ->with(
                 $this->equalTo(
-                    array(
+                    [
                         'X-Block-Id' => '^(24|42)$',
-                    )
+                    ]
                 )
             );
 
-        $this->client->invalidateBlocks(array(24, 42));
+        $this->client->invalidateBlocks([24, 42]);
     }
 
     /**
@@ -135,7 +135,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->never())
             ->method('invalidate');
 
-        $this->client->invalidateBlocks(array());
+        $this->client->invalidateBlocks([]);
     }
 
     /**
@@ -148,13 +148,13 @@ final class VarnishClientTest extends TestCase
             ->method('invalidate')
             ->with(
                 $this->equalTo(
-                    array(
+                    [
                         'X-Origin-Layout-Id' => '^(24|42)$',
-                    )
+                    ]
                 )
             );
 
-        $this->client->invalidateLayoutBlocks(array(24, 42));
+        $this->client->invalidateLayoutBlocks([24, 42]);
     }
 
     /**
@@ -166,7 +166,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->never())
             ->method('invalidate');
 
-        $this->client->invalidateLayoutBlocks(array());
+        $this->client->invalidateLayoutBlocks([]);
     }
 
     /**
@@ -179,9 +179,9 @@ final class VarnishClientTest extends TestCase
             ->method('invalidate')
             ->with(
                 $this->equalTo(
-                    array(
+                    [
                         'X-Block-Id' => '.*',
-                    )
+                    ]
                 )
             );
 

@@ -26,14 +26,14 @@ abstract class LayoutMapperTest extends ServiceTestCase
     public function testMapZone()
     {
         $persistenceZone = new Zone(
-            array(
+            [
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'right',
-            )
+            ]
         );
 
         $zone = $this->layoutMapper->mapZone($persistenceZone);
@@ -55,14 +55,14 @@ abstract class LayoutMapperTest extends ServiceTestCase
     public function testMapZoneWithNoLinkedZone()
     {
         $persistenceZone = new Zone(
-            array(
+            [
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => null,
                 'linkedZoneIdentifier' => null,
-            )
+            ]
         );
 
         $zone = $this->layoutMapper->mapZone($persistenceZone);
@@ -81,14 +81,14 @@ abstract class LayoutMapperTest extends ServiceTestCase
     public function testMapZoneWithNonExistingLinkedZone()
     {
         $persistenceZone = new Zone(
-            array(
+            [
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => 9999,
                 'linkedZoneIdentifier' => 'unknown',
-            )
+            ]
         );
 
         $zone = $this->layoutMapper->mapZone($persistenceZone);
@@ -107,7 +107,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
     public function testMapLayout()
     {
         $persistenceLayout = new Layout(
-            array(
+            [
                 'id' => 1,
                 'type' => '4_zones_a',
                 'name' => 'My layout',
@@ -116,7 +116,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
                 'modified' => 1447065813,
                 'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
-            )
+            ]
         );
 
         $layout = $this->layoutMapper->mapLayout($persistenceLayout);

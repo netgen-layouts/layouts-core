@@ -41,7 +41,7 @@ final class Collection extends Value implements APICollection
     /**
      * @var string[]
      */
-    protected $availableLocales = array();
+    protected $availableLocales = [];
 
     /**
      * @var string
@@ -63,7 +63,7 @@ final class Collection extends Value implements APICollection
      */
     protected $locale;
 
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = [])
     {
         parent::__construct($properties);
 

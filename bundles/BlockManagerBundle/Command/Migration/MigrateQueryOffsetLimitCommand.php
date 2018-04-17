@@ -14,28 +14,28 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class MigrateQueryOffsetLimitCommand extends Command
 {
-    private $knownQueryTypes = array(
-        'ezcontent_search' => array(
+    private $knownQueryTypes = [
+        'ezcontent_search' => [
             'offset' => 'offset',
             'limit' => 'limit',
-        ),
-        'ezcontent_relation_list' => array(
+        ],
+        'ezcontent_relation_list' => [
             'offset' => 'offset',
             'limit' => 'limit',
-        ),
-        'ezcontent_tags' => array(
+        ],
+        'ezcontent_tags' => [
             'offset' => 'offset',
             'limit' => 'limit',
-        ),
-        'google_analytics' => array(
+        ],
+        'google_analytics' => [
             'offset' => null,
             'limit' => 'limit',
-        ),
-        'contentful_search' => array(
+        ],
+        'contentful_search' => [
             'offset' => 'offset',
             'limit' => 'limit',
-        ),
-    );
+        ],
+    ];
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
@@ -112,7 +112,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         }
 
         $queryTypes = $this->queryTypeRegistry->getQueryTypes();
-        $queryTypeParameters = array();
+        $queryTypeParameters = [];
 
         foreach ($queryTypes as $queryType) {
             $queryTypeIdentifier = $queryType->getType();
@@ -176,12 +176,12 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType)
     {
-        $mapping = array();
+        $mapping = [];
 
         $queryTypeParameters = $this->getQueryTypeParameters($queryType);
         $queryTypeParameters[] = 'NO PARAMETER';
 
-        foreach (array('offset', 'limit') as $parameter) {
+        foreach (['offset', 'limit'] as $parameter) {
             $parameterName = $this->io->choice(
                 sprintf(
                     'Select the %1$s parameter from the "%2$s" (%3$s) query type (Use "NO PARAMETER" option if your query type does not have the %1$s parameter)',
@@ -209,7 +209,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private function getQueryTypeParameters(QueryTypeInterface $queryType)
     {
-        $parameters = array();
+        $parameters = [];
 
         foreach ($queryType->getParameterDefinitions() as $parameterDefinition) {
             if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {

@@ -21,38 +21,38 @@ final class BlockCollectionValidator extends Validator
     {
         $this->validate(
             $items,
-            array(
-                new Constraints\Type(array('type' => 'array')),
+            [
+                new Constraints\Type(['type' => 'array']),
                 new Constraints\NotBlank(),
                 new Constraints\All(
-                    array(
+                    [
                         'constraints' => new Constraints\Collection(
-                            array(
-                                'fields' => array(
-                                    'type' => array(
+                            [
+                                'fields' => [
+                                    'type' => [
                                         new Constraints\NotNull(),
-                                        new Constraints\Type(array('type' => 'int')),
-                                    ),
-                                    'value' => array(
+                                        new Constraints\Type(['type' => 'int']),
+                                    ],
+                                    'value' => [
                                         new Constraints\NotNull(),
-                                        new Constraints\Type(array('type' => 'scalar')),
-                                    ),
-                                    'value_type' => array(
+                                        new Constraints\Type(['type' => 'scalar']),
+                                    ],
+                                    'value_type' => [
                                         new Constraints\NotBlank(),
-                                        new Constraints\Type(array('type' => 'string')),
-                                    ),
+                                        new Constraints\Type(['type' => 'string']),
+                                    ],
                                     'position' => new Constraints\Optional(
-                                        array(
+                                        [
                                             new Constraints\NotNull(),
-                                            new Constraints\Type(array('type' => 'int')),
-                                        )
+                                            new Constraints\Type(['type' => 'int']),
+                                        ]
                                     ),
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    )
+                    ]
                 ),
-            ),
+            ],
             'items'
         );
 
@@ -88,18 +88,18 @@ final class BlockCollectionValidator extends Validator
     {
         $this->validate(
             $newType,
-            array(
+            [
                 new Constraints\NotBlank(),
                 new Constraints\Choice(
-                    array(
-                        'choices' => array(
+                    [
+                        'choices' => [
                             Collection::TYPE_MANUAL,
                             Collection::TYPE_DYNAMIC,
-                        ),
+                        ],
                         'strict' => true,
-                    )
+                    ]
                 ),
-            ),
+            ],
             'new_type'
         );
 
@@ -119,7 +119,7 @@ final class BlockCollectionValidator extends Validator
                 );
             }
         } elseif ($newType === Collection::TYPE_MANUAL) {
-            if ($collectionConfig->getValidItemTypes() === array()) {
+            if ($collectionConfig->getValidItemTypes() === []) {
                 throw ValidationException::validationFailed(
                     'new_type',
                     'Selected block does not allow manual collections.'

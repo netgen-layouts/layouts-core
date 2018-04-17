@@ -31,15 +31,15 @@ final class ViewTypeTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $block = new Block(
-            array(
+            [
                 'viewType' => 'default',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => $block,
-            )
+            ]
         );
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
@@ -52,13 +52,13 @@ final class ViewTypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('small'), false),
-            array(array('default'), true),
-            array(array('small', 'large'), false),
-            array(array('small', 'default'), true),
-        );
+        return [
+            [[], false],
+            [['small'], false],
+            [['default'], true],
+            [['small', 'large'], false],
+            [['small', 'default'], true],
+        ];
     }
 
     /**
@@ -66,6 +66,6 @@ final class ViewTypeTest extends TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

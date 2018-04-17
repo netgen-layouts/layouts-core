@@ -37,29 +37,29 @@ final class ChoiceMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
-                'options' => array(
+                'options' => [
                     'multiple' => true,
                     'expanded' => true,
-                    'options' => array(
+                    'options' => [
                         'Option 1' => 'option1',
                         'Option 2' => 'option2',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'multiple' => true,
                 'expanded' => true,
-                'choices' => array(
+                'choices' => [
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
-                ),
-            ) + $this->getChoicesAsValuesOption(),
+                ],
+            ] + $this->getChoicesAsValuesOption(),
             $this->mapper->mapOptions($parameterDefinition)
         );
     }
@@ -70,31 +70,31 @@ final class ChoiceMapperTest extends TestCase
     public function testMapOptionsWithClosure()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
-                'options' => array(
+                'options' => [
                     'multiple' => true,
                     'expanded' => true,
                     'options' => function () {
-                        return array(
+                        return [
                             'Option 1' => 'option1',
                             'Option 2' => 'option2',
-                        );
+                        ];
                     },
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'multiple' => true,
                 'expanded' => true,
-                'choices' => array(
+                'choices' => [
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
-                ),
-            ) + $this->getChoicesAsValuesOption(),
+                ],
+            ] + $this->getChoicesAsValuesOption(),
             $this->mapper->mapOptions($parameterDefinition)
         );
     }

@@ -61,7 +61,7 @@ final class BlockHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -70,24 +70,24 @@ final class BlockHandlerTest extends TestCase
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 3,
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'number_of_columns' => 3,
-                        ),
-                    ),
-                    'config' => array(),
+                        ],
+                    ],
+                    'config' => [],
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED)
         );
@@ -164,9 +164,9 @@ final class BlockHandlerTest extends TestCase
     public function testLoadChildBlocks()
     {
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 31,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -180,22 +180,22 @@ final class BlockHandlerTest extends TestCase
                         'name' => 'My published block',
                         'isTranslatable' => true,
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'mainLocale' => 'en',
                         'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
                 new Block(
-                    array(
+                    [
                         'id' => 35,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -209,18 +209,18 @@ final class BlockHandlerTest extends TestCase
                         'name' => 'My fourth block',
                         'isTranslatable' => false,
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en'),
+                        'availableLocales' => ['en'],
                         'mainLocale' => 'en',
                         'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED)
             )
@@ -234,9 +234,9 @@ final class BlockHandlerTest extends TestCase
     public function testLoadChildBlocksInPlaceholder()
     {
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 37,
                         'layoutId' => 2,
                         'depth' => 2,
@@ -250,18 +250,18 @@ final class BlockHandlerTest extends TestCase
                         'name' => 'My seventh block',
                         'isTranslatable' => false,
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en'),
+                        'availableLocales' => ['en'],
                         'mainLocale' => 'en',
                         'status' => Value::STATUS_DRAFT,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'content' => 'Text',
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
                 'left'
@@ -291,13 +291,13 @@ final class BlockHandlerTest extends TestCase
     {
         $this->assertEquals(
             new CollectionReference(
-                array(
+                [
                     'blockId' => 31,
                     'blockStatus' => Value::STATUS_DRAFT,
                     'collectionId' => 1,
                     'collectionStatus' => Value::STATUS_DRAFT,
                     'identifier' => 'default',
-                )
+                ]
             ),
             $this->blockHandler->loadCollectionReference(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -327,26 +327,26 @@ final class BlockHandlerTest extends TestCase
     public function testLoadCollectionReferences()
     {
         $this->assertEquals(
-            array(
+            [
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 31,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 1,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                    )
+                    ]
                 ),
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 31,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 3,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'featured',
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadCollectionReferences(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
             )
@@ -371,17 +371,17 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->parameters = array(
+        $blockCreateStruct->parameters = [
             'a_param' => 'A value',
-        );
+        ];
 
-        $blockCreateStruct->config = array(
+        $blockCreateStruct->config = [
             'config_param' => 'Config value',
-        );
+        ];
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -396,20 +396,20 @@ final class BlockHandlerTest extends TestCase
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'a_param' => 'A value',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'a_param' => 'A value',
-                        ),
-                    ),
-                    'config' => array(
+                        ],
+                    ],
+                    'config' => [
                         'config_param' => 'Config value',
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
@@ -437,7 +437,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -451,27 +451,27 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr', 'de'),
+                    'availableLocales' => ['en', 'hr', 'de'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                        'de' => array(
+                        ],
+                        'de' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $block
         );
@@ -491,7 +491,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -505,26 +505,26 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr', 'de'),
+                    'availableLocales' => ['en', 'hr', 'de'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                        'de' => array(
+                        ],
+                        'de' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $block
         );
@@ -577,17 +577,17 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->parameters = array(
+        $blockCreateStruct->parameters = [
             'a_param' => 'A value',
-        );
+        ];
 
-        $blockCreateStruct->config = array(
+        $blockCreateStruct->config = [
             'config_param' => 'Config value',
-        );
+        ];
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 0,
@@ -602,17 +602,17 @@ final class BlockHandlerTest extends TestCase
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'a_param' => 'A value',
-                        ),
-                    ),
-                    'config' => array(
+                        ],
+                    ],
+                    'config' => [
                         'config_param' => 'Config value',
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
@@ -637,17 +637,17 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->parameters = array(
+        $blockCreateStruct->parameters = [
             'a_param' => 'A value',
-        );
+        ];
 
-        $blockCreateStruct->config = array(
+        $blockCreateStruct->config = [
             'config' => 'Config value',
-        );
+        ];
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -662,20 +662,20 @@ final class BlockHandlerTest extends TestCase
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'a_param' => 'A value',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'a_param' => 'A value',
-                        ),
-                    ),
-                    'config' => array(
+                        ],
+                    ],
+                    'config' => [
                         'config' => 'Config value',
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
@@ -704,9 +704,9 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->parameters = array(
+        $blockCreateStruct->parameters = [
             'a_param' => 'A value',
-        );
+        ];
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
@@ -734,9 +734,9 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->parameters = array(
+        $blockCreateStruct->parameters = [
             'a_param' => 'A value',
-        );
+        ];
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
@@ -764,9 +764,9 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->parameters = array(
+        $blockCreateStruct->parameters = [
             'a_param' => 'A value',
-        );
+        ];
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
@@ -788,22 +788,22 @@ final class BlockHandlerTest extends TestCase
         $reference = $this->blockHandler->createCollectionReference(
             $block,
             new CollectionReferenceCreateStruct(
-                array(
+                [
                     'identifier' => 'new',
                     'collection' => $collection,
-                )
+                ]
             )
         );
 
         $this->assertEquals(
             new CollectionReference(
-                array(
+                [
                     'blockId' => $block->id,
                     'blockStatus' => $block->status,
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => 'new',
-                )
+                ]
             ),
             $reference
         );
@@ -819,14 +819,14 @@ final class BlockHandlerTest extends TestCase
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
         $blockUpdateStruct->name = 'Updated name';
-        $blockUpdateStruct->config = array('config');
+        $blockUpdateStruct->config = ['config'];
         $blockUpdateStruct->isTranslatable = false;
         $blockUpdateStruct->alwaysAvailable = false;
-        $blockUpdateStruct->config = array('config');
+        $blockUpdateStruct->config = ['config'];
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -840,22 +840,22 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'Updated name',
                     'isTranslatable' => false,
                     'alwaysAvailable' => false,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array('config'),
-                )
+                        ],
+                    ],
+                    'config' => ['config'],
+                ]
             ),
             $this->blockHandler->updateBlock(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -874,7 +874,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -889,21 +889,21 @@ final class BlockHandlerTest extends TestCase
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->updateBlock(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -920,14 +920,14 @@ final class BlockHandlerTest extends TestCase
     {
         $translationUpdateStruct = new TranslationUpdateStruct();
 
-        $translationUpdateStruct->parameters = array(
+        $translationUpdateStruct->parameters = [
             'number_of_columns' => 4,
             'some_param' => 'Some value',
-        );
+        ];
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -941,21 +941,21 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 4,
                             'some_param' => 'Some value',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->updateBlockTranslation(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -975,7 +975,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -989,22 +989,22 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->updateBlockTranslation(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -1069,7 +1069,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1083,47 +1083,47 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
 
         $this->assertEquals(
-            array(
+            [
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                    )
+                    ]
                 ),
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 8,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'featured',
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadCollectionReferences($copiedBlock)
         );
     }
@@ -1146,7 +1146,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1160,22 +1160,22 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
@@ -1199,7 +1199,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1213,22 +1213,22 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
@@ -1252,7 +1252,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1266,22 +1266,22 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
@@ -1305,7 +1305,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1319,16 +1319,16 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My fourth block',
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 3,
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
@@ -1381,7 +1381,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 2,
                     'depth' => 1,
@@ -1395,14 +1395,14 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My third block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(),
-                    ),
-                    'config' => array(),
-                )
+                    'parameters' => [
+                        'en' => [],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
@@ -1411,7 +1411,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 40,
                     'layoutId' => 2,
                     'depth' => 2,
@@ -1425,32 +1425,32 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My seventh block',
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'content' => 'Text',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedSubBlock
         );
 
         $this->assertEquals(
-            array(
+            [
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 40,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadCollectionReferences($copiedSubBlock)
         );
     }
@@ -1472,7 +1472,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => 2,
                     'depth' => 1,
@@ -1486,47 +1486,47 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $copiedBlock
         );
 
         $this->assertEquals(
-            array(
+            [
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                    )
+                    ]
                 ),
                 new CollectionReference(
-                    array(
+                    [
                         'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 8,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'featured',
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadCollectionReferences($copiedBlock)
         );
     }
@@ -1568,7 +1568,7 @@ final class BlockHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 33,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1582,14 +1582,14 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My third block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(),
-                    ),
-                    'config' => array(),
-                )
+                    'parameters' => [
+                        'en' => [],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->moveBlock(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
@@ -1601,7 +1601,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 37,
                     'layoutId' => 1,
                     'depth' => 2,
@@ -1615,16 +1615,16 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My seventh block',
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'content' => 'Text',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT)
         );
@@ -1714,7 +1714,7 @@ final class BlockHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1728,22 +1728,22 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'css_class' => 'css-class-hr',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->moveBlockToPosition(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -1764,7 +1764,7 @@ final class BlockHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 35,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1778,16 +1778,16 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My fourth block',
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 3,
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->moveBlockToPosition(
                 $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
@@ -1845,7 +1845,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1859,19 +1859,19 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My published block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 3,
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'number_of_columns' => 3,
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $block
         );
@@ -1880,10 +1880,10 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertCount(2, $collectionReferences);
 
-        $collectionIds = array(
+        $collectionIds = [
             $collectionReferences[0]->collectionId,
             $collectionReferences[1]->collectionId,
-        );
+        ];
 
         $this->assertContains(2, $collectionIds);
         $this->assertContains(3, $collectionIds);
@@ -1907,7 +1907,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1922,18 +1922,18 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My published block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'mainLocale' => 'en',
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 3,
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'number_of_columns' => 3,
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $restoredBlock
         );
@@ -2031,7 +2031,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 31,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -2045,18 +2045,18 @@ final class BlockHandlerTest extends TestCase
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'number_of_columns' => 2,
                             'css_class' => 'css-class',
                             'css_id' => 'css-id',
-                        ),
-                    ),
-                    'config' => array(),
-                )
+                        ],
+                    ],
+                    'config' => [],
+                ]
             ),
             $block
         );
@@ -2131,7 +2131,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testDeleteBlocks()
     {
-        $this->blockHandler->deleteBlocks(array(31, 32));
+        $this->blockHandler->deleteBlocks([31, 32]);
 
         try {
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -2191,7 +2191,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testDeleteBlocksInStatus()
     {
-        $this->blockHandler->deleteBlocks(array(31, 32), Value::STATUS_PUBLISHED);
+        $this->blockHandler->deleteBlocks([31, 32], Value::STATUS_PUBLISHED);
 
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
         $this->assertInstanceOf(Block::class, $block);

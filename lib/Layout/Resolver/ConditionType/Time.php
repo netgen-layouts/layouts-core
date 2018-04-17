@@ -17,25 +17,25 @@ final class Time implements ConditionTypeInterface
 
     public function getConstraints()
     {
-        return array(
+        return [
             new Constraints\NotBlank(),
             new Constraints\Collection(
-                array(
-                    'fields' => array(
+                [
+                    'fields' => [
                         'from' => new Constraints\Required(
-                            array(
+                            [
                                 new DateTimeConstraint(),
-                            )
+                            ]
                         ),
                         'to' => new Constraints\Required(
-                            array(
+                            [
                                 new DateTimeConstraint(),
-                            )
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function matches(Request $request, $value)

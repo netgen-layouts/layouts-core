@@ -33,61 +33,61 @@ final class DesignEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $handler = new BlockDefinitionHandler(array('design'));
+        $handler = new BlockDefinitionHandler(['design']);
 
         $this->definition = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'block_definition',
                 'handler' => $handler,
-                'forms' => array(
+                'forms' => [
                     'design' => new Form(
-                        array(
+                        [
                             'identifier' => 'design',
                             'type' => DesignEditType::class,
-                        )
+                        ]
                     ),
-                ),
-                'viewTypes' => array(
+                ],
+                'viewTypes' => [
                     'large' => new ViewType(
-                        array(
+                        [
                             'identifier' => 'large',
                             'name' => 'Large',
-                            'itemViewTypes' => array(
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(
-                                    array(
+                                    [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    )
+                                    ]
                                 ),
                                 'other' => new ItemViewType(
-                                    array(
+                                    [
                                         'identifier' => 'other',
                                         'name' => 'Other',
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
                     'small' => new ViewType(
-                        array(
+                        [
                             'identifier' => 'large',
                             'name' => 'Large',
-                            'itemViewTypes' => array(
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(
-                                    array(
+                                    [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
+                ],
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            )
+            ]
         );
 
-        $this->block = new Block(array('definition' => $this->definition));
+        $this->block = new Block(['definition' => $this->definition]);
     }
 
     /**
@@ -103,7 +103,7 @@ final class DesignEditTypeTest extends FormTestCase
      */
     public function getTypeExtensions()
     {
-        return array(new ParametersTypeExtension());
+        return [new ParametersTypeExtension()];
     }
 
     /**
@@ -114,7 +114,7 @@ final class DesignEditTypeTest extends FormTestCase
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
 
-        return array(new ParametersType($formMapperRegistry));
+        return [new ParametersType($formMapperRegistry)];
     }
 
     /**
@@ -126,13 +126,13 @@ final class DesignEditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'parameters' => array(
+        $submittedData = [
+            'parameters' => [
                 'css_class' => 'Some CSS class',
-            ),
+            ],
             'view_type' => 'large',
             'item_view_type' => 'standard',
-        );
+        ];
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->viewType = 'large';
@@ -142,7 +142,7 @@ final class DesignEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             DesignEditType::class,
             new BlockUpdateStruct(),
-            array('block' => $this->block)
+            ['block' => $this->block]
         );
 
         $form->submit($submittedData);
@@ -174,15 +174,15 @@ final class DesignEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             DesignEditType::class,
-            new BlockUpdateStruct(array('locale' => 'hr')),
-            array(
+            new BlockUpdateStruct(['locale' => 'hr']),
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertTrue($form->get('view_type')->isDisabled());
@@ -205,15 +205,15 @@ final class DesignEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             DesignEditType::class,
-            new BlockUpdateStruct(array('locale' => 'en')),
-            array(
+            new BlockUpdateStruct(['locale' => 'en']),
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($form->get('view_type')->isDisabled());
@@ -235,10 +235,10 @@ final class DesignEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'block' => $this->block,
                 'data' => new BlockUpdateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->block, $options['block']);
@@ -273,9 +273,9 @@ final class DesignEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'block' => '',
-            )
+            ]
         );
     }
 
@@ -292,10 +292,10 @@ final class DesignEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'block' => $this->block,
                 'data' => '',
-            )
+            ]
         );
     }
 }

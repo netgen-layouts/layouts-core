@@ -135,5 +135,5 @@ interface ViewInterface
      *
      * @param array $parameters
      */
-    public function addParameters(array $parameters = array());
+    public function addParameters(array $parameters = []);
 }

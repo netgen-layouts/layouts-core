@@ -13,69 +13,69 @@ final class Version000700 extends AbstractMigration
 
         $layoutTable = $schema->createTable('ngbm_layout');
 
-        $layoutTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $layoutTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $layoutTable->addColumn('status', 'integer');
-        $layoutTable->addColumn('type', 'string', array('length' => 255));
-        $layoutTable->addColumn('name', 'string', array('length' => 255));
+        $layoutTable->addColumn('type', 'string', ['length' => 255]);
+        $layoutTable->addColumn('name', 'string', ['length' => 255]);
         $layoutTable->addColumn('created', 'integer');
         $layoutTable->addColumn('modified', 'integer');
         $layoutTable->addColumn('shared', 'boolean');
 
-        $layoutTable->setPrimaryKey(array('id', 'status'));
+        $layoutTable->setPrimaryKey(['id', 'status']);
 
-        $layoutTable->addIndex(array('name'));
+        $layoutTable->addIndex(['name']);
 
         // ngbm_block table
 
         $blockTable = $schema->createTable('ngbm_block');
 
-        $blockTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $blockTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $blockTable->addColumn('status', 'integer');
         $blockTable->addColumn('layout_id', 'integer');
         $blockTable->addColumn('depth', 'integer');
-        $blockTable->addColumn('path', 'string', array('length' => 255));
-        $blockTable->addColumn('parent_id', 'integer', array('notnull' => false));
-        $blockTable->addColumn('placeholder', 'string', array('length' => 255, 'notnull' => false));
-        $blockTable->addColumn('position', 'integer', array('notnull' => false));
-        $blockTable->addColumn('definition_identifier', 'string', array('length' => 255));
-        $blockTable->addColumn('view_type', 'string', array('length' => 255));
-        $blockTable->addColumn('item_view_type', 'string', array('length' => 255));
-        $blockTable->addColumn('name', 'string', array('length' => 255));
-        $blockTable->addColumn('placeholder_parameters', 'text', array('length' => 65535));
-        $blockTable->addColumn('parameters', 'text', array('length' => 65535));
+        $blockTable->addColumn('path', 'string', ['length' => 255]);
+        $blockTable->addColumn('parent_id', 'integer', ['notnull' => false]);
+        $blockTable->addColumn('placeholder', 'string', ['length' => 255, 'notnull' => false]);
+        $blockTable->addColumn('position', 'integer', ['notnull' => false]);
+        $blockTable->addColumn('definition_identifier', 'string', ['length' => 255]);
+        $blockTable->addColumn('view_type', 'string', ['length' => 255]);
+        $blockTable->addColumn('item_view_type', 'string', ['length' => 255]);
+        $blockTable->addColumn('name', 'string', ['length' => 255]);
+        $blockTable->addColumn('placeholder_parameters', 'text', ['length' => 65535]);
+        $blockTable->addColumn('parameters', 'text', ['length' => 65535]);
 
-        $blockTable->setPrimaryKey(array('id', 'status'));
-        $blockTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
+        $blockTable->setPrimaryKey(['id', 'status']);
+        $blockTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status']);
 
-        $blockTable->addIndex(array('parent_id', 'placeholder', 'status'));
+        $blockTable->addIndex(['parent_id', 'placeholder', 'status']);
 
         // ngbm_zone table
 
         $zoneTable = $schema->createTable('ngbm_zone');
 
-        $zoneTable->addColumn('identifier', 'string', array('length' => 255));
+        $zoneTable->addColumn('identifier', 'string', ['length' => 255]);
         $zoneTable->addColumn('layout_id', 'integer');
         $zoneTable->addColumn('status', 'integer');
         $zoneTable->addColumn('root_block_id', 'integer');
-        $zoneTable->addColumn('linked_layout_id', 'integer', array('notnull' => false));
-        $zoneTable->addColumn('linked_zone_identifier', 'string', array('length' => 255, 'notnull' => false));
+        $zoneTable->addColumn('linked_layout_id', 'integer', ['notnull' => false]);
+        $zoneTable->addColumn('linked_zone_identifier', 'string', ['length' => 255, 'notnull' => false]);
 
-        $zoneTable->setPrimaryKey(array('identifier', 'layout_id', 'status'));
-        $zoneTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
-        $zoneTable->addForeignKeyConstraint('ngbm_block', array('root_block_id', 'status'), array('id', 'status'));
+        $zoneTable->setPrimaryKey(['identifier', 'layout_id', 'status']);
+        $zoneTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status']);
+        $zoneTable->addForeignKeyConstraint('ngbm_block', ['root_block_id', 'status'], ['id', 'status']);
 
         // ngbm_rule table
 
         $ruleTable = $schema->createTable('ngbm_rule');
 
-        $ruleTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $ruleTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $ruleTable->addColumn('status', 'integer');
-        $ruleTable->addColumn('layout_id', 'integer', array('notnull' => false));
-        $ruleTable->addColumn('comment', 'string', array('length' => 255, 'notnull' => false));
+        $ruleTable->addColumn('layout_id', 'integer', ['notnull' => false]);
+        $ruleTable->addColumn('comment', 'string', ['length' => 255, 'notnull' => false]);
 
-        $ruleTable->setPrimaryKey(array('id', 'status'));
+        $ruleTable->setPrimaryKey(['id', 'status']);
 
-        $ruleTable->addIndex(array('layout_id'));
+        $ruleTable->addIndex(['layout_id']);
 
         // ngbm_rule_data table
 
@@ -85,87 +85,87 @@ final class Version000700 extends AbstractMigration
         $ruleDataTable->addColumn('enabled', 'boolean');
         $ruleDataTable->addColumn('priority', 'integer');
 
-        $ruleDataTable->setPrimaryKey(array('rule_id'));
+        $ruleDataTable->setPrimaryKey(['rule_id']);
 
         // ngbm_rule_target table
 
         $ruleTargetTable = $schema->createTable('ngbm_rule_target');
 
-        $ruleTargetTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $ruleTargetTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $ruleTargetTable->addColumn('status', 'integer');
         $ruleTargetTable->addColumn('rule_id', 'integer');
-        $ruleTargetTable->addColumn('type', 'string', array('length' => 255));
-        $ruleTargetTable->addColumn('value', 'text', array('length' => 65535, 'notnull' => false));
+        $ruleTargetTable->addColumn('type', 'string', ['length' => 255]);
+        $ruleTargetTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
 
-        $ruleTargetTable->setPrimaryKey(array('id', 'status'));
-        $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
+        $ruleTargetTable->setPrimaryKey(['id', 'status']);
+        $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status']);
 
-        $ruleTargetTable->addIndex(array('rule_id', 'status'));
-        $ruleTargetTable->addIndex(array('type'));
+        $ruleTargetTable->addIndex(['rule_id', 'status']);
+        $ruleTargetTable->addIndex(['type']);
 
         // ngbm_rule_condition table
 
         $ruleConditionTable = $schema->createTable('ngbm_rule_condition');
 
-        $ruleConditionTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $ruleConditionTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $ruleConditionTable->addColumn('status', 'integer');
         $ruleConditionTable->addColumn('rule_id', 'integer');
-        $ruleConditionTable->addColumn('type', 'string', array('length' => 255));
-        $ruleConditionTable->addColumn('value', 'text', array('length' => 65535, 'notnull' => false));
+        $ruleConditionTable->addColumn('type', 'string', ['length' => 255]);
+        $ruleConditionTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
 
-        $ruleConditionTable->setPrimaryKey(array('id', 'status'));
-        $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
+        $ruleConditionTable->setPrimaryKey(['id', 'status']);
+        $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status']);
 
-        $ruleConditionTable->addIndex(array('rule_id', 'status'));
+        $ruleConditionTable->addIndex(['rule_id', 'status']);
 
         // ngbm_collection table
 
         $collectionTable = $schema->createTable('ngbm_collection');
 
-        $collectionTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $collectionTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $collectionTable->addColumn('status', 'integer');
         $collectionTable->addColumn('type', 'integer');
         $collectionTable->addColumn('shared', 'boolean');
-        $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
+        $collectionTable->addColumn('name', 'string', ['length' => 255, 'notnull' => false]);
 
-        $collectionTable->setPrimaryKey(array('id', 'status'));
+        $collectionTable->setPrimaryKey(['id', 'status']);
 
-        $collectionTable->addIndex(array('name'));
+        $collectionTable->addIndex(['name']);
 
         // ngbm_collection_item table
 
         $collectionItemTable = $schema->createTable('ngbm_collection_item');
 
-        $collectionItemTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $collectionItemTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $collectionItemTable->addColumn('status', 'integer');
         $collectionItemTable->addColumn('collection_id', 'integer');
         $collectionItemTable->addColumn('position', 'integer');
         $collectionItemTable->addColumn('type', 'integer');
-        $collectionItemTable->addColumn('value_id', 'string', array('length' => 255));
-        $collectionItemTable->addColumn('value_type', 'string', array('length' => 255));
+        $collectionItemTable->addColumn('value_id', 'string', ['length' => 255]);
+        $collectionItemTable->addColumn('value_type', 'string', ['length' => 255]);
 
-        $collectionItemTable->setPrimaryKey(array('id', 'status'));
-        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
+        $collectionItemTable->setPrimaryKey(['id', 'status']);
+        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status']);
 
-        $collectionItemTable->addIndex(array('collection_id', 'status'));
+        $collectionItemTable->addIndex(['collection_id', 'status']);
 
         // ngbm_collection_query table
 
         $collectionQueryTable = $schema->createTable('ngbm_collection_query');
 
-        $collectionQueryTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $collectionQueryTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $collectionQueryTable->addColumn('status', 'integer');
         $collectionQueryTable->addColumn('collection_id', 'integer');
         $collectionQueryTable->addColumn('position', 'integer');
-        $collectionQueryTable->addColumn('identifier', 'string', array('length' => 255));
-        $collectionQueryTable->addColumn('type', 'string', array('length' => 255));
-        $collectionQueryTable->addColumn('parameters', 'text', array('length' => 65535));
+        $collectionQueryTable->addColumn('identifier', 'string', ['length' => 255]);
+        $collectionQueryTable->addColumn('type', 'string', ['length' => 255]);
+        $collectionQueryTable->addColumn('parameters', 'text', ['length' => 65535]);
 
-        $collectionQueryTable->setPrimaryKey(array('id', 'status'));
-        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
+        $collectionQueryTable->setPrimaryKey(['id', 'status']);
+        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status']);
 
-        $collectionQueryTable->addIndex(array('collection_id', 'status'));
-        $collectionQueryTable->addIndex(array('collection_id', 'status', 'identifier'));
+        $collectionQueryTable->addIndex(['collection_id', 'status']);
+        $collectionQueryTable->addIndex(['collection_id', 'status', 'identifier']);
 
         // ngbm_block_collection table
 
@@ -175,13 +175,13 @@ final class Version000700 extends AbstractMigration
         $blockCollectionTable->addColumn('block_status', 'integer');
         $blockCollectionTable->addColumn('collection_id', 'integer');
         $blockCollectionTable->addColumn('collection_status', 'integer');
-        $blockCollectionTable->addColumn('identifier', 'string', array('length' => 255));
+        $blockCollectionTable->addColumn('identifier', 'string', ['length' => 255]);
         $blockCollectionTable->addColumn('start', 'integer');
-        $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
+        $blockCollectionTable->addColumn('length', 'integer', ['notnull' => false]);
 
-        $blockCollectionTable->setPrimaryKey(array('block_id', 'block_status', 'identifier'));
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', array('block_id', 'block_status'), array('id', 'status'));
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'collection_status'), array('id', 'status'));
+        $blockCollectionTable->setPrimaryKey(['block_id', 'block_status', 'identifier']);
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', ['block_id', 'block_status'], ['id', 'status']);
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'collection_status'], ['id', 'status']);
     }
 
     public function down(Schema $schema)

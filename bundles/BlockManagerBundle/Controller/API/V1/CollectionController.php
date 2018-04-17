@@ -45,7 +45,7 @@ final class CollectionController extends Controller
      */
     public function loadCollectionItems(Collection $collection)
     {
-        $items = array();
+        $items = [];
         foreach ($collection->getItems() as $item) {
             $items[] = new VersionedValue($item, Version::API_V1);
         }

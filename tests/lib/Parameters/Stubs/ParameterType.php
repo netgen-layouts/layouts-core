@@ -15,6 +15,6 @@ final class ParameterType extends BaseParameterType
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(new NotNull());
+        return [new NotNull()];
     }
 }

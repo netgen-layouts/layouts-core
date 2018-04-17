@@ -34,17 +34,17 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
 
-        $designList = array(
-            'design1' => array('theme1', 'theme2'),
-            'design2' => array('theme2', 'theme3'),
-        );
+        $designList = [
+            'design1' => ['theme1', 'theme2'],
+            'design2' => ['theme2', 'theme3'],
+        ];
 
         $this->setParameter(
             'kernel.bundles_metadata',
-            array(
-                'App\First' => array('path' => '/tmp/ngbm/bundles/first'),
-                'App\Second' => array('path' => '/tmp/ngbm/bundles/second'),
-            )
+            [
+                'App\First' => ['path' => '/tmp/ngbm/bundles/first'],
+                'App\Second' => ['path' => '/tmp/ngbm/bundles/second'],
+            ]
         );
 
         $this->setParameter('kernel.project_dir', '/tmp/ngbm');
@@ -58,25 +58,25 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         $designList['design1'][] = 'standard';
         $designList['design2'][] = 'standard';
 
-        $themeDirs = array(
-            'theme1' => array(
+        $themeDirs = [
+            'theme1' => [
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/theme1',
                 '/tmp/ngbm/bundles/first/Resources/views/ngbm/themes/theme1',
-            ),
-            'theme2' => array(
+            ],
+            'theme2' => [
                 '/tmp/ngbm/templates/ngbm/themes/theme2',
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/theme2',
-            ),
-            'theme3' => array(
+            ],
+            'theme3' => [
                 '/tmp/ngbm/app/Resources/views/ngbm/themes/theme3',
                 '/tmp/ngbm/templates/ngbm/themes/theme3',
                 '/tmp/ngbm/bundles/first/Resources/views/ngbm/themes/theme3',
-            ),
-            'standard' => array(
+            ],
+            'standard' => [
                 '/tmp/ngbm/app/Resources/views/ngbm/themes/standard',
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/standard',
-            ),
-        );
+            ],
+        ];
 
         $index = -1;
         foreach ($designList as $designName => $themes) {
@@ -85,7 +85,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
                     $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
-                        array($themeDir, 'ngbm_' . $designName),
+                        [$themeDir, 'ngbm_' . $designName],
                         ++$index
                     );
                 }
@@ -102,17 +102,17 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
 
-        $designList = array(
-            'design1' => array('theme1', 'theme2'),
-            'design2' => array('theme2', 'theme3'),
-        );
+        $designList = [
+            'design1' => ['theme1', 'theme2'],
+            'design2' => ['theme2', 'theme3'],
+        ];
 
         $this->setParameter(
             'kernel.bundles_metadata',
-            array(
-                'App\First' => array('path' => '/tmp/ngbm/bundles/first'),
-                'App\Second' => array('path' => '/tmp/ngbm/bundles/second'),
-            )
+            [
+                'App\First' => ['path' => '/tmp/ngbm/bundles/first'],
+                'App\Second' => ['path' => '/tmp/ngbm/bundles/second'],
+            ]
         );
 
         $this->setParameter('kernel.project_dir', '/tmp/ngbm');
@@ -125,23 +125,23 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         $designList['design1'][] = 'standard';
         $designList['design2'][] = 'standard';
 
-        $themeDirs = array(
-            'theme1' => array(
+        $themeDirs = [
+            'theme1' => [
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/theme1',
                 '/tmp/ngbm/bundles/first/Resources/views/ngbm/themes/theme1',
-            ),
-            'theme2' => array(
+            ],
+            'theme2' => [
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/theme2',
-            ),
-            'theme3' => array(
+            ],
+            'theme3' => [
                 '/tmp/ngbm/app/Resources/views/ngbm/themes/theme3',
                 '/tmp/ngbm/bundles/first/Resources/views/ngbm/themes/theme3',
-            ),
-            'standard' => array(
+            ],
+            'standard' => [
                 '/tmp/ngbm/app/Resources/views/ngbm/themes/standard',
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/standard',
-            ),
-        );
+            ],
+        ];
 
         $index = -1;
         foreach ($designList as $designName => $themes) {
@@ -150,7 +150,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
                     $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
-                        array($themeDir, 'ngbm_' . $designName),
+                        [$themeDir, 'ngbm_' . $designName],
                         ++$index
                     );
                 }
@@ -167,17 +167,17 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
 
-        $designList = array(
-            'design1' => array('theme1', 'theme2'),
-            'design2' => array('theme2', 'theme3'),
-        );
+        $designList = [
+            'design1' => ['theme1', 'theme2'],
+            'design2' => ['theme2', 'theme3'],
+        ];
 
         $this->setParameter(
             'kernel.bundles_metadata',
-            array(
-                'App\First' => array('path' => '/tmp/ngbm/bundles/first'),
-                'App\Second' => array('path' => '/tmp/ngbm/bundles/second'),
-            )
+            [
+                'App\First' => ['path' => '/tmp/ngbm/bundles/first'],
+                'App\Second' => ['path' => '/tmp/ngbm/bundles/second'],
+            ]
         );
 
         $this->setParameter('kernel.root_dir', '/tmp/ngbm/app');
@@ -190,23 +190,23 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         $designList['design1'][] = 'standard';
         $designList['design2'][] = 'standard';
 
-        $themeDirs = array(
-            'theme1' => array(
+        $themeDirs = [
+            'theme1' => [
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/theme1',
                 '/tmp/ngbm/bundles/first/Resources/views/ngbm/themes/theme1',
-            ),
-            'theme2' => array(
+            ],
+            'theme2' => [
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/theme2',
-            ),
-            'theme3' => array(
+            ],
+            'theme3' => [
                 '/tmp/ngbm/app/Resources/views/ngbm/themes/theme3',
                 '/tmp/ngbm/bundles/first/Resources/views/ngbm/themes/theme3',
-            ),
-            'standard' => array(
+            ],
+            'standard' => [
                 '/tmp/ngbm/app/Resources/views/ngbm/themes/standard',
                 '/tmp/ngbm/bundles/second/Resources/views/ngbm/themes/standard',
-            ),
-        );
+            ],
+        ];
 
         $index = -1;
         foreach ($designList as $designName => $themes) {
@@ -215,7 +215,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
                     $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
-                        array($themeDir, 'ngbm_' . $designName),
+                        [$themeDir, 'ngbm_' . $designName],
                         ++$index
                     );
                 }

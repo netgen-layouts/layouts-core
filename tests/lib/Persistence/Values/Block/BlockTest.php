@@ -33,7 +33,7 @@ final class BlockTest extends TestCase
     public function testSetProperties()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'layoutId' => 84,
                 'depth' => 2,
@@ -42,18 +42,18 @@ final class BlockTest extends TestCase
                 'placeholder' => 'top',
                 'position' => 4,
                 'definitionIdentifier' => 'text',
-                'parameters' => array(
+                'parameters' => [
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
-                ),
+                ],
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'status' => Value::STATUS_DRAFT,
-            )
+            ]
         );
 
         $this->assertEquals(42, $block->id);
@@ -69,14 +69,14 @@ final class BlockTest extends TestCase
         $this->assertEquals('My block', $block->name);
         $this->assertEquals('en', $block->mainLocale);
         $this->assertTrue($block->alwaysAvailable);
-        $this->assertEquals(array('en'), $block->availableLocales);
+        $this->assertEquals(['en'], $block->availableLocales);
         $this->assertEquals(Value::STATUS_DRAFT, $block->status);
 
         $this->assertEquals(
-            array(
+            [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            ),
+            ],
             $block->parameters
         );
     }

@@ -11,14 +11,14 @@ final class CacheableResolver implements CacheableResolverInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[]
      */
-    private $voters = array();
+    private $voters = [];
 
     /**
      * Sets the available voters.
      *
      * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[] $voters
      */
-    public function setVoters(array $voters = array())
+    public function setVoters(array $voters = [])
     {
         foreach ($voters as $voter) {
             if (!$voter instanceof VoterInterface) {

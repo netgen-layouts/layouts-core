@@ -43,7 +43,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->resultBuilderMock,
                 200
             ),
-            array(ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API)
+            [ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API]
         );
     }
 
@@ -53,7 +53,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(BlockManagerEvents::RENDER_VIEW => 'onRenderView'),
+            [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -65,34 +65,34 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderView()
     {
-        $collection1 = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
+        $collection1 = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference1 = new CollectionReference(
-            array(
+            [
                 'collection' => $collection1,
                 'identifier' => 'collection1',
-            )
+            ]
         );
 
-        $collection2 = new Collection(array('offset' => 5, 'limit' => 10, 'query' => new Query()));
+        $collection2 = new Collection(['offset' => 5, 'limit' => 10, 'query' => new Query()]);
         $collectionReference2 = new CollectionReference(
-            array(
+            [
                 'collection' => $collection2,
                 'identifier' => 'collection2',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => new BlockDefinition(),
-                        'collectionReferences' => array(
+                        'collectionReferences' => [
                             'collection1' => $collectionReference1,
                             'collection2' => $collectionReference2,
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            )
+            ]
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -107,7 +107,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('collection' => $collection1))));
+            ->will($this->returnValue(new ResultSet(['collection' => $collection1])));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
@@ -118,15 +118,15 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(10),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('collection' => $collection2))));
+            ->will($this->returnValue(new ResultSet(['collection' => $collection2])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
-            array(
-                'collection1' => new ResultSet(array('collection' => $collection1)),
-                'collection2' => new ResultSet(array('collection' => $collection2)),
-            ),
+            [
+                'collection1' => new ResultSet(['collection' => $collection1]),
+                'collection2' => new ResultSet(['collection' => $collection2]),
+            ],
             $event->getParameters()['collections']
         );
 
@@ -140,33 +140,33 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithPagedCollection()
     {
-        $collection = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
+        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference = new CollectionReference(
-            array(
+            [
                 'collection' => $collection,
                 'identifier' => 'collection',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => new BlockDefinition(
-                            array(
-                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
-                            )
+                            [
+                                'handlerPlugins' => [new PagedCollectionsPlugin()],
+                            ]
                         ),
-                        'parameters' => array(
-                            'paged_collections:enabled' => new Parameter(array('value' => true)),
-                            'paged_collections:max_pages' => new Parameter(array('value' => 2)),
-                        ),
-                        'collectionReferences' => array(
+                        'parameters' => [
+                            'paged_collections:enabled' => new Parameter(['value' => true]),
+                            'paged_collections:max_pages' => new Parameter(['value' => 2]),
+                        ],
+                        'collectionReferences' => [
                             'collection' => $collectionReference,
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            )
+            ]
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -181,14 +181,14 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 1000, 'collection' => $collection))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
-            array(
-                'collection' => new ResultSet(array('totalCount' => 1000, 'collection' => $collection)),
-            ),
+            [
+                'collection' => new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
+            ],
             $event->getParameters()['collections']
         );
 
@@ -203,33 +203,33 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages()
     {
-        $collection = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
+        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference = new CollectionReference(
-            array(
+            [
                 'collection' => $collection,
                 'identifier' => 'collection',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => new BlockDefinition(
-                            array(
-                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
-                            )
+                            [
+                                'handlerPlugins' => [new PagedCollectionsPlugin()],
+                            ]
                         ),
-                        'parameters' => array(
-                            'paged_collections:enabled' => new Parameter(array('value' => true)),
-                            'paged_collections:max_pages' => new Parameter(array('value' => null)),
-                        ),
-                        'collectionReferences' => array(
+                        'parameters' => [
+                            'paged_collections:enabled' => new Parameter(['value' => true]),
+                            'paged_collections:max_pages' => new Parameter(['value' => null]),
+                        ],
+                        'collectionReferences' => [
                             'collection' => $collectionReference,
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            )
+            ]
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -244,14 +244,14 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 1000, 'collection' => $collection))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
-            array(
-                'collection' => new ResultSet(array('totalCount' => 1000, 'collection' => $collection)),
-            ),
+            [
+                'collection' => new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
+            ],
             $event->getParameters()['collections']
         );
 
@@ -265,32 +265,32 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging()
     {
-        $collection = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
+        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference = new CollectionReference(
-            array(
+            [
                 'collection' => $collection,
                 'identifier' => 'collection',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => new BlockDefinition(
-                            array(
-                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
-                            )
+                            [
+                                'handlerPlugins' => [new PagedCollectionsPlugin()],
+                            ]
                         ),
-                        'parameters' => array(
-                            'paged_collections:enabled' => new Parameter(array('value' => false)),
-                        ),
-                        'collectionReferences' => array(
+                        'parameters' => [
+                            'paged_collections:enabled' => new Parameter(['value' => false]),
+                        ],
+                        'collectionReferences' => [
                             'collection' => $collectionReference,
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            )
+            ]
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -305,14 +305,14 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 1000, 'collection' => $collection))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
-            array(
-                'collection' => new ResultSet(array('totalCount' => 1000, 'collection' => $collection)),
-            ),
+            [
+                'collection' => new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
+            ],
             $event->getParameters()['collections']
         );
 
@@ -326,23 +326,23 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithAPIContext()
     {
-        $collection1 = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
+        $collection1 = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference1 = new CollectionReference(
-            array(
+            [
                 'collection' => $collection1,
                 'identifier' => 'collection1',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => new BlockDefinition(),
-                        'collectionReferences' => array('collection1' => $collectionReference1),
-                    )
+                        'collectionReferences' => ['collection1' => $collectionReference1],
+                    ]
                 ),
-            )
+            ]
         );
 
         $view->setContext(ViewInterface::CONTEXT_API);
@@ -357,14 +357,14 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
             )
-            ->will($this->returnValue(new ResultSet(array('collection' => $collection1))));
+            ->will($this->returnValue(new ResultSet(['collection' => $collection1])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
-            array(
-                'collection1' => new ResultSet(array('collection' => $collection1)),
-            ),
+            [
+                'collection1' => new ResultSet(['collection' => $collection1]),
+            ],
             $event->getParameters()['collections']
         );
 
@@ -376,11 +376,11 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoBlockView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 
     /**
@@ -388,12 +388,12 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithWrongContext()
     {
-        $view = new BlockView(array('block' => new Block()));
+        $view = new BlockView(['block' => new Block()]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 }

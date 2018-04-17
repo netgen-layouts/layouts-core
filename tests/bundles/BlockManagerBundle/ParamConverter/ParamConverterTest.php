@@ -27,13 +27,13 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
+            new Value(['id' => 42, 'status' => Value::STATUS_DRAFT]),
             $request->attributes->get('value')
         );
     }
@@ -46,13 +46,13 @@ final class ParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('id', 42);
         $request->attributes->set('locale', 'en');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'locale' => 'en', 'status' => Value::STATUS_DRAFT)),
+            new Value(['id' => 42, 'locale' => 'en', 'status' => Value::STATUS_DRAFT]),
             $request->attributes->get('value')
         );
     }
@@ -65,13 +65,13 @@ final class ParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('id', 42);
         $request->attributes->set('_ngbm_status', 'published');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'status' => Value::STATUS_PUBLISHED)),
+            new Value(['id' => 42, 'status' => Value::STATUS_PUBLISHED]),
             $request->attributes->get('value')
         );
     }
@@ -84,13 +84,13 @@ final class ParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('id', 42);
         $request->attributes->set('_ngbm_status', 'draft');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
+            new Value(['id' => 42, 'status' => Value::STATUS_DRAFT]),
             $request->attributes->get('value')
         );
     }
@@ -103,13 +103,13 @@ final class ParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('id', 42);
         $request->query->set('published', 'true');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'status' => Value::STATUS_PUBLISHED)),
+            new Value(['id' => 42, 'status' => Value::STATUS_PUBLISHED]),
             $request->attributes->get('value')
         );
     }
@@ -122,13 +122,13 @@ final class ParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('id', 42);
         $request->query->set('published', 'false');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
+            new Value(['id' => 42, 'status' => Value::STATUS_DRAFT]),
             $request->attributes->get('value')
         );
     }
@@ -139,7 +139,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithNoAttribute()
     {
         $request = Request::create('/');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertFalse($this->paramConverter->apply($request, $configuration));
@@ -153,7 +153,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', '');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
         $configuration->setIsOptional(true);
 
@@ -170,7 +170,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', '');
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->paramConverter->apply($request, $configuration);
@@ -181,7 +181,7 @@ final class ParamConverterTest extends TestCase
      */
     public function testSupports()
     {
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
         $this->assertTrue($this->paramConverter->supports($configuration));
@@ -192,7 +192,7 @@ final class ParamConverterTest extends TestCase
      */
     public function testSupportsInvalidClass()
     {
-        $configuration = new ParamConverterConfiguration(array());
+        $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass('Some\Class');
 
         $this->assertFalse($this->paramConverter->supports($configuration));

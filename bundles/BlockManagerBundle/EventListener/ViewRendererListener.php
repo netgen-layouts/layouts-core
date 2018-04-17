@@ -31,7 +31,7 @@ final class ViewRendererListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::VIEW => array('onView', -255));
+        return [KernelEvents::VIEW => ['onView', -255]];
     }
 
     /**

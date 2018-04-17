@@ -27,7 +27,7 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlock()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'id' => 31,
                 'layoutId' => 13,
                 'definitionIdentifier' => 'text',
@@ -38,21 +38,21 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
-                'parameters' => array(
-                    'en' => array(
+                'parameters' => [
+                    'en' => [
                         'css_class' => 'test',
                         'some_param' => 'some_value',
-                    ),
-                ),
-                'config' => array(
-                    'http_cache' => array(
+                    ],
+                ],
+                'config' => [
+                    'http_cache' => [
                         'use_http_cache' => true,
                         'shared_max_age' => 400,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
@@ -86,7 +86,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertTrue($block->isTranslatable());
         $this->assertEquals('en', $block->getMainLocale());
         $this->assertFalse($block->isAlwaysAvailable());
-        $this->assertEquals(array('en'), $block->getAvailableLocales());
+        $this->assertEquals(['en'], $block->getAvailableLocales());
 
         $this->assertEquals('en', $block->getLocale());
 
@@ -102,19 +102,19 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlockWithLocale()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+                'config' => [],
+            ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr'));
+        $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $block->getAvailableLocales());
         $this->assertEquals('hr', $block->getLocale());
     }
 
@@ -126,19 +126,19 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlockWithLocales()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+                'config' => [],
+            ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr', 'en'));
+        $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr', 'en']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $block->getAvailableLocales());
         $this->assertEquals('hr', $block->getLocale());
     }
 
@@ -150,20 +150,20 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlockWithLocalesAndAlwaysAvailable()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+                'config' => [],
+            ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, array('fr', 'no'));
+        $block = $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $block->getAvailableLocales());
         $this->assertEquals('en', $block->getLocale());
     }
 
@@ -177,18 +177,18 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'id' => 42,
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+                'config' => [],
+            ]
         );
 
-        $this->blockMapper->mapBlock($persistenceBlock, array('fr', 'no'), false);
+        $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
     }
 
     /**
@@ -201,18 +201,18 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlockWithLocalesAndNotAlwaysAvailable()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'id' => 42,
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => false,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+                'config' => [],
+            ]
         );
 
-        $this->blockMapper->mapBlock($persistenceBlock, array('fr', 'no'));
+        $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
     }
 
     /**
@@ -223,22 +223,22 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapContainerBlock()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'id' => 33,
                 'definitionIdentifier' => 'two_columns',
                 'status' => Value::STATUS_PUBLISHED,
                 'name' => 'My block',
                 'alwaysAvailable' => false,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
-                'parameters' => array('en' => array()),
-                'config' => array(
-                    'http_cache' => array(
+                'availableLocales' => ['en'],
+                'parameters' => ['en' => []],
+                'config' => [
+                    'http_cache' => [
                         'use_http_cache' => true,
                         'shared_max_age' => 400,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
@@ -271,7 +271,7 @@ abstract class BlockMapperTest extends ServiceTestCase
     public function testMapBlockWithCollectionReferences()
     {
         $persistenceBlock = new Block(
-            array(
+            [
                 'id' => 31,
                 'layoutId' => 13,
                 'definitionIdentifier' => 'text',
@@ -281,21 +281,21 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
-                'parameters' => array(
-                    'en' => array(
+                'parameters' => [
+                    'en' => [
                         'css_class' => 'test',
                         'some_param' => 'some_value',
-                    ),
-                ),
-                'config' => array(
-                    'http_cache' => array(
+                    ],
+                ],
+                'config' => [
+                    'http_cache' => [
                         'use_http_cache' => true,
                         'shared_max_age' => 400,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);

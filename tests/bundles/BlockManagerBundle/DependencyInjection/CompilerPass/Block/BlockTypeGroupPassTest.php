@@ -20,15 +20,15 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
-                    'block_types' => array(),
-                ),
-            )
+                    'block_types' => [],
+                ],
+            ]
         );
 
-        $this->setParameter('netgen_block_manager.block_types', array());
+        $this->setParameter('netgen_block_manager.block_types', []);
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
 
@@ -38,10 +38,10 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_type_group',
             'addBlockTypeGroup',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.block.block_type_group.test'),
-            )
+            ]
         );
     }
 
@@ -54,21 +54,21 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
-                    'block_types' => array('test1', 'test2'),
-                ),
-            )
+                    'block_types' => ['test1', 'test2'],
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'test1' => array(
+            [
+                'test1' => [
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
@@ -79,9 +79,9 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.block_type_group.test',
             2,
-            array(
+            [
                 new Reference('netgen_block_manager.block.block_type.test1'),
-            )
+            ]
         );
     }
 
@@ -94,34 +94,34 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
-                    'block_types' => array('test1'),
-                ),
-                'custom' => array(
+                    'block_types' => ['test1'],
+                ],
+                'custom' => [
                     'enabled' => true,
-                    'block_types' => array(),
-                ),
-            )
+                    'block_types' => [],
+                ],
+            ]
         );
 
         $this->setParameter(
             'netgen_block_manager.block_types',
-            array(
-                'test1' => array(
+            [
+                'test1' => [
                     'enabled' => true,
                     'definition_identifier' => 'test',
-                ),
-                'test2' => array(
+                ],
+                'test2' => [
                     'enabled' => false,
                     'definition_identifier' => 'test',
-                ),
-                'test3' => array(
+                ],
+                'test3' => [
                     'enabled' => true,
                     'definition_identifier' => 'test',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
@@ -132,10 +132,10 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('custom', $blockTypeGroups);
 
         $this->assertEquals(
-            array(
+            [
                 'enabled' => true,
-                'block_types' => array('test2', 'test3'),
-            ),
+                'block_types' => ['test2', 'test3'],
+            ],
             $blockTypeGroups['custom']
         );
     }
@@ -149,15 +149,15 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => false,
-                    'block_types' => array(),
-                ),
-            )
+                    'block_types' => [],
+                ],
+            ]
         );
 
-        $this->setParameter('netgen_block_manager.block_types', array());
+        $this->setParameter('netgen_block_manager.block_types', []);
 
         $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
 
@@ -167,10 +167,10 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->assertArrayHasKey('test', $blockTypeGroups);
 
         $this->assertEquals(
-            array(
+            [
                 'enabled' => false,
-                'block_types' => array(),
-            ),
+                'block_types' => [],
+            ],
             $blockTypeGroups['test']
         );
     }

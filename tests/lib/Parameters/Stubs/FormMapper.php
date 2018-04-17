@@ -25,8 +25,8 @@ final class FormMapper extends BaseMapper
 
     public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        return array(
+        return [
             'compound' => $this->compound,
-        );
+        ];
     }
 }

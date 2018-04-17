@@ -28,8 +28,8 @@ final class BlockTypeRegistryTest extends TestCase
     {
         $this->registry = new BlockTypeRegistry();
 
-        $this->blockType = new BlockType(array('isEnabled' => true, 'identifier' => 'block_type'));
-        $this->blockType2 = new BlockType(array('isEnabled' => false, 'identifier' => 'block_type2'));
+        $this->blockType = new BlockType(['isEnabled' => true, 'identifier' => 'block_type']);
+        $this->blockType2 = new BlockType(['isEnabled' => false, 'identifier' => 'block_type2']);
 
         $this->registry->addBlockType('block_type', $this->blockType);
         $this->registry->addBlockType('block_type2', $this->blockType2);
@@ -52,10 +52,10 @@ final class BlockTypeRegistryTest extends TestCase
     public function testGetBlockTypes()
     {
         $this->assertEquals(
-            array(
+            [
                 'block_type' => $this->blockType,
                 'block_type2' => $this->blockType2,
-            ),
+            ],
             $this->registry->getBlockTypes()
         );
     }
@@ -66,9 +66,9 @@ final class BlockTypeRegistryTest extends TestCase
     public function testGetEnabledBlockTypes()
     {
         $this->assertEquals(
-            array(
+            [
                 'block_type' => $this->blockType,
-            ),
+            ],
             $this->registry->getBlockTypes(true)
         );
     }
@@ -114,7 +114,7 @@ final class BlockTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $blockTypes = array();
+        $blockTypes = [];
         foreach ($this->registry as $identifier => $blockType) {
             $blockTypes[$identifier] = $blockType;
         }

@@ -20,12 +20,12 @@ final class RuleConditionViewTest extends TestCase
 
     public function setUp()
     {
-        $this->condition = new Condition(array('id' => 42));
+        $this->condition = new Condition(['id' => 42]);
 
         $this->view = new RuleConditionView(
-            array(
+            [
                 'condition' => $this->condition,
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -40,10 +40,10 @@ final class RuleConditionViewTest extends TestCase
     {
         $this->assertEquals($this->condition, $this->view->getCondition());
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'condition' => $this->condition,
-            ),
+            ],
             $this->view->getParameters()
         );
     }
@@ -62,9 +62,9 @@ final class RuleConditionViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'conditionId' => 42,
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

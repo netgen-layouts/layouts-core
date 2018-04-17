@@ -30,10 +30,10 @@ final class FormMapperPass implements CompilerPassInterface
 
                 $registry->addMethodCall(
                     'addFormMapper',
-                    array(
+                    [
                         $tag['type'],
                         new Reference($formMapper),
-                    )
+                    ]
                 );
             }
         }

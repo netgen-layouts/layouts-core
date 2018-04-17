@@ -88,7 +88,7 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
-            new Collection(array('query' => $isDynamic ? new Query() : null)),
+            new Collection(['query' => $isDynamic ? new Query() : null]),
             new CollectionUpdateStruct($params)
         );
     }
@@ -130,15 +130,15 @@ final class CollectionValidatorTest extends TestCase
 
         $this->collectionValidator->validateItemUpdateStruct(
             new Item(
-                array(
+                [
                     'definition' => new ItemDefinition(
-                        array(
-                            'configDefinitions' => array(
+                        [
+                            'configDefinitions' => [
                                 'visibility' => new ConfigDefinition(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                )
+                ]
             ),
             new ItemUpdateStruct($params)
         );
@@ -146,34 +146,34 @@ final class CollectionValidatorTest extends TestCase
 
     public function validateItemUpdateStructDataProvider()
     {
-        return array(
-            array(
-                array(),
+        return [
+            [
+                [],
                 true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(),
-                ),
+            ],
+            [
+                [
+                    'configStructs' => [],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
+            ],
+            [
+                [
+                    'configStructs' => [
                         'visibility' => new ConfigStruct(),
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
+            ],
+            [
+                [
+                    'configStructs' => [
                         'unknown' => new ConfigStruct(),
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -212,427 +212,427 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateQueryUpdateStruct(
-            new Query(array('queryType' => new QueryType('query_type'))),
+            new Query(['queryType' => new QueryType('query_type')]),
             new QueryUpdateStruct($params)
         );
     }
 
     public function validateCollectionCreateStructProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'offset' => 0,
                     'limit' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 3,
                     'limit' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => null,
                     'limit' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => -3,
                     'limit' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => '3',
                     'limit' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
                     'limit' => 3,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
                     'limit' => 0,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
                     'limit' => -3,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
                     'limit' => '3',
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
                     'limit' => null,
                     'queryCreateStruct' => new QueryCreateStruct(
-                        array(
+                        [
                             'queryType' => new QueryType('test'),
-                            'parameterValues' => array(
+                            'parameterValues' => [
                                 'param' => 'value',
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
                     'limit' => null,
                     'queryCreateStruct' => new stdClass(),
-                ),
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     public function validateCollectionUpdateStructProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'offset' => 6,
-                ),
+                ],
                 true,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
-                ),
+                ],
                 true,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => null,
-                ),
+                ],
                 true,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => -6,
-                ),
+                ],
                 true,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => '6',
-                ),
+                ],
                 true,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => 6,
-                ),
+                ],
                 true,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => 0,
-                ),
+                ],
                 true,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => null,
-                ),
+                ],
                 true,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => -6,
-                ),
+                ],
                 true,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => '6',
-                ),
+                ],
                 true,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 6,
-                ),
+                ],
                 false,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => 0,
-                ),
+                ],
                 false,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => null,
-                ),
+                ],
                 false,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => -6,
-                ),
+                ],
                 false,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'offset' => '6',
-                ),
+                ],
                 false,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => 6,
-                ),
+                ],
                 false,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => 0,
-                ),
+                ],
                 false,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => null,
-                ),
+                ],
                 false,
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => -6,
-                ),
+                ],
                 false,
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'limit' => '6',
-                ),
+                ],
                 false,
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     public function validateItemCreateStructProvider()
     {
-        return array(
-            array(
-                array('definition' => new ItemDefinition(), 'value' => 42, 'type' => Item::TYPE_MANUAL),
+        return [
+            [
+                ['definition' => new ItemDefinition(), 'value' => 42, 'type' => Item::TYPE_MANUAL],
                 true,
-            ),
-            array(
-                array('definition' => new ItemDefinition(), 'value' => '42', 'type' => Item::TYPE_MANUAL),
+            ],
+            [
+                ['definition' => new ItemDefinition(), 'value' => '42', 'type' => Item::TYPE_MANUAL],
                 true,
-            ),
-            array(
-                array('definition' => new ItemDefinition(), 'value' => null, 'type' => Item::TYPE_MANUAL),
+            ],
+            [
+                ['definition' => new ItemDefinition(), 'value' => null, 'type' => Item::TYPE_MANUAL],
                 true,
-            ),
-            array(
-                array('definition' => new ItemDefinition(), 'value' => '', 'type' => Item::TYPE_MANUAL),
+            ],
+            [
+                ['definition' => new ItemDefinition(), 'value' => '', 'type' => Item::TYPE_MANUAL],
                 true,
-            ),
-            array(array('definition' => 42, 'value' => 42, 'type' => Item::TYPE_MANUAL), false),
-            array(array('definition' => null, 'value' => 42, 'type' => Item::TYPE_MANUAL), false),
-            array(array('definition' => new ItemDefinition(), 'value' => 42, 'type' => 23), false),
-            array(array('definition' => new ItemDefinition(), 'value' => 42, 'type' => 'type'), false),
-            array(array('definition' => new ItemDefinition(), 'value' => 42, 'type' => null), false),
-        );
+            ],
+            [['definition' => 42, 'value' => 42, 'type' => Item::TYPE_MANUAL], false],
+            [['definition' => null, 'value' => 42, 'type' => Item::TYPE_MANUAL], false],
+            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => 23], false],
+            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => 'type'], false],
+            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => null], false],
+        ];
     }
 
     public function validateQueryCreateStructProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'queryType' => new QueryType('test'),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'queryType' => null,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'queryType' => 42,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'queryType' => new QueryType('test'),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => '',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'queryType' => new QueryType('test'),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'queryType' => new QueryType('test'),
-                    'parameterValues' => array(),
-                ),
+                    'parameterValues' => [],
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     public function validateQueryUpdateStructProvider()
     {
-        return array(
-            array(
-                array(
-                    'parameterValues' => array(
+        return [
+            [
+                [
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => null,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => '',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 42,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'nonexistent',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => 'value',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => '',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(),
-                ),
+                    'parameterValues' => [],
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 }

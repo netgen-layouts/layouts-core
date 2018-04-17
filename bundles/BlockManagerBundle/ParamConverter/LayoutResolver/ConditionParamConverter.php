@@ -20,7 +20,7 @@ final class ConditionParamConverter extends ParamConverter
 
     public function getSourceAttributeNames()
     {
-        return array('conditionId');
+        return ['conditionId'];
     }
 
     public function getDestinationAttributeName()

@@ -29,10 +29,10 @@ final class ExceptionNormalizerTest extends TestCase
         $exception = new Exception('Exception message', 123);
 
         $this->assertEquals(
-            array(
+            [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
-            ),
+            ],
             $this->exceptionNormalizer->normalize($exception)
         );
     }
@@ -72,12 +72,12 @@ final class ExceptionNormalizerTest extends TestCase
         $exception = new NotFoundHttpException('Exception message', null, 123);
 
         $this->assertEquals(
-            array(
+            [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
-            ),
+            ],
             $this->exceptionNormalizer->normalize($exception)
         );
     }
@@ -101,16 +101,16 @@ final class ExceptionNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('exception', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Exception(), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['exception', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Exception(), true],
+        ];
     }
 }

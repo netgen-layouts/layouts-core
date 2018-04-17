@@ -27,10 +27,10 @@ final class LayoutValidator extends Validator
 
         $this->validate(
             $layoutName,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
+                new Constraints\Type(['type' => 'string']),
+            ],
             'name'
         );
 
@@ -41,38 +41,38 @@ final class LayoutValidator extends Validator
         if ($layoutDescription !== null) {
             $this->validate(
                 $layoutDescription,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'description'
             );
         }
 
         $this->validate(
             $layoutCreateStruct->layoutType,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => LayoutType::class)),
-            ),
+                new Constraints\Type(['type' => LayoutType::class]),
+            ],
             'layoutType'
         );
 
         $this->validate(
             $layoutCreateStruct->mainLocale,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Type(['type' => 'string']),
                 new Constraints\Locale(),
-            ),
+            ],
             'mainLocale'
         );
 
         if ($layoutCreateStruct->shared !== null) {
             $this->validate(
                 $layoutCreateStruct->shared,
-                array(
-                    new Constraints\Type(array('type' => 'bool')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'bool']),
+                ],
                 'shared'
             );
         }
@@ -94,10 +94,10 @@ final class LayoutValidator extends Validator
         if ($layoutName !== null) {
             $this->validate(
                 $layoutName,
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'name'
             );
         }
@@ -109,9 +109,9 @@ final class LayoutValidator extends Validator
         if ($layoutDescription !== null) {
             $this->validate(
                 $layoutDescription,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'description'
             );
         }
@@ -132,10 +132,10 @@ final class LayoutValidator extends Validator
 
         $this->validate(
             $layoutName,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
+                new Constraints\Type(['type' => 'string']),
+            ],
             'name'
         );
 
@@ -146,9 +146,9 @@ final class LayoutValidator extends Validator
         if ($layoutDescription !== null) {
             $this->validate(
                 $layoutDescription,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'description'
             );
         }
@@ -164,9 +164,9 @@ final class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateChangeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array(), $preserveSharedZones = true)
+    public function validateChangeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
     {
-        $seenZones = array();
+        $seenZones = [];
         foreach ($zoneMappings as $newZone => $oldZones) {
             if (!$targetLayoutType->hasZone($newZone)) {
                 throw ValidationException::validationFailed(

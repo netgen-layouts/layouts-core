@@ -24,7 +24,7 @@ final class AbstractTypeTest extends FormTestCase
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);
-        $resolvedOptions = $optionsResolver->resolve(array());
+        $resolvedOptions = $optionsResolver->resolve([]);
 
         $this->assertEquals(
             'ngbm',

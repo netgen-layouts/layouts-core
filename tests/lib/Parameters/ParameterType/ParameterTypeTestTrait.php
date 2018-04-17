@@ -21,12 +21,12 @@ trait ParameterTypeTestTrait
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
-    public function getParameterDefinition(array $options = array(), $required = false, $defaultValue = null)
+    public function getParameterDefinition(array $options = [], $required = false, $defaultValue = null)
     {
         $optionsResolver = new OptionsResolver();
 
-        $optionsResolver->setRequired(array('required'));
-        $optionsResolver->setRequired(array('default_value'));
+        $optionsResolver->setRequired(['required']);
+        $optionsResolver->setRequired(['default_value']);
         $optionsResolver->setDefault('required', false);
         $optionsResolver->setDefault('default_value', null);
 
@@ -43,13 +43,13 @@ trait ParameterTypeTestTrait
         unset($options['required'], $options['default_value']);
 
         return new ParameterDefinition(
-            array(
+            [
                 'name' => 'name',
                 'type' => $this->type,
                 'options' => $options,
                 'isRequired' => $required,
                 'defaultValue' => $defaultValue,
-            )
+            ]
         );
     }
 }

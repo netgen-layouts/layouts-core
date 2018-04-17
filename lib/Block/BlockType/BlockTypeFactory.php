@@ -18,14 +18,14 @@ final class BlockTypeFactory
     public static function buildBlockType($identifier, array $config, BlockDefinitionInterface $blockDefinition)
     {
         return new BlockType(
-            array(
+            [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
                 'icon' => $config['icon'],
                 'definition' => $blockDefinition,
                 'defaults' => $config['defaults'],
-            )
+            ]
         );
     }
 }

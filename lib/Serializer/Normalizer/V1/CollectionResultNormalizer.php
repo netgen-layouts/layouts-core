@@ -24,7 +24,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
@@ -72,7 +72,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
             $itemUrl = $this->urlGenerator->generate($resultItem);
         }
 
-        return array(
+        return [
             'id' => $collectionItem !== null ? $collectionItem->getId() : null,
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
@@ -83,6 +83,6 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'name' => $resultItem->getName(),
             'cms_visible' => $resultItem->isVisible(),
             'cms_url' => $itemUrl,
-        );
+        ];
     }
 }

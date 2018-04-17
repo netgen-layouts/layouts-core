@@ -29,7 +29,7 @@ final class ItemLinkTypeTest extends TestCase
     public function setUp()
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
-        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+        $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->itemLoaderMock
@@ -39,10 +39,10 @@ final class ItemLinkTypeTest extends TestCase
             ->will(
                 $this->returnValue(
                     new Item(
-                        array(
+                        [
                             'value' => 42,
                             'remoteId' => 'abc',
-                        )
+                        ]
                     )
                 )
             );
@@ -54,10 +54,10 @@ final class ItemLinkTypeTest extends TestCase
             ->will(
                 $this->returnValue(
                     new Item(
-                        array(
+                        [
                             'value' => 42,
                             'remoteId' => 'abc',
-                        )
+                        ]
                     )
                 )
             );
@@ -106,24 +106,24 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array('value_types' => array('default'), 'allow_invalid' => false),
-            ),
-            array(
-                array('value_types' => array('value')),
-                array('value_types' => array('value'), 'allow_invalid' => false),
-            ),
-            array(
-                array('allow_invalid' => false),
-                array('value_types' => array('default'), 'allow_invalid' => false),
-            ),
-            array(
-                array('allow_invalid' => true),
-                array('value_types' => array('default'), 'allow_invalid' => true),
-            ),
-        );
+        return [
+            [
+                [],
+                ['value_types' => ['default'], 'allow_invalid' => false],
+            ],
+            [
+                ['value_types' => ['value']],
+                ['value_types' => ['value'], 'allow_invalid' => false],
+            ],
+            [
+                ['allow_invalid' => false],
+                ['value_types' => ['default'], 'allow_invalid' => false],
+            ],
+            [
+                ['allow_invalid' => true],
+                ['value_types' => ['default'], 'allow_invalid' => true],
+            ],
+        ];
     }
 
     /**
@@ -133,22 +133,22 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'value_types' => 42,
-                ),
-                array(
+                ],
+                [
                     'allow_invalid' => 0,
-                ),
-                array(
+                ],
+                [
                     'allow_invalid' => 1,
-                ),
-                array(
+                ],
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -177,12 +177,12 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(null, true),
-            array('42', false),
-            array('value://42', false),
-            array('default://42', true),
-        );
+        return [
+            [null, true],
+            ['42', false],
+            ['value://42', false],
+            ['default://42', true],
+        ];
     }
 
     /**
@@ -224,11 +224,11 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function emptyProvider()
     {
-        return array(
-            array(null, true),
-            array('', true),
-            array('value', true),
-            array('value://42', false),
-        );
+        return [
+            [null, true],
+            ['', true],
+            ['value', true],
+            ['value://42', false],
+        ];
     }
 }

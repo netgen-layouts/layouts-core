@@ -11,7 +11,7 @@ trait ParameterStructTrait
     /**
      * @var array
      */
-    protected $parameterValues = array();
+    protected $parameterValues = [];
 
     /**
      * Sets the provided parameter values to the struct.
@@ -86,7 +86,7 @@ trait ParameterStructTrait
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $values
      */
-    public function fill(ParameterCollectionInterface $parameterCollection, array $values = array())
+    public function fill(ParameterCollectionInterface $parameterCollection, array $values = [])
     {
         foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
@@ -142,7 +142,7 @@ trait ParameterStructTrait
      * @param array $values
      * @param bool $doImport
      */
-    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = array(), $doImport = false)
+    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = [], $doImport = false)
     {
         $importMethod = $doImport ? 'import' : 'fromHash';
 

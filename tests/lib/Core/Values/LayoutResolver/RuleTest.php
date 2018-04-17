@@ -33,8 +33,8 @@ final class RuleTest extends TestCase
         $this->assertNull($rule->getPriority());
         $this->assertNull($rule->isEnabled());
         $this->assertNull($rule->getComment());
-        $this->assertEquals(array(), $rule->getTargets());
-        $this->assertEquals(array(), $rule->getConditions());
+        $this->assertEquals([], $rule->getTargets());
+        $this->assertEquals([], $rule->getConditions());
     }
 
     /**
@@ -52,21 +52,21 @@ final class RuleTest extends TestCase
     public function testSetProperties()
     {
         $rule = new Rule(
-            array(
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
-                'layout' => new Layout(array('id' => 24)),
+                'layout' => new Layout(['id' => 24]),
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
-                'targets' => new ArrayCollection(array(new Target(), new Target())),
-                'conditions' => new ArrayCollection(array(new Condition())),
-            )
+                'targets' => new ArrayCollection([new Target(), new Target()]),
+                'conditions' => new ArrayCollection([new Condition()]),
+            ]
         );
 
         $this->assertEquals(42, $rule->getId());
         $this->assertTrue($rule->isPublished());
-        $this->assertEquals(new Layout(array('id' => 24)), $rule->getLayout());
+        $this->assertEquals(new Layout(['id' => 24]), $rule->getLayout());
         $this->assertEquals(13, $rule->getPriority());
         $this->assertTrue($rule->isEnabled());
         $this->assertEquals('Comment', $rule->getComment());
@@ -81,11 +81,11 @@ final class RuleTest extends TestCase
     public function testCanBeEnabled()
     {
         $rule = new Rule(
-            array(
-                'layout' => new Layout(array('id' => 24)),
-                'targets' => new ArrayCollection(array(new Target(), new Target())),
+            [
+                'layout' => new Layout(['id' => 24]),
+                'targets' => new ArrayCollection([new Target(), new Target()]),
                 'status' => Rule::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertTrue($rule->canBeEnabled());
@@ -97,11 +97,11 @@ final class RuleTest extends TestCase
     public function testCanBeEnabledWhenNotPublished()
     {
         $rule = new Rule(
-            array(
-                'layout' => new Layout(array('id' => 24)),
-                'targets' => new ArrayCollection(array(new Target(), new Target())),
+            [
+                'layout' => new Layout(['id' => 24]),
+                'targets' => new ArrayCollection([new Target(), new Target()]),
                 'status' => Rule::STATUS_DRAFT,
-            )
+            ]
         );
 
         $this->assertFalse($rule->canBeEnabled());
@@ -113,11 +113,11 @@ final class RuleTest extends TestCase
     public function testCanBeEnabledWithNoLayout()
     {
         $rule = new Rule(
-            array(
+            [
                 'layout' => null,
-                'targets' => new ArrayCollection(array(new Target(), new Target())),
+                'targets' => new ArrayCollection([new Target(), new Target()]),
                 'status' => Rule::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertFalse($rule->canBeEnabled());
@@ -129,11 +129,11 @@ final class RuleTest extends TestCase
     public function testCanBeEnabledWithNoTargets()
     {
         $rule = new Rule(
-            array(
-                'layout' => new Layout(array('id' => 24)),
+            [
+                'layout' => new Layout(['id' => 24]),
                 'targets' => new ArrayCollection(),
                 'status' => Rule::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertFalse($rule->canBeEnabled());

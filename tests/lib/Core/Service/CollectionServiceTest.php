@@ -316,7 +316,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItem()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(array('valueType' => 'ezcontent')),
+            new ItemDefinition(['valueType' => 'ezcontent']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -341,7 +341,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(array('valueType' => 'ezcontent')),
+            new ItemDefinition(['valueType' => 'ezcontent']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -363,7 +363,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(array('valueType' => 'ezcontent')),
+            new ItemDefinition(['valueType' => 'ezcontent']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -510,7 +510,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollectionDraft(3);
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(array('valueType' => 'ezcontent')),
+            new ItemDefinition(['valueType' => 'ezcontent']),
             Item::TYPE_OVERRIDE,
             66
         );
@@ -551,7 +551,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQuery()
     {
-        $query = $this->collectionService->loadQueryDraft(2, array('en'));
+        $query = $this->collectionService->loadQueryDraft(2, ['en']);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
@@ -568,7 +568,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertNull($updatedQuery->getParameter('param')->getValue());
         $this->assertEquals(0, $updatedQuery->getParameter('param2')->getValue());
 
-        $croQuery = $this->collectionService->loadQueryDraft(2, array('hr'));
+        $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
         $this->assertNull($croQuery->getParameter('param')->getValue());
@@ -582,7 +582,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQueryInMainLocale()
     {
-        $query = $this->collectionService->loadQueryDraft(2, array('en'));
+        $query = $this->collectionService->loadQueryDraft(2, ['en']);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
 
@@ -596,7 +596,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
 
-        $croQuery = $this->collectionService->loadQueryDraft(2, array('hr'));
+        $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
 
         $this->assertEquals('new_value', $updatedQuery->getParameter('param')->getValue());
         $this->assertEquals(3, $updatedQuery->getParameter('param2')->getValue());
@@ -646,11 +646,11 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionCreateStruct(
-                array(
+                [
                     'offset' => 0,
                     'limit' => null,
                     'queryCreateStruct' => new QueryCreateStruct(),
-                )
+                ]
             ),
             $this->collectionService->newCollectionCreateStruct(new QueryCreateStruct())
         );
@@ -663,10 +663,10 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => null,
                     'limit' => null,
-                )
+                ]
             ),
             $this->collectionService->newCollectionUpdateStruct()
         );
@@ -679,10 +679,10 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => 4,
                     'limit' => 2,
-                )
+                ]
             ),
             $this->collectionService->newCollectionUpdateStruct(
                 $this->collectionService->loadCollectionDraft(3)
@@ -697,10 +697,10 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
-                array(
+                [
                     'offset' => 0,
                     'limit' => 0,
-                )
+                ]
             ),
             $this->collectionService->newCollectionUpdateStruct(
                 $this->collectionService->loadCollectionDraft(1)
@@ -715,14 +715,14 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new ItemCreateStruct(
-                array(
-                    'definition' => new ItemDefinition(array('valueType' => 'ezcontent')),
+                [
+                    'definition' => new ItemDefinition(['valueType' => 'ezcontent']),
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
-                )
+                ]
             ),
             $this->collectionService->newItemCreateStruct(
-                new ItemDefinition(array('valueType' => 'ezcontent')),
+                new ItemDefinition(['valueType' => 'ezcontent']),
                 Item::TYPE_OVERRIDE,
                 '42'
             )
@@ -753,13 +753,13 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new QueryCreateStruct(
-                array(
+                [
                     'queryType' => new QueryType('ezcontent_search'),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
                         'param2' => null,
-                    ),
-                )
+                    ],
+                ]
             ),
             $queryCreateStruct
         );
@@ -772,9 +772,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new QueryUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
-                )
+                ]
             ),
             $this->collectionService->newQueryUpdateStruct('en')
         );
@@ -789,13 +789,13 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new QueryUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'param' => null,
                         'param2' => 0,
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->collectionService->newQueryUpdateStruct('en', $query)
         );

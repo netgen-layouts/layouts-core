@@ -10,14 +10,14 @@ final class ItemExtension extends AbstractExtension
 {
     public function getFunctions()
     {
-        return array(
+        return [
             new TwigFunction(
                 'ngbm_item_path',
-                array(ItemRuntime::class, 'getItemPath'),
-                array(
-                    'is_safe' => array('html'),
-                )
+                [ItemRuntime::class, 'getItemPath'],
+                [
+                    'is_safe' => ['html'],
+                ]
             ),
-        );
+        ];
     }
 }

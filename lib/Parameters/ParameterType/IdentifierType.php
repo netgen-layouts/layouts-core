@@ -21,13 +21,13 @@ final class IdentifierType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(
-            new Constraints\Type(array('type' => 'string')),
+        return [
+            new Constraints\Type(['type' => 'string']),
             new Constraints\Regex(
-                array(
+                [
                     'pattern' => '/^[A-Za-z]([A-Za-z0-9_])*$/',
-                )
+                ]
             ),
-        );
+        ];
     }
 }

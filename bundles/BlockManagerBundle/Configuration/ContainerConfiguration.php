@@ -28,7 +28,7 @@ class ContainerConfiguration implements ConfigurationInterface
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      * @param array $parameters
      */
-    public function __construct(ContainerInterface $container, array $parameters = array())
+    public function __construct(ContainerInterface $container, array $parameters = [])
     {
         $this->container = $container;
         $this->parameters = $parameters;

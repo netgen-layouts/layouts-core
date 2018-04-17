@@ -32,14 +32,14 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new LayoutCreateStruct(
-                array(
-                    'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
+                [
+                    'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
                     'name' => 'New layout',
                     'mainLocale' => 'en',
-                )
+                ]
             ),
             $this->structBuilder->newLayoutCreateStruct(
-                new LayoutType(array('identifier' => '4_zones_a')),
+                new LayoutType(['identifier' => '4_zones_a']),
                 'New layout',
                 'en'
             )
@@ -53,10 +53,10 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new LayoutUpdateStruct(
-                array(
+                [
                     'name' => 'My layout',
                     'description' => 'My layout description',
-                )
+                ]
             ),
             $this->structBuilder->newLayoutUpdateStruct(
                 $this->layoutService->loadLayoutDraft(1)
@@ -82,10 +82,10 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     {
         $this->assertEquals(
             new LayoutCopyStruct(
-                array(
+                [
                     'name' => 'My layout (copy)',
                     'description' => null,
-                )
+                ]
             ),
             $this->structBuilder->newLayoutCopyStruct(
                 $this->layoutService->loadLayoutDraft(1)

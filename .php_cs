@@ -7,7 +7,7 @@ return PhpCsFixer\Config::create()
         '@Symfony:risky' => true,
         'align_multiline_comment' => true,
         'array_indentation' => true,
-        'array_syntax' => ['syntax' => 'long'],
+        'array_syntax' => ['syntax' => 'short'],
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'compact_nullable_typehint' => true,

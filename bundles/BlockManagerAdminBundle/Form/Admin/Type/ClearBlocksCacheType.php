@@ -19,7 +19,7 @@ final class ClearBlocksCacheType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('blocks'));
+        $resolver->setRequired(['blocks']);
         $resolver->setAllowedTypes('blocks', 'array');
     }
 
@@ -28,7 +28,7 @@ final class ClearBlocksCacheType extends AbstractType
         $builder->add(
             'blocks',
             ChoiceType::class,
-            array(
+            [
                 'choices' => $options['blocks'],
                 'choice_value' => 'id',
                 'choice_label' => function ($block) {
@@ -41,16 +41,16 @@ final class ClearBlocksCacheType extends AbstractType
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
-                'constraints' => array(
+                'constraints' => [
                     new NotBlank(),
-                ),
-            ) + $this->getChoicesAsValuesOption()
+                ],
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $blocks = array();
+        $blocks = [];
         foreach ($options['blocks'] as $block) {
             $blocks[$block->getId()] = $block;
         }

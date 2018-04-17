@@ -31,15 +31,15 @@ final class LocaleTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $block = new Block(
-            array(
+            [
                 'locale' => 'en',
-            )
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => $block,
-            )
+            ]
         );
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
@@ -52,13 +52,13 @@ final class LocaleTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('fr'), false),
-            array(array('en'), true),
-            array(array('fr', 'de'), false),
-            array(array('fr', 'en'), true),
-        );
+        return [
+            [[], false],
+            [['fr'], false],
+            [['en'], true],
+            [['fr', 'de'], false],
+            [['fr', 'en'], true],
+        ];
     }
 
     /**
@@ -66,6 +66,6 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

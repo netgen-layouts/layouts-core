@@ -61,29 +61,29 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItems()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                    array(
+                    ],
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 74,
                         'value_type' => 'ezlocation',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -98,29 +98,29 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithNonExistentBlock()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                    array(
+                    ],
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 74,
                         'value_type' => 'ezlocation',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/9999/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -139,29 +139,29 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithNonExistentCollectionReference()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                    array(
+                    ],
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 74,
                         'value_type' => 'ezlocation',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/unknown/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -180,17 +180,17 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithEmptyItems()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(),
-            )
+            [
+                'items' => [],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -209,17 +209,17 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithInvalidItems()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'items' => 42,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -237,14 +237,14 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testAddItemsWithMissingItems()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -263,24 +263,24 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithInvalidItemType()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => 'type',
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -299,23 +299,23 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithMissingItemType()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -334,24 +334,24 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithInvalidValue()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
-                        'value' => array(42),
+                        'value' => [42],
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -370,23 +370,23 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithMissingValue()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value_type' => 'ezlocation',
                         'position' => 3,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -405,24 +405,24 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithInvalidValueType()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 42,
                         'position' => 3,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -441,23 +441,23 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithMissingValueType()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'position' => 3,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -476,24 +476,24 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithInvalidPosition()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => '3',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -512,23 +512,23 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithMissingPosition()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'ezlocation',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/featured/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -547,24 +547,24 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testAddItemsWithOutOfRangePosition()
     {
         $data = $this->jsonEncode(
-            array(
-                'items' => array(
-                    array(
+            [
+                'items' => [
+                    [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 9999,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -583,17 +583,17 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testChangeCollectionTypeFromManualToManual()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'new_type' => Collection::TYPE_MANUAL,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/change_type',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -608,18 +608,18 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testChangeCollectionTypeFromManualToDynamic()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'new_type' => Collection::TYPE_DYNAMIC,
                 'query_type' => 'ezcontent_search',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/default/change_type',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -634,17 +634,17 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testChangeCollectionTypeFromDynamicToManual()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'new_type' => Collection::TYPE_MANUAL,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/featured/change_type',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -659,18 +659,18 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     public function testChangeCollectionTypeFromDynamicToDynamic()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'new_type' => Collection::TYPE_DYNAMIC,
                 'query_type' => 'ezcontent_search',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/en/blocks/31/collections/featured/change_type',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 

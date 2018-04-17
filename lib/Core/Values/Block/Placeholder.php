@@ -25,7 +25,7 @@ final class Placeholder extends Value implements APIPlaceholder
      */
     protected $blocks;
 
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = [])
     {
         parent::__construct($properties);
 

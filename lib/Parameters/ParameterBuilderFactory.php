@@ -18,7 +18,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
         $this->parameterTypeRegistry = $parameterTypeRegistry;
     }
 
-    public function createParameterBuilder(array $config = array())
+    public function createParameterBuilder(array $config = [])
     {
         $config = $this->resolveOptions($config);
 
@@ -46,15 +46,15 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 
         $optionsResolver->setDefault('name', null);
         $optionsResolver->setDefault('type', null);
-        $optionsResolver->setDefault('options', array());
+        $optionsResolver->setDefault('options', []);
         $optionsResolver->setDefault('parent', null);
 
-        $optionsResolver->setRequired(array('name', 'type', 'options', 'parent'));
+        $optionsResolver->setRequired(['name', 'type', 'options', 'parent']);
 
-        $optionsResolver->setAllowedTypes('name', array('null', 'string'));
-        $optionsResolver->setAllowedTypes('type', array('null', 'string', ParameterTypeInterface::class));
+        $optionsResolver->setAllowedTypes('name', ['null', 'string']);
+        $optionsResolver->setAllowedTypes('type', ['null', 'string', ParameterTypeInterface::class]);
         $optionsResolver->setAllowedTypes('options', 'array');
-        $optionsResolver->setAllowedTypes('parent', array('null', ParameterBuilderInterface::class));
+        $optionsResolver->setAllowedTypes('parent', ['null', ParameterBuilderInterface::class]);
 
         $optionsResolver->setNormalizer(
             'type',

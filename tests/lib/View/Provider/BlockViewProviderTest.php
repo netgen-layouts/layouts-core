@@ -30,20 +30,20 @@ final class BlockViewProviderTest extends TestCase
     public function testProvideView()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'definition' => new BlockDefinition(),
-                'configs' => array(
+                'configs' => [
                     'http_cache' => new Config(
-                        array(
-                            'parameters' => array(
-                                'use_http_cache' => new Parameter(array('value' => true)),
-                                'shared_max_age' => new Parameter(array('value' => 400)),
-                            ),
-                        )
+                        [
+                            'parameters' => [
+                                'use_http_cache' => new Parameter(['value' => true]),
+                                'shared_max_age' => new Parameter(['value' => 400]),
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         /** @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
@@ -54,9 +54,9 @@ final class BlockViewProviderTest extends TestCase
         $this->assertEquals($block, $view->getBlock());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'block' => $block,
-            ),
+            ],
             $view->getParameters()
         );
 
@@ -83,10 +83,10 @@ final class BlockViewProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Value(), false),
-            array(new Block(), true),
-            array(new Layout(), false),
-        );
+        return [
+            [new Value(), false],
+            [new Block(), true],
+            [new Layout(), false],
+        ];
     }
 }

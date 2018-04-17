@@ -26,8 +26,8 @@ final class CollectionMapperTest extends TestCase
      */
     public function testMapCollections()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'start' => 5,
@@ -36,8 +36,8 @@ final class CollectionMapperTest extends TestCase
                 'translatable' => false,
                 'main_locale' => 'en',
                 'always_available' => true,
-            ),
-            array(
+            ],
+            [
                 'id' => 43,
                 'status' => Value::STATUS_DRAFT,
                 'start' => 10,
@@ -46,8 +46,8 @@ final class CollectionMapperTest extends TestCase
                 'translatable' => false,
                 'main_locale' => 'en',
                 'always_available' => true,
-            ),
-            array(
+            ],
+            [
                 'id' => 43,
                 'status' => Value::STATUS_DRAFT,
                 'start' => 10,
@@ -56,33 +56,33 @@ final class CollectionMapperTest extends TestCase
                 'translatable' => false,
                 'main_locale' => 'en',
                 'always_available' => true,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Collection(
-                array(
+                [
                     'id' => 42,
                     'status' => Value::STATUS_PUBLISHED,
                     'offset' => 5,
                     'limit' => 10,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
-                )
+                    'availableLocales' => ['en'],
+                ]
             ),
             new Collection(
-                array(
+                [
                     'id' => 43,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 10,
                     'limit' => 20,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en', 'hr'),
-                )
+                    'availableLocales' => ['en', 'hr'],
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapCollections($data));
     }
@@ -92,8 +92,8 @@ final class CollectionMapperTest extends TestCase
      */
     public function testMapItems()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'collection_id' => 1,
                 'position' => 2,
@@ -102,8 +102,8 @@ final class CollectionMapperTest extends TestCase
                 'value_type' => 'ezcontent',
                 'status' => Value::STATUS_PUBLISHED,
                 'config' => '{"config_item":{"id":42}}',
-            ),
-            array(
+            ],
+            [
                 'id' => 43,
                 'collection_id' => 2,
                 'position' => 5,
@@ -112,12 +112,12 @@ final class CollectionMapperTest extends TestCase
                 'value_type' => 'ezcontent',
                 'status' => Value::STATUS_DRAFT,
                 'config' => '',
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Item(
-                array(
+                [
                     'id' => 42,
                     'collectionId' => 1,
                     'position' => 2,
@@ -125,15 +125,15 @@ final class CollectionMapperTest extends TestCase
                     'value' => '32',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_PUBLISHED,
-                    'config' => array(
-                        'config_item' => array(
+                    'config' => [
+                        'config_item' => [
                             'id' => 42,
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             ),
             new Item(
-                array(
+                [
                     'id' => 43,
                     'collectionId' => 2,
                     'position' => 5,
@@ -141,10 +141,10 @@ final class CollectionMapperTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapItems($data));
     }
@@ -155,41 +155,41 @@ final class CollectionMapperTest extends TestCase
      */
     public function testMapQuery()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'collection_id' => 1,
                 'type' => 'ezcontent_search',
                 'locale' => 'en',
                 'parameters' => '{"param":"value"}',
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-            array(
+            ],
+            [
                 'id' => 42,
                 'collection_id' => 1,
                 'type' => 'ezcontent_search',
                 'locale' => 'hr',
                 'parameters' => '{"param2":"value2"}',
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-        );
+            ],
+        ];
 
         $expectedData = new Query(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 1,
                 'type' => 'ezcontent_search',
-                'availableLocales' => array('en', 'hr'),
-                'parameters' => array(
-                    'en' => array(
+                'availableLocales' => ['en', 'hr'],
+                'parameters' => [
+                    'en' => [
                         'param' => 'value',
-                    ),
-                    'hr' => array(
+                    ],
+                    'hr' => [
                         'param2' => 'value2',
-                    ),
-                ),
+                    ],
+                ],
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertEquals($expectedData, $this->mapper->mapQuery($data));

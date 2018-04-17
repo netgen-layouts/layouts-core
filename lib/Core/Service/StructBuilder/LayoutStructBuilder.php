@@ -22,11 +22,11 @@ final class LayoutStructBuilder
     public function newLayoutCreateStruct(LayoutType $layoutType, $name, $mainLocale)
     {
         return new LayoutCreateStruct(
-            array(
+            [
                 'layoutType' => $layoutType,
                 'name' => $name,
                 'mainLocale' => $mainLocale,
-            )
+            ]
         );
     }
 

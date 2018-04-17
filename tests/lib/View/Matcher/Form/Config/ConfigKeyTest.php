@@ -42,12 +42,12 @@ final class ConfigKeyTest extends TestCase
         $form = $this->formFactory->create(
             Form::class,
             null,
-            array(
+            [
                 'config_key' => 'test',
-            )
+            ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     /**
@@ -57,13 +57,13 @@ final class ConfigKeyTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('other'), false),
-            array(array('test'), true),
-            array(array('other', 'other2'), false),
-            array(array('test', 'other'), true),
-        );
+        return [
+            [[], false],
+            [['other'], false],
+            [['test'], true],
+            [['other', 'other2'], false],
+            [['test', 'other'], true],
+        ];
     }
 
     /**
@@ -71,7 +71,7 @@ final class ConfigKeyTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 
     /**
@@ -81,7 +81,7 @@ final class ConfigKeyTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('test')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
     }
 
     /**
@@ -89,8 +89,8 @@ final class ConfigKeyTest extends TestCase
      */
     public function testMatchWithInvalidConfigurable()
     {
-        $form = $this->formFactory->create(Form::class, null, array('config_key' => 'type'));
+        $form = $this->formFactory->create(Form::class, null, ['config_key' => 'type']);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('test')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
     }
 }

@@ -28,15 +28,15 @@ final class DateTimeTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'datetime' => '2018-03-31T01:00',
             'timezone' => 'Antarctica/Casey',
-        );
+        ];
 
-        $processedData = array(
+        $processedData = [
             'datetime' => '2018-03-31 01:00:00',
             'timezone' => 'Antarctica/Casey',
-        );
+        ];
 
         $form = $this->factory->create(DateTimeType::class);
 

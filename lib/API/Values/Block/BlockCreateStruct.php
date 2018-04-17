@@ -74,7 +74,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      *
      * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
      */
-    protected $collectionCreateStructs = array();
+    protected $collectionCreateStructs = [];
 
     /**
      * Adds a collection create struct with specified identifier to the struct.
@@ -105,7 +105,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      * @param array $values
      */
-    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = array())
+    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = [])
     {
         $this->fill($blockDefinition, $values);
     }
@@ -134,7 +134,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * @param array $values
      * @param bool $doImport
      */
-    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = array(), $doImport = false)
+    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], $doImport = false)
     {
         $this->fillFromHash($blockDefinition, $values, $doImport);
     }

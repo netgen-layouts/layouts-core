@@ -25,7 +25,7 @@ final class LayoutBackend implements BackendInterface
 
     public function getDefaultSections()
     {
-        return array(new RootLocation());
+        return [new RootLocation()];
     }
 
     public function loadLocation($id)
@@ -50,7 +50,7 @@ final class LayoutBackend implements BackendInterface
 
     public function getSubLocations(LocationInterface $location)
     {
-        return array();
+        return [];
     }
 
     public function getSubLocationsCount(LocationInterface $location)
@@ -74,7 +74,7 @@ final class LayoutBackend implements BackendInterface
 
     public function search($searchText, $offset = 0, $limit = 25)
     {
-        return array();
+        return [];
     }
 
     public function searchCount($searchText)

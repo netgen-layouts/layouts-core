@@ -33,55 +33,55 @@ final class ContentEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $handler = new BlockDefinitionHandler(array('content'));
+        $handler = new BlockDefinitionHandler(['content']);
 
         $this->definition = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'block_definition',
                 'handler' => $handler,
-                'forms' => array(
+                'forms' => [
                     'content' => new Form(
-                        array(
+                        [
                             'identifier' => 'content',
                             'type' => ContentEditType::class,
-                        )
+                        ]
                     ),
-                ),
-                'viewTypes' => array(
+                ],
+                'viewTypes' => [
                     'large' => new ViewType(
-                        array(
+                        [
                             'identifier' => 'large',
                             'name' => 'Large',
-                            'itemViewTypes' => array(
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(
-                                    array(
+                                    [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
                     'small' => new ViewType(
-                        array(
+                        [
                             'identifier' => 'large',
                             'name' => 'Large',
-                            'itemViewTypes' => array(
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(
-                                    array(
+                                    [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
+                ],
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            )
+            ]
         );
 
-        $this->block = new Block(array('definition' => $this->definition));
+        $this->block = new Block(['definition' => $this->definition]);
     }
 
     /**
@@ -97,7 +97,7 @@ final class ContentEditTypeTest extends FormTestCase
      */
     public function getTypeExtensions()
     {
-        return array(new ParametersTypeExtension());
+        return [new ParametersTypeExtension()];
     }
 
     /**
@@ -108,7 +108,7 @@ final class ContentEditTypeTest extends FormTestCase
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
 
-        return array(new ParametersType($formMapperRegistry));
+        return [new ParametersType($formMapperRegistry)];
     }
 
     /**
@@ -118,12 +118,12 @@ final class ContentEditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'parameters' => array(
+        $submittedData = [
+            'parameters' => [
                 'css_class' => 'Some CSS class',
-            ),
+            ],
             'name' => 'My block',
-        );
+        ];
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->name = 'My block';
@@ -132,7 +132,7 @@ final class ContentEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             ContentEditType::class,
             new BlockUpdateStruct(),
-            array('block' => $this->block)
+            ['block' => $this->block]
         );
 
         $form->submit($submittedData);
@@ -164,15 +164,15 @@ final class ContentEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             ContentEditType::class,
-            new BlockUpdateStruct(array('locale' => 'hr')),
-            array(
+            new BlockUpdateStruct(['locale' => 'hr']),
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertTrue($form->get('name')->isDisabled());
@@ -194,15 +194,15 @@ final class ContentEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             ContentEditType::class,
-            new BlockUpdateStruct(array('locale' => 'en')),
-            array(
+            new BlockUpdateStruct(['locale' => 'en']),
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($form->get('name')->isDisabled());
@@ -223,10 +223,10 @@ final class ContentEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'block' => $this->block,
                 'data' => new BlockUpdateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->block, $options['block']);
@@ -261,9 +261,9 @@ final class ContentEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'block' => '',
-            )
+            ]
         );
     }
 
@@ -280,10 +280,10 @@ final class ContentEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'block' => $this->block,
                 'data' => '',
-            )
+            ]
         );
     }
 }

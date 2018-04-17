@@ -19,46 +19,46 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettings()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
                         'name' => 'Block type',
                         'icon' => '/icon.svg',
                         'definition_identifier' => 'title',
-                        'defaults' => array(
+                        'defaults' => [
                             'name' => 'Name',
                             'view_type' => 'large',
                             'item_view_type' => 'standard',
-                            'parameters' => array(
+                            'parameters' => [
                                 'param1' => 'value1',
                                 'param2' => 'value2',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
                     'name' => 'Block type',
                     'icon' => '/icon.svg',
                     'enabled' => true,
                     'definition_identifier' => 'title',
-                    'defaults' => array(
+                    'defaults' => [
                         'name' => 'Name',
                         'view_type' => 'large',
                         'item_view_type' => 'standard',
-                        'parameters' => array(
+                        'parameters' => [
                             'param1' => 'value1',
                             'param2' => 'value2',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -74,21 +74,21 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoIcon()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block' => [
                     'icon' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -104,23 +104,23 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNullIcon()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block' => array(
+        $config = [
+            [
+                'block_types' => [
+                    'block' => [
                         'icon' => null,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block' => [
                     'icon' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -137,19 +137,19 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoName()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -166,33 +166,33 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoNameAndWithDefinitionIdentifierWhenDisabled()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
                         'enabled' => false,
                         'icon' => '/icon.svg',
                         'definition_identifier' => 'title',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
                     'enabled' => false,
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
-                    'defaults' => array(
+                    'defaults' => [
                         'name' => '',
                         'view_type' => '',
                         'item_view_type' => '',
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -209,19 +209,19 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoDefinitionIdentifier()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -238,25 +238,25 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoDefaultName()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
-                        'defaults' => array(),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'defaults' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
+                    'defaults' => [
                         'name' => '',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -273,25 +273,25 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoDefaultViewType()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
-                        'defaults' => array(),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'defaults' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
+                    'defaults' => [
                         'view_type' => '',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -308,25 +308,25 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoDefaultItemViewType()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
-                        'defaults' => array(),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'defaults' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
+                    'defaults' => [
                         'item_view_type' => '',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -343,25 +343,25 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoDefaultParameters()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
-                        'defaults' => array(),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'defaults' => array(
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
+                    'defaults' => [
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -378,42 +378,42 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoParametersMerge()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(
-                        'defaults' => array(
-                            'parameters' => array(
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [
+                        'defaults' => [
+                            'parameters' => [
                                 'param1' => 'value1',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'block_types' => array(
-                    'block_type' => array(
-                        'defaults' => array(
-                            'parameters' => array(
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'block_types' => [
+                    'block_type' => [
+                        'defaults' => [
+                            'parameters' => [
                                 'param2' => 'value2',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'defaults' => array(
-                        'parameters' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
+                    'defaults' => [
+                        'parameters' => [
                             'param2' => 'value2',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -428,26 +428,26 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoDefaults()
     {
-        $config = array(
-            array(
-                'block_types' => array(
-                    'block_type' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_types' => [
+                    'block_type' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'defaults' => array(
+        $expectedConfig = [
+            'block_types' => [
+                'block_type' => [
+                    'defaults' => [
                         'name' => '',
                         'view_type' => '',
                         'item_view_type' => '',
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -462,16 +462,16 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeWithEmptyIcon()
     {
-        $config = array(
-            'block_types' => array(
-                'block' => array(
+        $config = [
+            'block_types' => [
+                'block' => [
                     'name' => 'Block',
                     'icon' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -480,16 +480,16 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeWithNonStringIcon()
     {
-        $config = array(
-            'block_types' => array(
-                'block' => array(
+        $config = [
+            'block_types' => [
+                'block' => [
                     'name' => 'Block',
                     'icon' => 42,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -498,11 +498,11 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoBlockTypes()
     {
-        $config = array(
-            'block_types' => array(),
-        );
+        $config = [
+            'block_types' => [],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -511,15 +511,15 @@ final class BlockTypeNodeTest extends TestCase
      */
     public function testBlockTypeSettingsWithNoNameAndWithDefinitionIdentifier()
     {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
+        $config = [
+            'block_types' => [
+                'block_type' => [
                     'definition_identifier' => 'title',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

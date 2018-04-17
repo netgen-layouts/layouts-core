@@ -25,25 +25,25 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
         $this->blockService = $blockService;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Block\Block $block */
         $block = $object->getValue();
         $blockDefinition = $block->getDefinition();
 
-        $parameters = array();
+        $parameters = [];
         foreach ($block->getParameters() as $parameter) {
             $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
         }
 
-        $placeholders = array();
+        $placeholders = [];
         foreach ($block->getPlaceholders() as $placeholder) {
             $placeholders[] = new VersionedValue($placeholder, $object->getVersion());
         }
 
         $isContainer = $blockDefinition instanceof ContainerDefinitionInterface;
 
-        return array(
+        return [
             'id' => $block->getId(),
             'layout_id' => $block->getLayoutId(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
@@ -61,7 +61,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),
             'placeholders' => $this->serializer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizeBlockCollections($block),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)
@@ -75,16 +75,16 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
 
     private function normalizeBlockCollections(Block $block)
     {
-        $data = array();
+        $data = [];
 
         foreach ($block->getCollections() as $identifier => $collection) {
-            $data[] = array(
+            $data[] = [
                 'identifier' => $identifier,
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
                 'offset' => $collection->getOffset(),
                 'limit' => $collection->getLimit(),
-            );
+            ];
         }
 
         return $data;

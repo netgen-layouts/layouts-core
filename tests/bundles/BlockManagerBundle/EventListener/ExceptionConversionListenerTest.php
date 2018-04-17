@@ -45,7 +45,7 @@ final class ExceptionConversionListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::EXCEPTION => array('onException', 10)),
+            [KernelEvents::EXCEPTION => ['onException', 10]],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -161,79 +161,79 @@ final class ExceptionConversionListenerTest extends TestCase
 
     public function onExceptionDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 new NotFoundException('param', 'Some error'),
                 NotFoundHttpException::class,
                 Response::HTTP_NOT_FOUND,
                 true,
-            ),
-            array(
+            ],
+            [
                 new InvalidArgumentException('param', 'Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,
-            ),
-            array(
+            ],
+            [
                 new BadStateException('param', 'Some error'),
                 UnprocessableEntityHttpException::class,
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 true,
-            ),
-            array(
+            ],
+            [
                 new ValidationException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,
-            ),
-            array(
+            ],
+            [
                 new ConfigException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,
-            ),
-            array(
+            ],
+            [
                 new ExceptionStub('Some error'),
                 ExceptionStub::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 false,
-            ),
-            array(
+            ],
+            [
                 new Exception('Some error'),
                 Exception::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 false,
-            ),
-            array(
+            ],
+            [
                 new AccessDeniedException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
                 true,
-            ),
-            array(
+            ],
+            [
                 new BaseInvalidArgumentException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,
-            ),
-            array(
+            ],
+            [
                 new ViewException('Some error'),
                 ViewException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 false,
-            ),
-            array(
+            ],
+            [
                 new RuntimeException('Some error'),
                 RuntimeException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 false,
-            ),
-            array(
+            ],
+            [
                 new AccessDeniedHttpException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
                 false,
-            ),
-        );
+            ],
+        ];
     }
 }

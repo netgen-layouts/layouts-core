@@ -13,17 +13,17 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Serializer
 {
     use SerializerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Query $query */
         $query = $object->getValue();
 
-        $parameters = array();
+        $parameters = [];
         foreach ($query->getParameters() as $parameter) {
             $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
         }
 
-        return array(
+        return [
             'id' => $query->getId(),
             'collection_id' => $query->getCollectionId(),
             'type' => $query->getQueryType()->getType(),
@@ -31,7 +31,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Serializer
             'is_translatable' => $query->isTranslatable(),
             'always_available' => $query->isAlwaysAvailable(),
             'parameters' => $this->serializer->normalize($parameters, $format, $context),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)

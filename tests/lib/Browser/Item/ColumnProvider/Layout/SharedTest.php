@@ -27,9 +27,9 @@ final class SharedTest extends TestCase
     {
         $item = new Item(
             new Layout(
-                array(
+                [
                     'shared' => true,
-                )
+                ]
             )
         );
 

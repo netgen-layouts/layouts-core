@@ -18,10 +18,10 @@ final class RuleUpdateStructTest extends TestCase
     public function testSetProperties()
     {
         $ruleUpdateStruct = new RuleUpdateStruct(
-            array(
+            [
                 'layoutId' => 42,
                 'comment' => 'Comment',
-            )
+            ]
         );
 
         $this->assertEquals(42, $ruleUpdateStruct->layoutId);

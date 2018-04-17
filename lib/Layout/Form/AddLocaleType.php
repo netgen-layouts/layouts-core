@@ -30,7 +30,7 @@ final class AddLocaleType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('layout'));
+        $resolver->setRequired(['layout']);
         $resolver->setAllowedTypes('layout', Layout::class);
 
         $resolver->setDefault('translation_domain', 'ngbm_forms');
@@ -38,7 +38,7 @@ final class AddLocaleType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $newLocales = array();
+        $newLocales = [];
         $layoutLocales = $options['layout']->getAvailableLocales();
         $localeBundle = Intl::getLocaleBundle();
 
@@ -51,22 +51,22 @@ final class AddLocaleType extends AbstractType
         $builder->add(
             'locale',
             ChoiceType::class,
-            array(
+            [
                 'label' => 'layout.add_locale.locale',
                 'required' => true,
                 'choices' => $newLocales,
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
+                    new Constraints\Type(['type' => 'string']),
                     new Constraints\Locale(),
-                ),
-            ) + $this->getChoicesAsValuesOption()
+                ],
+            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
             'sourceLocale',
             ChoiceType::class,
-            array(
+            [
                 'data' => $options['layout']->getMainLocale(),
                 'label' => 'layout.add_locale.source_locale',
                 'required' => true,
@@ -79,12 +79,12 @@ final class AddLocaleType extends AbstractType
 
                     return $localeName;
                 },
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
+                    new Constraints\Type(['type' => 'string']),
                     new Constraints\Locale(),
-                ),
-            ) + $this->getChoicesAsValuesOption()
+                ],
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 }

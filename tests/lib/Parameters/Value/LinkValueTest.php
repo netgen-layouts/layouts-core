@@ -32,12 +32,12 @@ final class LinkValueTest extends TestCase
     public function testSetProperties()
     {
         $linkValue = new LinkValue(
-            array(
+            [
                 'linkType' => LinkValue::LINK_TYPE_EMAIL,
                 'link' => 'mail@example.com',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
-            )
+            ]
         );
 
         $this->assertEquals(LinkValue::LINK_TYPE_EMAIL, $linkValue->getLinkType());

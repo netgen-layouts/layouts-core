@@ -20,7 +20,7 @@ final class ItemTest extends TestCase
 
     public function setUp()
     {
-        $this->layout = new Layout(array('id' => 42, 'name' => 'My layout'));
+        $this->layout = new Layout(['id' => 42, 'name' => 'My layout']);
 
         $this->item = new Item($this->layout);
     }

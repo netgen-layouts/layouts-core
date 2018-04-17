@@ -24,14 +24,14 @@ final class ViewBuilder implements ViewBuilderInterface
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
      */
-    private $viewProviders = array();
+    private $viewProviders = [];
 
     /**
      * @param \Netgen\BlockManager\View\TemplateResolverInterface $templateResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
      */
-    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders = array())
+    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders = [])
     {
         foreach ($viewProviders as $viewProvider) {
             if (!$viewProvider instanceof ViewProviderInterface) {
@@ -48,7 +48,7 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->viewProviders = $viewProviders;
     }
 
-    public function buildView($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
+    public function buildView($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = [])
     {
         $viewProvider = $this->getViewProvider($value);
 

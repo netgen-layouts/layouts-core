@@ -20,7 +20,7 @@ final class UrlGeneratorPass implements CompilerPassInterface
 
         $urlGenerator = $container->findDefinition(self::$serviceName);
 
-        $valueUrlGenerators = array();
+        $valueUrlGenerators = [];
         foreach ($container->findTaggedServiceIds(self::$tagName) as $valueUrlGenerator => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {

@@ -28,7 +28,7 @@ final class QueryCreateStruct extends Value implements ParameterStruct
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param array $values
      */
-    public function fillParameters(QueryTypeInterface $queryType, array $values = array())
+    public function fillParameters(QueryTypeInterface $queryType, array $values = [])
     {
         $this->fill($queryType, $values);
     }
@@ -57,7 +57,7 @@ final class QueryCreateStruct extends Value implements ParameterStruct
      * @param array $values
      * @param bool $doImport
      */
-    public function fillParametersFromHash(QueryTypeInterface $queryType, array $values = array(), $doImport = false)
+    public function fillParametersFromHash(QueryTypeInterface $queryType, array $values = [], $doImport = false)
     {
         $this->fillFromHash($queryType, $values, $doImport);
     }

@@ -19,13 +19,13 @@ final class DesignNodeTest extends TestCase
      */
     public function testDesignSettings()
     {
-        $config = array(
-            array(),
-        );
+        $config = [
+            [],
+        ];
 
-        $expectedConfig = array(
+        $expectedConfig = [
             'design' => 'standard',
-        );
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -39,11 +39,11 @@ final class DesignNodeTest extends TestCase
      */
     public function testDesignSettingsWithEmptyDesignName()
     {
-        $config = array(
-            array(
+        $config = [
+            [
                 'design' => '',
-            ),
-        );
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design" cannot contain an empty value, but got "".');
     }
@@ -53,11 +53,11 @@ final class DesignNodeTest extends TestCase
      */
     public function testDesignSettingsWithInvalidDesignName()
     {
-        $config = array(
-            array(
-                'design' => array(),
-            ),
-        );
+        $config = [
+            [
+                'design' => [],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.design". Expected scalar, but got array.');
     }

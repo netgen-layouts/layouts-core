@@ -22,13 +22,13 @@ final class LayoutCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $layoutCreateStruct = new LayoutCreateStruct(
-            array(
+            [
                 'layoutType' => new LayoutType(),
                 'name' => 'My layout',
                 'description' => 'My description',
                 'shared' => true,
                 'mainLocale' => 'en',
-            )
+            ]
         );
 
         $this->assertEquals(new LayoutType(), $layoutCreateStruct->layoutType);

@@ -28,7 +28,7 @@ final class CommonParametersPluginTest extends TestCase
 
     public function setUp()
     {
-        $this->plugin = new CommonParametersPlugin(array('group'));
+        $this->plugin = new CommonParametersPlugin(['group']);
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
@@ -62,17 +62,17 @@ final class CommonParametersPluginTest extends TestCase
 
         $this->assertTrue($builder->has('css_class'));
         $this->assertInstanceOf(ParameterType\TextLineType::class, $builder->get('css_class')->getType());
-        $this->assertEquals(array('group'), $builder->get('css_class')->getGroups());
+        $this->assertEquals(['group'], $builder->get('css_class')->getGroups());
         $this->assertFalse($builder->get('css_class')->getOption('translatable'));
 
         $this->assertTrue($builder->has('css_id'));
         $this->assertInstanceOf(ParameterType\TextLineType::class, $builder->get('css_id')->getType());
-        $this->assertEquals(array('group'), $builder->get('css_id')->getGroups());
+        $this->assertEquals(['group'], $builder->get('css_id')->getGroups());
         $this->assertFalse($builder->get('css_id')->getOption('translatable'));
 
         $this->assertTrue($builder->has('set_container'));
         $this->assertInstanceOf(ParameterType\BooleanType::class, $builder->get('set_container')->getType());
-        $this->assertEquals(array('group'), $builder->get('set_container')->getGroups());
+        $this->assertEquals(['group'], $builder->get('set_container')->getGroups());
         $this->assertFalse($builder->get('set_container')->getOption('translatable'));
     }
 }

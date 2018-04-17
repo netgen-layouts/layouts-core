@@ -49,17 +49,17 @@ final class ConfigControllerTest extends JsonApiTestCase
 
         $tokenManagerMock
             ->shouldReceive('getToken')
-            ->withArgs(array($tokenId))
+            ->withArgs([$tokenId])
             ->andReturn($invalidToken);
 
         $tokenManagerMock
             ->shouldReceive('isTokenValid')
-            ->withArgs(array($invalidToken))
+            ->withArgs([$invalidToken])
             ->andReturn(false);
 
         $tokenManagerMock
             ->shouldReceive('refreshToken')
-            ->withArgs(array($tokenId))
+            ->withArgs([$tokenId])
             ->andReturn(new CsrfToken($tokenId, 'refreshedToken'));
 
         $this->client->request('GET', '/bm/api/v1/config');

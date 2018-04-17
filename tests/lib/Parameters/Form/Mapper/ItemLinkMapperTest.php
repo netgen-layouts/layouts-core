@@ -41,7 +41,7 @@ final class ItemLinkMapperTest extends TestCase
     public function setUp()
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
-        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+        $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
@@ -67,18 +67,18 @@ final class ItemLinkMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->type,
-                'options' => array(
-                    'value_types' => array('value'),
-                ),
-            )
+                'options' => [
+                    'value_types' => ['value'],
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
-                'item_types' => array('value'),
-            ),
+            [
+                'item_types' => ['value'],
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }
@@ -89,18 +89,18 @@ final class ItemLinkMapperTest extends TestCase
     public function testMapOptionsWithEmptyValueTypes()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->type,
-                'options' => array(
-                    'value_types' => array('default'),
-                ),
-            )
+                'options' => [
+                    'value_types' => ['default'],
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
-                'item_types' => array('default'),
-            ),
+            [
+                'item_types' => ['default'],
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }
@@ -111,9 +111,9 @@ final class ItemLinkMapperTest extends TestCase
     public function testHandleForm()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->type,
-            )
+            ]
         );
 
         $dispatcher = $this->createMock(EventDispatcherInterface::class);

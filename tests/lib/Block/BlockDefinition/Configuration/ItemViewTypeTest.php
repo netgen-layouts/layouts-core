@@ -14,7 +14,7 @@ final class ItemViewTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->itemViewType = new ItemViewType(array('identifier' => 'standard', 'name' => 'Standard'));
+        $this->itemViewType = new ItemViewType(['identifier' => 'standard', 'name' => 'Standard']);
     }
 
     /**

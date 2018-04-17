@@ -36,14 +36,14 @@ final class ConfigMapperTest extends TestCase
     public function testMapConfig()
     {
         $mappedConfig = $this->mapper->mapConfig(
-            array(
-                'config_key' => array(
+            [
+                'config_key' => [
                     'param' => 'value',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'config_key' => $this->configDefinition,
-            )
+            ]
         );
 
         $this->assertInternalType('array', $mappedConfig);
@@ -71,26 +71,26 @@ final class ConfigMapperTest extends TestCase
         $configStruct->setParameterValue('param', 'new_value');
 
         $serializedConfig = $this->mapper->serializeValues(
-            array(
+            [
                 'config_key' => $configStruct,
-            ),
-            array(
+            ],
+            [
                 'config_key' => $this->configDefinition,
-            ),
-            array(
-                'config_key' => array(
+            ],
+            [
+                'config_key' => [
                     'param2' => 'value2',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
-                'config_key' => array(
+            [
+                'config_key' => [
                     'param' => 'new_value',
                     'param2' => 'value2',
-                ),
-            ),
+                ],
+            ],
             $serializedConfig
         );
     }

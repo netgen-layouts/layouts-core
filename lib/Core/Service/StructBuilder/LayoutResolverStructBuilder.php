@@ -52,9 +52,9 @@ final class LayoutResolverStructBuilder
     public function newTargetCreateStruct($type)
     {
         return new TargetCreateStruct(
-            array(
+            [
                 'type' => $type,
-            )
+            ]
         );
     }
 
@@ -78,9 +78,9 @@ final class LayoutResolverStructBuilder
     public function newConditionCreateStruct($type)
     {
         return new ConditionCreateStruct(
-            array(
+            [
                 'type' => $type,
-            )
+            ]
         );
     }
 

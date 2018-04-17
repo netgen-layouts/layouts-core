@@ -39,7 +39,7 @@ final class ViewRendererListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::VIEW => array('onView', -255)),
+            [KernelEvents::VIEW => ['onView', -255]],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -50,7 +50,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testOnView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');
@@ -87,7 +87,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testOnViewWithException()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');

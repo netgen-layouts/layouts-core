@@ -29,11 +29,11 @@ final class AddLocaleTypeTest extends FormTestCase
             ->method('getAvailableLocales')
             ->will(
                 $this->returnValue(
-                    array('hr_HR' => 'Croatian', 'fr_FR' => 'French', 'en_GB' => 'English', 'de_DE' => 'German')
+                    ['hr_HR' => 'Croatian', 'fr_FR' => 'French', 'en_GB' => 'English', 'de_DE' => 'German']
                 )
             );
 
-        $this->layout = new Layout(array('availableLocales' => array('en_GB', 'de_DE'), 'mainLocale' => 'en_GB'));
+        $this->layout = new Layout(['availableLocales' => ['en_GB', 'de_DE'], 'mainLocale' => 'en_GB']);
 
         parent::setUp();
     }
@@ -52,17 +52,17 @@ final class AddLocaleTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'locale' => 'hr_HR',
             'sourceLocale' => 'en_GB',
-        );
+        ];
 
         $form = $this->factory->create(
             AddLocaleType::class,
             null,
-            array(
+            [
                 'layout' => $this->layout,
-            )
+            ]
         );
 
         $form->submit($submittedData);
@@ -88,7 +88,7 @@ final class AddLocaleTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $layout = new Layout();
-        $options = array('layout' => $layout);
+        $options = ['layout' => $layout];
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals('ngbm_forms', $resolvedOptions['translation_domain']);
@@ -104,7 +104,7 @@ final class AddLocaleTypeTest extends FormTestCase
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);
-        $optionsResolver->resolve(array('layout' => 42));
+        $optionsResolver->resolve(['layout' => 42]);
     }
 
     /**

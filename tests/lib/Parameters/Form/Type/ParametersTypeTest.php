@@ -37,7 +37,7 @@ final class ParametersTypeTest extends FormTestCase
      */
     public function getTypeExtensions()
     {
-        return array(new ParametersTypeExtension());
+        return [new ParametersTypeExtension()];
     }
 
     /**
@@ -48,16 +48,16 @@ final class ParametersTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'parameter_values' => array(
+        $submittedData = [
+            'parameter_values' => [
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
-                'compound' => array(
+                'compound' => [
                     '_self' => true,
                     'inner' => 'Inner value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
@@ -71,52 +71,52 @@ final class ParametersTypeTest extends FormTestCase
         );
 
         $compoundParameter = new CompoundParameterDefinition(
-            array(
+            [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
-                'options' => array(
+                'options' => [
                     'reverse' => false,
-                ),
-                'parameterDefinitions' => array(
+                ],
+                'parameterDefinitions' => [
                     'inner' => new ParameterDefinition(
-                        array(
+                        [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $parameterCollection = new ParameterCollection(
-            array(
+            [
                 'css_class' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'css_class',
                         'type' => new ParameterType\TextLineType(),
                         'label' => false,
-                    )
+                    ]
                 ),
                 'css_id' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
                         'label' => 'custom label',
-                    )
+                    ]
                 ),
                 'compound' => $compoundParameter,
-            )
+            ]
         );
 
         $parentForm->add(
             'parameter_values',
             ParametersType::class,
-            array(
+            [
                 'inherit_data' => true,
                 'parameter_collection' => $parameterCollection,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
-            )
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -161,11 +161,11 @@ final class ParametersTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithGroups()
     {
-        $submittedData = array(
-            'parameter_values' => array(
+        $submittedData = [
+            'parameter_values' => [
                 'css_id' => 'Some CSS ID',
-            ),
-        );
+            ],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
@@ -176,34 +176,34 @@ final class ParametersTypeTest extends FormTestCase
         );
 
         $parameterCollection = new ParameterCollection(
-            array(
+            [
                 'excluded' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'excluded',
                         'type' => new ParameterType\TextLineType(),
-                        'groups' => array('excluded'),
-                    )
+                        'groups' => ['excluded'],
+                    ]
                 ),
                 'css_id' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
-                        'groups' => array('group'),
-                    )
+                        'groups' => ['group'],
+                    ]
                 ),
-            )
+            ]
         );
 
         $parentForm->add(
             'parameter_values',
             ParametersType::class,
-            array(
+            [
                 'inherit_data' => true,
                 'parameter_collection' => $parameterCollection,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -226,20 +226,20 @@ final class ParametersTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $options = array(
+        $options = [
             'parameter_collection' => new ParameterCollection(),
             'label_prefix' => 'label',
-        );
+        ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals(
-            array(
+            [
                 'parameter_collection' => new ParameterCollection(),
                 'label_prefix' => 'label',
-                'groups' => array(),
+                'groups' => [],
                 'translation_domain' => 'ngbm',
-            ),
+            ],
             $resolvedOptions
         );
     }
@@ -272,10 +272,10 @@ final class ParametersTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'parameter_collection' => null,
                 'label_prefix' => 'label',
-            )
+            ]
         );
     }
 }

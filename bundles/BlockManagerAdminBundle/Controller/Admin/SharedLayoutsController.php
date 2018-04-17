@@ -38,9 +38,9 @@ final class SharedLayoutsController extends Controller
     {
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/shared_layouts/index.html.twig',
-            array(
+            [
                 'shared_layouts' => $this->layoutService->loadSharedLayouts(true),
-            )
+            ]
         );
     }
 
@@ -60,15 +60,15 @@ final class SharedLayoutsController extends Controller
         $form = $this->createForm(
             ClearLayoutsCacheType::class,
             null,
-            array(
+            [
                 'layouts' => $relatedLayouts,
                 'action' => $this->generateUrl(
                     'ngbm_admin_shared_layouts_cache_related_layouts',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -95,11 +95,11 @@ final class SharedLayoutsController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(
+            [
                 'error' => !$cacheCleared,
                 'layout' => $layout,
                 'related_layouts' => array_values($relatedLayouts),
-            ),
+            ],
             new Response(
                 null,
                 $form->isSubmitted() || !$cacheCleared ?

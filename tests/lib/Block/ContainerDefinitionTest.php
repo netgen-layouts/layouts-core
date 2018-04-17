@@ -23,10 +23,10 @@ final class ContainerDefinitionTest extends TestCase
         $this->handler = new ContainerDefinitionHandler();
 
         $this->blockDefinition = new ContainerDefinition(
-            array(
+            [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-            )
+            ]
         );
     }
 
@@ -35,7 +35,7 @@ final class ContainerDefinitionTest extends TestCase
      */
     public function testGetPlaceholders()
     {
-        $this->assertEquals(array('left', 'right'), $this->blockDefinition->getPlaceholders());
+        $this->assertEquals(['left', 'right'], $this->blockDefinition->getPlaceholders());
     }
 
     /**

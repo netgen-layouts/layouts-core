@@ -231,9 +231,9 @@ final class GlobalVariable
             $layoutView = $this->viewBuilder->buildView(
                 $resolvedRule->getLayout(),
                 $context,
-                array(
+                [
                     'rule' => $resolvedRule,
-                )
+                ]
             );
         }
 

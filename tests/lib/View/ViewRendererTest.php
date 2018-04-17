@@ -46,7 +46,7 @@ final class ViewRendererTest extends TestCase
      */
     public function testRenderView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 
@@ -60,10 +60,10 @@ final class ViewRendererTest extends TestCase
             ->with(
                 $this->equalTo('some_template.html.twig'),
                 $this->equalTo(
-                    array(
+                    [
                         'some_param' => 'some_value',
                         'value' => new Value(),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered template'));

@@ -18,22 +18,22 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->blocks = array(
+        $this->blocks = [
             42 => new Block(
-                array(
+                [
                     'id' => 42,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'locale' => 'en',
-                )
+                ]
             ),
             24 => new Block(
-                array(
+                [
                     'id' => 24,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'locale' => 'en',
-                )
+                ]
             ),
-        );
+        ];
     }
 
     /**
@@ -50,20 +50,20 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'blocks' => array(42),
-        );
+        $submittedData = [
+            'blocks' => [42],
+        ];
 
         $form = $this->factory->create(
             ClearBlocksCacheType::class,
             null,
-            array('blocks' => $this->blocks)
+            ['blocks' => $this->blocks]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(array('blocks' => array($this->blocks[42])), $form->getData());
+        $this->assertEquals(['blocks' => [$this->blocks[42]]], $form->getData());
 
         $view = $form->createView();
 
@@ -81,9 +81,9 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'blocks' => $this->blocks,
-            )
+            ]
         );
 
         $this->assertEquals($this->blocks, $options['blocks']);
@@ -101,9 +101,9 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'blocks' => 42,
-            )
+            ]
         );
     }
 }

@@ -10,12 +10,12 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class BlockTypeGroupNormalizer implements NormalizerInterface
 {
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup $blockTypeGroup */
         $blockTypeGroup = $object->getValue();
 
-        return array(
+        return [
             'identifier' => $blockTypeGroup->getIdentifier(),
             'enabled' => $blockTypeGroup->isEnabled(),
             'name' => $blockTypeGroup->getName(),
@@ -25,7 +25,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
                 },
                 $blockTypeGroup->getBlockTypes(true)
             ),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)

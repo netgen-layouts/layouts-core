@@ -17,11 +17,11 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $templateResolver = new Definition();
-        $templateResolver->addArgument(array());
+        $templateResolver->addArgument([]);
         $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();
-        $matcher->addTag('netgen_block_manager.view.template_matcher', array('identifier' => 'block_type'));
+        $matcher->addTag('netgen_block_manager.view.template_matcher', ['identifier' => 'block_type']);
         $this->setDefinition('netgen_block_manager.view.template_matcher.test', $matcher);
 
         $this->compile();
@@ -29,9 +29,9 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.view.template_resolver',
             0,
-            array(
+            [
                 'block_type' => new Reference('netgen_block_manager.view.template_matcher.test'),
-            )
+            ]
         );
     }
 
@@ -43,7 +43,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {
         $templateResolver = new Definition();
-        $templateResolver->addArgument(array());
+        $templateResolver->addArgument([]);
         $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();

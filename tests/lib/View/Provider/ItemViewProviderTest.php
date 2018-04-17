@@ -29,17 +29,17 @@ final class ItemViewProviderTest extends TestCase
         $item = new Item();
 
         /** @var \Netgen\BlockManager\View\View\ItemViewInterface $view */
-        $view = $this->itemViewProvider->provideView($item, array('view_type' => 'view_type'));
+        $view = $this->itemViewProvider->provideView($item, ['view_type' => 'view_type']);
 
         $this->assertInstanceOf(ItemViewInterface::class, $view);
 
         $this->assertEquals($item, $view->getItem());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'item' => $item,
                 'view_type' => 'view_type',
-            ),
+            ],
             $view->getParameters()
         );
     }
@@ -61,7 +61,7 @@ final class ItemViewProviderTest extends TestCase
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType()
     {
-        $this->itemViewProvider->provideView(new Item(), array('view_type' => 42));
+        $this->itemViewProvider->provideView(new Item(), ['view_type' => 42]);
     }
 
     /**
@@ -83,10 +83,10 @@ final class ItemViewProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Value(), false),
-            array(new Item(), true),
-            array(new Layout(), false),
-        );
+        return [
+            [new Value(), false],
+            [new Item(), true],
+            [new Layout(), false],
+        ];
     }
 }

@@ -17,7 +17,7 @@ final class ConfigureTranslationType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('block'));
+        $resolver->setRequired(['block']);
         $resolver->setAllowedTypes('block', Block::class);
 
         $resolver->setDefault('translation_domain', 'ngbm_forms');
@@ -28,14 +28,14 @@ final class ConfigureTranslationType extends AbstractType
         $builder->add(
             'translatable',
             CheckboxType::class,
-            array(
+            [
                 'data' => $options['block']->isTranslatable(),
                 'required' => false,
                 'label' => 'block.configure_translation.translatable',
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotNull(),
-                ),
-            )
+                ],
+            ]
         );
     }
 

@@ -28,8 +28,8 @@ final class LayoutTypeRegistryTest extends TestCase
     {
         $this->registry = new LayoutTypeRegistry();
 
-        $this->layoutType1 = new LayoutType(array('identifier' => 'layout_type1', 'isEnabled' => true));
-        $this->layoutType2 = new LayoutType(array('identifier' => 'layout_type2', 'isEnabled' => false));
+        $this->layoutType1 = new LayoutType(['identifier' => 'layout_type1', 'isEnabled' => true]);
+        $this->layoutType2 = new LayoutType(['identifier' => 'layout_type2', 'isEnabled' => false]);
 
         $this->registry->addLayoutType('layout_type1', $this->layoutType1);
         $this->registry->addLayoutType('layout_type2', $this->layoutType2);
@@ -42,10 +42,10 @@ final class LayoutTypeRegistryTest extends TestCase
     public function testGetLayoutTypes()
     {
         $this->assertEquals(
-            array(
+            [
                 'layout_type1' => $this->layoutType1,
                 'layout_type2' => $this->layoutType2,
-            ),
+            ],
             $this->registry->getLayoutTypes()
         );
     }
@@ -57,9 +57,9 @@ final class LayoutTypeRegistryTest extends TestCase
     public function testGetEnabledLayoutTypes()
     {
         $this->assertEquals(
-            array(
+            [
                 'layout_type1' => $this->layoutType1,
-            ),
+            ],
             $this->registry->getLayoutTypes(true)
         );
     }
@@ -105,7 +105,7 @@ final class LayoutTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $layoutTypes = array();
+        $layoutTypes = [];
         foreach ($this->registry as $identifier => $layoutType) {
             $layoutTypes[$identifier] = $layoutType;
         }

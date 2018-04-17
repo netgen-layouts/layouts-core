@@ -17,7 +17,7 @@ final class DateTimeType extends AbstractType
     /**
      * @var array
      */
-    private $timeZoneList = array();
+    private $timeZoneList = [];
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,7 +26,7 @@ final class DateTimeType extends AbstractType
         $builder->add(
             'datetime',
             BaseDateTimeType::class,
-            array(
+            [
                 'label' => false,
                 'format' => self::$html5Format,
                 'widget' => 'single_text',
@@ -34,18 +34,18 @@ final class DateTimeType extends AbstractType
                 'input' => 'string',
                 'empty_data' => '',
                 'property_path' => 'datetime',
-            )
+            ]
         );
 
         $builder->add(
             'timezone',
             ChoiceType::class,
-            array(
+            [
                 'label' => false,
                 'choices' => $this->getTimeZoneList(),
                 'choice_translation_domain' => false,
                 'property_path' => 'timezone',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 

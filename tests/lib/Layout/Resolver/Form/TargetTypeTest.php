@@ -38,7 +38,7 @@ final class TargetTypeTest extends FormTestCase
      */
     public function testConstructorThrowsInvalidInterfaceException()
     {
-        $this->formType = new TargetTypeForm(array('type' => new stdClass()));
+        $this->formType = new TargetTypeForm(['type' => new stdClass()]);
     }
 
     /**
@@ -51,7 +51,7 @@ final class TargetTypeTest extends FormTestCase
         $this->factory->create(
             TargetTypeForm::class,
             new TargetCreateStruct(),
-            array('targetType' => $this->targetType)
+            ['targetType' => $this->targetType]
         );
     }
 
@@ -66,10 +66,10 @@ final class TargetTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'targetType' => $this->targetType,
                 'data' => new TargetCreateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->targetType, $options['targetType']);
@@ -104,9 +104,9 @@ final class TargetTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'targetType' => '',
-            )
+            ]
         );
     }
 
@@ -123,10 +123,10 @@ final class TargetTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'targetType' => $this->targetType,
                 'data' => '',
-            )
+            ]
         );
     }
 }

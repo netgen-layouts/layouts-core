@@ -85,7 +85,7 @@ final class DateTimeUtils
      */
     public static function getTimeZoneList()
     {
-        $timeZoneList = array();
+        $timeZoneList = [];
         foreach (DateTimeZone::listIdentifiers() as $timeZone) {
             list($region, $name) = self::parseTimeZone($timeZone);
 
@@ -111,14 +111,14 @@ final class DateTimeUtils
         $parts = explode('/', $timeZone);
 
         if (count($parts) > 2) {
-            return array($parts[0], $parts[1] . ' / ' . $parts[2]);
+            return [$parts[0], $parts[1] . ' / ' . $parts[2]];
         }
 
         if (count($parts) > 1) {
-            return array($parts[0], $parts[1]);
+            return [$parts[0], $parts[1]];
         }
 
-        return array('Other', $parts[0]);
+        return ['Other', $parts[0]];
     }
 
     /**

@@ -18,11 +18,11 @@ trait ChoicesAsValuesTrait
     public function getChoicesAsValuesOption()
     {
         if (Kernel::VERSION_ID < 30100) {
-            return array(
+            return [
                 'choices_as_values' => true,
-            );
+            ];
         }
 
-        return array();
+        return [];
     }
 }

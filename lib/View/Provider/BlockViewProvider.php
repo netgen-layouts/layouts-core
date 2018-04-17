@@ -7,12 +7,12 @@ use Netgen\BlockManager\View\View\BlockView;
 
 final class BlockViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         $blockView = new BlockView(
-            array(
+            [
                 'block' => $value,
-            )
+            ]
         );
 
         $httpCacheConfig = $value->getConfig('http_cache');

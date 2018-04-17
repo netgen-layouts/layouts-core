@@ -51,7 +51,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            new Collection(array('status' => Value::STATUS_DRAFT, 'query' => new Query())),
+            new Collection(['status' => Value::STATUS_DRAFT, 'query' => new Query()]),
             Collection::TYPE_MANUAL
         );
     }
@@ -82,8 +82,8 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->addItem(
-            new Collection(array('status' => Value::STATUS_DRAFT)),
-            new ItemCreateStruct(array('definition' => new ItemDefinition(), 'type' => Item::TYPE_MANUAL))
+            new Collection(['status' => Value::STATUS_DRAFT]),
+            new ItemCreateStruct(['definition' => new ItemDefinition(), 'type' => Item::TYPE_MANUAL])
         );
     }
 
@@ -99,7 +99,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('loadItem')
             ->will(
                 $this->returnValue(
-                    new PersistenceItem(array('config' => array()))
+                    new PersistenceItem(['config' => []])
                 )
             );
 
@@ -113,7 +113,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
-            new Item(array('status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition())),
+            new Item(['status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition()]),
             new ItemUpdateStruct()
         );
     }
@@ -139,7 +139,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(new Item(array('status' => Value::STATUS_DRAFT)), 0);
+        $this->collectionService->moveItem(new Item(['status' => Value::STATUS_DRAFT]), 0);
     }
 
     /**
@@ -163,7 +163,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(new Item(array('status' => Value::STATUS_DRAFT)));
+        $this->collectionService->deleteItem(new Item(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -187,7 +187,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItems(new Collection(array('status' => Value::STATUS_DRAFT)));
+        $this->collectionService->deleteItems(new Collection(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -198,11 +198,11 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testUpdateQuery()
     {
         $persistenceQuery = new PersistenceQuery(
-            array(
+            [
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
-                'parameters' => array('en' => array()),
-            )
+                'availableLocales' => ['en'],
+                'parameters' => ['en' => []],
+            ]
         );
 
         $this->collectionHandlerMock
@@ -221,15 +221,15 @@ final class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionService->updateQuery(
             new Query(
-                array(
+                [
                     'status' => Value::STATUS_DRAFT,
                     'queryType' => new QueryType('type'),
-                )
+                ]
             ),
             new QueryUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
-                )
+                ]
             )
         );
     }

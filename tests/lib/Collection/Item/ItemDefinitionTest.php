@@ -16,10 +16,10 @@ final class ItemDefinitionTest extends TestCase
     public function setUp()
     {
         $this->itemDefinition = new ItemDefinition(
-            array(
+            [
                 'valueType' => 'value_type',
-                'configDefinitions' => array('config' => new ConfigDefinition()),
-            )
+                'configDefinitions' => ['config' => new ConfigDefinition()],
+            ]
         );
     }
 
@@ -37,7 +37,7 @@ final class ItemDefinitionTest extends TestCase
     public function testGetConfigDefinitions()
     {
         $this->assertEquals(
-            array('config' => new ConfigDefinition()),
+            ['config' => new ConfigDefinition()],
             $this->itemDefinition->getConfigDefinitions()
         );
     }

@@ -95,7 +95,7 @@ final class LayoutResolver implements LayoutResolverInterface
     {
         $request = $request ?: $this->requestStack->getCurrentRequest();
 
-        $resolvedRules = array();
+        $resolvedRules = [];
 
         foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
             $targetValue = $targetType->provideValue($request);

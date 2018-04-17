@@ -39,7 +39,7 @@ final class RuleCountListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(BlockManagerEvents::BUILD_VIEW => 'onBuildView'),
+            [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -50,22 +50,22 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $view = new RuleView(array('rule' => new Rule(array('layout' => new Layout(array('status' => Layout::STATUS_PUBLISHED))))));
+        $view = new RuleView(['rule' => new Rule(['layout' => new Layout(['status' => Layout::STATUS_PUBLISHED])])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('getRuleCount')
-            ->with($this->equalTo(new Layout(array('status' => Layout::STATUS_PUBLISHED))))
+            ->with($this->equalTo(new Layout(['status' => Layout::STATUS_PUBLISHED])))
             ->will($this->returnValue(3));
 
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'rule_count' => 3,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -75,7 +75,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithDraftLayout()
     {
-        $view = new RuleView(array('rule' => new Rule(array('layout' => new Layout(array('status' => Layout::STATUS_DRAFT))))));
+        $view = new RuleView(['rule' => new Rule(['layout' => new Layout(['status' => Layout::STATUS_DRAFT])])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -86,9 +86,9 @@ final class RuleCountListenerTest extends TestCase
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'rule_count' => 0,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -98,10 +98,10 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoRuleView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 }

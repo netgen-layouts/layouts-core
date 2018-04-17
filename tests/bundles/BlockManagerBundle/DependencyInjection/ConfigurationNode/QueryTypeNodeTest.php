@@ -19,37 +19,37 @@ final class QueryTypeNodeTest extends TestCase
      */
     public function testQueryTypeSettings()
     {
-        $config = array(
-            array(
-                'query_types' => array(
-                    'type' => array(
+        $config = [
+            [
+                'query_types' => [
+                    'type' => [
                         'name' => 'Type',
                         'handler' => 'handler',
-                        'forms' => array(
-                            'full' => array(
+                        'forms' => [
+                            'full' => [
                                 'type' => 'full_edit',
                                 'enabled' => true,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'query_types' => array(
-                'type' => array(
+        $expectedConfig = [
+            'query_types' => [
+                'type' => [
                     'name' => 'Type',
                     'handler' => 'handler',
-                    'forms' => array(
-                        'full' => array(
+                    'forms' => [
+                        'full' => [
                             'type' => 'full_edit',
                             'enabled' => true,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -65,19 +65,19 @@ final class QueryTypeNodeTest extends TestCase
      */
     public function testQueryTypeSettingsWithNoHandler()
     {
-        $config = array(
-            array(
-                'query_types' => array(
-                    'type' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'query_types' => [
+                    'type' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'query_types' => array(
-                'type' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'query_types' => [
+                'type' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -92,11 +92,11 @@ final class QueryTypeNodeTest extends TestCase
      */
     public function testQueryTypeSettingsWithNoQueryTypes()
     {
-        $config = array(
-            'query_types' => array(),
-        );
+        $config = [
+            'query_types' => [],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -105,13 +105,13 @@ final class QueryTypeNodeTest extends TestCase
      */
     public function testQueryTypeSettingsWithNoName()
     {
-        $config = array(
-            'query_types' => array(
-                'type' => array(),
-            ),
-        );
+        $config = [
+            'query_types' => [
+                'type' => [],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -120,15 +120,15 @@ final class QueryTypeNodeTest extends TestCase
      */
     public function testQueryTypeSettingsWithEmptyName()
     {
-        $config = array(
-            'query_types' => array(
-                'type' => array(
+        $config = [
+            'query_types' => [
+                'type' => [
                     'name' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

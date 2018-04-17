@@ -28,14 +28,14 @@ final class ParameterNormalizerTest extends TestCase
     public function testNormalize()
     {
         $parameter = new Parameter(
-            array(
+            [
                 'parameterDefinition' => new ParameterDefinition(
-                    array(
+                    [
                         'type' => new TextType(),
-                    )
+                    ]
                 ),
                 'value' => 'some text',
-            )
+            ]
         );
 
         $this->assertEquals(
@@ -63,19 +63,19 @@ final class ParameterNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('value', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Parameter(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Parameter(), 2), false),
-            array(new VersionedValue(new Parameter(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['value', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Parameter(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Parameter(), 2), false],
+            [new VersionedValue(new Parameter(), 1), true],
+        ];
     }
 }

@@ -16,7 +16,7 @@ final class RemoveLocaleTypeTest extends FormTestCase
 
     public function setUp()
     {
-        $this->layout = new Layout(array('availableLocales' => array('en_GB', 'hr_HR', 'fr_FR'), 'mainLocale' => 'en_GB'));
+        $this->layout = new Layout(['availableLocales' => ['en_GB', 'hr_HR', 'fr_FR'], 'mainLocale' => 'en_GB']);
 
         parent::setUp();
     }
@@ -35,16 +35,16 @@ final class RemoveLocaleTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'locales' => array('hr_HR', 'fr_FR'),
-        );
+        $submittedData = [
+            'locales' => ['hr_HR', 'fr_FR'],
+        ];
 
         $form = $this->factory->create(
             RemoveLocaleType::class,
             null,
-            array(
+            [
                 'layout' => $this->layout,
-            )
+            ]
         );
 
         $form->submit($submittedData);
@@ -73,7 +73,7 @@ final class RemoveLocaleTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $layout = new Layout();
-        $options = array('layout' => $layout);
+        $options = ['layout' => $layout];
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals($layout, $resolvedOptions['layout']);
@@ -88,7 +88,7 @@ final class RemoveLocaleTypeTest extends FormTestCase
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);
-        $optionsResolver->resolve(array('layout' => 42));
+        $optionsResolver->resolve(['layout' => 42]);
     }
 
     /**

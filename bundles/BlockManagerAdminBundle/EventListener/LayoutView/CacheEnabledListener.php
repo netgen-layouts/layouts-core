@@ -30,7 +30,7 @@ final class CacheEnabledListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(BlockManagerEvents::BUILD_VIEW => 'onBuildView');
+        return [BlockManagerEvents::BUILD_VIEW => 'onBuildView'];
     }
 
     /**

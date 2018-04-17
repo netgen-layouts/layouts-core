@@ -23,16 +23,16 @@ final class ConfigureTranslationTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $block = new Block(array('isTranslatable' => false));
+        $block = new Block(['isTranslatable' => false]);
 
-        $submittedData = array('translatable' => true);
+        $submittedData = ['translatable' => true];
 
         $form = $this->factory->create(
             ConfigureTranslationType::class,
             null,
-            array(
+            [
                 'block' => $block,
-            )
+            ]
         );
 
         $form->submit($submittedData);
@@ -58,7 +58,7 @@ final class ConfigureTranslationTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $block = new Block();
-        $options = array('block' => $block);
+        $options = ['block' => $block];
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals('ngbm_forms', $resolvedOptions['translation_domain']);
@@ -74,7 +74,7 @@ final class ConfigureTranslationTypeTest extends FormTestCase
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);
-        $optionsResolver->resolve(array('block' => 42));
+        $optionsResolver->resolve(['block' => 42]);
     }
 
     /**

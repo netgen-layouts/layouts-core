@@ -62,11 +62,11 @@ final class PathInfoPrefixTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('/some/route', true),
-            array('/', true),
-            array('', false),
-            array(null, false),
-        );
+        return [
+            ['/some/route', true],
+            ['/', true],
+            ['', false],
+            [null, false],
+        ];
     }
 }

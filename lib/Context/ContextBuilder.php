@@ -7,7 +7,7 @@ final class ContextBuilder implements ContextBuilderInterface
     /**
      * @var \Netgen\BlockManager\Context\ContextProviderInterface[]
      */
-    private $providers = array();
+    private $providers = [];
 
     public function registerProvider(ContextProviderInterface $contextProvider)
     {

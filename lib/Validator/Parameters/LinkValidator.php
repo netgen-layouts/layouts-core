@@ -38,23 +38,23 @@ final class LinkValidator extends ConstraintValidator
         if ($linkType !== null) {
             $validator->atPath('linkType')->validate(
                 $linkType,
-                array(
+                [
                     new Constraints\Choice(
-                        array(
-                            'choices' => array(
+                        [
+                            'choices' => [
                                 LinkValue::LINK_TYPE_URL,
                                 LinkValue::LINK_TYPE_EMAIL,
                                 LinkValue::LINK_TYPE_PHONE,
                                 LinkValue::LINK_TYPE_INTERNAL,
-                            ),
+                            ],
                             'strict' => true,
-                        )
+                        ]
                     ),
-                )
+                ]
             );
         }
 
-        $linkConstraints = array();
+        $linkConstraints = [];
         if ($linkType === null) {
             $linkConstraints[] = new Constraints\IsNull();
         } elseif ($constraint->required) {
@@ -67,13 +67,13 @@ final class LinkValidator extends ConstraintValidator
             } elseif ($linkType === LinkValue::LINK_TYPE_EMAIL) {
                 $linkConstraints[] = new Constraints\Email();
             } elseif ($linkType === LinkValue::LINK_TYPE_PHONE) {
-                $linkConstraints[] = new Constraints\Type(array('type' => 'string'));
+                $linkConstraints[] = new Constraints\Type(['type' => 'string']);
             } elseif ($linkType === LinkValue::LINK_TYPE_INTERNAL) {
                 $linkConstraints[] = new ItemLink(
-                    array(
+                    [
                         'valueTypes' => $constraint->valueTypes,
                         'allowInvalid' => $constraint->allowInvalidInternal,
-                    )
+                    ]
                 );
             }
         }
@@ -83,18 +83,18 @@ final class LinkValidator extends ConstraintValidator
         if ($value->getLinkSuffix() !== null) {
             $validator->atPath('linkSuffix')->validate(
                 $value->getLinkSuffix(),
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                )
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ]
             );
         }
 
         $validator->atPath('newWindow')->validate(
             $value->getNewWindow(),
-            array(
+            [
                 new Constraints\NotNull(),
-                new Constraints\Type(array('type' => 'bool')),
-            )
+                new Constraints\Type(['type' => 'bool']),
+            ]
         );
     }
 }

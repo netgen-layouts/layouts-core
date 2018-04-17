@@ -36,17 +36,17 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
      */
-    protected $collections = array();
+    protected $collections = [];
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
      */
-    protected $forms = array();
+    protected $forms = [];
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
-    protected $viewTypes = array();
+    protected $viewTypes = [];
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
@@ -56,7 +56,7 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    protected $handlerPlugins = array();
+    protected $handlerPlugins = [];
 
     public function getIdentifier()
     {

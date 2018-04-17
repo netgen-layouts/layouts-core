@@ -99,17 +99,17 @@ final class CollectionControllerTest extends JsonApiTestCase
     public function testMoveItem()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'position' => 2,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/collections/items/1/move',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -121,14 +121,14 @@ final class CollectionControllerTest extends JsonApiTestCase
      */
     public function testMoveItemWithNonExistentItem()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/collections/items/9999/move',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -145,17 +145,17 @@ final class CollectionControllerTest extends JsonApiTestCase
     public function testMoveItemWithOutOfRangePosition()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'position' => 9999,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/collections/items/1/move',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -172,17 +172,17 @@ final class CollectionControllerTest extends JsonApiTestCase
     public function testMoveItemWithInvalidPosition()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'position' => '1',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/collections/items/1/move',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -198,14 +198,14 @@ final class CollectionControllerTest extends JsonApiTestCase
      */
     public function testMoveItemWithMissingPosition()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/collections/items/1/move',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -221,14 +221,14 @@ final class CollectionControllerTest extends JsonApiTestCase
      */
     public function testDeleteItem()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/collections/items/7',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -240,14 +240,14 @@ final class CollectionControllerTest extends JsonApiTestCase
      */
     public function testDeleteItemWithNonExistentItem()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/collections/items/9999',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -263,14 +263,14 @@ final class CollectionControllerTest extends JsonApiTestCase
      */
     public function testDeleteItems()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/collections/1/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -282,14 +282,14 @@ final class CollectionControllerTest extends JsonApiTestCase
      */
     public function testDeleteItemsWithNonExistentCollection()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/collections/9999/items',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 

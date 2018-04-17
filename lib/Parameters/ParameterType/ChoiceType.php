@@ -24,10 +24,10 @@ final class ChoiceType extends ParameterType
     {
         $optionsResolver->setDefault('multiple', false);
         $optionsResolver->setDefault('expanded', false);
-        $optionsResolver->setRequired(array('multiple', 'expanded', 'options'));
+        $optionsResolver->setRequired(['multiple', 'expanded', 'options']);
         $optionsResolver->setAllowedTypes('multiple', 'bool');
         $optionsResolver->setAllowedTypes('expanded', 'bool');
-        $optionsResolver->setAllowedTypes('options', array('array', 'callable'));
+        $optionsResolver->setAllowedTypes('options', ['array', 'callable']);
 
         $optionsResolver->setAllowedValues(
             'options',
@@ -47,7 +47,7 @@ final class ChoiceType extends ParameterType
                     if (!is_callable($options['options']) && !empty($options['options'])) {
                         $defaultValue = array_values($options['options'])[0];
 
-                        return $options['multiple'] ? array($defaultValue) : $defaultValue;
+                        return $options['multiple'] ? [$defaultValue] : $defaultValue;
                     }
                 }
 
@@ -58,12 +58,12 @@ final class ChoiceType extends ParameterType
 
     public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        if ($value === null || $value === array()) {
+        if ($value === null || $value === []) {
             return;
         }
 
         if ($parameterDefinition->getOption('multiple')) {
-            return is_array($value) ? $value : array($value);
+            return is_array($value) ? $value : [$value];
         }
 
         return is_array($value) ? array_values($value)[0] : $value;
@@ -71,16 +71,16 @@ final class ChoiceType extends ParameterType
 
     public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return $value === null || $value === array();
+        return $value === null || $value === [];
     }
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         $options = $parameterDefinition->getOptions();
 
-        return array(
+        return [
             new Constraints\Choice(
-                array(
+                [
                     'choices' => array_values(
                         is_callable($options['options']) ?
                             $options['options']() :
@@ -88,8 +88,8 @@ final class ChoiceType extends ParameterType
                         ),
                     'multiple' => $options['multiple'],
                     'strict' => true,
-                )
+                ]
             ),
-        );
+        ];
     }
 }

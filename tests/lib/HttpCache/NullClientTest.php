@@ -22,7 +22,7 @@ final class NullClientTest extends TestCase
      */
     public function testInvalidateLayouts()
     {
-        $this->assertNull($this->client->invalidateLayouts(array(24, 42)));
+        $this->assertNull($this->client->invalidateLayouts([24, 42]));
     }
 
     /**
@@ -38,7 +38,7 @@ final class NullClientTest extends TestCase
      */
     public function testInvalidateBlocks()
     {
-        $this->assertNull($this->client->invalidateBlocks(array(24, 42)));
+        $this->assertNull($this->client->invalidateBlocks([24, 42]));
     }
 
     /**
@@ -46,7 +46,7 @@ final class NullClientTest extends TestCase
      */
     public function testInvalidateLayoutBlocks()
     {
-        $this->assertNull($this->client->invalidateLayoutBlocks(array(24, 42)));
+        $this->assertNull($this->client->invalidateLayoutBlocks([24, 42]));
     }
 
     /**

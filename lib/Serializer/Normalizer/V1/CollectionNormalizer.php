@@ -13,19 +13,19 @@ final class CollectionNormalizer implements NormalizerInterface, SerializerAware
 {
     use SerializerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
         $collection = $object->getValue();
 
-        return array(
+        return [
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'is_translatable' => $collection->isTranslatable(),
             'main_locale' => $collection->getMainLocale(),
             'always_available' => $collection->isAlwaysAvailable(),
             'available_locales' => $collection->getAvailableLocales(),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)

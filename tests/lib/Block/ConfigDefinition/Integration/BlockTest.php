@@ -77,7 +77,7 @@ abstract class BlockTest extends ServiceTestCase
 
         $this->assertInstanceOf(Config::class, $createdConfig);
 
-        $createdParameters = array();
+        $createdParameters = [];
         foreach ($createdConfig->getParameters() as $parameterName => $parameter) {
             $createdParameters[$parameterName] = $parameter->getValue();
         }
@@ -134,12 +134,12 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function getParameterTypes()
     {
-        return array();
+        return [];
     }
 
     public function getValidators()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -162,21 +162,21 @@ abstract class BlockTest extends ServiceTestCase
         $handler = new BlockDefinitionHandler();
 
         $blockDefinition = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'definition',
                 'handler' => $handler,
-                'viewTypes' => array(
+                'viewTypes' => [
                     'default' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-                'parameterDefinitions' => array(),
-                'configDefinitions' => array('definition' => $configDefinition),
-            )
+                ],
+                'parameterDefinitions' => [],
+                'configDefinitions' => ['definition' => $configDefinition],
+            ]
         );
 
         $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);
@@ -189,7 +189,7 @@ abstract class BlockTest extends ServiceTestCase
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    private function createConfigDefinition(array $parameterNames = array())
+    private function createConfigDefinition(array $parameterNames = [])
     {
         $handler = $this->createConfigDefinitionHandler();
 
@@ -198,7 +198,7 @@ abstract class BlockTest extends ServiceTestCase
         $handler->buildParameters($parameterBuilder);
         $config = $parameterBuilder->buildParameterDefinitions();
 
-        $filteredParameterDefinitions = array();
+        $filteredParameterDefinitions = [];
         if (!empty($parameterNames)) {
             foreach ($config as $parameterName => $parameterDefinition) {
                 if (in_array($parameterName, $parameterNames, true)) {
@@ -208,11 +208,11 @@ abstract class BlockTest extends ServiceTestCase
         }
 
         return new ConfigDefinition(
-            array(
+            [
                 'configKey' => 'definition',
                 'handler' => $handler,
                 'parameterDefinitions' => $filteredParameterDefinitions,
-            )
+            ]
         );
     }
 

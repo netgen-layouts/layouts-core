@@ -40,7 +40,7 @@ final class LayoutMapper
      */
     public function mapZone(PersistenceZone $zone)
     {
-        $zoneData = array(
+        $zoneData = [
             'identifier' => $zone->identifier,
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
@@ -62,7 +62,7 @@ final class LayoutMapper
                     return;
                 }
             },
-        );
+        ];
 
         return new Zone($zoneData);
     }
@@ -76,7 +76,7 @@ final class LayoutMapper
      */
     public function mapLayout(PersistenceLayout $layout)
     {
-        $layoutData = array(
+        $layoutData = [
             'id' => $layout->id,
             'layoutType' => $this->layoutTypeRegistry->getLayoutType($layout->type),
             'name' => $layout->name,
@@ -97,7 +97,7 @@ final class LayoutMapper
                     );
                 }
             ),
-        );
+        ];
 
         return new Layout($layoutData);
     }

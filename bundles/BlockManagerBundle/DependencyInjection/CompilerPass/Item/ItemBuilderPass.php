@@ -20,7 +20,7 @@ final class ItemBuilderPass implements CompilerPassInterface
         $itemBuilder = $container->findDefinition(self::$serviceName);
         $valueConverterServices = array_keys($container->findTaggedServiceIds(self::$tagName));
 
-        $valueConverters = array();
+        $valueConverters = [];
         foreach ($valueConverterServices as $serviceName) {
             $valueConverters[] = new Reference($serviceName);
         }

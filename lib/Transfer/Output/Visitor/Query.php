@@ -38,7 +38,7 @@ final class Query extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Collection\Query $query */
 
-        return array(
+        return [
             'id' => $query->getId(),
             'is_translatable' => $query->isTranslatable(),
             'is_always_available' => $query->isAlwaysAvailable(),
@@ -46,7 +46,7 @@ final class Query extends Visitor
             'available_locales' => $query->getAvailableLocales(),
             'parameters' => $this->visitParameters($query, $subVisitor),
             'query_type' => $query->getQueryType()->getType(),
-        );
+        ];
     }
 
     /**
@@ -61,9 +61,9 @@ final class Query extends Visitor
      */
     private function visitParameters(QueryValue $query, VisitorInterface $subVisitor)
     {
-        $parametersByLanguage = array(
+        $parametersByLanguage = [
             $query->getLocale() => $this->visitTranslationParameters($query, $subVisitor),
-        );
+        ];
 
         foreach ($query->getAvailableLocales() as $availableLocale) {
             if ($availableLocale === $query->getLocale()) {
@@ -72,7 +72,7 @@ final class Query extends Visitor
 
             $translatedQuery = $this->collectionService->loadQuery(
                 $query->getId(),
-                array($availableLocale),
+                [$availableLocale],
                 false
             );
 
@@ -97,7 +97,7 @@ final class Query extends Visitor
      */
     private function visitTranslationParameters(QueryValue $query, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($query->getParameters() as $parameter) {
             $hash[$parameter->getName()] = $subVisitor->visit($parameter);

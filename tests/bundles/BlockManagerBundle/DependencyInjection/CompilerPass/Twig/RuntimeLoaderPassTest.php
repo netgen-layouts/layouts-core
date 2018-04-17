@@ -30,13 +30,13 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.templating.twig.runtime.container_loader',
             'addRuntime',
-            array(stdClass::class, 'netgen_block_manager.twig.runtime.test')
+            [stdClass::class, 'netgen_block_manager.twig.runtime.test']
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'twig',
             'addRuntimeLoader',
-            array(new Reference('netgen_block_manager.templating.twig.runtime.container_loader'))
+            [new Reference('netgen_block_manager.templating.twig.runtime.container_loader')]
         );
     }
 
@@ -54,7 +54,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
             'twig',
             'addRuntimeLoader',
-            array(new Reference('netgen_block_manager.templating.twig.runtime.container_loader'))
+            [new Reference('netgen_block_manager.templating.twig.runtime.container_loader')]
         );
     }
 
@@ -90,7 +90,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     private function assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
         $serviceId,
         $method,
-        array $arguments = array(),
+        array $arguments = [],
         $index = null
     ) {
         $this->assertThat(

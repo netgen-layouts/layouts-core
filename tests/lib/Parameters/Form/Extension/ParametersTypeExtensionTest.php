@@ -40,7 +40,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            array('ngbm_parameter_definition' => new ParameterDefinition())
+            ['ngbm_parameter_definition' => new ParameterDefinition()]
         );
 
         $this->assertArrayHasKey('ngbm_parameter_definition', $view->vars);
@@ -57,7 +57,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            array()
+            []
         );
 
         $this->assertArrayNotHasKey('ngbm_parameter_definition', $view->vars);
@@ -71,16 +71,16 @@ final class ParametersTypeExtensionTest extends TestCase
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);
 
-        $options = array(
+        $options = [
             'ngbm_parameter_definition' => new ParameterDefinition(),
-        );
+        ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals(
-            array(
+            [
                 'ngbm_parameter_definition' => new ParameterDefinition(),
-            ),
+            ],
             $resolvedOptions
         );
     }
@@ -94,7 +94,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->configureOptions($optionsResolver);
         $resolvedOptions = $optionsResolver->resolve();
 
-        $this->assertEquals(array(), $resolvedOptions);
+        $this->assertEquals([], $resolvedOptions);
     }
 
     /**
@@ -108,9 +108,9 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'ngbm_parameter_definition' => 'parameter_definition',
-            )
+            ]
         );
     }
 }

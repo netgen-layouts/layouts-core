@@ -19,7 +19,7 @@ final class ClearLayoutsCacheType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('layouts'));
+        $resolver->setRequired(['layouts']);
         $resolver->setAllowedTypes('layouts', 'array');
     }
 
@@ -28,7 +28,7 @@ final class ClearLayoutsCacheType extends AbstractType
         $builder->add(
             'layouts',
             ChoiceType::class,
-            array(
+            [
                 'choices' => $options['layouts'],
                 'choice_value' => 'id',
                 'choice_label' => function ($layout) {
@@ -41,16 +41,16 @@ final class ClearLayoutsCacheType extends AbstractType
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
-                'constraints' => array(
+                'constraints' => [
                     new NotBlank(),
-                ),
-            ) + $this->getChoicesAsValuesOption()
+                ],
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $layouts = array();
+        $layouts = [];
         foreach ($options['layouts'] as $layout) {
             $layouts[$layout->getId()] = $layout;
         }

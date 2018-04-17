@@ -50,12 +50,12 @@ final class LinkTypeTest extends FormTestCase
         $backendRegistry = new BackendRegistry();
         $backendRegistry->addBackend('value', $this->createMock(BackendInterface::class));
 
-        return array(
+        return [
             new ContentBrowserDynamicType(
                 $backendRegistry,
-                array('value')
+                ['value']
             ),
-        );
+        ];
     }
 
     /**
@@ -63,26 +63,26 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'link_type' => 'url',
             'link_suffix' => '?suffix',
             'new_window' => true,
             'url' => 'http://www.google.com',
-        );
+        ];
 
         $formData = new LinkValue(
-            array(
+            [
                 'linkType' => 'url',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
                 'link' => 'http://www.google.com',
-            )
+            ]
         );
 
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->parameterType,
-            )
+            ]
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -109,19 +109,19 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testSubmitInvalidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'link_type' => 'unknown',
             'link_suffix' => '?suffix',
             'new_window' => true,
             'url' => 'http://www.google.com',
-        );
+        ];
 
         $formData = new LinkValue();
 
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->parameterType,
-            )
+            ]
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -149,9 +149,9 @@ final class LinkTypeTest extends FormTestCase
     public function testBuildView()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->parameterType,
-            )
+            ]
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -159,12 +159,12 @@ final class LinkTypeTest extends FormTestCase
         $form = $formBuilder->getForm();
 
         $form->submit(
-            array(
+            [
                 'link_type' => 'url',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
                 'url' => 'http://www.google.com',
-            )
+            ]
         );
 
         $form->get('link')->addError(new FormError('an error'));
@@ -182,9 +182,9 @@ final class LinkTypeTest extends FormTestCase
     public function testBuildViewWithInvalidData()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->parameterType,
-            )
+            ]
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -192,12 +192,12 @@ final class LinkTypeTest extends FormTestCase
         $form = $formBuilder->getForm();
 
         $form->submit(
-            array(
+            [
                 'link_type' => 'unknown',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
                 'url' => 'http://www.google.com',
-            )
+            ]
         );
 
         $form->get('link')->addError(new FormError('an error'));
@@ -215,17 +215,17 @@ final class LinkTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $options = array(
-            'value_types' => array('value'),
-        );
+        $options = [
+            'value_types' => ['value'],
+        ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals(
-            array(
-                'value_types' => array('value'),
+            [
+                'value_types' => ['value'],
                 'translation_domain' => 'ngbm_forms',
-            ),
+            ],
             $resolvedOptions
         );
     }
@@ -242,10 +242,10 @@ final class LinkTypeTest extends FormTestCase
         $resolvedOptions = $optionsResolver->resolve();
 
         $this->assertEquals(
-            array(
-                'value_types' => array(),
+            [
+                'value_types' => [],
                 'translation_domain' => 'ngbm_forms',
-            ),
+            ],
             $resolvedOptions
         );
     }
@@ -262,9 +262,9 @@ final class LinkTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'value_types' => 42,
-            )
+            ]
         );
     }
 

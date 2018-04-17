@@ -27,7 +27,7 @@ final class TaggerTest extends TestCase
     {
         $response = new Response();
         $response->setVary('Cookie');
-        $layout = new Layout(array('id' => 42));
+        $layout = new Layout(['id' => 42]);
 
         $this->tagger->tagLayout($response, $layout);
 
@@ -35,7 +35,7 @@ final class TaggerTest extends TestCase
         $this->assertEquals(42, $response->headers->get('X-Layout-Id'));
 
         $this->assertTrue($response->hasVary());
-        $this->assertEquals(array('Cookie', 'X-Layout-Id'), $response->getVary());
+        $this->assertEquals(['Cookie', 'X-Layout-Id'], $response->getVary());
     }
 
     /**
@@ -44,7 +44,7 @@ final class TaggerTest extends TestCase
     public function testTagBlock()
     {
         $response = new Response();
-        $block = new Block(array('id' => 42, 'layoutId' => 24));
+        $block = new Block(['id' => 42, 'layoutId' => 24]);
 
         $this->tagger->tagBlock($response, $block);
 

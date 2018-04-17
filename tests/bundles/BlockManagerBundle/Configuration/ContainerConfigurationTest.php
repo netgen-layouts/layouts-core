@@ -43,7 +43,7 @@ final class ContainerConfigurationTest extends TestCase
      */
     public function testHasParameterWithInjectedParameter()
     {
-        $this->createConfiguration(array('some_param' => 'some_value'));
+        $this->createConfiguration(['some_param' => 'some_value']);
 
         $this->containerMock
             ->expects($this->never())
@@ -91,7 +91,7 @@ final class ContainerConfigurationTest extends TestCase
      */
     public function testGetParameterWithInjectedParameter()
     {
-        $this->createConfiguration(array('some_param' => 'injected'));
+        $this->createConfiguration(['some_param' => 'injected']);
 
         $this->containerMock
             ->expects($this->never())
@@ -120,7 +120,7 @@ final class ContainerConfigurationTest extends TestCase
         $this->configuration->getParameter('some_param');
     }
 
-    private function createConfiguration(array $injectedParameters = array())
+    private function createConfiguration(array $injectedParameters = [])
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
         $this->configuration = new ContainerConfiguration($this->containerMock, $injectedParameters);

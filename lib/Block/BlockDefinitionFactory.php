@@ -145,7 +145,7 @@ final class BlockDefinitionFactory
 
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
-        $configDefinitions = array();
+        $configDefinitions = [];
         foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {
             $configDefinitions[$configKey] = $this->configDefinitionFactory->buildConfigDefinition(
                 $configKey,
@@ -153,13 +153,13 @@ final class BlockDefinitionFactory
             );
         }
 
-        return array(
+        return [
             'identifier' => $identifier,
             'handler' => $handler,
             'handlerPlugins' => $handlerPlugins,
             'parameterDefinitions' => $parameterDefinitions,
             'configDefinitions' => $configDefinitions,
-        ) + $this->processConfig($identifier, $config);
+        ] + $this->processConfig($identifier, $config);
     }
 
     /**
@@ -172,18 +172,18 @@ final class BlockDefinitionFactory
      */
     private function processConfig($identifier, array $config)
     {
-        $collections = array();
-        $forms = array();
-        $viewTypes = array();
+        $collections = [];
+        $forms = [];
+        $viewTypes = [];
 
         if (isset($config['collections'])) {
             foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
                 $collections[$collectionIdentifier] = new Collection(
-                    array(
+                    [
                         'identifier' => $collectionIdentifier,
                         'validItemTypes' => $collectionConfig['valid_item_types'],
                         'validQueryTypes' => $collectionConfig['valid_query_types'],
-                    )
+                    ]
                 );
             }
         }
@@ -195,10 +195,10 @@ final class BlockDefinitionFactory
                 }
 
                 $forms[$formIdentifier] = new Form(
-                    array(
+                    [
                         'identifier' => $formIdentifier,
                         'type' => $formConfig['type'],
-                    )
+                    ]
                 );
             }
         }
@@ -209,15 +209,15 @@ final class BlockDefinitionFactory
                     continue;
                 }
 
-                $itemViewTypes = array();
+                $itemViewTypes = [];
 
                 if (!isset($viewTypeConfig['item_view_types']['standard'])) {
-                    $viewTypeConfig['item_view_types'] = array(
-                        'standard' => array(
+                    $viewTypeConfig['item_view_types'] = [
+                        'standard' => [
                             'name' => 'Standard',
                             'enabled' => true,
-                        ),
-                    ) + $viewTypeConfig['item_view_types'];
+                        ],
+                    ] + $viewTypeConfig['item_view_types'];
                 }
 
                 foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
@@ -226,10 +226,10 @@ final class BlockDefinitionFactory
                     }
 
                     $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(
-                        array(
+                        [
                             'identifier' => $itemViewTypeIdentifier,
                             'name' => $itemViewTypeConfig['name'],
-                        )
+                        ]
                     );
                 }
 
@@ -244,12 +244,12 @@ final class BlockDefinitionFactory
                 }
 
                 $viewTypes[$viewTypeIdentifier] = new ViewType(
-                    array(
+                    [
                         'identifier' => $viewTypeIdentifier,
                         'name' => isset($viewTypeConfig['name']) ? $viewTypeConfig['name'] : '',
                         'itemViewTypes' => $itemViewTypes,
                         'validParameters' => array_key_exists('valid_parameters', $viewTypeConfig) ? $viewTypeConfig['valid_parameters'] : null,
-                    )
+                    ]
                 );
             }
         }
@@ -263,13 +263,13 @@ final class BlockDefinitionFactory
             );
         }
 
-        return array(
+        return [
             'name' => isset($config['name']) ? $config['name'] : '',
             'icon' => isset($config['icon']) ? $config['icon'] : '',
             'isTranslatable' => isset($config['translatable']) ? $config['translatable'] : false,
             'collections' => $collections,
             'forms' => $forms,
             'viewTypes' => $viewTypes,
-        );
+        ];
     }
 }

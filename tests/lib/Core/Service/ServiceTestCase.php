@@ -152,27 +152,27 @@ abstract class ServiceTestCase extends TestCase
     protected function prepareRegistries()
     {
         $layoutType1 = new LayoutType(
-            array(
+            [
                 'identifier' => '4_zones_a',
-                'zones' => array(
+                'zones' => [
                     'top' => new Zone(),
                     'left' => new Zone(),
-                    'right' => new Zone(array('allowedBlockDefinitions' => array('title', 'list'))),
-                    'bottom' => new Zone(array('allowedBlockDefinitions' => array('title'))),
-                ),
-            )
+                    'right' => new Zone(['allowedBlockDefinitions' => ['title', 'list']]),
+                    'bottom' => new Zone(['allowedBlockDefinitions' => ['title']]),
+                ],
+            ]
         );
 
         $layoutType2 = new LayoutType(
-            array(
+            [
                 'identifier' => '4_zones_b',
-                'zones' => array(
+                'zones' => [
                     'top' => new Zone(),
                     'left' => new Zone(),
                     'right' => new Zone(),
                     'bottom' => new Zone(),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
@@ -181,27 +181,27 @@ abstract class ServiceTestCase extends TestCase
 
         $itemVisibilityHandler = new VisibilityConfigHandler();
         $itemVisibilityDefinition = new ConfigDefinition(
-            array(
+            [
                 'parameterDefinitions' => $itemVisibilityHandler->getParameterDefinitions(),
-            )
+            ]
         );
 
         $itemDefinition1 = new ItemDefinition(
-            array(
+            [
                 'valueType' => 'ezlocation',
-                'configDefinitions' => array(
+                'configDefinitions' => [
                     'visibility' => $itemVisibilityDefinition,
-                ),
-            )
+                ],
+            ]
         );
 
         $itemDefinition2 = new ItemDefinition(
-            array(
+            [
                 'valueType' => 'ezcontent',
-                'configDefinitions' => array(
+                'configDefinitions' => [
                     'visibility' => $itemVisibilityDefinition,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->itemDefinitionRegistry = new ItemDefinitionRegistry();
@@ -213,118 +213,118 @@ abstract class ServiceTestCase extends TestCase
 
         $httpCacheHandler = new HttpCacheConfigHandler();
         $httpCacheDefinition = new ConfigDefinition(
-            array(
+            [
                 'parameterDefinitions' => $httpCacheHandler->getParameterDefinitions(),
-            )
+            ]
         );
 
         $blockDefinitionHandler1 = new BlockDefinitionHandler();
         $blockDefinitionHandler2 = new BlockDefinitionHandlerWithTranslatableParameter();
 
         $blockDefinition1 = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'title',
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
-                'configDefinitions' => array('http_cache' => $httpCacheDefinition),
+                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
                 'isTranslatable' => true,
-                'viewTypes' => array(
+                'viewTypes' => [
                     'small' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $blockDefinition2 = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'text',
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
-                'configDefinitions' => array('http_cache' => $httpCacheDefinition),
+                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
                 'isTranslatable' => false,
-                'viewTypes' => array(
+                'viewTypes' => [
                     'standard' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $blockDefinition3 = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'gallery',
                 'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
-                'configDefinitions' => array('http_cache' => $httpCacheDefinition),
+                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
                 'isTranslatable' => false,
-                'collections' => array('default' => new Collection()),
-                'viewTypes' => array(
+                'collections' => ['default' => new Collection()],
+                'viewTypes' => [
                     'standard' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $blockDefinition4 = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'list',
                 'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
-                'configDefinitions' => array('http_cache' => $httpCacheDefinition),
+                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
                 'isTranslatable' => false,
-                'collections' => array('default' => new Collection()),
-                'viewTypes' => array(
+                'collections' => ['default' => new Collection()],
+                'viewTypes' => [
                     'small' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $blockDefinition5 = new ContainerDefinition(
-            array(
+            [
                 'identifier' => 'column',
-                'handler' => new ContainerDefinitionHandler(array(), array('main', 'other')),
-                'viewTypes' => array(
+                'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
+                'viewTypes' => [
                     'column' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $blockDefinition6 = new ContainerDefinition(
-            array(
+            [
                 'identifier' => 'two_columns',
-                'handler' => new ContainerDefinitionHandler(array(), array('left', 'right')),
-                'viewTypes' => array(
+                'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
+                'viewTypes' => [
                     'two_columns_50_50' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();

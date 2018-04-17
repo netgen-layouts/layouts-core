@@ -41,15 +41,15 @@ final class ValueNormalizerTest extends TestCase
             ->with(
                 $this->equalTo(new StubValue()),
                 $this->equalTo('json'),
-                $this->equalTo(array('context'))
+                $this->equalTo(['context'])
             )
-            ->will($this->returnValue(array('serialized')));
+            ->will($this->returnValue(['serialized']));
 
         $value = new Value(new StubValue());
 
-        $data = $this->normalizer->normalize($value, 'json', array('context'));
+        $data = $this->normalizer->normalize($value, 'json', ['context']);
 
-        $this->assertEquals(array('serialized'), $data);
+        $this->assertEquals(['serialized'], $data);
     }
 
     /**
@@ -71,18 +71,18 @@ final class ValueNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new StubValue(), false),
-            array(new Block(), false),
-            array(new VersionedValue(new Block(), 1), false),
-            array(new Value(array(new Block()), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new StubValue(), false],
+            [new Block(), false],
+            [new VersionedValue(new Block(), 1), false],
+            [new Value([new Block()], 1), true],
+        ];
     }
 }

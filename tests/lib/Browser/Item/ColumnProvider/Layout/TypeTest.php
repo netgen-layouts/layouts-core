@@ -28,13 +28,13 @@ final class TypeTest extends TestCase
     {
         $item = new Item(
             new Layout(
-                array(
+                [
                     'layoutType' => new LayoutType(
-                        array(
+                        [
                             'name' => '4 zones A',
-                        )
+                        ]
                     ),
-                )
+                ]
             )
         );
 

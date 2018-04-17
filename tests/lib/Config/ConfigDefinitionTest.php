@@ -24,10 +24,10 @@ final class ConfigDefinitionTest extends TestCase
         $this->handler = new ConfigDefinitionHandler();
 
         $this->configDefinition = new ConfigDefinition(
-            array(
+            [
                 'configKey' => 'config_definition',
                 'handler' => $this->handler,
-            )
+            ]
         );
     }
 

@@ -23,18 +23,18 @@ final class ManualItemTest extends TestCase
     public function testObject()
     {
         $collectionItem = new Item(
-            array(
+            [
                 'cmsItem' => new CmsItem(
-                    array(
+                    [
                         'value' => 42,
                         'remoteId' => 'abc',
                         'valueType' => 'type',
                         'name' => 'Value name',
                         'isVisible' => true,
                         'object' => new stdClass(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $value = new ManualItem($collectionItem);

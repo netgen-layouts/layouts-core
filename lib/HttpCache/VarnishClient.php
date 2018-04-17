@@ -30,7 +30,7 @@ final class VarnishClient implements ClientInterface
             return;
         }
 
-        $allLayoutIds = array();
+        $allLayoutIds = [];
         foreach ($layoutIds as $layoutId) {
             $allLayoutIds = array_merge(
                 $allLayoutIds,
@@ -39,18 +39,18 @@ final class VarnishClient implements ClientInterface
         }
 
         $this->fosInvalidator->invalidate(
-            array(
+            [
                 'X-Layout-Id' => '^(' . implode('|', $allLayoutIds) . ')$',
-            )
+            ]
         );
     }
 
     public function invalidateAllLayouts()
     {
         $this->fosInvalidator->invalidate(
-            array(
+            [
                 'X-Layout-Id' => '.*',
-            )
+            ]
         );
     }
 
@@ -61,9 +61,9 @@ final class VarnishClient implements ClientInterface
         }
 
         $this->fosInvalidator->invalidate(
-            array(
+            [
                 'X-Block-Id' => '^(' . implode('|', $blockIds) . ')$',
-            )
+            ]
         );
     }
 
@@ -74,18 +74,18 @@ final class VarnishClient implements ClientInterface
         }
 
         $this->fosInvalidator->invalidate(
-            array(
+            [
                 'X-Origin-Layout-Id' => '^(' . implode('|', $layoutIds) . ')$',
-            )
+            ]
         );
     }
 
     public function invalidateAllBlocks()
     {
         $this->fosInvalidator->invalidate(
-            array(
+            [
                 'X-Block-Id' => '.*',
-            )
+            ]
         );
     }
 

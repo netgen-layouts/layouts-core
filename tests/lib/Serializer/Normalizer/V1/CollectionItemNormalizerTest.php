@@ -41,7 +41,7 @@ final class CollectionItemNormalizerTest extends TestCase
     public function testNormalize()
     {
         $item = new CollectionItem(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 24,
                 'position' => 3,
@@ -49,27 +49,27 @@ final class CollectionItemNormalizerTest extends TestCase
                 'value' => 12,
                 'valueType' => 'ezcontent',
                 'cmsItem' => new Item(
-                    array(
+                    [
                         'name' => 'Value name',
                         'isVisible' => true,
                         'value' => 12,
                         'valueType' => 'ezcontent',
-                    )
+                    ]
                 ),
-                'configs' => array(
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => CollectionItem::VISIBILITY_VISIBLE,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->urlGeneratorMock
@@ -79,7 +79,7 @@ final class CollectionItemNormalizerTest extends TestCase
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
@@ -91,7 +91,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'name' => 'Value name',
                 'cms_url' => '/some/url',
                 'cms_visible' => true,
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($item, 1))
         );
     }
@@ -103,7 +103,7 @@ final class CollectionItemNormalizerTest extends TestCase
     public function testNormalizeWithNoValue()
     {
         $item = new CollectionItem(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 24,
                 'position' => 3,
@@ -111,20 +111,20 @@ final class CollectionItemNormalizerTest extends TestCase
                 'value' => 12,
                 'valueType' => 'ezcontent',
                 'cmsItem' => new NullItem(12),
-                'configs' => array(
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => CollectionItem::VISIBILITY_VISIBLE,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->urlGeneratorMock
@@ -132,7 +132,7 @@ final class CollectionItemNormalizerTest extends TestCase
             ->method('generate');
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
@@ -144,7 +144,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'name' => '(INVALID ITEM)',
                 'cms_url' => null,
                 'cms_visible' => true,
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($item, 1))
         );
     }
@@ -168,19 +168,19 @@ final class CollectionItemNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new APIValue(), false),
-            array(new CollectionItem(), false),
-            array(new VersionedValue(new APIValue(), 1), false),
-            array(new VersionedValue(new CollectionItem(), 2), false),
-            array(new VersionedValue(new CollectionItem(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new APIValue(), false],
+            [new CollectionItem(), false],
+            [new VersionedValue(new APIValue(), 1), false],
+            [new VersionedValue(new CollectionItem(), 2), false],
+            [new VersionedValue(new CollectionItem(), 1), true],
+        ];
     }
 }

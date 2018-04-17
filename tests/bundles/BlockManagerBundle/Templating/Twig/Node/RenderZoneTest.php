@@ -47,8 +47,8 @@ final class RenderZoneTest extends NodeTest
         $zone = new NameExpression('zone', 1);
         $context = new NameExpression('context', 1);
 
-        return array(
-            array(
+        return [
+            [
                 new RenderZone($zone, $context, 1),
                 <<<EOT
 // line 1
@@ -61,8 +61,8 @@ if (\$ngbmZone instanceof {$zoneClass}) {
 EOT
                 ,
                 $environment,
-            ),
-            array(
+            ],
+            [
                 new RenderZone($zone, null, 1),
                 <<<EOT
 // line 1
@@ -75,8 +75,8 @@ if (\$ngbmZone instanceof {$zoneClass}) {
 EOT
                 ,
                 $environment,
-            ),
-        );
+            ],
+        ];
     }
 
     /**

@@ -40,14 +40,14 @@ final class ConfigAwareStructValidator extends ConstraintValidator
 
             $validator->atPath('configStructs[' . $configKey . '].parameterValues')->validate(
                 $configStruct,
-                array(
+                [
                     new ParameterStruct(
-                        array(
+                        [
                             'parameterCollection' => $configs[$configKey]->getDefinition(),
                             'allowMissingFields' => true,
-                        )
+                        ]
                     ),
-                )
+                ]
             );
         }
     }

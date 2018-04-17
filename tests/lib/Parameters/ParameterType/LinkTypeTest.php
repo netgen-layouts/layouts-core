@@ -31,7 +31,7 @@ final class LinkTypeTest extends TestCase
     public function setUp()
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
-        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+        $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
@@ -79,24 +79,24 @@ final class LinkTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array('value_types' => array('default'), 'allow_invalid_internal' => false),
-            ),
-            array(
-                array('value_types' => array('value')),
-                array('value_types' => array('value'), 'allow_invalid_internal' => false),
-            ),
-            array(
-                array('allow_invalid_internal' => false),
-                array('value_types' => array('default'), 'allow_invalid_internal' => false),
-            ),
-            array(
-                array('allow_invalid_internal' => true),
-                array('value_types' => array('default'), 'allow_invalid_internal' => true),
-            ),
-        );
+        return [
+            [
+                [],
+                ['value_types' => ['default'], 'allow_invalid_internal' => false],
+            ],
+            [
+                ['value_types' => ['value']],
+                ['value_types' => ['value'], 'allow_invalid_internal' => false],
+            ],
+            [
+                ['allow_invalid_internal' => false],
+                ['value_types' => ['default'], 'allow_invalid_internal' => false],
+            ],
+            [
+                ['allow_invalid_internal' => true],
+                ['value_types' => ['default'], 'allow_invalid_internal' => true],
+            ],
+        ];
     }
 
     /**
@@ -106,22 +106,22 @@ final class LinkTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'value_types' => 42,
-                ),
-                array(
+                ],
+                [
                     'allow_invalid_internal' => 1,
-                ),
-                array(
+                ],
+                [
                     'allow_invalid_internal' => 0,
-                ),
-                array(
+                ],
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -136,7 +136,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testValidation($value, $isRequired, $valueTypes, $isValid)
     {
-        $parameter = $this->getParameterDefinition(array('required' => $isRequired, 'value_types' => $valueTypes));
+        $parameter = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
@@ -152,56 +152,56 @@ final class LinkTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(null, true, array(), true),
-            array(null, false, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 'suffix')), true, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 42)), true, array(), false),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => true)), true, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => false)), true, array(), true),
-            array(new LinkValue(array('linkType' => null, 'link' => null)), true, array(), true),
-            array(new LinkValue(array('linkType' => null, 'link' => 'http://a.com')), true, array(), false),
-            array(new LinkValue(array('linkType' => null, 'link' => null)), false, array(), true),
-            array(new LinkValue(array('linkType' => null, 'link' => 'http://a.com')), false, array(), false),
-            array(new LinkValue(array('linkType' => 'url', 'link' => null)), true, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://a.com')), true, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => null)), false, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://a.com')), false, array(), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'invalid')), true, array(), false),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'invalid')), false, array(), false),
-            array(new LinkValue(array('linkType' => 'email', 'link' => null)), true, array(), true),
-            array(new LinkValue(array('linkType' => 'email', 'link' => 'a@a.com')), true, array(), true),
-            array(new LinkValue(array('linkType' => 'email', 'link' => null)), false, array(), true),
-            array(new LinkValue(array('linkType' => 'email', 'link' => 'a@a.com')), false, array(), true),
-            array(new LinkValue(array('linkType' => 'email', 'link' => 'invalid')), true, array(), false),
-            array(new LinkValue(array('linkType' => 'email', 'link' => 'invalid')), false, array(), false),
-            array(new LinkValue(array('linkType' => 'phone', 'link' => null)), true, array(), true),
-            array(new LinkValue(array('linkType' => 'phone', 'link' => 'a@a.com')), true, array(), true),
-            array(new LinkValue(array('linkType' => 'phone', 'link' => null)), false, array(), true),
-            array(new LinkValue(array('linkType' => 'phone', 'link' => 'a@a.com')), false, array(), true),
-            array(new LinkValue(array('linkType' => 'phone', 'link' => 42)), true, array(), false),
-            array(new LinkValue(array('linkType' => 'phone', 'link' => 42)), false, array(), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => null)), true, array(), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), true, array(), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'default://42')), true, array(), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => null)), false, array(), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), false, array(), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'default://42')), false, array(), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), true, array(), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), false, array(), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => null)), true, array('value'), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), true, array('value'), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => null)), false, array('value'), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), false, array('value'), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), true, array('value'), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), false, array('value'), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => null)), true, array('other'), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), true, array('other'), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => null)), false, array('other'), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), false, array('other'), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), true, array('other'), false),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), false, array('other'), false),
-        );
+        return [
+            [null, true, [], true],
+            [null, false, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 'suffix']), true, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 42]), true, [], false],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => true]), true, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => false]), true, [], true],
+            [new LinkValue(['linkType' => null, 'link' => null]), true, [], true],
+            [new LinkValue(['linkType' => null, 'link' => 'http://a.com']), true, [], false],
+            [new LinkValue(['linkType' => null, 'link' => null]), false, [], true],
+            [new LinkValue(['linkType' => null, 'link' => 'http://a.com']), false, [], false],
+            [new LinkValue(['linkType' => 'url', 'link' => null]), true, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com']), true, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => null]), false, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com']), false, [], true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'invalid']), true, [], false],
+            [new LinkValue(['linkType' => 'url', 'link' => 'invalid']), false, [], false],
+            [new LinkValue(['linkType' => 'email', 'link' => null]), true, [], true],
+            [new LinkValue(['linkType' => 'email', 'link' => 'a@a.com']), true, [], true],
+            [new LinkValue(['linkType' => 'email', 'link' => null]), false, [], true],
+            [new LinkValue(['linkType' => 'email', 'link' => 'a@a.com']), false, [], true],
+            [new LinkValue(['linkType' => 'email', 'link' => 'invalid']), true, [], false],
+            [new LinkValue(['linkType' => 'email', 'link' => 'invalid']), false, [], false],
+            [new LinkValue(['linkType' => 'phone', 'link' => null]), true, [], true],
+            [new LinkValue(['linkType' => 'phone', 'link' => 'a@a.com']), true, [], true],
+            [new LinkValue(['linkType' => 'phone', 'link' => null]), false, [], true],
+            [new LinkValue(['linkType' => 'phone', 'link' => 'a@a.com']), false, [], true],
+            [new LinkValue(['linkType' => 'phone', 'link' => 42]), true, [], false],
+            [new LinkValue(['linkType' => 'phone', 'link' => 42]), false, [], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => null]), true, [], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), true, [], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'default://42']), true, [], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => null]), false, [], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), false, [], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'default://42']), false, [], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), true, [], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), false, [], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => null]), true, ['value'], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), true, ['value'], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => null]), false, ['value'], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), false, ['value'], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), true, ['value'], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), false, ['value'], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => null]), true, ['other'], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), true, ['other'], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => null]), false, ['other'], true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), false, ['other'], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), true, ['other'], false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), false, ['other'], false],
+        ];
     }
 
     /**
@@ -218,28 +218,28 @@ final class LinkTypeTest extends TestCase
 
     public function toHashProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 42,
                 null,
-            ),
-            array(
+            ],
+            [
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-                array(
+                [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -256,44 +256,44 @@ final class LinkTypeTest extends TestCase
 
     public function fromHashProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 42,
                 new LinkValue(),
-            ),
-            array(
-                array(),
+            ],
+            [
+                [],
                 new LinkValue(),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
-                    )
+                    ]
                 ),
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -314,10 +314,10 @@ final class LinkTypeTest extends TestCase
             ->will(
                 $this->returnValue(
                     new Item(
-                        array(
+                        [
                             'value' => 42,
                             'remoteId' => 'abc',
-                        )
+                        ]
                     )
                 )
             );
@@ -338,21 +338,21 @@ final class LinkTypeTest extends TestCase
             ->will($this->returnValue(new NullItem('24')));
 
         $this->assertEquals(
-            array(
+            [
                 'link_type' => 'internal',
                 'link' => 'null://0',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
-            ),
+            ],
             $this->type->export(
                 $this->getParameterDefinition(),
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'internal',
                         'link' => 'ezlocation://24',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 )
             )
         );
@@ -360,60 +360,60 @@ final class LinkTypeTest extends TestCase
 
     public function exportProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 42,
                 null,
-            ),
-            array(
+            ],
+            [
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-                array(
+                [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'internal',
                         'link' => 'ezlocation://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-                array(
+                [
                     'link_type' => 'internal',
                     'link' => 'ezlocation://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'internal',
                         'link' => 'invalid',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-                array(
+                [
                     'link_type' => 'internal',
                     'link' => 'null://0',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -434,10 +434,10 @@ final class LinkTypeTest extends TestCase
             ->will(
                 $this->returnValue(
                     new Item(
-                        array(
+                        [
                             'value' => 42,
                             'remoteId' => 'abc',
-                        )
+                        ]
                     )
                 )
             );
@@ -459,112 +459,112 @@ final class LinkTypeTest extends TestCase
 
         $this->assertEquals(
             new LinkValue(
-                array(
+                [
                     'linkType' => 'internal',
                     'link' => 'null://0',
                     'linkSuffix' => '?suffix',
                     'newWindow' => true,
-                )
+                ]
             ),
             $this->type->import(
                 $this->getParameterDefinition(),
-                array(
+                [
                     'link_type' => 'internal',
                     'link' => 'ezlocation://def',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                )
+                ]
             )
         );
     }
 
     public function importProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 42,
                 new LinkValue(),
-            ),
-            array(
-                array(),
+            ],
+            [
+                [],
                 new LinkValue(),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
                         'linkSuffix' => null,
                         'newWindow' => false,
-                    )
+                    ]
                 ),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'internal',
                     'link' => 'ezlocation://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'internal',
                         'link' => 'ezlocation://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'internal',
                     'link' => 'invalid',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'internal',
                         'link' => 'null://0',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    )
+                    ]
                 ),
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'link_type' => 'internal',
-                ),
+                ],
                 new LinkValue(
-                    array(
+                    [
                         'linkType' => 'internal',
                         'link' => 'null://0',
                         'linkSuffix' => null,
                         'newWindow' => false,
-                    )
+                    ]
                 ),
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -586,21 +586,21 @@ final class LinkTypeTest extends TestCase
      */
     public function emptyProvider()
     {
-        return array(
-            array(null, true),
-            array(new LinkValue(), true),
-            array(new LinkValue(array('linkType' => 'url')), true),
-            array(new LinkValue(array('linkType' => 'url', 'link' => 'http://www.google.com')), false),
-            array(new LinkValue(array('linkType' => 'url', 'linkSuffix' => '?suffix')), false),
-            array(new LinkValue(array('linkType' => 'email')), true),
-            array(new LinkValue(array('linkType' => 'email', 'link' => 'test@example.com')), false),
-            array(new LinkValue(array('linkType' => 'email', 'linkSuffix' => '?suffix')), true),
-            array(new LinkValue(array('linkType' => 'tel')), true),
-            array(new LinkValue(array('linkType' => 'tel', 'link' => '123456')), false),
-            array(new LinkValue(array('linkType' => 'tel', 'linkSuffix' => '?suffix')), true),
-            array(new LinkValue(array('linkType' => 'internal')), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'ezlocation://42')), false),
-            array(new LinkValue(array('linkType' => 'internal', 'linkSuffix' => '?suffix')), true),
-        );
+        return [
+            [null, true],
+            [new LinkValue(), true],
+            [new LinkValue(['linkType' => 'url']), true],
+            [new LinkValue(['linkType' => 'url', 'link' => 'http://www.google.com']), false],
+            [new LinkValue(['linkType' => 'url', 'linkSuffix' => '?suffix']), false],
+            [new LinkValue(['linkType' => 'email']), true],
+            [new LinkValue(['linkType' => 'email', 'link' => 'test@example.com']), false],
+            [new LinkValue(['linkType' => 'email', 'linkSuffix' => '?suffix']), true],
+            [new LinkValue(['linkType' => 'tel']), true],
+            [new LinkValue(['linkType' => 'tel', 'link' => '123456']), false],
+            [new LinkValue(['linkType' => 'tel', 'linkSuffix' => '?suffix']), true],
+            [new LinkValue(['linkType' => 'internal']), true],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'ezlocation://42']), false],
+            [new LinkValue(['linkType' => 'internal', 'linkSuffix' => '?suffix']), true],
+        ];
     }
 }

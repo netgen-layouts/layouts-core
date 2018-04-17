@@ -29,7 +29,7 @@ final class Rule extends Visitor
         /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule */
         $layout = $rule->getLayout();
 
-        return array(
+        return [
             'id' => $rule->getId(),
             'status' => $this->getStatusString($rule),
             'layout_id' => $layout instanceof LayoutValue ? $layout->getId() : null,
@@ -38,7 +38,7 @@ final class Rule extends Visitor
             'comment' => $rule->getComment(),
             'targets' => $this->visitTargets($rule, $subVisitor),
             'conditions' => $this->visitConditions($rule, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -51,7 +51,7 @@ final class Rule extends Visitor
      */
     private function visitTargets(RuleValue $rule, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($rule->getTargets() as $target) {
             $hash[$target->getId()] = $subVisitor->visit($target);
@@ -70,7 +70,7 @@ final class Rule extends Visitor
      */
     private function visitConditions(RuleValue $rule, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($rule->getConditions() as $condition) {
             $hash[$condition->getId()] = $subVisitor->visit($condition);

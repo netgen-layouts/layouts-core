@@ -13,38 +13,38 @@ final class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandle
     /**
      * @var array
      */
-    private $parameterGroups = array();
+    private $parameterGroups = [];
 
-    public function __construct($parameterGroups = array())
+    public function __construct($parameterGroups = [])
     {
         $this->parameterGroups = $parameterGroups;
     }
 
     public function getParameterDefinitions()
     {
-        return array(
+        return [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'default_value' => 'some-class',
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function isDynamicContainer()

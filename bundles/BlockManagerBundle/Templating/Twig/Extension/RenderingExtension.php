@@ -11,84 +11,84 @@ final class RenderingExtension extends AbstractExtension
 {
     public function getFunctions()
     {
-        return array(
+        return [
             new TwigFunction(
                 'ngbm_render_item',
-                array(RenderingRuntime::class, 'renderItem'),
-                array(
+                [RenderingRuntime::class, 'renderItem'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_layout',
-                array(RenderingRuntime::class, 'renderValue'),
-                array(
+                [RenderingRuntime::class, 'renderValue'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_parameter',
-                array(RenderingRuntime::class, 'renderValue'),
-                array(
+                [RenderingRuntime::class, 'renderValue'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_block',
-                array(RenderingRuntime::class, 'renderBlock'),
-                array(
+                [RenderingRuntime::class, 'renderBlock'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_placeholder',
-                array(RenderingRuntime::class, 'renderPlaceholder'),
-                array(
+                [RenderingRuntime::class, 'renderPlaceholder'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_rule',
-                array(RenderingRuntime::class, 'renderValue'),
-                array(
+                [RenderingRuntime::class, 'renderValue'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_rule_target',
-                array(RenderingRuntime::class, 'renderValue'),
-                array(
+                [RenderingRuntime::class, 'renderValue'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_rule_condition',
-                array(RenderingRuntime::class, 'renderValue'),
-                array(
+                [RenderingRuntime::class, 'renderValue'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_render_value',
-                array(RenderingRuntime::class, 'renderValue'),
-                array(
+                [RenderingRuntime::class, 'renderValue'],
+                [
                     'needs_context' => true,
-                    'is_safe' => array('html'),
-                )
+                    'is_safe' => ['html'],
+                ]
             ),
-        );
+        ];
     }
 
     public function getTokenParsers()
     {
-        return array(new RenderZone());
+        return [new RenderZone()];
     }
 }

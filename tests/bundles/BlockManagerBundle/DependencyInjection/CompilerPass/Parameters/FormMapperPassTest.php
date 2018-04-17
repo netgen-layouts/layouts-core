@@ -21,7 +21,7 @@ final class FormMapperPassTest extends AbstractCompilerPassTestCase
         $formMapper = new Definition();
         $formMapper->addTag(
             'netgen_block_manager.parameters.form.mapper',
-            array('type' => 'test')
+            ['type' => 'test']
         );
 
         $this->setDefinition('netgen_block_manager.parameters.form.mapper.test', $formMapper);
@@ -31,10 +31,10 @@ final class FormMapperPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.parameters.registry.form_mapper',
             'addFormMapper',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.parameters.form.mapper.test'),
-            )
+            ]
         );
     }
 

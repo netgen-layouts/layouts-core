@@ -7,13 +7,13 @@ use Symfony\Component\Form\FormInterface;
 
 final class FormViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         return new FormView(
-            array(
+            [
                 'form_object' => $value,
                 'form' => $value->createView(),
-            )
+            ]
         );
     }
 

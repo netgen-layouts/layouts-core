@@ -32,7 +32,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(BlockManagerEvents::RENDER_VIEW => 'onRenderView');
+        return [BlockManagerEvents::RENDER_VIEW => 'onRenderView'];
     }
 
     /**
@@ -57,8 +57,8 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
         }
 
         $block = $view->getBlock();
-        $collections = array();
-        $pagers = array();
+        $collections = [];
+        $pagers = [];
 
         foreach ($block->getCollections() as $identifier => $collection) {
             // In non AJAX scenarios, we're always rendering the first page of the collection

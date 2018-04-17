@@ -16,15 +16,15 @@ final class BlockTypeGroupTest extends TestCase
     public function setUp()
     {
         $this->blockTypeGroup = new BlockTypeGroup(
-            array(
+            [
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
                 'name' => 'Simple blocks',
-                'blockTypes' => array(
-                    new BlockType(array('isEnabled' => true, 'identifier' => 'type')),
-                    new BlockType(array('isEnabled' => false, 'identifier' => 'type2')),
-                ),
-            )
+                'blockTypes' => [
+                    new BlockType(['isEnabled' => true, 'identifier' => 'type']),
+                    new BlockType(['isEnabled' => false, 'identifier' => 'type2']),
+                ],
+            ]
         );
     }
 
@@ -59,10 +59,10 @@ final class BlockTypeGroupTest extends TestCase
     public function testGetBlockTypes()
     {
         $this->assertEquals(
-            array(
-                new BlockType(array('isEnabled' => true, 'identifier' => 'type')),
-                new BlockType(array('isEnabled' => false, 'identifier' => 'type2')),
-            ),
+            [
+                new BlockType(['isEnabled' => true, 'identifier' => 'type']),
+                new BlockType(['isEnabled' => false, 'identifier' => 'type2']),
+            ],
             $this->blockTypeGroup->getBlockTypes()
         );
     }
@@ -73,9 +73,9 @@ final class BlockTypeGroupTest extends TestCase
     public function testGetEnabledBlockTypes()
     {
         $this->assertEquals(
-            array(
-                new BlockType(array('isEnabled' => true, 'identifier' => 'type')),
-            ),
+            [
+                new BlockType(['isEnabled' => true, 'identifier' => 'type']),
+            ],
             $this->blockTypeGroup->getBlockTypes(true)
         );
     }

@@ -59,7 +59,7 @@ final class BlockManagerDataCollector extends DataCollector
     {
         $this->data['rule'] = null;
         $this->data['layout'] = null;
-        $this->data['blocks'] = array();
+        $this->data['blocks'] = [];
     }
 
     /**
@@ -72,14 +72,14 @@ final class BlockManagerDataCollector extends DataCollector
         $layout = $layoutView->getLayout();
         $templateSource = $this->getTemplateSource($layoutView->getTemplate());
 
-        $this->data['layout'] = array(
+        $this->data['layout'] = [
             'id' => $layout->getId(),
             'name' => $layout->getName(),
             'type' => $layout->getLayoutType()->getName(),
             'context' => $layoutView->getContext(),
             'template' => $templateSource->getName(),
             'template_path' => $templateSource->getPath(),
-        );
+        ];
     }
 
     /**
@@ -89,22 +89,22 @@ final class BlockManagerDataCollector extends DataCollector
      */
     public function collectRule(Rule $rule)
     {
-        $this->data['rule'] = array(
+        $this->data['rule'] = [
             'id' => $rule->getId(),
-        );
+        ];
 
         foreach ($rule->getTargets() as $target) {
-            $this->data['rule']['targets'][] = array(
+            $this->data['rule']['targets'][] = [
                 'type' => $target->getTargetType()->getType(),
                 'value' => $this->formatVar($target->getValue()),
-            );
+            ];
         }
 
         foreach ($rule->getConditions() as $condition) {
-            $this->data['rule']['conditions'][] = array(
+            $this->data['rule']['conditions'][] = [
                 'type' => $condition->getConditionType()->getType(),
                 'value' => $this->formatVar($condition->getValue()),
-            );
+            ];
         }
     }
 
@@ -119,7 +119,7 @@ final class BlockManagerDataCollector extends DataCollector
         $blockDefinition = $block->getDefinition();
         $templateSource = $this->getTemplateSource($blockView->getTemplate());
 
-        $this->data['blocks'][] = array(
+        $this->data['blocks'][] = [
             'id' => $block->getId(),
             'layout_id' => $block->getLayoutId(),
             'definition' => $blockDefinition->getName(),
@@ -129,7 +129,7 @@ final class BlockManagerDataCollector extends DataCollector
             'locale' => $block->getLocale(),
             'template' => $templateSource->getName(),
             'template_path' => $templateSource->getPath(),
-        );
+        ];
     }
 
     /**

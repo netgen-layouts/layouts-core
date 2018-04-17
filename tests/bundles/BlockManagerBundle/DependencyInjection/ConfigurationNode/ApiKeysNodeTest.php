@@ -19,19 +19,19 @@ final class ApiKeysNodeTest extends TestCase
      */
     public function testGoogleMapsApiKeySettings()
     {
-        $config = array(
-            array(
-                'api_keys' => array(
+        $config = [
+            [
+                'api_keys' => [
                     'google_maps' => 'API_KEY',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'api_keys' => array(
+        $expectedConfig = [
+            'api_keys' => [
                 'google_maps' => 'API_KEY',
-            ),
-        );
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -48,13 +48,13 @@ final class ApiKeysNodeTest extends TestCase
      */
     public function testGoogleMapsApiKeySettingsWithEmptyKey()
     {
-        $config = array();
+        $config = [];
 
-        $expectedConfig = array(
-            'api_keys' => array(
+        $expectedConfig = [
+            'api_keys' => [
                 'google_maps' => '',
-            ),
-        );
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,

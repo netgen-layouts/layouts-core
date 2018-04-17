@@ -14,7 +14,7 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return array(BlockManagerEvents::RENDER_VIEW => 'onRenderView');
+        return [BlockManagerEvents::RENDER_VIEW => 'onRenderView'];
     }
 
     /**
@@ -57,7 +57,7 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
     private function getTwigBlockContent(
         TwigBlockDefinitionInterface $blockDefinition,
         Block $block,
-        array $parameters = array()
+        array $parameters = []
     ) {
         if (!isset($parameters['twig_template'])) {
             return '';

@@ -28,11 +28,11 @@ final class RenderZoneTest extends TestCase
     {
         $this->environment = new Environment(
             $this->createMock(LoaderInterface::class),
-            array(
+            [
                 'cache' => false,
                 'autoescape' => false,
                 'optimizations' => 0,
-            )
+            ]
         );
 
         $this->environment->addTokenParser(new RenderZone());
@@ -72,8 +72,8 @@ final class RenderZoneTest extends TestCase
 
     public function compileProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '{% ngbm_render_zone zone %}',
                 new RenderZoneNode(
                     new NameExpression('zone', 1),
@@ -81,8 +81,8 @@ final class RenderZoneTest extends TestCase
                     1,
                     'ngbm_render_zone'
                 ),
-            ),
-            array(
+            ],
+            [
                 '{% ngbm_render_zone zone context="json" %}',
                 new RenderZoneNode(
                     new NameExpression('zone', 1),
@@ -90,7 +90,7 @@ final class RenderZoneTest extends TestCase
                     1,
                     'ngbm_render_zone'
                 ),
-            ),
-        );
+            ],
+        ];
     }
 }

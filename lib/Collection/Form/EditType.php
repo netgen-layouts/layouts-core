@@ -35,30 +35,30 @@ final class EditType extends TranslatableType
         $builder->add(
             'offset',
             IntegerType::class,
-            array(
+            [
                 'label' => 'collection.offset',
                 'property_path' => 'offset',
                 // Manual collections do not support the offset
                 'disabled' => !($options['collection']->hasQuery()),
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'int')),
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                ),
-            )
+                    new Constraints\Type(['type' => 'int']),
+                    new Constraints\GreaterThanOrEqual(['value' => 0]),
+                ],
+            ]
         );
 
         $builder->add(
             'limit',
             IntegerType::class,
-            array(
+            [
                 'label' => 'collection.limit',
                 'property_path' => 'limit',
-                'constraints' => array(
-                    new Constraints\Type(array('type' => 'int')),
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                ),
-            )
+                'constraints' => [
+                    new Constraints\Type(['type' => 'int']),
+                    new Constraints\GreaterThanOrEqual(['value' => 0]),
+                ],
+            ]
         );
 
         $builder->setDataMapper(new CollectionDataMapper());

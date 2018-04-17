@@ -58,7 +58,7 @@ final class ItemTest extends TestCase
     public function testSetProperties()
     {
         $item = new Item(
-            array(
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
@@ -70,7 +70,7 @@ final class ItemTest extends TestCase
                 'cmsItem' => function () {
                     return new CmsItem();
                 },
-            )
+            ]
         );
 
         $this->assertEquals(42, $item->getId());
@@ -102,31 +102,31 @@ final class ItemTest extends TestCase
         $itemVisible = true
     ) {
         $item = new Item(
-            array(
-                'configs' => array(
+            [
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => $visibilityStatus,
-                                    )
+                                    ]
                                 ),
                                 'visible_from' => new Parameter(
-                                    array(
+                                    [
                                         'value' => $visibleFrom,
-                                    )
+                                    ]
                                 ),
                                 'visible_to' => new Parameter(
-                                    array(
+                                    [
                                         'value' => $visibleTo,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals($itemVisible, $item->isVisible(new DateTimeImmutable('@15000')));
@@ -145,21 +145,21 @@ final class ItemTest extends TestCase
         $itemScheduled = true
     ) {
         $item = new Item(
-            array(
-                'configs' => array(
+            [
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => $visibilityStatus,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals($itemScheduled, $item->isScheduled());
@@ -176,22 +176,22 @@ final class ItemTest extends TestCase
     public function testIsValid($itemVisible, $cmsItemVisible, $isValid)
     {
         $item = new Item(
-            array(
-                'cmsItem' => new CmsItem(array('isVisible' => $cmsItemVisible)),
-                'configs' => array(
+            [
+                'cmsItem' => new CmsItem(['isVisible' => $cmsItemVisible]),
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => $itemVisible ? Item::VISIBILITY_VISIBLE : Item::VISIBILITY_HIDDEN,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals($isValid, $item->isValid());
@@ -206,22 +206,22 @@ final class ItemTest extends TestCase
     public function testIsValidWithNullItem($itemVisible)
     {
         $item = new Item(
-            array(
+            [
                 'cmsItem' => new NullItem(42),
-                'configs' => array(
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => $itemVisible ? Item::VISIBILITY_VISIBLE : Item::VISIBILITY_HIDDEN,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertFalse($item->isValid());
@@ -229,77 +229,77 @@ final class ItemTest extends TestCase
 
     public function isValidProvider()
     {
-        return array(
-            array(true, true, true),
-            array(false, true, false),
-            array(true, false, false),
-            array(false, false, false),
-        );
+        return [
+            [true, true, true],
+            [false, true, false],
+            [true, false, false],
+            [false, false, false],
+        ];
     }
 
     public function visibilityProvider()
     {
-        return array(
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), true),
-            array(Item::VISIBILITY_VISIBLE, null, new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_VISIBLE, null, new DateTimeImmutable('@15000'), true),
-            array(Item::VISIBILITY_VISIBLE, null, new DateTimeImmutable('@10000'), true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), null, true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@15000'), null, true),
-            array(Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), null, true),
-            array(Item::VISIBILITY_VISIBLE, null, null, true),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false),
-            array(Item::VISIBILITY_SCHEDULED, null, new DateTimeImmutable('@20000'), true),
-            array(Item::VISIBILITY_SCHEDULED, null, new DateTimeImmutable('@15000'), true),
-            array(Item::VISIBILITY_SCHEDULED, null, new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), null, true),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@15000'), null, true),
-            array(Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), null, false),
-            array(Item::VISIBILITY_SCHEDULED, null, null, true),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false),
-            array(Item::VISIBILITY_HIDDEN, null, new DateTimeImmutable('@20000'), false),
-            array(Item::VISIBILITY_HIDDEN, null, new DateTimeImmutable('@15000'), false),
-            array(Item::VISIBILITY_HIDDEN, null, new DateTimeImmutable('@10000'), false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), null, false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@15000'), null, false),
-            array(Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), null, false),
-            array(Item::VISIBILITY_HIDDEN, null, null, false),
-        );
+        return [
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), true],
+            [Item::VISIBILITY_VISIBLE, null, new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_VISIBLE, null, new DateTimeImmutable('@15000'), true],
+            [Item::VISIBILITY_VISIBLE, null, new DateTimeImmutable('@10000'), true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), null, true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@15000'), null, true],
+            [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@20000'), null, true],
+            [Item::VISIBILITY_VISIBLE, null, null, true],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false],
+            [Item::VISIBILITY_SCHEDULED, null, new DateTimeImmutable('@20000'), true],
+            [Item::VISIBILITY_SCHEDULED, null, new DateTimeImmutable('@15000'), true],
+            [Item::VISIBILITY_SCHEDULED, null, new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@10000'), null, true],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@15000'), null, true],
+            [Item::VISIBILITY_SCHEDULED, new DateTimeImmutable('@20000'), null, false],
+            [Item::VISIBILITY_SCHEDULED, null, null, true],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false],
+            [Item::VISIBILITY_HIDDEN, null, new DateTimeImmutable('@20000'), false],
+            [Item::VISIBILITY_HIDDEN, null, new DateTimeImmutable('@15000'), false],
+            [Item::VISIBILITY_HIDDEN, null, new DateTimeImmutable('@10000'), false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@10000'), null, false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@15000'), null, false],
+            [Item::VISIBILITY_HIDDEN, new DateTimeImmutable('@20000'), null, false],
+            [Item::VISIBILITY_HIDDEN, null, null, false],
+        ];
     }
 
     public function scheduledProvider()
     {
-        return array(
-            array(Item::VISIBILITY_VISIBLE, false),
-            array(Item::VISIBILITY_HIDDEN, false),
-            array(Item::VISIBILITY_SCHEDULED, true),
-        );
+        return [
+            [Item::VISIBILITY_VISIBLE, false],
+            [Item::VISIBILITY_HIDDEN, false],
+            [Item::VISIBILITY_SCHEDULED, true],
+        ];
     }
 }

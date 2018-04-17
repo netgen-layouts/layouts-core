@@ -31,7 +31,7 @@ final class FullEditTypeTest extends FormTestCase
 
         $this->queryType = new QueryType('query_type');
 
-        $this->query = new Query(array('queryType' => $this->queryType));
+        $this->query = new Query(['queryType' => $this->queryType]);
     }
 
     /**
@@ -47,7 +47,7 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function getTypeExtensions()
     {
-        return array(new ParametersTypeExtension());
+        return [new ParametersTypeExtension()];
     }
 
     /**
@@ -59,7 +59,7 @@ final class FullEditTypeTest extends FormTestCase
         $formMapperRegistry->addFormMapper('text_line', new Mapper\TextLineMapper());
         $formMapperRegistry->addFormMapper('integer', new Mapper\IntegerMapper());
 
-        return array(new ParametersType($formMapperRegistry));
+        return [new ParametersType($formMapperRegistry)];
     }
 
     /**
@@ -68,11 +68,11 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'parameters' => array(
+        $submittedData = [
+            'parameters' => [
                 'param' => 'Param value',
-            ),
-        );
+            ],
+        ];
 
         $updatedStruct = new QueryUpdateStruct();
         $updatedStruct->setParameterValue('param', 'Param value');
@@ -80,7 +80,7 @@ final class FullEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             FullEditType::class,
             new QueryUpdateStruct(),
-            array('query' => $this->query)
+            ['query' => $this->query]
         );
 
         $form->submit($submittedData);
@@ -111,15 +111,15 @@ final class FullEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             FullEditType::class,
-            new QueryUpdateStruct(array('locale' => 'hr')),
-            array(
+            new QueryUpdateStruct(['locale' => 'hr']),
+            [
                 'query' => new Query(
-                    array(
+                    [
                         'queryType' => $this->queryType,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($form->get('parameters')->isDisabled());
@@ -135,15 +135,15 @@ final class FullEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             FullEditType::class,
-            new QueryUpdateStruct(array('locale' => 'en')),
-            array(
+            new QueryUpdateStruct(['locale' => 'en']),
+            [
                 'query' => new Query(
-                    array(
+                    [
                         'queryType' => $this->queryType,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($form->get('parameters')->isDisabled());
@@ -162,10 +162,10 @@ final class FullEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'query' => $this->query,
                 'data' => new QueryUpdateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->query, $options['query']);
@@ -200,9 +200,9 @@ final class FullEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'query' => '',
-            )
+            ]
         );
     }
 
@@ -219,10 +219,10 @@ final class FullEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'query' => $this->query,
                 'data' => '',
-            )
+            ]
         );
     }
 }

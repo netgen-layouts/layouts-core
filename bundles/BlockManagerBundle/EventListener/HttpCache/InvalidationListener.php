@@ -24,7 +24,7 @@ final class InvalidationListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             KernelEvents::TERMINATE => 'onKernelTerminate',
             KernelEvents::EXCEPTION => 'onKernelException',
             ConsoleEvents::TERMINATE => 'onConsoleTerminate',
@@ -33,7 +33,7 @@ final class InvalidationListener implements EventSubscriberInterface
             // It is replaced with ConsoleEvents::ERROR, so we're listening for that event too.
             'console.exception' => 'onConsoleTerminate',
             'console.error' => 'onConsoleTerminate',
-        );
+        ];
     }
 
     /**

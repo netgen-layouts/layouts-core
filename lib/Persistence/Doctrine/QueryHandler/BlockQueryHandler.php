@@ -170,7 +170,7 @@ final class BlockQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_block')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'layout_id' => ':layout_id',
@@ -187,7 +187,7 @@ final class BlockQueryHandler extends QueryHandler
                     'always_available' => ':always_available',
                     'main_locale' => ':main_locale',
                     'config' => ':config',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -254,12 +254,12 @@ final class BlockQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_block_translation')
             ->values(
-                array(
+                [
                     'block_id' => ':block_id',
                     'status' => ':status',
                     'locale' => ':locale',
                     'parameters' => ':parameters',
-                )
+                ]
             )
             ->setParameter('block_id', $block->id, Type::INTEGER)
             ->setParameter('status', $block->status, Type::INTEGER)
@@ -280,13 +280,13 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->insert('ngbm_block_collection')
             ->values(
-                array(
+                [
                     'block_id' => ':block_id',
                     'block_status' => ':block_status',
                     'collection_id' => ':collection_id',
                     'collection_status' => ':collection_status',
                     'identifier' => ':identifier',
-                )
+                ]
             )
             ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
             ->setParameter('block_status', $collectionReference->blockStatus, Type::INTEGER)
@@ -437,7 +437,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->delete('ngbm_block')
             ->where(
-                $query->expr()->in('id', array(':id'))
+                $query->expr()->in('id', [':id'])
             )
             ->setParameter('id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -461,7 +461,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->delete('ngbm_block_translation')
             ->where(
-                $query->expr()->in('block_id', array(':block_id'))
+                $query->expr()->in('block_id', [':block_id'])
             )
             ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -490,7 +490,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->delete('ngbm_block_collection')
             ->where(
-                $query->expr()->in('block_id', array(':block_id'))
+                $query->expr()->in('block_id', [':block_id'])
             )
             ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -579,7 +579,7 @@ final class BlockQueryHandler extends QueryHandler
         $query->select('DISTINCT bc.collection_id')
             ->from('ngbm_block_collection', 'bc')
             ->where(
-                $query->expr()->in('bc.block_id', array(':block_id'))
+                $query->expr()->in('bc.block_id', [':block_id'])
             )
             ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 

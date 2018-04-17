@@ -18,8 +18,8 @@ final class LayoutView extends View implements LayoutViewInterface
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'layoutId' => $this->getLayout()->getId(),
-        );
+        ];
     }
 }

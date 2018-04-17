@@ -18,17 +18,17 @@ final class FormViewNormalizer implements NormalizerInterface
         $this->viewRenderer = $viewRenderer;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
-        return array(
+        return [
             'form' => $this->viewRenderer->renderValue(
                 $object->getValue(),
                 $object->getContext(),
-                array(
+                [
                     'api_version' => $object->getVersion(),
-                ) + $object->getViewParameters()
+                ] + $object->getViewParameters()
             ),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)

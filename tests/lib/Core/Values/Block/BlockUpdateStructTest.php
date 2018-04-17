@@ -21,13 +21,13 @@ final class BlockUpdateStructTest extends TestCase
     public function testSetProperties()
     {
         $blockUpdateStruct = new BlockUpdateStruct(
-            array(
+            [
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'alwaysAvailable' => false,
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->assertEquals('default', $blockUpdateStruct->viewType);

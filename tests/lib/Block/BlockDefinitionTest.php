@@ -28,28 +28,28 @@ final class BlockDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = new BlockDefinitionHandler(array(), true);
+        $this->handler = new BlockDefinitionHandler([], true);
 
         $this->blockDefinition = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'handlerPlugins' => array(HandlerPlugin::instance()),
+                'handlerPlugins' => [HandlerPlugin::instance()],
                 'name' => 'Block definition',
                 'icon' => '/icon.svg',
                 'isTranslatable' => true,
-                'forms' => array(
-                    'content' => new Form(array('identifier' => 'content')),
-                ),
-                'collections' => array(
-                    'collection' => new Collection(array('identifier' => 'collection')),
-                ),
-                'viewTypes' => array(
-                    'large' => new ViewType(array('identifier' => 'large')),
-                    'small' => new ViewType(array('identifier' => 'small')),
-                ),
-                'configDefinitions' => array('config' => new ConfigDefinition()),
-            )
+                'forms' => [
+                    'content' => new Form(['identifier' => 'content']),
+                ],
+                'collections' => [
+                    'collection' => new Collection(['identifier' => 'collection']),
+                ],
+                'viewTypes' => [
+                    'large' => new ViewType(['identifier' => 'large']),
+                    'small' => new ViewType(['identifier' => 'small']),
+                ],
+                'configDefinitions' => ['config' => new ConfigDefinition()],
+            ]
         );
     }
 
@@ -91,9 +91,9 @@ final class BlockDefinitionTest extends TestCase
     public function testGetForms()
     {
         $this->assertEquals(
-            array(
-                'content' => new Form(array('identifier' => 'content')),
-            ),
+            [
+                'content' => new Form(['identifier' => 'content']),
+            ],
             $this->blockDefinition->getForms()
         );
     }
@@ -113,7 +113,7 @@ final class BlockDefinitionTest extends TestCase
     public function testGetForm()
     {
         $this->assertEquals(
-            new Form(array('identifier' => 'content')),
+            new Form(['identifier' => 'content']),
             $this->blockDefinition->getForm('content')
         );
     }
@@ -134,9 +134,9 @@ final class BlockDefinitionTest extends TestCase
     public function testGetCollections()
     {
         $this->assertEquals(
-            array(
-                'collection' => new Collection(array('identifier' => 'collection')),
-            ),
+            [
+                'collection' => new Collection(['identifier' => 'collection']),
+            ],
             $this->blockDefinition->getCollections()
         );
     }
@@ -156,7 +156,7 @@ final class BlockDefinitionTest extends TestCase
     public function testGetCollection()
     {
         $this->assertEquals(
-            new Collection(array('identifier' => 'collection')),
+            new Collection(['identifier' => 'collection']),
             $this->blockDefinition->getCollection('collection')
         );
     }
@@ -177,10 +177,10 @@ final class BlockDefinitionTest extends TestCase
     public function testGetViewTypes()
     {
         $this->assertEquals(
-            array(
-                'large' => new ViewType(array('identifier' => 'large')),
-                'small' => new ViewType(array('identifier' => 'small')),
-            ),
+            [
+                'large' => new ViewType(['identifier' => 'large']),
+                'small' => new ViewType(['identifier' => 'small']),
+            ],
             $this->blockDefinition->getViewTypes()
         );
     }
@@ -191,7 +191,7 @@ final class BlockDefinitionTest extends TestCase
     public function testGetViewTypeIdentifiers()
     {
         $this->assertEquals(
-            array('large', 'small'),
+            ['large', 'small'],
             $this->blockDefinition->getViewTypeIdentifiers()
         );
     }
@@ -211,7 +211,7 @@ final class BlockDefinitionTest extends TestCase
     public function testGetViewType()
     {
         $this->assertEquals(
-            new ViewType(array('identifier' => 'large')),
+            new ViewType(['identifier' => 'large']),
             $this->blockDefinition->getViewType('large')
         );
     }
@@ -264,7 +264,7 @@ final class BlockDefinitionTest extends TestCase
     public function testGetConfigDefinitions()
     {
         $this->assertEquals(
-            array('config' => new ConfigDefinition()),
+            ['config' => new ConfigDefinition()],
             $this->blockDefinition->getConfigDefinitions()
         );
     }

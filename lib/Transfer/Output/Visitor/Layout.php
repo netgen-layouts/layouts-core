@@ -28,11 +28,11 @@ final class Layout extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
 
-        return array(
-            '__format' => array(
+        return [
+            '__format' => [
                 'type' => Descriptor::LAYOUT_FORMAT_TYPE,
                 'version' => Descriptor::LAYOUT_FORMAT_VERSION,
-            ),
+            ],
             'id' => $layout->getId(),
             'type_identifier' => $layout->getLayoutType()->getIdentifier(),
             'name' => $layout->getName(),
@@ -44,7 +44,7 @@ final class Layout extends Visitor
             'modification_date' => $layout->getModified()->getTimestamp(),
             'is_shared' => $layout->isShared(),
             'zones' => $this->visitZones($layout, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -57,7 +57,7 @@ final class Layout extends Visitor
      */
     private function visitZones(LayoutValue $layout, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($layout->getZones() as $zone) {
             $hash[$zone->getIdentifier()] = $subVisitor->visit($zone, $subVisitor);

@@ -44,16 +44,16 @@ final class DefinitionTest extends TestCase
         $form = $this->formFactory->create(
             Form::class,
             null,
-            array(
+            [
                 'block' => new Block(
-                    array(
-                        'definition' => new BlockDefinition(array('identifier' => 'block')),
-                    )
+                    [
+                        'definition' => new BlockDefinition(['identifier' => 'block']),
+                    ]
                 ),
-            )
+            ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     /**
@@ -63,13 +63,13 @@ final class DefinitionTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('other_block'), false),
-            array(array('block'), true),
-            array(array('other_block', 'second_block'), false),
-            array(array('block', 'other_block'), true),
-        );
+        return [
+            [[], false],
+            [['other_block'], false],
+            [['block'], true],
+            [['other_block', 'second_block'], false],
+            [['block', 'other_block'], true],
+        ];
     }
 
     /**
@@ -77,7 +77,7 @@ final class DefinitionTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 
     /**
@@ -87,7 +87,7 @@ final class DefinitionTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('block')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['block']));
     }
 
     /**
@@ -95,8 +95,8 @@ final class DefinitionTest extends TestCase
      */
     public function testMatchWithInvalidBlock()
     {
-        $form = $this->formFactory->create(Form::class, null, array('block' => 'block'));
+        $form = $this->formFactory->create(Form::class, null, ['block' => 'block']);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('block')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['block']));
     }
 }

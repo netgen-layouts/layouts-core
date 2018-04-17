@@ -34,7 +34,7 @@ final class ViewNode implements ConfigurationNodeInterface
                                 ->end()
                             ->end()
                             ->arrayNode('parameters')
-                                ->defaultValue(array())
+                                ->defaultValue([])
                                 ->prototype('variable')
                                 ->end()
                             ->end()

@@ -23,6 +23,6 @@ final class MapperTest extends TestCase
      */
     public function testMapOptions()
     {
-        $this->assertEquals(array(), $this->mapper->mapOptions(new ParameterDefinition()));
+        $this->assertEquals([], $this->mapper->mapOptions(new ParameterDefinition()));
     }
 }

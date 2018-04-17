@@ -334,9 +334,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $updatedRule = $this->layoutResolverService->updateRuleMetadata(
             $rule,
             new RuleMetadataUpdateStruct(
-                array(
+                [
                     'priority' => 50,
-                )
+                ]
             )
         );
 
@@ -357,9 +357,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverService->updateRuleMetadata(
             $rule,
             new RuleMetadataUpdateStruct(
-                array(
+                [
                     'priority' => 50,
-                )
+                ]
             )
         );
     }
@@ -481,7 +481,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $rule = $this->layoutResolverService->loadRuleDraft(5);
         $this->layoutResolverService->updateRule(
             $rule,
-            new RuleUpdateStruct(array('layoutId' => 0))
+            new RuleUpdateStruct(['layoutId' => 0])
         );
 
         $publishedRule = $this->layoutResolverService->publishRule($rule);
@@ -939,10 +939,10 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new TargetCreateStruct(
-                array(
+                [
                     'type' => 'target',
                     'value' => '42',
-                )
+                ]
             ),
             $createStruct
         );
@@ -958,9 +958,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new TargetUpdateStruct(
-                array(
+                [
                     'value' => '42',
-                )
+                ]
             ),
             $updateStruct
         );
@@ -976,10 +976,10 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new ConditionCreateStruct(
-                array(
+                [
                     'type' => 'condition',
                     'value' => '42',
-                )
+                ]
             ),
             $createStruct
         );
@@ -995,9 +995,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new ConditionUpdateStruct(
-                array(
+                [
                     'value' => '42',
-                )
+                ]
             ),
             $updateStruct
         );

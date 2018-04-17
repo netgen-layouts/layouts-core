@@ -111,20 +111,20 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      */
     protected function getExtensions()
     {
-        return array($this->extension);
+        return [$this->extension];
     }
 
     protected function getRuntimeLoaders()
     {
-        return array(
+        return [
             new FactoryRuntimeLoader(
-                array(
+                [
                     RenderingRuntime::class => function () {
                         return $this->runtime;
                     },
-                )
+                ]
             ),
-        );
+        ];
     }
 
     /**
@@ -144,7 +144,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 ->expects($this->any())
                 ->method('getRequestLocales')
                 ->with($this->equalTo($request))
-                ->will($this->returnValue(array('en'))) :
+                ->will($this->returnValue(['en'])) :
             $this->localeProviderMock
                 ->expects($this->never())
                 ->method('getRequestLocales');
@@ -154,49 +154,49 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->method('loadZoneBlocks')
             ->with(
                 $this->isInstanceOf(Zone::class),
-                $this->equalTo($request instanceof Request ? array('en') : null)
+                $this->equalTo($request instanceof Request ? ['en'] : null)
             )
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Block(
-                            array(
+                            [
                                 'definition' => new BlockDefinition(
-                                    array(
+                                    [
                                         'identifier' => 'block_definition',
-                                    )
+                                    ]
                                 ),
-                            )
+                            ]
                         ),
                         new Block(
-                            array(
+                            [
                                 'definition' => new BlockDefinition(
-                                    array(
+                                    [
                                         'identifier' => 'twig_block',
-                                    )
+                                    ]
                                 ),
-                                'availableLocales' => array('en'),
+                                'availableLocales' => ['en'],
                                 'locale' => 'en',
-                                'parameters' => array(
+                                'parameters' => [
                                     'block_name' => new Parameter(
-                                        array(
+                                        [
                                             'name' => 'block_name',
                                             'value' => 'my_block',
-                                        )
+                                        ]
                                     ),
-                                ),
-                            )
+                                ],
+                            ]
                         ),
                         new Block(
-                            array(
+                            [
                                 'definition' => new BlockDefinition(
-                                    array(
+                                    [
                                         'identifier' => 'block_definition',
-                                    )
+                                    ]
                                 ),
-                            )
+                            ]
                         ),
-                    )
+                    ]
                 )
             );
 

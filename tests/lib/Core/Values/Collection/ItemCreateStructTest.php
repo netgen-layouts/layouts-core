@@ -21,11 +21,11 @@ final class ItemCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $itemCreateStruct = new ItemCreateStruct(
-            array(
+            [
                 'value' => 3,
                 'definition' => new ItemDefinition(),
                 'type' => Item::TYPE_OVERRIDE,
-            )
+            ]
         );
 
         $this->assertEquals(new ItemDefinition(), $itemCreateStruct->definition);

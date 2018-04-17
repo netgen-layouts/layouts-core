@@ -23,7 +23,7 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
         $this->viewRenderer = $viewRenderer;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         $normalizedData = $this->serializer->normalize(
             new VersionedValue(
@@ -39,9 +39,9 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
             $normalizedData['html'] = $this->viewRenderer->renderValue(
                 $object->getValue(),
                 $object->getContext(),
-                array(
+                [
                     'api_version' => $object->getVersion(),
-                ) + $object->getViewParameters()
+                ] + $object->getViewParameters()
             );
         }
 

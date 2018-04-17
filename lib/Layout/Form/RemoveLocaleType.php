@@ -21,7 +21,7 @@ final class RemoveLocaleType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('layout'));
+        $resolver->setRequired(['layout']);
         $resolver->setAllowedTypes('layout', Layout::class);
     }
 
@@ -29,7 +29,7 @@ final class RemoveLocaleType extends AbstractType
     {
         $localeBundle = Intl::getLocaleBundle();
 
-        $locales = array();
+        $locales = [];
         foreach ($options['layout']->getAvailableLocales() as $locale) {
             if ($locale !== $options['layout']->getMainLocale()) {
                 $locales[$localeBundle->getLocaleName($locale) . ' (' . $locale . ')'] = $locale;
@@ -39,24 +39,24 @@ final class RemoveLocaleType extends AbstractType
         $builder->add(
             'locales',
             ChoiceType::class,
-            array(
+            [
                 'required' => true,
                 'choices' => $locales,
                 'expanded' => true,
                 'multiple' => true,
-                'constraints' => array(
-                    new Constraints\Type(array('type' => 'array')),
+                'constraints' => [
+                    new Constraints\Type(['type' => 'array']),
                     new Constraints\All(
-                        array(
-                            'constraints' => array(
+                        [
+                            'constraints' => [
                                 new Constraints\NotBlank(),
-                                new Constraints\Type(array('type' => 'string')),
+                                new Constraints\Type(['type' => 'string']),
                                 new Constraints\Locale(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            ) + $this->getChoicesAsValuesOption()
+                ],
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 

@@ -30,41 +30,41 @@ final class LayoutTypeNormalizerTest extends TestCase
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
-            array(
+            [
                 'name' => 'Layout type',
                 'icon' => '/icon.svg',
                 'enabled' => true,
-                'zones' => array(
-                    'zone1' => array(
+                'zones' => [
+                    'zone1' => [
                         'name' => 'Zone 1',
-                        'allowed_block_definitions' => array('title'),
-                    ),
-                    'zone2' => array(
+                        'allowed_block_definitions' => ['title'],
+                    ],
+                    'zone2' => [
                         'name' => 'Zone 2',
-                        'allowed_block_definitions' => array(),
-                    ),
-                ),
-            )
+                        'allowed_block_definitions' => [],
+                    ],
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'identifier' => $layoutType->getIdentifier(),
                 'name' => $layoutType->getName(),
                 'icon' => $layoutType->getIcon(),
                 'zones' => array_map(
                     function (Zone $zone) {
-                        return array(
+                        return [
                             'identifier' => $zone->getIdentifier(),
                             'name' => $zone->getName(),
                             'allowed_block_definitions' => !empty($zone->getAllowedBlockDefinitions()) ?
                                 $zone->getAllowedBlockDefinitions() :
                                 true,
-                        );
+                        ];
                     },
                     array_values($layoutType->getZones())
                 ),
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($layoutType, 1))
         );
     }
@@ -88,19 +88,19 @@ final class LayoutTypeNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new LayoutType(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new LayoutType(), 2), false),
-            array(new VersionedValue(new LayoutType(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new LayoutType(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new LayoutType(), 2), false],
+            [new VersionedValue(new LayoutType(), 1), true],
+        ];
     }
 }

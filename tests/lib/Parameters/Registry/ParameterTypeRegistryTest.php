@@ -34,7 +34,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testAddParameterType()
     {
-        $this->assertEquals(array('type' => $this->parameterType), $this->registry->getParameterTypes());
+        $this->assertEquals(['type' => $this->parameterType], $this->registry->getParameterTypes());
     }
 
     /**
@@ -96,7 +96,7 @@ final class ParameterTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $parameterTypes = array();
+        $parameterTypes = [];
         foreach ($this->registry as $identifier => $parameterType) {
             $parameterTypes[$identifier] = $parameterType;
         }

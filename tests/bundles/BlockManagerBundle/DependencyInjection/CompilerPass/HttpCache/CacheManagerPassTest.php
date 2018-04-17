@@ -16,7 +16,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $cacheManager = new Definition(null, array(0));
+        $cacheManager = new Definition(null, [0]);
         $this->setDefinition('fos_http_cache.cache_manager', $cacheManager);
         $this->setDefinition('fos_http_cache.proxy_client.varnish', new Definition());
 

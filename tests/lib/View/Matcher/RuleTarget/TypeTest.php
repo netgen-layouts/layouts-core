@@ -32,12 +32,12 @@ final class TypeTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $target = new Target(
-            array(
+            [
                 'targetType' => new TargetType('route'),
-            )
+            ]
         );
 
-        $view = new RuleTargetView(array('target' => $target));
+        $view = new RuleTargetView(['target' => $target]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -49,13 +49,13 @@ final class TypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('some_type'), false),
-            array(array('route'), true),
-            array(array('some_type', 'some_type_2'), false),
-            array(array('some_type', 'route'), true),
-        );
+        return [
+            [[], false],
+            [['some_type'], false],
+            [['route'], true],
+            [['some_type', 'some_type_2'], false],
+            [['some_type', 'route'], true],
+        ];
     }
 
     /**
@@ -63,6 +63,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoRuleTargetView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

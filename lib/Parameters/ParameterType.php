@@ -116,12 +116,12 @@ abstract class ParameterType implements ParameterTypeInterface
     protected function getRequiredConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if ($parameterDefinition->isRequired()) {
-            return array(
+            return [
                 new Constraints\NotBlank(),
-            );
+            ];
         }
 
-        return array();
+        return [];
     }
 
     /**

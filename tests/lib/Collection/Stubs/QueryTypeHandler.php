@@ -13,7 +13,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * @var array
      */
-    private $values = array();
+    private $values = [];
 
     /**
      * @var int|null
@@ -25,7 +25,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
      */
     private $isContextual;
 
-    public function __construct(array $values = array(), $count = null, $isContextual = false)
+    public function __construct(array $values = [], $count = null, $isContextual = false)
     {
         $this->values = $values;
         $this->count = $count;
@@ -38,27 +38,27 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
 
     public function getParameterDefinitions()
     {
-        return array(
+        return [
             'param' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'param',
                     'type' => new TextLineType(),
                     'isRequired' => true,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'param2' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'param2',
                     'type' => new TextLineType(),
-                    'options' => array(
+                    'options' => [
                         'translatable' => true,
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function getValues(Query $query, $offset = 0, $limit = null)

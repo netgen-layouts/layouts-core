@@ -49,23 +49,23 @@ final class BlockNormalizerTest extends TestCase
     public function testNormalize()
     {
         $collection = new Collection(
-            array(
+            [
                 'id' => 24,
                 'status' => Value::STATUS_PUBLISHED,
                 'offset' => 10,
                 'limit' => 5,
-            )
+            ]
         );
 
         $collectionReference = new CollectionReference(
-            array(
+            [
                 'collection' => $collection,
                 'identifier' => 'default',
-            )
+            ]
         );
 
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'layoutId' => 24,
                 'definition' => new BlockDefinition(),
@@ -74,37 +74,37 @@ final class BlockNormalizerTest extends TestCase
                 'name' => 'My block',
                 'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
-                'placeholders' => array(
-                    'main' => new Placeholder(array('identifier' => 'main')),
-                ),
-                'collectionReferences' => array(
+                'placeholders' => [
+                    'main' => new Placeholder(['identifier' => 'main']),
+                ],
+                'collectionReferences' => [
                     'default' => $collectionReference,
-                ),
+                ],
                 'isTranslatable' => true,
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',
-                'parameters' => array(
+                'parameters' => [
                     'some_param' => new Parameter(
-                        array(
+                        [
                             'name' => 'some_param',
                             'value' => 'some_value',
-                        )
+                        ]
                     ),
                     'some_other_param' => new Parameter(
-                        array(
+                        [
                             'name' => 'some_other_param',
                             'value' => 'some_other_value',
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $serializedParams = array(
+        $serializedParams = [
             'some_param' => 'some_value',
             'some_other_param' => 'some_other_value',
-        );
+        ];
 
         $this->serializerMock
             ->expects($this->at(0))
@@ -114,8 +114,8 @@ final class BlockNormalizerTest extends TestCase
         $this->serializerMock
             ->expects($this->at(1))
             ->method('normalize')
-            ->with($this->equalTo(array(new VersionedValue(new Placeholder(array('identifier' => 'main')), 1))))
-            ->will($this->returnValue(array('normalized placeholders')));
+            ->with($this->equalTo([new VersionedValue(new Placeholder(['identifier' => 'main']), 1)]))
+            ->will($this->returnValue(['normalized placeholders']));
 
         $this->blockServiceMock
             ->expects($this->once())
@@ -124,7 +124,7 @@ final class BlockNormalizerTest extends TestCase
             ->will($this->returnValue(true));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $block->getId(),
                 'layout_id' => $block->getLayoutId(),
                 'definition_identifier' => $block->getDefinition()->getIdentifier(),
@@ -140,17 +140,17 @@ final class BlockNormalizerTest extends TestCase
                 'always_available' => $block->isAlwaysAvailable(),
                 'is_container' => false,
                 'is_dynamic_container' => false,
-                'placeholders' => array('normalized placeholders'),
-                'collections' => array(
-                    array(
+                'placeholders' => ['normalized placeholders'],
+                'collections' => [
+                    [
                         'identifier' => 'default',
                         'collection_id' => $collection->getId(),
                         'collection_type' => $collection->getType(),
                         'offset' => $collection->getOffset(),
                         'limit' => $collection->getLimit(),
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );
     }
@@ -174,19 +174,19 @@ final class BlockNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Block(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Block(), 2), false),
-            array(new VersionedValue(new Block(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Block(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Block(), 2), false],
+            [new VersionedValue(new Block(), 1), true],
+        ];
     }
 }

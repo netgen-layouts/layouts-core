@@ -25,12 +25,12 @@ final class ExceptionNormalizer implements NormalizerInterface
         $this->outputDebugInfo = (bool) $outputDebugInfo;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
-        $data = array(
+        $data = [
             'code' => $object->getCode(),
             'message' => $object->getMessage(),
-        );
+        ];
 
         if ($object instanceof HttpExceptionInterface) {
             $statusCode = $object->getStatusCode();
@@ -48,11 +48,11 @@ final class ExceptionNormalizer implements NormalizerInterface
 
             $debugException = FlattenException::create($debugException);
 
-            $data['debug'] = array(
+            $data['debug'] = [
                 'file' => $debugException->getFile(),
                 'line' => $debugException->getLine(),
                 'trace' => $debugException->getTrace(),
-            );
+            ];
         }
 
         return $data;

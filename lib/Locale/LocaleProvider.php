@@ -15,7 +15,7 @@ final class LocaleProvider implements LocaleProviderInterface
     /**
      * @param string[] $enabledLocales
      */
-    public function __construct(array $enabledLocales = array())
+    public function __construct(array $enabledLocales = [])
     {
         $this->enabledLocales = $enabledLocales;
     }
@@ -24,7 +24,7 @@ final class LocaleProvider implements LocaleProviderInterface
     {
         $availableLocales = Intl::getLocaleBundle()->getLocaleNames();
 
-        $enabledLocales = array();
+        $enabledLocales = [];
 
         if (!empty($this->enabledLocales)) {
             foreach ($this->enabledLocales as $locale) {
@@ -44,9 +44,9 @@ final class LocaleProvider implements LocaleProviderInterface
         $requestLocale = $request->getLocale();
 
         if (empty($this->enabledLocales) || in_array($requestLocale, $this->enabledLocales, true)) {
-            return array($requestLocale);
+            return [$requestLocale];
         }
 
-        return array();
+        return [];
     }
 }

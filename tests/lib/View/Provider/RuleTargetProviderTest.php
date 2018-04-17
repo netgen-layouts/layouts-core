@@ -26,7 +26,7 @@ final class RuleTargetProviderTest extends TestCase
      */
     public function testProvideView()
     {
-        $target = new Target(array('id' => 42));
+        $target = new Target(['id' => 42]);
 
         /** @var \Netgen\BlockManager\View\View\RuleTargetViewInterface $view */
         $view = $this->ruleTargetViewProvider->provideView($target);
@@ -36,9 +36,9 @@ final class RuleTargetProviderTest extends TestCase
         $this->assertEquals($target, $view->getTarget());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'target' => $target,
-            ),
+            ],
             $view->getParameters()
         );
     }
@@ -62,10 +62,10 @@ final class RuleTargetProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Target(), true),
-            array(new Rule(), false),
-            array(new Condition(), false),
-        );
+        return [
+            [new Target(), true],
+            [new Rule(), false],
+            [new Condition(), false],
+        ];
     }
 }

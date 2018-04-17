@@ -9,7 +9,7 @@ final class ParameterFilterRegistry implements ParameterFilterRegistryInterface
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface[][]
      */
-    private $parameterFilters = array();
+    private $parameterFilters = [];
 
     public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter)
     {
@@ -20,6 +20,6 @@ final class ParameterFilterRegistry implements ParameterFilterRegistryInterface
     {
         return isset($this->parameterFilters[$parameterType]) ?
             $this->parameterFilters[$parameterType] :
-            array();
+            [];
     }
 }

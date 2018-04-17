@@ -8,7 +8,7 @@ final class ParamConverter extends BaseParamConverter
 {
     public function getSourceAttributeNames()
     {
-        return array('id');
+        return ['id'];
     }
 
     public function getDestinationAttributeName()
@@ -26,6 +26,6 @@ final class ParamConverter extends BaseParamConverter
         $published = $values['published'];
         unset($values['published']);
 
-        return new Value($values + array('status' => $published ? Value::STATUS_PUBLISHED : Value::STATUS_DRAFT));
+        return new Value($values + ['status' => $published ? Value::STATUS_PUBLISHED : Value::STATUS_DRAFT]);
     }
 }

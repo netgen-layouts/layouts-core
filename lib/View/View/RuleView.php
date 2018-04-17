@@ -18,8 +18,8 @@ final class RuleView extends View implements RuleViewInterface
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'ruleId' => $this->getRule()->getId(),
-        );
+        ];
     }
 }

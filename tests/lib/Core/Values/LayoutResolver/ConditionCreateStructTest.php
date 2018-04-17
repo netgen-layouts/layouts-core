@@ -18,10 +18,10 @@ final class ConditionCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $conditionCreateStruct = new ConditionCreateStruct(
-            array(
+            [
                 'type' => 'condition',
                 'value' => 42,
-            )
+            ]
         );
 
         $this->assertEquals('condition', $conditionCreateStruct->type);

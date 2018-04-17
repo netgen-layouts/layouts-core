@@ -17,8 +17,8 @@ final class ItemBuilderPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $itemBuilder = new Definition();
-        $itemBuilder->addArgument(array());
-        $itemBuilder->addArgument(array());
+        $itemBuilder->addArgument([]);
+        $itemBuilder->addArgument([]);
         $this->setDefinition('netgen_block_manager.item.item_builder', $itemBuilder);
 
         $valueConverter = new Definition();
@@ -34,10 +34,10 @@ final class ItemBuilderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.item.item_builder',
             0,
-            array(
+            [
                 new Reference('netgen_block_manager.item.value_converter.test'),
                 new Reference('netgen_block_manager.item.value_converter.test2'),
-            )
+            ]
         );
     }
 

@@ -21,17 +21,17 @@ final class ItemViewTest extends TestCase
     public function setUp()
     {
         $this->item = new Item(
-            array(
+            [
                 'value' => 42,
                 'valueType' => 'type',
-            )
+            ]
         );
 
         $this->view = new ItemView(
-            array(
+            [
                 'item' => $this->item,
                 'view_type' => 'view_type',
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -46,11 +46,11 @@ final class ItemViewTest extends TestCase
     {
         $this->assertEquals($this->item, $this->view->getItem());
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'item' => $this->item,
                 'view_type' => 'view_type',
-            ),
+            ],
             $this->view->getParameters()
         );
     }
@@ -77,11 +77,11 @@ final class ItemViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'value' => 42,
                 'valueType' => 'type',
                 'viewType' => 'view_type',
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

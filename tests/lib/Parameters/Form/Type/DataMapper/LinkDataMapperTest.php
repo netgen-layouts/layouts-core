@@ -24,12 +24,12 @@ final class LinkDataMapperTest extends DataMapperTest
         parent::setUp();
 
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => new LinkType(
                     new ValueTypeRegistry(),
                     new RemoteIdConverter($this->createMock(ItemLoaderInterface::class))
                 ),
-            )
+            ]
         );
 
         $this->mapper = new LinkDataMapper($parameterDefinition);
@@ -42,21 +42,21 @@ final class LinkDataMapperTest extends DataMapperTest
     public function testMapDataToForms()
     {
         $linkValue = new LinkValue(
-            array(
+            [
                 'linkType' => 'url',
                 'link' => 'http://www.google.com',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
-            )
+            ]
         );
 
         $forms = new ArrayIterator(
-            array(
+            [
                 'link_type' => $this->getForm('link_type'),
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
                 'url' => $this->getForm('url'),
-            )
+            ]
         );
 
         $this->mapper->mapDataToForms($linkValue, $forms);
@@ -75,11 +75,11 @@ final class LinkDataMapperTest extends DataMapperTest
         $linkValue = 42;
 
         $forms = new ArrayIterator(
-            array(
+            [
                 'link_type' => $this->getForm('link_type'),
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
-            )
+            ]
         );
 
         $this->mapper->mapDataToForms($linkValue, $forms);
@@ -95,24 +95,24 @@ final class LinkDataMapperTest extends DataMapperTest
     public function testMapFormsToData()
     {
         $forms = new ArrayIterator(
-            array(
+            [
                 'link_type' => $this->getForm('link_type', 'url'),
                 'link_suffix' => $this->getForm('link_suffix', '?suffix'),
                 'new_window' => $this->getForm('new_window', '1'),
                 'url' => $this->getForm('url', 'http://www.google.com'),
-            )
+            ]
         );
 
         $this->mapper->mapFormsToData($forms, $data);
 
         $this->assertEquals(
             new LinkValue(
-                array(
+                [
                     'linkType' => 'url',
                     'link' => 'http://www.google.com',
                     'linkSuffix' => '?suffix',
                     'newWindow' => true,
-                )
+                ]
             ),
             $data
         );
@@ -124,11 +124,11 @@ final class LinkDataMapperTest extends DataMapperTest
     public function testMapFormsToDataWithInvalidFormData()
     {
         $forms = new ArrayIterator(
-            array(
+            [
                 'link_type' => $this->getForm('link_type'),
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
-            )
+            ]
         );
 
         $this->mapper->mapFormsToData($forms, $data);

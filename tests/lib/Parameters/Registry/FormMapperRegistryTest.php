@@ -34,7 +34,7 @@ final class FormMapperRegistryTest extends TestCase
      */
     public function testAddFormMapper()
     {
-        $this->assertEquals(array('mapper' => $this->formMapper), $this->registry->getFormMappers());
+        $this->assertEquals(['mapper' => $this->formMapper], $this->registry->getFormMappers());
     }
 
     /**
@@ -78,7 +78,7 @@ final class FormMapperRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $formMappers = array();
+        $formMappers = [];
         foreach ($this->registry as $identifier => $formMapper) {
             $formMappers[$identifier] = $formMapper;
         }

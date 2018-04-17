@@ -20,7 +20,7 @@ final class ZoneParamConverter extends ParamConverter
 
     public function getSourceAttributeNames()
     {
-        return array('layoutId', 'zoneIdentifier');
+        return ['layoutId', 'zoneIdentifier'];
     }
 
     public function getDestinationAttributeName()

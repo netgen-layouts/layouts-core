@@ -123,7 +123,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $currentTimeStamp = time();
 
         $newLayout = new Layout(
-            array(
+            [
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
                 'description' => trim($layoutCreateStruct->description),
@@ -132,8 +132,8 @@ final class LayoutHandler implements LayoutHandlerInterface
                 'status' => $layoutCreateStruct->status,
                 'shared' => $layoutCreateStruct->shared ? true : false,
                 'mainLocale' => $layoutCreateStruct->mainLocale,
-                'availableLocales' => array($layoutCreateStruct->mainLocale),
-            )
+                'availableLocales' => [$layoutCreateStruct->mainLocale],
+            ]
         );
 
         $newLayout = $this->queryHandler->createLayout($newLayout);
@@ -203,7 +203,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $rootBlock = $this->blockHandler->createBlock(
             new BlockCreateStruct(
-                array(
+                [
                     'status' => $layout->status,
                     'position' => null,
                     'definitionIdentifier' => '',
@@ -212,22 +212,22 @@ final class LayoutHandler implements LayoutHandlerInterface
                     'name' => '',
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,
-                    'parameters' => array(),
-                    'config' => array(),
-                )
+                    'parameters' => [],
+                    'config' => [],
+                ]
             ),
             $layout
         );
 
         $newZone = new Zone(
-            array(
+            [
                 'layoutId' => $layout->id,
                 'status' => $layout->status,
                 'rootBlockId' => $rootBlock->id,
                 'identifier' => $zoneCreateStruct->identifier,
                 'linkedLayoutId' => $zoneCreateStruct->linkedLayoutId,
                 'linkedZoneIdentifier' => $zoneCreateStruct->linkedZoneIdentifier,
-            )
+            ]
         );
 
         $this->queryHandler->createZone($newZone);
@@ -299,11 +299,11 @@ final class LayoutHandler implements LayoutHandlerInterface
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
             $zoneCreateStruct = new ZoneCreateStruct(
-                array(
+                [
                     'identifier' => $layoutZone->identifier,
                     'linkedLayoutId' => $layoutZone->linkedLayoutId,
                     'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
-                )
+                ]
             );
 
             $createdZone = $this->createZone($copiedLayout, $zoneCreateStruct);
@@ -324,10 +324,10 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $copiedLayout;
     }
 
-    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = array())
+    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = [])
     {
-        $newRootBlocks = array();
-        $oldRootBlocks = array();
+        $newRootBlocks = [];
+        $oldRootBlocks = [];
         $oldZones = $this->loadLayoutZones($layout);
 
         foreach ($oldZones as $zoneIdentifier => $oldZone) {
@@ -340,7 +340,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         foreach ($zoneMappings as $newZoneIdentifier => $mappedZones) {
             $newRootBlocks[$newZoneIdentifier] = $this->blockHandler->createBlock(
                 new BlockCreateStruct(
-                    array(
+                    [
                         'status' => $layout->status,
                         'position' => null,
                         'definitionIdentifier' => '',
@@ -349,9 +349,9 @@ final class LayoutHandler implements LayoutHandlerInterface
                         'name' => '',
                         'isTranslatable' => false,
                         'alwaysAvailable' => true,
-                        'parameters' => array(),
-                        'config' => array(),
-                    )
+                        'parameters' => [],
+                        'config' => [],
+                    ]
                 ),
                 $layout
             );
@@ -373,14 +373,14 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         foreach ($newRootBlocks as $newZoneIdentifier => $rootBlock) {
             $newZone = new Zone(
-                array(
+                [
                     'layoutId' => $layout->id,
                     'status' => $layout->status,
                     'rootBlockId' => $rootBlock->id,
                     'identifier' => $newZoneIdentifier,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
-                )
+                ]
             );
 
             $this->queryHandler->createZone($newZone);

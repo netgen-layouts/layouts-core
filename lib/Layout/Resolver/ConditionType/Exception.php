@@ -16,19 +16,19 @@ final class Exception implements ConditionTypeInterface
 
     public function getConstraints()
     {
-        return array(
+        return [
             new Constraints\NotNull(),
-            new Constraints\Type(array('type' => 'array')),
+            new Constraints\Type(['type' => 'array']),
             new Constraints\All(
-                array(
-                    'constraints' => array(
-                        new Constraints\Type(array('type' => 'int')),
-                        new Constraints\GreaterThanOrEqual(array('value' => 400)),
-                        new Constraints\LessThan(array('value' => 600)),
-                    ),
-                )
+                [
+                    'constraints' => [
+                        new Constraints\Type(['type' => 'int']),
+                        new Constraints\GreaterThanOrEqual(['value' => 400]),
+                        new Constraints\LessThan(['value' => 600]),
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function matches(Request $request, $value)

@@ -20,12 +20,12 @@ final class LayoutViewTest extends TestCase
 
     public function setUp()
     {
-        $this->layout = new Layout(array('id' => 42));
+        $this->layout = new Layout(['id' => 42]);
 
         $this->view = new LayoutView(
-            array(
+            [
                 'layout' => $this->layout,
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -40,10 +40,10 @@ final class LayoutViewTest extends TestCase
     {
         $this->assertEquals($this->layout, $this->view->getLayout());
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'layout' => $this->layout,
-            ),
+            ],
             $this->view->getParameters()
         );
     }
@@ -62,9 +62,9 @@ final class LayoutViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'layoutId' => 42,
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

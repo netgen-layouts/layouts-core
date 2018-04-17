@@ -27,17 +27,17 @@ final class HandlerPluginRegistryTest extends TestCase
      */
     public function testRegistry()
     {
-        $handlerPlugin = HandlerPlugin::instance(array(BlockDefinitionHandler::class));
+        $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandler::class]);
 
         $this->registry->addPlugin($handlerPlugin);
 
         $this->assertEquals(
-            array($handlerPlugin),
+            [$handlerPlugin],
             $this->registry->getPlugins(BlockDefinitionHandler::class)
         );
 
         $this->assertEquals(
-            array(),
+            [],
             $this->registry->getPlugins(stdClass::class)
         );
     }
@@ -48,17 +48,17 @@ final class HandlerPluginRegistryTest extends TestCase
      */
     public function testRegistryWithInterface()
     {
-        $handlerPlugin = HandlerPlugin::instance(array(BlockDefinitionHandlerInterface::class));
+        $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]);
 
         $this->registry->addPlugin($handlerPlugin);
 
         $this->assertEquals(
-            array($handlerPlugin),
+            [$handlerPlugin],
             $this->registry->getPlugins(BlockDefinitionHandler::class)
         );
 
         $this->assertEquals(
-            array(),
+            [],
             $this->registry->getPlugins(stdClass::class)
         );
     }

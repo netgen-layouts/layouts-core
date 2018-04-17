@@ -45,12 +45,12 @@ final class LinkDataMapper implements DataMapperInterface
 
         $data = null;
         if (!empty($linkType)) {
-            $data = array(
+            $data = [
                 'link_type' => $linkType,
                 'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : null,
                 'link_suffix' => $forms['link_suffix']->getData(),
                 'new_window' => $forms['new_window']->getData(),
-            );
+            ];
         }
 
         $data = $this->parameterDefinition->getType()->fromHash($this->parameterDefinition, $data);

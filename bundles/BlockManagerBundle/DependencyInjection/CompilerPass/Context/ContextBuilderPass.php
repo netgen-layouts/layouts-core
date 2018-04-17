@@ -23,7 +23,7 @@ final class ContextBuilderPass implements CompilerPassInterface
         foreach ($contextProviders as $contextProvider) {
             $contextBuilder->addMethodCall(
                 'registerProvider',
-                array(new Reference($contextProvider))
+                [new Reference($contextProvider)]
             );
         }
     }

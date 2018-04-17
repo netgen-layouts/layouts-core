@@ -14,13 +14,13 @@ final class LocaleProviderTest extends TestCase
      */
     public function testGetAvailableLocales()
     {
-        $localeProvider = new LocaleProvider(array('en', 'hr'));
+        $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $this->assertEquals(
-            array(
+            [
                 'en' => 'English',
                 'hr' => 'Croatian',
-            ),
+            ],
             $localeProvider->getAvailableLocales()
         );
     }
@@ -31,12 +31,12 @@ final class LocaleProviderTest extends TestCase
      */
     public function testGetAvailableLocalesWithNonExistingLocales()
     {
-        $localeProvider = new LocaleProvider(array('en', 'hr_NON_EXISTING'));
+        $localeProvider = new LocaleProvider(['en', 'hr_NON_EXISTING']);
 
         $this->assertEquals(
-            array(
+            [
                 'en' => 'English',
-            ),
+            ],
             $localeProvider->getAvailableLocales()
         );
     }
@@ -64,7 +64,7 @@ final class LocaleProviderTest extends TestCase
             ->method('getLocale')
             ->will($this->returnValue('en'));
 
-        $this->assertEquals(array('en'), $localeProvider->getRequestLocales($requestMock));
+        $this->assertEquals(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
     /**
@@ -72,14 +72,14 @@ final class LocaleProviderTest extends TestCase
      */
     public function testGetRequestLocalesWithEnabledLocales()
     {
-        $localeProvider = new LocaleProvider(array('en', 'hr'));
+        $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $requestMock = $this->createMock(Request::class);
         $requestMock->expects($this->any())
             ->method('getLocale')
             ->will($this->returnValue('en'));
 
-        $this->assertEquals(array('en'), $localeProvider->getRequestLocales($requestMock));
+        $this->assertEquals(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
     /**
@@ -87,13 +87,13 @@ final class LocaleProviderTest extends TestCase
      */
     public function testGetRequestLocalesWithNonEnabledLocale()
     {
-        $localeProvider = new LocaleProvider(array('en', 'hr'));
+        $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $requestMock = $this->createMock(Request::class);
         $requestMock->expects($this->any())
             ->method('getLocale')
             ->will($this->returnValue('de'));
 
-        $this->assertEquals(array(), $localeProvider->getRequestLocales($requestMock));
+        $this->assertEquals([], $localeProvider->getRequestLocales($requestMock));
     }
 }

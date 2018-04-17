@@ -13,7 +13,7 @@ final class ParameterCollectionTraitTest extends TestCase
      */
     public function testGetParameterDefinition()
     {
-        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterDefinitions = ['name' => new ParameterDefinition()];
         $parameterCollection = new ParameterCollection($parameterDefinitions);
 
         $this->assertEquals(
@@ -29,7 +29,7 @@ final class ParameterCollectionTraitTest extends TestCase
      */
     public function testGetParameterDefinitionWithNonExistingDefinition()
     {
-        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterDefinitions = ['name' => new ParameterDefinition()];
         $parameterCollection = new ParameterCollection($parameterDefinitions);
 
         $parameterCollection->getParameterDefinition('test');
@@ -40,7 +40,7 @@ final class ParameterCollectionTraitTest extends TestCase
      */
     public function testGetParameterDefinitions()
     {
-        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterDefinitions = ['name' => new ParameterDefinition()];
         $parameterCollection = new ParameterCollection($parameterDefinitions);
 
         $this->assertEquals($parameterDefinitions, $parameterCollection->getParameterDefinitions());
@@ -51,7 +51,7 @@ final class ParameterCollectionTraitTest extends TestCase
      */
     public function testHasParameterDefinition()
     {
-        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterDefinitions = ['name' => new ParameterDefinition()];
         $parameterCollection = new ParameterCollection($parameterDefinitions);
 
         $this->assertFalse($parameterCollection->hasParameterDefinition('test'));

@@ -29,22 +29,22 @@ final class CreateTypeTest extends FormTestCase
         $this->layoutTypeRegistry->addLayoutType(
             '4_zones_a',
             new LayoutType(
-                array(
+                [
                     'name' => '4 zones A',
                     'identifier' => '4_zones_a',
                     'isEnabled' => true,
-                )
+                ]
             )
         );
 
         $this->layoutTypeRegistry->addLayoutType(
             '4_zones_b',
             new LayoutType(
-                array(
+                [
                     'name' => '4 zones B',
                     'identifier' => '4_zones_b',
                     'isEnabled' => false,
-                )
+                ]
             )
         );
 
@@ -52,7 +52,7 @@ final class CreateTypeTest extends FormTestCase
         $this->localeProviderMock
             ->expects($this->any())
             ->method('getAvailableLocales')
-            ->will($this->returnValue(array('en' => 'English')));
+            ->will($this->returnValue(['en' => 'English']));
 
         parent::setUp();
     }
@@ -72,21 +72,21 @@ final class CreateTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'name' => 'My layout',
             'layoutType' => '4_zones_a',
             'shared' => true,
             'mainLocale' => 'en',
-        );
+        ];
 
         $updatedStruct = new LayoutCreateStruct();
         $updatedStruct->name = 'My layout';
         $updatedStruct->layoutType = new LayoutType(
-            array(
+            [
                 'name' => '4 zones A',
                 'identifier' => '4_zones_a',
                 'isEnabled' => true,
-            )
+            ]
         );
         $updatedStruct->shared = true;
         $updatedStruct->mainLocale = 'en';
@@ -132,9 +132,9 @@ final class CreateTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'data' => new LayoutCreateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals(new LayoutCreateStruct(), $options['data']);
@@ -153,9 +153,9 @@ final class CreateTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'data' => '',
-            )
+            ]
         );
     }
 }

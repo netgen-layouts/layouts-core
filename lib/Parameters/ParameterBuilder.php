@@ -27,7 +27,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @var bool
@@ -47,7 +47,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var array
      */
-    protected $groups = array();
+    protected $groups = [];
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
@@ -57,12 +57,12 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var array
      */
-    protected $unresolvedChildren = array();
+    protected $unresolvedChildren = [];
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
-    protected $resolvedChildren = array();
+    protected $resolvedChildren = [];
 
     /**
      * @var bool
@@ -80,7 +80,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         ParameterBuilderFactoryInterface $builderFactory,
         $name = null,
         ParameterTypeInterface $type = null,
-        array $options = array(),
+        array $options = [],
         ParameterBuilderInterface $parentBuilder = null
     ) {
         $this->builderFactory = $builderFactory;
@@ -127,12 +127,12 @@ class ParameterBuilder implements ParameterBuilderInterface
             throw new BadMethodCallException('Setting the options is not possible after parameters have been built.');
         }
 
-        $options = $this->options + array(
+        $options = $this->options + [
             'required' => $this->isRequired,
             'default_value' => $this->defaultValue,
             'label' => $this->label,
             'groups' => $this->groups,
-        );
+        ];
 
         $options[$name] = $value;
 
@@ -205,7 +205,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function add($name, $type, array $options = array())
+    public function add($name, $type, array $options = [])
     {
         if ($this->locked) {
             throw new BadMethodCallException('Parameters cannot be added after they have been built.');
@@ -223,12 +223,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         }
 
         $this->unresolvedChildren[$name] = $this->builderFactory->createParameterBuilder(
-            array(
+            [
                 'name' => $name,
                 'type' => $type,
                 'options' => $options,
                 'parent' => $this,
-            )
+            ]
         );
 
         return $this;
@@ -314,7 +314,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     protected function buildParameterDefinition(ParameterBuilderInterface $builder)
     {
-        $data = array(
+        $data = [
             'name' => $builder->getName(),
             'type' => $builder->getType(),
             'options' => $builder->getOptions(),
@@ -322,7 +322,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             'defaultValue' => $builder->getDefaultValue(),
             'label' => $builder->getLabel(),
             'groups' => $builder->getGroups(),
-        );
+        ];
 
         // We build the sub parameters in order to lock the child builders
         $subParameters = $builder->buildParameterDefinitions();
@@ -350,7 +350,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setDefault('default_value', null);
         $optionsResolver->setDefault('required', false);
         $optionsResolver->setDefault('label', null);
-        $optionsResolver->setDefault('groups', array());
+        $optionsResolver->setDefault('groups', []);
 
         if ($this->type instanceof ParameterTypeInterface) {
             $this->type->configureOptions($optionsResolver);
@@ -358,10 +358,10 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $this->configureOptions($optionsResolver);
 
-        $optionsResolver->setRequired(array('required', 'default_value', 'label', 'groups'));
+        $optionsResolver->setRequired(['required', 'default_value', 'label', 'groups']);
 
         $optionsResolver->setAllowedTypes('required', 'bool');
-        $optionsResolver->setAllowedTypes('label', array('string', 'null', 'bool'));
+        $optionsResolver->setAllowedTypes('label', ['string', 'null', 'bool']);
         $optionsResolver->setAllowedTypes('groups', 'array');
 
         $optionsResolver->setNormalizer(

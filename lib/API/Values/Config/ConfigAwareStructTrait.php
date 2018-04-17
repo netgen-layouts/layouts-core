@@ -9,7 +9,7 @@ trait ConfigAwareStructTrait
     /**
      * @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
      */
-    protected $configStructs = array();
+    protected $configStructs = [];
 
     /**
      * Sets the config struct to this struct.

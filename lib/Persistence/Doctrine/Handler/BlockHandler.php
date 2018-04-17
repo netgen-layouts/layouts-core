@@ -119,7 +119,7 @@ final class BlockHandler implements BlockHandlerInterface
         }
 
         $newBlock = new Block(
-            array(
+            [
                 'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
                 'path' => $targetBlock !== null ? $targetBlock->path : '/',
                 'parentId' => $targetBlock !== null ? $targetBlock->id : null,
@@ -135,7 +135,7 @@ final class BlockHandler implements BlockHandlerInterface
                 'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                 'mainLocale' => $layout->mainLocale,
                 'status' => $blockCreateStruct->status,
-            )
+            ]
         );
 
         if ($targetBlock !== null && $placeholder !== null) {
@@ -195,13 +195,13 @@ final class BlockHandler implements BlockHandlerInterface
     public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct)
     {
         $newCollectionReference = new CollectionReference(
-            array(
+            [
                 'blockId' => $block->id,
                 'blockStatus' => $block->status,
                 'collectionId' => $createStruct->collection->id,
                 'collectionStatus' => $createStruct->collection->status,
                 'identifier' => $createStruct->identifier,
-            )
+            ]
         );
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
@@ -247,10 +247,10 @@ final class BlockHandler implements BlockHandlerInterface
             );
 
             $collectionUpdateStruct = new CollectionUpdateStruct(
-                array(
+                [
                     'alwaysAvailable' => $updatedBlock->alwaysAvailable,
                     'isTranslatable' => $updatedBlock->isTranslatable,
-                )
+                ]
             );
 
             $this->collectionHandler->updateCollection($collection, $collectionUpdateStruct);
@@ -418,7 +418,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $fromBlock = $this->loadBlock($block->id, $fromStatus);
 
-        $this->deleteBlocks(array($block->id), $block->status);
+        $this->deleteBlocks([$block->id], $block->status);
         $newBlock = $this->createBlockStatus($fromBlock, $block->status);
 
         // We need to make sure to keep the original placement and position
@@ -459,7 +459,7 @@ final class BlockHandler implements BlockHandlerInterface
             throw new BadStateException('locale', 'Main translation cannot be removed from the block.');
         }
 
-        $this->queryHandler->deleteBlockTranslations(array($block->id), $block->status, $locale);
+        $this->queryHandler->deleteBlockTranslations([$block->id], $block->status, $locale);
 
         $collectionReferences = $this->loadCollectionReferences($block);
         foreach ($collectionReferences as $collectionReference) {
@@ -506,13 +506,13 @@ final class BlockHandler implements BlockHandlerInterface
             $collection = $this->collectionHandler->copyCollection($collection);
 
             $newCollectionReference = new CollectionReference(
-                array(
+                [
                     'blockId' => $targetBlock->id,
                     'blockStatus' => $targetBlock->status,
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => $collectionReference->identifier,
-                )
+                ]
             );
 
             $this->queryHandler->createCollectionReference($newCollectionReference);
@@ -544,13 +544,13 @@ final class BlockHandler implements BlockHandlerInterface
             );
 
             $newCollectionReference = new CollectionReference(
-                array(
+                [
                     'blockId' => $block->id,
                     'blockStatus' => $newStatus,
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => $collectionReference->identifier,
-                )
+                ]
             );
 
             $this->queryHandler->createCollectionReference($newCollectionReference);
@@ -587,14 +587,14 @@ final class BlockHandler implements BlockHandlerInterface
      */
     private function getPositionHelperConditions($parentId, $status, $placeholder)
     {
-        return array(
+        return [
             'table' => 'ngbm_block',
             'column' => 'position',
-            'conditions' => array(
+            'conditions' => [
                 'parent_id' => $parentId,
                 'status' => $status,
                 'placeholder' => $placeholder,
-            ),
-        );
+            ],
+        ];
     }
 }

@@ -18,9 +18,9 @@ final class QueryCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $queryCreateStruct = new QueryCreateStruct(
-            array(
+            [
                 'queryType' => new QueryType(),
-            )
+            ]
         );
 
         $this->assertEquals(new QueryType(), $queryCreateStruct->queryType);

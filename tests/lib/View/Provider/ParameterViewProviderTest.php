@@ -27,7 +27,7 @@ final class ParameterViewProviderTest extends TestCase
      */
     public function testProvideView()
     {
-        $parameter = new Parameter(array('value' => 42));
+        $parameter = new Parameter(['value' => 42]);
 
         /** @var \Netgen\BlockManager\View\View\ParameterViewInterface $view */
         $view = $this->parameterViewProvider->provideView($parameter);
@@ -38,9 +38,9 @@ final class ParameterViewProviderTest extends TestCase
         $this->assertEquals(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'parameter' => $parameter,
-            ),
+            ],
             $view->getParameters()
         );
     }
@@ -64,10 +64,10 @@ final class ParameterViewProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Value(), false),
-            array(new Block(), false),
-            array(new Parameter(), true),
-        );
+        return [
+            [new Value(), false],
+            [new Block(), false],
+            [new Parameter(), true],
+        ];
     }
 }

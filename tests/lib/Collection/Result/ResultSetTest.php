@@ -28,24 +28,24 @@ final class ResultSetTest extends TestCase
     public function testObject()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(),
-                'results' => array('items'),
+                'results' => ['items'],
                 'totalCount' => 15,
                 'offset' => 3,
                 'limit' => 5,
-            )
+            ]
         );
 
         $this->assertEquals(new Collection(), $result->getCollection());
-        $this->assertEquals(array('items'), $result->getResults());
+        $this->assertEquals(['items'], $result->getResults());
         $this->assertFalse($result->isContextual());
         $this->assertEquals(15, $result->getTotalCount());
         $this->assertEquals(3, $result->getOffset());
         $this->assertEquals(5, $result->getLimit());
 
         $this->assertInstanceOf(Traversable::class, $result->getIterator());
-        $this->assertEquals(array('items'), iterator_to_array($result->getIterator()));
+        $this->assertEquals(['items'], iterator_to_array($result->getIterator()));
 
         $this->assertCount(1, $result);
 
@@ -73,13 +73,13 @@ final class ResultSetTest extends TestCase
     public function testIsDynamic()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(
-                    array(
+                    [
                         'query' => new Query(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertTrue($result->isDynamic());
@@ -91,9 +91,9 @@ final class ResultSetTest extends TestCase
     public function testIsDynamicWithManualCollection()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(),
-            )
+            ]
         );
 
         $this->assertFalse($result->isDynamic());
@@ -105,17 +105,17 @@ final class ResultSetTest extends TestCase
     public function testIsContextual()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(
-                    array(
+                    [
                         'query' => new Query(
-                            array(
-                                'queryType' => new QueryType('type', array(), null, false),
-                            )
+                            [
+                                'queryType' => new QueryType('type', [], null, false),
+                            ]
                         ),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($result->isContextual());
@@ -127,9 +127,9 @@ final class ResultSetTest extends TestCase
     public function testIsContextualWithManualCollection()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(),
-            )
+            ]
         );
 
         $this->assertFalse($result->isContextual());
@@ -141,17 +141,17 @@ final class ResultSetTest extends TestCase
     public function testIsContextualWithContextualQuery()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(
-                    array(
+                    [
                         'query' => new Query(
-                            array(
-                                'queryType' => new QueryType('type', array(), null, true),
-                            )
+                            [
+                                'queryType' => new QueryType('type', [], null, true),
+                            ]
                         ),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertTrue($result->isContextual());

@@ -23,14 +23,14 @@ final class BlockCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $blockCreateStruct = new BlockCreateStruct(
-            array(
+            [
                 'definition' => new BlockDefinition(),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'isTranslatable' => true,
                 'alwaysAvailable' => false,
-            )
+            ]
         );
 
         $this->assertEquals(new BlockDefinition(), $blockCreateStruct->definition);

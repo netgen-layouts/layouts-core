@@ -24,7 +24,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
     public function getValidator()
     {
         $valueTypeRegistry = new ValueTypeRegistry();
-        $valueTypeRegistry->addValueType('value', new ValueType(array('isEnabled' => true)));
+        $valueTypeRegistry->addValueType('value', new ValueType(['isEnabled' => true]));
 
         return new ValueTypeValidator($valueTypeRegistry);
     }
@@ -65,10 +65,10 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array('value', true),
-            array('other', false),
-            array('', false),
-        );
+        return [
+            ['value', true],
+            ['other', false],
+            ['', false],
+        ];
     }
 }

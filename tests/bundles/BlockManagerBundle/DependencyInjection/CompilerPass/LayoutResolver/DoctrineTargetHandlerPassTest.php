@@ -17,18 +17,18 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $layoutResolverHandler = new Definition();
-        $layoutResolverHandler->addArgument(array());
-        $layoutResolverHandler->addArgument(array());
-        $layoutResolverHandler->addArgument(array());
+        $layoutResolverHandler->addArgument([]);
+        $layoutResolverHandler->addArgument([]);
+        $layoutResolverHandler->addArgument([]);
 
         $this->setDefinition('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler', $layoutResolverHandler);
 
         $targetHandler = new Definition();
         $targetHandler->addTag(
             'netgen_block_manager.layout.resolver.target_handler.doctrine',
-            array(
+            [
                 'target_type' => 'test',
-            )
+            ]
         );
         $this->setDefinition('netgen_block_manager.layout.resolver.target_handler.doctrine.test', $targetHandler);
 
@@ -37,9 +37,9 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler',
             2,
-            array(
+            [
                 'test' => new Reference('netgen_block_manager.layout.resolver.target_handler.doctrine.test'),
-            )
+            ]
         );
     }
 

@@ -23,7 +23,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     {
         $this->registry = new ItemDefinitionRegistry();
 
-        $this->itemDefinition = new ItemDefinition(array('valueType' => 'item_definition'));
+        $this->itemDefinition = new ItemDefinition(['valueType' => 'item_definition']);
 
         $this->registry->addItemDefinition('item_definition', $this->itemDefinition);
     }
@@ -34,7 +34,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testAddItemDefinition()
     {
-        $this->assertEquals(array('item_definition' => $this->itemDefinition), $this->registry->getItemDefinitions());
+        $this->assertEquals(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
     }
 
     /**
@@ -78,7 +78,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $itemDefinitions = array();
+        $itemDefinitions = [];
         foreach ($this->registry as $identifier => $itemDefinition) {
             $itemDefinitions[$identifier] = $itemDefinition;
         }

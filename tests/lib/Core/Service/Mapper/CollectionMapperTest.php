@@ -31,16 +31,16 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollection()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'id' => 2,
                 'offset' => 10,
                 'limit' => 20,
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $collection = $this->collectionMapper->mapCollection($persistenceCollection);
@@ -55,7 +55,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertTrue($collection->isTranslatable());
         $this->assertEquals('en', $collection->getMainLocale());
         $this->assertFalse($collection->isAlwaysAvailable());
-        $this->assertEquals(array('en'), $collection->getAvailableLocales());
+        $this->assertEquals(['en'], $collection->getAvailableLocales());
 
         foreach ($collection->getItems() as $item) {
             $this->assertInstanceOf(APIItem::class, $item);
@@ -84,16 +84,16 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollectionWithLocale()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+            ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('hr'));
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['hr']);
 
         $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $collection->getAvailableLocales());
         $this->assertEquals('hr', $collection->getLocale());
     }
 
@@ -104,16 +104,16 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollectionWithLocales()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+            ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('hr', 'en'));
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['hr', 'en']);
 
         $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $collection->getAvailableLocales());
         $this->assertEquals('hr', $collection->getLocale());
     }
 
@@ -124,17 +124,17 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollectionWithLocalesAndAlwaysAvailable()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+            ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('fr', 'no'));
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no']);
 
         $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $collection->getAvailableLocales());
         $this->assertEquals('en', $collection->getLocale());
     }
 
@@ -147,15 +147,15 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'id' => 42,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+            ]
         );
 
-        $this->collectionMapper->mapCollection($persistenceCollection, array('fr', 'no'), false);
+        $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
     }
 
     /**
@@ -167,15 +167,15 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollectionWithLocalesAndNotAlwaysAvailable()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'id' => 42,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => false,
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+            ]
         );
 
-        $this->collectionMapper->mapCollection($persistenceCollection, array('fr', 'no'));
+        $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no']);
     }
 
     /**
@@ -184,16 +184,16 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapCollectionWithNoQuery()
     {
         $persistenceCollection = new Collection(
-            array(
+            [
                 'id' => 1,
                 'offset' => 10,
                 'limit' => 20,
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $collection = $this->collectionMapper->mapCollection($persistenceCollection);
@@ -208,7 +208,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertTrue($collection->isTranslatable());
         $this->assertEquals('en', $collection->getMainLocale());
         $this->assertFalse($collection->isAlwaysAvailable());
-        $this->assertEquals(array('en'), $collection->getAvailableLocales());
+        $this->assertEquals(['en'], $collection->getAvailableLocales());
 
         foreach ($collection->getItems() as $item) {
             $this->assertInstanceOf(APIItem::class, $item);
@@ -236,7 +236,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapItem()
     {
         $persistenceItem = new Item(
-            array(
+            [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
@@ -244,17 +244,17 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'type' => APIItem::TYPE_OVERRIDE,
                 'value' => '12',
                 'valueType' => 'ezcontent',
-                'config' => array(
-                    'visibility' => array(
+                'config' => [
+                    'visibility' => [
                         'visibility_status' => APIItem::VISIBILITY_SCHEDULED,
                         'visible_from' => null,
-                        'visible_to' => array(
+                        'visible_to' => [
                             'datetime' => '2018-02-01 15:00:00.000000',
                             'timezone' => 'Antarctica/Casey',
-                        ),
-                    ),
-                ),
-            )
+                        ],
+                    ],
+                ],
+            ]
         );
 
         $item = $this->collectionMapper->mapItem($persistenceItem);
@@ -290,7 +290,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapQuery()
     {
         $persistenceQuery = new Query(
-            array(
+            [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
@@ -298,13 +298,13 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
-                'parameters' => array(
-                    'en' => array(
+                'availableLocales' => ['en'],
+                'parameters' => [
+                    'en' => [
                         'param' => 'value',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $query = $this->collectionMapper->mapQuery($persistenceQuery);
@@ -322,7 +322,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());
         $this->assertFalse($query->isAlwaysAvailable());
-        $this->assertEquals(array('en'), $query->getAvailableLocales());
+        $this->assertEquals(['en'], $query->getAvailableLocales());
 
         $this->assertEquals('value', $query->getParameter('param')->getValue());
         $this->assertNull($query->getParameter('param2')->getValue());
@@ -340,18 +340,18 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapQueryWithLocale()
     {
         $persistenceQuery = new Query(
-            array(
+            [
                 'type' => 'ezcontent_search',
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+            ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, array('hr'));
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['hr']);
 
         $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('en', 'hr', 'de'), $query->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $query->getAvailableLocales());
         $this->assertEquals('hr', $query->getLocale());
     }
 
@@ -362,18 +362,18 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapQueryWithLocales()
     {
         $persistenceQuery = new Query(
-            array(
+            [
                 'type' => 'ezcontent_search',
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+            ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, array('hr', 'en'));
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['hr', 'en']);
 
         $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('en', 'hr', 'de'), $query->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $query->getAvailableLocales());
         $this->assertEquals('hr', $query->getLocale());
     }
 
@@ -384,19 +384,19 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapQueryWithLocalesAndAlwaysAvailable()
     {
         $persistenceQuery = new Query(
-            array(
+            [
                 'type' => 'ezcontent_search',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+            ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, array('fr', 'no'));
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
 
         $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('en', 'hr', 'de'), $query->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $query->getAvailableLocales());
         $this->assertEquals('en', $query->getLocale());
     }
 
@@ -409,17 +409,17 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale()
     {
         $persistenceQuery = new Query(
-            array(
+            [
                 'id' => 42,
                 'type' => 'ezcontent_search',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+            ]
         );
 
-        $this->collectionMapper->mapQuery($persistenceQuery, array('fr', 'no'), false);
+        $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
     }
 
     /**
@@ -431,16 +431,16 @@ abstract class CollectionMapperTest extends ServiceTestCase
     public function testMapQueryWithLocalesAndNotAlwaysAvailable()
     {
         $persistenceQuery = new Query(
-            array(
+            [
                 'id' => 42,
                 'type' => 'ezcontent_search',
                 'alwaysAvailable' => false,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
+                'availableLocales' => ['en', 'hr', 'de'],
+                'parameters' => ['en' => [], 'hr' => [], 'de' => []],
+            ]
         );
 
-        $this->collectionMapper->mapQuery($persistenceQuery, array('fr', 'no'));
+        $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
     }
 }

@@ -15,9 +15,9 @@ final class BooleanMapper extends Mapper
 
     public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        return array(
+        return [
             'mapped' => false,
             'reverse' => $parameterDefinition->getOption('reverse'),
-        );
+        ];
     }
 }

@@ -44,10 +44,10 @@ final class ItemDefinitionFactoryTest extends TestCase
     {
         $itemDefinition = $this->factory->buildItemDefinition(
             'value_type',
-            array(
+            [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            )
+            ]
         );
 
         $this->assertInstanceOf(ItemDefinitionInterface::class, $itemDefinition);

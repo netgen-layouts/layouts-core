@@ -28,7 +28,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testDefaultProperties()
     {
-        $this->assertEquals(array(), $this->struct->getParameterValues());
+        $this->assertEquals([], $this->struct->getParameterValues());
     }
 
     /**
@@ -38,17 +38,17 @@ final class ParameterStructTraitTest extends TestCase
     public function testSetParameterValues()
     {
         $this->struct->setParameterValues(
-            array(
+            [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            )
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -62,10 +62,10 @@ final class ParameterStructTraitTest extends TestCase
         $this->struct->setParameterValue('some_other_param', 'some_other_value');
 
         $this->assertEquals(
-            array(
+            [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -78,7 +78,7 @@ final class ParameterStructTraitTest extends TestCase
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_param', 'new_value');
 
-        $this->assertEquals(array('some_param' => 'new_value'), $this->struct->getParameterValues());
+        $this->assertEquals(['some_param' => 'new_value'], $this->struct->getParameterValues());
     }
 
     /**
@@ -130,22 +130,22 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterCollection = $this->buildParameterCollection();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
             'compound' => false,
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fill($parameterCollection, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id',
                 'compound' => false,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -157,20 +157,20 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterCollection = $this->buildParameterCollection();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fill($parameterCollection, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
                 'compound' => true,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -183,33 +183,33 @@ final class ParameterStructTraitTest extends TestCase
         $parameterCollection = $this->buildParameterCollection();
 
         $value = new ParameterBasedValue(
-            array(
-                'parameters' => array(
+            [
+                'parameters' => [
                     'css_class' => new Parameter(
-                        array(
+                        [
                             'value' => 'css',
                             'parameterDefinition' => $parameterCollection->getParameterDefinition('css_class'),
-                        )
+                        ]
                     ),
                     'inner' => new Parameter(
-                        array(
+                        [
                             'value' => 'inner',
                             'parameterDefinition' => $parameterCollection->getParameterDefinition('compound')->getParameterDefinition('inner'),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->struct->fillFromValue($parameterCollection, $value);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => null,
                 'compound' => null,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -221,22 +221,22 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterCollection = $this->buildParameterCollection();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
             'compound' => false,
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillFromHash($parameterCollection, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id',
                 'compound' => false,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -248,20 +248,20 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterCollection = $this->buildParameterCollection();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillFromHash($parameterCollection, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
                 'compound' => true,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -272,39 +272,39 @@ final class ParameterStructTraitTest extends TestCase
     private function buildParameterCollection()
     {
         $compoundParameter = new CompoundParameterDefinition(
-            array(
+            [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
-                'parameterDefinitions' => array(
+                'parameterDefinitions' => [
                     'inner' => new ParameterDefinition(
-                        array(
+                        [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
                             'defaultValue' => 'inner_default',
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $parameterDefinitions = array(
+        $parameterDefinitions = [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
-                )
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'id_default',
-                )
+                ]
             ),
             'compound' => $compoundParameter,
-        );
+        ];
 
         return new ParameterCollection($parameterDefinitions);
     }

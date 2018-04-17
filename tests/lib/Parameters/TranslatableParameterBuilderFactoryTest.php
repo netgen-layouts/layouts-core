@@ -47,10 +47,10 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
     public function testCreateParameterBuilderWithNoOptions()
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
-            array(
+            [
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
-            )
+            ]
         );
 
         $this->assertEquals(
@@ -58,9 +58,9 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
                 $this->factory,
                 'param',
                 $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-                array(
+                [
                     'translatable' => true,
-                )
+                ]
             ),
             $parameterBuilder
         );
@@ -73,13 +73,13 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
     public function testCreateParameterBuilderWithConfig()
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
-            array(
+            [
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
-                'options' => array(
+                'options' => [
                     'translatable' => false,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals(
@@ -87,9 +87,9 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
                 $this->factory,
                 'param',
                 $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-                array(
+                [
                     'translatable' => false,
-                )
+                ]
             ),
             $parameterBuilder
         );

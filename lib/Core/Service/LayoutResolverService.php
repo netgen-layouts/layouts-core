@@ -120,7 +120,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             $limit
         );
 
-        $rules = array();
+        $rules = [];
         foreach ($persistenceRules as $persistenceRule) {
             $rules[] = $this->mapper->mapRule($persistenceRule);
         }
@@ -149,7 +149,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
     {
         $persistenceRules = $this->handler->matchRules($targetType, $targetValue);
 
-        $rules = array();
+        $rules = [];
         foreach ($persistenceRules as $persistenceRule) {
             $rules[] = $this->mapper->mapRule($persistenceRule);
         }
@@ -213,13 +213,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             function () use ($ruleCreateStruct) {
                 return $this->handler->createRule(
                     new RuleCreateStruct(
-                        array(
+                        [
                             'layoutId' => $ruleCreateStruct->layoutId,
                             'priority' => $ruleCreateStruct->priority,
                             'enabled' => $ruleCreateStruct->enabled,
                             'comment' => $ruleCreateStruct->comment,
                             'status' => Value::STATUS_DRAFT,
-                        )
+                        ]
                     )
                 );
             }
@@ -243,10 +243,10 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->updateRule(
                     $persistenceRule,
                     new RuleUpdateStruct(
-                        array(
+                        [
                             'layoutId' => $ruleUpdateStruct->layoutId,
                             'comment' => $ruleUpdateStruct->comment,
-                        )
+                        ]
                     )
                 );
             }
@@ -270,9 +270,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->updateRuleMetadata(
                     $persistenceRule,
                     new RuleMetadataUpdateStruct(
-                        array(
+                        [
                             'priority' => $ruleUpdateStruct->priority,
-                        )
+                        ]
                     )
                 );
             }
@@ -368,9 +368,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                     $publishedRule = $this->handler->updateRuleMetadata(
                         $publishedRule,
                         new RuleMetadataUpdateStruct(
-                            array(
+                            [
                                 'enabled' => false,
-                            )
+                            ]
                         )
                     );
                 }
@@ -444,9 +444,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->updateRuleMetadata(
                     $persistenceRule,
                     new RuleMetadataUpdateStruct(
-                        array(
+                        [
                             'enabled' => true,
-                        )
+                        ]
                     )
                 );
             }
@@ -472,9 +472,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->updateRuleMetadata(
                     $persistenceRule,
                     new RuleMetadataUpdateStruct(
-                        array(
+                        [
                             'enabled' => false,
-                        )
+                        ]
                     )
                 );
             }
@@ -510,10 +510,10 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->addTarget(
                     $persistenceRule,
                     new TargetCreateStruct(
-                        array(
+                        [
                             'type' => $targetCreateStruct->type,
                             'value' => $targetCreateStruct->value,
-                        )
+                        ]
                     )
                 );
             }
@@ -537,9 +537,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->updateTarget(
                     $persistenceTarget,
                     new TargetUpdateStruct(
-                        array(
+                        [
                             'value' => $targetUpdateStruct->value,
-                        )
+                        ]
                     )
                 );
             }
@@ -578,10 +578,10 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->addCondition(
                     $persistenceRule,
                     new ConditionCreateStruct(
-                        array(
+                        [
                             'type' => $conditionCreateStruct->type,
                             'value' => $conditionCreateStruct->value,
-                        )
+                        ]
                     )
                 );
             }
@@ -605,9 +605,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->handler->updateCondition(
                     $persistenceCondition,
                     new ConditionUpdateStruct(
-                        array(
+                        [
                             'value' => $conditionUpdateStruct->value,
-                        )
+                        ]
                     )
                 );
             }

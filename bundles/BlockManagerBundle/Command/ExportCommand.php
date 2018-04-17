@@ -96,7 +96,7 @@ final class ExportCommand extends Command
      */
     private function serializeLayouts(array $ids)
     {
-        $layouts = array();
+        $layouts = [];
 
         foreach ($ids as $id) {
             $layouts[] = $this->serializer->serializeLayout(
@@ -116,7 +116,7 @@ final class ExportCommand extends Command
      */
     private function serializeRules(array $ids)
     {
-        $rules = array();
+        $rules = [];
 
         foreach ($ids as $id) {
             $rules[] = $this->serializer->serializeRule(

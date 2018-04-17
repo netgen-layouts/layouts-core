@@ -34,7 +34,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testAddQueryType()
     {
-        $this->assertEquals(array('query_type' => $this->queryType), $this->registry->getQueryTypes());
+        $this->assertEquals(['query_type' => $this->queryType], $this->registry->getQueryTypes());
     }
 
     /**
@@ -78,7 +78,7 @@ final class QueryTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $queryTypes = array();
+        $queryTypes = [];
         foreach ($this->registry as $identifier => $queryType) {
             $queryTypes[$identifier] = $queryType;
         }

@@ -45,10 +45,10 @@ final class BlockTest extends TestCase
         $this->assertNull($block->getId());
         $this->assertNull($block->getLayoutId());
         $this->assertNull($block->getDefinition());
-        $this->assertEquals(array(), $block->getParameters());
-        $this->assertEquals(array(), $block->getPlaceholders());
+        $this->assertEquals([], $block->getParameters());
+        $this->assertEquals([], $block->getPlaceholders());
         $this->assertFalse($block->hasPlaceholder('test'));
-        $this->assertEquals(array(), $block->getCollections());
+        $this->assertEquals([], $block->getCollections());
         $this->assertFalse($block->hasCollection('test'));
         $this->assertNull($block->getViewType());
         $this->assertNull($block->getItemViewType());
@@ -58,7 +58,7 @@ final class BlockTest extends TestCase
         $this->assertNull($block->isTranslatable());
         $this->assertNull($block->getMainLocale());
         $this->assertNull($block->isAlwaysAvailable());
-        $this->assertEquals(array(), $block->getAvailableLocales());
+        $this->assertEquals([], $block->getAvailableLocales());
         $this->assertNull($block->getLocale());
     }
 
@@ -91,7 +91,7 @@ final class BlockTest extends TestCase
     public function testSetProperties()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'layoutId' => 24,
                 'definition' => new BlockDefinition(),
@@ -100,22 +100,22 @@ final class BlockTest extends TestCase
                 'name' => 'My block',
                 'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
-                'placeholders' => array(
-                    'main' => new Placeholder(array('identifier' => 'main')),
-                ),
-                'collectionReferences' => array(
-                    'default' => new CollectionReference(array('identifier' => 'default', 'collection' => new Collection(array('id' => 42)))),
-                ),
+                'placeholders' => [
+                    'main' => new Placeholder(['identifier' => 'main']),
+                ],
+                'collectionReferences' => [
+                    'default' => new CollectionReference(['identifier' => 'default', 'collection' => new Collection(['id' => 42])]),
+                ],
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'locale' => 'en',
-                'parameters' => array(
+                'parameters' => [
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals(42, $block->getId());
@@ -124,10 +124,10 @@ final class BlockTest extends TestCase
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));
         $this->assertTrue($block->hasParameter('some_param'));
-        $this->assertEquals(new Placeholder(array('identifier' => 'main')), $block->getPlaceholder('main'));
+        $this->assertEquals(new Placeholder(['identifier' => 'main']), $block->getPlaceholder('main'));
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertTrue($block->hasPlaceholder('main'));
-        $this->assertEquals(new Collection(array('id' => 42)), $block->getCollection('default'));
+        $this->assertEquals(new Collection(['id' => 42]), $block->getCollection('default'));
         $this->assertFalse($block->hasCollection('test'));
         $this->assertTrue($block->hasCollection('default'));
         $this->assertEquals('default', $block->getViewType());
@@ -139,14 +139,14 @@ final class BlockTest extends TestCase
         $this->assertTrue($block->isTranslatable());
         $this->assertEquals('en', $block->getMainLocale());
         $this->assertTrue($block->isAlwaysAvailable());
-        $this->assertEquals(array('en'), $block->getAvailableLocales());
+        $this->assertEquals(['en'], $block->getAvailableLocales());
         $this->assertEquals('en', $block->getLocale());
 
         $this->assertEquals(
-            array(
+            [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            ),
+            ],
             $block->getParameters()
         );
 
@@ -157,9 +157,9 @@ final class BlockTest extends TestCase
         }
 
         $this->assertEquals(
-            array(
-                'main' => new Placeholder(array('identifier' => 'main')),
-            ),
+            [
+                'main' => new Placeholder(['identifier' => 'main']),
+            ],
             $block->getPlaceholders()
         );
 
@@ -170,9 +170,9 @@ final class BlockTest extends TestCase
         }
 
         $this->assertEquals(
-            array(
-                'default' => new Collection(array('id' => 42)),
-            ),
+            [
+                'default' => new Collection(['id' => 42]),
+            ],
             $block->getCollections()
         );
 
@@ -191,13 +191,13 @@ final class BlockTest extends TestCase
     public function testGetDynamicParameter()
     {
         $block = new Block(
-            array(
+            [
                 'definition' => new BlockDefinition(
-                    array(
+                    [
                         'handler' => new BlockDefinitionHandler(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertTrue($block->hasDynamicParameter('definition_param'));
@@ -216,13 +216,13 @@ final class BlockTest extends TestCase
     public function testIsContextual()
     {
         $query = new Block(
-            array(
+            [
                 'definition' => new BlockDefinition(
-                    array(
+                    [
                         'handler' => new BlockDefinitionHandler(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($query->isContextual());

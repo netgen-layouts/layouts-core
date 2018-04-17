@@ -15,7 +15,7 @@ final class QueryParameter extends Mapper
 
     public function getFormOptions()
     {
-        return array(
+        return [
             'label' => false,
             'required' => false,
             'key_name' => 'parameter_name',
@@ -23,9 +23,9 @@ final class QueryParameter extends Mapper
             'values_name' => 'parameter_values',
             'values_label' => 'layout_resolver.condition.query_parameter.parameter_values',
             'values_type' => TextType::class,
-            'values_options' => array(
+            'values_options' => [
                 'empty_data' => ' ',
-            ),
-        );
+            ],
+        ];
     }
 }

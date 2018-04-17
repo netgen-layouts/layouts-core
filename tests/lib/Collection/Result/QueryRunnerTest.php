@@ -26,7 +26,7 @@ final class QueryRunnerTest extends TestCase
             ->will(
                 $this->returnCallback(
                     function ($value) {
-                        return new Item(array('value' => $value, 'isVisible' => true));
+                        return new Item(['value' => $value, 'isVisible' => true]);
                     }
                 )
             );
@@ -39,14 +39,14 @@ final class QueryRunnerTest extends TestCase
      */
     public function testRunner()
     {
-        $expectedItems = array(
-            new Item(array('value' => 40, 'isVisible' => true)),
-            new Item(array('value' => 41, 'isVisible' => true)),
-            new Item(array('value' => 42, 'isVisible' => true)),
-        );
+        $expectedItems = [
+            new Item(['value' => 40, 'isVisible' => true]),
+            new Item(['value' => 41, 'isVisible' => true]),
+            new Item(['value' => 42, 'isVisible' => true]),
+        ];
 
-        $queryType = new QueryType('query', array(40, 41, 42));
-        $query = new Query(array('queryType' => $queryType));
+        $queryType = new QueryType('query', [40, 41, 42]);
+        $query = new Query(['queryType' => $queryType]);
 
         $queryRunner = new QueryRunner($this->itemBuilderMock);
 

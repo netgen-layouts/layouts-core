@@ -19,7 +19,7 @@ final class SetMainLocaleType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('layout'));
+        $resolver->setRequired(['layout']);
         $resolver->setAllowedTypes('layout', Layout::class);
     }
 
@@ -30,7 +30,7 @@ final class SetMainLocaleType extends AbstractType
         $builder->add(
             'mainLocale',
             ChoiceType::class,
-            array(
+            [
                 'data' => $options['layout']->getMainLocale(),
                 'required' => true,
                 'choices' => $options['layout']->getAvailableLocales(),
@@ -43,12 +43,12 @@ final class SetMainLocaleType extends AbstractType
                     return $localeName;
                 },
                 'expanded' => true,
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
+                    new Constraints\Type(['type' => 'string']),
                     new Constraints\Locale(),
-                ),
-            ) + $this->getChoicesAsValuesOption()
+                ],
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 }

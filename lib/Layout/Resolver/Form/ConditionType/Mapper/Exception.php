@@ -14,7 +14,7 @@ final class Exception extends Mapper
     /**
      * @var array
      */
-    private $statusCodes = array();
+    private $statusCodes = [];
 
     public function getFormType()
     {
@@ -23,11 +23,11 @@ final class Exception extends Mapper
 
     public function getFormOptions()
     {
-        return array(
+        return [
             'multiple' => true,
             'required' => false,
             'choices' => $this->buildErrorCodes(),
-        ) + $this->getChoicesAsValuesOption();
+        ] + $this->getChoicesAsValuesOption();
     }
 
     /**

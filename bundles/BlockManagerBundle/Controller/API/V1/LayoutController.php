@@ -49,7 +49,7 @@ final class LayoutController extends Controller
      */
     public function loadSharedLayouts()
     {
-        $layouts = array();
+        $layouts = [];
         foreach ($this->layoutService->loadSharedLayouts() as $layout) {
             $layouts[] = new VersionedValue($layout, Version::API_V1);
         }
@@ -88,9 +88,9 @@ final class LayoutController extends Controller
             throw new NotFoundException('layout', $layout->getId());
         }
 
-        $blocks = array();
+        $blocks = [];
         foreach ($layout as $zone) {
-            foreach ($this->blockService->loadZoneBlocks($zone, array($locale)) as $block) {
+            foreach ($this->blockService->loadZoneBlocks($zone, [$locale]) as $block) {
                 $blocks[] = new View($block, Version::API_V1);
             }
         }
@@ -118,8 +118,8 @@ final class LayoutController extends Controller
             throw new NotFoundException('layout', $layout->getId());
         }
 
-        $blocks = array();
-        foreach ($this->blockService->loadZoneBlocks($zone, array($locale)) as $block) {
+        $blocks = [];
+        foreach ($this->blockService->loadZoneBlocks($zone, [$locale]) as $block) {
             $blocks[] = new View($block, Version::API_V1);
         }
 
@@ -227,7 +227,7 @@ final class LayoutController extends Controller
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $layoutType,
-            is_array($zoneMappings) ? $zoneMappings : array()
+            is_array($zoneMappings) ? $zoneMappings : []
         );
 
         return new View($updatedLayout, Version::API_V1);

@@ -63,16 +63,16 @@ final class QueryTypePass implements CompilerPassInterface
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument($queryType);
-            $queryTypeService->setFactory(array(new Reference('netgen_block_manager.collection.query_type_factory'), 'buildQueryType'));
+            $queryTypeService->setFactory([new Reference('netgen_block_manager.collection.query_type_factory'), 'buildQueryType']);
 
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 
             $queryTypeRegistry->addMethodCall(
                 'addQueryType',
-                array(
+                [
                     $type,
                     new Reference($queryTypeServiceName),
-                )
+                ]
             );
         }
     }

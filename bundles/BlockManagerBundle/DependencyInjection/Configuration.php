@@ -47,7 +47,7 @@ final class Configuration implements ConfigurationInterface
      */
     private function getNodes()
     {
-        return array(
+        return [
             new ConfigurationNode\ViewNode(),
             new ConfigurationNode\DesignNode(),
             new ConfigurationNode\DesignListNode(),
@@ -61,6 +61,6 @@ final class Configuration implements ConfigurationInterface
             new ConfigurationNode\PageLayoutNode(),
             new ConfigurationNode\ApiKeysNode(),
             new ConfigurationNode\ItemsNode(),
-        );
+        ];
     }
 }

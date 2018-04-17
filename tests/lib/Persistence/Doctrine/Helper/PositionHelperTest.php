@@ -50,7 +50,7 @@ final class PositionHelperTest extends TestCase
         $this->assertEquals(1, $newPosition);
 
         $this->assertEquals(
-            array(0, 2, 3),
+            [0, 2, 3],
             $this->getPositionData()
         );
     }
@@ -67,7 +67,7 @@ final class PositionHelperTest extends TestCase
         $this->assertEquals(3, $newPosition);
 
         $this->assertEquals(
-            array(0, 1, 2),
+            [0, 1, 2],
             $this->getPositionData()
         );
     }
@@ -111,7 +111,7 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 0, 2);
 
         $this->assertEquals(
-            array(0, 0, 1),
+            [0, 0, 1],
             $this->getPositionData()
         );
     }
@@ -125,7 +125,7 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 2, 0);
 
         $this->assertEquals(
-            array(1, 2, 2),
+            [1, 2, 2],
             $this->getPositionData()
         );
     }
@@ -173,7 +173,7 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->removePosition($this->getPositionHelperConditions(), 1);
 
         $this->assertEquals(
-            array(0, 1),
+            [0, 1],
             $this->getPositionData()
         );
     }
@@ -194,14 +194,14 @@ final class PositionHelperTest extends TestCase
      */
     private function getPositionHelperConditions()
     {
-        return array(
+        return [
             'table' => 'ngbm_collection_item',
             'column' => 'position',
-            'conditions' => array(
+            'conditions' => [
                 'collection_id' => 1,
                 'status' => Value::STATUS_DRAFT,
-            ),
-        );
+            ],
+        ];
     }
 
     /**

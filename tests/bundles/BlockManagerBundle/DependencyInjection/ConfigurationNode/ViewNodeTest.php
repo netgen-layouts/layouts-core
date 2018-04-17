@@ -19,43 +19,43 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettings()
     {
-        $config = array(
-            array(
-                'view' => array(
-                    'block_view' => array(
-                        'some_context' => array(
-                            'block' => array(
+        $config = [
+            [
+                'view' => [
+                    'block_view' => [
+                        'some_context' => [
+                            'block' => [
                                 'template' => 'block.html.twig',
-                                'match' => array(
+                                'match' => [
                                     'block_identifier' => 42,
-                                ),
-                                'parameters' => array(
+                                ],
+                                'parameters' => [
                                     'param' => 'value',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(
-                        'block' => array(
+        $expectedConfig = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [
+                        'block' => [
                             'template' => 'block.html.twig',
-                            'match' => array(
+                            'match' => [
                                 'block_identifier' => 42,
-                            ),
-                            'parameters' => array(
+                            ],
+                            'parameters' => [
                                 'param' => 'value',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -72,31 +72,31 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithMatchWithArrayValues()
     {
-        $config = array(
-            array(
-                'view' => array(
-                    'block_view' => array(
-                        'some_context' => array(
-                            'block' => array(
-                                'match' => array(24, 42),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'view' => [
+                    'block_view' => [
+                        'some_context' => [
+                            'block' => [
+                                'match' => [24, 42],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(
-                        'block' => array(
-                            'match' => array(24, 42),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [
+                        'block' => [
+                            'match' => [24, 42],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -113,31 +113,31 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithEmptyMatch()
     {
-        $config = array(
-            array(
-                'view' => array(
-                    'block_view' => array(
-                        'some_context' => array(
-                            'block' => array(
+        $config = [
+            [
+                'view' => [
+                    'block_view' => [
+                        'some_context' => [
+                            'block' => [
                                 'match' => null,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(
-                        'block' => array(
-                            'match' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [
+                        'block' => [
+                            'match' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -154,29 +154,29 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithNoParameters()
     {
-        $config = array(
-            array(
-                'view' => array(
-                    'block_view' => array(
-                        'some_context' => array(
-                            'block' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'view' => [
+                    'block_view' => [
+                        'some_context' => [
+                            'block' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(
-                        'block' => array(
-                            'parameters' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [
+                        'block' => [
+                            'parameters' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -191,19 +191,19 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithNoMatch()
     {
-        $config = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(
-                        'block' => array(
+        $config = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [
+                        'block' => [
                             'template' => 'block.html.twig',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -212,19 +212,19 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithNoTemplate()
     {
-        $config = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(
-                        'block' => array(
-                            'match' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [
+                        'block' => [
+                            'match' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -233,15 +233,15 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithNoBlocks()
     {
-        $config = array(
-            'view' => array(
-                'block_view' => array(
-                    'some_context' => array(),
-                ),
-            ),
-        );
+        $config = [
+            'view' => [
+                'block_view' => [
+                    'some_context' => [],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -250,13 +250,13 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithNoContext()
     {
-        $config = array(
-            'view' => array(
-                'block_view' => array(),
-            ),
-        );
+        $config = [
+            'view' => [
+                'block_view' => [],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -265,11 +265,11 @@ final class ViewNodeTest extends TestCase
      */
     public function testViewSettingsWithNoViews()
     {
-        $config = array(
-            'view' => array(),
-        );
+        $config = [
+            'view' => [],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

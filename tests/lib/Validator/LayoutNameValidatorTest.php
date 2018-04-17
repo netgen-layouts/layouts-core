@@ -76,10 +76,10 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array('My layout', true),
-            array('My layout', false),
-            array(null, true),
-        );
+        return [
+            ['My layout', true],
+            ['My layout', false],
+            [null, true],
+        ];
     }
 }

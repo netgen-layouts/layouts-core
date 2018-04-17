@@ -55,12 +55,12 @@ final class EmailTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array(),
-            ),
-        );
+        return [
+            [
+                [],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -70,13 +70,13 @@ final class EmailTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -103,10 +103,10 @@ final class EmailTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(null, true),
-            array('info', false),
-            array('info@example.com', true),
-        );
+        return [
+            [null, true],
+            ['info', false],
+            ['info@example.com', true],
+        ];
     }
 }

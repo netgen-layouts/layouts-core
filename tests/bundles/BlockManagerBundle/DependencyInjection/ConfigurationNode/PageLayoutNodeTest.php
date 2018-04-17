@@ -19,15 +19,15 @@ final class PageLayoutNodeTest extends TestCase
      */
     public function testPagelayoutSettings()
     {
-        $config = array(
-            array(
+        $config = [
+            [
                 'pagelayout' => 'pagelayout.html.twig',
-            ),
-        );
+            ],
+        ];
 
-        $expectedConfig = array(
+        $expectedConfig = [
             'pagelayout' => 'pagelayout.html.twig',
-        );
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,

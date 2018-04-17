@@ -41,15 +41,15 @@ final class CollectionController extends Controller
         $form = $this->createForm(
             EditType::class,
             $updateStruct,
-            array(
+            [
                 'collection' => $collection,
                 'action' => $this->generateUrl(
                     'ngbm_app_collection_collection_form_edit',
-                    array(
+                    [
                         'collectionId' => $collection->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -67,7 +67,7 @@ final class CollectionController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -96,18 +96,18 @@ final class CollectionController extends Controller
         $form = $this->createForm(
             ConfigEditType::class,
             $updateStruct,
-            array(
+            [
                 'configurable' => $item,
                 'config_key' => $configKey,
                 'label_prefix' => 'config.collection_item',
                 'action' => $this->generateUrl(
                     'ngbm_app_collection_form_edit_item_config',
-                    array(
+                    [
                         'itemId' => $item->getId(),
                         'configKey' => $configKey,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -125,7 +125,7 @@ final class CollectionController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -147,17 +147,17 @@ final class CollectionController extends Controller
         $form = $this->createForm(
             $query->getQueryType()->getForm($formName)->getType(),
             $updateStruct,
-            array(
+            [
                 'query' => $query,
                 'action' => $this->generateUrl(
                     'ngbm_app_collection_query_form_edit',
-                    array(
+                    [
                         'queryId' => $query->getId(),
                         'locale' => $locale,
                         'formName' => $formName,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -175,7 +175,7 @@ final class CollectionController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

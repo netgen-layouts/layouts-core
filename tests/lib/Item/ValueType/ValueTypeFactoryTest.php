@@ -15,19 +15,19 @@ final class ValueTypeFactoryTest extends TestCase
     {
         $valueType = ValueTypeFactory::buildValueType(
             'value',
-            array(
+            [
                 'name' => 'Value type',
                 'enabled' => false,
-            )
+            ]
         );
 
         $this->assertEquals(
             new ValueType(
-                array(
+                [
                     'identifier' => 'value',
                     'isEnabled' => false,
                     'name' => 'Value type',
-                )
+                ]
             ),
             $valueType
         );

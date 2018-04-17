@@ -29,9 +29,9 @@ final class ExceptionTest extends FormTestCase
     public function getMainType()
     {
         return new ConditionType(
-            array(
+            [
                 'exception' => new ExceptionMapper(),
-            )
+            ]
         );
     }
 
@@ -44,15 +44,15 @@ final class ExceptionTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array('value' => array(404));
+        $submittedData = ['value' => [404]];
 
         $updatedStruct = new ConditionCreateStruct();
-        $updatedStruct->value = array(404);
+        $updatedStruct->value = [404];
 
         $form = $this->factory->create(
             ConditionType::class,
             new ConditionCreateStruct(),
-            array('conditionType' => $this->conditionType)
+            ['conditionType' => $this->conditionType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

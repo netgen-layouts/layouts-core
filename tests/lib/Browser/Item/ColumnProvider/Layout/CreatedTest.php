@@ -33,9 +33,9 @@ final class CreatedTest extends TestCase
 
         $item = new Item(
             new Layout(
-                array(
+                [
                     'created' => $date,
-                )
+                ]
             )
         );
 

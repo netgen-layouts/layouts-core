@@ -24,22 +24,22 @@ abstract class EditType extends TranslatableType
     /**
      * @var array
      */
-    private $viewTypes = array();
+    private $viewTypes = [];
 
     /**
      * @var array
      */
-    private $itemViewTypes = array();
+    private $itemViewTypes = [];
 
     /**
      * @var array
      */
-    private $viewTypesByItemViewType = array();
+    private $viewTypesByItemViewType = [];
 
     /**
      * @var array
      */
-    private $viewTypesByParameters = array();
+    private $viewTypesByParameters = [];
 
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -50,13 +50,13 @@ abstract class EditType extends TranslatableType
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
 
         $resolver->setDefault('constraints', function (Options $options) {
-            return array(
+            return [
                 new BlockUpdateStructConstraint(
-                    array(
+                    [
                         'payload' => $options['block'],
-                    )
+                    ]
                 ),
-            );
+            ];
         });
     }
 
@@ -82,26 +82,26 @@ abstract class EditType extends TranslatableType
         $builder->add(
             'view_type',
             ChoiceType::class,
-            array(
+            [
                 'label' => 'block.view_type',
                 'choices' => array_flip($this->viewTypes),
                 'property_path' => 'viewType',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
             'item_view_type',
             ChoiceType::class,
-            array(
+            [
                 'label' => 'block.item_view_type',
                 'choices' => array_flip(call_user_func_array('array_merge', $this->itemViewTypes)),
                 'choice_attr' => function ($value) {
-                    return array(
+                    return [
                         'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
-                    );
+                    ];
                 },
                 'property_path' => 'itemViewType',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
     }
 
@@ -116,7 +116,7 @@ abstract class EditType extends TranslatableType
         $builder->add(
             'name',
             TextType::class,
-            array(
+            [
                 'label' => 'block.name',
                 'property_path' => 'name',
                 // null and empty string have different meanings for name
@@ -124,7 +124,7 @@ abstract class EditType extends TranslatableType
                 // an empty string) because of
                 // https://github.com/symfony/symfony/issues/5906
                 'empty_data' => ' ',
-            )
+            ]
         );
     }
 
@@ -135,7 +135,7 @@ abstract class EditType extends TranslatableType
      * @param array $options
      * @param array $groups
      */
-    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = array())
+    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = [])
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->getDefinition();
@@ -143,14 +143,14 @@ abstract class EditType extends TranslatableType
         $builder->add(
             'parameters',
             ParametersType::class,
-            array(
+            [
                 'label' => false,
                 'inherit_data' => true,
                 'property_path' => 'parameterValues',
                 'parameter_collection' => $blockDefinition,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
                 'groups' => $groups,
-            )
+            ]
         );
     }
 
@@ -177,8 +177,8 @@ abstract class EditType extends TranslatableType
                 $this->viewTypesByItemViewType[$itemViewType->getIdentifier()][] = $viewType->getIdentifier();
             }
 
-            $includedParameters = array();
-            $excludedParameters = array();
+            $includedParameters = [];
+            $excludedParameters = [];
 
             $validParameters = $viewType->getValidParameters();
             if (!is_array($validParameters)) {

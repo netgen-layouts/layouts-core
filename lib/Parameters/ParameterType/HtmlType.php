@@ -20,8 +20,8 @@ final class HtmlType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(
-            new Constraints\Type(array('type' => 'string')),
-        );
+        return [
+            new Constraints\Type(['type' => 'string']),
+        ];
     }
 }

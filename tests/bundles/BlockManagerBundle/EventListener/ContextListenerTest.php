@@ -55,7 +55,7 @@ final class ContextListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::REQUEST => 'onKernelRequest'),
+            [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -91,7 +91,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->query->set('ngbmContext', array('var' => 'value'));
+        $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects($this->never())
@@ -106,7 +106,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(array('var' => 'value'), $this->context->all());
+        $this->assertEquals(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -117,7 +117,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmContext', array('var' => 'value'));
+        $request->attributes->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects($this->never())
@@ -130,7 +130,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(array('var' => 'value'), $this->context->all());
+        $this->assertEquals(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -144,7 +144,7 @@ final class ContextListenerTest extends TestCase
         $request = Request::create('/');
 
         $request->attributes->set('ngbmContextUri', '/?ngbmContext%5Bvar%5D=value');
-        $request->query->set('ngbmContext', array('var' => 'value'));
+        $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects($this->never())
@@ -159,7 +159,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(array('var' => 'value'), $this->context->all());
+        $this->assertEquals(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -172,7 +172,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->query->set('ngbmContext', array('var' => 'value'));
+        $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects($this->never())
@@ -187,7 +187,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(array(), $this->context->all());
+        $this->assertEquals([], $this->context->all());
     }
 
     /**
@@ -198,7 +198,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->query->set('ngbmContext', array('var' => 'value'));
+        $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects($this->never())
@@ -207,6 +207,6 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(array(), $this->context->all());
+        $this->assertEquals([], $this->context->all());
     }
 }

@@ -34,17 +34,17 @@ final class BooleanMapperTest extends TestCase
     public function testMapOptions()
     {
         $this->assertEquals(
-            array(
+            [
                 'mapped' => false,
                 'reverse' => true,
-            ),
+            ],
             $this->mapper->mapOptions(
                 new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'name',
                         'type' => new BooleanType(),
-                        'options' => array('reverse' => true),
-                    )
+                        'options' => ['reverse' => true],
+                    ]
                 )
             )
         );

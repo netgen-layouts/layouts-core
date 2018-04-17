@@ -69,10 +69,10 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new TargetCreateStruct(
-                array(
+                [
                     'type' => 'target',
                     'value' => '42',
-                )
+                ]
             ),
             $createStruct
         );
@@ -88,9 +88,9 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new TargetUpdateStruct(
-                array(
+                [
                     'value' => '42',
-                )
+                ]
             ),
             $updateStruct
         );
@@ -106,10 +106,10 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new ConditionCreateStruct(
-                array(
+                [
                     'type' => 'condition',
                     'value' => '42',
-                )
+                ]
             ),
             $createStruct
         );
@@ -125,9 +125,9 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
 
         $this->assertEquals(
             new ConditionUpdateStruct(
-                array(
+                [
                     'value' => '42',
-                )
+                ]
             ),
             $updateStruct
         );

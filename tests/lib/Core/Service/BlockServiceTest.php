@@ -663,7 +663,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock()
     {
-        $block = $this->blockService->loadBlockDraft(31, array('en'));
+        $block = $this->blockService->loadBlockDraft(31, ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
@@ -681,7 +681,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('css-class', $block->getParameter('css_class')->getValue());
         $this->assertEquals('css-id', $block->getParameter('css_id')->getValue());
 
-        $croBlock = $this->blockService->loadBlockDraft(31, array('hr'));
+        $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
 
         $this->assertEquals('test_value', $croBlock->getParameter('css_class')->getValue());
 
@@ -695,7 +695,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockInMainLocale()
     {
-        $block = $this->blockService->loadBlockDraft(31, array('en'));
+        $block = $this->blockService->loadBlockDraft(31, ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -713,7 +713,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
         $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
 
-        $croBlock = $this->blockService->loadBlockDraft(31, array('hr'));
+        $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
 
         $this->assertEquals('css-class-hr', $croBlock->getParameter('css_class')->getValue());
 
@@ -727,7 +727,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockWithUntranslatableParameters()
     {
-        $block = $this->blockService->loadBlockDraft(31, array('en'));
+        $block = $this->blockService->loadBlockDraft(31, ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -741,7 +741,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $croBlock = $this->blockService->loadBlockDraft(31, array('hr'));
+        $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
 
         $this->assertEquals('english_css', $block->getParameter('css_class')->getValue());
         $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
@@ -1739,17 +1739,17 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new BlockCreateStruct(
-                array(
+                [
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'definition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'some-class',
                         'css_id' => null,
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->blockService->newBlockCreateStruct($blockDefinition)
         );
@@ -1778,27 +1778,27 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             new BlockUpdateStruct(
-                array(
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => $block->getViewType(),
                     'itemViewType' => $block->getItemViewType(),
                     'name' => $block->getName(),
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'CSS class',
                         'css_id' => null,
-                    ),
-                    'configStructs' => array(
+                    ],
+                    'configStructs' => [
                         'http_cache' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'use_http_cache' => null,
                                     'shared_max_age' => null,
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             ),
             $this->blockService->newBlockUpdateStruct('en', $block)
         );

@@ -19,7 +19,7 @@ final class HandlerPluginPass implements CompilerPassInterface
 
         $handlerPluginRegistry = $container->findDefinition(self::$serviceName);
 
-        $handlerPlugins = array();
+        $handlerPlugins = [];
         foreach ($container->findTaggedServiceIds(self::$tagName) as $handlerPlugin => $tag) {
             $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
             $handlerPlugins[$priority][] = new Reference($handlerPlugin);
@@ -31,7 +31,7 @@ final class HandlerPluginPass implements CompilerPassInterface
         foreach ($handlerPlugins as $handlerPlugin) {
             $handlerPluginRegistry->addMethodCall(
                 'addPlugin',
-                array($handlerPlugin)
+                [$handlerPlugin]
             );
         }
     }

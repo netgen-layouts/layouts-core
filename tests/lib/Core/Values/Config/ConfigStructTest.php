@@ -62,6 +62,6 @@ final class ConfigStructTest extends TestCase
     {
         $this->struct->setConfigStruct('test', new ConfigStruct());
 
-        $this->assertEquals(array('test' => new ConfigStruct()), $this->struct->getConfigStructs());
+        $this->assertEquals(['test' => new ConfigStruct()], $this->struct->getConfigStructs());
     }
 }

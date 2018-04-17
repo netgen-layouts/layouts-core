@@ -100,7 +100,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        $layouts = array();
+        $layouts = [];
         foreach ($persistenceLayouts as $persistenceLayout) {
             $layouts[] = $this->mapper->mapLayout($persistenceLayout);
         }
@@ -118,7 +118,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        $layouts = array();
+        $layouts = [];
         foreach ($persistenceLayouts as $persistenceLayout) {
             $layouts[] = $this->mapper->mapLayout($persistenceLayout);
         }
@@ -144,7 +144,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        $relatedLayouts = array();
+        $relatedLayouts = [];
         foreach ($relatedPersistenceLayouts as $relatedPersistenceLayout) {
             $relatedLayouts[] = $this->mapper->mapLayout($relatedPersistenceLayout);
         }
@@ -238,9 +238,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 return $this->layoutHandler->updateZone(
                     $persistenceZone,
                     new ZoneUpdateStruct(
-                        array(
+                        [
                             'linkedZone' => $persistenceLinkedZone,
-                        )
+                        ]
                     )
                 );
             }
@@ -262,9 +262,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 return $this->layoutHandler->updateZone(
                     $persistenceZone,
                     new ZoneUpdateStruct(
-                        array(
+                        [
                             'linkedZone' => false,
-                        )
+                        ]
                     )
                 );
             }
@@ -285,14 +285,14 @@ final class LayoutService extends Service implements LayoutServiceInterface
             function () use ($layoutCreateStruct) {
                 $createdLayout = $this->layoutHandler->createLayout(
                     new LayoutCreateStruct(
-                        array(
+                        [
                             'type' => $layoutCreateStruct->layoutType->getIdentifier(),
                             'name' => $layoutCreateStruct->name,
                             'description' => $layoutCreateStruct->description,
                             'status' => Value::STATUS_DRAFT,
                             'shared' => $layoutCreateStruct->shared,
                             'mainLocale' => $layoutCreateStruct->mainLocale,
-                        )
+                        ]
                     )
                 );
 
@@ -300,9 +300,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
                     $this->layoutHandler->createZone(
                         $createdLayout,
                         new ZoneCreateStruct(
-                            array(
+                            [
                                 'identifier' => $zoneIdentifier,
-                            )
+                            ]
                         )
                     );
                 }
@@ -393,10 +393,10 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 return $this->layoutHandler->updateLayout(
                     $persistenceLayout,
                     new LayoutUpdateStruct(
-                        array(
+                        [
                             'name' => $layoutUpdateStruct->name,
                             'description' => $layoutUpdateStruct->description,
-                        )
+                        ]
                     )
                 );
             }
@@ -420,10 +420,10 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 return $this->layoutHandler->copyLayout(
                     $persistenceLayout,
                     new LayoutCopyStruct(
-                        array(
+                        [
                             'name' => $layoutCopyStruct->name,
                             'description' => $layoutCopyStruct->description,
-                        )
+                        ]
                     )
                 );
             }
@@ -432,7 +432,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($copiedLayout);
     }
 
-    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array(), $preserveSharedZones = true)
+    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
     {
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
@@ -447,7 +447,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
         $zoneMappings = array_merge(
-            array_fill_keys($targetLayoutType->getZoneIdentifiers(), array()),
+            array_fill_keys($targetLayoutType->getZoneIdentifiers(), []),
             $zoneMappings
         );
 
@@ -542,7 +542,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
                     // usage of the old layout name.
                     // When restoring from archive, we need to reuse the name of the published
                     // layout.
-                    $this->layoutHandler->updateLayout($archivedLayout, new LayoutUpdateStruct(array('name' => '')));
+                    $this->layoutHandler->updateLayout($archivedLayout, new LayoutUpdateStruct(['name' => '']));
 
                     $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
                 }
@@ -580,9 +580,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 return $this->layoutHandler->updateLayout(
                     $draftLayout,
                     new LayoutUpdateStruct(
-                        array(
+                        [
                             'name' => $publishedLayout->name,
-                        )
+                        ]
                     )
                 );
             }

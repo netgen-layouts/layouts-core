@@ -61,24 +61,24 @@ final class DateTimeValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array(null, true),
-            array(new DateTimeImmutable(), true),
-            array(new DateTimeImmutable(), true),
-            array(new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey')), true),
-            array(new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey')), true),
-            array(new DateTimeImmutable('now', new DateTimeZone('+01:00')), false),
-            array(new DateTimeImmutable('now', new DateTimeZone('+01:00')), false),
-            array(new DateTimeImmutable('now', new DateTimeZone('CAST')), false),
-            array(new DateTimeImmutable('now', new DateTimeZone('CAST')), false),
-            array(array('datetime' => '2018-02-01 00:00:00'), false),
-            array(array('timezone' => 'Antarctica/Casey'), false),
-            array(array('datetime' => '2018-02-01 00:00:00', 'timezone' => ''), false),
-            array(array('datetime' => '', 'timezone' => 'Antarctica/Casey'), false),
-            array(array('datetime' => '', 'timezone' => ''), false),
-            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => '+01:00'), false),
-            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => 'CAST'), false),
-            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'), true),
-        );
+        return [
+            [null, true],
+            [new DateTimeImmutable(), true],
+            [new DateTimeImmutable(), true],
+            [new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey')), true],
+            [new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey')), true],
+            [new DateTimeImmutable('now', new DateTimeZone('+01:00')), false],
+            [new DateTimeImmutable('now', new DateTimeZone('+01:00')), false],
+            [new DateTimeImmutable('now', new DateTimeZone('CAST')), false],
+            [new DateTimeImmutable('now', new DateTimeZone('CAST')), false],
+            [['datetime' => '2018-02-01 00:00:00'], false],
+            [['timezone' => 'Antarctica/Casey'], false],
+            [['datetime' => '2018-02-01 00:00:00', 'timezone' => ''], false],
+            [['datetime' => '', 'timezone' => 'Antarctica/Casey'], false],
+            [['datetime' => '', 'timezone' => ''], false],
+            [['datetime' => '2018-02-01 15:00:00', 'timezone' => '+01:00'], false],
+            [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'CAST'], false],
+            [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], true],
+        ];
     }
 }

@@ -41,23 +41,23 @@ final class CollectionValidator extends Validator
         if ($collectionCreateStruct->queryCreateStruct !== null) {
             $this->validate(
                 $collectionCreateStruct->queryCreateStruct,
-                array(
-                    new Constraints\Type(array('type' => QueryCreateStruct::class)),
-                ),
+                [
+                    new Constraints\Type(['type' => QueryCreateStruct::class]),
+                ],
                 'queryCreateStruct'
             );
 
             $this->validateQueryCreateStruct($collectionCreateStruct->queryCreateStruct);
         }
 
-        $offsetConstraints = array(
+        $offsetConstraints = [
             new Constraints\NotBlank(),
-            new Constraints\Type(array('type' => 'int')),
-        );
+            new Constraints\Type(['type' => 'int']),
+        ];
 
         $offsetConstraints[] = $collectionCreateStruct->queryCreateStruct !== null ?
-            new Constraints\GreaterThanOrEqual(array('value' => 0)) :
-            new Constraints\EqualTo(array('value' => 0));
+            new Constraints\GreaterThanOrEqual(['value' => 0]) :
+            new Constraints\EqualTo(['value' => 0]);
 
         $this->validate(
             $collectionCreateStruct->offset,
@@ -68,10 +68,10 @@ final class CollectionValidator extends Validator
         if ($collectionCreateStruct->limit !== null) {
             $this->validate(
                 $collectionCreateStruct->limit,
-                array(
-                    new Constraints\Type(array('type' => 'int')),
-                    new Constraints\GreaterThan(array('value' => 0)),
-                ),
+                [
+                    new Constraints\Type(['type' => 'int']),
+                    new Constraints\GreaterThan(['value' => 0]),
+                ],
                 'limit'
             );
         }
@@ -88,14 +88,14 @@ final class CollectionValidator extends Validator
     public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         if ($collectionUpdateStruct->offset !== null) {
-            $offsetConstraints = array(
+            $offsetConstraints = [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'int')),
-            );
+                new Constraints\Type(['type' => 'int']),
+            ];
 
             $offsetConstraints[] = $collection->hasQuery() ?
-                new Constraints\GreaterThanOrEqual(array('value' => 0)) :
-                new Constraints\EqualTo(array('value' => 0));
+                new Constraints\GreaterThanOrEqual(['value' => 0]) :
+                new Constraints\EqualTo(['value' => 0]);
 
             $this->validate(
                 $collectionUpdateStruct->offset,
@@ -107,11 +107,11 @@ final class CollectionValidator extends Validator
         if ($collectionUpdateStruct->limit !== null) {
             $this->validate(
                 $collectionUpdateStruct->limit,
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'int')),
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                ),
+                    new Constraints\Type(['type' => 'int']),
+                    new Constraints\GreaterThanOrEqual(['value' => 0]),
+                ],
                 'limit'
             );
         }
@@ -128,35 +128,35 @@ final class CollectionValidator extends Validator
     {
         $this->validate(
             $itemCreateStruct->definition,
-            array(
+            [
                 new Constraints\NotNull(),
-                new Constraints\Type(array('type' => ItemDefinitionInterface::class)),
-            ),
+                new Constraints\Type(['type' => ItemDefinitionInterface::class]),
+            ],
             'definition'
         );
 
         $this->validate(
             $itemCreateStruct->type,
-            array(
+            [
                 new Constraints\NotBlank(),
                 new Constraints\Choice(
-                    array(
-                        'choices' => array(
+                    [
+                        'choices' => [
                             Item::TYPE_MANUAL,
-                        ),
+                        ],
                         'strict' => true,
-                    )
+                    ]
                 ),
-            ),
+            ],
             'type'
         );
 
         if ($itemCreateStruct->value !== null) {
             $this->validate(
                 $itemCreateStruct->value,
-                array(
-                    new Constraints\Type(array('type' => 'scalar')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'scalar']),
+                ],
                 'value'
             );
         }
@@ -194,22 +194,22 @@ final class CollectionValidator extends Validator
     {
         $this->validate(
             $queryCreateStruct->queryType,
-            array(
+            [
                 new Constraints\NotNull(),
-                new Constraints\Type(array('type' => QueryTypeInterface::class)),
-            ),
+                new Constraints\Type(['type' => QueryTypeInterface::class]),
+            ],
             'queryType'
         );
 
         $this->validate(
             $queryCreateStruct,
-            array(
+            [
                 new ParameterStruct(
-                    array(
+                    [
                         'parameterCollection' => $queryCreateStruct->queryType,
-                    )
+                    ]
                 ),
-            ),
+            ],
             'parameterValues'
         );
     }
@@ -226,13 +226,13 @@ final class CollectionValidator extends Validator
     {
         $this->validate(
             $queryUpdateStruct,
-            array(
+            [
                 new QueryUpdateStructConstraint(
-                    array(
+                    [
                         'payload' => $query,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
     }
 }

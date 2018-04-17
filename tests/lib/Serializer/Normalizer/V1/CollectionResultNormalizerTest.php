@@ -43,29 +43,29 @@ final class CollectionResultNormalizerTest extends TestCase
     public function testNormalize()
     {
         $collectionItem = new CollectionItem(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 24,
                 'cmsItem' => new Item(
-                    array(
+                    [
                         'name' => 'Value name',
                         'isVisible' => true,
-                    )
+                    ]
                 ),
-                'configs' => array(
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => CollectionItem::VISIBILITY_VISIBLE,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $result = new Result(3, new ManualItem($collectionItem));
@@ -76,7 +76,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
                 'visible' => $collectionItem->isVisible(),
@@ -88,7 +88,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                 'cms_url' => '/some/url',
                 'position' => $result->getPosition(),
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }
@@ -101,24 +101,24 @@ final class CollectionResultNormalizerTest extends TestCase
     public function testNormalizeWithNullItemInCollection()
     {
         $collectionItem = new CollectionItem(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 24,
                 'cmsItem' => new NullItem(42),
-                'configs' => array(
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => CollectionItem::VISIBILITY_VISIBLE,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $result = new Result(3, new ManualItem($collectionItem));
@@ -127,7 +127,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('generate');
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
                 'visible' => $collectionItem->isVisible(),
@@ -139,7 +139,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                 'cms_url' => null,
                 'position' => $result->getPosition(),
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }
@@ -151,10 +151,10 @@ final class CollectionResultNormalizerTest extends TestCase
     public function testNormalizeWithoutCollectionItem()
     {
         $item = new Item(
-            array(
+            [
                 'name' => 'Value name',
                 'isVisible' => true,
-            )
+            ]
         );
 
         $result = new Result(3, $item);
@@ -166,7 +166,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => null,
                 'collection_id' => null,
                 'visible' => true,
@@ -178,7 +178,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_visible' => $item->isVisible(),
                 'cms_url' => '/some/url',
                 'position' => $result->getPosition(),
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }
@@ -198,7 +198,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('generate');
 
         $this->assertEquals(
-            array(
+            [
                 'id' => null,
                 'collection_id' => null,
                 'visible' => true,
@@ -210,7 +210,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_visible' => $item->isVisible(),
                 'cms_url' => null,
                 'position' => $result->getPosition(),
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }
@@ -222,36 +222,36 @@ final class CollectionResultNormalizerTest extends TestCase
     public function testNormalizeWithSubItem()
     {
         $collectionItem = new CollectionItem(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 24,
                 'cmsItem' => new Item(
-                    array(
+                    [
                         'name' => 'Value name',
                         'isVisible' => true,
-                    )
+                    ]
                 ),
-                'configs' => array(
+                'configs' => [
                     'visibility' => new Config(
-                        array(
-                            'parameters' => array(
+                        [
+                            'parameters' => [
                                 'visibility_status' => new Parameter(
-                                    array(
+                                    [
                                         'value' => CollectionItem::VISIBILITY_VISIBLE,
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $item = new Item(
-            array(
+            [
                 'name' => 'Value name',
                 'isVisible' => true,
-            )
+            ]
         );
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
@@ -262,7 +262,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => null,
                 'collection_id' => null,
                 'visible' => true,
@@ -274,7 +274,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_visible' => $item->isVisible(),
                 'cms_url' => '/some/url',
                 'position' => $result->getPosition(),
-                'override_item' => array(
+                'override_item' => [
                     'id' => $collectionItem->getId(),
                     'collection_id' => $collectionItem->getCollectionId(),
                     'visible' => $collectionItem->isVisible(),
@@ -285,8 +285,8 @@ final class CollectionResultNormalizerTest extends TestCase
                     'name' => $collectionItem->getCmsItem()->getName(),
                     'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                     'cms_url' => '/some/url',
-                ),
-            ),
+                ],
+            ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }
@@ -310,19 +310,19 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new APIValue(), false),
-            array(new Result(0, new Item()), false),
-            array(new VersionedValue(new APIValue(), 1), false),
-            array(new VersionedValue(new Result(0, new Item()), 2), false),
-            array(new VersionedValue(new Result(0, new Item()), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new APIValue(), false],
+            [new Result(0, new Item()), false],
+            [new VersionedValue(new APIValue(), 1), false],
+            [new VersionedValue(new Result(0, new Item()), 2), false],
+            [new VersionedValue(new Result(0, new Item()), 1), true],
+        ];
     }
 }

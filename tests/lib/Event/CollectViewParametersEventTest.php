@@ -16,7 +16,7 @@ final class CollectViewParametersEventTest extends TestCase
 
     public function setUp()
     {
-        $this->event = new CollectViewParametersEvent(new View(array('value' => new Value())));
+        $this->event = new CollectViewParametersEvent(new View(['value' => new Value()]));
     }
 
     /**
@@ -25,7 +25,7 @@ final class CollectViewParametersEventTest extends TestCase
      */
     public function testGetParameters()
     {
-        $this->assertEquals(array(), $this->event->getParameters());
+        $this->assertEquals([], $this->event->getParameters());
     }
 
     /**
@@ -35,7 +35,7 @@ final class CollectViewParametersEventTest extends TestCase
     public function testAddParameter()
     {
         $this->event->addParameter('param', 'value');
-        $this->assertEquals(array('param' => 'value'), $this->event->getParameters());
+        $this->assertEquals(['param' => 'value'], $this->event->getParameters());
     }
 
     /**
@@ -43,6 +43,6 @@ final class CollectViewParametersEventTest extends TestCase
      */
     public function testGetView()
     {
-        $this->assertEquals(new View(array('value' => new Value())), $this->event->getView());
+        $this->assertEquals(new View(['value' => new Value()]), $this->event->getView());
     }
 }

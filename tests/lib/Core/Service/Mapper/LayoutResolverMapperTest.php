@@ -28,14 +28,14 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     public function testMapRule()
     {
         $persistenceRule = new Rule(
-            array(
+            [
                 'id' => 3,
                 'status' => Value::STATUS_PUBLISHED,
                 'layoutId' => 1,
                 'enabled' => true,
                 'priority' => 12,
                 'comment' => 'Comment',
-            )
+            ]
         );
 
         $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
@@ -69,9 +69,9 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     public function testMapRuleWithNonExistingLayout()
     {
         $persistenceRule = new Rule(
-            array(
+            [
                 'layoutId' => 99999,
-            )
+            ]
         );
 
         $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
@@ -86,13 +86,13 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     public function testMapTarget()
     {
         $persistenceTarget = new Target(
-            array(
+            [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'type' => 'target',
                 'value' => 42,
-            )
+            ]
         );
 
         $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
@@ -116,13 +116,13 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     public function testMapCondition()
     {
         $persistenceCondition = new Condition(
-            array(
+            [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'type' => 'condition',
                 'value' => 42,
-            )
+            ]
         );
 
         $condition = $this->layoutResolverMapper->mapCondition($persistenceCondition);

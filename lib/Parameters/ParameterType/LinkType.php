@@ -41,10 +41,10 @@ final class LinkType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array('value_types', 'allow_invalid_internal'));
+        $optionsResolver->setRequired(['value_types', 'allow_invalid_internal']);
         $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setAllowedTypes('allow_invalid_internal', 'bool');
-        $optionsResolver->setDefault('value_types', array());
+        $optionsResolver->setDefault('value_types', []);
         $optionsResolver->setDefault('allow_invalid_internal', false);
 
         $optionsResolver->setNormalizer(
@@ -67,12 +67,12 @@ final class LinkType extends ParameterType
             return;
         }
 
-        return array(
+        return [
             'link_type' => $value->getLinkType(),
             'link' => $value->getLink(),
             'link_suffix' => $value->getLinkSuffix(),
             'new_window' => $value->getNewWindow(),
-        );
+        ];
     }
 
     public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
@@ -82,12 +82,12 @@ final class LinkType extends ParameterType
         }
 
         return new LinkValue(
-            array(
+            [
                 'linkType' => $value['link_type'],
                 'link' => isset($value['link']) ? $value['link'] : null,
                 'linkSuffix' => isset($value['link_suffix']) ? $value['link_suffix'] : null,
                 'newWindow' => isset($value['new_window']) ? $value['new_window'] : false,
-            )
+            ]
         );
     }
 
@@ -105,12 +105,12 @@ final class LinkType extends ParameterType
             $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink);
         }
 
-        return array(
+        return [
             'link_type' => $value->getLinkType(),
             'link' => $valueLink,
             'link_suffix' => $value->getLinkSuffix(),
             'new_window' => $value->getNewWindow(),
-        );
+        ];
     }
 
     public function import(ParameterDefinitionInterface $parameterDefinition, $value)
@@ -128,12 +128,12 @@ final class LinkType extends ParameterType
         }
 
         return new LinkValue(
-            array(
+            [
                 'linkType' => $value['link_type'],
                 'link' => $valueLink,
                 'linkSuffix' => isset($value['link_suffix']) ? $value['link_suffix'] : null,
                 'newWindow' => isset($value['new_window']) ? $value['new_window'] : false,
-            )
+            ]
         );
     }
 
@@ -156,15 +156,15 @@ final class LinkType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(
-            new Constraints\Type(array('type' => LinkValue::class)),
+        return [
+            new Constraints\Type(['type' => LinkValue::class]),
             new LinkConstraint(
-                array(
+                [
                     'required' => $parameterDefinition->isRequired(),
                     'valueTypes' => $parameterDefinition->getOption('value_types'),
                     'allowInvalidInternal' => $parameterDefinition->getOption('allow_invalid_internal'),
-                )
+                ]
             ),
-        );
+        ];
     }
 }

@@ -31,11 +31,11 @@ final class QueryTest extends TestCase
         $this->assertNull($query->getStatus());
         $this->assertNull($query->getCollectionId());
         $this->assertNull($query->getQueryType());
-        $this->assertEquals(array(), $query->getParameters());
+        $this->assertEquals([], $query->getParameters());
         $this->assertNull($query->isTranslatable());
         $this->assertNull($query->getMainLocale());
         $this->assertNull($query->isAlwaysAvailable());
-        $this->assertEquals(array(), $query->getAvailableLocales());
+        $this->assertEquals([], $query->getAvailableLocales());
         $this->assertNull($query->getLocale());
     }
 
@@ -58,7 +58,7 @@ final class QueryTest extends TestCase
     public function testSetProperties()
     {
         $query = new Query(
-            array(
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
@@ -66,19 +66,19 @@ final class QueryTest extends TestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'locale' => 'en',
-                'parameters' => array(
+                'parameters' => [
                     'param' => 'value',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals(42, $query->getId());
         $this->assertTrue($query->isPublished());
         $this->assertEquals(30, $query->getCollectionId());
         $this->assertEquals(new QueryType('query_type'), $query->getQueryType());
-        $this->assertEquals(array('param' => 'value'), $query->getParameters());
+        $this->assertEquals(['param' => 'value'], $query->getParameters());
         $this->assertEquals('value', $query->getParameter('param'));
         $this->assertFalse($query->hasParameter('test'));
         $this->assertTrue($query->hasParameter('param'));
@@ -86,13 +86,13 @@ final class QueryTest extends TestCase
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());
         $this->assertTrue($query->isAlwaysAvailable());
-        $this->assertEquals(array('en'), $query->getAvailableLocales());
+        $this->assertEquals(['en'], $query->getAvailableLocales());
         $this->assertEquals('en', $query->getLocale());
 
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
-            ),
+            ],
             $query->getParameters()
         );
 
@@ -109,9 +109,9 @@ final class QueryTest extends TestCase
     public function testIsContextual()
     {
         $query = new Query(
-            array(
+            [
                 'queryType' => new QueryType('query_type'),
-            )
+            ]
         );
 
         $this->assertFalse($query->isContextual());

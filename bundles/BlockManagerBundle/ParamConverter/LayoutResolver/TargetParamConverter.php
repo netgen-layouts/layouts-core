@@ -20,7 +20,7 @@ final class TargetParamConverter extends ParamConverter
 
     public function getSourceAttributeNames()
     {
-        return array('targetId');
+        return ['targetId'];
     }
 
     public function getDestinationAttributeName()

@@ -15,14 +15,14 @@ final class PagedCollectionsPlugin extends Plugin
      *
      * @var array
      */
-    private $pagerTypes = array();
+    private $pagerTypes = [];
 
     /**
      * @var array
      */
-    private $defaultGroups = array();
+    private $defaultGroups = [];
 
-    public function __construct(array $pagerTypes = array(), array $defaultGroups = array())
+    public function __construct(array $pagerTypes = [], array $defaultGroups = [])
     {
         $this->pagerTypes = array_flip($pagerTypes);
         $this->defaultGroups = $defaultGroups;
@@ -38,39 +38,39 @@ final class PagedCollectionsPlugin extends Plugin
         $builder->add(
             'paged_collections:enabled',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'label' => 'block.paged_collections.enabled',
                 'groups' => $this->defaultGroups,
-            )
+            ]
         );
 
         $builder->get('paged_collections:enabled')->add(
             'paged_collections:type',
             ParameterType\ChoiceType::class,
-            array(
+            [
                 'options' => $this->pagerTypes,
                 'label' => 'block.paged_collections.type',
                 'groups' => $this->defaultGroups,
-            )
+            ]
         );
 
         $builder->get('paged_collections:enabled')->add(
             'paged_collections:max_pages',
             ParameterType\IntegerType::class,
-            array(
+            [
                 'min' => 1,
                 'label' => 'block.paged_collections.max_pages',
                 'groups' => $this->defaultGroups,
-            )
+            ]
         );
 
         $builder->get('paged_collections:enabled')->add(
             'paged_collections:ajax_first',
             ParameterType\BooleanType::class,
-            array(
+            [
                 'label' => 'block.paged_collections.ajax_first',
                 'groups' => $this->defaultGroups,
-            )
+            ]
         );
     }
 }

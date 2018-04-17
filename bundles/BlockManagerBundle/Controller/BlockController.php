@@ -73,9 +73,9 @@ final class BlockController extends Controller
             return $this->buildView(
                 $block,
                 $viewContext,
-                array(
+                [
                     'collection_identifier' => $collectionIdentifier,
-                )
+                ]
             );
         } catch (Throwable $t) {
             $message = sprintf(

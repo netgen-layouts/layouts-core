@@ -6,7 +6,7 @@ abstract class DynamicContainerHandler extends ContainerDefinitionHandler
 {
     public function getPlaceholderIdentifiers()
     {
-        return array();
+        return [];
     }
 
     public function isDynamicContainer()

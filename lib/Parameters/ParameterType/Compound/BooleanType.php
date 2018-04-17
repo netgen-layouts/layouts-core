@@ -27,7 +27,7 @@ final class BooleanType extends CompoundParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array('reverse'));
+        $optionsResolver->setRequired(['reverse']);
         $optionsResolver->setAllowedTypes('reverse', 'bool');
         $optionsResolver->setDefault('reverse', false);
 
@@ -48,22 +48,22 @@ final class BooleanType extends CompoundParameterType
     protected function getRequiredConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if ($parameterDefinition->isRequired()) {
-            return array(
+            return [
                 new Constraints\NotNull(),
-            );
+            ];
         }
 
-        return array();
+        return [];
     }
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return array(
+        return [
             new Constraints\Type(
-                array(
+                [
                     'type' => 'bool',
-                )
+                ]
             ),
-        );
+        ];
     }
 }

@@ -19,37 +19,37 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     public function setUp()
     {
         $compoundParameter = new CompoundParameterDefinition(
-            array(
+            [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
-                'parameterDefinitions' => array(
+                'parameterDefinitions' => [
                     'param' => new ParameterDefinition(
-                        array(
+                        [
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
                             'isRequired' => true,
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->constraint = new ParameterStruct(
-            array(
+            [
                 'parameterCollection' => new ParameterCollection(
-                    array(
+                    [
                         'css_id' => new ParameterDefinition(
-                            array(
+                            [
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),
                                 'isRequired' => true,
-                            )
+                            ]
                         ),
                         'checkbox' => $compoundParameter,
-                    )
+                    ]
                 ),
                 'allowMissingFields' => true,
-            )
+            ]
         );
 
         parent::setUp();
@@ -83,7 +83,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
         $this->assertValid(
             $isValid,
-            new BlockCreateStruct(array('parameterValues' => $value))
+            new BlockCreateStruct(['parameterValues' => $value])
         );
     }
 
@@ -110,55 +110,55 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => 'value'), true, true),
-            array(array('css_id' => '', 'checkbox' => true, 'param' => 'value'), true, false),
-            array(array('css_id' => null, 'checkbox' => true, 'param' => 'value'), true, false),
-            array(array('checkbox' => true, 'param' => 'value'), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => 'value'), false, true),
-            array(array('css_id' => '', 'checkbox' => true, 'param' => 'value'), false, false),
-            array(array('css_id' => null, 'checkbox' => true, 'param' => 'value'), false, false),
-            array(array('checkbox' => true, 'param' => 'value'), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => 'value'), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => '?'), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => ''), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => null), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => true), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => 'value'), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => '?'), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => ''), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => null), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => false), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => 'value'), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => '?'), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => ''), true, false),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => null), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => null), true, true),
-            array(array('css_id' => 'ID', 'param' => 'value'), true, true),
-            array(array('css_id' => 'ID', 'param' => '?'), true, false),
-            array(array('css_id' => 'ID', 'param' => ''), true, false),
-            array(array('css_id' => 'ID', 'param' => null), true, true),
-            array(array('css_id' => 'ID'), true, true),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => 'value'), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => '?'), false, false),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => ''), false, false),
-            array(array('css_id' => 'ID', 'checkbox' => true, 'param' => null), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => true), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => 'value'), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => '?'), false, false),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => ''), false, false),
-            array(array('css_id' => 'ID', 'checkbox' => false, 'param' => null), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => false), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => 'value'), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => '?'), false, false),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => ''), false, false),
-            array(array('css_id' => 'ID', 'checkbox' => null, 'param' => null), false, true),
-            array(array('css_id' => 'ID', 'checkbox' => null), false, true),
-            array(array('css_id' => 'ID', 'param' => 'value'), false, true),
-            array(array('css_id' => 'ID', 'param' => '?'), false, false),
-            array(array('css_id' => 'ID', 'param' => ''), false, false),
-            array(array('css_id' => 'ID', 'param' => null), false, true),
-            array(array('css_id' => 'ID'), false, true),
-        );
+        return [
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => 'value'], true, true],
+            [['css_id' => '', 'checkbox' => true, 'param' => 'value'], true, false],
+            [['css_id' => null, 'checkbox' => true, 'param' => 'value'], true, false],
+            [['checkbox' => true, 'param' => 'value'], true, false],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => 'value'], false, true],
+            [['css_id' => '', 'checkbox' => true, 'param' => 'value'], false, false],
+            [['css_id' => null, 'checkbox' => true, 'param' => 'value'], false, false],
+            [['checkbox' => true, 'param' => 'value'], false, true],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => 'value'], true, true],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => '?'], true, false],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => ''], true, false],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => null], true, true],
+            [['css_id' => 'ID', 'checkbox' => true], true, true],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => 'value'], true, true],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => '?'], true, false],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => ''], true, false],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => null], true, true],
+            [['css_id' => 'ID', 'checkbox' => false], true, true],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => 'value'], true, true],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => '?'], true, false],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => ''], true, false],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => null], true, true],
+            [['css_id' => 'ID', 'checkbox' => null], true, true],
+            [['css_id' => 'ID', 'param' => 'value'], true, true],
+            [['css_id' => 'ID', 'param' => '?'], true, false],
+            [['css_id' => 'ID', 'param' => ''], true, false],
+            [['css_id' => 'ID', 'param' => null], true, true],
+            [['css_id' => 'ID'], true, true],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => 'value'], false, true],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => '?'], false, false],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => ''], false, false],
+            [['css_id' => 'ID', 'checkbox' => true, 'param' => null], false, true],
+            [['css_id' => 'ID', 'checkbox' => true], false, true],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => 'value'], false, true],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => '?'], false, false],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => ''], false, false],
+            [['css_id' => 'ID', 'checkbox' => false, 'param' => null], false, true],
+            [['css_id' => 'ID', 'checkbox' => false], false, true],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => 'value'], false, true],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => '?'], false, false],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => ''], false, false],
+            [['css_id' => 'ID', 'checkbox' => null, 'param' => null], false, true],
+            [['css_id' => 'ID', 'checkbox' => null], false, true],
+            [['css_id' => 'ID', 'param' => 'value'], false, true],
+            [['css_id' => 'ID', 'param' => '?'], false, false],
+            [['css_id' => 'ID', 'param' => ''], false, false],
+            [['css_id' => 'ID', 'param' => null], false, true],
+            [['css_id' => 'ID'], false, true],
+        ];
     }
 }

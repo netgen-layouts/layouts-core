@@ -18,7 +18,7 @@ final class ParameterMapper
      */
     public function mapParameters(ParameterCollectionInterface $parameterCollection, array $parameterValues)
     {
-        $mappedValues = array();
+        $mappedValues = [];
 
         foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
@@ -29,12 +29,12 @@ final class ParameterMapper
                 $parameterDefinition->getDefaultValue();
 
             $mappedValues[$parameterName] = new Parameter(
-                array(
+                [
                     'name' => $parameterName,
                     'parameterDefinition' => $parameterDefinition,
                     'value' => $value,
                     'isEmpty' => $parameterType->isValueEmpty($parameterDefinition, $value),
-                )
+                ]
             );
 
             if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
@@ -57,9 +57,9 @@ final class ParameterMapper
      *
      * @return array
      */
-    public function serializeValues(ParameterCollectionInterface $parameterCollection, array $parameterValues, array $fallbackValues = array())
+    public function serializeValues(ParameterCollectionInterface $parameterCollection, array $parameterValues, array $fallbackValues = [])
     {
-        $serializedValues = array();
+        $serializedValues = [];
 
         foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
@@ -91,7 +91,7 @@ final class ParameterMapper
      */
     public function extractUntranslatableParameters(ParameterCollectionInterface $parameterCollection, array $parameterValues)
     {
-        $untranslatableParams = array();
+        $untranslatableParams = [];
 
         foreach ($parameterCollection->getParameterDefinitions() as $paramName => $parameterDefinition) {
             if ($parameterDefinition->getOption('translatable')) {

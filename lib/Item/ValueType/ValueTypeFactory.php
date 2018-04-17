@@ -15,11 +15,11 @@ final class ValueTypeFactory
     public static function buildValueType($identifier, array $config)
     {
         return new ValueType(
-            array(
+            [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
-            )
+            ]
         );
     }
 }

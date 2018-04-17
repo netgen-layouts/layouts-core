@@ -128,7 +128,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            array('left' => array('top', 'shared')),
+            ['left' => ['top', 'shared']],
             false
         );
     }
@@ -143,7 +143,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            array('unknown' => array())
+            ['unknown' => []]
         );
     }
 
@@ -157,7 +157,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            array('left' => 42)
+            ['left' => 42]
         );
     }
 
@@ -171,7 +171,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            array('left' => array('top'), 'right' => array('top'))
+            ['left' => ['top'], 'right' => ['top']]
         );
     }
 
@@ -185,7 +185,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            array('left' => array('unknown'))
+            ['left' => ['unknown']]
         );
     }
 
@@ -199,341 +199,341 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            array('left' => array('top', 'shared'))
+            ['left' => ['top', 'shared']]
         );
     }
 
     public function validateLayoutCreateStructDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => false,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => true,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => null,
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => 42,
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => null,
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => '',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => '   ',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 42,
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => null,
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => '',
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 42,
                     'mainLocale' => 'en',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => '',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => null,
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 42,
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'unknown',
                     'shared' => null,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => '',
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => 42,
-                ),
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     public function validateLayoutUpdateStructDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'name' => 'New name',
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'name' => 23,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'name' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'name' => '',
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'name' => '   ',
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'description' => 'New description',
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'description' => 23,
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'description' => null,
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'description' => '',
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'description' => '   ',
-                ),
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 
     public function validateLayoutCopyStructDataProvider()
     {
-        return array(
-            array(array('name' => 'New name', 'description' => 'New description'), true),
-            array(array('name' => 23, 'description' => 'New description'), false),
-            array(array('name' => null, 'description' => 'New description'), false),
-            array(array('name' => '', 'description' => 'New description'), false),
-            array(array('name' => 'New name', 'description' => 23), false),
-            array(array('name' => 'New name', 'description' => null), true),
-            array(array('name' => 'New name', 'description' => ''), true),
-        );
+        return [
+            [['name' => 'New name', 'description' => 'New description'], true],
+            [['name' => 23, 'description' => 'New description'], false],
+            [['name' => null, 'description' => 'New description'], false],
+            [['name' => '', 'description' => 'New description'], false],
+            [['name' => 'New name', 'description' => 23], false],
+            [['name' => 'New name', 'description' => null], true],
+            [['name' => 'New name', 'description' => ''], true],
+        ];
     }
 
     public function validateChangeLayoutTypeDataProvider()
     {
-        return array(
-            array(
-                array(
-                    'left' => array('top'),
-                ),
-            ),
-            array(
-                array(
-                    'left' => array('shared'),
-                ),
-            ),
-            array(
-                array(
-                    'left' => array('top', 'bottom'),
-                ),
-            ),
-            array(
-                array(
-                    'left' => array('top'),
-                    'right' => array('bottom'),
-                ),
-            ),
-            array(
-                array(
-                    'left' => array(),
-                    'right' => array(),
-                ),
-            ),
-            array(
-                array(
-                    'left' => array(),
-                ),
-            ),
-            array(
-                array(),
-            ),
-        );
+        return [
+            [
+                [
+                    'left' => ['top'],
+                ],
+            ],
+            [
+                [
+                    'left' => ['shared'],
+                ],
+            ],
+            [
+                [
+                    'left' => ['top', 'bottom'],
+                ],
+            ],
+            [
+                [
+                    'left' => ['top'],
+                    'right' => ['bottom'],
+                ],
+            ],
+            [
+                [
+                    'left' => [],
+                    'right' => [],
+                ],
+            ],
+            [
+                [
+                    'left' => [],
+                ],
+            ],
+            [
+                [],
+            ],
+        ];
     }
 
     public function getLayout()
     {
         return new Layout(
-            array(
+            [
                 'zones' => new ArrayCollection(
-                    array(
+                    [
                         'top' => new Zone(),
                         'bottom' => new Zone(),
-                        'shared' => new Zone(array('linkedZone' => new Zone())),
-                    )
+                        'shared' => new Zone(['linkedZone' => new Zone()]),
+                    ]
                 ),
-            )
+            ]
         );
     }
 
     public function getLayoutType()
     {
         return new LayoutType(
-            array(
+            [
                 'identifier' => 'type',
-                'zones' => array(
+                'zones' => [
                     'left' => new LayoutTypeZone(),
                     'right' => new LayoutTypeZone(),
-                ),
-            )
+                ],
+            ]
         );
     }
 }

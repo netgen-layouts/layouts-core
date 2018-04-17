@@ -7,12 +7,12 @@ use Netgen\BlockManager\View\View\LayoutTypeView;
 
 final class LayoutTypeViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         return new LayoutTypeView(
-            array(
+            [
                 'layoutType' => $value,
-            )
+            ]
         );
     }
 

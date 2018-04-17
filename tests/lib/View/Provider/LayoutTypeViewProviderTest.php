@@ -27,7 +27,7 @@ final class LayoutTypeViewProviderTest extends TestCase
      */
     public function testProvideView()
     {
-        $layoutType = new LayoutType(array('identifier' => 'layout'));
+        $layoutType = new LayoutType(['identifier' => 'layout']);
 
         /** @var \Netgen\BlockManager\View\View\LayoutTypeViewInterface $view */
         $view = $this->layoutViewProvider->provideView($layoutType);
@@ -37,9 +37,9 @@ final class LayoutTypeViewProviderTest extends TestCase
         $this->assertEquals($layoutType, $view->getLayoutType());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
-            array(
+            [
                 'layoutType' => $layoutType,
-            ),
+            ],
             $view->getParameters()
         );
     }
@@ -63,11 +63,11 @@ final class LayoutTypeViewProviderTest extends TestCase
      */
     public function supportsProvider()
     {
-        return array(
-            array(new Value(), false),
-            array(new Block(), false),
-            array(new Layout(), false),
-            array(new LayoutType(), true),
-        );
+        return [
+            [new Value(), false],
+            [new Block(), false],
+            [new Layout(), false],
+            [new LayoutType(), true],
+        ];
     }
 }

@@ -55,12 +55,12 @@ final class TextLineTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array(),
-            ),
-        );
+        return [
+            [
+                [],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -70,13 +70,13 @@ final class TextLineTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -103,14 +103,14 @@ final class TextLineTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('test', true),
-            array(null, true),
-            array(12.3, false),
-            array(12, false),
-            array(true, false),
-            array(false, false),
-            array(array(), false),
-        );
+        return [
+            ['test', true],
+            [null, true],
+            [12.3, false],
+            [12, false],
+            [true, false],
+            [false, false],
+            [[], false],
+        ];
     }
 }

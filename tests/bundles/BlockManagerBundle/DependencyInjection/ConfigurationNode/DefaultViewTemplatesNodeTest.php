@@ -19,23 +19,23 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      */
     public function testDefaultViewTemplatesSettings()
     {
-        $config = array(
-            array(
-                'default_view_templates' => array(
-                    'view' => array(
+        $config = [
+            [
+                'default_view_templates' => [
+                    'view' => [
                         'context' => 'template.html.twig',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'default_view_templates' => array(
-                'view' => array(
+        $expectedConfig = [
+            'default_view_templates' => [
+                'view' => [
                     'context' => 'template.html.twig',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -52,13 +52,13 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      */
     public function testDefaultViewTemplatesSettingsWithNoContexts()
     {
-        $config = array(
-            'default_view_templates' => array(
-                'view' => array(),
-            ),
-        );
+        $config = [
+            'default_view_templates' => [
+                'view' => [],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -69,15 +69,15 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      */
     public function testDefaultViewTemplatesSettingsWithEmptyTemplate()
     {
-        $config = array(
-            'default_view_templates' => array(
-                'view' => array(
+        $config = [
+            'default_view_templates' => [
+                'view' => [
                     'context' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -88,15 +88,15 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      */
     public function testDefaultViewTemplatesSettingsWithInvalidTemplate()
     {
-        $config = array(
-            'default_view_templates' => array(
-                'view' => array(
-                    'context' => array('template.html.twig'),
-                ),
-            ),
-        );
+        $config = [
+            'default_view_templates' => [
+                'view' => [
+                    'context' => ['template.html.twig'],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

@@ -29,10 +29,10 @@ final class ConfigTest extends TestCase
         $definition = new ConfigDefinition();
 
         $config = new Config(
-            array(
+            [
                 'configKey' => 'config',
                 'definition' => $definition,
-            )
+            ]
         );
 
         $this->assertEquals('config', $config->getConfigKey());

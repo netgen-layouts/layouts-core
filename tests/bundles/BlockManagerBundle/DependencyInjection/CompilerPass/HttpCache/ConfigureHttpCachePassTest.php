@@ -16,15 +16,15 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
-        $this->setParameter('session.storage.options', array());
+        $this->setParameter('session.storage.options', []);
 
         $this->setParameter(
             'netgen_block_manager.http_cache',
-            array(
-                'invalidation' => array(
+            [
+                'invalidation' => [
                     'enabled' => true,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->compile();
@@ -41,15 +41,15 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
     public function testProcessWithDisabledInvalidation()
     {
         $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
-        $this->setParameter('session.storage.options', array());
+        $this->setParameter('session.storage.options', []);
 
         $this->setParameter(
             'netgen_block_manager.http_cache',
-            array(
-                'invalidation' => array(
+            [
+                'invalidation' => [
                     'enabled' => false,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->compile();

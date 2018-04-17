@@ -19,10 +19,10 @@ final class CollectionTest extends TestCase
     public function testSetProperties()
     {
         $collection = new Collection(
-            array(
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertEquals(42, $collection->id);

@@ -20,22 +20,22 @@ final class BlockTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->blockDefinition = new BlockDefinition(array('identifier' => 'title'));
+        $this->blockDefinition = new BlockDefinition(['identifier' => 'title']);
 
         $this->blockType = new BlockType(
-            array(
+            [
                 'identifier' => 'title',
                 'name' => 'Title',
                 'icon' => '/icon.svg',
                 'isEnabled' => false,
                 'definition' => $this->blockDefinition,
-                'defaults' => array(
+                'defaults' => [
                     'name' => 'Name',
                     'view_type' => 'default',
                     'item_view_type' => 'standard',
-                    'parameters' => array('tag' => 'h3'),
-                ),
-            )
+                    'parameters' => ['tag' => 'h3'],
+                ],
+            ]
         );
     }
 
@@ -86,12 +86,12 @@ final class BlockTypeTest extends TestCase
     public function testGetDefaults()
     {
         $this->assertEquals(
-            array(
+            [
                 'name' => 'Name',
                 'view_type' => 'default',
                 'item_view_type' => 'standard',
-                'parameters' => array('tag' => 'h3'),
-            ),
+                'parameters' => ['tag' => 'h3'],
+            ],
             $this->blockType->getDefaults()
         );
     }
@@ -125,7 +125,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefaultParameters()
     {
-        $this->assertEquals(array('tag' => 'h3'), $this->blockType->getDefaultParameters());
+        $this->assertEquals(['tag' => 'h3'], $this->blockType->getDefaultParameters());
     }
 
     /**
@@ -165,6 +165,6 @@ final class BlockTypeTest extends TestCase
     {
         $this->blockType = new BlockType();
 
-        $this->assertEquals(array(), $this->blockType->getDefaultParameters());
+        $this->assertEquals([], $this->blockType->getDefaultParameters());
     }
 }

@@ -47,7 +47,7 @@ final class Rule extends Value implements APIRule
      */
     protected $conditions;
 
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = [])
     {
         parent::__construct($properties);
 

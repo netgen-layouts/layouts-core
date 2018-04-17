@@ -29,9 +29,9 @@ final class TimeTest extends FormTestCase
     public function getMainType()
     {
         return new ConditionType(
-            array(
+            [
                 'time' => new TimeMapper(),
-            )
+            ]
         );
     }
 
@@ -44,35 +44,35 @@ final class TimeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'value' => array(
-                'from' => array(
+        $submittedData = [
+            'value' => [
+                'from' => [
                     'datetime' => '2018-02-15T13:00',
                     'timezone' => 'Antarctica/Casey',
-                ),
-                'to' => array(
+                ],
+                'to' => [
                     'datetime' => '2018-02-20T13:00',
                     'timezone' => 'Antarctica/Casey',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $updatedStruct = new ConditionCreateStruct();
-        $updatedStruct->value = array(
-            'from' => array(
+        $updatedStruct->value = [
+            'from' => [
                 'datetime' => '2018-02-15 13:00:00',
                 'timezone' => 'Antarctica/Casey',
-            ),
-            'to' => array(
+            ],
+            'to' => [
                 'datetime' => '2018-02-20 13:00:00',
                 'timezone' => 'Antarctica/Casey',
-            ),
-        );
+            ],
+        ];
 
         $form = $this->factory->create(
             ConditionType::class,
             new ConditionCreateStruct(),
-            array('conditionType' => $this->conditionType)
+            ['conditionType' => $this->conditionType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

@@ -136,7 +136,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function add($name, $type, array $options = array());
+    public function add($name, $type, array $options = []);
 
     /**
      * Returns the builder for parameter with provided name.

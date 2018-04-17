@@ -72,12 +72,12 @@ final class RangeTypeTest extends TestCase
      */
     public function defaultValueProvider()
     {
-        return array(
-            array(array('min' => 3, 'max' => 5), true, null, 3),
-            array(array('min' => 3, 'max' => 5), false, null, null),
-            array(array('min' => 3, 'max' => 5), true, 4, 4),
-            array(array('min' => 3, 'max' => 5), false, 4, 4),
-        );
+        return [
+            [['min' => 3, 'max' => 5], true, null, 3],
+            [['min' => 3, 'max' => 5], false, null, null],
+            [['min' => 3, 'max' => 5], true, 4, 4],
+            [['min' => 3, 'max' => 5], false, 4, 4],
+        ];
     }
 
     /**
@@ -87,28 +87,28 @@ final class RangeTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'min' => 5,
                     'max' => 10,
-                ),
-                array(
+                ],
+                [
                     'min' => 5,
                     'max' => 10,
-                ),
-            ),
-            array(
-                array(
+                ],
+            ],
+            [
+                [
                     'min' => 5,
                     'max' => 3,
-                ),
-                array(
+                ],
+                [
                     'min' => 5,
                     'max' => 5,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -118,53 +118,53 @@ final class RangeTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
-                    'max' => array(),
-                ),
-                array(
+        return [
+            [
+                [
+                    'max' => [],
+                ],
+                [
                     'max' => 5.5,
-                ),
-                array(
+                ],
+                [
                     'max' => '5',
-                ),
-                array(
-                    'min' => array(),
-                ),
-                array(
+                ],
+                [
+                    'min' => [],
+                ],
+                [
                     'min' => 5.5,
-                ),
-                array(
+                ],
+                [
                     'min' => '5',
-                ),
-                array(
+                ],
+                [
                     'undefined_value' => 'Value',
-                ),
-                array(
-                ),
-                array(
+                ],
+                [
+                ],
+                [
                     'max' => 5,
-                ),
-                array(
+                ],
+                [
                     'max' => null,
-                ),
-                array(
+                ],
+                [
                     'min' => 5,
-                ),
-                array(
+                ],
+                [
                     'min' => null,
-                ),
-                array(
+                ],
+                [
                     'min' => null,
                     'max' => 5,
-                ),
-                array(
+                ],
+                [
                     'min' => 5,
                     'max' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -177,7 +177,7 @@ final class RangeTypeTest extends TestCase
      */
     public function testValidation($value, $required, $isValid)
     {
-        $parameter = $this->getParameterDefinition(array('min' => 5, 'max' => 10), $required);
+        $parameter = $this->getParameterDefinition(['min' => 5, 'max' => 10], $required);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -191,25 +191,25 @@ final class RangeTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('12', false, false),
-            array(true, false, false),
-            array(array(), false, false),
-            array(12, false, false),
-            array(12.3, false, false),
-            array(0, false, false),
-            array(-12, false, false),
-            array(5, false, true),
-            array(7, false, true),
-            array(7.5, false, true),
-            array(10, false, true),
-            array(null, false, true),
-            array(5, true, true),
-            array(7, true, true),
-            array(7.5, true, true),
-            array(10, true, true),
-            array(null, true, false),
-        );
+        return [
+            ['12', false, false],
+            [true, false, false],
+            [[], false, false],
+            [12, false, false],
+            [12.3, false, false],
+            [0, false, false],
+            [-12, false, false],
+            [5, false, true],
+            [7, false, true],
+            [7.5, false, true],
+            [10, false, true],
+            [null, false, true],
+            [5, true, true],
+            [7, true, true],
+            [7.5, true, true],
+            [10, true, true],
+            [null, true, false],
+        ];
     }
 
     /**
@@ -231,11 +231,11 @@ final class RangeTypeTest extends TestCase
      */
     public function emptyProvider()
     {
-        return array(
-            array(null, true),
-            array(42, false),
-            array(42.5, false),
-            array(0, false),
-        );
+        return [
+            [null, true],
+            [42, false],
+            [42.5, false],
+            [0, false],
+        ];
     }
 }

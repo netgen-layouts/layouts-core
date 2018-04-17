@@ -25,7 +25,7 @@ final class IdProvider implements IdProviderInterface
 
     public function provideIds($layoutId)
     {
-        $layoutIds = array($layoutId);
+        $layoutIds = [$layoutId];
 
         try {
             $layout = $this->layoutService->loadLayout($layoutId);

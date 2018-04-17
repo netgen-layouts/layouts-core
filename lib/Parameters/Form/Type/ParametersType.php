@@ -28,11 +28,11 @@ final class ParametersType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setRequired(
-            array(
+            [
                 'groups',
                 'parameter_collection',
                 'label_prefix',
-            )
+            ]
         );
 
         $resolver->setAllowedTypes('groups', 'array');
@@ -40,7 +40,7 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('parameter_collection', ParameterCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
 
-        $resolver->setDefault('groups', array());
+        $resolver->setDefault('groups', []);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -60,13 +60,13 @@ final class ParametersType extends AbstractType
                 $parameterDefinition->getType()->getIdentifier()
             );
 
-            $defaultOptions = array(
+            $defaultOptions = [
                 'label' => $parameterLabel === null ?
                     $options['label_prefix'] . '.' . $parameterName :
                     $parameterLabel,
                 'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngbm_parameter_definition' => $parameterDefinition,
-            );
+            ];
 
             $parameterForm = $builder->create(
                 $parameterName,
@@ -81,9 +81,9 @@ final class ParametersType extends AbstractType
             if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
                 $this->buildForm(
                     $parameterForm,
-                    array(
+                    [
                         'parameter_collection' => $parameterDefinition,
-                    ) + $options
+                    ] + $options
                 );
             }
 
@@ -99,7 +99,7 @@ final class ParametersType extends AbstractType
      *
      * @return bool
      */
-    private function includeParameter(ParameterDefinitionInterface $parameterDefinition, array $groups = array())
+    private function includeParameter(ParameterDefinitionInterface $parameterDefinition, array $groups = [])
     {
         $parameterGroups = $parameterDefinition->getGroups();
 

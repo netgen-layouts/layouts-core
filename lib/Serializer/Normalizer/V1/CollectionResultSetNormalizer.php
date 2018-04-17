@@ -15,25 +15,25 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
 {
     use SerializerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Collection\Result\ResultSet $resultSet */
         $resultSet = $object->getValue();
 
-        $results = array();
+        $results = [];
         foreach ($resultSet as $result) {
             $results[] = new VersionedValue($result, $object->getVersion());
         }
 
-        $overflowItems = array();
+        $overflowItems = [];
         foreach ($this->getoverflowItems($resultSet) as $overflowItem) {
             $overflowItems[] = new VersionedValue($overflowItem, $object->getVersion());
         }
 
-        return array(
+        return [
             'items' => $this->serializer->normalize($results, $format, $context),
             'overflow_items' => $this->serializer->normalize($overflowItems, $format, $context),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)
@@ -56,7 +56,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
      */
     private function getOverflowItems(ResultSet $resultSet)
     {
-        $includedPositions = array();
+        $includedPositions = [];
         foreach ($resultSet->getResults() as $result) {
             if ($result->getItem() instanceof ManualItem) {
                 $includedPositions[] = $result->getItem()->getCollectionItem()->getPosition();
@@ -67,7 +67,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
             }
         }
 
-        $overflowItems = array();
+        $overflowItems = [];
         foreach ($resultSet->getCollection()->getItems() as $item) {
             if (!in_array($item->getPosition(), $includedPositions, true)) {
                 $overflowItems[] = $item;

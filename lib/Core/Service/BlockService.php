@@ -142,7 +142,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $persistenceBlocks = $this->blockHandler->loadChildBlocks($rootBlock);
 
-        $blocks = array();
+        $blocks = [];
         foreach ($persistenceBlocks as $persistenceBlock) {
             try {
                 $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useMainLocale);
@@ -169,7 +169,7 @@ final class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        $blocks = array();
+        $blocks = [];
         foreach ($persistenceBlocks as $persistenceBlock) {
             try {
                 $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useMainLocale);
@@ -274,7 +274,7 @@ final class BlockService extends Service implements BlockServiceInterface
                 return $this->blockHandler->updateBlock(
                     $persistenceBlock,
                     new BlockUpdateStruct(
-                        array(
+                        [
                             'viewType' => $blockUpdateStruct->viewType,
                             'itemViewType' => $blockUpdateStruct->itemViewType,
                             'name' => $blockUpdateStruct->name,
@@ -284,13 +284,13 @@ final class BlockService extends Service implements BlockServiceInterface
                                 $block->getDefinition()->getConfigDefinitions(),
                                 $persistenceBlock->config
                             ),
-                        )
+                        ]
                     )
                 );
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock, array($block->getLocale()));
+        return $this->mapper->mapBlock($updatedBlock, [$block->getLocale()]);
     }
 
     public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null)
@@ -333,7 +333,7 @@ final class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($copiedBlock, array($block->getLocale()));
+        return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
     }
 
     public function copyBlockToZone(Block $block, Zone $zone, $position = null)
@@ -369,7 +369,7 @@ final class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($copiedBlock, array($block->getLocale()));
+        return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
     }
 
     public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
@@ -408,7 +408,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $movedBlock = $this->internalMoveBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
 
-        return $this->mapper->mapBlock($movedBlock, array($block->getLocale()));
+        return $this->mapper->mapBlock($movedBlock, [$block->getLocale()]);
     }
 
     public function moveBlockToZone(Block $block, Zone $zone, $position)
@@ -440,7 +440,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $movedBlock = $this->internalMoveBlock($persistenceBlock, $rootBlock, 'root', $position);
 
-        return $this->mapper->mapBlock($movedBlock, array($block->getLocale()));
+        return $this->mapper->mapBlock($movedBlock, [$block->getLocale()]);
     }
 
     public function restoreBlock(Block $block)
@@ -505,9 +505,9 @@ final class BlockService extends Service implements BlockServiceInterface
                 $updatedBlock = $this->blockHandler->updateBlock(
                     $persistenceBlock,
                     new BlockUpdateStruct(
-                        array(
+                        [
                             'isTranslatable' => true,
-                        )
+                        ]
                     )
                 );
 
@@ -600,7 +600,7 @@ final class BlockService extends Service implements BlockServiceInterface
             function () use ($blockCreateStruct, $persistenceLayout, $targetBlock, $placeholder, $position) {
                 $createdBlock = $this->blockHandler->createBlock(
                     new BlockCreateStruct(
-                        array(
+                        [
                             'status' => $targetBlock->status,
                             'position' => $position,
                             'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
@@ -617,7 +617,7 @@ final class BlockService extends Service implements BlockServiceInterface
                                 $blockCreateStruct->getConfigStructs(),
                                 $blockCreateStruct->definition->getConfigDefinitions()
                             ),
-                        )
+                        ]
                     ),
                     $persistenceLayout,
                     $targetBlock,
@@ -629,14 +629,14 @@ final class BlockService extends Service implements BlockServiceInterface
                     foreach ($collectionCreateStructs as $identifier => $collectionCreateStruct) {
                         $createdCollection = $this->collectionHandler->createCollection(
                             new CollectionCreateStruct(
-                                array(
+                                [
                                     'status' => Value::STATUS_DRAFT,
                                     'offset' => $collectionCreateStruct->offset,
                                     'limit' => $collectionCreateStruct->limit,
                                     'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                                     'isTranslatable' => $blockCreateStruct->isTranslatable,
                                     'mainLocale' => $persistenceLayout->mainLocale,
-                                )
+                                ]
                             )
                         );
 
@@ -645,13 +645,13 @@ final class BlockService extends Service implements BlockServiceInterface
                             $this->collectionHandler->createQuery(
                                 $createdCollection,
                                 new QueryCreateStruct(
-                                    array(
+                                    [
                                         'type' => $queryType->getType(),
                                         'parameters' => $this->parameterMapper->serializeValues(
                                             $queryType,
                                             $collectionCreateStruct->queryCreateStruct->getParameterValues()
                                         ),
-                                    )
+                                    ]
                                 )
                             );
                         }
@@ -671,10 +671,10 @@ final class BlockService extends Service implements BlockServiceInterface
                         $this->blockHandler->createCollectionReference(
                             $createdBlock,
                             new CollectionReferenceCreateStruct(
-                                array(
+                                [
                                     'identifier' => $identifier,
                                     'collection' => $createdCollection,
-                                )
+                                ]
                             )
                         );
                     }
@@ -730,9 +730,9 @@ final class BlockService extends Service implements BlockServiceInterface
         $block = $this->blockHandler->updateBlock(
             $block,
             new BlockUpdateStruct(
-                array(
+                [
                     'isTranslatable' => false,
-                )
+                ]
             )
         );
 
@@ -774,13 +774,13 @@ final class BlockService extends Service implements BlockServiceInterface
                 $persistenceBlock,
                 $blockUpdateStruct->locale,
                 new TranslationUpdateStruct(
-                    array(
+                    [
                         'parameters' => $this->parameterMapper->serializeValues(
                             $block->getDefinition(),
                             $blockUpdateStruct->getParameterValues(),
                             $persistenceBlock->parameters[$persistenceBlock->mainLocale]
                         ),
-                    )
+                    ]
                 )
             );
         }
@@ -790,7 +790,7 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceBlock->parameters[$persistenceBlock->mainLocale]
         );
 
-        $localesToUpdate = array($blockUpdateStruct->locale);
+        $localesToUpdate = [$blockUpdateStruct->locale];
         if ($persistenceBlock->mainLocale === $blockUpdateStruct->locale) {
             $localesToUpdate = $persistenceBlock->availableLocales;
 
@@ -813,9 +813,9 @@ final class BlockService extends Service implements BlockServiceInterface
                 $persistenceBlock,
                 $locale,
                 new TranslationUpdateStruct(
-                    array(
+                    [
                         'parameters' => $untranslatableParams + $params,
-                    )
+                    ]
                 )
             );
         }

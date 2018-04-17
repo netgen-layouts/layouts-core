@@ -34,18 +34,18 @@ final class RuntimeLoaderPass implements CompilerPassInterface
         foreach ($runtimes as $runtime) {
             $runtimeLoader->addMethodCall(
                 'addRuntime',
-                array(
+                [
                     $container->getDefinition($runtime)->getClass(),
                     $runtime,
-                )
+                ]
             );
         }
 
         $twig->addMethodCall(
             'addRuntimeLoader',
-            array(
+            [
                 new Reference(self::$serviceName),
-            )
+            ]
         );
     }
 }

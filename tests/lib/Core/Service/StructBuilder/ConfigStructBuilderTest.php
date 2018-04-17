@@ -30,15 +30,15 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
     public function testBuildConfigUpdateStructs()
     {
         $block = new ConfigAwareValue(
-            array(
-                'configs' => array(
+            [
+                'configs' => [
                     'config' => new Config(
-                        array(
+                        [
                             'definition' => new ConfigDefinition('config'),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $struct = new BlockUpdateStruct();
@@ -46,16 +46,16 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
         $this->structBuilder->buildConfigUpdateStructs($block, $struct);
 
         $this->assertEquals(
-            array(
+            [
                 'config' => new ConfigStruct(
-                    array(
-                        'parameterValues' => array(
+                    [
+                        'parameterValues' => [
                             'param' => null,
                             'param2' => null,
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            ),
+            ],
             $struct->getConfigStructs()
         );
     }

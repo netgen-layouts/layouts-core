@@ -159,7 +159,7 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
-            new Target(array('targetType' => new TargetType('target'))),
+            new Target(['targetType' => new TargetType('target')]),
             new TargetUpdateStruct($params)
         );
     }
@@ -200,107 +200,107 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
-            new Condition(array('conditionType' => new ConditionType('condition'))),
+            new Condition(['conditionType' => new ConditionType('condition')]),
             new ConditionUpdateStruct($params)
         );
     }
 
     public function validateRuleCreateStructProvider()
     {
-        return array(
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), true),
-            array(array('layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), true),
-            array(array('layoutId' => '12', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), true),
-            array(array('layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), false),
-            array(array('layoutId' => array(), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'priority' => null, 'enabled' => true, 'comment' => 'Comment'), true),
-            array(array('layoutId' => 12, 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => null), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => ''), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 42), false),
-        );
+        return [
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => '12', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
+            [['layoutId' => [], 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
+            [['layoutId' => 12, 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => 12, 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => null], true],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
+            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
+        ];
     }
 
     public function validateRuleUpdateStructProvider()
     {
-        return array(
-            array(array('layoutId' => 12, 'comment' => 'Comment'), true),
-            array(array('layoutId' => null, 'comment' => 'Comment'), true),
-            array(array('layoutId' => '12', 'comment' => 'Comment'), true),
-            array(array('layoutId' => '', 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'comment' => null), true),
-            array(array('layoutId' => 12, 'comment' => ''), true),
-            array(array('layoutId' => 12, 'comment' => 42), false),
-        );
+        return [
+            [['layoutId' => 12, 'comment' => 'Comment'], true],
+            [['layoutId' => null, 'comment' => 'Comment'], true],
+            [['layoutId' => '12', 'comment' => 'Comment'], true],
+            [['layoutId' => '', 'comment' => 'Comment'], false],
+            [['layoutId' => 12, 'comment' => null], true],
+            [['layoutId' => 12, 'comment' => ''], true],
+            [['layoutId' => 12, 'comment' => 42], false],
+        ];
     }
 
     public function validateRuleMetadataUpdateStructProvider()
     {
-        return array(
-            array(array('priority' => -12), true),
-            array(array('priority' => 0), true),
-            array(array('priority' => 12), true),
-            array(array('priority' => null), true),
-            array(array('priority' => '12'), false),
-            array(array('priority' => ''), false),
-        );
+        return [
+            [['priority' => -12], true],
+            [['priority' => 0], true],
+            [['priority' => 12], true],
+            [['priority' => null], true],
+            [['priority' => '12'], false],
+            [['priority' => ''], false],
+        ];
     }
 
     public function validateTargetCreateStructProvider()
     {
-        return array(
-            array(array('type' => 'target', 'value' => 42), true),
-            array(array('type' => 'target', 'value' => '42'), true),
-            array(array('type' => 'target', 'value' => array(42)), true),
-            array(array('type' => '', 'value' => 42), false),
-            array(array('type' => null, 'value' => 42), false),
-            array(array('type' => 42, 'value' => 42), false),
-            array(array('type' => 'target', 'value' => null), false),
-            array(array('type' => 'target', 'value' => ''), false),
-            array(array('type' => 'target', 'value' => array()), false),
-        );
+        return [
+            [['type' => 'target', 'value' => 42], true],
+            [['type' => 'target', 'value' => '42'], true],
+            [['type' => 'target', 'value' => [42]], true],
+            [['type' => '', 'value' => 42], false],
+            [['type' => null, 'value' => 42], false],
+            [['type' => 42, 'value' => 42], false],
+            [['type' => 'target', 'value' => null], false],
+            [['type' => 'target', 'value' => ''], false],
+            [['type' => 'target', 'value' => []], false],
+        ];
     }
 
     public function validateTargetUpdateStructProvider()
     {
-        return array(
-            array(array('value' => 42), true),
-            array(array('value' => '42'), true),
-            array(array('value' => array(42)), true),
-            array(array('value' => null), false),
-            array(array('value' => ''), false),
-            array(array('value' => array()), false),
-        );
+        return [
+            [['value' => 42], true],
+            [['value' => '42'], true],
+            [['value' => [42]], true],
+            [['value' => null], false],
+            [['value' => ''], false],
+            [['value' => []], false],
+        ];
     }
 
     public function validateConditionCreateStructProvider()
     {
-        return array(
-            array(array('type' => 'condition', 'value' => 42), true),
-            array(array('type' => 'condition', 'value' => '42'), true),
-            array(array('type' => 'condition', 'value' => array(42)), true),
-            array(array('type' => '', 'value' => 42), false),
-            array(array('type' => null, 'value' => 42), false),
-            array(array('type' => 42, 'value' => 42), false),
-            array(array('type' => 'condition', 'value' => null), false),
-            array(array('type' => 'condition', 'value' => ''), false),
-            array(array('type' => 'condition', 'value' => array()), false),
-        );
+        return [
+            [['type' => 'condition', 'value' => 42], true],
+            [['type' => 'condition', 'value' => '42'], true],
+            [['type' => 'condition', 'value' => [42]], true],
+            [['type' => '', 'value' => 42], false],
+            [['type' => null, 'value' => 42], false],
+            [['type' => 42, 'value' => 42], false],
+            [['type' => 'condition', 'value' => null], false],
+            [['type' => 'condition', 'value' => ''], false],
+            [['type' => 'condition', 'value' => []], false],
+        ];
     }
 
     public function validateConditionUpdateStructProvider()
     {
-        return array(
-            array(array('value' => 42), true),
-            array(array('value' => '42'), true),
-            array(array('value' => array(42)), true),
-            array(array('value' => null), false),
-            array(array('value' => ''), false),
-            array(array('value' => array()), false),
-        );
+        return [
+            [['value' => 42], true],
+            [['value' => '42'], true],
+            [['value' => [42]], true],
+            [['value' => null], false],
+            [['value' => ''], false],
+            [['value' => []], false],
+        ];
     }
 }

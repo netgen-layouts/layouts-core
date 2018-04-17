@@ -35,7 +35,7 @@ final class ItemLoaderTest extends TestCase
      */
     public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
     {
-        new ItemLoader($this->itemBuilderMock, array(new stdClass()));
+        new ItemLoader($this->itemBuilderMock, [new stdClass()]);
     }
 
     /**
@@ -45,19 +45,19 @@ final class ItemLoaderTest extends TestCase
     public function testLoad()
     {
         $item = new Item(
-            array(
+            [
                 'value' => 42,
                 'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',
                 'isVisible' => true,
                 'object' => new Value(42, 'abc'),
-            )
+            ]
         );
 
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,
-            array('value' => new ValueLoader())
+            ['value' => new ValueLoader()]
         );
 
         $this->itemBuilderMock
@@ -75,7 +75,7 @@ final class ItemLoaderTest extends TestCase
     {
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,
-            array('value' => new ValueLoader(true))
+            ['value' => new ValueLoader(true)]
         );
 
         $this->assertEquals(new NullItem(42), $this->itemLoader->load(42, 'value'));
@@ -99,19 +99,19 @@ final class ItemLoaderTest extends TestCase
     public function testLoadByRemoteId()
     {
         $item = new Item(
-            array(
+            [
                 'value' => 42,
                 'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',
                 'isVisible' => true,
                 'object' => new Value(42, 'abc'),
-            )
+            ]
         );
 
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,
-            array('value' => new ValueLoader())
+            ['value' => new ValueLoader()]
         );
 
         $this->itemBuilderMock
@@ -129,7 +129,7 @@ final class ItemLoaderTest extends TestCase
     {
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,
-            array('value' => new ValueLoader(true))
+            ['value' => new ValueLoader(true)]
         );
 
         $this->assertEquals(new NullItem(42), $this->itemLoader->loadByRemoteId(42, 'value'));

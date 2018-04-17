@@ -33,7 +33,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('blockId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['blockId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -68,10 +68,10 @@ final class BlockParamConverterTest extends TestCase
         $this->assertEquals(
             $block,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'blockId' => 42,
                     'published' => true,
-                )
+                ]
             )
         );
     }
@@ -92,10 +92,10 @@ final class BlockParamConverterTest extends TestCase
         $this->assertEquals(
             $block,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'blockId' => 42,
                     'published' => false,
-                )
+                ]
             )
         );
     }

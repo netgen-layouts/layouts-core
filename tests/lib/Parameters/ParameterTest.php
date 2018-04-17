@@ -36,12 +36,12 @@ final class ParameterTest extends TestCase
     public function testSetProperties()
     {
         $parameter = new Parameter(
-            array(
+            [
                 'name' => 'param_name',
                 'parameterDefinition' => new ParameterDefinition(),
                 'value' => 42,
                 'isEmpty' => false,
-            )
+            ]
         );
 
         $this->assertEquals('param_name', $parameter->getName());

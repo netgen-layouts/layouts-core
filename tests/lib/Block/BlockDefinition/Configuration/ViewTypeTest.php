@@ -16,15 +16,15 @@ final class ViewTypeTest extends TestCase
     public function setUp()
     {
         $this->viewType = new ViewType(
-            array(
+            [
                 'identifier' => 'large',
                 'name' => 'Large',
-                'itemViewTypes' => array(
-                    'standard' => new ItemViewType(array('identifier' => 'standard')),
-                    'standard_with_intro' => new ItemViewType(array('identifier' => 'standard_with_intro')),
-                ),
-                'validParameters' => array('param1', 'param2'),
-            )
+                'itemViewTypes' => [
+                    'standard' => new ItemViewType(['identifier' => 'standard']),
+                    'standard_with_intro' => new ItemViewType(['identifier' => 'standard_with_intro']),
+                ],
+                'validParameters' => ['param1', 'param2'],
+            ]
         );
     }
 
@@ -51,10 +51,10 @@ final class ViewTypeTest extends TestCase
     public function testGetItemViewTypes()
     {
         $this->assertEquals(
-            array(
-                'standard' => new ItemViewType(array('identifier' => 'standard')),
-                'standard_with_intro' => new ItemViewType(array('identifier' => 'standard_with_intro')),
-            ),
+            [
+                'standard' => new ItemViewType(['identifier' => 'standard']),
+                'standard_with_intro' => new ItemViewType(['identifier' => 'standard_with_intro']),
+            ],
             $this->viewType->getItemViewTypes()
         );
     }
@@ -65,7 +65,7 @@ final class ViewTypeTest extends TestCase
     public function testGetItemViewTypeIdentifiers()
     {
         $this->assertEquals(
-            array('standard', 'standard_with_intro'),
+            ['standard', 'standard_with_intro'],
             $this->viewType->getItemViewTypeIdentifiers()
         );
     }
@@ -85,7 +85,7 @@ final class ViewTypeTest extends TestCase
     public function testGetItemViewType()
     {
         $this->assertEquals(
-            new ItemViewType(array('identifier' => 'standard')),
+            new ItemViewType(['identifier' => 'standard']),
             $this->viewType->getItemViewType('standard')
         );
     }
@@ -106,7 +106,7 @@ final class ViewTypeTest extends TestCase
     public function testGetValidParameters()
     {
         $this->assertEquals(
-            array('param1', 'param2'),
+            ['param1', 'param2'],
             $this->viewType->getValidParameters()
         );
     }

@@ -34,7 +34,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testAddBlockDefinition()
     {
-        $this->assertEquals(array('block_definition' => $this->blockDefinition), $this->registry->getBlockDefinitions());
+        $this->assertEquals(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
     }
 
     /**
@@ -78,7 +78,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $blockDefinitions = array();
+        $blockDefinitions = [];
         foreach ($this->registry as $identifier => $blockDefinition) {
             $blockDefinitions[$identifier] = $blockDefinition;
         }

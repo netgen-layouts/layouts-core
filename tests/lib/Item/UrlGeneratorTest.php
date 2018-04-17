@@ -18,7 +18,7 @@ final class UrlGeneratorTest extends TestCase
     public function setUp()
     {
         $this->urlGenerator = new UrlGenerator(
-            array('value' => new ValueUrlGenerator())
+            ['value' => new ValueUrlGenerator()]
         );
     }
 
@@ -29,7 +29,7 @@ final class UrlGeneratorTest extends TestCase
      */
     public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
     {
-        new UrlGenerator(array(new stdClass()));
+        new UrlGenerator([new stdClass()]);
     }
 
     /**
@@ -41,7 +41,7 @@ final class UrlGeneratorTest extends TestCase
         $this->assertEquals(
             '/item-url',
             $this->urlGenerator->generate(
-                new Item(array('valueType' => 'value'))
+                new Item(['valueType' => 'value'])
             )
         );
     }
@@ -53,7 +53,7 @@ final class UrlGeneratorTest extends TestCase
     {
         $this->assertNull(
             $this->urlGenerator->generate(
-                new Item(array('valueType' => 'unknown'))
+                new Item(['valueType' => 'unknown'])
             )
         );
     }

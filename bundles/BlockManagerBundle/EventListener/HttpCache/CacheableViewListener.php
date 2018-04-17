@@ -16,10 +16,10 @@ final class CacheableViewListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             KernelEvents::VIEW => 'onView',
-            KernelEvents::RESPONSE => array('onKernelResponse', -255),
-        );
+            KernelEvents::RESPONSE => ['onKernelResponse', -255],
+        ];
     }
 
     /**

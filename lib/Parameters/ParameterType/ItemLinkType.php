@@ -39,10 +39,10 @@ final class ItemLinkType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array('value_types', 'allow_invalid'));
+        $optionsResolver->setRequired(['value_types', 'allow_invalid']);
         $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setAllowedTypes('allow_invalid', 'bool');
-        $optionsResolver->setDefault('value_types', array());
+        $optionsResolver->setDefault('value_types', []);
         $optionsResolver->setDefault('allow_invalid', false);
 
         $optionsResolver->setNormalizer(
@@ -80,14 +80,14 @@ final class ItemLinkType extends ParameterType
     {
         $options = $parameterDefinition->getOptions();
 
-        return array(
-            new Constraints\Type(array('type' => 'string')),
+        return [
+            new Constraints\Type(['type' => 'string']),
             new ItemLinkConstraint(
-                array(
+                [
                     'valueTypes' => $options['value_types'],
                     'allowInvalid' => $options['allow_invalid'],
-                )
+                ]
             ),
-        );
+        ];
     }
 }

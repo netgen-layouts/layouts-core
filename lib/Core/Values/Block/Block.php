@@ -52,12 +52,12 @@ final class Block extends Value implements APIBlock
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
-    protected $placeholders = array();
+    protected $placeholders = [];
 
     /**
      * @var \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    protected $collectionReferences = array();
+    protected $collectionReferences = [];
 
     /**
      * @var \Netgen\BlockManager\Block\DynamicParameters
@@ -67,7 +67,7 @@ final class Block extends Value implements APIBlock
     /**
      * @var string[]
      */
-    protected $availableLocales = array();
+    protected $availableLocales = [];
 
     /**
      * @var string

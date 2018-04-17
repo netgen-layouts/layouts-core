@@ -60,7 +60,7 @@ final class LayoutResolverMapper
     {
         $handler = $this->persistenceHandler->getLayoutResolverHandler();
 
-        $ruleData = array(
+        $ruleData = [
             'id' => $rule->id,
             'status' => $rule->status,
             'layout' => function () use ($rule) {
@@ -99,7 +99,7 @@ final class LayoutResolverMapper
                     );
                 }
             ),
-        );
+        ];
 
         return new Rule($ruleData);
     }
@@ -113,7 +113,7 @@ final class LayoutResolverMapper
      */
     public function mapTarget(PersistenceTarget $target)
     {
-        $targetData = array(
+        $targetData = [
             'id' => $target->id,
             'status' => $target->status,
             'ruleId' => $target->ruleId,
@@ -121,7 +121,7 @@ final class LayoutResolverMapper
                 $target->type
             ),
             'value' => $target->value,
-        );
+        ];
 
         return new Target($targetData);
     }
@@ -135,7 +135,7 @@ final class LayoutResolverMapper
      */
     public function mapCondition(PersistenceCondition $condition)
     {
-        $conditionData = array(
+        $conditionData = [
             'id' => $condition->id,
             'status' => $condition->status,
             'ruleId' => $condition->ruleId,
@@ -143,7 +143,7 @@ final class LayoutResolverMapper
                 $condition->type
             ),
             'value' => $condition->value,
-        );
+        ];
 
         return new Condition($conditionData);
     }

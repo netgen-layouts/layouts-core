@@ -48,11 +48,11 @@ final class CollectionViewTest extends TestCase
             ->with(
                 $this->equalTo('default_template.html.twig'),
                 $this->equalTo(
-                    array(
+                    [
                         'pager' => $pagerMock,
                         'block' => new Block(),
                         'collection_identifier' => 'default',
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered template'));
@@ -60,10 +60,10 @@ final class CollectionViewTest extends TestCase
         $renderedTemplate = $this->collectionView->render(
             $pagerMock,
             $this->getRouteGenerator(),
-            array(
+            [
                 'block' => new Block(),
                 'collection_identifier' => 'default',
-            )
+            ]
         );
 
         $this->assertEquals('rendered template', $renderedTemplate);
@@ -81,11 +81,11 @@ final class CollectionViewTest extends TestCase
             ->with(
                 $this->equalTo('template.html.twig'),
                 $this->equalTo(
-                    array(
+                    [
                         'pager' => $pagerMock,
                         'block' => new Block(),
                         'collection_identifier' => 'default',
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered template'));
@@ -93,11 +93,11 @@ final class CollectionViewTest extends TestCase
         $renderedTemplate = $this->collectionView->render(
             $pagerMock,
             $this->getRouteGenerator(),
-            array(
+            [
                 'block' => new Block(),
                 'collection_identifier' => 'default',
                 'template' => 'template.html.twig',
-            )
+            ]
         );
 
         $this->assertEquals('rendered template', $renderedTemplate);
@@ -118,9 +118,9 @@ final class CollectionViewTest extends TestCase
         $this->collectionView->render(
             $pagerMock,
             $this->getRouteGenerator(),
-            array(
+            [
                 'collection_identifier' => 'default',
-            )
+            ]
         );
     }
 
@@ -139,10 +139,10 @@ final class CollectionViewTest extends TestCase
         $this->collectionView->render(
             $pagerMock,
             $this->getRouteGenerator(),
-            array(
+            [
                 'block' => 'block',
                 'collection_identifier' => 'default',
-            )
+            ]
         );
     }
 
@@ -161,9 +161,9 @@ final class CollectionViewTest extends TestCase
         $this->collectionView->render(
             $pagerMock,
             $this->getRouteGenerator(),
-            array(
+            [
                 'block' => new Block(),
-            )
+            ]
         );
     }
 
@@ -182,10 +182,10 @@ final class CollectionViewTest extends TestCase
         $this->collectionView->render(
             $pagerMock,
             $this->getRouteGenerator(),
-            array(
+            [
                 'block' => new Block(),
                 'collection_identifier' => 42,
-            )
+            ]
         );
     }
 

@@ -51,16 +51,16 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
@@ -86,7 +86,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 0,
@@ -94,8 +94,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT)
         );
@@ -121,7 +121,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 0,
@@ -129,8 +129,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->loadItemWithPosition(
                 $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -179,30 +179,30 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 2,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED)
         );
@@ -231,30 +231,30 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 2,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $query
         );
@@ -318,16 +318,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 7,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 5,
                     'limit' => 10,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $createdCollection
         );
@@ -348,16 +348,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 2,
                     'status' => Value::STATUS_PUBLISHED,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr', 'de'),
+                    'availableLocales' => ['en', 'hr', 'de'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $collection
         );
@@ -366,36 +366,36 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => $collection->id,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('de', 'en', 'hr'),
+                    'availableLocales' => ['de', 'en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'de' => array(
+                        ],
+                        'de' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $query
         );
@@ -415,16 +415,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 2,
                     'status' => Value::STATUS_PUBLISHED,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr', 'de'),
+                    'availableLocales' => ['en', 'hr', 'de'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $collection
         );
@@ -433,36 +433,36 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => $collection->id,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('de', 'en', 'hr'),
+                    'availableLocales' => ['de', 'en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'de' => array(
+                        ],
+                        'de' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $query
         );
@@ -482,16 +482,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr', 'de'),
+                    'availableLocales' => ['en', 'hr', 'de'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $collection
         );
@@ -579,16 +579,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 5,
                     'limit' => 10,
                     'isTranslatable' => false,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => false,
-                )
+                ]
             ),
             $this->collectionHandler->updateCollection(
                 $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -609,16 +609,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 3,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 5,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $this->collectionHandler->updateCollection(
                 $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
@@ -637,16 +637,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $this->collectionHandler->updateCollection(
                 $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -672,24 +672,24 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 7,
                     'status' => Value::STATUS_PUBLISHED,
                     'offset' => 4,
                     'limit' => 2,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $copiedCollection
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Item(
-                    array(
+                    [
                         'id' => 13,
                         'collectionId' => $copiedCollection->id,
                         'position' => 2,
@@ -697,11 +697,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 14,
                         'collectionId' => $copiedCollection->id,
                         'position' => 3,
@@ -709,11 +709,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 15,
                         'collectionId' => $copiedCollection->id,
                         'position' => 5,
@@ -721,39 +721,39 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 5,
                     'collectionId' => $copiedCollection->id,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->collectionHandler->loadCollectionQuery($copiedCollection)
         );
@@ -774,24 +774,24 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 7,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $copiedCollection
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Item(
-                    array(
+                    [
                         'id' => 13,
                         'collectionId' => $copiedCollection->id,
                         'position' => 0,
@@ -799,11 +799,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 14,
                         'collectionId' => $copiedCollection->id,
                         'position' => 1,
@@ -811,11 +811,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 15,
                         'collectionId' => $copiedCollection->id,
                         'position' => 2,
@@ -823,10 +823,10 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
     }
@@ -849,24 +849,24 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 3,
                     'status' => Value::STATUS_ARCHIVED,
                     'offset' => 4,
                     'limit' => 2,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $copiedCollection
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Item(
-                    array(
+                    [
                         'id' => 7,
                         'collectionId' => 3,
                         'position' => 2,
@@ -874,11 +874,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 8,
                         'collectionId' => 3,
                         'position' => 3,
@@ -886,11 +886,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 9,
                         'collectionId' => 3,
                         'position' => 5,
@@ -898,39 +898,39 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 2,
                     'collectionId' => 3,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_ARCHIVED,
-                )
+                ]
             ),
             $this->collectionHandler->loadCollectionQuery($copiedCollection)
         );
@@ -952,24 +952,24 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 1,
                     'status' => Value::STATUS_ARCHIVED,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $copiedCollection
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Item(
-                    array(
+                    [
                         'id' => 1,
                         'collectionId' => 1,
                         'position' => 0,
@@ -977,11 +977,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 2,
                         'collectionId' => 1,
                         'position' => 1,
@@ -989,11 +989,11 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
                 new Item(
-                    array(
+                    [
                         'id' => 3,
                         'collectionId' => 1,
                         'position' => 2,
@@ -1001,10 +1001,10 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
-                        'config' => array(),
-                    )
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
     }
@@ -1063,16 +1063,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 2,
                     'status' => Value::STATUS_PUBLISHED,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $collection
         );
@@ -1081,24 +1081,24 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => $collection->id,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $query
         );
@@ -1117,16 +1117,16 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Collection(
-                array(
+                [
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'offset' => 0,
                     'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'alwaysAvailable' => true,
-                )
+                ]
             ),
             $collection
         );
@@ -1174,11 +1174,11 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array('config' => array('value' => 42));
+        $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 13,
                     'collectionId' => 1,
                     'position' => 1,
@@ -1186,8 +1186,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array('config' => array('value' => 42)),
-                )
+                    'config' => ['config' => ['value' => 42]],
+                ]
             ),
             $this->collectionHandler->addItem(
                 $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -1213,11 +1213,11 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array('config' => array('value' => 42));
+        $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 13,
                     'collectionId' => 3,
                     'position' => 2,
@@ -1225,8 +1225,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array('config' => array('value' => 42)),
-                )
+                    'config' => ['config' => ['value' => 42]],
+                ]
             ),
             $this->collectionHandler->addItem(
                 $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
@@ -1258,11 +1258,11 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 4;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array('config' => array('value' => 42));
+        $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 13,
                     'collectionId' => 3,
                     'position' => 4,
@@ -1270,8 +1270,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array('config' => array('value' => 42)),
-                )
+                    'config' => ['config' => ['value' => 42]],
+                ]
             ),
             $this->collectionHandler->addItem(
                 $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
@@ -1296,11 +1296,11 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array('config' => array('value' => 42));
+        $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 13,
                     'collectionId' => 1,
                     'position' => 3,
@@ -1308,8 +1308,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array('config' => array('value' => 42)),
-                )
+                    'config' => ['config' => ['value' => 42]],
+                ]
             ),
             $this->collectionHandler->addItem(
                 $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -1334,7 +1334,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = -1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array();
+        $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -1358,7 +1358,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 9999;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array();
+        $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -1373,15 +1373,15 @@ final class CollectionHandlerTest extends TestCase
     public function testUpdateItem()
     {
         $itemUpdateStruct = new ItemUpdateStruct();
-        $itemUpdateStruct->config = array(
-            'new_config' => array(
+        $itemUpdateStruct->config = [
+            'new_config' => [
                 'val' => 24,
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 0,
@@ -1389,8 +1389,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array('new_config' => array('val' => 24)),
-                )
+                    'config' => ['new_config' => ['val' => 24]],
+                ]
             ),
             $this->collectionHandler->updateItem(
                 $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
@@ -1411,7 +1411,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 12,
                     'collectionId' => 4,
                     'position' => 2,
@@ -1419,8 +1419,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '74',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(12, Value::STATUS_DRAFT),
@@ -1447,7 +1447,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 1,
@@ -1455,8 +1455,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
@@ -1483,7 +1483,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 0,
@@ -1491,8 +1491,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
@@ -1519,7 +1519,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 2,
                     'collectionId' => 1,
                     'position' => 0,
@@ -1527,8 +1527,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '73',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT),
@@ -1552,7 +1552,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 3,
                     'collectionId' => 1,
                     'position' => 1,
@@ -1560,8 +1560,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '74',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT),
@@ -1588,7 +1588,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 7,
                     'collectionId' => 3,
                     'position' => 4,
@@ -1596,8 +1596,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT),
@@ -1624,7 +1624,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Item(
-                array(
+                [
                     'id' => 8,
                     'collectionId' => 3,
                     'position' => 2,
@@ -1632,8 +1632,8 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '73',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
-                    'config' => array(),
-                )
+                    'config' => [],
+                ]
             ),
             $this->collectionHandler->moveItem(
                 $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT),
@@ -1794,7 +1794,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
-        $itemCreateStruct->config = array();
+        $itemCreateStruct->config = [];
 
         $collection = $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
 
@@ -1820,30 +1820,30 @@ final class CollectionHandlerTest extends TestCase
 
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->parameters = array(
+        $queryCreateStruct->parameters = [
             'param' => 'value',
-        );
+        ];
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 5,
                     'collectionId' => $collection->id,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'param' => 'value',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'param' => 'value',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_DRAFT,
-                )
+                ]
             ),
             $this->collectionHandler->createQuery(
                 $collection,
@@ -1862,9 +1862,9 @@ final class CollectionHandlerTest extends TestCase
     {
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->parameters = array(
+        $queryCreateStruct->parameters = [
             'param' => 'value',
-        );
+        ];
 
         $this->collectionHandler->createQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
@@ -1880,35 +1880,35 @@ final class CollectionHandlerTest extends TestCase
     {
         $translationUpdateStruct = new QueryTranslationUpdateStruct();
 
-        $translationUpdateStruct->parameters = array(
+        $translationUpdateStruct->parameters = [
             'parent_location_id' => 999,
             'some_param' => 'Some value',
-        );
+        ];
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 2,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 999,
                             'some_param' => 'Some value',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->collectionHandler->updateQueryTranslation(
                 $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
@@ -1928,30 +1928,30 @@ final class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(
             new Query(
-                array(
+                [
                     'id' => 1,
                     'collectionId' => 2,
                     'type' => 'ezcontent_search',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
+                    'availableLocales' => ['en', 'hr'],
                     'alwaysAvailable' => true,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                        'hr' => array(
+                        ],
+                        'hr' => [
                             'parent_location_id' => 2,
                             'sort_direction' => 'descending',
                             'sort_type' => 'date_published',
                             'query_type' => 'list',
-                        ),
-                    ),
+                        ],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->collectionHandler->updateQueryTranslation(
                 $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),

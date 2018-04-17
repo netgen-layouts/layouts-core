@@ -25,8 +25,8 @@ final class LayoutMapperTest extends TestCase
      */
     public function testMapLayouts()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'type' => '4_zones_a',
                 'name' => 'My layout',
@@ -37,8 +37,8 @@ final class LayoutMapperTest extends TestCase
                 'main_locale' => 'en',
                 'locale' => 'en',
                 'shared' => true,
-            ),
-            array(
+            ],
+            [
                 'id' => 84,
                 'type' => '4_zones_b',
                 'name' => 'My other layout',
@@ -49,12 +49,12 @@ final class LayoutMapperTest extends TestCase
                 'main_locale' => 'en',
                 'locale' => 'en',
                 'shared' => false,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Layout(
-                array(
+                [
                     'id' => 42,
                     'type' => '4_zones_a',
                     'name' => 'My layout',
@@ -63,12 +63,12 @@ final class LayoutMapperTest extends TestCase
                     'modified' => 456,
                     'status' => Value::STATUS_PUBLISHED,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'shared' => true,
-                )
+                ]
             ),
             new Layout(
-                array(
+                [
                     'id' => 84,
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
@@ -77,11 +77,11 @@ final class LayoutMapperTest extends TestCase
                     'modified' => 111,
                     'status' => Value::STATUS_PUBLISHED,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'shared' => false,
-                )
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapLayouts($data));
     }
@@ -91,47 +91,47 @@ final class LayoutMapperTest extends TestCase
      */
     public function testMapZones()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'identifier' => 'left',
                 'layout_id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'root_block_id' => 3,
                 'linked_layout_id' => 3,
                 'linked_zone_identifier' => 'top',
-            ),
-            array(
+            ],
+            [
                 'identifier' => 'right',
                 'layout_id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'root_block_id' => 4,
                 'linked_layout_id' => null,
                 'linked_zone_identifier' => null,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             'left' => new Zone(
-                array(
+                [
                     'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Value::STATUS_PUBLISHED,
                     'rootBlockId' => 3,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
-                )
+                ]
             ),
             'right' => new Zone(
-                array(
+                [
                     'identifier' => 'right',
                     'layoutId' => 1,
                     'status' => Value::STATUS_PUBLISHED,
                     'rootBlockId' => 4,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
-                )
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapZones($data));
     }

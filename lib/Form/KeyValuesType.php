@@ -22,7 +22,7 @@ final class KeyValuesType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setRequired(
-            array(
+            [
                 'key_name',
                 'key_label',
                 'values_name',
@@ -30,7 +30,7 @@ final class KeyValuesType extends AbstractType
                 'values_type',
                 'values_options',
                 'values_constraints',
-            )
+            ]
         );
 
         $resolver->setAllowedTypes('key_name', 'string');
@@ -41,8 +41,8 @@ final class KeyValuesType extends AbstractType
         $resolver->setAllowedTypes('values_options', 'array');
         $resolver->setAllowedTypes('values_constraints', 'array');
 
-        $resolver->setDefault('values_options', array());
-        $resolver->setDefault('values_constraints', array());
+        $resolver->setDefault('values_options', []);
+        $resolver->setDefault('values_constraints', []);
     }
 
     /**
@@ -56,27 +56,27 @@ final class KeyValuesType extends AbstractType
         $builder->add(
             $options['key_name'],
             TextType::class,
-            array(
+            [
                 'required' => true,
                 'label' => $options['key_label'],
-            )
+            ]
         );
 
-        $valueConstraints = array();
+        $valueConstraints = [];
         if (!empty($options['values_constraints'])) {
-            $valueConstraints = array(
+            $valueConstraints = [
                 new Constraints\All(
-                    array(
+                    [
                         'constraints' => $options['values_constraints'],
-                    )
+                    ]
                 ),
-            );
+            ];
         }
 
         $builder->add(
             $options['values_name'],
             CollectionType::class,
-            array(
+            [
                 'required' => $options['required'],
                 'label' => $options['values_label'],
                 'constraints' => $valueConstraints,
@@ -85,7 +85,7 @@ final class KeyValuesType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => $options['required'],
-            )
+            ]
         );
     }
 

@@ -37,39 +37,39 @@ final class CollectionQueryNormalizerTest extends TestCase
     public function testNormalize()
     {
         $query = new Query(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 24,
                 'queryType' => new QueryType('ezcontent_search'),
                 'isTranslatable' => true,
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',
-                'parameters' => array(
+                'parameters' => [
                     'param' => new Parameter(
-                        array(
+                        [
                             'name' => 'param',
                             'value' => 'value',
-                        )
+                        ]
                     ),
                     'param2' => new Parameter(
-                        array(
+                        [
                             'name' => 'param2',
-                            'value' => array(
+                            'value' => [
                                 'param3' => 'value3',
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $serializedParams = array(
+        $serializedParams = [
             'param' => 'value',
-            'param2' => array(
+            'param2' => [
                 'param3' => 'value3',
-            ),
-        );
+            ],
+        ];
 
         $this->serializerMock
             ->expects($this->once())
@@ -77,7 +77,7 @@ final class CollectionQueryNormalizerTest extends TestCase
             ->will($this->returnValue($serializedParams));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $query->getId(),
                 'collection_id' => $query->getCollectionId(),
                 'type' => $query->getQueryType()->getType(),
@@ -85,7 +85,7 @@ final class CollectionQueryNormalizerTest extends TestCase
                 'is_translatable' => $query->isTranslatable(),
                 'always_available' => $query->isAlwaysAvailable(),
                 'parameters' => $serializedParams,
-            ),
+            ],
             $this->normalizer->normalize(new VersionedValue($query, 1))
         );
     }
@@ -109,19 +109,19 @@ final class CollectionQueryNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Query(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Query(), 2), false),
-            array(new VersionedValue(new Query(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Query(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Query(), 2), false],
+            [new VersionedValue(new Query(), 1), true],
+        ];
     }
 }

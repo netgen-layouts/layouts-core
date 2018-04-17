@@ -25,24 +25,24 @@ final class KeyValuesTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'some_key' => 'key_value',
-            'some_value' => array('value1', 'value2'),
-        );
+            'some_value' => ['value1', 'value2'],
+        ];
 
         $form = $this->factory->create(
             KeyValuesType::class,
             null,
-            array(
+            [
                 'key_name' => 'some_key',
                 'key_label' => 'Key',
                 'values_name' => 'some_value',
                 'values_label' => 'Value',
                 'values_type' => TextType::class,
-                'values_constraints' => array(
+                'values_constraints' => [
                     new Constraints\NotBlank(),
-                ),
-            )
+                ],
+            ]
         );
 
         $form->submit($submittedData);
@@ -79,14 +79,14 @@ final class KeyValuesTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $options = array(
+        $options = [
             'key_name' => 'some_key',
             'key_label' => 'some_key_label',
             'values_name' => 'some_values',
             'values_label' => 'some_values_label',
             'values_type' => 'some_type',
-            'values_constraints' => array('constraint'),
-        );
+            'values_constraints' => ['constraint'],
+        ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
@@ -95,7 +95,7 @@ final class KeyValuesTypeTest extends FormTestCase
         $this->assertEquals('some_values', $resolvedOptions['values_name']);
         $this->assertEquals('some_values_label', $resolvedOptions['values_label']);
         $this->assertEquals('some_type', $resolvedOptions['values_type']);
-        $this->assertEquals(array('constraint'), $resolvedOptions['values_constraints']);
+        $this->assertEquals(['constraint'], $resolvedOptions['values_constraints']);
     }
 
     /**

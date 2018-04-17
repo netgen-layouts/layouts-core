@@ -22,7 +22,7 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
 
     public function getConfigurationNodes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -39,6 +39,6 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
 
     public function appendConfigurationFiles()
     {
-        return array();
+        return [];
     }
 }

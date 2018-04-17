@@ -24,7 +24,7 @@ final class ItemTest extends TestCase
     public function testSetProperties()
     {
         $item = new Item(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 30,
                 'position' => 3,
@@ -32,7 +32,7 @@ final class ItemTest extends TestCase
                 'value' => 32,
                 'valueType' => 'ezcontent',
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertEquals(42, $item->id);

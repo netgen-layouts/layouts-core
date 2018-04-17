@@ -205,7 +205,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = array());
+    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = []);
 
     /**
      * Creates a new layout status.

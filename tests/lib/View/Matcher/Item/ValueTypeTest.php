@@ -30,7 +30,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatch(array $config, $expected)
     {
-        $view = new ItemView(array('item' => new Item(array('valueType' => 'value'))));
+        $view = new ItemView(['item' => new Item(['valueType' => 'value'])]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -42,13 +42,13 @@ final class ValueTypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('other'), false),
-            array(array('value'), true),
-            array(array('other1', 'other2'), false),
-            array(array('other', 'value'), true),
-        );
+        return [
+            [[], false],
+            [['other'], false],
+            [['value'], true],
+            [['other1', 'other2'], false],
+            [['other', 'value'], true],
+        ];
     }
 
     /**
@@ -56,6 +56,6 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNoItemView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

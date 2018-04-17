@@ -43,16 +43,16 @@ final class LocaleTest extends TestCase
         $form = $this->formFactory->create(
             Form::class,
             null,
-            array(
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'locale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     /**
@@ -62,13 +62,13 @@ final class LocaleTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('de'), false),
-            array(array('en'), true),
-            array(array('de', 'fr'), false),
-            array(array('en', 'de'), true),
-        );
+        return [
+            [[], false],
+            [['de'], false],
+            [['en'], true],
+            [['de', 'fr'], false],
+            [['en', 'de'], true],
+        ];
     }
 
     /**
@@ -76,7 +76,7 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 
     /**
@@ -86,7 +86,7 @@ final class LocaleTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('block')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['block']));
     }
 
     /**
@@ -94,8 +94,8 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithInvalidBlock()
     {
-        $form = $this->formFactory->create(Form::class, null, array('block' => 'block'));
+        $form = $this->formFactory->create(Form::class, null, ['block' => 'block']);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('block')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['block']));
     }
 }

@@ -25,13 +25,13 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'main_checkbox' => array(
+        $submittedData = [
+            'main_checkbox' => [
                 '_self' => '1',
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
-            ),
-        );
+            ],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', true);
@@ -46,25 +46,25 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[main_checkbox]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_class',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_class]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_id',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_id]',
-            )
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -88,12 +88,12 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithUncheckedCheckbox()
     {
-        $submittedData = array(
-            'main_checkbox' => array(
+        $submittedData = [
+            'main_checkbox' => [
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
-            ),
-        );
+            ],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', false);
@@ -106,25 +106,25 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[main_checkbox]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_class',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_class]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_id',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_id]',
-            )
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -148,9 +148,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithUncheckedCheckboxAndEmptyData()
     {
-        $submittedData = array(
-            'main_checkbox' => array(),
-        );
+        $submittedData = [
+            'main_checkbox' => [],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', false);
@@ -163,25 +163,25 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[main_checkbox]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_class',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_class]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_id',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_id]',
-            )
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -205,13 +205,13 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithReverseMode()
     {
-        $submittedData = array(
-            'main_checkbox' => array(
+        $submittedData = [
+            'main_checkbox' => [
                 '_self' => '1',
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
-            ),
-        );
+            ],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', true);
@@ -224,26 +224,26 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[main_checkbox]',
                 'reverse' => true,
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_class',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_class]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_id',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_id]',
-            )
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -267,12 +267,12 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode()
     {
-        $submittedData = array(
-            'main_checkbox' => array(
+        $submittedData = [
+            'main_checkbox' => [
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
-            ),
-        );
+            ],
+        ];
 
         $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', false);
@@ -287,26 +287,26 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[main_checkbox]',
                 'reverse' => true,
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_class',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_class]',
-            )
+            ]
         );
 
         $parentForm->get('main_checkbox')->add(
             'css_id',
             TextType::class,
-            array(
+            [
                 'property_path' => 'parameterValues[css_id]',
-            )
+            ]
         );
 
         $parentForm->submit($submittedData);
@@ -333,9 +333,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $options = array(
+        $options = [
             'reverse' => true,
-        );
+        ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 

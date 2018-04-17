@@ -37,9 +37,9 @@ final class BlockController extends Controller
     {
         return $this->render(
             '@NetgenBlockManagerAdmin/app/block/edit.html.twig',
-            array(
+            [
                 'block' => $block,
-            )
+            ]
         );
     }
 
@@ -60,17 +60,17 @@ final class BlockController extends Controller
         $form = $this->createForm(
             $block->getDefinition()->getForm($formName)->getType(),
             $updateStruct,
-            array(
+            [
                 'block' => $block,
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit',
-                    array(
+                    [
                         'blockId' => $block->getId(),
                         'locale' => $locale,
                         'formName' => $formName,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -88,7 +88,7 @@ final class BlockController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -118,19 +118,19 @@ final class BlockController extends Controller
         $form = $this->createForm(
             ConfigEditType::class,
             $updateStruct,
-            array(
+            [
                 'configurable' => $block,
                 'config_key' => $configKey,
                 'label_prefix' => 'config.block',
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit_config',
-                    array(
+                    [
                         'blockId' => $block->getId(),
                         'locale' => $locale,
                         'configKey' => $configKey,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -148,7 +148,7 @@ final class BlockController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -167,16 +167,16 @@ final class BlockController extends Controller
         $form = $this->createForm(
             ConfigureTranslationType::class,
             null,
-            array(
+            [
                 'block' => $block,
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_configure_translation',
-                    array(
+                    [
                         'blockId' => $block->getId(),
                         'locale' => $locale,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -196,7 +196,7 @@ final class BlockController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(
                 null,
                 $form->isSubmitted() ?

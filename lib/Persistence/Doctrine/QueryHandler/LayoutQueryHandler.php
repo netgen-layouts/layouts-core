@@ -301,7 +301,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_layout')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'type' => ':type',
@@ -311,7 +311,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'modified' => ':modified',
                     'shared' => ':shared',
                     'main_locale' => ':main_locale',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -348,11 +348,11 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_layout_translation')
             ->values(
-                array(
+                [
                     'layout_id' => ':layout_id',
                     'status' => ':status',
                     'locale' => ':locale',
-                )
+                ]
             )
             ->setParameter('layout_id', $layout->id, Type::INTEGER)
             ->setParameter('status', $layout->status, Type::INTEGER)
@@ -371,14 +371,14 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_zone')
             ->values(
-                array(
+                [
                     'identifier' => ':identifier',
                     'layout_id' => ':layout_id',
                     'status' => ':status',
                     'root_block_id' => ':root_block_id',
                     'linked_layout_id' => ':linked_layout_id',
                     'linked_zone_identifier' => ':linked_zone_identifier',
-                )
+                ]
             )
             ->setParameter('identifier', $zone->identifier, Type::STRING)
             ->setParameter('layout_id', $zone->layoutId, Type::INTEGER)

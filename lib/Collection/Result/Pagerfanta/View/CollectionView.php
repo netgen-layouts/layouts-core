@@ -35,7 +35,7 @@ final class CollectionView implements ViewInterface
         return 'ngbm_collection';
     }
 
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array())
+    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
     {
         $pagerTemplate = $this->template;
         if (array_key_exists('template', $options)) {
@@ -65,9 +65,9 @@ final class CollectionView implements ViewInterface
 
         return $this->twig->render(
             $pagerTemplate,
-            array(
+            [
                 'pager' => $pagerfanta,
-            ) + $options
+            ] + $options
         );
     }
 }

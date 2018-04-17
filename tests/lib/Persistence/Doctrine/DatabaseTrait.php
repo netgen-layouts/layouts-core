@@ -50,9 +50,9 @@ trait DatabaseTrait
         $this->databaseServer = $matches['db'];
 
         $this->databaseConnection = DriverManager::getConnection(
-            array(
+            [
                 'url' => $this->databaseUri,
-            )
+            ]
         );
 
         $useMigrations ?

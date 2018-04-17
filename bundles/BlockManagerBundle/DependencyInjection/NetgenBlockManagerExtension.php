@@ -19,7 +19,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface[]
      */
-    private $plugins = array();
+    private $plugins = [];
 
     /**
      * Adds a plugin to the extension.
@@ -112,7 +112,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
 
         $loader->load('framework/assets.xml');
 
-        $prependConfigs = array(
+        $prependConfigs = [
             'framework/assets.yml' => 'framework',
             'framework/framework.yml' => 'framework',
             'framework/twig.yml' => 'twig',
@@ -124,7 +124,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             'view/parameter_view.yml' => 'netgen_block_manager',
             'view/default_templates.yml' => 'netgen_block_manager',
             'browser/item_types.yml' => 'netgen_content_browser',
-        );
+        ];
 
         foreach ($this->plugins as $plugin) {
             foreach ($plugin->appendConfigurationFiles() as $configFile) {

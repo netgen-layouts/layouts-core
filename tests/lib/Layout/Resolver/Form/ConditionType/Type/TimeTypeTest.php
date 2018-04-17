@@ -20,27 +20,27 @@ final class TimeTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'from' => array(
+        $submittedData = [
+            'from' => [
                 'datetime' => '2018-03-31T01:00',
                 'timezone' => 'Antarctica/Casey',
-            ),
-            'to' => array(
+            ],
+            'to' => [
                 'datetime' => '2018-03-31T02:00',
                 'timezone' => 'Antarctica/Casey',
-            ),
-        );
+            ],
+        ];
 
-        $processedData = array(
-            'from' => array(
+        $processedData = [
+            'from' => [
                 'datetime' => '2018-03-31 01:00:00',
                 'timezone' => 'Antarctica/Casey',
-            ),
-            'to' => array(
+            ],
+            'to' => [
                 'datetime' => '2018-03-31 02:00:00',
                 'timezone' => 'Antarctica/Casey',
-            ),
-        );
+            ],
+        ];
 
         $form = $this->factory->create(TimeType::class);
 

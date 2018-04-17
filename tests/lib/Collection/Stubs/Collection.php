@@ -12,12 +12,12 @@ final class Collection implements APICollection
     /**
      * @var array
      */
-    private $manualItems = array();
+    private $manualItems = [];
 
     /**
      * @var array
      */
-    private $overrideItems = array();
+    private $overrideItems = [];
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
@@ -25,44 +25,44 @@ final class Collection implements APICollection
     private $query;
 
     public function __construct(
-        array $manualItems = array(),
-        array $overrideItems = array(),
+        array $manualItems = [],
+        array $overrideItems = [],
         array $queryValues = null,
         $queryCount = 0
     ) {
         foreach ($manualItems as $position => $value) {
             $this->manualItems[$position] = new Item(
-                array(
+                [
                     'type' => Item::TYPE_MANUAL,
                     'value' => $value,
-                    'cmsItem' => new CmsItem(array('value' => $value)),
+                    'cmsItem' => new CmsItem(['value' => $value]),
                     'position' => $position,
                     'isValid' => $value !== null,
-                )
+                ]
             );
         }
 
         foreach ($overrideItems as $position => $value) {
             $this->overrideItems[$position] = new Item(
-                array(
+                [
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $value,
-                    'cmsItem' => new CmsItem(array('value' => $value)),
+                    'cmsItem' => new CmsItem(['value' => $value]),
                     'position' => $position,
                     'isValid' => $value !== null,
-                )
+                ]
             );
         }
 
         if ($queryValues !== null) {
             $this->query = new Query(
-                array(
+                [
                     'queryType' => new QueryType(
                         'ezcontent_search',
                         $queryValues,
                         $queryCount
                     ),
-                )
+                ]
             );
         }
     }

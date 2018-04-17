@@ -33,7 +33,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('ruleId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['ruleId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -68,10 +68,10 @@ final class RuleParamConverterTest extends TestCase
         $this->assertEquals(
             $rule,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'ruleId' => 42,
                     'published' => true,
-                )
+                ]
             )
         );
     }
@@ -92,10 +92,10 @@ final class RuleParamConverterTest extends TestCase
         $this->assertEquals(
             $rule,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'ruleId' => 42,
                     'published' => false,
-                )
+                ]
             )
         );
     }

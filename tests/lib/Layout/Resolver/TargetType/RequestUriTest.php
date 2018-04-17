@@ -47,7 +47,7 @@ final class RequestUriTest extends TestCase
      */
     public function testProvideValue()
     {
-        $request = Request::create('/the/answer', 'GET', array('a' => 42));
+        $request = Request::create('/the/answer', 'GET', ['a' => 42]);
 
         $this->assertEquals(
             '/the/answer?a=42',
@@ -62,11 +62,11 @@ final class RequestUriTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('/some/route?id=42', true),
-            array('/', true),
-            array('', false),
-            array(null, false),
-        );
+        return [
+            ['/some/route?id=42', true],
+            ['/', true],
+            ['', false],
+            [null, false],
+        ];
     }
 }

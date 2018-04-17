@@ -20,12 +20,12 @@ final class BlockViewTest extends TestCase
 
     public function setUp()
     {
-        $this->block = new Block(array('id' => 42));
+        $this->block = new Block(['id' => 42]);
 
         $this->view = new BlockView(
-            array(
+            [
                 'block' => $this->block,
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -47,10 +47,10 @@ final class BlockViewTest extends TestCase
     public function testGetParameters()
     {
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'block' => $this->block,
-            ),
+            ],
             $this->view->getParameters()
         );
     }
@@ -69,9 +69,9 @@ final class BlockViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'blockId' => 42,
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

@@ -20,7 +20,7 @@ final class CollectionParamConverter extends ParamConverter
 
     public function getSourceAttributeNames()
     {
-        return array('collectionId');
+        return ['collectionId'];
     }
 
     public function getDestinationAttributeName()
@@ -35,7 +35,7 @@ final class CollectionParamConverter extends ParamConverter
 
     public function loadValue(array $values)
     {
-        $locales = isset($values['locale']) ? array($values['locale']) : null;
+        $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         if ($values['published']) {
             return $this->collectionService->loadCollection($values['collectionId'], $locales);

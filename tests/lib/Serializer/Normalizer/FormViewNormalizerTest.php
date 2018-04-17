@@ -46,16 +46,16 @@ final class FormViewNormalizerTest extends TestCase
                 $this->equalTo($form),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
-                    array(
+                    [
                         'api_version' => 1,
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered form view'));
 
         $data = $this->normalizer->normalize(new FormView($form, 1));
 
-        $this->assertEquals(array('form' => 'rendered form view'), $data);
+        $this->assertEquals(['form' => 'rendered form view'], $data);
     }
 
     /**
@@ -77,18 +77,18 @@ final class FormViewNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Block(), false),
-            array(new VersionedValue(new Block(), 1), false),
-            array(new FormView($this->createMock(FormInterface::class), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Block(), false],
+            [new VersionedValue(new Block(), 1), false],
+            [new FormView($this->createMock(FormInterface::class), 1), true],
+        ];
     }
 }

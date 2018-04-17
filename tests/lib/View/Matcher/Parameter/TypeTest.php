@@ -33,16 +33,16 @@ final class TypeTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $parameter = new Parameter(
-            array(
+            [
                 'parameterDefinition' => new ParameterDefinition(
-                    array(
+                    [
                         'type' => new TextType(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
-        $view = new ParameterView(array('parameter' => $parameter));
+        $view = new ParameterView(['parameter' => $parameter]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -54,13 +54,13 @@ final class TypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('boolean'), false),
-            array(array('text'), true),
-            array(array('boolean', 'integer'), false),
-            array(array('boolean', 'text'), true),
-        );
+        return [
+            [[], false],
+            [['boolean'], false],
+            [['text'], true],
+            [['boolean', 'integer'], false],
+            [['boolean', 'text'], true],
+        ];
     }
 
     /**
@@ -68,6 +68,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoParameterView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

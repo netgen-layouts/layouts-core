@@ -45,12 +45,12 @@ final class RouteGenerator
      */
     public function __invoke(Block $block, $collectionIdentifier, $page)
     {
-        $routeParams = array(
+        $routeParams = [
             'blockId' => $block->getId(),
             'locale' => $block->getLocale(),
             'collectionIdentifier' => $collectionIdentifier,
             'ngbmContext' => $this->context->all(),
-        );
+        ];
 
         $signedUri = $this->uriSigner->sign(
             $this->urlGenerator->generate('ngbm_ajax_block', $routeParams)

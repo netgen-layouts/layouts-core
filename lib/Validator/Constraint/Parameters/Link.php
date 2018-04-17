@@ -18,7 +18,7 @@ final class Link extends Constraint
      *
      * @var array
      */
-    public $valueTypes = array();
+    public $valueTypes = [];
 
     /**
      * If set to true, the constraint will accept values for invalid or non existing items

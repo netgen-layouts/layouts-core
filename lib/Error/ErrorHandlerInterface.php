@@ -13,5 +13,5 @@ interface ErrorHandlerInterface
      *
      * @todo Add \Throwable type hint when support for PHP 5.6 ends.
      */
-    public function handleError(/* Throwable */ $throwable, $message = null, array $context = array());
+    public function handleError(/* Throwable */ $throwable, $message = null, array $context = []);
 }

@@ -22,7 +22,7 @@ final class LayoutResolverQueryHandlerTest extends TestCase
         new LayoutResolverQueryHandler(
             $connectionMock,
             new ConnectionHelper($connectionMock),
-            array(new stdClass())
+            [new stdClass()]
         );
     }
 }

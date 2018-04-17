@@ -15,7 +15,7 @@ interface ViewInterface extends VersionedValueInterface
      *
      * @param array $viewParameters
      */
-    public function setViewParameters(array $viewParameters = array());
+    public function setViewParameters(array $viewParameters = []);
 
     /**
      * Returns the parameters transferred to the view.

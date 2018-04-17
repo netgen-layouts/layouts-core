@@ -29,10 +29,10 @@ final class CollectionReferenceTest extends TestCase
     public function testSetProperties()
     {
         $collectionReference = new CollectionReference(
-            array(
+            [
                 'collection' => new Collection(),
                 'identifier' => 'default',
-            )
+            ]
         );
 
         $this->assertEquals(new Collection(), $collectionReference->getCollection());

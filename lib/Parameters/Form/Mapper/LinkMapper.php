@@ -17,10 +17,10 @@ final class LinkMapper extends Mapper
 
     public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        return array(
+        return [
             'label' => false,
             'value_types' => $parameterDefinition->getOption('value_types'),
-        );
+        ];
     }
 
     public function handleForm(FormBuilderInterface $form, ParameterDefinitionInterface $parameterDefinition)

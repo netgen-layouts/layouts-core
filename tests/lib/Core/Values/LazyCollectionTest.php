@@ -14,7 +14,7 @@ final class LazyCollectionTest extends TestCase
 
     public function setUp()
     {
-        $this->collection = new LazyCollection(function () { return array(1, 2, 3); });
+        $this->collection = new LazyCollection(function () { return [1, 2, 3]; });
     }
 
     /**
@@ -25,7 +25,7 @@ final class LazyCollectionTest extends TestCase
     {
         $this->assertFalse($this->collection->isInitialized());
 
-        $this->assertEquals(array(1, 2, 3), $this->collection->toArray());
+        $this->assertEquals([1, 2, 3], $this->collection->toArray());
 
         $this->assertTrue($this->collection->isInitialized());
     }

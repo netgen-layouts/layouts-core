@@ -38,11 +38,11 @@ final class Zone extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Layout\Zone $zone */
 
-        return array(
+        return [
             'identifier' => $zone->getIdentifier(),
             'linked_zone' => $this->visitLinkedZone($zone),
             'blocks' => $this->visitBlocks($zone, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -58,10 +58,10 @@ final class Zone extends Visitor
             return;
         }
 
-        return array(
+        return [
             'identifier' => $zone->getLinkedZone()->getIdentifier(),
             'layout_id' => $zone->getLinkedZone()->getLayoutId(),
-        );
+        ];
     }
 
     /**
@@ -78,7 +78,7 @@ final class Zone extends Visitor
      */
     private function visitBlocks(ZoneValue $zone, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         foreach ($blocks as $block) {

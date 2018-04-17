@@ -22,10 +22,10 @@ final class Target extends Visitor
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $target */
 
-        return array(
+        return [
             'id' => $target->getId(),
             'type' => $target->getTargetType()->getType(),
             'value' => $target->getValue(),
-        );
+        ];
     }
 }

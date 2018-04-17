@@ -33,7 +33,7 @@ final class BlockTypePass implements CompilerPassInterface
         foreach ($blockTypeServices as $identifier => $blockTypeService) {
             $registry->addMethodCall(
                 'addBlockType',
-                array($identifier, new Reference($blockTypeService))
+                [$identifier, new Reference($blockTypeService)]
             );
         }
     }
@@ -59,13 +59,13 @@ final class BlockTypePass implements CompilerPassInterface
             }
 
             if (!isset($blockTypes[$identifier])) {
-                $blockTypes[$identifier] = array(
+                $blockTypes[$identifier] = [
                     'name' => $blockDefinition['name'],
                     'icon' => $blockDefinition['icon'],
                     'enabled' => $blockDefinition['enabled'],
                     'definition_identifier' => $identifier,
-                    'defaults' => array(),
-                );
+                    'defaults' => [],
+                ];
 
                 continue;
             }
@@ -76,11 +76,11 @@ final class BlockTypePass implements CompilerPassInterface
                 $blockTypes[$identifier]['enabled'] = true;
             }
 
-            $blockTypes[$identifier] = $blockTypes[$identifier] + array(
+            $blockTypes[$identifier] = $blockTypes[$identifier] + [
                 'name' => $blockDefinition['name'],
                 'icon' => $blockDefinition['icon'],
                 'definition_identifier' => $identifier,
-            );
+            ];
         }
 
         foreach ($blockTypes as $identifier => $blockType) {
@@ -110,14 +110,14 @@ final class BlockTypePass implements CompilerPassInterface
      */
     private function buildBlockTypes(ContainerBuilder $container, array $blockTypes)
     {
-        $blockTypeServices = array();
+        $blockTypeServices = [];
 
         foreach ($blockTypes as $identifier => $blockType) {
             $serviceIdentifier = sprintf('netgen_block_manager.block.block_type.%s', $identifier);
 
             $container->register($serviceIdentifier, BlockType::class)
                 ->setArguments(
-                    array(
+                    [
                         $identifier,
                         $blockType,
                         new Reference(
@@ -126,11 +126,11 @@ final class BlockTypePass implements CompilerPassInterface
                                 $blockType['definition_identifier']
                             )
                         ),
-                    )
+                    ]
                 )
                 ->setLazy(true)
                 ->setPublic(true)
-                ->setFactory(array(BlockTypeFactory::class, 'buildBlockType'));
+                ->setFactory([BlockTypeFactory::class, 'buildBlockType']);
 
             $blockTypeServices[$identifier] = $serviceIdentifier;
         }

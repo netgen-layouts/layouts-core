@@ -13,7 +13,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::REQUEST => array('onKernelRequest', 30));
+        return [KernelEvents::REQUEST => ['onKernelRequest', 30]];
     }
 
     /**

@@ -21,7 +21,7 @@ final class TemplateResolverPass implements CompilerPassInterface
         $templateResolver = $container->findDefinition(self::$serviceName);
         $matcherServices = $container->findTaggedServiceIds(self::$tagName);
 
-        $matchers = array();
+        $matchers = [];
         foreach ($matcherServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['identifier'])) {

@@ -19,7 +19,7 @@ final class ItemBuilderTest extends TestCase
      */
     public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
     {
-        new ItemBuilder(array(new stdClass()));
+        new ItemBuilder([new stdClass()]);
     }
 
     /**
@@ -31,17 +31,17 @@ final class ItemBuilderTest extends TestCase
         $value = new Value(42, 'abc');
 
         $item = new Item(
-            array(
+            [
                 'value' => 42,
                 'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',
                 'isVisible' => true,
                 'object' => $value,
-            )
+            ]
         );
 
-        $builder = new ItemBuilder(array(new ValueConverter()));
+        $builder = new ItemBuilder([new ValueConverter()]);
 
         $this->assertEquals($item, $builder->build($value));
     }
@@ -53,7 +53,7 @@ final class ItemBuilderTest extends TestCase
      */
     public function testBuildThrowsValueException()
     {
-        $builder = new ItemBuilder(array(new UnsupportedValueConverter()));
+        $builder = new ItemBuilder([new UnsupportedValueConverter()]);
 
         $builder->build(new Value(42, 'abc'));
     }

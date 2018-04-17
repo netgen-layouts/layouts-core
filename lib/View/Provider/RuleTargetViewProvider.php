@@ -7,12 +7,12 @@ use Netgen\BlockManager\View\View\RuleTargetView;
 
 final class RuleTargetViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         return new RuleTargetView(
-            array(
+            [
                 'target' => $value,
-            )
+            ]
         );
     }
 

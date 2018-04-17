@@ -30,7 +30,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array('block_definition' => array('enabled' => true))
+            ['block_definition' => ['enabled' => true]]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
@@ -38,7 +38,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
             'netgen_block_manager.block.block_definition_handler',
-            array('identifier' => 'block_definition')
+            ['identifier' => 'block_definition']
         );
 
         $this->setDefinition(
@@ -56,10 +56,10 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_definition',
             'addBlockDefinition',
-            array(
+            [
                 'block_definition',
                 new Reference('netgen_block_manager.block.block_definition.block_definition'),
-            )
+            ]
         );
     }
 
@@ -76,7 +76,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array('block_definition' => array('enabled' => true, 'handler' => 'custom'))
+            ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
@@ -84,7 +84,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
             'netgen_block_manager.block.block_definition_handler',
-            array('identifier' => 'custom')
+            ['identifier' => 'custom']
         );
 
         $this->setDefinition(
@@ -102,10 +102,10 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_definition',
             'addBlockDefinition',
-            array(
+            [
                 'block_definition',
                 new Reference('netgen_block_manager.block.block_definition.block_definition'),
-            )
+            ]
         );
     }
 
@@ -118,7 +118,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array('block_definition' => array('enabled' => true))
+            ['block_definition' => ['enabled' => true]]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
@@ -139,7 +139,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array('block_definition' => array('enabled' => true))
+            ['block_definition' => ['enabled' => true]]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
@@ -156,7 +156,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
-            array('block_definition' => array('enabled' => true, 'handler' => 'custom'))
+            ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
@@ -176,12 +176,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
     public function processDataProvider()
     {
-        return array(
-            array('%test.class%', BlockDefinition::class),
-            array(BlockDefinitionHandler::class, BlockDefinition::class),
-            array(TwigBlockDefinitionHandlerInterface::class, TwigBlockDefinition::class),
-            array(ContainerDefinitionHandler::class, ContainerDefinition::class),
-        );
+        return [
+            ['%test.class%', BlockDefinition::class],
+            [BlockDefinitionHandler::class, BlockDefinition::class],
+            [TwigBlockDefinitionHandlerInterface::class, TwigBlockDefinition::class],
+            [ContainerDefinitionHandler::class, ContainerDefinition::class],
+        ];
     }
 
     /**

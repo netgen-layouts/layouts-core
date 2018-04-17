@@ -20,7 +20,7 @@ final class ItemLoaderPass implements CompilerPassInterface
 
         $itemLoader = $container->findDefinition(self::$serviceName);
 
-        $valueLoaders = array();
+        $valueLoaders = [];
         foreach ($container->findTaggedServiceIds(self::$tagName) as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {

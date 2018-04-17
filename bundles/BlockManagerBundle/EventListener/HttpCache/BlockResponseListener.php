@@ -22,7 +22,7 @@ final class BlockResponseListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::VIEW => 'onView');
+        return [KernelEvents::VIEW => 'onView'];
     }
 
     /**

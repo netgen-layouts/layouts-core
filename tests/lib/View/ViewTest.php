@@ -16,7 +16,7 @@ final class ViewTest extends TestCase
 
     public function setUp()
     {
-        $this->view = new View(array('value' => new Value()));
+        $this->view = new View(['value' => new Value()]);
     }
 
     /**
@@ -132,26 +132,26 @@ final class ViewTest extends TestCase
     public function testAddParameters()
     {
         $this->view->addParameters(
-            array(
+            [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            )
+            ]
         );
 
         $this->view->addParameters(
-            array(
+            [
                 'some_param' => 'new_value',
                 'third_param' => 'third_value',
-            )
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'some_param' => 'new_value',
                 'some_other_param' => 'some_other_value',
                 'third_param' => 'third_value',
                 'value' => new Value(),
-            ),
+            ],
             $this->view->getParameters()
         );
     }

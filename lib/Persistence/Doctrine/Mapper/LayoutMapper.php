@@ -14,16 +14,16 @@ final class LayoutMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function mapLayouts(array $data = array())
+    public function mapLayouts(array $data = [])
     {
-        $layouts = array();
+        $layouts = [];
 
         foreach ($data as $dataItem) {
             $layoutId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
             if (!isset($layouts[$layoutId])) {
-                $layouts[$layoutId] = array(
+                $layouts[$layoutId] = [
                     'id' => $layoutId,
                     'type' => $dataItem['type'],
                     'name' => $dataItem['name'],
@@ -33,7 +33,7 @@ final class LayoutMapper
                     'status' => (int) $dataItem['status'],
                     'shared' => (bool) $dataItem['shared'],
                     'mainLocale' => $dataItem['main_locale'],
-                );
+                ];
             }
 
             $layouts[$layoutId]['availableLocales'][] = $locale;
@@ -56,20 +56,20 @@ final class LayoutMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
      */
-    public function mapZones(array $data = array())
+    public function mapZones(array $data = [])
     {
-        $zones = array();
+        $zones = [];
 
         foreach ($data as $dataItem) {
             $zones[$dataItem['identifier']] = new Zone(
-                array(
+                [
                     'identifier' => $dataItem['identifier'],
                     'layoutId' => (int) $dataItem['layout_id'],
                     'status' => (int) $dataItem['status'],
                     'rootBlockId' => (int) $dataItem['root_block_id'],
                     'linkedLayoutId' => $dataItem['linked_layout_id'] !== null ? (int) $dataItem['linked_layout_id'] : null,
                     'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],
-                )
+                ]
             );
         }
 

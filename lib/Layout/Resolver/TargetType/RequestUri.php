@@ -15,10 +15,10 @@ class RequestUri implements TargetTypeInterface
 
     public function getConstraints()
     {
-        return array(
+        return [
             new Constraints\NotBlank(),
-            new Constraints\Type(array('type' => 'string')),
-        );
+            new Constraints\Type(['type' => 'string']),
+        ];
     }
 
     public function provideValue(Request $request)

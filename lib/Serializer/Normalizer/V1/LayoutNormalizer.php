@@ -32,19 +32,19 @@ final class LayoutNormalizer implements NormalizerInterface
         $this->blockService = $blockService;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
         $layoutType = $layout->getLayoutType();
         $localeBundle = Intl::getLocaleBundle();
 
-        $availableLocales = array();
+        $availableLocales = [];
         foreach ($layout->getAvailableLocales() as $locale) {
             $availableLocales[$locale] = $localeBundle->getLocaleName($locale);
         }
 
-        $data = array(
+        $data = [
             'id' => $layout->getId(),
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
@@ -57,7 +57,7 @@ final class LayoutNormalizer implements NormalizerInterface
             'main_locale' => $layout->getMainLocale(),
             'available_locales' => $availableLocales,
             'zones' => $this->getZones($layout, $layoutType),
-        );
+        ];
 
         return $data;
     }
@@ -81,12 +81,12 @@ final class LayoutNormalizer implements NormalizerInterface
      */
     private function getZones(Layout $layout, LayoutType $layoutType)
     {
-        $zones = array();
+        $zones = [];
 
         foreach ($layout as $zoneIdentifier => $zone) {
             $linkedZone = $zone->getLinkedZone();
 
-            $zones[] = array(
+            $zones[] = [
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
                 'block_ids' => array_map(
@@ -101,7 +101,7 @@ final class LayoutNormalizer implements NormalizerInterface
                 ),
                 'linked_layout_id' => $linkedZone ? $linkedZone->getLayoutId() : null,
                 'linked_zone_identifier' => $linkedZone ? $linkedZone->getIdentifier() : null,
-            );
+            ];
         }
 
         return $zones;

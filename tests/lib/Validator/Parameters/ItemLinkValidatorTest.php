@@ -93,23 +93,23 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array('value://42', null, true),
-            array('other://42', null, false),
-            array('value://42', array(), true),
-            array('other://42', array(), false),
-            array('value://42', array('value'), true),
-            array('other://42', array('value'), false),
-            array('value://42', array('other'), false),
-            array('other://42', array('other'), false),
-            array('42', null, false),
-            array('42', array(), false),
-            array('42', array('value'), false),
-            array('42', array('other'), false),
-            array(null, null, true),
-            array(null, array(), true),
-            array(null, array('value'), true),
-            array(null, array('other'), true),
-        );
+        return [
+            ['value://42', null, true],
+            ['other://42', null, false],
+            ['value://42', [], true],
+            ['other://42', [], false],
+            ['value://42', ['value'], true],
+            ['other://42', ['value'], false],
+            ['value://42', ['other'], false],
+            ['other://42', ['other'], false],
+            ['42', null, false],
+            ['42', [], false],
+            ['42', ['value'], false],
+            ['42', ['other'], false],
+            [null, null, true],
+            [null, [], true],
+            [null, ['value'], true],
+            [null, ['other'], true],
+        ];
     }
 }

@@ -40,7 +40,7 @@ final class BlockViewRenderer implements ViewRendererInterface
         ContextInterface $context,
         CacheableResolverInterface $cacheableResolver,
         $blockController,
-        array $supportedViewContexts = array(ViewInterface::CONTEXT_DEFAULT)
+        array $supportedViewContexts = [ViewInterface::CONTEXT_DEFAULT]
     ) {
         $this->context = $context;
         $this->cacheableResolver = $cacheableResolver;
@@ -67,13 +67,13 @@ final class BlockViewRenderer implements ViewRendererInterface
 
         return new ControllerReference(
             $this->blockController,
-            array(
+            [
                 'blockId' => $view->getBlock()->getId(),
                 'locale' => $view->getBlock()->getLocale(),
                 'viewContext' => $view->getContext(),
                 'ngbmContext' => $this->context->all(),
                 '_ngbm_status' => 'published',
-            )
+            ]
         );
     }
 }

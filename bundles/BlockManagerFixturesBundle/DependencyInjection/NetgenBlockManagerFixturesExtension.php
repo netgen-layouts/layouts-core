@@ -16,12 +16,12 @@ final class NetgenBlockManagerFixturesExtension extends Extension implements Pre
 
     public function prepend(ContainerBuilder $container)
     {
-        $prependConfigs = array(
+        $prependConfigs = [
             'layout_types.yml' => 'netgen_block_manager',
             'block_definitions.yml' => 'netgen_block_manager',
             'block_types.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
-        );
+        ];
 
         foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
             if ($configFile[0] !== '/') {

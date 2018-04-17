@@ -31,17 +31,17 @@ abstract class View implements ViewInterface, JsonSerializable
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * @var array
      */
-    protected $customParameters = array();
+    protected $customParameters = [];
 
     /**
      * @param array $parameters
      */
-    public function __construct(array $parameters = array())
+    public function __construct(array $parameters = [])
     {
         $this->parameters = $parameters;
     }
@@ -118,7 +118,7 @@ abstract class View implements ViewInterface, JsonSerializable
         $this->customParameters[$parameterName] = $parameterValue;
     }
 
-    public function addParameters(array $parameters = array())
+    public function addParameters(array $parameters = [])
     {
         $this->customParameters = $parameters + $this->customParameters;
     }

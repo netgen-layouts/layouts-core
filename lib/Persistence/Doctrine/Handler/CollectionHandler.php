@@ -141,15 +141,15 @@ final class CollectionHandler implements CollectionHandlerInterface
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
         $newCollection = new Collection(
-            array(
+            [
                 'status' => $collectionCreateStruct->status,
                 'offset' => $collectionCreateStruct->offset,
                 'limit' => $collectionCreateStruct->limit,
                 'isTranslatable' => $collectionCreateStruct->isTranslatable,
                 'alwaysAvailable' => $collectionCreateStruct->alwaysAvailable,
                 'mainLocale' => $collectionCreateStruct->mainLocale,
-                'availableLocales' => array($collectionCreateStruct->mainLocale),
-            )
+                'availableLocales' => [$collectionCreateStruct->mainLocale],
+            ]
         );
 
         $newCollection = $this->queryHandler->createCollection($newCollection);
@@ -358,7 +358,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $position = $this->createItemPosition($collection, $itemCreateStruct->position);
 
         $newItem = new Item(
-            array(
+            [
                 'collectionId' => $collection->id,
                 'position' => $position,
                 'type' => $itemCreateStruct->type,
@@ -366,7 +366,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'valueType' => $itemCreateStruct->valueType,
                 'status' => $collection->status,
                 'config' => $itemCreateStruct->config,
-            )
+            ]
         );
 
         return $this->queryHandler->addItem($newItem);
@@ -472,13 +472,13 @@ final class CollectionHandler implements CollectionHandlerInterface
             // Do nothing
         }
 
-        $queryParameters = array();
+        $queryParameters = [];
         foreach ($collection->availableLocales as $collectionLocale) {
             $queryParameters[$collectionLocale] = $queryCreateStruct->parameters;
         }
 
         $newQuery = new Query(
-            array(
+            [
                 'collectionId' => $collection->id,
                 'type' => $queryCreateStruct->type,
                 'parameters' => $queryParameters,
@@ -487,7 +487,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'alwaysAvailable' => $collection->alwaysAvailable,
                 'mainLocale' => $collection->mainLocale,
                 'availableLocales' => $collection->availableLocales,
-            )
+            ]
         );
 
         $newQuery = $this->queryHandler->createQuery($newQuery);
@@ -659,13 +659,13 @@ final class CollectionHandler implements CollectionHandlerInterface
      */
     private function getPositionHelperItemConditions($collectionId, $status)
     {
-        return array(
+        return [
             'table' => 'ngbm_collection_item',
             'column' => 'position',
-            'conditions' => array(
+            'conditions' => [
                 'collection_id' => $collectionId,
                 'status' => $status,
-            ),
-        );
+            ],
+        ];
     }
 }

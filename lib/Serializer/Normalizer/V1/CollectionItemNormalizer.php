@@ -21,13 +21,13 @@ final class CollectionItemNormalizer implements NormalizerInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
         $collectionItem = $object->getValue();
         $cmsItem = $collectionItem->getCmsItem();
 
-        $data = array(
+        $data = [
             'id' => $collectionItem->getId(),
             'collection_id' => $collectionItem->getCollectionId(),
             'position' => $collectionItem->getPosition(),
@@ -39,7 +39,7 @@ final class CollectionItemNormalizer implements NormalizerInterface
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
             'cms_url' => null,
-        );
+        ];
 
         if ($cmsItem instanceof NullItem) {
             return $data;

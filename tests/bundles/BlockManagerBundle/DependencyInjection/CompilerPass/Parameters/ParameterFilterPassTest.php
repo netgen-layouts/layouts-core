@@ -17,15 +17,15 @@ final class ParameterFilterPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $parameterFilterRegistry = new Definition();
-        $parameterFilterRegistry->addArgument(array());
+        $parameterFilterRegistry->addArgument([]);
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_filter', $parameterFilterRegistry);
 
         $filter1 = new Definition();
-        $filter1->addTag('netgen_block_manager.parameters.parameter_filter', array('type' => 'html'));
+        $filter1->addTag('netgen_block_manager.parameters.parameter_filter', ['type' => 'html']);
         $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test1', $filter1);
 
         $filter2 = new Definition();
-        $filter2->addTag('netgen_block_manager.parameters.parameter_filter', array('priority' => 5, 'type' => 'html'));
+        $filter2->addTag('netgen_block_manager.parameters.parameter_filter', ['priority' => 5, 'type' => 'html']);
         $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test2', $filter2);
 
         $this->compile();
@@ -33,20 +33,20 @@ final class ParameterFilterPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.parameters.registry.parameter_filter',
             'addParameterFilter',
-            array(
+            [
                 'html',
                 new Reference('netgen_block_manager.parameters.parameter_filter.test2'),
-            ),
+            ],
             0
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.parameters.registry.parameter_filter',
             'addParameterFilter',
-            array(
+            [
                 'html',
                 new Reference('netgen_block_manager.parameters.parameter_filter.test1'),
-            ),
+            ],
             1
         );
     }

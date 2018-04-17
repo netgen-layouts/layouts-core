@@ -43,11 +43,11 @@ final class LayoutTest extends TestCase
         $this->assertNull($layout->getModified());
         $this->assertNull($layout->getStatus());
         $this->assertNull($layout->isShared());
-        $this->assertEquals(array(), $layout->getZones());
+        $this->assertEquals([], $layout->getZones());
         $this->assertNull($layout->getZone('test'));
         $this->assertFalse($layout->hasZone('test'));
         $this->assertNull($layout->getMainLocale());
-        $this->assertEquals(array(), $layout->getAvailableLocales());
+        $this->assertEquals([], $layout->getAvailableLocales());
         $this->assertFalse($layout->hasLocale('en'));
     }
 
@@ -83,15 +83,15 @@ final class LayoutTest extends TestCase
         $modifiedDate = new DateTimeImmutable();
         $modifiedDate->setTimestamp(456);
 
-        $zones = array(
-            'left' => new Zone(array('identifier' => 'left')),
-            'right' => new Zone(array('identifier' => 'right', 'linkedZone' => new Zone())),
-        );
+        $zones = [
+            'left' => new Zone(['identifier' => 'left']),
+            'right' => new Zone(['identifier' => 'right', 'linkedZone' => new Zone()]),
+        ];
 
         $layout = new Layout(
-            array(
+            [
                 'id' => 42,
-                'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
+                'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
                 'name' => 'My layout',
                 'description' => 'My description',
                 'created' => $createdDate,
@@ -100,12 +100,12 @@ final class LayoutTest extends TestCase
                 'shared' => true,
                 'zones' => new ArrayCollection($zones),
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
-            )
+                'availableLocales' => ['en'],
+            ]
         );
 
         $this->assertEquals(42, $layout->getId());
-        $this->assertEquals(new LayoutType(array('identifier' => '4_zones_a')), $layout->getLayoutType());
+        $this->assertEquals(new LayoutType(['identifier' => '4_zones_a']), $layout->getLayoutType());
         $this->assertEquals('My layout', $layout->getName());
         $this->assertEquals('My description', $layout->getDescription());
         $this->assertEquals($createdDate, $layout->getCreated());
@@ -120,7 +120,7 @@ final class LayoutTest extends TestCase
         $this->assertTrue($layout->hasZone('right'));
         $this->assertTrue($layout->isPublished());
         $this->assertEquals('en', $layout->getMainLocale());
-        $this->assertEquals(array('en'), $layout->getAvailableLocales());
+        $this->assertEquals(['en'], $layout->getAvailableLocales());
         $this->assertTrue($layout->hasLocale('en'));
         $this->assertFalse($layout->hasLocale('hr'));
 

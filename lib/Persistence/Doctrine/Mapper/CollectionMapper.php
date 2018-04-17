@@ -15,16 +15,16 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function mapCollections(array $data = array())
+    public function mapCollections(array $data = [])
     {
-        $collections = array();
+        $collections = [];
 
         foreach ($data as $dataItem) {
             $collectionId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
             if (!isset($collections[$collectionId])) {
-                $collections[$collectionId] = array(
+                $collections[$collectionId] = [
                     'id' => $collectionId,
                     'status' => (int) $dataItem['status'],
                     'offset' => (int) $dataItem['start'],
@@ -32,7 +32,7 @@ final class CollectionMapper
                     'isTranslatable' => (bool) $dataItem['translatable'],
                     'mainLocale' => $dataItem['main_locale'],
                     'alwaysAvailable' => (bool) $dataItem['always_available'],
-                );
+                ];
             }
 
             $collections[$collectionId]['availableLocales'][] = $locale;
@@ -55,13 +55,13 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
      */
-    public function mapItems(array $data = array())
+    public function mapItems(array $data = [])
     {
-        $items = array();
+        $items = [];
 
         foreach ($data as $dataItem) {
             $items[] = new Item(
-                array(
+                [
                     'id' => (int) $dataItem['id'],
                     'collectionId' => (int) $dataItem['collection_id'],
                     'position' => (int) $dataItem['position'],
@@ -70,7 +70,7 @@ final class CollectionMapper
                     'valueType' => $dataItem['value_type'],
                     'status' => (int) $dataItem['status'],
                     'config' => $this->buildParameters($dataItem['config']),
-                )
+                ]
             );
         }
 
@@ -84,21 +84,21 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function mapQuery(array $data = array())
+    public function mapQuery(array $data = [])
     {
-        $queries = array();
+        $queries = [];
 
         foreach ($data as $dataItem) {
             $queryId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
             if (!isset($queries[$queryId])) {
-                $queries[$queryId] = array(
+                $queries[$queryId] = [
                     'id' => $queryId,
                     'collectionId' => (int) $dataItem['collection_id'],
                     'type' => $dataItem['type'],
                     'status' => (int) $dataItem['status'],
-                );
+                ];
             }
 
             $queries[$queryId]['parameters'][$locale] = $this->buildParameters($dataItem['parameters']);
@@ -126,8 +126,8 @@ final class CollectionMapper
      */
     private function buildParameters($parameters)
     {
-        $parameters = !empty($parameters) ? json_decode($parameters, true) : array();
+        $parameters = !empty($parameters) ? json_decode($parameters, true) : [];
 
-        return is_array($parameters) ? $parameters : array();
+        return is_array($parameters) ? $parameters : [];
     }
 }

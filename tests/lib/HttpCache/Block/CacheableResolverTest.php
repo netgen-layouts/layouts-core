@@ -17,7 +17,7 @@ final class CacheableResolverTest extends TestCase
     public function testSetVotersThrowsInvalidInterfaceException()
     {
         $cacheableResolver = new CacheableResolver();
-        $cacheableResolver->setVoters(array(new stdClass()));
+        $cacheableResolver->setVoters([new stdClass()]);
     }
 
     /**
@@ -39,70 +39,70 @@ final class CacheableResolverTest extends TestCase
 
     public function isCacheableProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     new VoterStub(VoterStub::ABSTAIN),
                     new VoterStub(VoterStub::ABSTAIN),
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::ABSTAIN),
                     new VoterStub(VoterStub::YES),
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::ABSTAIN),
                     new VoterStub(VoterStub::NO),
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::YES),
                     new VoterStub(VoterStub::ABSTAIN),
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::YES),
                     new VoterStub(VoterStub::YES),
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::YES),
                     new VoterStub(VoterStub::NO),
-                ),
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::NO),
                     new VoterStub(VoterStub::ABSTAIN),
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::NO),
                     new VoterStub(VoterStub::YES),
-                ),
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     new VoterStub(VoterStub::NO),
                     new VoterStub(VoterStub::NO),
-                ),
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 }

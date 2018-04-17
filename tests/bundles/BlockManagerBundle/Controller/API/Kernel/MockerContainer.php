@@ -10,12 +10,12 @@ class MockerContainer extends Container
     /**
      * @var array
      */
-    private $originalServices = array();
+    private $originalServices = [];
 
     /**
      * @var array
      */
-    private $mockedServices = array();
+    private $mockedServices = [];
 
     /**
      * @param string $id

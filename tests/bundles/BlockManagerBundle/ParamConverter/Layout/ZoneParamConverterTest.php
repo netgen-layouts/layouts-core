@@ -33,7 +33,7 @@ final class ZoneParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('layoutId', 'zoneIdentifier'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['layoutId', 'zoneIdentifier'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -68,11 +68,11 @@ final class ZoneParamConverterTest extends TestCase
         $this->assertEquals(
             $zone,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'layoutId' => 42,
                     'zoneIdentifier' => 'left',
                     'published' => true,
-                )
+                ]
             )
         );
     }
@@ -93,11 +93,11 @@ final class ZoneParamConverterTest extends TestCase
         $this->assertEquals(
             $zone,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'layoutId' => 42,
                     'zoneIdentifier' => 'left',
                     'published' => false,
-                )
+                ]
             )
         );
     }

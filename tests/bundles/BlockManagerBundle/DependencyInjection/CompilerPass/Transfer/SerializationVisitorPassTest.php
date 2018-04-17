@@ -17,7 +17,7 @@ final class SerializationVisitorPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $aggregateVisitor = new Definition();
-        $aggregateVisitor->addArgument(array());
+        $aggregateVisitor->addArgument([]);
         $this->setDefinition('netgen_block_manager.transfer.serializer.visitor.aggregate', $aggregateVisitor);
 
         $visitor = new Definition();
@@ -33,10 +33,10 @@ final class SerializationVisitorPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.transfer.serializer.visitor.aggregate',
             0,
-            array(
+            [
                 new Reference('netgen_block_manager.transfer.serializer.visitor.test'),
                 new Reference('netgen_block_manager.transfer.serializer.visitor.test2'),
-            )
+            ]
         );
     }
 

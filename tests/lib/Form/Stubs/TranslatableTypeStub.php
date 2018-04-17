@@ -26,20 +26,20 @@ final class TranslatableTypeStub extends TranslatableType
         $builder->add(
             'name',
             TextType::class,
-            array(
+            [
                 'property_path' => 'name',
-            )
+            ]
         );
 
         $builder->add(
             'parameters',
             ParametersType::class,
-            array(
+            [
                 'inherit_data' => true,
                 'label_prefix' => 'label_prefix',
                 'property_path' => 'parameterValues',
                 'parameter_collection' => $options['block']->getDefinition(),
-            )
+            ]
         );
 
         $this->disableFormsOnNonMainLocale($builder);

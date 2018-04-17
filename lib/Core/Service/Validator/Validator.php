@@ -23,10 +23,10 @@ abstract class Validator
     {
         $this->validate(
             $id,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'scalar')),
-            ),
+                new Constraints\Type(['type' => 'scalar']),
+            ],
             $propertyPath
         );
     }
@@ -50,15 +50,15 @@ abstract class Validator
             return;
         }
 
-        $constraints = array(
+        $constraints = [
             new Constraints\NotBlank(),
-            new Constraints\Type(array('type' => 'string')),
+            new Constraints\Type(['type' => 'string']),
             new Constraints\Regex(
-                array(
+                [
                     'pattern' => '/^[A-Za-z]([A-Za-z0-9_])*$/',
-                )
+                ]
             ),
-        );
+        ];
 
         $this->validate($identifier, $constraints, $propertyPath);
     }
@@ -82,11 +82,11 @@ abstract class Validator
             return;
         }
 
-        $constraints = array(
+        $constraints = [
             new Constraints\NotBlank(),
             new Constraints\GreaterThanOrEqual(0),
-            new Constraints\Type(array('type' => 'int')),
-        );
+            new Constraints\Type(['type' => 'int']),
+        ];
 
         $this->validate($position, $constraints, $propertyPath);
     }
@@ -103,20 +103,20 @@ abstract class Validator
     {
         $this->validate(
             $offset,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'int')),
-            ),
+                new Constraints\Type(['type' => 'int']),
+            ],
             'offset'
         );
 
         if ($limit !== null) {
             $this->validate(
                 $limit,
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'int')),
-                ),
+                    new Constraints\Type(['type' => 'int']),
+                ],
                 'limit'
             );
         }
@@ -134,11 +134,11 @@ abstract class Validator
     {
         $this->validate(
             $locale,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Type(['type' => 'string']),
                 new Constraints\Locale(),
-            ),
+            ],
             $propertyPath
         );
     }

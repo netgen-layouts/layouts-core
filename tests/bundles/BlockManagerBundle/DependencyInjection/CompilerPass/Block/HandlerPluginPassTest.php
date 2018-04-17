@@ -27,9 +27,9 @@ final class HandlerPluginPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.handler_plugin',
             'addPlugin',
-            array(
+            [
                 new Reference('netgen_block_manager.block.block_definition_handler.plugin.test'),
-            )
+            ]
         );
     }
 

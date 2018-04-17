@@ -18,7 +18,7 @@ final class CompoundParameterDefinitionTest extends TestCase
     {
         $parameterDefinition = new CompoundParameterDefinition();
 
-        $this->assertEquals(array(), $parameterDefinition->getParameterDefinitions());
+        $this->assertEquals([], $parameterDefinition->getParameterDefinitions());
     }
 
     /**
@@ -29,18 +29,18 @@ final class CompoundParameterDefinitionTest extends TestCase
     public function testSetProperties()
     {
         $parameterDefinition = new CompoundParameterDefinition(
-            array(
-                'parameterDefinitions' => array('name' => 'value'),
-            )
+            [
+                'parameterDefinitions' => ['name' => 'value'],
+            ]
         );
 
-        $this->assertEquals(array('name' => 'value'), $parameterDefinition->getParameterDefinitions());
+        $this->assertEquals(['name' => 'value'], $parameterDefinition->getParameterDefinitions());
 
         $this->assertFalse($parameterDefinition->hasParameterDefinition('test'));
         $this->assertTrue($parameterDefinition->hasParameterDefinition('name'));
 
         try {
-            $this->assertEquals(array(), $parameterDefinition->getParameterDefinition('test'));
+            $this->assertEquals([], $parameterDefinition->getParameterDefinition('test'));
             $this->fail('Fetched a parameter in empty collection.');
         } catch (ParameterException $e) {
             // Do nothing

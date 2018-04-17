@@ -37,7 +37,7 @@ final class BlockViewRendererTest extends TestCase
             $this->contextMock,
             $this->cacheableResolverMock,
             'block_controller',
-            array('default', 'api')
+            ['default', 'api']
         );
     }
 
@@ -47,7 +47,7 @@ final class BlockViewRendererTest extends TestCase
      */
     public function testSupportsView()
     {
-        $view = new BlockView(array('block' => new Block()));
+        $view = new BlockView(['block' => new Block()]);
         $view->setContext('default');
 
         $this->cacheableResolverMock
@@ -95,17 +95,17 @@ final class BlockViewRendererTest extends TestCase
     {
         $this->contextMock->expects($this->once())
             ->method('all')
-            ->will($this->returnValue(array('var' => 'value')));
+            ->will($this->returnValue(['var' => 'value']));
 
         $block = new Block(
-            array(
+            [
                 'id' => 42,
-                'availableLocales' => array('en'),
+                'availableLocales' => ['en'],
                 'locale' => 'en',
-            )
+            ]
         );
 
-        $view = new BlockView(array('block' => $block));
+        $view = new BlockView(['block' => $block]);
         $view->setContext('default');
 
         $controller = $this->blockViewRenderer->getController($view);
@@ -114,13 +114,13 @@ final class BlockViewRendererTest extends TestCase
         $this->assertEquals('block_controller', $controller->controller);
 
         $this->assertEquals(
-            array(
+            [
                 'blockId' => 42,
                 'locale' => 'en',
                 'viewContext' => 'default',
-                'ngbmContext' => array('var' => 'value'),
+                'ngbmContext' => ['var' => 'value'],
                 '_ngbm_status' => 'published',
-            ),
+            ],
             $controller->attributes
         );
     }

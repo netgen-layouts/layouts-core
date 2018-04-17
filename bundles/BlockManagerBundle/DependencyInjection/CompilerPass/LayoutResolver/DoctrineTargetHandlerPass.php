@@ -19,7 +19,7 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
         }
 
         $layoutResolverQueryHandler = $container->findDefinition(self::$serviceName);
-        $targetHandlers = array();
+        $targetHandlers = [];
 
         foreach ($container->findTaggedServiceIds(self::$tagName) as $targetHandler => $tags) {
             foreach ($tags as $tag) {

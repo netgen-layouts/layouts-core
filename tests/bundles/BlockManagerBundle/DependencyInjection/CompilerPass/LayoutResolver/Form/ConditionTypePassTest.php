@@ -17,11 +17,11 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $formType = new Definition();
-        $formType->addArgument(array());
+        $formType->addArgument([]);
         $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type', $formType);
 
         $mapper = new Definition();
-        $mapper->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper', array('condition_type' => 'condition'));
+        $mapper->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper', ['condition_type' => 'condition']);
         $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type.mapper.test', $mapper);
 
         $this->compile();
@@ -29,9 +29,9 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.resolver.form.condition_type',
             0,
-            array(
+            [
                 'condition' => new Reference('netgen_block_manager.layout.resolver.form.condition_type.mapper.test'),
-            )
+            ]
         );
     }
 
@@ -43,7 +43,7 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {
         $formType = new Definition();
-        $formType->addArgument(array());
+        $formType->addArgument([]);
         $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type', $formType);
 
         $mapper = new Definition();

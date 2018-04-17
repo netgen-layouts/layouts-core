@@ -34,20 +34,20 @@ final class RangeMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'name' => 'name',
                 'type' => new RangeParameterType(),
-                'options' => array('min' => 3, 'max' => 5),
-            )
+                'options' => ['min' => 3, 'max' => 5],
+            ]
         );
 
         $this->assertEquals(
-            array(
-                'attr' => array(
+            [
+                'attr' => [
                     'min' => 3,
                     'max' => 5,
-                ),
-            ),
+                ],
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }

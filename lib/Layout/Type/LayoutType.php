@@ -38,7 +38,7 @@ class LayoutType extends Value
     /**
      * @var \Netgen\BlockManager\Layout\Type\Zone[]
      */
-    protected $zones = array();
+    protected $zones = [];
 
     /**
      * Returns the layout type identifier.

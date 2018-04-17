@@ -45,12 +45,12 @@ final class ValueTypeTest extends TestCase
         $form = $this->formFactory->create(
             Form::class,
             null,
-            array(
+            [
                 'configurable' => new Block(),
-            )
+            ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     /**
@@ -60,13 +60,13 @@ final class ValueTypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array(Query::class), false),
-            array(array(Block::class), true),
-            array(array(Query::class, Item::class), false),
-            array(array(Block::class, Query::class), true),
-        );
+        return [
+            [[], false],
+            [[Query::class], false],
+            [[Block::class], true],
+            [[Query::class, Item::class], false],
+            [[Block::class, Query::class], true],
+        ];
     }
 
     /**
@@ -74,7 +74,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 
     /**
@@ -84,7 +84,7 @@ final class ValueTypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array(Block::class)));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), [Block::class]));
     }
 
     /**
@@ -92,8 +92,8 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithInvalidConfigurable()
     {
-        $form = $this->formFactory->create(Form::class, null, array('configurable' => 'type'));
+        $form = $this->formFactory->create(Form::class, null, ['configurable' => 'type']);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array(Block::class)));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), [Block::class]));
     }
 }

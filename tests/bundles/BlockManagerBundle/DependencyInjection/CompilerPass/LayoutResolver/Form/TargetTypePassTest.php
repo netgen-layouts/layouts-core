@@ -17,11 +17,11 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $formType = new Definition();
-        $formType->addArgument(array());
+        $formType->addArgument([]);
         $this->setDefinition('netgen_block_manager.layout.resolver.form.target_type', $formType);
 
         $mapper = new Definition();
-        $mapper->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper', array('target_type' => 'target'));
+        $mapper->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper', ['target_type' => 'target']);
         $this->setDefinition('netgen_block_manager.layout.resolver.form.target_type.mapper.test', $mapper);
 
         $this->compile();
@@ -29,9 +29,9 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.resolver.form.target_type',
             0,
-            array(
+            [
                 'target' => new Reference('netgen_block_manager.layout.resolver.form.target_type.mapper.test'),
-            )
+            ]
         );
     }
 
@@ -43,7 +43,7 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {
         $formType = new Definition();
-        $formType->addArgument(array());
+        $formType->addArgument([]);
         $this->setDefinition('netgen_block_manager.layout.resolver.form.target_type', $formType);
 
         $mapper = new Definition();

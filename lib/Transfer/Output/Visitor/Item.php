@@ -27,14 +27,14 @@ final class Item extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
 
-        return array(
+        return [
             'id' => $collectionItem->getId(),
             'type' => $this->getTypeString($collectionItem),
             'position' => $collectionItem->getPosition(),
             'value' => $collectionItem->getCmsItem()->getRemoteId(),
             'value_type' => $collectionItem->getValueType(),
             'configuration' => $this->visitConfiguration($collectionItem, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -47,7 +47,7 @@ final class Item extends Visitor
      */
     private function visitConfiguration(ItemValue $item, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($item->getConfigs() as $config) {
             $hash[$config->getConfigKey()] = $subVisitor->visit($config);

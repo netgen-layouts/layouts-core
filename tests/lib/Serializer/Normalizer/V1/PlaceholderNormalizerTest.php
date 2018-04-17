@@ -38,23 +38,23 @@ final class PlaceholderNormalizerTest extends TestCase
     public function testNormalize()
     {
         $placeholder = new Placeholder(
-            array(
+            [
                 'identifier' => 'main',
-                'blocks' => new ArrayCollection(array(new Block())),
-            )
+                'blocks' => new ArrayCollection([new Block()]),
+            ]
         );
 
         $this->serializerMock
             ->expects($this->at(0))
             ->method('normalize')
-            ->with($this->equalTo(array(new View(new Block(), 1))))
-            ->will($this->returnValue(array('normalized blocks')));
+            ->with($this->equalTo([new View(new Block(), 1)]))
+            ->will($this->returnValue(['normalized blocks']));
 
         $this->assertEquals(
-            array(
+            [
                 'identifier' => 'main',
-                'blocks' => array('normalized blocks'),
-            ),
+                'blocks' => ['normalized blocks'],
+            ],
             $this->normalizer->normalize(new VersionedValue($placeholder, 1))
         );
     }
@@ -78,19 +78,19 @@ final class PlaceholderNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('placeholder', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Placeholder(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Placeholder(), 2), false),
-            array(new VersionedValue(new Placeholder(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['placeholder', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Placeholder(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Placeholder(), 2), false],
+            [new VersionedValue(new Placeholder(), 1), true],
+        ];
     }
 }

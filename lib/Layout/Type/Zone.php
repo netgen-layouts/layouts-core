@@ -19,7 +19,7 @@ final class Zone extends Value
     /**
      * @var array
      */
-    protected $allowedBlockDefinitions = array();
+    protected $allowedBlockDefinitions = [];
 
     /**
      * Returns the zone identifier.

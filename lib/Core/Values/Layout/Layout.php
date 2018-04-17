@@ -52,14 +52,14 @@ final class Layout extends Value implements APILayout
     /**
      * @var string[]
      */
-    protected $availableLocales = array();
+    protected $availableLocales = [];
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $zones;
 
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = [])
     {
         parent::__construct($properties);
 

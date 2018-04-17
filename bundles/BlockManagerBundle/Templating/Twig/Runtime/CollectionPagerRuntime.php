@@ -39,7 +39,7 @@ final class CollectionPagerRuntime
      *
      * @return string
      */
-    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, array $options = array())
+    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, array $options = [])
     {
         $options['block'] = $block;
         $options['collection_identifier'] = $collectionIdentifier;

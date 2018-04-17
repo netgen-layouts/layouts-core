@@ -15,11 +15,11 @@ final class ValueTypeTest extends TestCase
     public function setUp()
     {
         $this->valueType = new ValueType(
-            array(
+            [
                 'identifier' => 'value',
                 'isEnabled' => false,
                 'name' => 'Value type',
-            )
+            ]
         );
     }
 

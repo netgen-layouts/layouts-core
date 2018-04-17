@@ -57,32 +57,32 @@ final class LayoutNormalizerTest extends TestCase
         $currentDate->setTimestamp(time());
 
         $block = new Block(
-            array(
+            [
                 'id' => 24,
-            )
+            ]
         );
 
         $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
-            array(
+            [
                 'name' => '4 zones A',
                 'icon' => '/icon.svg',
                 'enabled' => true,
-                'zones' => array(
-                    'left' => array(
+                'zones' => [
+                    'left' => [
                         'name' => 'Left',
-                        'allowed_block_definitions' => array('title'),
-                    ),
-                    'right' => array(
+                        'allowed_block_definitions' => ['title'],
+                    ],
+                    'right' => [
                         'name' => 'Right',
-                        'allowed_block_definitions' => array(),
-                    ),
-                ),
-            )
+                        'allowed_block_definitions' => [],
+                    ],
+                ],
+            ]
         );
 
         $layout = new Layout(
-            array(
+            [
                 'id' => 42,
                 'layoutType' => $layoutType,
                 'status' => Value::STATUS_DRAFT,
@@ -90,50 +90,50 @@ final class LayoutNormalizerTest extends TestCase
                 'modified' => $currentDate,
                 'shared' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr'),
+                'availableLocales' => ['en', 'hr'],
                 'zones' => new ArrayCollection(
-                    array(
+                    [
                         'left' => new Zone(
-                            array(
+                            [
                                 'identifier' => 'left',
                                 'linkedZone' => null,
-                            )
+                            ]
                         ),
                         'right' => new Zone(
-                            array(
+                            [
                                 'identifier' => 'right',
                                 'linkedZone' => new Zone(
-                                    array(
+                                    [
                                         'layoutId' => 24,
                                         'identifier' => 'top',
-                                    )
+                                    ]
                                 ),
-                            )
+                            ]
                         ),
                         'missing' => new Zone(
-                            array(
+                            [
                                 'identifier' => 'missing',
-                            )
+                            ]
                         ),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->blockServiceMock
             ->expects($this->at(0))
             ->method('loadZoneBlocks')
-            ->will($this->returnValue(array($block)));
+            ->will($this->returnValue([$block]));
 
         $this->blockServiceMock
             ->expects($this->at(1))
             ->method('loadZoneBlocks')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->blockServiceMock
             ->expects($this->at(2))
             ->method('loadZoneBlocks')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->layoutServiceMock
             ->expects($this->once())
@@ -142,7 +142,7 @@ final class LayoutNormalizerTest extends TestCase
             ->will($this->returnValue(true));
 
         $this->assertEquals(
-            array(
+            [
                 'id' => $layout->getId(),
                 'type' => $layoutType->getIdentifier(),
                 'published' => false,
@@ -153,37 +153,37 @@ final class LayoutNormalizerTest extends TestCase
                 'name' => $layout->getName(),
                 'description' => $layout->getDescription(),
                 'main_locale' => $layout->getMainLocale(),
-                'available_locales' => array(
+                'available_locales' => [
                     'en' => 'English',
                     'hr' => 'Croatian',
-                ),
-                'zones' => array(
-                    array(
+                ],
+                'zones' => [
+                    [
                         'identifier' => 'left',
                         'name' => 'Left',
-                        'block_ids' => array(24),
-                        'allowed_block_definitions' => array('title'),
+                        'block_ids' => [24],
+                        'allowed_block_definitions' => ['title'],
                         'linked_layout_id' => null,
                         'linked_zone_identifier' => null,
-                    ),
-                    array(
+                    ],
+                    [
                         'identifier' => 'right',
                         'name' => 'Right',
-                        'block_ids' => array(),
+                        'block_ids' => [],
                         'allowed_block_definitions' => true,
                         'linked_layout_id' => 24,
                         'linked_zone_identifier' => 'top',
-                    ),
-                    array(
+                    ],
+                    [
                         'identifier' => 'missing',
                         'name' => 'missing',
-                        'block_ids' => array(),
+                        'block_ids' => [],
                         'allowed_block_definitions' => true,
                         'linked_layout_id' => null,
                         'linked_zone_identifier' => null,
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             $this->normalizer->normalize(new VersionedValue($layout, 1))
         );
     }
@@ -207,19 +207,19 @@ final class LayoutNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('layout', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new Layout(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Layout(), 2), false),
-            array(new VersionedValue(new Layout(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['layout', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new Layout(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Layout(), 2), false],
+            [new VersionedValue(new Layout(), 1), true],
+        ];
     }
 }

@@ -9,17 +9,17 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class LayoutTypeNormalizer implements NormalizerInterface
 {
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Layout\Type\LayoutType $layoutType */
         $layoutType = $object->getValue();
 
-        return array(
+        return [
             'identifier' => $layoutType->getIdentifier(),
             'name' => $layoutType->getName(),
             'icon' => $layoutType->getIcon(),
             'zones' => $this->getZones($layoutType),
-        );
+        ];
     }
 
     public function supportsNormalization($data, $format = null)
@@ -40,16 +40,16 @@ final class LayoutTypeNormalizer implements NormalizerInterface
      */
     private function getZones(LayoutType $layoutType)
     {
-        $zones = array();
+        $zones = [];
 
         foreach ($layoutType->getZones() as $zone) {
-            $zones[] = array(
+            $zones[] = [
                 'identifier' => $zone->getIdentifier(),
                 'name' => $zone->getName(),
                 'allowed_block_definitions' => !empty($zone->getAllowedBlockDefinitions()) ?
                     $zone->getAllowedBlockDefinitions() :
                     true,
-            );
+            ];
         }
 
         return $zones;

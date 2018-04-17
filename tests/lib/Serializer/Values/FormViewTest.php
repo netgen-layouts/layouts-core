@@ -26,8 +26,8 @@ final class FormViewTest extends TestCase
      */
     public function testViewParameters()
     {
-        $this->value->setViewParameters(array('param' => 'value'));
-        $this->assertEquals(array('param' => 'value'), $this->value->getViewParameters());
+        $this->value->setViewParameters(['param' => 'value']);
+        $this->assertEquals(['param' => 'value'], $this->value->getViewParameters());
     }
 
     /**

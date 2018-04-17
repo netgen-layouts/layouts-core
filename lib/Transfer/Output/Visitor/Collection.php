@@ -27,7 +27,7 @@ final class Collection extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
 
-        return array(
+        return [
             'id' => $collection->getId(),
             'offset' => $collection->getOffset(),
             'limit' => $collection->getLimit(),
@@ -37,7 +37,7 @@ final class Collection extends Visitor
             'available_locales' => $collection->getAvailableLocales(),
             'items' => $this->visitItems($collection->getItems(), $subVisitor),
             'query' => $this->visitQuery($collection, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -50,7 +50,7 @@ final class Collection extends Visitor
      */
     private function visitItems(array $items, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($items as $item) {
             $hash[$item->getPosition()] = $subVisitor->visit($item);

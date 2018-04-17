@@ -27,9 +27,9 @@ final class LayoutIdTest extends TestCase
     {
         $item = new Item(
             new Layout(
-                array(
+                [
                     'id' => 42,
-                )
+                ]
             )
         );
 

@@ -33,7 +33,7 @@ final class QueryParameterTest extends TestCase
     public function testGetFormOptions()
     {
         $this->assertEquals(
-            array(
+            [
                 'label' => false,
                 'required' => false,
                 'key_name' => 'parameter_name',
@@ -41,10 +41,10 @@ final class QueryParameterTest extends TestCase
                 'values_name' => 'parameter_values',
                 'values_label' => 'layout_resolver.condition.query_parameter.parameter_values',
                 'values_type' => TextType::class,
-                'values_options' => array(
+                'values_options' => [
                     'empty_data' => ' ',
-                ),
-            ),
+                ],
+            ],
             $this->mapper->getFormOptions()
         );
     }

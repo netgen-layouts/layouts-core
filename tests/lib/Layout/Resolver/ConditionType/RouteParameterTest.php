@@ -55,9 +55,9 @@ final class RouteParameterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(
             '_route_params',
-            array(
+            [
                 'the_answer' => 42,
-            )
+            ]
         );
 
         $this->assertEquals($matches, $this->conditionType->matches($request, $value));
@@ -70,27 +70,27 @@ final class RouteParameterTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(array('parameter_name' => 'name', 'parameter_values' => array('one', 'two')), true),
-            array(array('parameter_name' => 'name', 'parameter_values' => array('one')), true),
-            array(array('parameter_name' => 'name', 'parameter_values' => array('')), true),
-            array(array('parameter_name' => 'name', 'parameter_values' => array(array('one'))), false),
-            array(array('parameter_name' => 'name', 'parameter_values' => array()), true),
-            array(array('parameter_name' => 'name'), false),
-            array(array('parameter_name' => 42, 'parameter_values' => array('one', 'two')), false),
-            array(array('parameter_name' => 42, 'parameter_values' => array('one')), false),
-            array(array('parameter_name' => 42, 'parameter_values' => array('')), false),
-            array(array('parameter_name' => 42, 'parameter_values' => array(array('one'))), false),
-            array(array('parameter_name' => 42, 'parameter_values' => array()), false),
-            array(array('parameter_name' => 42), false),
-            array(array('parameter_values' => array('one', 'two')), false),
-            array(array('parameter_values' => array('one')), false),
-            array(array('parameter_values' => array('')), false),
-            array(array('parameter_values' => array(array('one'))), false),
-            array(array('parameter_values' => array()), false),
-            array(array(), false),
-            array(null, false),
-        );
+        return [
+            [['parameter_name' => 'name', 'parameter_values' => ['one', 'two']], true],
+            [['parameter_name' => 'name', 'parameter_values' => ['one']], true],
+            [['parameter_name' => 'name', 'parameter_values' => ['']], true],
+            [['parameter_name' => 'name', 'parameter_values' => [['one']]], false],
+            [['parameter_name' => 'name', 'parameter_values' => []], true],
+            [['parameter_name' => 'name'], false],
+            [['parameter_name' => 42, 'parameter_values' => ['one', 'two']], false],
+            [['parameter_name' => 42, 'parameter_values' => ['one']], false],
+            [['parameter_name' => 42, 'parameter_values' => ['']], false],
+            [['parameter_name' => 42, 'parameter_values' => [['one']]], false],
+            [['parameter_name' => 42, 'parameter_values' => []], false],
+            [['parameter_name' => 42], false],
+            [['parameter_values' => ['one', 'two']], false],
+            [['parameter_values' => ['one']], false],
+            [['parameter_values' => ['']], false],
+            [['parameter_values' => [['one']]], false],
+            [['parameter_values' => []], false],
+            [[], false],
+            [null, false],
+        ];
     }
 
     /**
@@ -100,29 +100,29 @@ final class RouteParameterTest extends TestCase
      */
     public function matchesProvider()
     {
-        return array(
-            array('not_array', false),
-            array(array(), false),
-            array(array('parameter_name' => array()), false),
-            array(array('parameter_values' => array()), false),
-            array(array('parameter_name' => null, 'parameter_values' => array()), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(42)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(24)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(42, 24)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(24, 42)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(24, 25)), false),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array()), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(42)), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24)), false),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(42, 24)), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24, 42)), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24, 25)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array()), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(42)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(42, 24)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 42)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 25)), false),
-        );
+        return [
+            ['not_array', false],
+            [[], false],
+            [['parameter_name' => []], false],
+            [['parameter_values' => []], false],
+            [['parameter_name' => null, 'parameter_values' => []], false],
+            [['parameter_name' => null, 'parameter_values' => [42]], false],
+            [['parameter_name' => null, 'parameter_values' => [24]], false],
+            [['parameter_name' => null, 'parameter_values' => [42, 24]], false],
+            [['parameter_name' => null, 'parameter_values' => [24, 42]], false],
+            [['parameter_name' => null, 'parameter_values' => [24, 25]], false],
+            [['parameter_name' => 'the_answer', 'parameter_values' => []], true],
+            [['parameter_name' => 'the_answer', 'parameter_values' => [42]], true],
+            [['parameter_name' => 'the_answer', 'parameter_values' => [24]], false],
+            [['parameter_name' => 'the_answer', 'parameter_values' => [42, 24]], true],
+            [['parameter_name' => 'the_answer', 'parameter_values' => [24, 42]], true],
+            [['parameter_name' => 'the_answer', 'parameter_values' => [24, 25]], false],
+            [['parameter_name' => 'the_other_answer', 'parameter_values' => []], false],
+            [['parameter_name' => 'the_other_answer', 'parameter_values' => [42]], false],
+            [['parameter_name' => 'the_other_answer', 'parameter_values' => [24]], false],
+            [['parameter_name' => 'the_other_answer', 'parameter_values' => [42, 24]], false],
+            [['parameter_name' => 'the_other_answer', 'parameter_values' => [24, 42]], false],
+            [['parameter_name' => 'the_other_answer', 'parameter_values' => [24, 25]], false],
+        ];
     }
 }

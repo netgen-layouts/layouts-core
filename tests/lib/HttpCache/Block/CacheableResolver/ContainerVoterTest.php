@@ -38,22 +38,22 @@ final class ContainerVoterTest extends TestCase
     public function testVote()
     {
         $twigBlock = new Block(
-            array(
+            [
                 'definition' => new TwigBlockDefinition(),
-            )
+            ]
         );
 
         $containerBlock = new Block(
-            array(
+            [
                 'definition' => new ContainerDefinition(),
-                'placeholders' => array(
+                'placeholders' => [
                     'left' => new Placeholder(
-                        array(
-                            'blocks' => new ArrayCollection(array($twigBlock)),
-                        )
+                        [
+                            'blocks' => new ArrayCollection([$twigBlock]),
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->cacheableResolverMock
@@ -63,16 +63,16 @@ final class ContainerVoterTest extends TestCase
             ->will($this->returnValue(false));
 
         $block = new Block(
-            array(
+            [
                 'definition' => new ContainerDefinition(),
-                'placeholders' => array(
+                'placeholders' => [
                     'left' => new Placeholder(
-                        array(
-                            'blocks' => new ArrayCollection(array($containerBlock)),
-                        )
+                        [
+                            'blocks' => new ArrayCollection([$containerBlock]),
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertFalse($this->voter->vote($block));
@@ -84,9 +84,9 @@ final class ContainerVoterTest extends TestCase
     public function testVoteWithContainerWithoutTwigBlock()
     {
         $regularBlock = new Block(
-            array(
+            [
                 'definition' => new BlockDefinition(),
-            )
+            ]
         );
 
         $this->cacheableResolverMock
@@ -96,16 +96,16 @@ final class ContainerVoterTest extends TestCase
             ->will($this->returnValue(true));
 
         $block = new Block(
-            array(
+            [
                 'definition' => new ContainerDefinition(),
-                'placeholders' => array(
+                'placeholders' => [
                     'left' => new Placeholder(
-                        array(
-                            'blocks' => new ArrayCollection(array($regularBlock)),
-                        )
+                        [
+                            'blocks' => new ArrayCollection([$regularBlock]),
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertNull($this->voter->vote($block));
@@ -117,9 +117,9 @@ final class ContainerVoterTest extends TestCase
     public function testVoteWithNonContainerBlock()
     {
         $block = new Block(
-            array(
+            [
                 'definition' => new BlockDefinition(),
-            )
+            ]
         );
 
         $this->assertNull($this->voter->vote($block));

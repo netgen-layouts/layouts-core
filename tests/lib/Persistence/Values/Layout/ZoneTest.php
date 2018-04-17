@@ -23,14 +23,14 @@ final class ZoneTest extends TestCase
     public function testSetProperties()
     {
         $zone = new Zone(
-            array(
+            [
                 'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 42,
                 'linkedLayoutId' => 24,
                 'linkedZoneIdentifier' => 'top',
-            )
+            ]
         );
 
         $this->assertEquals('left', $zone->identifier);

@@ -19,14 +19,14 @@ final class ItemTest extends TestCase
     public function testObject()
     {
         $value = new Item(
-            array(
+            [
                 'value' => 42,
                 'remoteId' => 'abc',
                 'valueType' => 'type',
                 'name' => 'Value name',
                 'isVisible' => true,
                 'object' => new stdClass(),
-            )
+            ]
         );
 
         $this->assertEquals(42, $value->getValue());

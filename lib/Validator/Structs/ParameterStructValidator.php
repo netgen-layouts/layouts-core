@@ -46,10 +46,10 @@ final class ParameterStructValidator extends ConstraintValidator
         $validator->validate(
             $value->getParameterValues(),
             new Constraints\Collection(
-                array(
+                [
                     'fields' => $this->buildConstraintFields($value, $constraint),
                     'allowMissingFields' => $constraint->allowMissingFields,
-                )
+                ]
             )
         );
     }
@@ -89,7 +89,7 @@ final class ParameterStructValidator extends ConstraintValidator
      */
     private function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
     {
-        $fields = array();
+        $fields = [];
         foreach ($constraint->parameterCollection->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
             $parameterValue = $parameterStruct->hasParameterValue($parameterName) ?
@@ -112,7 +112,7 @@ final class ParameterStructValidator extends ConstraintValidator
 
                     // Sub parameter values are always optional (either missing or set to null)
 
-                    $constraints = array();
+                    $constraints = [];
                     if ($subParameterValue !== null) {
                         $constraints = $subParameterDefinition->getType()->getConstraints(
                             $subParameterDefinition,

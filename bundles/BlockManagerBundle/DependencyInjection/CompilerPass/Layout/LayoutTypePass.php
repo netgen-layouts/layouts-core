@@ -30,7 +30,7 @@ final class LayoutTypePass implements CompilerPassInterface
         foreach ($layoutTypeServices as $identifier => $layoutTypeService) {
             $registry->addMethodCall(
                 'addLayoutType',
-                array($identifier, new Reference($layoutTypeService))
+                [$identifier, new Reference($layoutTypeService)]
             );
         }
     }
@@ -45,16 +45,16 @@ final class LayoutTypePass implements CompilerPassInterface
      */
     private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
     {
-        $layoutTypeServices = array();
+        $layoutTypeServices = [];
 
         foreach ($layoutTypes as $identifier => $layoutType) {
             $serviceIdentifier = sprintf('netgen_block_manager.layout.layout_type.%s', $identifier);
 
             $container->register($serviceIdentifier, LayoutType::class)
-                ->setArguments(array($identifier, $layoutType))
+                ->setArguments([$identifier, $layoutType])
                 ->setLazy(true)
                 ->setPublic(true)
-                ->setFactory(array(LayoutTypeFactory::class, 'buildLayoutType'));
+                ->setFactory([LayoutTypeFactory::class, 'buildLayoutType']);
 
             $layoutTypeServices[$identifier] = $serviceIdentifier;
         }

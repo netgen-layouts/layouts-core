@@ -22,13 +22,13 @@ final class TargetTest extends TestCase
     public function testSetProperties()
     {
         $target = new Target(
-            array(
+            [
                 'id' => 42,
                 'ruleId' => 30,
                 'type' => 'target',
                 'value' => 32,
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertEquals(42, $target->id);

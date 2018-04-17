@@ -18,7 +18,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->layouts = array(42 => new Layout(array('id' => 42)), 24 => new Layout(array('id' => 24)));
+        $this->layouts = [42 => new Layout(['id' => 42]), 24 => new Layout(['id' => 24])];
     }
 
     /**
@@ -35,20 +35,20 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'layouts' => array(42),
-        );
+        $submittedData = [
+            'layouts' => [42],
+        ];
 
         $form = $this->factory->create(
             ClearLayoutsCacheType::class,
             null,
-            array('layouts' => $this->layouts)
+            ['layouts' => $this->layouts]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(array('layouts' => array($this->layouts[42])), $form->getData());
+        $this->assertEquals(['layouts' => [$this->layouts[42]]], $form->getData());
 
         $view = $form->createView();
 
@@ -66,9 +66,9 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'layouts' => $this->layouts,
-            )
+            ]
         );
 
         $this->assertEquals($this->layouts, $options['layouts']);
@@ -86,9 +86,9 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'layouts' => 42,
-            )
+            ]
         );
     }
 }

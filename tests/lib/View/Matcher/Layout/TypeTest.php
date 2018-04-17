@@ -33,12 +33,12 @@ final class TypeTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $layout = new Layout(
-            array(
-                'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
-            )
+            [
+                'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
+            ]
         );
 
-        $view = new LayoutView(array('layout' => $layout));
+        $view = new LayoutView(['layout' => $layout]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -52,7 +52,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchLayoutType(array $config, $expected)
     {
-        $view = new LayoutTypeView(array('layoutType' => new LayoutType(array('identifier' => '4_zones_a'))));
+        $view = new LayoutTypeView(['layoutType' => new LayoutType(['identifier' => '4_zones_a'])]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -64,13 +64,13 @@ final class TypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('some_type'), false),
-            array(array('4_zones_a'), true),
-            array(array('some_type', 'some_type_2'), false),
-            array(array('some_type', '4_zones_a'), true),
-        );
+        return [
+            [[], false],
+            [['some_type'], false],
+            [['4_zones_a'], true],
+            [['some_type', 'some_type_2'], false],
+            [['some_type', '4_zones_a'], true],
+        ];
     }
 
     /**
@@ -80,13 +80,13 @@ final class TypeTest extends TestCase
      */
     public function matchLayoutTypeProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('some_type'), false),
-            array(array('4_zones_a'), true),
-            array(array('some_type', 'some_type_2'), false),
-            array(array('some_type', '4_zones_a'), true),
-        );
+        return [
+            [[], false],
+            [['some_type'], false],
+            [['4_zones_a'], true],
+            [['some_type', 'some_type_2'], false],
+            [['some_type', '4_zones_a'], true],
+        ];
     }
 
     /**
@@ -94,6 +94,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoLayoutOrLayoutTypeView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

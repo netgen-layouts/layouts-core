@@ -210,7 +210,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'start' => ':start',
@@ -218,7 +218,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'translatable' => ':translatable',
                     'main_locale' => ':main_locale',
                     'always_available' => ':always_available',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -253,11 +253,11 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_translation')
             ->values(
-                array(
+                [
                     'collection_id' => ':collection_id',
                     'status' => ':status',
                     'locale' => ':locale',
-                )
+                ]
             )
             ->setParameter('collection_id', $collection->id, Type::INTEGER)
             ->setParameter('status', $collection->status, Type::INTEGER)
@@ -378,7 +378,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_item')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'collection_id' => ':collection_id',
@@ -387,7 +387,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'value' => ':value',
                     'value_type' => ':value_type',
                     'config' => ':config',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -533,12 +533,12 @@ final class CollectionQueryHandler extends QueryHandler
         $dbQuery = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'type' => ':type',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -570,12 +570,12 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query_translation')
             ->values(
-                array(
+                [
                     'query_id' => ':query_id',
                     'status' => ':status',
                     'locale' => ':locale',
                     'parameters' => ':parameters',
-                )
+                ]
             )
             ->setParameter('query_id', $query->id, Type::INTEGER)
             ->setParameter('status', $query->status, Type::INTEGER)
@@ -624,7 +624,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('ngbm_collection_query')
             ->where(
-                $query->expr()->in('id', array(':query_id'))
+                $query->expr()->in('id', [':query_id'])
             )
             ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
 
@@ -648,7 +648,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('ngbm_collection_query_translation')
             ->where(
-                $query->expr()->in('query_id', array(':query_id'))
+                $query->expr()->in('query_id', [':query_id'])
             )
             ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
 

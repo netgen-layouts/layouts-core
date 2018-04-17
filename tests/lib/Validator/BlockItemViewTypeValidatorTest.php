@@ -21,20 +21,20 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     public function setUp()
     {
         $this->blockDefinition = new BlockDefinition(
-            array(
-                'viewTypes' => array(
+            [
+                'viewTypes' => [
                     'large' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $this->constraint = new BlockItemViewType(array('definition' => $this->blockDefinition));
+        $this->constraint = new BlockItemViewType(['definition' => $this->blockDefinition]);
 
         parent::setUp();
     }
@@ -108,16 +108,16 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array('large', 'standard', true),
-            array('large', 'unknown', false),
-            array('large', '', false),
-            array('small', 'standard', false),
-            array('small', 'unknown', false),
-            array('small', '', false),
-            array('', 'standard', false),
-            array('', 'unknown', false),
-            array('', '', false),
-        );
+        return [
+            ['large', 'standard', true],
+            ['large', 'unknown', false],
+            ['large', '', false],
+            ['small', 'standard', false],
+            ['small', 'unknown', false],
+            ['small', '', false],
+            ['', 'standard', false],
+            ['', 'unknown', false],
+            ['', '', false],
+        ];
     }
 }

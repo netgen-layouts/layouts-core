@@ -27,10 +27,10 @@ final class Placeholder extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
 
-        return array(
+        return [
             'identifier' => $placeholder->getIdentifier(),
             'blocks' => $this->visitBlocks($placeholder, $subVisitor),
-        );
+        ];
     }
 
     /**
@@ -43,7 +43,7 @@ final class Placeholder extends Visitor
      */
     private function visitBlocks(PlaceholderValue $placeholder, VisitorInterface $subVisitor)
     {
-        $hash = array();
+        $hash = [];
 
         foreach ($placeholder as $block) {
             $hash[] = $subVisitor->visit($block);

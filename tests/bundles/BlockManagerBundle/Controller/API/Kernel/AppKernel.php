@@ -10,7 +10,7 @@ final class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             // Symfony
 
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
@@ -25,7 +25,7 @@ final class AppKernel extends Kernel
             new \Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle(),
             new \Netgen\Bundle\BlockManagerFixturesBundle\NetgenBlockManagerFixturesBundle(),
             new \Netgen\Bundle\BlockManagerStandardBundle\NetgenBlockManagerStandardBundle(),
-        );
+        ];
     }
 
     public function boot()

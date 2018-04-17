@@ -23,7 +23,7 @@ final class ItemLoader implements ItemLoaderInterface
      */
     public function __construct(
         ItemBuilderInterface $itemBuilder,
-        array $valueLoaders = array()
+        array $valueLoaders = []
     ) {
         foreach ($valueLoaders as $valueLoader) {
             if (!$valueLoader instanceof ValueLoaderInterface) {

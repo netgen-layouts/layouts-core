@@ -13,17 +13,17 @@ final class TimeType extends AbstractType
         $builder->add(
             'from',
             DateTimeType::class,
-            array(
+            [
                 'required' => false,
-            )
+            ]
         );
 
         $builder->add(
             'to',
             DateTimeType::class,
-            array(
+            [
                 'required' => false,
-            )
+            ]
         );
     }
 

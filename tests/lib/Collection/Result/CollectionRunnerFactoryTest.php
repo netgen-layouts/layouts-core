@@ -51,13 +51,13 @@ final class CollectionRunnerFactoryTest extends TestCase
     {
         $runner = $this->factory->getCollectionRunner(
             new Collection(
-                array(
+                [
                     'query' => new Query(
-                        array(
+                        [
                             'queryType' => new QueryType('type'),
-                        )
+                        ]
                     ),
-                )
+                ]
             )
         );
 
@@ -73,13 +73,13 @@ final class CollectionRunnerFactoryTest extends TestCase
     {
         $runner = $this->factory->getCollectionRunner(
             new Collection(
-                array(
+                [
                     'query' => new Query(
-                        array(
-                            'queryType' => new QueryType('type', array(), null, true),
-                        )
+                        [
+                            'queryType' => new QueryType('type', [], null, true),
+                        ]
                     ),
-                )
+                ]
             ),
             PHP_INT_MAX
         );

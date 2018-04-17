@@ -9,7 +9,7 @@ trait ConfigAwareValueTrait
     /**
      * @var \Netgen\BlockManager\API\Values\Config\Config[]
      */
-    protected $configs = array();
+    protected $configs = [];
 
     /**
      * Returns all available configs.

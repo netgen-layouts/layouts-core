@@ -9,7 +9,7 @@ abstract class Mapper implements MapperInterface
 {
     public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        return array();
+        return [];
     }
 
     public function handleForm(FormBuilderInterface $form, ParameterDefinitionInterface $parameterDefinition)

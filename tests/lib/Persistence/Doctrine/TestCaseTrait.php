@@ -112,14 +112,14 @@ trait TestCaseTrait
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),
-                array(
+                [
                     'route' => new TargetHandler\Doctrine\Route(),
                     'route_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
                     'path_info' => new TargetHandler\Doctrine\Route(),
                     'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
                     'request_uri' => new TargetHandler\Doctrine\Route(),
                     'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
-                )
+                ]
             ),
             new LayoutResolverMapper()
         );

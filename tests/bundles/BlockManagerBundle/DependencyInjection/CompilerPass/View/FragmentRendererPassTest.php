@@ -17,10 +17,10 @@ final class FragmentRendererPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $fragmentRenderer = new Definition();
-        $fragmentRenderer->addArgument(array());
-        $fragmentRenderer->addArgument(array());
-        $fragmentRenderer->addArgument(array());
-        $fragmentRenderer->addArgument(array());
+        $fragmentRenderer->addArgument([]);
+        $fragmentRenderer->addArgument([]);
+        $fragmentRenderer->addArgument([]);
+        $fragmentRenderer->addArgument([]);
 
         $this->setDefinition('netgen_block_manager.view.renderer.fragment', $fragmentRenderer);
 
@@ -37,10 +37,10 @@ final class FragmentRendererPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.view.renderer.fragment',
             3,
-            array(
+            [
                 new Reference('netgen_block_manager.view.renderer.fragment.test'),
                 new Reference('netgen_block_manager.view.renderer.fragment.test2'),
-            )
+            ]
         );
     }
 

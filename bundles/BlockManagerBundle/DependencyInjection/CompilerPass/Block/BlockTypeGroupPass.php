@@ -31,7 +31,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
         foreach ($blockTypeGroupServices as $identifier => $blockTypeGroupService) {
             $registry->addMethodCall(
                 'addBlockTypeGroup',
-                array($identifier, new Reference($blockTypeGroupService))
+                [$identifier, new Reference($blockTypeGroupService)]
             );
         }
     }
@@ -46,7 +46,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
      */
     private function generateBlockTypeGroupConfig(array $blockTypeGroups, array $blockTypes)
     {
-        $missingBlockTypes = array();
+        $missingBlockTypes = [];
 
         // We will add all blocks which are not located in any group to a custom group
         // if it exists
@@ -81,12 +81,12 @@ final class BlockTypeGroupPass implements CompilerPassInterface
      */
     private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes)
     {
-        $blockTypeGroupServices = array();
+        $blockTypeGroupServices = [];
 
         foreach ($blockTypeGroups as $identifier => $blockTypeGroup) {
             $serviceIdentifier = sprintf('netgen_block_manager.block.block_type_group.%s', $identifier);
 
-            $blockTypeReferences = array();
+            $blockTypeReferences = [];
             foreach ($blockTypeGroup['block_types'] as $blockTypeIdentifier) {
                 if (isset($blockTypes[$blockTypeIdentifier])) {
                     $blockTypeReferences[] = new Reference(
@@ -99,10 +99,10 @@ final class BlockTypeGroupPass implements CompilerPassInterface
             }
 
             $container->register($serviceIdentifier, BlockTypeGroup::class)
-                ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
+                ->setArguments([$identifier, $blockTypeGroup, $blockTypeReferences])
                 ->setLazy(true)
                 ->setPublic(true)
-                ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
+                ->setFactory([BlockTypeGroupFactory::class, 'buildBlockTypeGroup']);
 
             $blockTypeGroupServices[$identifier] = $serviceIdentifier;
         }

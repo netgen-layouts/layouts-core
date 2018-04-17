@@ -10,11 +10,11 @@ final class HelpersExtension extends AbstractExtension
 {
     public function getFilters()
     {
-        return array(
+        return [
             new TwigFilter(
                 'ngbm_locale_name',
-                array(HelpersRuntime::class, 'getLocaleName')
+                [HelpersRuntime::class, 'getLocaleName']
             ),
-        );
+        ];
     }
 }

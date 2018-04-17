@@ -30,6 +30,6 @@ final class DynamicContainerHandlerTest extends TestCase
      */
     public function testGetPlaceholderIdentifiers()
     {
-        $this->assertEquals(array(), $this->handler->getPlaceholderIdentifiers());
+        $this->assertEquals([], $this->handler->getPlaceholderIdentifiers());
     }
 }

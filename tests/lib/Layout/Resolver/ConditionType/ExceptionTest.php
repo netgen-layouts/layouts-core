@@ -68,7 +68,7 @@ final class ExceptionTest extends TestCase
     {
         $request = Request::create('/');
 
-        $this->assertFalse($this->conditionType->matches($request, array(404)));
+        $this->assertFalse($this->conditionType->matches($request, [404]));
     }
 
     /**
@@ -80,7 +80,7 @@ final class ExceptionTest extends TestCase
 
         $request->attributes->set('exception', new Exception());
 
-        $this->assertFalse($this->conditionType->matches($request, array(404)));
+        $this->assertFalse($this->conditionType->matches($request, [404]));
     }
 
     /**
@@ -90,16 +90,16 @@ final class ExceptionTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(array(404), true),
-            array(array(404, 403), true),
-            array(array(403, 700), false),
-            array(array(403, 200), false),
-            array(array(700), false),
-            array(array(200), false),
-            array(array(), true),
-            array(null, false),
-        );
+        return [
+            [[404], true],
+            [[404, 403], true],
+            [[403, 700], false],
+            [[403, 200], false],
+            [[700], false],
+            [[200], false],
+            [[], true],
+            [null, false],
+        ];
     }
 
     /**
@@ -109,14 +109,14 @@ final class ExceptionTest extends TestCase
      */
     public function matchesProvider()
     {
-        return array(
-            array('not_array', false),
-            array(array(), true),
-            array(array(404), true),
-            array(array(403), false),
-            array(array(404, 403), true),
-            array(array(403, 404), true),
-            array(array(403, 401), false),
-        );
+        return [
+            ['not_array', false],
+            [[], true],
+            [[404], true],
+            [[403], false],
+            [[404, 403], true],
+            [[403, 404], true],
+            [[403, 401], false],
+        ];
     }
 }

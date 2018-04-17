@@ -36,9 +36,9 @@ final class CollectionStructBuilder
     public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null)
     {
         return new CollectionCreateStruct(
-            array(
+            [
                 'queryCreateStruct' => $queryCreateStruct,
-            )
+            ]
         );
     }
 
@@ -78,11 +78,11 @@ final class CollectionStructBuilder
     public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $type, $value)
     {
         return new ItemCreateStruct(
-            array(
+            [
                 'definition' => $itemDefinition,
                 'type' => $type,
                 'value' => $value,
-            )
+            ]
         );
     }
 
@@ -118,9 +118,9 @@ final class CollectionStructBuilder
     public function newQueryCreateStruct(QueryTypeInterface $queryType)
     {
         $queryCreateStruct = new QueryCreateStruct(
-            array(
+            [
                 'queryType' => $queryType,
-            )
+            ]
         );
 
         $queryCreateStruct->fillParameters($queryType);

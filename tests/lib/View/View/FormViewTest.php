@@ -28,10 +28,10 @@ final class FormViewTest extends TestCase
         $this->form = $formFactory->create(FormType::class);
 
         $this->view = new FormView(
-            array(
+            [
                 'form_object' => $this->form,
                 'form' => $this->form->createView(),
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -68,10 +68,10 @@ final class FormViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'formName' => 'form',
                 'formType' => FormType::class,
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

@@ -18,10 +18,10 @@ final class TargetCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $targetCreateStruct = new TargetCreateStruct(
-            array(
+            [
                 'type' => 'target',
                 'value' => 42,
-            )
+            ]
         );
 
         $this->assertEquals('target', $targetCreateStruct->type);

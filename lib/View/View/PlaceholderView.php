@@ -23,9 +23,9 @@ final class PlaceholderView extends View implements PlaceholderViewInterface
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'blockId' => $this->getBlock()->getId(),
             'placeholder' => $this->getPlaceholder()->getIdentifier(),
-        );
+        ];
     }
 }

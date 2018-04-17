@@ -77,12 +77,12 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(
-                    array(
+                    [
                         'param' => 'value',
                         'twig_template' => new ContextualizedTwigTemplate(
                             $this->createMock(Template::class)
                         ),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered block'));
@@ -90,13 +90,13 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered block',
             $this->runtime->renderBlock(
-                array(
+                [
                     'twig_template' => new ContextualizedTwigTemplate(
                         $this->createMock(Template::class)
                     ),
-                ),
+                ],
                 new Block(),
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -115,10 +115,10 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(
-                    array(
+                    [
                         'param' => 'value',
                         'twig_template' => null,
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered block'));
@@ -126,9 +126,9 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered block',
             $this->runtime->renderBlock(
-                array(),
+                [],
                 new Block(),
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -147,12 +147,12 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
-                    array(
+                    [
                         'param' => 'value',
                         'twig_template' => new ContextualizedTwigTemplate(
                             $this->createMock(Template::class)
                         ),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered block'));
@@ -160,13 +160,13 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered block',
             $this->runtime->renderBlock(
-                array(
+                [
                     'twig_template' => new ContextualizedTwigTemplate(
                         $this->createMock(Template::class)
                     ),
-                ),
+                ],
                 new Block(),
-                array('param' => 'value'),
+                ['param' => 'value'],
                 ViewInterface::CONTEXT_API
             )
         );
@@ -186,12 +186,12 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
-                    array(
+                    [
                         'param' => 'value',
                         'twig_template' => new ContextualizedTwigTemplate(
                             $this->createMock(Template::class)
                         ),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered block'));
@@ -199,14 +199,14 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered block',
             $this->runtime->renderBlock(
-                array(
+                [
                     'view_context' => ViewInterface::CONTEXT_API,
                     'twig_template' => new ContextualizedTwigTemplate(
                         $this->createMock(Template::class)
                     ),
-                ),
+                ],
                 new Block(),
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -218,7 +218,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderBlockReturnsEmptyStringOnException()
     {
-        $block = new Block(array('definition' => new BlockDefinition()));
+        $block = new Block(['definition' => new BlockDefinition()]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -226,11 +226,11 @@ final class RenderingRuntimeTest extends TestCase
             ->will($this->throwException(new Exception()));
 
         $renderedBlock = $this->runtime->renderBlock(
-            array(
+            [
                 'twig_template' => new ContextualizedTwigTemplate(
                     $this->createMock(Template::class)
                 ),
-            ),
+            ],
             $block
         );
 
@@ -247,7 +247,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderBlockThrowsExceptionInDebug()
     {
         $this->errorHandler->setThrow(true);
-        $block = new Block(array('definition' => new BlockDefinition()));
+        $block = new Block(['definition' => new BlockDefinition()]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -255,11 +255,11 @@ final class RenderingRuntimeTest extends TestCase
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->runtime->renderBlock(
-            array(
+            [
                 'twig_template' => new ContextualizedTwigTemplate(
                     $this->createMock(Template::class)
                 ),
-            ),
+            ],
             $block
         );
     }
@@ -272,11 +272,11 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholder()
     {
         $block = new Block(
-            array(
-                'placeholders' => array(
+            [
+                'placeholders' => [
                     'main' => new Placeholder(),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->rendererMock
@@ -286,13 +286,13 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(
-                    array(
+                    [
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => new ContextualizedTwigTemplate(
                             $this->createMock(Template::class)
                         ),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered placeholder'));
@@ -300,17 +300,17 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
-                array(
+                [
                     'twig_template' => new ContextualizedTwigTemplate(
                         $this->createMock(Template::class)
                     ),
-                ),
+                ],
                 $block,
                 'main',
-                array(
+                [
                     'block' => $block,
                     'param' => 'value',
-                )
+                ]
             )
         );
     }
@@ -323,11 +323,11 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderWithoutTwigTemplate()
     {
         $block = new Block(
-            array(
-                'placeholders' => array(
+            [
+                'placeholders' => [
                     'main' => new Placeholder(),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->rendererMock
@@ -337,11 +337,11 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(
-                    array(
+                    [
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => null,
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered placeholder'));
@@ -349,13 +349,13 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
-                array(),
+                [],
                 $block,
                 'main',
-                array(
+                [
                     'block' => $block,
                     'param' => 'value',
-                )
+                ]
             )
         );
     }
@@ -368,11 +368,11 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderWithViewContext()
     {
         $block = new Block(
-            array(
-                'placeholders' => array(
+            [
+                'placeholders' => [
                     'main' => new Placeholder(),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->rendererMock
@@ -382,13 +382,13 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
-                    array(
+                    [
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => new ContextualizedTwigTemplate(
                             $this->createMock(Template::class)
                         ),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered placeholder'));
@@ -396,17 +396,17 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
-                array(
+                [
                     'twig_template' => new ContextualizedTwigTemplate(
                         $this->createMock(Template::class)
                     ),
-                ),
+                ],
                 $block,
                 'main',
-                array(
+                [
                     'block' => $block,
                     'param' => 'value',
-                ),
+                ],
                 ViewInterface::CONTEXT_API
             )
         );
@@ -420,11 +420,11 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderWithViewContextFromTwigContext()
     {
         $block = new Block(
-            array(
-                'placeholders' => array(
+            [
+                'placeholders' => [
                     'main' => new Placeholder(),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->rendererMock
@@ -434,13 +434,13 @@ final class RenderingRuntimeTest extends TestCase
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
-                    array(
+                    [
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => new ContextualizedTwigTemplate(
                             $this->createMock(Template::class)
                         ),
-                    )
+                    ]
                 )
             )
             ->will($this->returnValue('rendered placeholder'));
@@ -448,18 +448,18 @@ final class RenderingRuntimeTest extends TestCase
         $this->assertEquals(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
-                array(
+                [
                     'view_context' => ViewInterface::CONTEXT_API,
                     'twig_template' => new ContextualizedTwigTemplate(
                         $this->createMock(Template::class)
                     ),
-                ),
+                ],
                 $block,
                 'main',
-                array(
+                [
                     'block' => $block,
                     'param' => 'value',
-                )
+                ]
             )
         );
     }
@@ -471,7 +471,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderPlaceholderReturnsEmptyStringOnException()
     {
-        $block = new Block(array('placeholders' => array('main' => new Placeholder())));
+        $block = new Block(['placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -479,11 +479,11 @@ final class RenderingRuntimeTest extends TestCase
             ->will($this->throwException(new Exception()));
 
         $renderedBlock = $this->runtime->renderPlaceholder(
-            array(
+            [
                 'twig_template' => new ContextualizedTwigTemplate(
                     $this->createMock(Template::class)
                 ),
-            ),
+            ],
             $block,
             'main'
         );
@@ -501,7 +501,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderThrowsExceptionInDebug()
     {
         $this->errorHandler->setThrow(true);
-        $block = new Block(array('placeholders' => array('main' => new Placeholder())));
+        $block = new Block(['placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -509,11 +509,11 @@ final class RenderingRuntimeTest extends TestCase
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->runtime->renderPlaceholder(
-            array(
+            [
                 'twig_template' => new ContextualizedTwigTemplate(
                     $this->createMock(Template::class)
                 ),
-            ),
+            ],
             $block,
             'main'
         );
@@ -530,17 +530,17 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
+                $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->will($this->returnValue('rendered item'));
 
         $this->assertEquals(
             'rendered item',
             $this->runtime->renderItem(
-                array(),
+                [],
                 new Item(),
                 'view_type',
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -556,17 +556,17 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
+                $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->will($this->returnValue('rendered item'));
 
         $this->assertEquals(
             'rendered item',
             $this->runtime->renderItem(
-                array(),
+                [],
                 new Item(),
                 'view_type',
-                array('param' => 'value'),
+                ['param' => 'value'],
                 ViewInterface::CONTEXT_API
             )
         );
@@ -583,19 +583,19 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
+                $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->will($this->returnValue('rendered item'));
 
         $this->assertEquals(
             'rendered item',
             $this->runtime->renderItem(
-                array(
+                [
                     'view_context' => ViewInterface::CONTEXT_API,
-                ),
+                ],
                 new Item(),
                 'view_type',
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -611,17 +611,17 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
+                $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->will($this->throwException(new Exception()));
 
         $this->assertEquals(
             '',
             $this->runtime->renderItem(
-                array(),
+                [],
                 new Item(),
                 'view_type',
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -641,15 +641,15 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
+                $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->runtime->renderItem(
-            array(),
+            [],
             new Item(),
             'view_type',
-            array('param' => 'value')
+            ['param' => 'value']
         );
     }
 
@@ -665,16 +665,16 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(array('param' => 'value'))
+                $this->equalTo(['param' => 'value'])
             )
             ->will($this->returnValue('rendered value'));
 
         $this->assertEquals(
             'rendered value',
             $this->runtime->renderValue(
-                array(),
+                [],
                 new Condition(),
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -691,16 +691,16 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(array('param' => 'value'))
+                $this->equalTo(['param' => 'value'])
             )
             ->will($this->returnValue('rendered value'));
 
         $this->assertEquals(
             'rendered value',
             $this->runtime->renderValue(
-                array(),
+                [],
                 new Condition(),
-                array('param' => 'value'),
+                ['param' => 'value'],
                 ViewInterface::CONTEXT_API
             )
         );
@@ -718,18 +718,18 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(array('param' => 'value'))
+                $this->equalTo(['param' => 'value'])
             )
             ->will($this->returnValue('rendered value'));
 
         $this->assertEquals(
             'rendered value',
             $this->runtime->renderValue(
-                array(
+                [
                     'view_context' => ViewInterface::CONTEXT_API,
-                ),
+                ],
                 new Condition(),
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -746,16 +746,16 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(array('param' => 'value'))
+                $this->equalTo(['param' => 'value'])
             )
             ->will($this->throwException(new Exception()));
 
         $this->assertEquals(
             '',
             $this->runtime->renderValue(
-                array(),
+                [],
                 new Condition(),
-                array('param' => 'value')
+                ['param' => 'value']
             )
         );
     }
@@ -776,14 +776,14 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(array('param' => 'value'))
+                $this->equalTo(['param' => 'value'])
             )
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->runtime->renderValue(
-            array(),
+            [],
             new Condition(),
-            array('param' => 'value')
+            ['param' => 'value']
         );
     }
 }

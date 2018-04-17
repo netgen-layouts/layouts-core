@@ -22,11 +22,11 @@ final class BlockCreateStructTest extends TestCase
     public function setUp()
     {
         $this->struct = new BlockCreateStruct(
-            array(
-                'collectionCreateStructs' => array(
-                    'default' => new CollectionCreateStruct(array('offset' => 0)),
-                ),
-            )
+            [
+                'collectionCreateStructs' => [
+                    'default' => new CollectionCreateStruct(['offset' => 0]),
+                ],
+            ]
         );
     }
 
@@ -36,7 +36,7 @@ final class BlockCreateStructTest extends TestCase
     public function testGetCollectionCreateStructs()
     {
         $this->assertEquals(
-            array('default' => new CollectionCreateStruct(array('offset' => 0))),
+            ['default' => new CollectionCreateStruct(['offset' => 0])],
             $this->struct->getCollectionCreateStructs()
         );
     }
@@ -47,14 +47,14 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testAddCollectionCreateStruct()
     {
-        $this->struct->addCollectionCreateStruct('default', new CollectionCreateStruct(array('offset' => 5)));
-        $this->struct->addCollectionCreateStruct('featured', new CollectionCreateStruct(array('offset' => 10)));
+        $this->struct->addCollectionCreateStruct('default', new CollectionCreateStruct(['offset' => 5]));
+        $this->struct->addCollectionCreateStruct('featured', new CollectionCreateStruct(['offset' => 10]));
 
         $this->assertEquals(
-            array(
-                'default' => new CollectionCreateStruct(array('offset' => 5)),
-                'featured' => new CollectionCreateStruct(array('offset' => 10)),
-            ),
+            [
+                'default' => new CollectionCreateStruct(['offset' => 5]),
+                'featured' => new CollectionCreateStruct(['offset' => 10]),
+            ],
             $this->struct->getCollectionCreateStructs()
         );
     }
@@ -66,22 +66,22 @@ final class BlockCreateStructTest extends TestCase
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
             'compound' => false,
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParameters($blockDefinition, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id',
                 'compound' => false,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -93,20 +93,20 @@ final class BlockCreateStructTest extends TestCase
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParameters($blockDefinition, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
                 'compound' => true,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -119,34 +119,34 @@ final class BlockCreateStructTest extends TestCase
         $blockDefinition = $this->buildBlockDefinition();
 
         $block = new Block(
-            array(
+            [
                 'definition' => $blockDefinition,
-                'parameters' => array(
+                'parameters' => [
                     'css_class' => new Parameter(
-                        array(
+                        [
                             'value' => 'css',
                             'parameterDefinition' => $blockDefinition->getParameterDefinition('css_class'),
-                        )
+                        ]
                     ),
                     'inner' => new Parameter(
-                        array(
+                        [
                             'value' => 'inner',
                             'parameterDefinition' => $blockDefinition->getParameterDefinition('compound')->getParameterDefinition('inner'),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->struct->fillParametersFromBlock($block);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => null,
                 'compound' => null,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -158,22 +158,22 @@ final class BlockCreateStructTest extends TestCase
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
             'compound' => false,
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id',
                 'compound' => false,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -185,20 +185,20 @@ final class BlockCreateStructTest extends TestCase
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        $initialValues = array(
+        $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
-        );
+        ];
 
         $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
 
         $this->assertEquals(
-            array(
+            [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
                 'compound' => true,
                 'inner' => 'inner',
-            ),
+            ],
             $this->struct->getParameterValues()
         );
     }
@@ -209,40 +209,40 @@ final class BlockCreateStructTest extends TestCase
     private function buildBlockDefinition()
     {
         $compoundParameter = new CompoundParameterDefinition(
-            array(
+            [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
-                'parameterDefinitions' => array(
+                'parameterDefinitions' => [
                     'inner' => new ParameterDefinition(
-                        array(
+                        [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
                             'defaultValue' => 'inner_default',
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $parameterDefinitions = array(
+        $parameterDefinitions = [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
-                )
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'id_default',
-                )
+                ]
             ),
             'compound' => $compoundParameter,
-        );
+        ];
 
-        return new BlockDefinition(array('parameterDefinitions' => $parameterDefinitions));
+        return new BlockDefinition(['parameterDefinitions' => $parameterDefinitions]);
     }
 }

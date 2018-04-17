@@ -15,11 +15,11 @@ final class ZoneTest extends TestCase
     public function setUp()
     {
         $this->zone = new Zone(
-            array(
+            [
                 'identifier' => 'left',
                 'name' => 'Left',
-                'allowedBlockDefinitions' => array('title'),
-            )
+                'allowedBlockDefinitions' => ['title'],
+            ]
         );
     }
 
@@ -45,6 +45,6 @@ final class ZoneTest extends TestCase
      */
     public function testGetAllowedBlockDefinitions()
     {
-        $this->assertEquals(array('title'), $this->zone->getAllowedBlockDefinitions());
+        $this->assertEquals(['title'], $this->zone->getAllowedBlockDefinitions());
     }
 }

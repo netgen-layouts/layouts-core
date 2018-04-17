@@ -20,7 +20,7 @@ final class LayoutParamConverter extends ParamConverter
 
     public function getSourceAttributeNames()
     {
-        return array('layoutId');
+        return ['layoutId'];
     }
 
     public function getDestinationAttributeName()

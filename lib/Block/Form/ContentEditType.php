@@ -16,7 +16,7 @@ final class ContentEditType extends EditType
         $this->addParametersForm(
             $builder,
             $options,
-            array(BlockDefinitionHandler::GROUP_CONTENT)
+            [BlockDefinitionHandler::GROUP_CONTENT]
         );
 
         if ($locale !== $mainLocale) {

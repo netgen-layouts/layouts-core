@@ -18,7 +18,7 @@ final class ConfigAwareValueTraitTest extends TestCase
     {
         $value = new ConfigAwareValue();
 
-        $this->assertEquals(array(), $value->getConfigs());
+        $this->assertEquals([], $value->getConfigs());
     }
 
     /**
@@ -29,14 +29,14 @@ final class ConfigAwareValueTraitTest extends TestCase
     public function testSetProperties()
     {
         $value = new ConfigAwareValue(
-            array(
-                'configs' => array(
+            [
+                'configs' => [
                     'config' => new Config(),
-                ),
-            )
+                ],
+            ]
         );
 
-        $this->assertEquals(array('config' => new Config()), $value->getConfigs());
+        $this->assertEquals(['config' => new Config()], $value->getConfigs());
         $this->assertTrue($value->hasConfig('config'));
         $this->assertFalse($value->hasConfig('unknown'));
         $this->assertEquals(new Config(), $value->getConfig('config'));
@@ -54,19 +54,19 @@ final class ConfigAwareValueTraitTest extends TestCase
     public function testIsConfigEnabled()
     {
         $value = new ConfigAwareValue(
-            array(
-                'configs' => array(
+            [
+                'configs' => [
                     'config' => new Config(
-                        array(
+                        [
                             'definition' => new ConfigDefinition(
-                                array(
+                                [
                                     'handler' => new ConfigDefinitionHandler(),
-                                )
+                                ]
                             ),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertTrue($value->isConfigEnabled('config'));

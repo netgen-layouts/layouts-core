@@ -30,7 +30,7 @@ class BlockTypeGroup extends Value
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
-    protected $blockTypes = array();
+    protected $blockTypes = [];
 
     /**
      * Returns the block type group identifier.

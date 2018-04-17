@@ -30,7 +30,7 @@ final class ThemePass implements CompilerPassInterface
                     $container->addResource(new FileExistenceResource($themeDir));
 
                     if (is_dir($themeDir)) {
-                        $twigLoader->addMethodCall('addPath', array($themeDir, 'ngbm_' . $designName));
+                        $twigLoader->addMethodCall('addPath', [$themeDir, 'ngbm_' . $designName]);
                     }
                 }
             }
@@ -70,7 +70,7 @@ final class ThemePass implements CompilerPassInterface
             array_unshift($paths, $appDir);
         }
 
-        $themeDirs = array();
+        $themeDirs = [];
         foreach ($paths as $path) {
             foreach ($themeList as $themeName) {
                 $themeDirs[$themeName][] = $path . '/' . $themeName;

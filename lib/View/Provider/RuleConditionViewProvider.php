@@ -7,12 +7,12 @@ use Netgen\BlockManager\View\View\RuleConditionView;
 
 final class RuleConditionViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         return new RuleConditionView(
-            array(
+            [
                 'condition' => $value,
-            )
+            ]
         );
     }
 

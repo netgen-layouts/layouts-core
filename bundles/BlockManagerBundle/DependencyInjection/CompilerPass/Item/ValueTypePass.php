@@ -31,7 +31,7 @@ final class ValueTypePass implements CompilerPassInterface
         foreach ($valueTypeServices as $identifier => $valueTypeService) {
             $registry->addMethodCall(
                 'addValueType',
-                array($identifier, new Reference($valueTypeService))
+                [$identifier, new Reference($valueTypeService)]
             );
         }
     }
@@ -46,16 +46,16 @@ final class ValueTypePass implements CompilerPassInterface
      */
     private function buildValueTypes(ContainerBuilder $container, array $valueTypes)
     {
-        $valueTypeServices = array();
+        $valueTypeServices = [];
 
         foreach ($valueTypes as $identifier => $valueType) {
             $serviceIdentifier = sprintf('netgen_block_manager.item.value_type.%s', $identifier);
 
             $container->register($serviceIdentifier, ValueType::class)
-                ->setArguments(array($identifier, $valueType))
+                ->setArguments([$identifier, $valueType])
                 ->setLazy(true)
                 ->setPublic(true)
-                ->setFactory(array(ValueTypeFactory::class, 'buildValueType'));
+                ->setFactory([ValueTypeFactory::class, 'buildValueType']);
 
             $valueTypeServices[$identifier] = $serviceIdentifier;
         }

@@ -20,12 +20,12 @@ final class RuleCreateStructTest extends TestCase
     public function testSetProperties()
     {
         $ruleCreateStruct = new RuleCreateStruct(
-            array(
+            [
                 'layoutId' => 42,
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
-            )
+            ]
         );
 
         $this->assertEquals(42, $ruleCreateStruct->layoutId);

@@ -42,11 +42,11 @@ final class LayoutController extends Controller
         $form = $this->createForm(
             CreateType::class,
             $createStruct,
-            array(
+            [
                 'action' => $this->generateUrl(
                     'ngbm_app_layout_form_create'
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -59,9 +59,9 @@ final class LayoutController extends Controller
             $createdLayout = $this->layoutService->createLayout($createStruct);
 
             return new JsonResponse(
-                array(
+                [
                     'id' => $createdLayout->getId(),
-                ),
+                ],
                 Response::HTTP_CREATED
             );
         }
@@ -69,7 +69,7 @@ final class LayoutController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -89,15 +89,15 @@ final class LayoutController extends Controller
         $form = $this->createForm(
             EditType::class,
             $updateStruct,
-            array(
+            [
                 'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_app_layout_form_edit',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -115,7 +115,7 @@ final class LayoutController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -133,15 +133,15 @@ final class LayoutController extends Controller
         $form = $this->createForm(
             SetMainLocaleType::class,
             null,
-            array(
+            [
                 'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_app_layout_form_main_locale',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -154,9 +154,9 @@ final class LayoutController extends Controller
             }
 
             return new JsonResponse(
-                array(
+                [
                     'main_locale' => $mainLocale,
-                ),
+                ],
                 Response::HTTP_OK
             );
         }
@@ -164,7 +164,7 @@ final class LayoutController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(
                 null,
                 $form->isSubmitted() ?
@@ -187,15 +187,15 @@ final class LayoutController extends Controller
         $form = $this->createForm(
             AddLocaleType::class,
             null,
-            array(
+            [
                 'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_app_layout_form_add_locale',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -207,9 +207,9 @@ final class LayoutController extends Controller
             $this->layoutService->addTranslation($layout, $locale, $sourceLocale);
 
             return new JsonResponse(
-                array(
+                [
                     'locale' => $locale,
-                ),
+                ],
                 Response::HTTP_CREATED
             );
         }
@@ -217,7 +217,7 @@ final class LayoutController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(
                 null,
                 $form->isSubmitted() ?
@@ -240,15 +240,15 @@ final class LayoutController extends Controller
         $form = $this->createForm(
             RemoveLocaleType::class,
             null,
-            array(
+            [
                 'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_app_layout_form_remove_locale',
-                    array(
+                    [
                         'layoutId' => $layout->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -266,7 +266,7 @@ final class LayoutController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            [],
             new Response(
                 null,
                 $form->isSubmitted() ?

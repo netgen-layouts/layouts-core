@@ -32,7 +32,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         // Must happen BEFORE Symfony Security component ExceptionListener
-        return array(KernelEvents::EXCEPTION => array('onException', 5));
+        return [KernelEvents::EXCEPTION => ['onException', 5]];
     }
 
     /**
@@ -63,7 +63,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
                     $exception->getFile(),
                     $exception->getLine()
                 ),
-                array('exception' => $exception)
+                ['exception' => $exception]
             );
         }
 

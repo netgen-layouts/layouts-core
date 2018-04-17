@@ -26,7 +26,7 @@ final class ItemDefinitionFactory
      */
     public function buildItemDefinition($valueType, array $configDefinitionHandlers)
     {
-        $configDefinitions = array();
+        $configDefinitions = [];
         foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {
             $configDefinitions[$configKey] = $this->configDefinitionFactory->buildConfigDefinition(
                 $configKey,
@@ -35,10 +35,10 @@ final class ItemDefinitionFactory
         }
 
         return new ItemDefinition(
-            array(
+            [
                 'valueType' => $valueType,
                 'configDefinitions' => $configDefinitions,
-            )
+            ]
         );
     }
 }

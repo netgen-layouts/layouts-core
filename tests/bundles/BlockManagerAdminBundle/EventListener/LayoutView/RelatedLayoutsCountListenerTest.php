@@ -38,7 +38,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(BlockManagerEvents::BUILD_VIEW => 'onBuildView'),
+            [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -49,22 +49,22 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $view = new LayoutView(array('layout' => new Layout(array('shared' => true, 'status' => Layout::STATUS_PUBLISHED))));
+        $view = new LayoutView(['layout' => new Layout(['shared' => true, 'status' => Layout::STATUS_PUBLISHED])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('getRelatedLayoutsCount')
-            ->with($this->equalTo(new Layout(array('shared' => true, 'status' => Layout::STATUS_PUBLISHED))))
+            ->with($this->equalTo(new Layout(['shared' => true, 'status' => Layout::STATUS_PUBLISHED])))
             ->will($this->returnValue(3));
 
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'related_layouts_count' => 3,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -74,7 +74,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithDraftLayout()
     {
-        $view = new LayoutView(array('layout' => new Layout(array('shared' => true, 'status' => Layout::STATUS_DRAFT))));
+        $view = new LayoutView(['layout' => new Layout(['shared' => true, 'status' => Layout::STATUS_DRAFT])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -85,9 +85,9 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'related_layouts_count' => 0,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -97,7 +97,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithNonSharedLayout()
     {
-        $view = new LayoutView(array('layout' => new Layout(array('shared' => false, 'status' => Layout::STATUS_PUBLISHED))));
+        $view = new LayoutView(['layout' => new Layout(['shared' => false, 'status' => Layout::STATUS_PUBLISHED])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -108,9 +108,9 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'related_layouts_count' => 0,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -120,11 +120,11 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoLayoutView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 
     /**
@@ -132,12 +132,12 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $view = new LayoutView(array('layout' => new Layout()));
+        $view = new LayoutView(['layout' => new Layout()]);
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 }

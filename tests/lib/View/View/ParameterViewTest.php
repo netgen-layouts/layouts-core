@@ -23,20 +23,20 @@ final class ParameterViewTest extends TestCase
     public function setUp()
     {
         $this->parameter = new Parameter(
-            array(
+            [
                 'name' => 'paramName',
                 'parameterDefinition' => new ParameterDefinition(
-                    array(
+                    [
                         'type' => new ParameterType(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->view = new ParameterView(
-            array(
+            [
                 'parameter' => $this->parameter,
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -58,10 +58,10 @@ final class ParameterViewTest extends TestCase
     public function testGetParameters()
     {
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'parameter' => $this->parameter,
-            ),
+            ],
             $this->view->getParameters()
         );
     }
@@ -80,10 +80,10 @@ final class ParameterViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'name' => 'paramName',
                 'type' => 'type',
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

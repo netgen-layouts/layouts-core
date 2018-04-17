@@ -15,18 +15,18 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface[]
      */
-    private $matchers = array();
+    private $matchers = [];
 
     /**
      * @var array
      */
-    private $viewConfig = array();
+    private $viewConfig = [];
 
     /**
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
      * @param array $viewConfig
      */
-    public function __construct(array $matchers = array(), array $viewConfig = array())
+    public function __construct(array $matchers = [], array $viewConfig = [])
     {
         foreach ($matchers as $matcher) {
             if (!$matcher instanceof MatcherInterface) {
@@ -47,7 +47,7 @@ class TemplateResolver implements TemplateResolverInterface
         $viewContext = $view->getContext();
         $fallbackViewContext = $view->getFallbackContext();
 
-        $contextList = array($viewContext);
+        $contextList = [$viewContext];
         if (is_string($fallbackViewContext)) {
             $contextList[] = $fallbackViewContext;
         }
@@ -88,7 +88,7 @@ class TemplateResolver implements TemplateResolverInterface
                 throw TemplateResolverException::noTemplateMatcher($matcher);
             }
 
-            $matcherConfig = !is_array($matcherConfig) ? array($matcherConfig) : $matcherConfig;
+            $matcherConfig = !is_array($matcherConfig) ? [$matcherConfig] : $matcherConfig;
             if (!$this->matchers[$matcher]->match($view, $matcherConfig)) {
                 return false;
             }
@@ -108,16 +108,16 @@ class TemplateResolver implements TemplateResolverInterface
      */
     private function evaluateParameters(ViewInterface $view, array $parameters)
     {
-        $evaluatedParameters = array();
+        $evaluatedParameters = [];
 
         foreach ($parameters as $key => $value) {
             if (is_string($value) && mb_strpos($value, '@=') === 0) {
                 $expressionLanguage = new ExpressionLanguage();
                 $value = $expressionLanguage->evaluate(
                     mb_substr($value, 2),
-                    array(
+                    [
                         'view' => $view,
-                    ) + $view->getParameters()
+                    ] + $view->getParameters()
                 );
             }
 

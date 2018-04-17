@@ -13,14 +13,14 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     /**
      * @var array
      */
-    private $parameterGroups = array();
+    private $parameterGroups = [];
 
     /**
      * @var bool
      */
     private $isContextual;
 
-    public function __construct($parameterGroups = array(), $isContextual = false)
+    public function __construct($parameterGroups = [], $isContextual = false)
     {
         $this->parameterGroups = $parameterGroups;
         $this->isContextual = $isContextual;
@@ -28,29 +28,29 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 
     public function getParameterDefinitions()
     {
-        return array(
+        return [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block)

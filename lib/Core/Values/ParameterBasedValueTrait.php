@@ -9,7 +9,7 @@ trait ParameterBasedValueTrait
     /**
      * @var \Netgen\BlockManager\Parameters\Parameter[]
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * Returns all parameters.

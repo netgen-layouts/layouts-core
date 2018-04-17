@@ -28,7 +28,7 @@ final class APIVersionTest extends TestCase
      */
     public function testMatch(array $config, $expected)
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $view->addParameter('api_version', 42);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
@@ -41,13 +41,13 @@ final class APIVersionTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array(24), false),
-            array(array(42), true),
-            array(array(43, 24), false),
-            array(array(24, 42), true),
-        );
+        return [
+            [[], false],
+            [[24], false],
+            [[42], true],
+            [[43, 24], false],
+            [[24, 42], true],
+        ];
     }
 
     /**
@@ -55,6 +55,6 @@ final class APIVersionTest extends TestCase
      */
     public function testMatchWithNoAPIVersion()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

@@ -18,72 +18,72 @@ final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
     {
         $this->container->setParameter(
             'netgen_block_manager.view',
-            array(
-                'test_view' => array(
-                    'api' => array(
-                        'override_match' => array(
+            [
+                'test_view' => [
+                    'api' => [
+                        'override_match' => [
                             'template' => 'override_api.html.twig',
-                        ),
-                    ),
-                ),
-            )
+                        ],
+                    ],
+                ],
+            ]
         );
 
         $this->container->setParameter(
             'netgen_block_manager.default_view_templates',
-            array(
-                'test_view' => array(
+            [
+                'test_view' => [
                     'default' => 'default.html.twig',
                     'api' => 'api.html.twig',
-                ),
-                'other_view' => array(
+                ],
+                'other_view' => [
                     'default' => 'default2.html.twig',
                     'api' => 'api2.html.twig',
-                ),
-            )
+                ],
+            ]
         );
 
         $this->compile();
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.view',
-            array(
-                'test_view' => array(
-                    'default' => array(
-                        '___test_view_default_default___' => array(
+            [
+                'test_view' => [
+                    'default' => [
+                        '___test_view_default_default___' => [
                             'template' => 'default.html.twig',
-                            'match' => array(),
-                            'parameters' => array(),
-                        ),
-                    ),
-                    'api' => array(
-                        'override_match' => array(
+                            'match' => [],
+                            'parameters' => [],
+                        ],
+                    ],
+                    'api' => [
+                        'override_match' => [
                             'template' => 'override_api.html.twig',
-                        ),
-                        '___test_view_api_default___' => array(
+                        ],
+                        '___test_view_api_default___' => [
                             'template' => 'api.html.twig',
-                            'match' => array(),
-                            'parameters' => array(),
-                        ),
-                    ),
-                ),
-                'other_view' => array(
-                    'default' => array(
-                        '___other_view_default_default___' => array(
+                            'match' => [],
+                            'parameters' => [],
+                        ],
+                    ],
+                ],
+                'other_view' => [
+                    'default' => [
+                        '___other_view_default_default___' => [
                             'template' => 'default2.html.twig',
-                            'match' => array(),
-                            'parameters' => array(),
-                        ),
-                    ),
-                    'api' => array(
-                        '___other_view_api_default___' => array(
+                            'match' => [],
+                            'parameters' => [],
+                        ],
+                    ],
+                    'api' => [
+                        '___other_view_api_default___' => [
                             'template' => 'api2.html.twig',
-                            'match' => array(),
-                            'parameters' => array(),
-                        ),
-                    ),
-                ),
-            )
+                            'match' => [],
+                            'parameters' => [],
+                        ],
+                    ],
+                ],
+            ]
         );
     }
 

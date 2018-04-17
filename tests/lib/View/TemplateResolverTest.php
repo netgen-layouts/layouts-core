@@ -18,7 +18,7 @@ final class TemplateResolverTest extends TestCase
 
     public function setUp()
     {
-        $this->view = new View(array('value' => new Value()));
+        $this->view = new View(['value' => new Value()]);
         $this->view->setContext('context');
     }
 
@@ -30,9 +30,9 @@ final class TemplateResolverTest extends TestCase
     public function testConstructorThrowsInvalidInterfaceExceptionIfNoMatcherInterface()
     {
         new TemplateResolver(
-            array(
+            [
                 'definition_identifier' => new stdClass(),
-            )
+            ]
         );
     }
 
@@ -48,30 +48,30 @@ final class TemplateResolverTest extends TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(array('text')))
+            ->with($this->equalTo($this->view), $this->equalTo(['text']))
             ->will($this->returnValue(true));
 
-        $viewConfiguration = array(
-            'view' => array(
-                'context' => array(
-                    'text' => array(
+        $viewConfiguration = [
+            'view' => [
+                'context' => [
+                    'text' => [
                         'template' => 'some_template.html.twig',
-                        'match' => array(
+                        'match' => [
                             'definition_identifier' => 'text',
-                        ),
-                        'parameters' => array(
+                        ],
+                        'parameters' => [
                             'param' => 'value',
                             'param2' => '@=value',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $templateResolver = new TemplateResolver(
-            array(
+            [
                 'definition_identifier' => $matcherMock,
-            ),
+            ],
             $viewConfiguration
         );
 
@@ -93,22 +93,22 @@ final class TemplateResolverTest extends TestCase
      */
     public function testResolveTemplateWithEmptyMatchConfig()
     {
-        $viewConfiguration = array(
-            'view' => array(
-                'context' => array(
-                    'text' => array(
+        $viewConfiguration = [
+            'view' => [
+                'context' => [
+                    'text' => [
                         'template' => 'some_template.html.twig',
-                        'match' => array(),
-                        'parameters' => array(
+                        'match' => [],
+                        'parameters' => [
                             'param' => 'value',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $templateResolver = new TemplateResolver(
-            array(),
+            [],
             $viewConfiguration
         );
 
@@ -126,25 +126,25 @@ final class TemplateResolverTest extends TestCase
      */
     public function testResolveTemplateWithMultipleMatches()
     {
-        $viewConfiguration = array(
-            'view' => array(
-                'context' => array(
-                    'text' => array(
+        $viewConfiguration = [
+            'view' => [
+                'context' => [
+                    'text' => [
                         'template' => 'some_template.html.twig',
-                        'match' => array(),
-                        'parameters' => array(),
-                    ),
-                    'text_other' => array(
+                        'match' => [],
+                        'parameters' => [],
+                    ],
+                    'text_other' => [
                         'template' => 'some_other_template.html.twig',
-                        'match' => array(),
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
+                        'match' => [],
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
 
         $templateResolver = new TemplateResolver(
-            array(),
+            [],
             $viewConfiguration
         );
 
@@ -163,20 +163,20 @@ final class TemplateResolverTest extends TestCase
         $this->view->setContext('context');
         $this->view->setFallbackContext('fallback');
 
-        $viewConfiguration = array(
-            'view' => array(
-                'fallback' => array(
-                    'text' => array(
+        $viewConfiguration = [
+            'view' => [
+                'fallback' => [
+                    'text' => [
                         'template' => 'some_template.html.twig',
-                        'match' => array(),
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
+                        'match' => [],
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
 
         $templateResolver = new TemplateResolver(
-            array(),
+            [],
             $viewConfiguration
         );
 
@@ -192,7 +192,7 @@ final class TemplateResolverTest extends TestCase
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext()
     {
-        $templateResolver = new TemplateResolver(array(), array('view' => array()));
+        $templateResolver = new TemplateResolver([], ['view' => []]);
         $templateResolver->resolveTemplate($this->view);
     }
 
@@ -204,8 +204,8 @@ final class TemplateResolverTest extends TestCase
     public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext()
     {
         $templateResolver = new TemplateResolver(
-            array(),
-            array('view' => array('context' => array()))
+            [],
+            ['view' => ['context' => []]]
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -223,26 +223,26 @@ final class TemplateResolverTest extends TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(array('title')))
+            ->with($this->equalTo($this->view), $this->equalTo(['title']))
             ->will($this->returnValue(false));
 
-        $viewConfiguration = array(
-            'view' => array(
-                'context' => array(
-                    'title' => array(
+        $viewConfiguration = [
+            'view' => [
+                'context' => [
+                    'title' => [
                         'template' => 'some_template.html.twig',
-                        'match' => array(
+                        'match' => [
                             'definition_identifier' => 'title',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $templateResolver = new TemplateResolver(
-            array(
+            [
                 'definition_identifier' => $matcherMock,
-            ),
+            ],
             $viewConfiguration
         );
 
@@ -257,21 +257,21 @@ final class TemplateResolverTest extends TestCase
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher()
     {
-        $viewConfiguration = array(
-            'view' => array(
-                'context' => array(
-                    'title' => array(
+        $viewConfiguration = [
+            'view' => [
+                'context' => [
+                    'title' => [
                         'template' => 'some_template.html.twig',
-                        'match' => array(
+                        'match' => [
                             'definition_identifier' => 'title',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $templateResolver = new TemplateResolver(
-            array(),
+            [],
             $viewConfiguration
         );
 

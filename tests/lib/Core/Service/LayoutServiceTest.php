@@ -455,9 +455,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
         $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $this->assertEquals(array('en', 'hr', 'de'), $updatedLayout->getAvailableLocales());
+        $this->assertEquals(['en', 'hr', 'de'], $updatedLayout->getAvailableLocales());
 
-        $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, array('en', 'hr', 'de'));
+        $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['en', 'hr', 'de']);
         foreach ($layoutBlocks as $layoutBlock) {
             $layoutBlock->isTranslatable() ?
                 $this->assertContains('de', $layoutBlock->getAvailableLocales()) :
@@ -506,9 +506,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $this->assertEquals('hr', $updatedLayout->getMainLocale());
-        $this->assertEquals(array('en', 'hr'), $updatedLayout->getAvailableLocales());
+        $this->assertEquals(['en', 'hr'], $updatedLayout->getAvailableLocales());
 
-        $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, array('hr', 'en'));
+        $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['hr', 'en']);
         foreach ($layoutBlocks as $layoutBlock) {
             $this->assertEquals('hr', $layoutBlock->getMainLocale());
         }
@@ -551,7 +551,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
         $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, array('en'));
+        $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['en']);
         foreach ($layoutBlocks as $layoutBlock) {
             $this->assertNotContains('hr', $layoutBlock->getAvailableLocales());
         }
@@ -694,9 +694,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
-            array(
-                'top' => array('left', 'right'),
-            )
+            [
+                'top' => ['left', 'right'],
+            ]
         );
 
         $this->assertEquals($layout->getId(), $updatedLayout->getId());
@@ -742,9 +742,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
-            array(
-                'top' => array('top'),
-            )
+            [
+                'top' => ['top'],
+            ]
         );
 
         $this->assertEquals($layout->getId(), $updatedLayout->getId());
@@ -789,9 +789,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
-            array(
-                'top' => array('top'),
-            ),
+            [
+                'top' => ['top'],
+            ],
             false
         );
 
@@ -1023,14 +1023,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new LayoutCreateStruct(
-                array(
-                    'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
+                [
+                    'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
                     'name' => 'New layout',
                     'mainLocale' => 'en',
-                )
+                ]
             ),
             $this->layoutService->newLayoutCreateStruct(
-                new LayoutType(array('identifier' => '4_zones_a')),
+                new LayoutType(['identifier' => '4_zones_a']),
                 'New layout',
                 'en'
             )
@@ -1044,10 +1044,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new LayoutUpdateStruct(
-                array(
+                [
                     'name' => 'My layout',
                     'description' => 'My layout description',
-                )
+                ]
             ),
             $this->layoutService->newLayoutUpdateStruct(
                 $this->layoutService->loadLayoutDraft(1)
@@ -1073,10 +1073,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $this->assertEquals(
             new LayoutCopyStruct(
-                array(
+                [
                     'name' => 'My layout (copy)',
                     'description' => null,
-                )
+                ]
             ),
             $this->layoutService->newLayoutCopyStruct(
                 $this->layoutService->loadLayoutDraft(1)

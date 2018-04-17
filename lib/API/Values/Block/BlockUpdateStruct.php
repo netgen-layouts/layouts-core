@@ -59,7 +59,7 @@ final class BlockUpdateStruct extends Value implements ParameterStruct, ConfigAw
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      * @param array $values
      */
-    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = array())
+    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = [])
     {
         $this->fill($blockDefinition, $values);
     }
@@ -88,7 +88,7 @@ final class BlockUpdateStruct extends Value implements ParameterStruct, ConfigAw
      * @param array $values
      * @param bool $doImport
      */
-    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = array(), $doImport = false)
+    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], $doImport = false)
     {
         $this->fillFromHash($blockDefinition, $values, $doImport);
     }

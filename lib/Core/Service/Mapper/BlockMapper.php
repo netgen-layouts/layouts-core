@@ -90,7 +90,7 @@ final class BlockMapper
             $block->definitionIdentifier
         );
 
-        $locales = !empty($locales) ? $locales : array($block->mainLocale);
+        $locales = !empty($locales) ? $locales : [$block->mainLocale];
         if ($useMainLocale && $block->alwaysAvailable) {
             $locales[] = $block->mainLocale;
         }
@@ -106,7 +106,7 @@ final class BlockMapper
             $block->parameters[$block->mainLocale]
         );
 
-        $blockData = array(
+        $blockData = [
             'id' => $block->id,
             'layoutId' => $block->layoutId,
             'definition' => $blockDefinition,
@@ -127,7 +127,7 @@ final class BlockMapper
                 $blockDefinition,
                 $untranslatableParams + $block->parameters[$blockLocale]
             ),
-        );
+        ];
 
         return new Block($blockData);
     }
@@ -144,10 +144,10 @@ final class BlockMapper
     {
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
-        $mappedReferences = array();
+        $mappedReferences = [];
         foreach ($collectionReferences as $collectionReference) {
             $mappedReferences[$collectionReference->identifier] = new CollectionReference(
-                array(
+                [
                     'collection' => function () use ($collectionReference, $locales) {
                         $collection = $this->collectionHandler->loadCollection(
                             $collectionReference->collectionId,
@@ -157,7 +157,7 @@ final class BlockMapper
                         return $this->collectionMapper->mapCollection($collection, $locales, false);
                     },
                     'identifier' => $collectionReference->identifier,
-                )
+                ]
             );
         }
 
@@ -176,13 +176,13 @@ final class BlockMapper
     private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, array $locales)
     {
         if (!$blockDefinition instanceof ContainerDefinitionInterface) {
-            return array();
+            return [];
         }
 
-        $placeholders = array();
+        $placeholders = [];
         foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {
             $placeholders[$placeholderIdentifier] = new Placeholder(
-                array(
+                [
                     'identifier' => $placeholderIdentifier,
                     'blocks' => new LazyCollection(
                         function () use ($block, $placeholderIdentifier, $locales) {
@@ -194,7 +194,7 @@ final class BlockMapper
                             );
                         }
                     ),
-                )
+                ]
             );
         }
 

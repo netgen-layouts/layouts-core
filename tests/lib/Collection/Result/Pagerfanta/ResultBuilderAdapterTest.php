@@ -35,7 +35,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->equalTo(0),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 3))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 3])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection());
 
@@ -57,7 +57,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->equalTo(0),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 50))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 50])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 0, 10);
 
@@ -78,7 +78,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->equalTo(0),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 6))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 6])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3);
 
@@ -99,7 +99,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->equalTo(0),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('totalCount' => 10))));
+            ->will($this->returnValue(new ResultSet(['totalCount' => 10])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3, 5);
 
@@ -112,7 +112,7 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetSlice()
     {
-        $resultSet = new ResultSet(array('results' => array(1, 2, 3)));
+        $resultSet = new ResultSet(['results' => [1, 2, 3]]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -135,7 +135,7 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetSliceWithStartingOffset()
     {
-        $resultSet = new ResultSet(array('results' => array(1, 2, 3)));
+        $resultSet = new ResultSet(['results' => [1, 2, 3]]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')

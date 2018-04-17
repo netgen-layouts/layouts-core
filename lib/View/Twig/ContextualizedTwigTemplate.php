@@ -32,7 +32,7 @@ final class ContextualizedTwigTemplate
      * @param array $context
      * @param array $blocks
      */
-    public function __construct(Template $template, array $context = array(), array $blocks = array())
+    public function __construct(Template $template, array $context = [], array $blocks = [])
     {
         $this->template = $template;
         $this->context = $context;

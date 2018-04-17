@@ -33,7 +33,7 @@ final class ConditionParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('conditionId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['conditionId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -68,10 +68,10 @@ final class ConditionParamConverterTest extends TestCase
         $this->assertEquals(
             $condition,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'conditionId' => 42,
                     'published' => true,
-                )
+                ]
             )
         );
     }
@@ -92,10 +92,10 @@ final class ConditionParamConverterTest extends TestCase
         $this->assertEquals(
             $condition,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'conditionId' => 42,
                     'published' => false,
-                )
+                ]
             )
         );
     }

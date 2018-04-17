@@ -39,7 +39,7 @@ final class SerializerListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::VIEW => 'onView'),
+            [KernelEvents::VIEW => 'onView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -58,7 +58,7 @@ final class SerializerListenerTest extends TestCase
             ->with(
                 $this->equalTo($value),
                 $this->equalTo('json'),
-                $this->equalTo(array())
+                $this->equalTo([])
             )
             ->will(
                 $this->returnValue('serialized content')
@@ -101,7 +101,7 @@ final class SerializerListenerTest extends TestCase
             ->with(
                 $this->equalTo($value),
                 $this->equalTo('json'),
-                $this->equalTo(array('disable_html' => true))
+                $this->equalTo(['disable_html' => true])
             )
             ->will(
                 $this->returnValue('serialized content')

@@ -38,7 +38,7 @@ final class ConditionTypeTest extends FormTestCase
      */
     public function testConstructorThrowsInvalidInterfaceException()
     {
-        $this->formType = new ConditionTypeForm(array('type' => new stdClass()));
+        $this->formType = new ConditionTypeForm(['type' => new stdClass()]);
     }
 
     /**
@@ -51,7 +51,7 @@ final class ConditionTypeTest extends FormTestCase
         $this->factory->create(
             ConditionTypeForm::class,
             new ConditionCreateStruct(),
-            array('conditionType' => $this->conditionType)
+            ['conditionType' => $this->conditionType]
         );
     }
 
@@ -66,10 +66,10 @@ final class ConditionTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'conditionType' => $this->conditionType,
                 'data' => new ConditionCreateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->conditionType, $options['conditionType']);
@@ -104,9 +104,9 @@ final class ConditionTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'conditionType' => '',
-            )
+            ]
         );
     }
 
@@ -123,10 +123,10 @@ final class ConditionTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'conditionType' => $this->conditionType,
                 'data' => '',
-            )
+            ]
         );
     }
 }

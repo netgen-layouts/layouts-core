@@ -32,12 +32,12 @@ final class TypeTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $condition = new Condition(
-            array(
+            [
                 'conditionType' => new ConditionType('route_parameter'),
-            )
+            ]
         );
 
-        $view = new RuleConditionView(array('condition' => $condition));
+        $view = new RuleConditionView(['condition' => $condition]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -49,13 +49,13 @@ final class TypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('other_type'), false),
-            array(array('route_parameter'), true),
-            array(array('other_type', 'other_type_2'), false),
-            array(array('other_type', 'route_parameter'), true),
-        );
+        return [
+            [[], false],
+            [['other_type'], false],
+            [['route_parameter'], true],
+            [['other_type', 'other_type_2'], false],
+            [['other_type', 'route_parameter'], true],
+        ];
     }
 
     /**
@@ -63,6 +63,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoRuleConditionView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

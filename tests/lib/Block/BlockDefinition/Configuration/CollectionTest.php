@@ -15,11 +15,11 @@ final class CollectionTest extends TestCase
     public function setUp()
     {
         $this->collection = new Collection(
-            array(
+            [
                 'identifier' => 'collection',
-                'validItemTypes' => array('item'),
-                'validQueryTypes' => array('query'),
-            )
+                'validItemTypes' => ['item'],
+                'validQueryTypes' => ['query'],
+            ]
         );
     }
 
@@ -36,7 +36,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetValidQueryTypes()
     {
-        $this->assertEquals(array('query'), $this->collection->getValidQueryTypes());
+        $this->assertEquals(['query'], $this->collection->getValidQueryTypes());
     }
 
     /**
@@ -54,9 +54,9 @@ final class CollectionTest extends TestCase
     public function testIsValidQueryTypeWithAllValidTypes()
     {
         $this->collection = new Collection(
-            array(
+            [
                 'validQueryTypes' => null,
-            )
+            ]
         );
 
         $this->assertTrue($this->collection->isValidQueryType('query'));
@@ -69,9 +69,9 @@ final class CollectionTest extends TestCase
     public function testIsValidQueryTypeWithNoValidTypes()
     {
         $this->collection = new Collection(
-            array(
-                'validQueryTypes' => array(),
-            )
+            [
+                'validQueryTypes' => [],
+            ]
         );
 
         $this->assertFalse($this->collection->isValidQueryType('query'));
@@ -83,7 +83,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetValidItemTypes()
     {
-        $this->assertEquals(array('item'), $this->collection->getValidItemTypes());
+        $this->assertEquals(['item'], $this->collection->getValidItemTypes());
     }
 
     /**
@@ -101,9 +101,9 @@ final class CollectionTest extends TestCase
     public function testIsValidItemTypeWithAllValidTypes()
     {
         $this->collection = new Collection(
-            array(
+            [
                 'validItemTypes' => null,
-            )
+            ]
         );
 
         $this->assertTrue($this->collection->isValidItemType('item'));
@@ -116,9 +116,9 @@ final class CollectionTest extends TestCase
     public function testIsValidItemTypeWithNoValidTypes()
     {
         $this->collection = new Collection(
-            array(
-                'validItemTypes' => array(),
-            )
+            [
+                'validItemTypes' => [],
+            ]
         );
 
         $this->assertFalse($this->collection->isValidItemType('item'));

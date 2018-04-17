@@ -32,15 +32,15 @@ final class DefinitionTest extends TestCase
     public function testMatch(array $config, $expected)
     {
         $block = new Block(
-            array(
-                'definition' => new BlockDefinition(array('identifier' => 'text')),
-            )
+            [
+                'definition' => new BlockDefinition(['identifier' => 'text']),
+            ]
         );
 
         $view = new BlockView(
-            array(
+            [
                 'block' => $block,
-            )
+            ]
         );
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
@@ -53,13 +53,13 @@ final class DefinitionTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('title'), false),
-            array(array('text'), true),
-            array(array('title', 'title_2'), false),
-            array(array('title', 'text'), true),
-        );
+        return [
+            [[], false],
+            [['title'], false],
+            [['text'], true],
+            [['title', 'title_2'], false],
+            [['title', 'text'], true],
+        ];
     }
 
     /**
@@ -67,6 +67,6 @@ final class DefinitionTest extends TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }

@@ -39,7 +39,7 @@ final class ContextListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::REQUEST => 'onKernelRequest');
+        return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
     /**
@@ -59,7 +59,7 @@ final class ContextListener implements EventSubscriberInterface
         $request = $event->getRequest();
         if ($request->attributes->has('ngbmContext')) {
             $context = $request->attributes->get('ngbmContext');
-            $context = is_array($context) ? $context : array();
+            $context = is_array($context) ? $context : [];
 
             $this->context->add($context);
 
@@ -85,10 +85,10 @@ final class ContextListener implements EventSubscriberInterface
     private function getUriContext(Request $request)
     {
         $context = $request->query->get('ngbmContext');
-        $context = is_array($context) ? $context : array();
+        $context = is_array($context) ? $context : [];
 
         if (!$this->uriSigner->check($this->getUri($request))) {
-            return array();
+            return [];
         }
 
         return $context;

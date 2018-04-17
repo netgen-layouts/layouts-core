@@ -48,11 +48,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->assertEquals('test', $this->builder->get('test')->getName());
@@ -66,11 +66,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->assertEquals(
@@ -87,16 +87,16 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
+                'groups' => ['group'],
                 'reverse' => true,
-            )
+            ]
         );
 
         $this->assertEquals(
-            array('reverse' => true),
+            ['reverse' => true],
             $this->builder->get('test')->getOptions()
         );
     }
@@ -109,12 +109,12 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
+                'groups' => ['group'],
                 'reverse' => true,
-            )
+            ]
         );
 
         $this->assertTrue($this->builder->get('test')->getOption('reverse'));
@@ -130,12 +130,12 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
+                'groups' => ['group'],
                 'reverse' => true,
-            )
+            ]
         );
 
         $this->assertTrue($this->builder->get('test')->getOption('unknown'));
@@ -149,12 +149,12 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
+                'groups' => ['group'],
                 'reverse' => true,
-            )
+            ]
         );
 
         $this->assertTrue($this->builder->get('test')->hasOption('reverse'));
@@ -169,10 +169,10 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\IntegerType::class,
-            array(
+            [
                 'min' => 5,
                 'max' => 100,
-            )
+            ]
         );
 
         $this->builder->get('test')->setOption('min', 42);
@@ -189,9 +189,9 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\IntegerType::class,
-            array(
+            [
                 'required' => true,
-            )
+            ]
         );
 
         $this->builder->get('test')->setOption('required', false);
@@ -207,9 +207,9 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\IntegerType::class,
-            array(
+            [
                 'default_value' => 'test',
-            )
+            ]
         );
 
         $this->builder->get('test')->setOption('default_value', 'test2');
@@ -225,9 +225,9 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\IntegerType::class,
-            array(
+            [
                 'label' => 'test',
-            )
+            ]
         );
 
         $this->builder->get('test')->setOption('label', 'test2');
@@ -243,14 +243,14 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\IntegerType::class,
-            array(
-                'groups' => array('test'),
-            )
+            [
+                'groups' => ['test'],
+            ]
         );
 
-        $this->builder->get('test')->setOption('groups', array('test2'));
+        $this->builder->get('test')->setOption('groups', ['test2']);
 
-        $this->assertEquals(array('test2'), $this->builder->get('test')->getGroups());
+        $this->assertEquals(['test2'], $this->builder->get('test')->getGroups());
     }
 
     /**
@@ -356,9 +356,9 @@ final class ParameterBuilderTest extends TestCase
             ParameterType\TextType::class
         );
 
-        $this->builder->get('test')->setGroups(array('group'));
+        $this->builder->get('test')->setGroups(['group']);
 
-        $this->assertEquals(array('group'), $this->builder->get('test')->getGroups());
+        $this->assertEquals(['group'], $this->builder->get('test')->getGroups());
     }
 
     /**
@@ -366,7 +366,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetGroupsWithoutParentBuilder()
     {
-        $this->assertEquals(array(), $this->builder->getGroups());
+        $this->assertEquals([], $this->builder->getGroups());
     }
 
     /**
@@ -377,23 +377,23 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
+                'groups' => ['group'],
                 'reverse' => true,
-            )
+            ]
         );
 
         $this->builder->get('test')->add(
             'test2',
             ParameterType\TextType::class,
-            array(
-                'groups' => array('group2'),
-            )
+            [
+                'groups' => ['group2'],
+            ]
         );
 
-        $this->assertEquals(array('group'), $this->builder->get('test')->get('test2')->getGroups());
+        $this->assertEquals(['group'], $this->builder->get('test')->get('test2')->getGroups());
     }
 
     /**
@@ -404,7 +404,7 @@ final class ParameterBuilderTest extends TestCase
     public function testSetGroupsAfterBuildingParameters()
     {
         $this->builder->buildParameterDefinitions();
-        $this->builder->setGroups(array());
+        $this->builder->setGroups([]);
     }
 
     /**
@@ -416,21 +416,21 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => false,
                 'default_value' => 'test value 2',
-                'groups' => array('group 2'),
-            )
+                'groups' => ['group 2'],
+            ]
         );
 
         $this->assertCount(2, $this->builder);
@@ -446,11 +446,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->buildParameterDefinitions();
@@ -458,11 +458,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => false,
                 'default_value' => 'test value 2',
-                'groups' => array('group 2'),
-            )
+                'groups' => ['group 2'],
+            ]
         );
     }
 
@@ -476,21 +476,21 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->get('test')->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => false,
                 'default_value' => 'test value 2',
-                'groups' => array('group 2'),
-            )
+                'groups' => ['group 2'],
+            ]
         );
     }
 
@@ -521,21 +521,21 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => false,
                 'default_value' => 'test value 2',
-                'groups' => array('group 2'),
-            )
+                'groups' => ['group 2'],
+            ]
         );
 
         $this->assertTrue($this->builder->has('test'));
@@ -553,11 +553,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => true,
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $compoundBuilder = $this->builder->get('test');
@@ -575,11 +575,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => true,
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->get('unknown');
@@ -596,11 +596,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => true,
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->buildParameterDefinitions();
@@ -616,17 +616,17 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
-                'groups' => array('group'),
-            )
+            [
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->add(
             'test2',
             ParameterType\TextType::class,
-            array(
-                'groups' => array('group2'),
-            )
+            [
+                'groups' => ['group2'],
+            ]
         );
 
         $parameterBuilders = $this->builder->all();
@@ -648,17 +648,17 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
-                'groups' => array('group'),
-            )
+            [
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->add(
             'test2',
             ParameterType\TextType::class,
-            array(
-                'groups' => array('group2'),
-            )
+            [
+                'groups' => ['group2'],
+            ]
         );
 
         $parameterBuilders = $this->builder->all('group');
@@ -693,11 +693,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->remove('test');
@@ -717,11 +717,11 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->buildParameterDefinitions();
@@ -740,77 +740,77 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
                 'label' => null,
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->add(
             'compound',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'required' => false,
                 'default_value' => true,
                 'label' => false,
-                'groups' => array('group 2'),
-            )
+                'groups' => ['group 2'],
+            ]
         );
 
         $this->builder->get('compound')->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value 2',
                 'label' => 'Custom label',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
         $this->assertEquals(
             $parameterDefinitions,
-            array(
+            [
                 'test' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'test',
                         'type' => $this->registry->getParameterType('text'),
-                        'options' => array(),
+                        'options' => [],
                         'isRequired' => true,
                         'defaultValue' => 'test value',
                         'label' => null,
-                        'groups' => array('group'),
-                    )
+                        'groups' => ['group'],
+                    ]
                 ),
                 'compound' => new CompoundParameterDefinition(
-                    array(
+                    [
                         'name' => 'compound',
                         'type' => $this->registry->getParameterType('compound_boolean'),
-                        'options' => array('reverse' => false),
+                        'options' => ['reverse' => false],
                         'isRequired' => false,
                         'defaultValue' => true,
                         'label' => false,
-                        'groups' => array('group 2'),
-                        'parameterDefinitions' => array(
+                        'groups' => ['group 2'],
+                        'parameterDefinitions' => [
                             'test2' => new ParameterDefinition(
-                                array(
+                                [
                                     'name' => 'test2',
                                     'type' => $this->registry->getParameterType('text'),
-                                    'options' => array(),
+                                    'options' => [],
                                     'isRequired' => true,
                                     'defaultValue' => 'test value 2',
                                     'label' => 'Custom label',
-                                    'groups' => array('group 2'),
-                                )
+                                    'groups' => ['group 2'],
+                                ]
                             ),
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            )
+            ]
         );
     }
 
@@ -825,12 +825,12 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
                 'label' => null,
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->builder->buildParameterDefinitions();
@@ -839,19 +839,19 @@ final class ParameterBuilderTest extends TestCase
 
         $this->assertEquals(
             $parameterDefinitions,
-            array(
+            [
                 'test' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'test',
                         'type' => $this->registry->getParameterType('text'),
-                        'options' => array(),
+                        'options' => [],
                         'isRequired' => true,
                         'defaultValue' => 'test value',
                         'label' => null,
-                        'groups' => array('group'),
-                    )
+                        'groups' => ['group'],
+                    ]
                 ),
-            )
+            ]
         );
     }
 
@@ -869,19 +869,19 @@ final class ParameterBuilderTest extends TestCase
 
         $this->assertEquals(
             $parameterDefinitions,
-            array(
+            [
                 'test' => new ParameterDefinition(
-                    array(
+                    [
                         'name' => 'test',
                         'type' => $this->registry->getParameterType('text'),
-                        'options' => array(),
+                        'options' => [],
                         'isRequired' => false,
                         'defaultValue' => null,
                         'label' => null,
-                        'groups' => array(),
-                    )
+                        'groups' => [],
+                    ]
                 ),
-            )
+            ]
         );
     }
 
@@ -898,9 +898,9 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => 'true',
-            )
+            ]
         );
 
         $this->builder->buildParameterDefinitions();
@@ -919,9 +919,9 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'groups' => 'group',
-            )
+            ]
         );
 
         $this->builder->buildParameterDefinitions();
@@ -940,9 +940,9 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'label' => true,
-            )
+            ]
         );
 
         $this->builder->buildParameterDefinitions();

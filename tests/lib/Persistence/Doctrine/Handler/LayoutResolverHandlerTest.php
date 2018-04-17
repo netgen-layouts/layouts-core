@@ -58,14 +58,14 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Rule(
-                array(
+                [
                     'id' => 1,
                     'layoutId' => 1,
                     'enabled' => true,
                     'priority' => 20,
                     'comment' => 'My comment',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
@@ -154,13 +154,13 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Target(
-                array(
+                [
                     'id' => 1,
                     'ruleId' => 1,
                     'type' => 'route',
                     'value' => 'my_cool_route',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->loadTarget(1, Value::STATUS_PUBLISHED)
         );
@@ -216,16 +216,16 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Condition(
-                array(
+                [
                     'id' => 1,
                     'ruleId' => 2,
                     'type' => 'route_parameter',
-                    'value' => array(
+                    'value' => [
                         'parameter_name' => 'some_param',
-                        'parameter_values' => array(1, 2),
-                    ),
+                        'parameter_values' => [1, 2],
+                    ],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->loadCondition(1, Value::STATUS_PUBLISHED)
         );
@@ -440,10 +440,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $updatedRule = $this->handler->updateRuleMetadata(
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
             new RuleMetadataUpdateStruct(
-                array(
+                [
                     'enabled' => false,
                     'priority' => 50,
-                )
+                ]
             )
         );
 
@@ -494,41 +494,41 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedRule->status);
 
         $this->assertEquals(
-            array(
+            [
                 new Target(
-                    array(
+                    [
                         'id' => 43,
                         'ruleId' => $copiedRule->id,
                         'type' => 'route_prefix',
                         'value' => 'my_second_cool_',
                         'status' => Value::STATUS_PUBLISHED,
-                    )
+                    ]
                 ),
                 new Target(
-                    array(
+                    [
                         'id' => 44,
                         'ruleId' => $copiedRule->id,
                         'type' => 'route_prefix',
                         'value' => 'my_third_cool_',
                         'status' => Value::STATUS_PUBLISHED,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->handler->loadRuleTargets($copiedRule)
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Condition(
-                    array(
+                    [
                         'id' => 5,
                         'ruleId' => $copiedRule->id,
                         'type' => 'ez_site_access',
-                        'value' => array('cro'),
+                        'value' => ['cro'],
                         'status' => Value::STATUS_PUBLISHED,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->handler->loadRuleConditions($copiedRule)
         );
     }
@@ -559,56 +559,56 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(Value::STATUS_ARCHIVED, $copiedRule->status);
 
         $this->assertEquals(
-            array(
+            [
                 new Target(
-                    array(
+                    [
                         'id' => 5,
                         'ruleId' => 3,
                         'type' => 'route',
                         'value' => 'my_fourth_cool_route',
                         'status' => Value::STATUS_ARCHIVED,
-                    )
+                    ]
                 ),
                 new Target(
-                    array(
+                    [
                         'id' => 6,
                         'ruleId' => 3,
                         'type' => 'route',
                         'value' => 'my_fifth_cool_route',
                         'status' => Value::STATUS_ARCHIVED,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->handler->loadRuleTargets($copiedRule)
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Condition(
-                    array(
+                    [
                         'id' => 2,
                         'ruleId' => 3,
                         'type' => 'route_parameter',
-                        'value' => array(
+                        'value' => [
                             'parameter_name' => 'some_param',
-                            'parameter_values' => array(3, 4),
-                        ),
+                            'parameter_values' => [3, 4],
+                        ],
                         'status' => Value::STATUS_ARCHIVED,
-                    )
+                    ]
                 ),
                 new Condition(
-                    array(
+                    [
                         'id' => 3,
                         'ruleId' => 3,
                         'type' => 'route_parameter',
-                        'value' => array(
+                        'value' => [
                             'parameter_name' => 'some_other_param',
-                            'parameter_values' => array(5, 6),
-                        ),
+                            'parameter_values' => [5, 6],
+                        ],
                         'status' => Value::STATUS_ARCHIVED,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->handler->loadRuleConditions($copiedRule)
         );
     }
@@ -662,13 +662,13 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertEquals(
             new Target(
-                array(
+                [
                     'id' => 43,
                     'ruleId' => 1,
                     'type' => 'target',
                     'value' => '42',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->addTarget(
                 $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
@@ -688,13 +688,13 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertEquals(
             new Target(
-                array(
+                [
                     'id' => 1,
                     'ruleId' => 1,
                     'type' => 'route',
                     'value' => 'my_new_route',
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->updateTarget(
                 $this->handler->loadTarget(1, Value::STATUS_PUBLISHED),
@@ -726,17 +726,17 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $conditionCreateStruct = new ConditionCreateStruct();
         $conditionCreateStruct->type = 'condition';
-        $conditionCreateStruct->value = array('param' => 'value');
+        $conditionCreateStruct->value = ['param' => 'value'];
 
         $this->assertEquals(
             new Condition(
-                array(
+                [
                     'id' => 5,
                     'ruleId' => 3,
                     'type' => 'condition',
-                    'value' => array('param' => 'value'),
+                    'value' => ['param' => 'value'],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->addCondition(
                 $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
@@ -752,17 +752,17 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateCondition()
     {
         $conditionUpdateStruct = new ConditionUpdateStruct();
-        $conditionUpdateStruct->value = array('new_param' => 'new_value');
+        $conditionUpdateStruct->value = ['new_param' => 'new_value'];
 
         $this->assertEquals(
             new Condition(
-                array(
+                [
                     'id' => 1,
                     'ruleId' => 2,
                     'type' => 'route_parameter',
-                    'value' => array('new_param' => 'new_value'),
+                    'value' => ['new_param' => 'new_value'],
                     'status' => Value::STATUS_PUBLISHED,
-                )
+                ]
             ),
             $this->handler->updateCondition(
                 $this->handler->loadCondition(1, Value::STATUS_PUBLISHED),

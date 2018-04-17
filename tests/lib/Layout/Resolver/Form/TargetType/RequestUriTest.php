@@ -29,9 +29,9 @@ final class RequestUriTest extends FormTestCase
     public function getMainType()
     {
         return new TargetType(
-            array(
+            [
                 'request_uri' => new RequestUriMapper(),
-            )
+            ]
         );
     }
 
@@ -44,9 +44,9 @@ final class RequestUriTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'value' => '/some/path?id=42',
-        );
+        ];
 
         $updatedStruct = new TargetCreateStruct();
         $updatedStruct->value = '/some/path?id=42';
@@ -54,7 +54,7 @@ final class RequestUriTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             new TargetCreateStruct(),
-            array('targetType' => $this->targetType)
+            ['targetType' => $this->targetType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

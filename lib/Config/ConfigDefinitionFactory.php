@@ -33,11 +33,11 @@ final class ConfigDefinitionFactory
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
         return new ConfigDefinition(
-            array(
+            [
                 'configKey' => $configKey,
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
-            )
+            ]
         );
     }
 }

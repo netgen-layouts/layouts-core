@@ -21,7 +21,7 @@ final class ConditionTypePass implements CompilerPassInterface
         $formType = $container->findDefinition(self::$serviceName);
         $mapperServices = $container->findTaggedServiceIds(self::$tagName);
 
-        $mappers = array();
+        $mappers = [];
         foreach ($mapperServices as $mapperService => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['condition_type'])) {

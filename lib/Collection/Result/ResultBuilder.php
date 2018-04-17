@@ -55,7 +55,7 @@ final class ResultBuilder implements ResultBuilderInterface
 
         $collectionRunner = $this->runnerFactory->getCollectionRunner($collection, $flags);
 
-        $results = array();
+        $results = [];
         $totalCount = $collectionRunner->count($collection);
         if ($limit > 0 && $offset < $totalCount) {
             $results = call_user_func($collectionRunner, $collection, $offset, $limit, $flags);
@@ -63,13 +63,13 @@ final class ResultBuilder implements ResultBuilderInterface
         }
 
         return new ResultSet(
-            array(
+            [
                 'collection' => $collection,
                 'results' => $results,
                 'totalCount' => $totalCount,
                 'offset' => $offset,
                 'limit' => $limit,
-            )
+            ]
         );
     }
 }

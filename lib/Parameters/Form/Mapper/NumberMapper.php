@@ -15,8 +15,8 @@ final class NumberMapper extends Mapper
 
     public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        return array(
+        return [
             'scale' => $parameterDefinition->getOption('scale'),
-        );
+        ];
     }
 }

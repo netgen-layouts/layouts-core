@@ -12,7 +12,7 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
     /**
      * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[]
      */
-    private $itemDefinitions = array();
+    private $itemDefinitions = [];
 
     public function addItemDefinition($valueType, ItemDefinitionInterface $itemDefinition)
     {

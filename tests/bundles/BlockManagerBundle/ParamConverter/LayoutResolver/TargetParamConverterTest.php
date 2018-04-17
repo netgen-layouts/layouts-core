@@ -33,7 +33,7 @@ final class TargetParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $this->assertEquals(array('targetId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(['targetId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -68,10 +68,10 @@ final class TargetParamConverterTest extends TestCase
         $this->assertEquals(
             $target,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'targetId' => 42,
                     'published' => true,
-                )
+                ]
             )
         );
     }
@@ -92,10 +92,10 @@ final class TargetParamConverterTest extends TestCase
         $this->assertEquals(
             $target,
             $this->paramConverter->loadValue(
-                array(
+                [
                     'targetId' => 42,
                     'published' => false,
-                )
+                ]
             )
         );
     }

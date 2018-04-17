@@ -34,17 +34,17 @@ final class MainMenuBuilder
 
         if ($this->authorizationChecker->isGranted('ROLE_NGBM_ADMIN')) {
             $menu
-                ->addChild('layout_resolver', array('route' => 'ngbm_admin_layout_resolver_index'))
+                ->addChild('layout_resolver', ['route' => 'ngbm_admin_layout_resolver_index'])
                 ->setLabel('menu.main_menu.layout_resolver')
                 ->setExtra('translation_domain', 'ngbm_admin');
 
             $menu
-                ->addChild('layouts', array('route' => 'ngbm_admin_layouts_index'))
+                ->addChild('layouts', ['route' => 'ngbm_admin_layouts_index'])
                 ->setLabel('menu.main_menu.layouts')
                 ->setExtra('translation_domain', 'ngbm_admin');
 
             $menu
-                ->addChild('shared_layouts', array('route' => 'ngbm_admin_shared_layouts_index'))
+                ->addChild('shared_layouts', ['route' => 'ngbm_admin_shared_layouts_index'])
                 ->setLabel('menu.main_menu.shared_layouts')
                 ->setExtra('translation_domain', 'ngbm_admin');
         }

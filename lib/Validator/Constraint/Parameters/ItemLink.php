@@ -33,7 +33,7 @@ final class ItemLink extends Constraint
      *
      * @var array
      */
-    public $valueTypes = array();
+    public $valueTypes = [];
 
     public function validatedBy()
     {

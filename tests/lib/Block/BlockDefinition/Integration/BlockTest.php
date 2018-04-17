@@ -62,7 +62,7 @@ abstract class BlockTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
-        $createdParameters = array();
+        $createdParameters = [];
         foreach ($createdBlock->getParameters() as $parameterName => $parameter) {
             $createdParameters[$parameterName] = $parameter->getValue();
         }
@@ -123,12 +123,12 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function getParameterTypes()
     {
-        return array();
+        return [];
     }
 
     public function getValidators()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -146,7 +146,7 @@ abstract class BlockTest extends ServiceTestCase
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    private function createBlockDefinition(array $parameterNames = array())
+    private function createBlockDefinition(array $parameterNames = [])
     {
         $handler = $this->createBlockDefinitionHandler();
 
@@ -155,7 +155,7 @@ abstract class BlockTest extends ServiceTestCase
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
-        $filteredParameterDefinitions = array();
+        $filteredParameterDefinitions = [];
         if (!empty($parameterNames)) {
             foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
                 if (in_array($parameterName, $parameterNames, true)) {
@@ -164,32 +164,32 @@ abstract class BlockTest extends ServiceTestCase
             }
         }
 
-        $collections = array();
+        $collections = [];
         if ($this->hasCollection()) {
             $collections['default'] = new Collection(
-                array(
+                [
                     'identifier' => 'default',
-                )
+                ]
             );
         }
 
         $blockDefinition = new BlockDefinition(
-            array(
+            [
                 'identifier' => 'definition',
                 'handler' => $handler,
-                'viewTypes' => array(
+                'viewTypes' => [
                     'default' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
+                        [
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
+                ],
                 'collections' => $collections,
                 'parameterDefinitions' => $filteredParameterDefinitions,
-                'configDefinitions' => array(),
-            )
+                'configDefinitions' => [],
+            ]
         );
 
         $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);

@@ -23,10 +23,10 @@ final class IntegerType extends ParameterType
         $optionsResolver->setDefault('min', null);
         $optionsResolver->setDefault('max', null);
 
-        $optionsResolver->setRequired(array('min', 'max'));
+        $optionsResolver->setRequired(['min', 'max']);
 
-        $optionsResolver->setAllowedTypes('min', array('int', 'null'));
-        $optionsResolver->setAllowedTypes('max', array('int', 'null'));
+        $optionsResolver->setAllowedTypes('min', ['int', 'null']);
+        $optionsResolver->setAllowedTypes('max', ['int', 'null']);
 
         $optionsResolver->setNormalizer(
             'max',
@@ -64,23 +64,23 @@ final class IntegerType extends ParameterType
     {
         $options = $parameterDefinition->getOptions();
 
-        $constraints = array(
+        $constraints = [
             new Constraints\Type(
-                array(
+                [
                     'type' => 'int',
-                )
+                ]
             ),
-        );
+        ];
 
         if ($options['min'] !== null) {
             $constraints[] = new Constraints\GreaterThanOrEqual(
-                array('value' => $options['min'])
+                ['value' => $options['min']]
             );
         }
 
         if ($options['max'] !== null) {
             $constraints[] = new Constraints\LessThanOrEqual(
-                array('value' => $options['max'])
+                ['value' => $options['max']]
             );
         }
 

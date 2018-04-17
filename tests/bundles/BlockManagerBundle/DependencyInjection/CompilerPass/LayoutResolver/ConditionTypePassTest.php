@@ -27,9 +27,9 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.layout.resolver.registry.condition_type',
             'addConditionType',
-            array(
+            [
                 new Reference('netgen_block_manager.layout.resolver.condition_type.test'),
-            )
+            ]
         );
     }
 

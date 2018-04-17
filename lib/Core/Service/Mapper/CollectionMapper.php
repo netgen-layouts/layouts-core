@@ -82,7 +82,7 @@ final class CollectionMapper
      */
     public function mapCollection(PersistenceCollection $collection, array $locales = null, $useMainLocale = true)
     {
-        $locales = !empty($locales) ? $locales : array($collection->mainLocale);
+        $locales = !empty($locales) ? $locales : [$collection->mainLocale];
         if ($useMainLocale && $collection->alwaysAvailable) {
             $locales[] = $collection->mainLocale;
         }
@@ -94,7 +94,7 @@ final class CollectionMapper
 
         $collectionLocale = reset($validLocales);
 
-        $collectionData = array(
+        $collectionData = [
             'id' => $collection->id,
             'status' => $collection->status,
             'offset' => $collection->offset,
@@ -123,7 +123,7 @@ final class CollectionMapper
             'alwaysAvailable' => $collection->alwaysAvailable,
             'availableLocales' => $collection->availableLocales,
             'locale' => $collectionLocale,
-        );
+        ];
 
         return new Collection($collectionData);
     }
@@ -139,7 +139,7 @@ final class CollectionMapper
     {
         $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
 
-        $itemData = array(
+        $itemData = [
             'id' => $item->id,
             'status' => $item->status,
             'collectionId' => $item->collectionId,
@@ -152,7 +152,7 @@ final class CollectionMapper
             },
             'definition' => $itemDefinition,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
-        );
+        ];
 
         return new Item($itemData);
     }
@@ -178,7 +178,7 @@ final class CollectionMapper
     {
         $queryType = $this->queryTypeRegistry->getQueryType($query->type);
 
-        $locales = !empty($locales) ? $locales : array($query->mainLocale);
+        $locales = !empty($locales) ? $locales : [$query->mainLocale];
         if ($useMainLocale && $query->alwaysAvailable) {
             $locales[] = $query->mainLocale;
         }
@@ -194,7 +194,7 @@ final class CollectionMapper
             $query->parameters[$query->mainLocale]
         );
 
-        $queryData = array(
+        $queryData = [
             'id' => $query->id,
             'status' => $query->status,
             'collectionId' => $query->collectionId,
@@ -208,7 +208,7 @@ final class CollectionMapper
                 $queryType,
                 $untranslatableParams + $query->parameters[$queryLocale]
             ),
-        );
+        ];
 
         return new Query($queryData);
     }

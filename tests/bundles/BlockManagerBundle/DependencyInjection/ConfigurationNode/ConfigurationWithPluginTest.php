@@ -19,13 +19,13 @@ final class ConfigurationWithPluginTest extends TestCase
      */
     public function testSettings()
     {
-        $config = array(
-            array(),
-        );
+        $config = [
+            [],
+        ];
 
-        $expectedConfig = array(
+        $expectedConfig = [
             'test_config' => 'test',
-        );
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,

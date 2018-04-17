@@ -23,7 +23,7 @@ final class ConditionTypePass implements CompilerPassInterface
         foreach ($conditionTypeServices as $conditionTypeService) {
             $conditionTypeRegistry->addMethodCall(
                 'addConditionType',
-                array(new Reference($conditionTypeService))
+                [new Reference($conditionTypeService)]
             );
         }
     }

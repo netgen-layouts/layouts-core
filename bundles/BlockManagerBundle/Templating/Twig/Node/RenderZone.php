@@ -20,12 +20,12 @@ final class RenderZone extends Node
      */
     public function __construct(AbstractExpression $zone, AbstractExpression $context = null, $line = 0, $tag = null)
     {
-        $nodes = array('zone' => $zone);
+        $nodes = ['zone' => $zone];
         if ($context instanceof AbstractExpression) {
             $nodes['context'] = $context;
         }
 
-        parent::__construct($nodes, array(), $line, $tag);
+        parent::__construct($nodes, [], $line, $tag);
     }
 
     public function compile(Compiler $compiler)

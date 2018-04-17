@@ -10,7 +10,7 @@ final class DisabledConfigDefinitionHandler implements ConfigDefinitionHandlerIn
 {
     public function getParameterDefinitions()
     {
-        return array();
+        return [];
     }
 
     public function buildParameters(ParameterBuilderInterface $builder)

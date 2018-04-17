@@ -41,7 +41,7 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(BlockManagerEvents::RENDER_VIEW => 'onRenderView');
+        return [BlockManagerEvents::RENDER_VIEW => 'onRenderView'];
     }
 
     /**

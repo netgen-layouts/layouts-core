@@ -10,18 +10,18 @@ final class CollectionPagerExtension extends AbstractExtension
 {
     public function getFunctions()
     {
-        return array(
+        return [
             new TwigFunction(
                 'ngbm_collection_pager',
-                array(CollectionPagerRuntime::class, 'renderCollectionPager'),
-                array(
-                    'is_safe' => array('html'),
-                )
+                [CollectionPagerRuntime::class, 'renderCollectionPager'],
+                [
+                    'is_safe' => ['html'],
+                ]
             ),
             new TwigFunction(
                 'ngbm_collection_page_url',
-                array(CollectionPagerRuntime::class, 'getCollectionPageUrl')
+                [CollectionPagerRuntime::class, 'getCollectionPageUrl']
             ),
-        );
+        ];
     }
 }

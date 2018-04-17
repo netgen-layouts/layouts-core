@@ -19,25 +19,25 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettings()
     {
-        $config = array(
-            array(
-                'block_type_groups' => array(
-                    'block_type_group' => array(
+        $config = [
+            [
+                'block_type_groups' => [
+                    'block_type_group' => [
                         'name' => 'block_type_group',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
+        $expectedConfig = [
+            'block_type_groups' => [
+                'block_type_group' => [
                     'name' => 'block_type_group',
                     'enabled' => true,
-                    'block_types' => array(),
-                ),
-            ),
-        );
+                    'block_types' => [],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -55,30 +55,30 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettingsWithBlockTypesMerge()
     {
-        $config = array(
-            array(
-                'block_type_groups' => array(
-                    'block_type_group' => array(
-                        'block_types' => array('title', 'text'),
-                    ),
-                ),
-            ),
-            array(
-                'block_type_groups' => array(
-                    'block_type_group' => array(
-                        'block_types' => array('image'),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_type_groups' => [
+                    'block_type_group' => [
+                        'block_types' => ['title', 'text'],
+                    ],
+                ],
+            ],
+            [
+                'block_type_groups' => [
+                    'block_type_group' => [
+                        'block_types' => ['image'],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'block_types' => array('title', 'text', 'image'),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_type_groups' => [
+                'block_type_group' => [
+                    'block_types' => ['title', 'text', 'image'],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -95,23 +95,23 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettingsWithBlockTypes()
     {
-        $config = array(
-            array(
-                'block_type_groups' => array(
-                    'block_type_group' => array(
-                        'block_types' => array('title', 'image'),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_type_groups' => [
+                    'block_type_group' => [
+                        'block_types' => ['title', 'image'],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'block_types' => array('title', 'image'),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_type_groups' => [
+                'block_type_group' => [
+                    'block_types' => ['title', 'image'],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -128,23 +128,23 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettingsWithNonUniqueBlockTypes()
     {
-        $config = array(
-            array(
-                'block_type_groups' => array(
-                    'block_type_group' => array(
-                        'block_types' => array('title', 'image', 'title'),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_type_groups' => [
+                    'block_type_group' => [
+                        'block_types' => ['title', 'image', 'title'],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'block_types' => array('title', 'image'),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_type_groups' => [
+                'block_type_group' => [
+                    'block_types' => ['title', 'image'],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -159,11 +159,11 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettingsWithNoBlockTypeSettings()
     {
-        $config = array(
-            'block_type_groups' => array(),
-        );
+        $config = [
+            'block_type_groups' => [],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -172,13 +172,13 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettingsWithNoName()
     {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(),
-            ),
-        );
+        $config = [
+            'block_type_groups' => [
+                'block_type_group' => [],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -187,16 +187,16 @@ final class BlockTypeGroupNodeTest extends TestCase
      */
     public function testBlockTypeGroupsSettingsWithEmptyBlockTypes()
     {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
+        $config = [
+            'block_type_groups' => [
+                'block_type_group' => [
                     'name' => 'block_type_group',
-                    'block_types' => array(),
-                ),
-            ),
-        );
+                    'block_types' => [],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

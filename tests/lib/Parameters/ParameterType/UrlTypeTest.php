@@ -55,12 +55,12 @@ final class UrlTypeTest extends TestCase
      */
     public function validOptionsProvider()
     {
-        return array(
-            array(
-                array(),
-                array(),
-            ),
-        );
+        return [
+            [
+                [],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -70,13 +70,13 @@ final class UrlTypeTest extends TestCase
      */
     public function invalidOptionsProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'undefined_value' => 'Value',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -103,10 +103,10 @@ final class UrlTypeTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array(null, true),
-            array('netgenlabs', false),
-            array('http://www.netgenlabs.com', true),
-        );
+        return [
+            [null, true],
+            ['netgenlabs', false],
+            ['http://www.netgenlabs.com', true],
+        ];
     }
 }

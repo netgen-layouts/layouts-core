@@ -61,7 +61,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->handlerPluginRegistry = new HandlerPluginRegistry();
         $this->handlerPluginRegistry->addPlugin(
             HandlerPlugin::instance(
-                array(BlockDefinitionHandlerInterface::class)
+                [BlockDefinitionHandlerInterface::class]
             )
         );
 
@@ -89,55 +89,55 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            array(
-                'view_types' => array(
-                    'view_type' => array(
+            [
+                'view_types' => [
+                    'view_type' => [
                         'enabled' => true,
                         'name' => 'View type',
-                        'item_view_types' => array(
-                            'item_view_type' => array(
+                        'item_view_types' => [
+                            'item_view_type' => [
                                 'enabled' => true,
                                 'name' => 'Item view type',
-                            ),
-                            'disabled' => array(
+                            ],
+                            'disabled' => [
                                 'enabled' => false,
                                 'name' => 'Item view type',
-                            ),
-                        ),
-                        'valid_parameters' => array(
+                            ],
+                        ],
+                        'valid_parameters' => [
                             'param1', 'param2',
-                        ),
-                    ),
-                    'disabled' => array(
+                        ],
+                    ],
+                    'disabled' => [
                         'enabled' => false,
-                        'item_view_types' => array(),
-                    ),
-                ),
-                'forms' => array(
-                    'form' => array(
+                        'item_view_types' => [],
+                    ],
+                ],
+                'forms' => [
+                    'form' => [
                         'enabled' => true,
                         'type' => 'form_type',
-                    ),
-                    'disabled' => array(
+                    ],
+                    'disabled' => [
                         'enabled' => false,
                         'type' => 'form_type',
-                    ),
-                ),
-                'collections' => array(
-                    'default' => array(
+                    ],
+                ],
+                'collections' => [
+                    'default' => [
                         'valid_item_types' => null,
                         'valid_query_types' => null,
-                    ),
-                    'featured' => array(
-                        'valid_item_types' => array('item'),
-                        'valid_query_types' => array(),
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                    'featured' => [
+                        'valid_item_types' => ['item'],
+                        'valid_query_types' => [],
+                    ],
+                ],
+            ],
+            [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            )
+            ]
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
@@ -147,61 +147,61 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $this->assertEquals(
-            array(
+            [
                 'view_type' => new ViewType(
-                    array(
+                    [
                         'identifier' => 'view_type',
                         'name' => 'View type',
-                        'itemViewTypes' => array(
+                        'itemViewTypes' => [
                             'standard' => new ItemViewType(
-                                array(
+                                [
                                     'identifier' => 'standard',
                                     'name' => 'Standard',
-                                )
+                                ]
                             ),
                             'item_view_type' => new ItemViewType(
-                                array(
+                                [
                                     'identifier' => 'item_view_type',
                                     'name' => 'Item view type',
-                                )
+                                ]
                             ),
-                        ),
-                        'validParameters' => array('param1', 'param2'),
-                    )
+                        ],
+                        'validParameters' => ['param1', 'param2'],
+                    ]
                 ),
-            ),
+            ],
             $blockDefinition->getViewTypes()
         );
 
         $this->assertEquals(
-            array(
+            [
                 'form' => new Form(
-                    array(
+                    [
                         'identifier' => 'form',
                         'type' => 'form_type',
-                    )
+                    ]
                 ),
-            ),
+            ],
             $blockDefinition->getForms()
         );
 
         $this->assertEquals(
-            array(
+            [
                 'default' => new Collection(
-                    array(
+                    [
                         'identifier' => 'default',
                         'validItemTypes' => null,
                         'validQueryTypes' => null,
-                    )
+                    ]
                 ),
                 'featured' => new Collection(
-                    array(
+                    [
                         'identifier' => 'featured',
-                        'validItemTypes' => array('item'),
-                        'validQueryTypes' => array(),
-                    )
+                        'validItemTypes' => ['item'],
+                        'validQueryTypes' => [],
+                    ]
                 ),
-            ),
+            ],
             $blockDefinition->getCollections()
         );
 
@@ -225,18 +225,18 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerMock,
-            array(
-                'view_types' => array(
-                    'view_type' => array(
+            [
+                'view_types' => [
+                    'view_type' => [
                         'enabled' => true,
-                        'item_view_types' => array(),
-                    ),
-                ),
-            ),
-            array(
+                        'item_view_types' => [],
+                    ],
+                ],
+            ],
+            [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            )
+            ]
         );
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
@@ -265,23 +265,23 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->handlerMock
             ->expects($this->any())
             ->method('getPlaceholderIdentifiers')
-            ->will($this->returnValue(array('left', 'right')));
+            ->will($this->returnValue(['left', 'right']));
 
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerMock,
-            array(
-                'view_types' => array(
-                    'view_type' => array(
+            [
+                'view_types' => [
+                    'view_type' => [
                         'enabled' => true,
-                        'item_view_types' => array(),
-                    ),
-                ),
-            ),
-            array(
+                        'item_view_types' => [],
+                    ],
+                ],
+            ],
+            [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            )
+            ]
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
@@ -297,7 +297,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
 
-        $this->assertEquals(array('left', 'right'), $blockDefinition->getPlaceholders());
+        $this->assertEquals(['left', 'right'], $blockDefinition->getPlaceholders());
     }
 
     /**
@@ -314,15 +314,15 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            array(
-                'view_types' => array(
-                    'large' => array(
+            [
+                'view_types' => [
+                    'large' => [
                         'enabled' => false,
                         'valid_parameters' => null,
-                    ),
-                ),
-            ),
-            array()
+                    ],
+                ],
+            ],
+            []
         );
     }
 
@@ -340,21 +340,21 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            array(
-                'view_types' => array(
-                    'large' => array(
+            [
+                'view_types' => [
+                    'large' => [
                         'name' => 'Large',
                         'enabled' => true,
-                        'item_view_types' => array(
-                            'standard' => array(
+                        'item_view_types' => [
+                            'standard' => [
                                 'enabled' => false,
-                            ),
-                        ),
+                            ],
+                        ],
                         'valid_parameters' => null,
-                    ),
-                ),
-            ),
-            array()
+                    ],
+                ],
+            ],
+            []
         );
     }
 }

@@ -20,22 +20,22 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testDefaultTtlSettings()
     {
-        $config = array(
-            array(
-                'http_cache' => array(),
-            ),
-        );
+        $config = [
+            [
+                'http_cache' => [],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'block' => array(),
-                    ),
-                    'block_definition' => array(),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'http_cache' => [
+                'ttl' => [
+                    'default' => [
+                        'block' => [],
+                    ],
+                    'block_definition' => [],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -52,31 +52,31 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testBlockTtlSettings()
     {
-        $config = array(
-            array(
-                'http_cache' => array(
-                    'ttl' => array(
-                        'default' => array(
-                            'block' => array(
+        $config = [
+            [
+                'http_cache' => [
+                    'ttl' => [
+                        'default' => [
+                            'block' => [
                                 'shared_max_age' => 42,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'block' => array(
+        $expectedConfig = [
+            'http_cache' => [
+                'ttl' => [
+                    'default' => [
+                        'block' => [
                             'shared_max_age' => 42,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -93,31 +93,31 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testBlockDefinitionTtlSettings()
     {
-        $config = array(
-            array(
-                'http_cache' => array(
-                    'ttl' => array(
-                        'block_definition' => array(
-                            'block' => array(
+        $config = [
+            [
+                'http_cache' => [
+                    'ttl' => [
+                        'block_definition' => [
+                            'block' => [
                                 'shared_max_age' => 42,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'block_definition' => array(
-                        'block' => array(
+        $expectedConfig = [
+            'http_cache' => [
+                'ttl' => [
+                    'block_definition' => [
+                        'block' => [
                             'shared_max_age' => 42,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -133,21 +133,21 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testInvalidationSettings()
     {
-        $config = array(
-            array(
-                'http_cache' => array(
-                    'invalidation' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'http_cache' => [
+                    'invalidation' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'http_cache' => array(
-                'invalidation' => array(
+        $expectedConfig = [
+            'http_cache' => [
+                'invalidation' => [
                     'enabled' => true,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -163,23 +163,23 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testDisabledInvalidationSettings()
     {
-        $config = array(
-            array(
-                'http_cache' => array(
-                    'invalidation' => array(
+        $config = [
+            [
+                'http_cache' => [
+                    'invalidation' => [
                         'enabled' => false,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'http_cache' => array(
-                'invalidation' => array(
+        $expectedConfig = [
+            'http_cache' => [
+                'invalidation' => [
                     'enabled' => false,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -195,19 +195,19 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testDefaultBlockTtlSettingsWithInvalidSharedMaxAge()
     {
-        $config = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'block' => array(
+        $config = [
+            'http_cache' => [
+                'ttl' => [
+                    'default' => [
+                        'block' => [
                             'shared_max_age' => 'invalid',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -217,19 +217,19 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testBlockDefinitionTtlSettingsWithInvalidSharedMaxAge()
     {
-        $config = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'block_definition' => array(
-                        'block' => array(
+        $config = [
+            'http_cache' => [
+                'ttl' => [
+                    'block_definition' => [
+                        'block' => [
                             'shared_max_age' => 'invalid',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -238,15 +238,15 @@ final class HttpCacheNodeTest extends TestCase
      */
     public function testInvalidationSettingsWithInvalidEnabled()
     {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
+        $config = [
+            'http_cache' => [
+                'invalidation' => [
                     'enabled' => 42,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

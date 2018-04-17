@@ -63,10 +63,10 @@ final class RoutePrefixTest extends TestCase
      */
     public function validationProvider()
     {
-        return array(
-            array('route_name', true),
-            array('', false),
-            array(null, false),
-        );
+        return [
+            ['route_name', true],
+            ['', false],
+            [null, false],
+        ];
     }
 }

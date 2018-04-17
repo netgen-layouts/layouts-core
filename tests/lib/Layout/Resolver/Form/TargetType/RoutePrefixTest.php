@@ -29,9 +29,9 @@ final class RoutePrefixTest extends FormTestCase
     public function getMainType()
     {
         return new TargetType(
-            array(
+            [
                 'route_prefix' => new RoutePrefixMapper(),
-            )
+            ]
         );
     }
 
@@ -44,9 +44,9 @@ final class RoutePrefixTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
+        $submittedData = [
             'value' => 'route_prefix_',
-        );
+        ];
 
         $updatedStruct = new TargetCreateStruct();
         $updatedStruct->value = 'route_prefix_';
@@ -54,7 +54,7 @@ final class RoutePrefixTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             new TargetCreateStruct(),
-            array('targetType' => $this->targetType)
+            ['targetType' => $this->targetType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

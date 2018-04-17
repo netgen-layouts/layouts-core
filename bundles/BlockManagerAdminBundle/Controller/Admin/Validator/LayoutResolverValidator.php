@@ -21,18 +21,18 @@ final class LayoutResolverValidator
     {
         $this->validate(
             $request->request->get('rule_ids'),
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'array')),
+                new Constraints\Type(['type' => 'array']),
                 new Constraints\All(
-                    array(
-                        'constraints' => array(
+                    [
+                        'constraints' => [
                             new Constraints\NotBlank(),
-                            new Constraints\Type(array('type' => 'scalar')),
-                        ),
-                    )
+                            new Constraints\Type(['type' => 'scalar']),
+                        ],
+                    ]
                 ),
-            ),
+            ],
             'rule_ids'
         );
     }

@@ -130,82 +130,82 @@ final class ValidatorTest extends TestCase
 
     public function validateIdDataProvider()
     {
-        return array(
-            array(24, true),
-            array('24', true),
-            array('', false),
-            array(array(), false),
-            array(null, false),
-        );
+        return [
+            [24, true],
+            ['24', true],
+            ['', false],
+            [[], false],
+            [null, false],
+        ];
     }
 
     public function validateIdentifierDataProvider()
     {
-        return array(
-            array(24, false, false),
-            array(24, true, false),
-            array(null, false, true),
-            array(null, true, false),
-            array('identifier', false, true),
-            array('identifier', true, true),
-            array('identifier_1', false, true),
-            array('identifier_2', true, true),
-            array('123identifier', false, false),
-            array('345identifier', true, false),
-            array('an identifier', false, false),
-            array('other identifier', true, false),
-            array('', false, false),
-            array('', true, false),
-        );
+        return [
+            [24, false, false],
+            [24, true, false],
+            [null, false, true],
+            [null, true, false],
+            ['identifier', false, true],
+            ['identifier', true, true],
+            ['identifier_1', false, true],
+            ['identifier_2', true, true],
+            ['123identifier', false, false],
+            ['345identifier', true, false],
+            ['an identifier', false, false],
+            ['other identifier', true, false],
+            ['', false, false],
+            ['', true, false],
+        ];
     }
 
     public function validatePositionDataProvider()
     {
-        return array(
-            array(-5, false, false),
-            array(-5, true, false),
-            array(0, false, true),
-            array(0, true, true),
-            array(24, false, true),
-            array(24, true, true),
-            array(null, false, true),
-            array(null, true, false),
-            array('identifier', false, false),
-            array('identifier', true, false),
-        );
+        return [
+            [-5, false, false],
+            [-5, true, false],
+            [0, false, true],
+            [0, true, true],
+            [24, false, true],
+            [24, true, true],
+            [null, false, true],
+            [null, true, false],
+            ['identifier', false, false],
+            ['identifier', true, false],
+        ];
     }
 
     public function validateOffsetAndLimitDataProvider()
     {
-        return array(
-            array(0, null, true),
-            array(5, null, true),
-            array('5', null, false),
-            array(null, null, false),
-            array(0, 1, true),
-            array(5, 1, true),
-            array('5', 1, false),
-            array(null, 1, false),
-            array(5, '5', false),
-        );
+        return [
+            [0, null, true],
+            [5, null, true],
+            ['5', null, false],
+            [null, null, false],
+            [0, 1, true],
+            [5, 1, true],
+            ['5', 1, false],
+            [null, 1, false],
+            [5, '5', false],
+        ];
     }
 
     public function validateLocaleDataProvider()
     {
-        return array(
-            array('en', true),
-            array('en_US', true),
-            array('pt', true),
-            array('pt_PT', true),
-            array('zh_Hans', true),
-            array('fil_PH', true),
+        return [
+            ['en', true],
+            ['en_US', true],
+            ['pt', true],
+            ['pt_PT', true],
+            ['zh_Hans', true],
+            ['fil_PH', true],
             // We do not allow non-canonicalized locales
-            array('en-US', false),
-            array('es-AR', false),
-            array('fr_FR.utf8', false),
-            array('EN', false),
+            ['en-US', false],
+            ['es-AR', false],
+            ['fr_FR.utf8', false],
+            ['EN', false],
             // Invalid locales
-            array('foobar', false),
-        );
+            ['foobar', false],
+        ];
     }
 }

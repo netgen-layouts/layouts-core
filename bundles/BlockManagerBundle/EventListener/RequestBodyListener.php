@@ -25,7 +25,7 @@ final class RequestBodyListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::REQUEST => 'onKernelRequest');
+        return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
     /**
@@ -74,7 +74,7 @@ final class RequestBodyListener implements EventSubscriberInterface
         if (
             !in_array(
                 $request->getMethod(),
-                array(Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH, Request::METHOD_DELETE),
+                [Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH, Request::METHOD_DELETE],
                 true
             )
         ) {

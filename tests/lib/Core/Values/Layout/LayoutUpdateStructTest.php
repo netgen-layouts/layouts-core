@@ -18,10 +18,10 @@ final class LayoutUpdateStructTest extends TestCase
     public function testSetProperties()
     {
         $layoutUpdateStruct = new LayoutUpdateStruct(
-            array(
+            [
                 'name' => 'My layout',
                 'description' => 'My description',
-            )
+            ]
         );
 
         $this->assertEquals('My layout', $layoutUpdateStruct->name);

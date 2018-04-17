@@ -41,7 +41,7 @@ final class LinkMapperTest extends TestCase
     public function setUp()
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
-        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+        $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
@@ -67,19 +67,19 @@ final class LinkMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->type,
-                'options' => array(
-                    'value_types' => array('value'),
-                ),
-            )
+                'options' => [
+                    'value_types' => ['value'],
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'label' => false,
-                'value_types' => array('value'),
-            ),
+                'value_types' => ['value'],
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }
@@ -90,19 +90,19 @@ final class LinkMapperTest extends TestCase
     public function testMapOptionsWithEmptyValueTypes()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->type,
-                'options' => array(
-                    'value_types' => array('default'),
-                ),
-            )
+                'options' => [
+                    'value_types' => ['default'],
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'label' => false,
-                'value_types' => array('default'),
-            ),
+                'value_types' => ['default'],
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }
@@ -113,9 +113,9 @@ final class LinkMapperTest extends TestCase
     public function testHandleForm()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => $this->type,
-            )
+            ]
         );
 
         $dispatcher = $this->createMock(EventDispatcherInterface::class);

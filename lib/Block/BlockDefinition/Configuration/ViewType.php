@@ -20,7 +20,7 @@ final class ViewType extends Value
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[]
      */
-    protected $itemViewTypes = array();
+    protected $itemViewTypes = [];
 
     /**
      * @var array

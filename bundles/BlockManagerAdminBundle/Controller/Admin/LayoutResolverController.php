@@ -70,9 +70,9 @@ final class LayoutResolverController extends Controller
     {
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/layout_resolver/index.html.twig',
-            array(
+            [
                 'rules' => $this->layoutResolverService->loadRules(),
-            )
+            ]
         );
     }
 
@@ -299,16 +299,16 @@ final class LayoutResolverController extends Controller
         $form = $this->createForm(
             TargetType::class,
             $createStruct,
-            array(
+            [
                 'targetType' => $targetType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_target_form_create',
-                    array(
+                    [
                         'ruleId' => $rule->getId(),
                         'type' => $type,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -331,7 +331,7 @@ final class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -354,15 +354,15 @@ final class LayoutResolverController extends Controller
         $form = $this->createForm(
             TargetType::class,
             $updateStruct,
-            array(
+            [
                 'targetType' => $targetType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_target_form_edit',
-                    array(
+                    [
                         'targetId' => $target->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -385,7 +385,7 @@ final class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -426,16 +426,16 @@ final class LayoutResolverController extends Controller
         $form = $this->createForm(
             ConditionType::class,
             $createStruct,
-            array(
+            [
                 'conditionType' => $conditionType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_condition_form_create',
-                    array(
+                    [
                         'ruleId' => $rule->getId(),
                         'type' => $type,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -458,7 +458,7 @@ final class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -481,15 +481,15 @@ final class LayoutResolverController extends Controller
         $form = $this->createForm(
             ConditionType::class,
             $updateStruct,
-            array(
+            [
                 'conditionType' => $conditionType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_condition_form_edit',
-                    array(
+                    [
                         'conditionId' => $condition->getId(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form->handleRequest($request);
@@ -512,7 +512,7 @@ final class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
-            array(),
+            [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

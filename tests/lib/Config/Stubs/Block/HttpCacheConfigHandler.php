@@ -12,20 +12,20 @@ final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 {
     public function getParameterDefinitions()
     {
-        return array(
+        return [
             'use_http_cache' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'use_http_cache',
                     'type' => new ParameterType\BooleanType(),
-                )
+                ]
             ),
             'shared_max_age' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'shared_max_age',
                     'type' => new ParameterType\IntegerType(),
-                )
+                ]
             ),
-        );
+        ];
     }
 
     public function buildParameters(ParameterBuilderInterface $builder)

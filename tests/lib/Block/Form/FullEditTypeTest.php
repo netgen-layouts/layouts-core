@@ -34,42 +34,42 @@ final class FullEditTypeTest extends FormTestCase
 
         $handler = new BlockDefinitionHandler();
         $this->definition = new BlockDefinition(
-            array(
+            [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-                'viewTypes' => array(
+                'viewTypes' => [
                     'large' => new ViewType(
-                        array(
+                        [
                             'name' => 'large',
                             'identifier' => 'large',
-                            'itemViewTypes' => array(
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(
-                                    array(
+                                    [
                                         'name' => 'standard',
                                         'identifier' => 'standard',
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
                     'small' => new ViewType(
-                        array(
+                        [
                             'name' => 'small',
                             'identifier' => 'small',
-                            'itemViewTypes' => array(
+                            'itemViewTypes' => [
                                 'standard' => new ItemViewType(
-                                    array(
+                                    [
                                         'name' => 'standard',
                                         'identifier' => 'standard',
-                                    )
+                                    ]
                                 ),
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        $this->block = new Block(array('definition' => $this->definition));
+        $this->block = new Block(['definition' => $this->definition]);
     }
 
     /**
@@ -85,7 +85,7 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function getTypeExtensions()
     {
-        return array(new ParametersTypeExtension());
+        return [new ParametersTypeExtension()];
     }
 
     /**
@@ -96,7 +96,7 @@ final class FullEditTypeTest extends FormTestCase
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
 
-        return array(new ParametersType($formMapperRegistry));
+        return [new ParametersType($formMapperRegistry)];
     }
 
     /**
@@ -109,15 +109,15 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
-        $submittedData = array(
-            'parameters' => array(
+        $submittedData = [
+            'parameters' => [
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
-            ),
+            ],
             'view_type' => 'large',
             'item_view_type' => 'standard',
             'name' => 'My block',
-        );
+        ];
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->viewType = 'large';
@@ -129,7 +129,7 @@ final class FullEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             FullEditType::class,
             new BlockUpdateStruct(),
-            array('block' => $this->block)
+            ['block' => $this->block]
         );
 
         $form->submit($submittedData);
@@ -166,15 +166,15 @@ final class FullEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             FullEditType::class,
-            new BlockUpdateStruct(array('locale' => 'hr')),
-            array(
+            new BlockUpdateStruct(['locale' => 'hr']),
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertTrue($form->get('name')->isDisabled());
@@ -198,15 +198,15 @@ final class FullEditTypeTest extends FormTestCase
     {
         $form = $this->factory->create(
             FullEditType::class,
-            new BlockUpdateStruct(array('locale' => 'en')),
-            array(
+            new BlockUpdateStruct(['locale' => 'en']),
+            [
                 'block' => new Block(
-                    array(
+                    [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $this->assertFalse($form->get('name')->isDisabled());
@@ -229,10 +229,10 @@ final class FullEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'block' => $this->block,
                 'data' => new BlockUpdateStruct(),
-            )
+            ]
         );
 
         $this->assertEquals($this->block, $options['block']);
@@ -267,9 +267,9 @@ final class FullEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'block' => '',
-            )
+            ]
         );
     }
 
@@ -286,10 +286,10 @@ final class FullEditTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
-            array(
+            [
                 'block' => $this->block,
                 'data' => '',
-            )
+            ]
         );
     }
 }

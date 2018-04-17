@@ -28,8 +28,8 @@ final class ValueTypeRegistryTest extends TestCase
     {
         $this->registry = new ValueTypeRegistry();
 
-        $this->valueType1 = new ValueType(array('isEnabled' => true));
-        $this->valueType2 = new ValueType(array('isEnabled' => false));
+        $this->valueType1 = new ValueType(['isEnabled' => true]);
+        $this->valueType2 = new ValueType(['isEnabled' => false]);
 
         $this->registry->addValueType('value1', $this->valueType1);
         $this->registry->addValueType('value2', $this->valueType2);
@@ -52,10 +52,10 @@ final class ValueTypeRegistryTest extends TestCase
     public function testGetValueTypes()
     {
         $this->assertEquals(
-            array(
+            [
                 'value1' => $this->valueType1,
                 'value2' => $this->valueType2,
-            ),
+            ],
             $this->registry->getValueTypes()
         );
     }
@@ -66,9 +66,9 @@ final class ValueTypeRegistryTest extends TestCase
     public function testGetEnabledValueTypes()
     {
         $this->assertEquals(
-            array(
+            [
                 'value1' => $this->valueType1,
-            ),
+            ],
             $this->registry->getValueTypes(true)
         );
     }
@@ -114,7 +114,7 @@ final class ValueTypeRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $valueTypes = array();
+        $valueTypes = [];
         foreach ($this->registry as $identifier => $valueType) {
             $valueTypes[$identifier] = $valueType;
         }

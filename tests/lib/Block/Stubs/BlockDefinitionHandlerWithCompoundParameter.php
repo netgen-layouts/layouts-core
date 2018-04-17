@@ -14,9 +14,9 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
     /**
      * @var array
      */
-    private $parameterGroups = array();
+    private $parameterGroups = [];
 
-    public function __construct($parameterGroups = array())
+    public function __construct($parameterGroups = [])
     {
         $this->parameterGroups = $parameterGroups;
     }
@@ -24,52 +24,52 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
     public function getParameterDefinitions()
     {
         $compoundParam = new CompoundParameterDefinition(
-            array(
+            [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'groups' => $this->parameterGroups,
-                'options' => array(
+                'options' => [
                     'translatable' => false,
-                ),
-                'parameterDefinitions' => array(
+                ],
+                'parameterDefinitions' => [
                     'inner' => new ParameterDefinition(
-                        array(
+                        [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
                             'groups' => $this->parameterGroups,
-                            'options' => array(
+                            'options' => [
                                 'translatable' => false,
-                            ),
-                        )
+                            ],
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
-        return array(
+        return [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'compound' => $compoundParam,
-        );
+        ];
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block)

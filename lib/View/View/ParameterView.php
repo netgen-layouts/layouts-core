@@ -18,9 +18,9 @@ final class ParameterView extends View implements ParameterViewInterface
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'name' => $this->getParameterValue()->getName(),
             'type' => $this->getParameterValue()->getParameterDefinition()->getType()->getIdentifier(),
-        );
+        ];
     }
 }

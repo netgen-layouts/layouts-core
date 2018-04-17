@@ -17,23 +17,23 @@ final class AppNodeTest extends TestCase
      */
     public function testJavascripts()
     {
-        $config = array(
-            array(
-                'app' => array(
-                    'javascripts' => array(
+        $config = [
+            [
+                'app' => [
+                    'javascripts' => [
                         'script',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'app' => array(
-                'javascripts' => array(
+        $expectedConfig = [
+            'app' => [
+                'javascripts' => [
                     'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -47,17 +47,17 @@ final class AppNodeTest extends TestCase
      */
     public function testJavascriptsWithNoJavascripts()
     {
-        $config = array(
-            array(
-                'app' => array(),
-            ),
-        );
+        $config = [
+            [
+                'app' => [],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'app' => array(
-                'javascripts' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'app' => [
+                'javascripts' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -71,13 +71,13 @@ final class AppNodeTest extends TestCase
      */
     public function testJavascriptsWithInvalidJavascripts()
     {
-        $config = array(
-            array(
-                'app' => array(
+        $config = [
+            [
+                'app' => [
                     'javascripts' => 'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config);
     }
@@ -87,15 +87,15 @@ final class AppNodeTest extends TestCase
      */
     public function testJavascriptsWithInvalidJavascript()
     {
-        $config = array(
-            array(
-                'app' => array(
-                    'javascripts' => array(
+        $config = [
+            [
+                'app' => [
+                    'javascripts' => [
                         42,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'The value should be a string');
     }
@@ -105,23 +105,23 @@ final class AppNodeTest extends TestCase
      */
     public function testStylesheets()
     {
-        $config = array(
-            array(
-                'app' => array(
-                    'stylesheets' => array(
+        $config = [
+            [
+                'app' => [
+                    'stylesheets' => [
                         'script',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'app' => array(
-                'stylesheets' => array(
+        $expectedConfig = [
+            'app' => [
+                'stylesheets' => [
                     'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -135,17 +135,17 @@ final class AppNodeTest extends TestCase
      */
     public function testStylesheetsWithNoStylesheets()
     {
-        $config = array(
-            array(
-                'app' => array(),
-            ),
-        );
+        $config = [
+            [
+                'app' => [],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'app' => array(
-                'stylesheets' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'app' => [
+                'stylesheets' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -159,13 +159,13 @@ final class AppNodeTest extends TestCase
      */
     public function testStylesheetsWithInvalidStylesheets()
     {
-        $config = array(
-            array(
-                'app' => array(
+        $config = [
+            [
+                'app' => [
                     'stylesheets' => 'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config);
     }
@@ -175,15 +175,15 @@ final class AppNodeTest extends TestCase
      */
     public function testStylesheetsWithInvalidStylesheet()
     {
-        $config = array(
-            array(
-                'app' => array(
-                    'stylesheets' => array(
+        $config = [
+            [
+                'app' => [
+                    'stylesheets' => [
                         42,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'The value should be a string');
     }

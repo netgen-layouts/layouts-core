@@ -22,24 +22,24 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 
         $handler = new BlockDefinitionHandler();
         $this->constraint->payload = new Block(
-            array(
+            [
                 'viewType' => 'large',
                 'mainLocale' => 'en',
                 'definition' => new BlockDefinition(
-                    array(
+                    [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
-                        'viewTypes' => array(
+                        'viewTypes' => [
                             'large' => new ViewType(
-                                array(
-                                    'itemViewTypes' => array(
+                                [
+                                    'itemViewTypes' => [
                                         'standard' => new ItemViewType(),
-                                    ),
-                                )
+                                    ],
+                                ]
                             ),
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            )
+            ]
         );
 
         parent::setUp();
@@ -100,311 +100,311 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => null,
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => '',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 42,
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'nonexistent',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => 42,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => null,
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => null,
                     'itemViewType' => null,
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 42,
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => '',
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => null,
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_id' => 'id',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => '',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => null,
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'locale' => 'en',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameterValues' => array(
+                    'parameterValues' => [
                         'css_class' => 'class',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 }

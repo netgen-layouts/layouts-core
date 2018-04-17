@@ -19,14 +19,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[]
      */
-    private $targetHandlers = array();
+    private $targetHandlers = [];
 
     /**
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers
      */
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers = array())
+    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers = [])
     {
         foreach ($targetHandlers as $targetHandler) {
             if (!$targetHandler instanceof TargetHandlerInterface) {
@@ -327,12 +327,12 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'layout_id' => ':layout_id',
                     'comment' => ':comment',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -352,11 +352,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $query = $this->connection->createQueryBuilder()
                 ->insert('ngbm_rule_data')
                 ->values(
-                    array(
+                    [
                         'rule_id' => ':rule_id',
                         'enabled' => ':enabled',
                         'priority' => ':priority',
-                    )
+                    ]
                 )
                 ->setParameter('rule_id', $rule->id, Type::INTEGER)
                 ->setParameter('enabled', $rule->enabled, Type::BOOLEAN)
@@ -505,13 +505,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_target')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'rule_id' => ':rule_id',
                     'type' => ':type',
                     'value' => ':value',
-                )
+                ]
             )
             ->setValue(
                 'id',
@@ -592,13 +592,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_condition')
             ->values(
-                array(
+                [
                     'id' => ':id',
                     'status' => ':status',
                     'rule_id' => ':rule_id',
                     'type' => ':type',
                     'value' => ':value',
-                )
+                ]
             )
             ->setValue(
                 'id',

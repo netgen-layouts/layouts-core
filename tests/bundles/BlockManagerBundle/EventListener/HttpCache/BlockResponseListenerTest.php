@@ -38,7 +38,7 @@ final class BlockResponseListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::VIEW => 'onView'),
+            [KernelEvents::VIEW => 'onView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -56,7 +56,7 @@ final class BlockResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new BlockView(array('block' => new Block()))
+            new BlockView(['block' => new Block()])
         );
 
         $this->taggerMock

@@ -26,8 +26,8 @@ final class BlockMapperTest extends TestCase
      */
     public function testMapBlocks()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'id' => 42,
                 'layout_id' => 24,
                 'depth' => 1,
@@ -46,8 +46,8 @@ final class BlockMapperTest extends TestCase
                 'main_locale' => 'en',
                 'always_available' => true,
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-            array(
+            ],
+            [
                 'id' => 84,
                 'layout_id' => 48,
                 'depth' => 1,
@@ -66,12 +66,12 @@ final class BlockMapperTest extends TestCase
                 'main_locale' => 'en',
                 'always_available' => true,
                 'status' => Value::STATUS_PUBLISHED,
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new Block(
-                array(
+                [
                     'id' => 42,
                     'layoutId' => 24,
                     'depth' => 1,
@@ -86,20 +86,20 @@ final class BlockMapperTest extends TestCase
                     'isTranslatable' => false,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'status' => Value::STATUS_PUBLISHED,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'param1' => 'param2',
-                        ),
-                    ),
-                    'config' => array(
+                        ],
+                    ],
+                    'config' => [
                         'config1' => 'config2',
-                    ),
-                )
+                    ],
+                ]
             ),
             new Block(
-                array(
+                [
                     'id' => 84,
                     'layoutId' => 48,
                     'depth' => 1,
@@ -114,19 +114,19 @@ final class BlockMapperTest extends TestCase
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'status' => Value::STATUS_PUBLISHED,
-                    'parameters' => array(
-                        'en' => array(
+                    'parameters' => [
+                        'en' => [
                             'param1' => 42,
-                        ),
-                    ),
-                    'config' => array(
+                        ],
+                    ],
+                    'config' => [
                         'config1' => 42,
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapBlocks($data));
     }
@@ -136,43 +136,43 @@ final class BlockMapperTest extends TestCase
      */
     public function testMapCollectionReferences()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'block_id' => 1,
                 'block_status' => Value::STATUS_PUBLISHED,
                 'collection_id' => 42,
                 'collection_status' => Value::STATUS_PUBLISHED,
                 'identifier' => 'default',
-            ),
-            array(
+            ],
+            [
                 'block_id' => 2,
                 'block_status' => Value::STATUS_PUBLISHED,
                 'collection_id' => 43,
                 'collection_status' => Value::STATUS_PUBLISHED,
                 'identifier' => 'featured',
-            ),
-        );
+            ],
+        ];
 
-        $expectedData = array(
+        $expectedData = [
             new CollectionReference(
-                array(
+                [
                     'blockId' => 1,
                     'blockStatus' => Value::STATUS_PUBLISHED,
                     'collectionId' => 42,
                     'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'default',
-                )
+                ]
             ),
             new CollectionReference(
-                array(
+                [
                     'blockId' => 2,
                     'blockStatus' => Value::STATUS_PUBLISHED,
                     'collectionId' => 43,
                     'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'featured',
-                )
+                ]
             ),
-        );
+        ];
 
         $this->assertEquals($expectedData, $this->mapper->mapCollectionReferences($data));
     }

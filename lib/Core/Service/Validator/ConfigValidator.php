@@ -38,20 +38,20 @@ final class ConfigValidator extends Validator
 
             $this->validate(
                 $configStructs[$configKey],
-                array(
-                    new Constraints\Type(array('type' => ConfigStruct::class)),
-                )
+                [
+                    new Constraints\Type(['type' => ConfigStruct::class]),
+                ]
             );
 
             $this->validate(
                 $configStructs[$configKey],
-                array(
+                [
                     new ParameterStructConstraint(
-                        array(
+                        [
                             'parameterCollection' => $configDefinition,
-                        )
+                        ]
                     ),
-                ),
+                ],
                 'parameterValues'
             );
         }

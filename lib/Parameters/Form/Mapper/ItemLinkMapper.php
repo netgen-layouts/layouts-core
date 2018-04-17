@@ -17,9 +17,9 @@ final class ItemLinkMapper extends Mapper
 
     public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        return array(
+        return [
             'item_types' => $parameterDefinition->getOption('value_types'),
-        );
+        ];
     }
 
     public function handleForm(FormBuilderInterface $form, ParameterDefinitionInterface $parameterDefinition)

@@ -25,7 +25,7 @@ final class LayoutTest extends TestCase
     public function testSetProperties()
     {
         $layout = new Layout(
-            array(
+            [
                 'id' => 42,
                 'type' => '4_zones_a',
                 'name' => 'My layout',
@@ -34,7 +34,7 @@ final class LayoutTest extends TestCase
                 'created' => 123,
                 'modified' => 456,
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertEquals(42, $layout->id);

@@ -61,7 +61,7 @@ abstract class ItemTest extends ServiceTestCase
 
         $this->assertInstanceOf(Config::class, $createdConfig);
 
-        $createdParameters = array();
+        $createdParameters = [];
         foreach ($createdConfig->getParameters() as $parameterName => $parameter) {
             $createdParameters[$parameterName] = $parameter->getValue();
         }
@@ -116,12 +116,12 @@ abstract class ItemTest extends ServiceTestCase
      */
     public function getParameterTypes()
     {
-        return array();
+        return [];
     }
 
     public function getValidators()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -142,10 +142,10 @@ abstract class ItemTest extends ServiceTestCase
     private function createItemDefinition(ConfigDefinitionInterface $configDefinition)
     {
         $itemDefinition = new ItemDefinition(
-            array(
+            [
                 'valueType' => 'ezlocation',
-                'configDefinitions' => array('visibility' => $configDefinition),
-            )
+                'configDefinitions' => ['visibility' => $configDefinition],
+            ]
         );
 
         $this->itemDefinitionRegistry->addItemDefinition('ezlocation', $itemDefinition);
@@ -158,7 +158,7 @@ abstract class ItemTest extends ServiceTestCase
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    private function createConfigDefinition(array $parameterNames = array())
+    private function createConfigDefinition(array $parameterNames = [])
     {
         $handler = $this->createConfigDefinitionHandler();
 
@@ -167,7 +167,7 @@ abstract class ItemTest extends ServiceTestCase
         $handler->buildParameters($parameterBuilder);
         $config = $parameterBuilder->buildParameterDefinitions();
 
-        $filteredParameterDefinitions = array();
+        $filteredParameterDefinitions = [];
         if (!empty($parameterNames)) {
             foreach ($config as $parameterName => $parameterDefinition) {
                 if (in_array($parameterName, $parameterNames, true)) {
@@ -177,11 +177,11 @@ abstract class ItemTest extends ServiceTestCase
         }
 
         return new ConfigDefinition(
-            array(
+            [
                 'configKey' => 'visibility',
                 'handler' => $handler,
                 'parameterDefinitions' => $filteredParameterDefinitions,
-            )
+            ]
         );
     }
 

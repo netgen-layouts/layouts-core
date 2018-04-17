@@ -39,7 +39,7 @@ final class ContextTest extends TestCase
      */
     public function testAdd()
     {
-        $this->context->add(array('var2' => 'value2', 'var3' => 'value3'));
+        $this->context->add(['var2' => 'value2', 'var3' => 'value3']);
 
         $this->assertTrue($this->context->has('var2'));
         $this->assertEquals('value2', $this->context->get('var2'));
@@ -87,7 +87,7 @@ final class ContextTest extends TestCase
      */
     public function testAll()
     {
-        $this->assertEquals(array('var' => 'value'), $this->context->all());
+        $this->assertEquals(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -97,7 +97,7 @@ final class ContextTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->context->getIterator());
 
-        $variables = array();
+        $variables = [];
         foreach ($this->context as $identifier => $value) {
             $variables[$identifier] = $value;
         }

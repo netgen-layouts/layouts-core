@@ -27,22 +27,22 @@ final class ConfigMapper
      */
     public function mapConfig(array $config, array $configDefinitions)
     {
-        $configs = array();
+        $configs = [];
 
         foreach ($configDefinitions as $configKey => $configDefinition) {
             $parameters = $this->parameterMapper->mapParameters(
                 $configDefinition,
                 isset($config[$configKey]) ?
                     $config[$configKey] :
-                    array()
+                    []
             );
 
             $configs[$configKey] = new Config(
-                array(
+                [
                     'configKey' => $configKey,
                     'definition' => $configDefinition,
                     'parameters' => $parameters,
-                )
+                ]
             );
         }
 
@@ -58,12 +58,12 @@ final class ConfigMapper
      *
      * @return array
      */
-    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = array())
+    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = [])
     {
-        $configs = array();
+        $configs = [];
 
         foreach ($configDefinitions as $configKey => $configDefinition) {
-            $configValues = array();
+            $configValues = [];
 
             if (
                 isset($configStructs[$configKey]) &&
@@ -77,7 +77,7 @@ final class ConfigMapper
                 $configValues,
                 isset($fallbackValues[$configKey]) ?
                     $fallbackValues[$configKey] :
-                    array()
+                    []
             );
         }
 

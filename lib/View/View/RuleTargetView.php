@@ -18,8 +18,8 @@ final class RuleTargetView extends View implements RuleTargetViewInterface
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'targetId' => $this->getTarget()->getId(),
-        );
+        ];
     }
 }

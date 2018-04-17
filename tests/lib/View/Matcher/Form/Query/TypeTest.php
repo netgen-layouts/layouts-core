@@ -44,16 +44,16 @@ final class TypeTest extends TestCase
         $form = $this->formFactory->create(
             Form::class,
             null,
-            array(
+            [
                 'query' => new Query(
-                    array(
+                    [
                         'queryType' => new QueryType('type'),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     /**
@@ -63,13 +63,13 @@ final class TypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('other_type'), false),
-            array(array('type'), true),
-            array(array('other_type', 'second_type'), false),
-            array(array('type', 'other_type'), true),
-        );
+        return [
+            [[], false],
+            [['other_type'], false],
+            [['type'], true],
+            [['other_type', 'second_type'], false],
+            [['type', 'other_type'], true],
+        ];
     }
 
     /**
@@ -77,7 +77,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 
     /**
@@ -87,7 +87,7 @@ final class TypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('type')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['type']));
     }
 
     /**
@@ -95,8 +95,8 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithInvalidQuery()
     {
-        $form = $this->formFactory->create(Form::class, null, array('query' => 'type'));
+        $form = $this->formFactory->create(Form::class, null, ['query' => 'type']);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('type')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['type']));
     }
 }

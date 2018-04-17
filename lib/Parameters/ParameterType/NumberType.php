@@ -24,11 +24,11 @@ final class NumberType extends ParameterType
         $optionsResolver->setDefault('max', null);
         $optionsResolver->setDefault('scale', 3);
 
-        $optionsResolver->setRequired(array('min', 'max', 'scale'));
+        $optionsResolver->setRequired(['min', 'max', 'scale']);
 
-        $optionsResolver->setAllowedTypes('min', array('numeric', 'null'));
-        $optionsResolver->setAllowedTypes('max', array('numeric', 'null'));
-        $optionsResolver->setAllowedTypes('scale', array('int'));
+        $optionsResolver->setAllowedTypes('min', ['numeric', 'null']);
+        $optionsResolver->setAllowedTypes('max', ['numeric', 'null']);
+        $optionsResolver->setAllowedTypes('scale', ['int']);
 
         $optionsResolver->setNormalizer(
             'max',
@@ -66,23 +66,23 @@ final class NumberType extends ParameterType
     {
         $options = $parameterDefinition->getOptions();
 
-        $constraints = array(
+        $constraints = [
             new Constraints\Type(
-                array(
+                [
                     'type' => 'numeric',
-                )
+                ]
             ),
-        );
+        ];
 
         if ($options['min'] !== null) {
             $constraints[] = new Constraints\GreaterThanOrEqual(
-                array('value' => $options['min'])
+                ['value' => $options['min']]
             );
         }
 
         if ($options['max'] !== null) {
             $constraints[] = new Constraints\LessThanOrEqual(
-                array('value' => $options['max'])
+                ['value' => $options['max']]
             );
         }
 

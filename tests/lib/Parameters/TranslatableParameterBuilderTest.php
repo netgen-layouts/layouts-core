@@ -43,9 +43,9 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'translatable' => false,
-            )
+            ]
         );
 
         $this->builder->get('test')->setOption('translatable', true);
@@ -62,11 +62,11 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
@@ -82,12 +82,12 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
-            array(
+            [
                 'required' => true,
                 'default_value' => 'test value',
-                'groups' => array('group'),
+                'groups' => ['group'],
                 'translatable' => false,
-            )
+            ]
         );
 
         $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
@@ -126,17 +126,17 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'translatable' => false,
-            )
+            ]
         );
 
         $this->builder->get('test')->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'translatable' => false,
-            )
+            ]
         );
 
         $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
@@ -157,9 +157,9 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
-            array(
+            [
                 'translatable' => false,
-            )
+            ]
         );
 
         $this->builder->get('test')->add(
@@ -184,9 +184,9 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder->get('test')->add(
             'test2',
             ParameterType\TextType::class,
-            array(
+            [
                 'translatable' => false,
-            )
+            ]
         );
     }
 }

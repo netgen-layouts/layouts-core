@@ -23,7 +23,7 @@ final class SerializerListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::VIEW => 'onView');
+        return [KernelEvents::VIEW => 'onView'];
     }
 
     /**
@@ -43,7 +43,7 @@ final class SerializerListener implements EventSubscriberInterface
             return;
         }
 
-        $context = array();
+        $context = [];
         if ($request->query->get('html') === 'false') {
             $context['disable_html'] = true;
         }

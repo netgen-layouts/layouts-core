@@ -16,10 +16,10 @@ final class ResultTest extends TestCase
      */
     public function testObject()
     {
-        $result = new Result(0, new Item(array('value' => 42)), new Item(array('value' => 43)));
+        $result = new Result(0, new Item(['value' => 42]), new Item(['value' => 43]));
 
         $this->assertEquals(0, $result->getPosition());
-        $this->assertEquals(new Item(array('value' => 42)), $result->getItem());
-        $this->assertEquals(new Item(array('value' => 43)), $result->getSubItem());
+        $this->assertEquals(new Item(['value' => 42]), $result->getItem());
+        $this->assertEquals(new Item(['value' => 43]), $result->getSubItem());
     }
 }

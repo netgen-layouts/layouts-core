@@ -42,7 +42,7 @@ CREATE TABLE `ngbm_layout_translation` (
 EOT
 );
 
-        $this->addSql('UPDATE ngbm_layout SET main_locale = :main_locale', array('main_locale' => $defaultLocale), array('main_locale' => Type::STRING));
+        $this->addSql('UPDATE ngbm_layout SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Type::STRING]);
         $this->addSql('INSERT INTO ngbm_layout_translation SELECT id, status, main_locale FROM ngbm_layout');
 
         // Block table translations
@@ -66,7 +66,7 @@ EOT
 );
 
         $this->addSql('UPDATE ngbm_block SET translatable = 0, always_available = 1');
-        $this->addSql('UPDATE ngbm_block SET main_locale = :main_locale', array('main_locale' => $defaultLocale), array('main_locale' => Type::STRING));
+        $this->addSql('UPDATE ngbm_block SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Type::STRING]);
         $this->addSql('INSERT INTO ngbm_block_translation SELECT id, status, main_locale, parameters FROM ngbm_block');
 
         $this->addSql('ALTER TABLE ngbm_block DROP COLUMN parameters');
@@ -91,7 +91,7 @@ EOT
 );
 
         $this->addSql('UPDATE ngbm_collection SET translatable = 0, always_available = 1');
-        $this->addSql('UPDATE ngbm_collection SET main_locale = :main_locale', array('main_locale' => $defaultLocale), array('main_locale' => Type::STRING));
+        $this->addSql('UPDATE ngbm_collection SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Type::STRING]);
         $this->addSql('INSERT INTO ngbm_collection_translation SELECT id, status, main_locale FROM ngbm_collection');
 
         // Collection query table translations
@@ -111,7 +111,7 @@ EOT
 );
 
         $this->addSql('INSERT INTO ngbm_collection_query_translation SELECT id, status, "", parameters FROM ngbm_collection_query');
-        $this->addSql('UPDATE ngbm_collection_query_translation SET locale = :locale', array('locale' => $defaultLocale), array('locale' => Type::STRING));
+        $this->addSql('UPDATE ngbm_collection_query_translation SET locale = :locale', ['locale' => $defaultLocale], ['locale' => Type::STRING]);
 
         $this->addSql('ALTER TABLE ngbm_collection_query DROP COLUMN parameters');
     }

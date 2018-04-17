@@ -20,14 +20,14 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     public function setUp()
     {
         $this->blockDefinition = new BlockDefinition(
-            array(
-                'viewTypes' => array(
+            [
+                'viewTypes' => [
                     'large' => new ViewType(),
-                ),
-            )
+                ],
+            ]
         );
 
-        $this->constraint = new BlockViewType(array('definition' => $this->blockDefinition));
+        $this->constraint = new BlockViewType(['definition' => $this->blockDefinition]);
 
         parent::setUp();
     }
@@ -86,10 +86,10 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array('large', true),
-            array('small', false),
-            array('', false),
-        );
+        return [
+            ['large', true],
+            ['small', false],
+            ['', false],
+        ];
     }
 }

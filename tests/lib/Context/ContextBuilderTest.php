@@ -32,16 +32,16 @@ final class ContextBuilderTest extends TestCase
      */
     public function testBuildContext()
     {
-        $this->contextBuilder->registerProvider(new ContextProvider(array('var1' => 'value1')));
-        $this->contextBuilder->registerProvider(new ContextProvider(array('var2' => 'value2')));
+        $this->contextBuilder->registerProvider(new ContextProvider(['var1' => 'value1']));
+        $this->contextBuilder->registerProvider(new ContextProvider(['var2' => 'value2']));
 
         $this->contextBuilder->buildContext($this->context);
 
         $this->assertEquals(
-            array(
+            [
                 'var1' => 'value1',
                 'var2' => 'value2',
-            ),
+            ],
             $this->context->all()
         );
     }

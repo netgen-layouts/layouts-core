@@ -21,16 +21,16 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         $this->constraint = new ConfigAwareStructConstraint();
 
         $this->constraint->payload = new ConfigAwareValue(
-            array(
-                'configs' => array(
+            [
+                'configs' => [
                     'config' => new Config(
-                        array(
+                        [
                             'configKey' => 'config',
                             'definition' => new ConfigDefinition('config'),
-                        )
+                        ]
                     ),
-                ),
-            )
+                ],
+            ]
         );
 
         parent::setUp();
@@ -91,82 +91,82 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
 
     public function validateDataProvider()
     {
-        return array(
-            array(
-                array(
-                    'configStructs' => array(
+        return [
+            [
+                [
+                    'configStructs' => [
                         'config' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'param' => 'value',
-                                ),
-                            )
+                                ],
+                            ]
                         ),
                         'other' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'param' => null,
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
+            ],
+            [
+                [
+                    'configStructs' => [
                         'config' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'param' => 'value',
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
+            ],
+            [
+                [
+                    'configStructs' => [
                         'config' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'param' => null,
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
+            ],
+            [
+                [
+                    'configStructs' => [
                         'config' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
+                            [
+                                'parameterValues' => [
                                     'param' => 42,
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
+            ],
+            [
+                [
+                    'configStructs' => [
                         'config' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(),
-                            )
+                            [
+                                'parameterValues' => [],
+                            ]
                         ),
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-        );
+            ],
+        ];
     }
 }

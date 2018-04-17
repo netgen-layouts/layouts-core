@@ -21,7 +21,7 @@ final class RangeType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array('min', 'max'));
+        $optionsResolver->setRequired(['min', 'max']);
 
         $optionsResolver->setAllowedTypes('min', 'int');
         $optionsResolver->setAllowedTypes('max', 'int');
@@ -58,18 +58,18 @@ final class RangeType extends ParameterType
     {
         $options = $parameterDefinition->getOptions();
 
-        return array(
+        return [
             new Constraints\Type(
-                array(
+                [
                     'type' => 'numeric',
-                )
+                ]
             ),
             new Constraints\Range(
-                array(
+                [
                     'min' => $options['min'],
                     'max' => $options['max'],
-                )
+                ]
             ),
-        );
+        ];
     }
 }

@@ -11,5 +11,5 @@ interface ParameterBuilderFactoryInterface
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function createParameterBuilder(array $config = array());
+    public function createParameterBuilder(array $config = []);
 }

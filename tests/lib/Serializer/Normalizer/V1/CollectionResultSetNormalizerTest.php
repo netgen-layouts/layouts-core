@@ -41,24 +41,24 @@ final class CollectionResultSetNormalizerTest extends TestCase
     public function testNormalize()
     {
         $result = new ResultSet(
-            array(
+            [
                 'collection' => new Collection(
-                    array(
+                    [
                         'items' => new ArrayCollection(
-                            array(
-                                new Item(array('position' => 0)),
-                                new Item(array('position' => 1)),
-                                new Item(array('position' => 2)),
-                                new Item(array('position' => 3)),
-                            )
+                            [
+                                new Item(['position' => 0]),
+                                new Item(['position' => 1]),
+                                new Item(['position' => 2]),
+                                new Item(['position' => 3]),
+                            ]
                         ),
-                    )
+                    ]
                 ),
-                'results' => array(
-                    new Result(1, new ManualItem(new Item(array('position' => 1)))),
-                    new Result(2, new ManualItem(new Item(array('position' => 2)))),
-                ),
-            )
+                'results' => [
+                    new Result(1, new ManualItem(new Item(['position' => 1]))),
+                    new Result(2, new ManualItem(new Item(['position' => 2]))),
+                ],
+            ]
         );
 
         $this->serializerMock
@@ -66,32 +66,32 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    array(
-                        new VersionedValue(new Result(1, new ManualItem(new Item(array('position' => 1)))), 1),
-                        new VersionedValue(new Result(2, new ManualItem(new Item(array('position' => 2)))), 1),
-                    )
+                    [
+                        new VersionedValue(new Result(1, new ManualItem(new Item(['position' => 1]))), 1),
+                        new VersionedValue(new Result(2, new ManualItem(new Item(['position' => 2]))), 1),
+                    ]
                 )
             )
-            ->will($this->returnValue(array('items')));
+            ->will($this->returnValue(['items']));
 
         $this->serializerMock
             ->expects($this->at(1))
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    array(
-                        new VersionedValue(new Item(array('position' => 0)), 1),
-                        new VersionedValue(new Item(array('position' => 3)), 1),
-                    )
+                    [
+                        new VersionedValue(new Item(['position' => 0]), 1),
+                        new VersionedValue(new Item(['position' => 3]), 1),
+                    ]
                 )
             )
-            ->will($this->returnValue(array('overflow_items')));
+            ->will($this->returnValue(['overflow_items']));
 
         $this->assertEquals(
-            array(
-                'items' => array('items'),
-                'overflow_items' => array('overflow_items'),
-            ),
+            [
+                'items' => ['items'],
+                'overflow_items' => ['overflow_items'],
+            ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }
@@ -115,19 +115,19 @@ final class CollectionResultSetNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
-            array(new Value(), false),
-            array(new ResultSet(), false),
-            array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new ResultSet(), 2), false),
-            array(new VersionedValue(new ResultSet(), 1), true),
-        );
+        return [
+            [null, false],
+            [true, false],
+            [false, false],
+            ['block', false],
+            [[], false],
+            [42, false],
+            [42.12, false],
+            [new Value(), false],
+            [new ResultSet(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new ResultSet(), 2), false],
+            [new VersionedValue(new ResultSet(), 1), true],
+        ];
     }
 }

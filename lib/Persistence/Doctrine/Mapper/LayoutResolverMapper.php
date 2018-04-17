@@ -15,20 +15,20 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function mapRules(array $data = array())
+    public function mapRules(array $data = [])
     {
-        $rules = array();
+        $rules = [];
 
         foreach ($data as $dataItem) {
             $rules[] = new Rule(
-                array(
+                [
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
                     'layoutId' => $dataItem['layout_id'] !== null ? (int) $dataItem['layout_id'] : null,
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
                     'comment' => $dataItem['comment'],
-                )
+                ]
             );
         }
 
@@ -42,19 +42,19 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target[]
      */
-    public function mapTargets(array $data = array())
+    public function mapTargets(array $data = [])
     {
-        $targets = array();
+        $targets = [];
 
         foreach ($data as $dataItem) {
             $targets[] = new Target(
-                array(
+                [
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
                     'ruleId' => (int) $dataItem['rule_id'],
                     'type' => $dataItem['type'],
                     'value' => $dataItem['value'],
-                )
+                ]
             );
         }
 
@@ -68,19 +68,19 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition[]
      */
-    public function mapConditions(array $data = array())
+    public function mapConditions(array $data = [])
     {
-        $conditions = array();
+        $conditions = [];
 
         foreach ($data as $dataItem) {
             $conditions[] = new Condition(
-                array(
+                [
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
                     'ruleId' => (int) $dataItem['rule_id'],
                     'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
-                )
+                ]
             );
         }
 

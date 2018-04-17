@@ -17,23 +17,23 @@ final class AdminNodeTest extends TestCase
      */
     public function testJavascripts()
     {
-        $config = array(
-            array(
-                'admin' => array(
-                    'javascripts' => array(
+        $config = [
+            [
+                'admin' => [
+                    'javascripts' => [
                         'script',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'admin' => array(
-                'javascripts' => array(
+        $expectedConfig = [
+            'admin' => [
+                'javascripts' => [
                     'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -47,17 +47,17 @@ final class AdminNodeTest extends TestCase
      */
     public function testJavascriptsWithNoJavascripts()
     {
-        $config = array(
-            array(
-                'admin' => array(),
-            ),
-        );
+        $config = [
+            [
+                'admin' => [],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'admin' => array(
-                'javascripts' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'admin' => [
+                'javascripts' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -71,13 +71,13 @@ final class AdminNodeTest extends TestCase
      */
     public function testJavascriptsWithInvalidJavascripts()
     {
-        $config = array(
-            array(
-                'admin' => array(
+        $config = [
+            [
+                'admin' => [
                     'javascripts' => 'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config);
     }
@@ -87,15 +87,15 @@ final class AdminNodeTest extends TestCase
      */
     public function testJavascriptsWithInvalidJavascript()
     {
-        $config = array(
-            array(
-                'admin' => array(
-                    'javascripts' => array(
+        $config = [
+            [
+                'admin' => [
+                    'javascripts' => [
                         42,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'The value should be a string');
     }
@@ -105,23 +105,23 @@ final class AdminNodeTest extends TestCase
      */
     public function testStylesheets()
     {
-        $config = array(
-            array(
-                'admin' => array(
-                    'stylesheets' => array(
+        $config = [
+            [
+                'admin' => [
+                    'stylesheets' => [
                         'script',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'admin' => array(
-                'stylesheets' => array(
+        $expectedConfig = [
+            'admin' => [
+                'stylesheets' => [
                     'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -135,17 +135,17 @@ final class AdminNodeTest extends TestCase
      */
     public function testStylesheetsWithNoStylesheets()
     {
-        $config = array(
-            array(
-                'admin' => array(),
-            ),
-        );
+        $config = [
+            [
+                'admin' => [],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'admin' => array(
-                'stylesheets' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'admin' => [
+                'stylesheets' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -159,13 +159,13 @@ final class AdminNodeTest extends TestCase
      */
     public function testStylesheetsWithInvalidStylesheets()
     {
-        $config = array(
-            array(
-                'admin' => array(
+        $config = [
+            [
+                'admin' => [
                     'stylesheets' => 'script',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config);
     }
@@ -175,15 +175,15 @@ final class AdminNodeTest extends TestCase
      */
     public function testStylesheetsWithInvalidStylesheet()
     {
-        $config = array(
-            array(
-                'admin' => array(
-                    'stylesheets' => array(
+        $config = [
+            [
+                'admin' => [
+                    'stylesheets' => [
                         42,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertConfigurationIsInvalid($config, 'The value should be a string');
     }

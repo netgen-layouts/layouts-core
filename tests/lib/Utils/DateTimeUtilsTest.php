@@ -71,25 +71,25 @@ final class DateTimeUtilsTest extends TestCase
 
     public function isBetweenDatesProvider()
     {
-        return array(
-            array(new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true),
-            array(new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false),
-            array(new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false),
-            array(new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true),
-            array(new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true),
-            array(new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false),
-            array(new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false),
-            array(new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false),
-            array(new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false),
-            array(new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false),
-            array(null, new DateTimeImmutable('@20000'), true),
-            array(null, new DateTimeImmutable('@15000'), true),
-            array(null, new DateTimeImmutable('@10000'), false),
-            array(new DateTimeImmutable('@10000'), null, true),
-            array(new DateTimeImmutable('@15000'), null, true),
-            array(new DateTimeImmutable('@20000'), null, false),
-            array(null, null, true),
-        );
+        return [
+            [new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
+            [new DateTimeImmutable('@17000'), new DateTimeImmutable('@20000'), false],
+            [new DateTimeImmutable('@10000'), new DateTimeImmutable('@13000'), false],
+            [new DateTimeImmutable('@10000'), new DateTimeImmutable('@15000'), true],
+            [new DateTimeImmutable('@15000'), new DateTimeImmutable('@20000'), true],
+            [new DateTimeImmutable('@20000'), new DateTimeImmutable('@10000'), false],
+            [new DateTimeImmutable('@20000'), new DateTimeImmutable('@17000'), false],
+            [new DateTimeImmutable('@13000'), new DateTimeImmutable('@10000'), false],
+            [new DateTimeImmutable('@15000'), new DateTimeImmutable('@10000'), false],
+            [new DateTimeImmutable('@20000'), new DateTimeImmutable('@15000'), false],
+            [null, new DateTimeImmutable('@20000'), true],
+            [null, new DateTimeImmutable('@15000'), true],
+            [null, new DateTimeImmutable('@10000'), false],
+            [new DateTimeImmutable('@10000'), null, true],
+            [new DateTimeImmutable('@15000'), null, true],
+            [new DateTimeImmutable('@20000'), null, false],
+            [null, null, true],
+        ];
     }
 
     /**
@@ -115,16 +115,16 @@ final class DateTimeUtilsTest extends TestCase
 
     public function createFromArrayProvider()
     {
-        return array(
-            array(array('datetime' => '2018-03-31 11:00:00', 'timezone' => 'Antarctica/Casey'), true),
-            array(array('datetime' => '2018-03-31 11:00:00'), false),
-            array(array('datetime' => '2018-03-31 11:00:00', 'timezone' => ''), false),
-            array(array('datetime' => '2018-03-31 11:00:00', 'timezone' => 42), false),
-            array(array('timezone' => 'Antarctica/Casey'), false),
-            array(array('timezone' => 'Antarctica/Casey', 'datetime' => ''), false),
-            array(array('timezone' => 'Antarctica/Casey', 'datetime' => 42), false),
-            array(array(), false),
-        );
+        return [
+            [['datetime' => '2018-03-31 11:00:00', 'timezone' => 'Antarctica/Casey'], true],
+            [['datetime' => '2018-03-31 11:00:00'], false],
+            [['datetime' => '2018-03-31 11:00:00', 'timezone' => ''], false],
+            [['datetime' => '2018-03-31 11:00:00', 'timezone' => 42], false],
+            [['timezone' => 'Antarctica/Casey'], false],
+            [['timezone' => 'Antarctica/Casey', 'datetime' => ''], false],
+            [['timezone' => 'Antarctica/Casey', 'datetime' => 42], false],
+            [[], false],
+        ];
     }
 
     /**

@@ -13,14 +13,14 @@ final class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
     /**
      * @var array
      */
-    private $parameterGroups = array();
+    private $parameterGroups = [];
 
     /**
      * @var array
      */
-    private $placeholderIdentifiers = array();
+    private $placeholderIdentifiers = [];
 
-    public function __construct($parameterGroups = array(), $placeholderIdentifiers = array('left', 'right'))
+    public function __construct($parameterGroups = [], $placeholderIdentifiers = ['left', 'right'])
     {
         $this->parameterGroups = $parameterGroups;
         $this->placeholderIdentifiers = $placeholderIdentifiers;
@@ -28,29 +28,29 @@ final class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
 
     public function getParameterDefinitions()
     {
-        return array(
+        return [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function isContainer()

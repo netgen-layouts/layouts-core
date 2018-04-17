@@ -36,23 +36,23 @@ final class QueryUpdateStructValidator extends ConstraintValidator
 
         $validator->atPath('locale')->validate(
             $value->locale,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Type(['type' => 'string']),
                 new Constraints\Locale(),
-            )
+            ]
         );
 
         $validator->atPath('parameterValues')->validate(
             $value,
-            array(
+            [
                 new ParameterStruct(
-                    array(
+                    [
                         'parameterCollection' => $query->getQueryType(),
                         'allowMissingFields' => true,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
     }
 }

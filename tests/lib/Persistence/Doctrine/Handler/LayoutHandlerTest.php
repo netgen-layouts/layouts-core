@@ -62,7 +62,7 @@ final class LayoutHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Layout(
-                array(
+                [
                     'id' => 1,
                     'type' => '4_zones_a',
                     'name' => 'My layout',
@@ -72,8 +72,8 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                     'shared' => false,
                     'mainLocale' => 'en',
-                    'availableLocales' => array('en', 'hr'),
-                )
+                    'availableLocales' => ['en', 'hr'],
+                ]
             ),
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
@@ -99,14 +99,14 @@ final class LayoutHandlerTest extends TestCase
     {
         $this->assertEquals(
             new Zone(
-                array(
+                [
                     'identifier' => 'top',
                     'layoutId' => 2,
                     'status' => Value::STATUS_PUBLISHED,
                     'rootBlockId' => 5,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
-                )
+                ]
             ),
             $this->layoutHandler->loadZone(2, Value::STATUS_PUBLISHED, 'top')
         );
@@ -131,9 +131,9 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadLayouts()
     {
         $this->assertEquals(
-            array(
+            [
                 new Layout(
-                    array(
+                    [
                         'id' => 1,
                         'type' => '4_zones_a',
                         'name' => 'My layout',
@@ -143,11 +143,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en', 'hr'),
-                    )
+                        'availableLocales' => ['en', 'hr'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 2,
                         'type' => '4_zones_b',
                         'name' => 'My other layout',
@@ -157,11 +157,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 6,
                         'type' => '4_zones_b',
                         'name' => 'My sixth layout',
@@ -171,10 +171,10 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadLayouts()
         );
     }
@@ -187,9 +187,9 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadLayoutsWithUnpublishedLayouts()
     {
         $this->assertEquals(
-            array(
+            [
                 new Layout(
-                    array(
+                    [
                         'id' => 4,
                         'type' => '4_zones_b',
                         'name' => 'My fourth layout',
@@ -199,11 +199,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_DRAFT,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 1,
                         'type' => '4_zones_a',
                         'name' => 'My layout',
@@ -213,11 +213,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en', 'hr'),
-                    )
+                        'availableLocales' => ['en', 'hr'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 2,
                         'type' => '4_zones_b',
                         'name' => 'My other layout',
@@ -227,11 +227,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 7,
                         'type' => '4_zones_b',
                         'name' => 'My seventh layout',
@@ -241,11 +241,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_DRAFT,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 6,
                         'type' => '4_zones_b',
                         'name' => 'My sixth layout',
@@ -255,10 +255,10 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadLayouts(true)
         );
     }
@@ -271,9 +271,9 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadSharedLayouts()
     {
         $this->assertEquals(
-            array(
+            [
                 new Layout(
-                    array(
+                    [
                         'id' => 5,
                         'type' => '4_zones_b',
                         'name' => 'My fifth layout',
@@ -283,11 +283,11 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => true,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
                 new Layout(
-                    array(
+                    [
                         'id' => 3,
                         'type' => '4_zones_b',
                         'name' => 'My third layout',
@@ -297,10 +297,10 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => true,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadSharedLayouts()
         );
     }
@@ -313,9 +313,9 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadRelatedLayouts()
     {
         $this->assertEquals(
-            array(
+            [
                 new Layout(
-                    array(
+                    [
                         'id' => 2,
                         'type' => '4_zones_b',
                         'name' => 'My other layout',
@@ -325,10 +325,10 @@ final class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                         'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
-                    )
+                        'availableLocales' => ['en'],
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadRelatedLayouts(
                 $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
             )
@@ -431,48 +431,48 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadLayoutZones()
     {
         $this->assertEquals(
-            array(
+            [
                 'bottom' => new Zone(
-                    array(
+                    [
                         'identifier' => 'bottom',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 8,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'left' => new Zone(
-                    array(
+                    [
                         'identifier' => 'left',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 6,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'right' => new Zone(
-                    array(
+                    [
                         'identifier' => 'right',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 7,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'top' => new Zone(
-                    array(
+                    [
                         'identifier' => 'top',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 5,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'top',
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadLayoutZones(
                 $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED)
             )
@@ -491,22 +491,22 @@ final class LayoutHandlerTest extends TestCase
         $updatedZone = $this->layoutHandler->updateZone(
             $zone,
             new ZoneUpdateStruct(
-                array(
+                [
                     'linkedZone' => $linkedZone,
-                )
+                ]
             )
         );
 
         $this->assertEquals(
             new Zone(
-                array(
+                [
                     'identifier' => 'top',
                     'layoutId' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'rootBlockId' => 1,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
-                )
+                ]
             ),
             $updatedZone
         );
@@ -523,22 +523,22 @@ final class LayoutHandlerTest extends TestCase
         $updatedZone = $this->layoutHandler->updateZone(
             $zone,
             new ZoneUpdateStruct(
-                array(
+                [
                     'linkedZone' => false,
-                )
+                ]
             )
         );
 
         $this->assertEquals(
             new Zone(
-                array(
+                [
                     'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Value::STATUS_DRAFT,
                     'rootBlockId' => 2,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
-                )
+                ]
             ),
             $updatedZone
         );
@@ -590,7 +590,7 @@ final class LayoutHandlerTest extends TestCase
         $this->assertInstanceOf(Layout::class, $layout);
 
         $this->assertEquals('en', $layout->mainLocale);
-        $this->assertEquals(array('en', 'hr', 'de'), $layout->availableLocales);
+        $this->assertEquals(['en', 'hr', 'de'], $layout->availableLocales);
         $this->assertEquals($originalLayout->created, $layout->created);
         $this->assertGreaterThan($originalLayout->modified, $layout->modified);
 
@@ -688,7 +688,7 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertEquals(
             new Block(
-                array(
+                [
                     'id' => 39,
                     'layoutId' => $createdZone->layoutId,
                     'depth' => 0,
@@ -703,11 +703,11 @@ final class LayoutHandlerTest extends TestCase
                     'isTranslatable' => false,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
-                    'availableLocales' => array('en'),
+                    'availableLocales' => ['en'],
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array('en' => array()),
-                    'config' => array(),
-                )
+                    'parameters' => ['en' => []],
+                    'config' => [],
+                ]
             ),
             $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
         );
@@ -769,9 +769,9 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
             new ZoneUpdateStruct(
-                array(
+                [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
-                )
+                ]
             )
         );
 
@@ -791,61 +791,61 @@ final class LayoutHandlerTest extends TestCase
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
         $this->assertEquals('en', $copiedLayout->mainLocale);
-        $this->assertEquals(array('en', 'hr'), $copiedLayout->availableLocales);
+        $this->assertEquals(['en', 'hr'], $copiedLayout->availableLocales);
 
         $this->assertGreaterThan($originalLayout->created, $copiedLayout->created);
         $this->assertEquals($copiedLayout->created, $copiedLayout->modified);
 
         $this->assertEquals(
-            array(
+            [
                 'bottom' => new Zone(
-                    array(
+                    [
                         'identifier' => 'bottom',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 39,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'left' => new Zone(
-                    array(
+                    [
                         'identifier' => 'left',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 40,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'left',
-                    )
+                    ]
                 ),
                 'right' => new Zone(
-                    array(
+                    [
                         'identifier' => 'right',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 42,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'top' => new Zone(
-                    array(
+                    [
                         'identifier' => 'top',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
                         'rootBlockId' => 45,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadLayoutZones($copiedLayout)
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 41,
                         'layoutId' => $copiedLayout->id,
                         'depth' => 1,
@@ -860,33 +860,33 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => true,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(
-                            'http_cache' => array(
+                            ],
+                        ],
+                        'config' => [
+                            'http_cache' => [
                                 'use_http_cache' => false,
-                            ),
-                        ),
-                    )
+                            ],
+                        ],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED)
             )
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 43,
                         'layoutId' => $copiedLayout->id,
                         'depth' => 1,
@@ -901,21 +901,21 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => true,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
                 new Block(
-                    array(
+                    [
                         'id' => 44,
                         'layoutId' => $copiedLayout->id,
                         'depth' => 1,
@@ -930,17 +930,17 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => false,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en'),
+                        'availableLocales' => ['en'],
                         'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED)
             )
@@ -965,8 +965,8 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(2, $references);
-        $this->assertContains($references[0]->collectionId, array(7, 8));
-        $this->assertContains($references[1]->collectionId, array(7, 8));
+        $this->assertContains($references[0]->collectionId, [7, 8]);
+        $this->assertContains($references[1]->collectionId, [7, 8]);
 
         // Third block
         $references = $this->blockHandler->loadCollectionReferences(
@@ -988,9 +988,9 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'left'),
             new ZoneUpdateStruct(
-                array(
+                [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
-                )
+                ]
             )
         );
 
@@ -998,12 +998,12 @@ final class LayoutHandlerTest extends TestCase
         $updatedLayout = $this->layoutHandler->changeLayoutType(
             $originalLayout,
             '4_zones_b',
-            array(
-                'top' => array('left', 'right'),
-                'left' => array(),
-                'right' => array(),
-                'bottom' => array(),
-            )
+            [
+                'top' => ['left', 'right'],
+                'left' => [],
+                'right' => [],
+                'bottom' => [],
+            ]
         );
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
@@ -1019,55 +1019,55 @@ final class LayoutHandlerTest extends TestCase
         $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
 
         $this->assertEquals(
-            array(
+            [
                 'top' => new Zone(
-                    array(
+                    [
                         'identifier' => 'top',
                         'layoutId' => $updatedLayout->id,
                         'status' => Value::STATUS_DRAFT,
                         'rootBlockId' => 39,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'left' => new Zone(
-                    array(
+                    [
                         'identifier' => 'left',
                         'layoutId' => $updatedLayout->id,
                         'status' => Value::STATUS_DRAFT,
                         'rootBlockId' => 40,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'right' => new Zone(
-                    array(
+                    [
                         'identifier' => 'right',
                         'layoutId' => $updatedLayout->id,
                         'status' => Value::STATUS_DRAFT,
                         'rootBlockId' => 41,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'bottom' => new Zone(
-                    array(
+                    [
                         'identifier' => 'bottom',
                         'layoutId' => $updatedLayout->id,
                         'status' => Value::STATUS_DRAFT,
                         'rootBlockId' => 42,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadLayoutZones($updatedLayout)
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 32,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -1082,25 +1082,25 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => true,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'status' => Value::STATUS_DRAFT,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(
-                            'http_cache' => array(
+                            ],
+                        ],
+                        'config' => [
+                            'http_cache' => [
                                 'use_http_cache' => false,
-                            ),
-                        ),
-                    )
+                            ],
+                        ],
+                    ]
                 ),
                 new Block(
-                    array(
+                    [
                         'id' => 31,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -1115,24 +1115,24 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => true,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'status' => Value::STATUS_DRAFT,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 2,
                                 'css_class' => 'css-class',
                                 'css_id' => 'css-id',
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'css_class' => 'css-class-hr',
                                 'css_id' => 'css-id',
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
                 new Block(
-                    array(
+                    [
                         'id' => 35,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -1147,17 +1147,17 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => false,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en'),
+                        'availableLocales' => ['en'],
                         'status' => Value::STATUS_DRAFT,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
             )
@@ -1192,9 +1192,9 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
             new ZoneUpdateStruct(
-                array(
+                [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
-                )
+                ]
             )
         );
 
@@ -1213,61 +1213,61 @@ final class LayoutHandlerTest extends TestCase
         $this->assertEquals(Value::STATUS_ARCHIVED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
         $this->assertEquals('en', $copiedLayout->mainLocale);
-        $this->assertEquals(array('en', 'hr'), $copiedLayout->availableLocales);
+        $this->assertEquals(['en', 'hr'], $copiedLayout->availableLocales);
 
         $this->assertEquals($originalLayout->created, $copiedLayout->created);
         $this->assertGreaterThan($originalLayout->modified, $copiedLayout->modified);
 
         $this->assertEquals(
-            array(
+            [
                 'bottom' => new Zone(
-                    array(
+                    [
                         'identifier' => 'bottom',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
                         'rootBlockId' => 4,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'left' => new Zone(
-                    array(
+                    [
                         'identifier' => 'left',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
                         'rootBlockId' => 2,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'left',
-                    )
+                    ]
                 ),
                 'right' => new Zone(
-                    array(
+                    [
                         'identifier' => 'right',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
                         'rootBlockId' => 3,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
                 'top' => new Zone(
-                    array(
+                    [
                         'identifier' => 'top',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
                         'rootBlockId' => 1,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
-                    )
+                    ]
                 ),
-            ),
+            ],
             $this->layoutHandler->loadLayoutZones($copiedLayout)
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 32,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -1282,33 +1282,33 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => true,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'status' => Value::STATUS_ARCHIVED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(
-                            'http_cache' => array(
+                            ],
+                        ],
+                        'config' => [
+                            'http_cache' => [
                                 'use_http_cache' => false,
-                            ),
-                        ),
-                    )
+                            ],
+                        ],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
             )
         );
 
         $this->assertEquals(
-            array(
+            [
                 new Block(
-                    array(
+                    [
                         'id' => 31,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -1323,21 +1323,21 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => true,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en', 'hr'),
+                        'availableLocales' => ['en', 'hr'],
                         'status' => Value::STATUS_ARCHIVED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                            'hr' => array(
+                            ],
+                            'hr' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
                 new Block(
-                    array(
+                    [
                         'id' => 35,
                         'layoutId' => 1,
                         'depth' => 1,
@@ -1352,17 +1352,17 @@ final class LayoutHandlerTest extends TestCase
                         'isTranslatable' => false,
                         'mainLocale' => 'en',
                         'alwaysAvailable' => true,
-                        'availableLocales' => array('en'),
+                        'availableLocales' => ['en'],
                         'status' => Value::STATUS_ARCHIVED,
-                        'parameters' => array(
-                            'en' => array(
+                        'parameters' => [
+                            'en' => [
                                 'number_of_columns' => 3,
-                            ),
-                        ),
-                        'config' => array(),
-                    )
+                            ],
+                        ],
+                        'config' => [],
+                    ]
                 ),
-            ),
+            ],
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED)
             )
@@ -1377,8 +1377,8 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(2, $archivedReferences);
-        $this->assertContains($archivedReferences[0]->collectionId, array(2, 3));
-        $this->assertContains($archivedReferences[1]->collectionId, array(2, 3));
+        $this->assertContains($archivedReferences[0]->collectionId, [2, 3]);
+        $this->assertContains($archivedReferences[1]->collectionId, [2, 3]);
 
         // Second block
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
@@ -1453,8 +1453,8 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(2, $publishedReferences);
-        $this->assertContains($publishedReferences[0]->collectionId, array(2, 3));
-        $this->assertContains($publishedReferences[1]->collectionId, array(2, 3));
+        $this->assertContains($publishedReferences[0]->collectionId, [2, 3]);
+        $this->assertContains($publishedReferences[1]->collectionId, [2, 3]);
 
         // Second block
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
@@ -1480,7 +1480,7 @@ final class LayoutHandlerTest extends TestCase
         $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $this->assertEquals('en', $updatedLayout->mainLocale);
-        $this->assertEquals(array('en'), $updatedLayout->availableLocales);
+        $this->assertEquals(['en'], $updatedLayout->availableLocales);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
@@ -1511,7 +1511,7 @@ final class LayoutHandlerTest extends TestCase
         $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $this->assertEquals('en', $updatedLayout->mainLocale);
-        $this->assertEquals(array('en'), $updatedLayout->availableLocales);
+        $this->assertEquals(['en'], $updatedLayout->availableLocales);
 
         $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
     }

@@ -43,16 +43,16 @@ final class LocaleTest extends TestCase
         $form = $this->formFactory->create(
             Form::class,
             null,
-            array(
+            [
                 'query' => new Query(
-                    array(
+                    [
                         'locale' => 'en',
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     /**
@@ -62,13 +62,13 @@ final class LocaleTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('fr'), false),
-            array(array('en'), true),
-            array(array('fr', 'de'), false),
-            array(array('en', 'fr'), true),
-        );
+        return [
+            [[], false],
+            [['fr'], false],
+            [['en'], true],
+            [['fr', 'de'], false],
+            [['en', 'fr'], true],
+        ];
     }
 
     /**
@@ -76,7 +76,7 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 
     /**
@@ -86,7 +86,7 @@ final class LocaleTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('Locale')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['Locale']));
     }
 
     /**
@@ -94,8 +94,8 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithInvalidQuery()
     {
-        $form = $this->formFactory->create(Form::class, null, array('query' => 'Locale'));
+        $form = $this->formFactory->create(Form::class, null, ['query' => 'Locale']);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('Locale')));
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['Locale']));
     }
 }

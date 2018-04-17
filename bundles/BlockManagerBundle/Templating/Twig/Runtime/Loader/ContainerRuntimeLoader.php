@@ -20,7 +20,7 @@ final class ContainerRuntimeLoader implements RuntimeLoaderInterface
     /**
      * @var array
      */
-    private $runtimeMap = array();
+    private $runtimeMap = [];
 
     public function __construct(ContainerInterface $container)
     {

@@ -8,7 +8,7 @@ abstract class Mapper implements MapperInterface
 {
     public function getFormOptions()
     {
-        return array();
+        return [];
     }
 
     public function handleForm(FormBuilderInterface $builder)

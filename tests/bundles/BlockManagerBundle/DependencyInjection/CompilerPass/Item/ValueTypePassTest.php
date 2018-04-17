@@ -19,13 +19,13 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter(
             'netgen_block_manager.items',
-            array(
-                'value_types' => array(
-                    'test' => array(
+            [
+                'value_types' => [
+                    'test' => [
                         'enabled' => true,
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition());
@@ -36,10 +36,10 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.item.registry.value_type',
             'addValueType',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.item.value_type.test'),
-            )
+            ]
         );
     }
 

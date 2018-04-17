@@ -13,6 +13,6 @@ class View extends BaseView
 
     public function jsonSerialize()
     {
-        return array();
+        return [];
     }
 }

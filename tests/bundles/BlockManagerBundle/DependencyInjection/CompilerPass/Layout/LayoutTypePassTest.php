@@ -18,15 +18,15 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $this->setParameter('netgen_block_manager.block_definitions', array());
+        $this->setParameter('netgen_block_manager.block_definitions', []);
         $this->setParameter(
             'netgen_block_manager.layout_types',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
-                    'zones' => array(),
-                ),
-            )
+                    'zones' => [],
+                ],
+            ]
         );
 
         $this->container->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition());
@@ -37,10 +37,10 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.layout.registry.layout_type',
             'addLayoutType',
-            array(
+            [
                 'test',
                 new Reference('netgen_block_manager.layout.layout_type.test'),
-            )
+            ]
         );
     }
 
@@ -53,19 +53,19 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
     {
-        $this->setParameter('netgen_block_manager.block_definitions', array());
+        $this->setParameter('netgen_block_manager.block_definitions', []);
         $this->setParameter(
             'netgen_block_manager.layout_types',
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'enabled' => true,
-                    'zones' => array(
-                        'zone' => array(
-                            'allowed_block_definitions' => array('title'),
-                        ),
-                    ),
-                ),
-            )
+                    'zones' => [
+                        'zone' => [
+                            'allowed_block_definitions' => ['title'],
+                        ],
+                    ],
+                ],
+            ]
         );
 
         $this->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition());

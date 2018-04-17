@@ -28,10 +28,10 @@ final class LayoutResponseListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             KernelEvents::RESPONSE => 'onKernelResponse',
             KernelEvents::EXCEPTION => 'onKernelException',
-        );
+        ];
     }
 
     /**

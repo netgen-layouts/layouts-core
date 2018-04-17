@@ -18,9 +18,9 @@ final class CompoundBooleanType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setRequired(
-            array(
+            [
                 'reverse',
-            )
+            ]
         );
 
         $resolver->setAllowedTypes('reverse', 'bool');
@@ -60,11 +60,11 @@ final class CompoundBooleanType extends AbstractType
         $builder->add(
             '_self',
             CheckboxType::class,
-            array(
+            [
                 'required' => $builder->getRequired(),
                 'label' => $builder->getOptions()['label'],
                 'property_path' => $builder->getPropertyPath(),
-            )
+            ]
         );
     }
 

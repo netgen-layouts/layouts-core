@@ -27,7 +27,7 @@ final class SetAdminPageLayoutListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(BlockManagerAdminEvents::ADMIN_MATCH => array('onAdminMatch', -65535));
+        return [BlockManagerAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]];
     }
 
     /**

@@ -21,7 +21,7 @@ final class TargetType extends AbstractType
     /**
      * @param \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[] $mappers
      */
-    public function __construct(array $mappers = array())
+    public function __construct(array $mappers = [])
     {
         foreach ($mappers as $targetType => $mapper) {
             if (!$mapper instanceof MapperInterface) {
@@ -56,13 +56,13 @@ final class TargetType extends AbstractType
 
         $mapper = $this->mappers[$targetType->getType()];
 
-        $defaultOptions = array(
+        $defaultOptions = [
             'required' => true,
             'label' => sprintf('layout_resolver.target.%s', $targetType->getType()),
             'property_path' => 'value',
             'constraints' => $targetType->getConstraints(),
             'error_bubbling' => false,
-        );
+        ];
 
         $valueForm = $builder->create(
             'value',

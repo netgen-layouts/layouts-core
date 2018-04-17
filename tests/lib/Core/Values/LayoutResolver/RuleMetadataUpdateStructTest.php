@@ -17,9 +17,9 @@ final class RuleMetadataUpdateStructTest extends TestCase
     public function testSetProperties()
     {
         $ruleUpdateStruct = new RuleMetadataUpdateStruct(
-            array(
+            [
                 'priority' => 42,
-            )
+            ]
         );
 
         $this->assertEquals(42, $ruleUpdateStruct->priority);

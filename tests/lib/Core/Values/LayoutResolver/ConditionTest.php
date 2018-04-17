@@ -40,13 +40,13 @@ final class ConditionTest extends TestCase
     public function testSetProperties()
     {
         $condition = new Condition(
-            array(
+            [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 30,
                 'conditionType' => new ConditionType('condition'),
                 'value' => 32,
-            )
+            ]
         );
 
         $this->assertEquals(42, $condition->getId());

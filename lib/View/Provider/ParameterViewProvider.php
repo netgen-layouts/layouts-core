@@ -7,12 +7,12 @@ use Netgen\BlockManager\View\View\ParameterView;
 
 final class ParameterViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         $view = new ParameterView(
-            array(
+            [
                 'parameter' => $value,
-            )
+            ]
         );
 
         $view->setFallbackContext(ParameterView::CONTEXT_DEFAULT);

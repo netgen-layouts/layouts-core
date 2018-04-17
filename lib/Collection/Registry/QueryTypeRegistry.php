@@ -12,7 +12,7 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface[]
      */
-    private $queryTypes = array();
+    private $queryTypes = [];
 
     public function addQueryType($type, QueryTypeInterface $queryType)
     {

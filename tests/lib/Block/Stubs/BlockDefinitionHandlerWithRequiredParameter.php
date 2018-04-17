@@ -12,27 +12,27 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
 {
     public function getParameterDefinitions()
     {
-        return array(
+        return [
             'css_class' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => true,
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
             'css_id' => new ParameterDefinition(
-                array(
+                [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
-                    'options' => array(
+                    'options' => [
                         'translatable' => false,
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block)

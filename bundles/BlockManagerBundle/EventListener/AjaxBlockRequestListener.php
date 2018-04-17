@@ -11,7 +11,7 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         // Must happen before ContextListener
-        return array(KernelEvents::REQUEST => array('onKernelRequest', 10));
+        return [KernelEvents::REQUEST => ['onKernelRequest', 10]];
     }
 
     /**
@@ -44,8 +44,8 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
         // the URI with parse_url/parse_str and then rebuilding it, just to remove
         // a single query parameter with a known name and format.
         $requestUri = preg_replace(
-            array('/&page=\d+/', '/\?page=\d+&/', '/\?page=\d+/'),
-            array('', '?', ''),
+            ['/&page=\d+/', '/\?page=\d+&/', '/\?page=\d+/'],
+            ['', '?', ''],
             $request->getRequestUri()
         );
 

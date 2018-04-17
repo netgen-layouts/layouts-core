@@ -48,10 +48,10 @@ final class ParameterBuilderFactoryTest extends TestCase
     public function testCreateParameterBuilderWithConfig()
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
-            array(
+            [
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
-            )
+            ]
         );
 
         $this->assertEquals(

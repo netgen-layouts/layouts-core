@@ -32,7 +32,7 @@ final class CacheEnabledListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(BlockManagerEvents::BUILD_VIEW => 'onBuildView'),
+            [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -50,9 +50,9 @@ final class CacheEnabledListenerTest extends TestCase
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'http_cache_enabled' => false,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -72,9 +72,9 @@ final class CacheEnabledListenerTest extends TestCase
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array(
+            [
                 'http_cache_enabled' => true,
-            ),
+            ],
             $event->getParameters()
         );
     }
@@ -84,11 +84,11 @@ final class CacheEnabledListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoLayoutView()
     {
-        $view = new View(array('value' => new Value()));
+        $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 
     /**
@@ -96,12 +96,12 @@ final class CacheEnabledListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $view = new LayoutView(array('layout' => new Layout()));
+        $view = new LayoutView(['layout' => new Layout()]);
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getParameters());
+        $this->assertEquals([], $event->getParameters());
     }
 }

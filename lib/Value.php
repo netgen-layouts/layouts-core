@@ -13,7 +13,7 @@ abstract class Value
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If one of the properties does not exist in the value
      */
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = [])
     {
         foreach ($properties as $property => $value) {
             if (!property_exists($this, $property)) {

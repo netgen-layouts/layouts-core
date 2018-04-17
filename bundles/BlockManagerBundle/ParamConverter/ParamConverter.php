@@ -20,7 +20,7 @@ abstract class ParamConverter implements ParamConverterInterface
             }
         }
 
-        $values = array();
+        $values = [];
         foreach ($sourceAttributeNames as $sourceAttributeName) {
             $values[$sourceAttributeName] = $request->attributes->get($sourceAttributeName);
 
@@ -40,7 +40,7 @@ abstract class ParamConverter implements ParamConverterInterface
         $queryPublishedParam = $request->query->get('published');
 
         $values['published'] = false;
-        if (in_array($routeStatusParam, array('published', 'draft'), true)) {
+        if (in_array($routeStatusParam, ['published', 'draft'], true)) {
             $values['published'] = $routeStatusParam === 'published';
         } elseif ($queryPublishedParam === 'true') {
             $values['published'] = true;

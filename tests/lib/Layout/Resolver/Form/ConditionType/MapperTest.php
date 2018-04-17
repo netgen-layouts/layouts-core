@@ -23,7 +23,7 @@ final class MapperTest extends TestCase
     public function testGetFormOptions()
     {
         $this->assertEquals(
-            array(),
+            [],
             $this->mapper->getFormOptions()
         );
     }

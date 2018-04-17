@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\View\PlaceholderView;
 
 final class PlaceholderViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = array())
+    public function provideView($value, array $parameters = [])
     {
         if (!isset($parameters['block'])) {
             throw ViewProviderException::noParameter('placeholder', 'block');
@@ -20,10 +20,10 @@ final class PlaceholderViewProvider implements ViewProviderInterface
         }
 
         return new PlaceholderView(
-            array(
+            [
                 'placeholder' => $value,
                 'block' => $parameters['block'],
-            )
+            ]
         );
     }
 

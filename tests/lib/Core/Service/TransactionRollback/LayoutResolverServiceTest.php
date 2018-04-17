@@ -70,7 +70,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRule(
-            new Rule(array('status' => Value::STATUS_DRAFT)),
+            new Rule(['status' => Value::STATUS_DRAFT]),
             new RuleUpdateStruct()
         );
     }
@@ -97,7 +97,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleMetadata(
-            new Rule(array('status' => Value::STATUS_PUBLISHED)),
+            new Rule(['status' => Value::STATUS_PUBLISHED]),
             new RuleMetadataUpdateStruct()
         );
     }
@@ -152,7 +152,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->createDraft(new Rule(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutResolverService->createDraft(new Rule(['status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -176,7 +176,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->discardDraft(new Rule(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->discardDraft(new Rule(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -200,7 +200,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->publishRule(new Rule(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->publishRule(new Rule(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -269,10 +269,10 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->will(
                 $this->returnValue(
                     new PersistenceRule(
-                        array(
+                        [
                             'layoutId' => 42,
                             'enabled' => false,
-                        )
+                        ]
                     )
                 )
             );
@@ -291,7 +291,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->enableRule(new Rule(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutResolverService->enableRule(new Rule(['status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -307,9 +307,9 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->will(
                 $this->returnValue(
                     new PersistenceRule(
-                        array(
+                        [
                             'enabled' => true,
-                        )
+                        ]
                     )
                 )
             );
@@ -323,7 +323,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->disableRule(new Rule(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutResolverService->disableRule(new Rule(['status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -341,7 +341,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('loadRuleTargets')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->layoutResolverHandlerMock
             ->expects($this->at(2))
@@ -353,8 +353,8 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->addTarget(
-            new Rule(array('status' => Value::STATUS_DRAFT)),
-            new TargetCreateStruct(array('type' => 'route'))
+            new Rule(['status' => Value::STATUS_DRAFT]),
+            new TargetCreateStruct(['type' => 'route'])
         );
     }
 
@@ -380,7 +380,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateTarget(
-            new Target(array('status' => Value::STATUS_DRAFT, 'targetType' => new Route())),
+            new Target(['status' => Value::STATUS_DRAFT, 'targetType' => new Route()]),
             new TargetUpdateStruct()
         );
     }
@@ -406,7 +406,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteTarget(new Target(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->deleteTarget(new Target(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -431,8 +431,8 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->addCondition(
-            new Rule(array('status' => Value::STATUS_DRAFT)),
-            new ConditionCreateStruct(array('type' => 'route_parameter'))
+            new Rule(['status' => Value::STATUS_DRAFT]),
+            new ConditionCreateStruct(['type' => 'route_parameter'])
         );
     }
 
@@ -458,7 +458,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateCondition(
-            new Condition(array('status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter())),
+            new Condition(['status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
             new ConditionUpdateStruct()
         );
     }
@@ -484,6 +484,6 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteCondition(new Condition(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->deleteCondition(new Condition(['status' => Value::STATUS_DRAFT]));
     }
 }

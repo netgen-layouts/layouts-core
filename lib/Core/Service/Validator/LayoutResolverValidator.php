@@ -47,10 +47,10 @@ final class LayoutResolverValidator extends Validator
         if ($ruleCreateStruct->layoutId !== null) {
             $this->validate(
                 $ruleCreateStruct->layoutId,
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'scalar')),
-                ),
+                    new Constraints\Type(['type' => 'scalar']),
+                ],
                 'layoutId'
             );
         }
@@ -58,9 +58,9 @@ final class LayoutResolverValidator extends Validator
         if ($ruleCreateStruct->priority !== null) {
             $this->validate(
                 $ruleCreateStruct->priority,
-                array(
-                    new Constraints\Type(array('type' => 'int')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'int']),
+                ],
                 'priority'
             );
         }
@@ -68,9 +68,9 @@ final class LayoutResolverValidator extends Validator
         if ($ruleCreateStruct->enabled !== null) {
             $this->validate(
                 $ruleCreateStruct->enabled,
-                array(
-                    new Constraints\Type(array('type' => 'bool')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'bool']),
+                ],
                 'enabled'
             );
         }
@@ -78,9 +78,9 @@ final class LayoutResolverValidator extends Validator
         if ($ruleCreateStruct->comment !== null) {
             $this->validate(
                 $ruleCreateStruct->comment,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'comment'
             );
         }
@@ -98,10 +98,10 @@ final class LayoutResolverValidator extends Validator
         if ($ruleUpdateStruct->layoutId !== null) {
             $this->validate(
                 $ruleUpdateStruct->layoutId,
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'scalar')),
-                ),
+                    new Constraints\Type(['type' => 'scalar']),
+                ],
                 'layoutId'
             );
         }
@@ -109,9 +109,9 @@ final class LayoutResolverValidator extends Validator
         if ($ruleUpdateStruct->comment !== null) {
             $this->validate(
                 $ruleUpdateStruct->comment,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
                 'comment'
             );
         }
@@ -129,10 +129,10 @@ final class LayoutResolverValidator extends Validator
         if ($ruleUpdateStruct->priority !== null) {
             $this->validate(
                 $ruleUpdateStruct->priority,
-                array(
+                [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'int')),
-                ),
+                    new Constraints\Type(['type' => 'int']),
+                ],
                 'priority'
             );
         }
@@ -149,10 +149,10 @@ final class LayoutResolverValidator extends Validator
     {
         $this->validate(
             $targetCreateStruct->type,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
+                new Constraints\Type(['type' => 'string']),
+            ],
             'type'
         );
 
@@ -195,10 +195,10 @@ final class LayoutResolverValidator extends Validator
     {
         $this->validate(
             $conditionCreateStruct->type,
-            array(
+            [
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
+                new Constraints\Type(['type' => 'string']),
+            ],
             'type'
         );
 

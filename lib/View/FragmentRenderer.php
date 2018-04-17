@@ -42,7 +42,7 @@ final class FragmentRenderer implements RendererInterface
         ViewBuilderInterface $viewBuilder,
         ViewRendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
-        array $fragmentViewRenderers = array()
+        array $fragmentViewRenderers = []
     ) {
         foreach ($fragmentViewRenderers as $fragmentViewRenderer) {
             if (!$fragmentViewRenderer instanceof FragmentViewRendererInterface) {
@@ -60,7 +60,7 @@ final class FragmentRenderer implements RendererInterface
         $this->fragmentViewRenderers = $fragmentViewRenderers;
     }
 
-    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
+    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = [])
     {
         $view = $this->viewBuilder->buildView($value, $context, $parameters);
         if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {

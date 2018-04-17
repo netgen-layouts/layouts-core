@@ -40,7 +40,7 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo('Test message'),
-                array('error' => $exception)
+                ['error' => $exception]
             );
 
         $this->errorHandler->handleError($exception);
@@ -59,7 +59,7 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo('Custom message'),
-                array('error' => $exception)
+                ['error' => $exception]
             );
 
         $this->errorHandler->handleError($exception, 'Custom message');
@@ -78,7 +78,7 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo(''),
-                array('error' => $exception)
+                ['error' => $exception]
             );
 
         $this->errorHandler->handleError($exception, '');
@@ -97,10 +97,10 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo('Test message'),
-                array('value' => 42, 'error' => $exception)
+                ['value' => 42, 'error' => $exception]
             );
 
-        $this->errorHandler->handleError($exception, null, array('value' => 42));
+        $this->errorHandler->handleError($exception, null, ['value' => 42]);
     }
 
     /**
@@ -120,7 +120,7 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo('Test message'),
-                array('error' => $exception)
+                ['error' => $exception]
             );
 
         $this->errorHandler->handleError($exception);
@@ -143,7 +143,7 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo('Custom message'),
-                array('error' => $exception)
+                ['error' => $exception]
             );
 
         $this->errorHandler->handleError($exception, 'Custom message');
@@ -166,7 +166,7 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo(''),
-                array('error' => $exception)
+                ['error' => $exception]
             );
 
         $this->errorHandler->handleError($exception, '');
@@ -190,9 +190,9 @@ final class DebugErrorHandlerTest extends TestCase
             ->method('critical')
             ->with(
                 $this->equalTo('Test message'),
-                array('value' => 42, 'error' => $exception)
+                ['value' => 42, 'error' => $exception]
             );
 
-        $this->errorHandler->handleError($exception, null, array('value' => 42));
+        $this->errorHandler->handleError($exception, null, ['value' => 42]);
     }
 }

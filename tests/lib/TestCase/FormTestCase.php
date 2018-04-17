@@ -74,7 +74,7 @@ abstract class FormTestCase extends TestCase
      */
     public function getTypeExtensions()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -82,6 +82,6 @@ abstract class FormTestCase extends TestCase
      */
     public function getTypes()
     {
-        return array();
+        return [];
     }
 }

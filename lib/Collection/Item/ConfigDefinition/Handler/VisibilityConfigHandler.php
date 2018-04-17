@@ -19,15 +19,15 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
         $builder->add(
             'visibility_status',
             ParameterType\ChoiceType::class,
-            array(
+            [
                 'expanded' => true,
-                'options' => array(
+                'options' => [
                     'config.collection_item.visibility.visibility_status.visible' => Item::VISIBILITY_VISIBLE,
                     'config.collection_item.visibility.visibility_status.hidden' => Item::VISIBILITY_HIDDEN,
                     'config.collection_item.visibility.visibility_status.scheduled' => Item::VISIBILITY_SCHEDULED,
-                ),
+                ],
                 'default_value' => Item::VISIBILITY_VISIBLE,
-            )
+            ]
         );
 
         $builder->add(

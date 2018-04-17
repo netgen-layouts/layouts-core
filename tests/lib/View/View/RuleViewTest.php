@@ -20,12 +20,12 @@ final class RuleViewTest extends TestCase
 
     public function setUp()
     {
-        $this->rule = new Rule(array('id' => 42));
+        $this->rule = new Rule(['id' => 42]);
 
         $this->view = new RuleView(
-            array(
+            [
                 'rule' => $this->rule,
-            )
+            ]
         );
 
         $this->view->addParameter('param', 'value');
@@ -40,10 +40,10 @@ final class RuleViewTest extends TestCase
     {
         $this->assertEquals($this->rule, $this->view->getRule());
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'rule' => $this->rule,
-            ),
+            ],
             $this->view->getParameters()
         );
     }
@@ -62,9 +62,9 @@ final class RuleViewTest extends TestCase
     public function testJsonSerialize()
     {
         $this->assertEquals(
-            array(
+            [
                 'ruleId' => 42,
-            ),
+            ],
             $this->view->jsonSerialize()
         );
     }

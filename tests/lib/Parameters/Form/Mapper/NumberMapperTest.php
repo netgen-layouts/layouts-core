@@ -34,18 +34,18 @@ final class NumberMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'type' => new NumberParameterType(),
-                'options' => array(
+                'options' => [
                     'scale' => 6,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'scale' => 6,
-            ),
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }

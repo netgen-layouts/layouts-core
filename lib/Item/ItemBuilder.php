@@ -10,12 +10,12 @@ final class ItemBuilder implements ItemBuilderInterface
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
      */
-    private $valueConverters = array();
+    private $valueConverters = [];
 
     /**
      * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters
      */
-    public function __construct(array $valueConverters = array())
+    public function __construct(array $valueConverters = [])
     {
         foreach ($valueConverters as $valueConverter) {
             if (!$valueConverter instanceof ValueConverterInterface) {
@@ -38,14 +38,14 @@ final class ItemBuilder implements ItemBuilderInterface
             }
 
             $value = new Item(
-                array(
+                [
                     'value' => $valueConverter->getId($object),
                     'remoteId' => $valueConverter->getRemoteId($object),
                     'valueType' => $valueConverter->getValueType($object),
                     'name' => $valueConverter->getName($object),
                     'isVisible' => $valueConverter->getIsVisible($object),
                     'object' => $valueConverter->getObject($object),
-                )
+                ]
             );
 
             return $value;

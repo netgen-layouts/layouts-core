@@ -25,7 +25,7 @@ final class ServiceTest extends TestCase
 
         $this->service = $this->getMockForAbstractClass(
             Service::class,
-            array($this->persistenceHandlerMock)
+            [$this->persistenceHandlerMock]
         );
     }
 

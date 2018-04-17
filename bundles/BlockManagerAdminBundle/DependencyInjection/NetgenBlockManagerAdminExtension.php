@@ -37,14 +37,14 @@ final class NetgenBlockManagerAdminExtension extends Extension implements Prepen
 
         $loader->load('framework/assets.xml');
 
-        $prependConfigs = array(
+        $prependConfigs = [
             'framework/assets.yml' => 'framework',
             'framework/twig.yml' => 'twig',
             'view/form_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
             'view/rule_condition_view.yml' => 'netgen_block_manager',
             'view/default_templates.yml' => 'netgen_block_manager',
-        );
+        ];
 
         foreach ($prependConfigs as $configFile => $prependConfig) {
             $configFile = __DIR__ . '/../Resources/config/' . $configFile;

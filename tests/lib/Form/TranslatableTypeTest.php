@@ -23,7 +23,7 @@ final class TranslatableTypeTest extends FormTestCase
 
     public function getTypeExtensions()
     {
-        return array(new ParametersTypeExtension());
+        return [new ParametersTypeExtension()];
     }
 
     public function getTypes()
@@ -32,7 +32,7 @@ final class TranslatableTypeTest extends FormTestCase
         $formMapperRegistry->addFormMapper('text_line', new FormMapper());
         $formMapperRegistry->addFormMapper('compound_boolean', new FormMapper(true));
 
-        return array(new ParametersType($formMapperRegistry));
+        return [new ParametersType($formMapperRegistry)];
     }
 
     /**
@@ -42,19 +42,19 @@ final class TranslatableTypeTest extends FormTestCase
     {
         $handler = new BlockDefinitionHandlerWithTranslatableCompoundParameter();
         $block = new Block(
-            array(
+            [
                 'definition' => new BlockDefinition(
-                    array(
+                    [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form = $this->factory->create(
             TranslatableTypeStub::class,
             new BlockUpdateStruct(),
-            array('block' => $block)
+            ['block' => $block]
         );
 
         $this->assertTrue($form->get('name')->isDisabled());
@@ -76,19 +76,19 @@ final class TranslatableTypeTest extends FormTestCase
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
         $block = new Block(
-            array(
+            [
                 'definition' => new BlockDefinition(
-                    array(
+                    [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $form = $this->factory->create(
             TranslatableTypeStub::class,
             new BlockUpdateStruct(),
-            array('block' => $block)
+            ['block' => $block]
         );
 
         $this->assertTrue($form->get('name')->isDisabled());

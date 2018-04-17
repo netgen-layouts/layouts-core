@@ -20,7 +20,7 @@ final class QueryType implements QueryTypeInterface
      */
     private $handler;
 
-    public function __construct($type, array $values = array(), $count = null, $isContextual = false)
+    public function __construct($type, array $values = [], $count = null, $isContextual = false)
     {
         $this->type = $type;
 
@@ -55,7 +55,7 @@ final class QueryType implements QueryTypeInterface
 
     public function getForms()
     {
-        return array();
+        return [];
     }
 
     public function hasForm($formName)

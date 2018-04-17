@@ -33,9 +33,9 @@ final class ModifiedTest extends TestCase
 
         $item = new Item(
             new Layout(
-                array(
+                [
                     'modified' => $date,
-                )
+                ]
             )
         );
 

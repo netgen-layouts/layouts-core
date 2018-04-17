@@ -11,7 +11,7 @@ final class Context implements ContextInterface
     /**
      * @var array
      */
-    private $contextVariables = array();
+    private $contextVariables = [];
 
     public function set($variableName, $value)
     {

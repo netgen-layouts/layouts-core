@@ -13,15 +13,15 @@ final class BlockTypeGroupFactory
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
-    public static function buildBlockTypeGroup($identifier, array $config, array $blockTypes = array())
+    public static function buildBlockTypeGroup($identifier, array $config, array $blockTypes = [])
     {
         return new BlockTypeGroup(
-            array(
+            [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
                 'blockTypes' => $blockTypes,
-            )
+            ]
         );
     }
 }

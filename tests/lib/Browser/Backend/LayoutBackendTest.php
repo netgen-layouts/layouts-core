@@ -100,7 +100,7 @@ final class LayoutBackendTest extends TestCase
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
-        $this->assertEquals(array(), $locations);
+        $this->assertEquals([], $locations);
     }
 
     /**
@@ -128,7 +128,7 @@ final class LayoutBackendTest extends TestCase
                 $this->equalTo(0),
                 $this->equalTo(25)
             )
-            ->will($this->returnValue(array($this->getLayout(), $this->getLayout())));
+            ->will($this->returnValue([$this->getLayout(), $this->getLayout()]));
 
         $items = $this->backend->getSubItems(new RootLocation());
 
@@ -153,7 +153,7 @@ final class LayoutBackendTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(10)
             )
-            ->will($this->returnValue(array($this->getLayout(), $this->getLayout())));
+            ->will($this->returnValue([$this->getLayout(), $this->getLayout()]));
 
         $items = $this->backend->getSubItems(
             new RootLocation(),
@@ -175,7 +175,7 @@ final class LayoutBackendTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayouts')
-            ->will($this->returnValue(array($this->getLayout(), $this->getLayout())));
+            ->will($this->returnValue([$this->getLayout(), $this->getLayout()]));
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 
@@ -189,7 +189,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test');
 
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 
     /**
@@ -199,7 +199,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test', 5, 10);
 
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 
     /**
@@ -222,9 +222,9 @@ final class LayoutBackendTest extends TestCase
     private function getLayout($id = null)
     {
         return new Layout(
-            array(
+            [
                 'id' => $id,
-            )
+            ]
         );
     }
 }

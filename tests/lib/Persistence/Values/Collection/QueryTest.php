@@ -22,19 +22,19 @@ final class QueryTest extends TestCase
     public function testSetProperties()
     {
         $query = new Query(
-            array(
+            [
                 'id' => 42,
                 'collectionId' => 30,
                 'type' => 'ezcontent_search',
-                'parameters' => array('param' => 'value'),
+                'parameters' => ['param' => 'value'],
                 'status' => Value::STATUS_PUBLISHED,
-            )
+            ]
         );
 
         $this->assertEquals(42, $query->id);
         $this->assertEquals(30, $query->collectionId);
         $this->assertEquals('ezcontent_search', $query->type);
-        $this->assertEquals(array('param' => 'value'), $query->parameters);
+        $this->assertEquals(['param' => 'value'], $query->parameters);
         $this->assertEquals(Value::STATUS_PUBLISHED, $query->status);
     }
 }

@@ -24,13 +24,13 @@ final class FullEditType extends TranslatableType
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
 
         $resolver->setDefault('constraints', function (Options $options) {
-            return array(
+            return [
                 new QueryUpdateStructConstraint(
-                    array(
+                    [
                         'payload' => $options['query'],
-                    )
+                    ]
                 ),
-            );
+            ];
         });
     }
 
@@ -50,13 +50,13 @@ final class FullEditType extends TranslatableType
         $builder->add(
             'parameters',
             ParametersType::class,
-            array(
+            [
                 'label' => false,
                 'inherit_data' => true,
                 'property_path' => 'parameterValues',
                 'parameter_collection' => $queryType,
                 'label_prefix' => 'query.' . $queryType->getType(),
-            )
+            ]
         );
 
         if ($locale !== $mainLocale) {

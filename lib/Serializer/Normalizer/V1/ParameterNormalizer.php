@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ParameterNormalizer implements NormalizerInterface
 {
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Parameters\Parameter $parameter */
         $parameter = $object->getValue();

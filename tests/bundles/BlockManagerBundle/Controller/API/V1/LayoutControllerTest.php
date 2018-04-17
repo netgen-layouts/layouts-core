@@ -200,18 +200,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZone()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_layout_id' => 5,
                 'linked_zone_identifier' => 'right',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -223,14 +223,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testLinkZoneWithNonExistentZone()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/unknown/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -246,14 +246,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testLinkZoneWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/9999/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -270,17 +270,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithMissingLinkedLayoutId()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_zone_identifier' => 'right',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -297,18 +297,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithInvalidLinkedLayoutId()
     {
         $data = $this->jsonEncode(
-            array(
-                'linked_layout_id' => array(42),
+            [
+                'linked_layout_id' => [42],
                 'linked_zone_identifier' => 'right',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -325,17 +325,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithMissingLinkedZoneIdentifier()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_layout_id' => 5,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -352,18 +352,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithInvalidLinkedZoneIdentifier()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_layout_id' => 5,
                 'linked_zone_identifier' => 42,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -380,18 +380,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithNonExistentLinkedZone()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_layout_id' => 5,
                 'linked_zone_identifier' => 'unknown',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -408,18 +408,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithNonExistentLinkedLayout()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_layout_id' => 9999,
                 'linked_zone_identifier' => 'right',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -436,18 +436,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testLinkZoneWithNonSharedLinkedLayout()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'linked_layout_id' => 2,
                 'linked_zone_identifier' => 'right',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -463,14 +463,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testUnlinkZone()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/1/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -482,14 +482,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testUnlinkZoneWithNonExistentZone()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/1/zones/unknown/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -505,14 +505,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testUnlinkZoneWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/9999/zones/right/link',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -530,20 +530,20 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreate()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -561,19 +561,19 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithMissingDescription()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -591,20 +591,20 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithEmptyDescription()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => '',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -622,19 +622,19 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithInvalidLayoutType()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => 42,
                 'name' => 'My new layout',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -652,18 +652,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithMissingLayoutType()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My new layout',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -681,19 +681,19 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithInvalidName()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 42,
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -711,18 +711,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithMissingName()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -740,20 +740,20 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithInvalidDescription()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My name',
                 'description' => 42,
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -771,20 +771,20 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithInvalidLocale()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
                 'locale' => 42,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -802,19 +802,19 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithMissingLocale()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -832,20 +832,20 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithNonExistentLocale()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
                 'locale' => 'unknown',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -863,19 +863,19 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithNonExistingLayoutType()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => 'unknown',
                 'name' => 'My new layout',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -893,19 +893,19 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCreateWithExistingName()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'layout_type' => '4_zones_a',
                 'name' => 'My layout',
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -922,18 +922,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopy()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My new layout name',
                 'description' => 'My new layout description',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -950,18 +950,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyInPublishedState()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My new layout name',
                 'description' => 'My new layout description',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/6/copy?published=true&html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -978,17 +978,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyWithNonExistingDescription()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My new layout name',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1005,18 +1005,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyWithEmptyDescription()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My new layout name',
                 'description' => '',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1033,17 +1033,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyWithNonExistingLayout()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My new layout name',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/9999/copy',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1060,17 +1060,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyWithInvalidName()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 42,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1086,14 +1086,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testCopyWithMissingName()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1110,17 +1110,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyWithExistingName()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'My other layout',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1137,18 +1137,18 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testCopyWithInvalidDescription()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'name' => 'New name',
                 'description' => 42,
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/copy',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1165,21 +1165,21 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testChangeType()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'new_type' => '4_zones_b',
-                'zone_mappings' => array(
-                    'left' => array('left'),
-                    'right' => array('right'),
-                ),
-            )
+                'zone_mappings' => [
+                    'left' => ['left'],
+                    'right' => ['right'],
+                ],
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/change_type?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1196,17 +1196,17 @@ final class LayoutControllerTest extends JsonApiTestCase
     public function testChangeTypeWithoutMappings()
     {
         $data = $this->jsonEncode(
-            array(
+            [
                 'new_type' => '4_zones_b',
-            )
+            ]
         );
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/change_type?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1222,14 +1222,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testCreateDraft()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/draft?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1245,14 +1245,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testCreateDraftWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/9999/draft',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1294,14 +1294,14 @@ final class LayoutControllerTest extends JsonApiTestCase
                 ->shouldReceive('createDraft')
                 ->andThrow(new BadStateException('test', 'Test message.'));
 
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/draft?html=false',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1319,14 +1319,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testDiscardDraft()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/1/draft',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1338,14 +1338,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testDiscardDraftWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/9999/draft',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1361,14 +1361,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testPublishDraft()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/1/publish',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1380,14 +1380,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testPublishDraftWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/9999/publish',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1403,14 +1403,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testRestoreFromArchive()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/2/restore',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1422,14 +1422,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testRestoreFromArchiveWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/9999/restore',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1445,14 +1445,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testDelete()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/1',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 
@@ -1464,14 +1464,14 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testDeleteWithNonExistentLayout()
     {
-        $data = $this->jsonEncode(array());
+        $data = $this->jsonEncode([]);
 
         $this->client->request(
             'DELETE',
             '/bm/api/v1/layouts/9999',
-            array(),
-            array(),
-            array(),
+            [],
+            [],
+            [],
             $data
         );
 

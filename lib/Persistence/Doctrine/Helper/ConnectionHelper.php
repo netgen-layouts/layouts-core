@@ -16,16 +16,16 @@ final class ConnectionHelper
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper[]
      */
-    private $databaseSpecificHelpers = array();
+    private $databaseSpecificHelpers = [];
 
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
 
-        $this->databaseSpecificHelpers = array(
+        $this->databaseSpecificHelpers = [
             'sqlite' => new Sqlite($this->connection),
             'postgresql' => new Postgres($this->connection),
-        );
+        ];
     }
 
     /**

@@ -27,7 +27,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::REQUEST => array('onKernelRequest', 10)),
+            [KernelEvents::REQUEST => ['onKernelRequest', 10]],
             $this->listener->getSubscribedEvents()
         );
     }
@@ -55,17 +55,17 @@ final class AjaxBlockRequestListenerTest extends TestCase
 
     public function onKernelRequestDataProvider()
     {
-        return array(
-            array('/test/uri', '/test/uri'),
-            array('/test/uri?page=13', '/test/uri'),
-            array('/test/uri?var=value&page=abc', '/test/uri?var=value&page=abc'),
-            array('/test/uri?page=13&var=value', '/test/uri?var=value'),
-            array('/test/uri?page=13&page=14', '/test/uri'),
-            array('/test/uri?page=13&page=14&var=value', '/test/uri?var=value'),
-            array('/test/uri?var=value&page=13', '/test/uri?var=value'),
-            array('/test/uri?var=value&page=13&page=14', '/test/uri?var=value'),
-            array('/test/uri?var=value&page=13&var2=value2&page=14', '/test/uri?var=value&var2=value2'),
-        );
+        return [
+            ['/test/uri', '/test/uri'],
+            ['/test/uri?page=13', '/test/uri'],
+            ['/test/uri?var=value&page=abc', '/test/uri?var=value&page=abc'],
+            ['/test/uri?page=13&var=value', '/test/uri?var=value'],
+            ['/test/uri?page=13&page=14', '/test/uri'],
+            ['/test/uri?page=13&page=14&var=value', '/test/uri?var=value'],
+            ['/test/uri?var=value&page=13', '/test/uri?var=value'],
+            ['/test/uri?var=value&page=13&page=14', '/test/uri?var=value'],
+            ['/test/uri?var=value&page=13&var2=value2&page=14', '/test/uri?var=value&var2=value2'],
+        ];
     }
 
     /**

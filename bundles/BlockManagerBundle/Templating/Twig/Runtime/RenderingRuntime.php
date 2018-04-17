@@ -68,13 +68,13 @@ final class RenderingRuntime
      *
      * @return string
      */
-    public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = array(), $viewContext = null)
+    public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = [], $viewContext = null)
     {
         try {
             return $this->renderer->renderValue(
                 $item,
                 $this->getViewContext($context, $viewContext),
-                array('view_type' => $viewType) + $parameters
+                ['view_type' => $viewType] + $parameters
             );
         } catch (Throwable $t) {
             $message = sprintf(
@@ -107,7 +107,7 @@ final class RenderingRuntime
      *
      * @return string
      */
-    public function renderValue(array $context, $value, array $parameters = array(), $viewContext = null)
+    public function renderValue(array $context, $value, array $parameters = [], $viewContext = null)
     {
         try {
             return $this->renderer->renderValue(
@@ -121,14 +121,14 @@ final class RenderingRuntime
                 is_object($value) ? get_class($value) : gettype($value)
             );
 
-            $this->errorHandler->handleError($t, $message, array('object' => $value));
+            $this->errorHandler->handleError($t, $message, ['object' => $value]);
         } catch (Exception $e) {
             $message = sprintf(
                 'Error rendering a value of type "%s"',
                 is_object($value) ? get_class($value) : gettype($value)
             );
 
-            $this->errorHandler->handleError($e, $message, array('object' => $value));
+            $this->errorHandler->handleError($e, $message, ['object' => $value]);
         }
 
         return '';
@@ -154,10 +154,10 @@ final class RenderingRuntime
 
         foreach ($this->blockService->loadZoneBlocks($zone, $locales) as $block) {
             echo $this->renderBlock(
-                array(
+                [
                     'twig_template' => $twigTemplate,
                     'view_context' => $viewContext,
-                ),
+                ],
                 $block
             );
         }
@@ -173,15 +173,15 @@ final class RenderingRuntime
      *
      * @return string
      */
-    public function renderBlock(array $context, Block $block, array $parameters = array(), $viewContext = null)
+    public function renderBlock(array $context, Block $block, array $parameters = [], $viewContext = null)
     {
         try {
             return $this->renderer->renderValue(
                 $block,
                 $this->getViewContext($context, $viewContext),
-                array(
+                [
                     'twig_template' => $this->getTwigTemplate($context),
-                ) + $parameters
+                ] + $parameters
             );
         } catch (Throwable $t) {
             $message = sprintf('Error rendering a block with ID "%s"', $block->getId());
@@ -207,16 +207,16 @@ final class RenderingRuntime
      *
      * @return string
      */
-    public function renderPlaceholder(array $context, Block $block, $placeholder, array $parameters = array(), $viewContext = null)
+    public function renderPlaceholder(array $context, Block $block, $placeholder, array $parameters = [], $viewContext = null)
     {
         try {
             return $this->renderer->renderValue(
                 $block->getPlaceholder($placeholder),
                 $this->getViewContext($context, $viewContext),
-                array(
+                [
                     'block' => $block,
                     'twig_template' => $this->getTwigTemplate($context),
-                ) + $parameters
+                ] + $parameters
             );
         } catch (Throwable $t) {
             $message = sprintf(

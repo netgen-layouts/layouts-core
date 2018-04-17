@@ -35,7 +35,7 @@ final class ResultBuilderTest extends TestCase
     public function setUp()
     {
         $this->itemBuilder = new ItemBuilder(
-            array(new ValueConverter())
+            [new ValueConverter()]
         );
 
         $this->resultBuilder = $this->buildResultBuilder(200);
@@ -48,7 +48,7 @@ final class ResultBuilderTest extends TestCase
     public function testBuildForManualCollection()
     {
         $collection = $this->buildCollection(
-            array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
+            [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
         );
 
         $resultSet = $this->resultBuilder->build($collection, 0, 5);
@@ -74,7 +74,7 @@ final class ResultBuilderTest extends TestCase
         $resultBuilder = $this->buildResultBuilder(3);
 
         $collection = $this->buildCollection(
-            array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
+            [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
         );
 
         $resultSet = $resultBuilder->build($collection, 0, 5);
@@ -97,9 +97,9 @@ final class ResultBuilderTest extends TestCase
     public function testBuildForDynamicCollection()
     {
         $collection = $this->buildCollection(
-            array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
-            array(3 => 25, 9 => 26),
-            array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            [2 => 10, 7 => 14, 8 => 16, 11 => 20],
+            [3 => 25, 9 => 26],
+            [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13
         );
 
@@ -123,9 +123,9 @@ final class ResultBuilderTest extends TestCase
     public function testBuildForDynamicAndContextualCollection()
     {
         $collection = $this->buildCollection(
-            array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
-            array(3 => 25, 9 => 26),
-            array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            [2 => 10, 7 => 14, 8 => 16, 11 => 20],
+            [3 => 25, 9 => 26],
+            [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13,
             true
         );
@@ -150,9 +150,9 @@ final class ResultBuilderTest extends TestCase
     public function testBuildForDynamicAndContextualCollectionAndLimitLowerThanContextualLimit()
     {
         $collection = $this->buildCollection(
-            array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
-            array(3 => 25, 9 => 26),
-            array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            [2 => 10, 7 => 14, 8 => 16, 11 => 20],
+            [3 => 25, 9 => 26],
+            [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13,
             true
         );
@@ -192,78 +192,78 @@ final class ResultBuilderTest extends TestCase
      * @return \Netgen\BlockManager\Core\Values\Collection\Collection
      */
     private function buildCollection(
-        array $manualIds = array(),
-        array $overrideIds = array(),
-        array $queryValues = array(),
+        array $manualIds = [],
+        array $overrideIds = [],
+        array $queryValues = [],
         $queryCount = 0,
         $contextual = false
     ) {
-        $items = array();
+        $items = [];
 
         foreach ($manualIds as $position => $id) {
             $items[] = new Item(
-                array(
+                [
                     'position' => $position,
                     'type' => Item::TYPE_MANUAL,
                     'value' => $id,
                     'valueType' => 'value',
-                    'cmsItem' => new CmsItem(array('value' => $id, 'valueType' => 'value')),
-                    'configs' => array(
+                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value']),
+                    'configs' => [
                         'visibility' => new Config(
-                            array(
-                                'parameters' => array(
+                            [
+                                'parameters' => [
                                     'visibility_status' => new Parameter(
-                                        array(
+                                        [
                                             'value' => Item::VISIBILITY_VISIBLE,
-                                        )
+                                        ]
                                     ),
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             );
         }
 
         foreach ($overrideIds as $position => $id) {
             $items[] = new Item(
-                array(
+                [
                     'position' => $position,
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
                     'valueType' => 'value',
-                    'cmsItem' => new CmsItem(array('value' => $id, 'valueType' => 'value')),
-                    'configs' => array(
+                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value']),
+                    'configs' => [
                         'visibility' => new Config(
-                            array(
-                                'parameters' => array(
+                            [
+                                'parameters' => [
                                     'visibility_status' => new Parameter(
-                                        array(
+                                        [
                                             'value' => Item::VISIBILITY_VISIBLE,
-                                        )
+                                        ]
                                     ),
-                                ),
-                            )
+                                ],
+                            ]
                         ),
-                    ),
-                )
+                    ],
+                ]
             );
         }
 
         $collection = new Collection(
-            array(
+            [
                 'items' => new ArrayCollection($items),
                 'query' => new Query(
-                    array(
+                    [
                         'queryType' => new QueryType(
                             'ezcontent_search',
                             $this->buildQueryValues($queryValues),
                             $queryCount,
                             $contextual
                         ),
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         return $collection;
@@ -276,7 +276,7 @@ final class ResultBuilderTest extends TestCase
      *
      * @return \Netgen\BlockManager\Tests\Item\Stubs\Value[]
      */
-    private function buildQueryValues(array $ids = array())
+    private function buildQueryValues(array $ids = [])
     {
         return array_map(
             function ($id) {

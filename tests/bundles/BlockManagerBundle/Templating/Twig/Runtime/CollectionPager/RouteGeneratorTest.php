@@ -51,27 +51,27 @@ final class RouteGeneratorTest extends TestCase
     public function testInvoke()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->contextMock->expects($this->once())
             ->method('all')
-            ->will($this->returnValue(array('var' => 'value')));
+            ->will($this->returnValue(['var' => 'value']));
 
         $this->urlGeneratorMock->expects($this->once())
             ->method('generate')
             ->with(
                 $this->equalTo('ngbm_ajax_block'),
                 $this->equalTo(
-                    array(
+                    [
                         'blockId' => 42,
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
-                        'ngbmContext' => array('var' => 'value'),
-                    )
+                        'ngbmContext' => ['var' => 'value'],
+                    ]
                 )
             )
             ->will($this->returnValue('/generated/uri'));
@@ -93,27 +93,27 @@ final class RouteGeneratorTest extends TestCase
     public function testInvokeWithFirstPage()
     {
         $block = new Block(
-            array(
+            [
                 'id' => 42,
                 'locale' => 'en',
-            )
+            ]
         );
 
         $this->contextMock->expects($this->once())
             ->method('all')
-            ->will($this->returnValue(array('var' => 'value')));
+            ->will($this->returnValue(['var' => 'value']));
 
         $this->urlGeneratorMock->expects($this->once())
             ->method('generate')
             ->with(
                 $this->equalTo('ngbm_ajax_block'),
                 $this->equalTo(
-                    array(
+                    [
                         'blockId' => 42,
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
-                        'ngbmContext' => array('var' => 'value'),
-                    )
+                        'ngbmContext' => ['var' => 'value'],
+                    ]
                 )
             )
             ->will($this->returnValue('/generated/uri'));

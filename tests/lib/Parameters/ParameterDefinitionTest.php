@@ -25,11 +25,11 @@ final class ParameterDefinitionTest extends TestCase
 
         $this->assertNull($parameterDefinition->getName());
         $this->assertNull($parameterDefinition->getType());
-        $this->assertEquals(array(), $parameterDefinition->getOptions());
+        $this->assertEquals([], $parameterDefinition->getOptions());
         $this->assertFalse($parameterDefinition->isRequired());
         $this->assertNull($parameterDefinition->getDefaultValue());
         $this->assertNull($parameterDefinition->getLabel());
-        $this->assertEquals(array(), $parameterDefinition->getGroups());
+        $this->assertEquals([], $parameterDefinition->getGroups());
     }
 
     /**
@@ -46,27 +46,27 @@ final class ParameterDefinitionTest extends TestCase
     public function testSetProperties()
     {
         $parameterDefinition = new ParameterDefinition(
-            array(
+            [
                 'name' => 'name',
                 'type' => new TextType(),
-                'options' => array('option' => 'value'),
+                'options' => ['option' => 'value'],
                 'isRequired' => true,
                 'defaultValue' => 42,
                 'label' => 'Custom label',
-                'groups' => array('group'),
-            )
+                'groups' => ['group'],
+            ]
         );
 
         $this->assertEquals('name', $parameterDefinition->getName());
         $this->assertEquals(new TextType(), $parameterDefinition->getType());
-        $this->assertEquals(array('option' => 'value'), $parameterDefinition->getOptions());
+        $this->assertEquals(['option' => 'value'], $parameterDefinition->getOptions());
         $this->assertTrue($parameterDefinition->hasOption('option'));
         $this->assertFalse($parameterDefinition->hasOption('other'));
         $this->assertEquals('value', $parameterDefinition->getOption('option'));
         $this->assertTrue($parameterDefinition->isRequired());
         $this->assertEquals(42, $parameterDefinition->getDefaultValue());
         $this->assertEquals('Custom label', $parameterDefinition->getLabel());
-        $this->assertEquals(array('group'), $parameterDefinition->getGroups());
+        $this->assertEquals(['group'], $parameterDefinition->getGroups());
 
         try {
             $parameterDefinition->getOption('other');

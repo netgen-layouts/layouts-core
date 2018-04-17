@@ -20,153 +20,153 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettings()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
                         'name' => 'Block',
                         'icon' => '/icon.svg',
                         'handler' => 'handler',
                         'translatable' => true,
-                        'collections' => array(
-                            'default' => array(
-                                'valid_item_types' => array('type3', 'type4'),
-                                'valid_query_types' => array('type1', 'type2'),
-                            ),
-                        ),
-                        'forms' => array(
-                            'full' => array(
+                        'collections' => [
+                            'default' => [
+                                'valid_item_types' => ['type3', 'type4'],
+                                'valid_query_types' => ['type1', 'type2'],
+                            ],
+                        ],
+                        'forms' => [
+                            'full' => [
                                 'type' => 'test_form',
                                 'enabled' => true,
-                            ),
-                            'design' => array(
+                            ],
+                            'design' => [
                                 'type' => 'design_type',
                                 'enabled' => false,
-                            ),
-                            'content' => array(
+                            ],
+                            'content' => [
                                 'type' => 'content_type',
                                 'enabled' => false,
-                            ),
-                        ),
-                        'view_types' => array(
-                            'default' => array(
+                            ],
+                        ],
+                        'view_types' => [
+                            'default' => [
                                 'name' => 'Default',
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                    'other' => array(
+                                    ],
+                                    'other' => [
                                         'name' => 'Other',
                                         'enabled' => false,
-                                    ),
-                                ),
-                                'valid_parameters' => array('param1', 'param2'),
-                            ),
-                            'large' => array(
+                                    ],
+                                ],
+                                'valid_parameters' => ['param1', 'param2'],
+                            ],
+                            'large' => [
                                 'name' => 'Large',
                                 'enabled' => false,
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                ),
+                                    ],
+                                ],
                                 'valid_parameters' => null,
-                            ),
-                            'medium' => array(
+                            ],
+                            'medium' => [
                                 'name' => 'Medium',
                                 'enabled' => true,
-                                'item_view_types' => array(
-                                    'standard_with_intro' => array(
+                                'item_view_types' => [
+                                    'standard_with_intro' => [
                                         'name' => 'Standard (with intro)',
-                                    ),
-                                ),
-                            ),
-                            'small' => array(
+                                    ],
+                                ],
+                            ],
+                            'small' => [
                                 'name' => 'Small',
                                 'enabled' => true,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
                     'icon' => '/icon.svg',
                     'handler' => 'handler',
                     'translatable' => true,
                     'enabled' => true,
-                    'collections' => array(
-                        'default' => array(
-                            'valid_item_types' => array('type3', 'type4'),
-                            'valid_query_types' => array('type1', 'type2'),
-                        ),
-                    ),
-                    'forms' => array(
-                        'full' => array(
+                    'collections' => [
+                        'default' => [
+                            'valid_item_types' => ['type3', 'type4'],
+                            'valid_query_types' => ['type1', 'type2'],
+                        ],
+                    ],
+                    'forms' => [
+                        'full' => [
                             'type' => 'test_form',
                             'enabled' => true,
-                        ),
-                        'design' => array(
+                        ],
+                        'design' => [
                             'type' => 'design_type',
                             'enabled' => false,
-                        ),
-                        'content' => array(
+                        ],
+                        'content' => [
                             'type' => 'content_type',
                             'enabled' => false,
-                        ),
-                    ),
-                    'view_types' => array(
-                        'default' => array(
+                        ],
+                    ],
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
                                     'enabled' => true,
-                                ),
-                                'other' => array(
+                                ],
+                                'other' => [
                                     'name' => 'Disabled',
                                     'enabled' => false,
-                                ),
-                            ),
-                            'valid_parameters' => array('param1', 'param2'),
-                        ),
-                        'large' => array(
+                                ],
+                            ],
+                            'valid_parameters' => ['param1', 'param2'],
+                        ],
+                        'large' => [
                             'name' => 'Disabled',
                             'enabled' => false,
-                            'item_view_types' => array(),
+                            'item_view_types' => [],
                             'valid_parameters' => null,
-                        ),
-                        'medium' => array(
+                        ],
+                        'medium' => [
                             'name' => 'Medium',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard_with_intro' => array(
+                            'item_view_types' => [
+                                'standard_with_intro' => [
                                     'name' => 'Standard (with intro)',
                                     'enabled' => true,
-                                ),
-                            ),
+                                ],
+                            ],
                             'valid_parameters' => null,
-                        ),
-                        'small' => array(
+                        ],
+                        'small' => [
                             'name' => 'Small',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
                                     'enabled' => true,
-                                ),
-                            ),
+                                ],
+                            ],
                             'valid_parameters' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -182,21 +182,21 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoIcon()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
                     'icon' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -212,23 +212,23 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNullIcon()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
                         'icon' => null,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
                     'icon' => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -244,19 +244,19 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoHandler()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -273,23 +273,23 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithDisabledBlockDefinition()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
                         'enabled' => false,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
                     'enabled' => false,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -306,21 +306,21 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoTranslatableConfig()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
                     'translatable' => false,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -337,23 +337,23 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithEnabledTranslatableConfig()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
                         'translatable' => true,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
                     'translatable' => true,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -370,19 +370,19 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoCollections()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(),
-            ),
-        );
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -399,30 +399,30 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithDefaultCollectionConfig()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
                             'valid_item_types' => null,
                             'valid_query_types' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -439,31 +439,31 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithValidQueryTypes()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(
-                                'valid_query_types' => array('type1', 'type2'),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [
+                                'valid_query_types' => ['type1', 'type2'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
-                            'valid_query_types' => array('type1', 'type2'),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
+                            'valid_query_types' => ['type1', 'type2'],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -480,31 +480,31 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithAllValidQueryTypes()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [
                                 'valid_query_types' => null,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
                             'valid_query_types' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -521,31 +521,31 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithEmptyValidQueryTypes()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(
-                                'valid_query_types' => array(),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [
+                                'valid_query_types' => [],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
-                            'valid_query_types' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
+                            'valid_query_types' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -562,31 +562,31 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithValidItemTypes()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(
-                                'valid_item_types' => array('type1', 'type2'),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [
+                                'valid_item_types' => ['type1', 'type2'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
-                            'valid_item_types' => array('type1', 'type2'),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
+                            'valid_item_types' => ['type1', 'type2'],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -603,31 +603,31 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithAllValidItemTypes()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [
                                 'valid_item_types' => null,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
                             'valid_item_types' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -644,31 +644,31 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithEmptyValidItemTypes()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'collections' => array(
-                            'default' => array(
-                                'valid_item_types' => array(),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'collections' => [
+                            'default' => [
+                                'valid_item_types' => [],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(
-                        'default' => array(
-                            'valid_item_types' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'collections' => [
+                        'default' => [
+                            'valid_item_types' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -685,48 +685,48 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithDesignAndContentForms()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'forms' => array(
-                            'full' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'forms' => [
+                            'full' => [
                                 'enabled' => false,
-                            ),
-                            'design' => array(
+                            ],
+                            'design' => [
                                 'type' => 'design_form',
                                 'enabled' => true,
-                            ),
-                            'content' => array(
+                            ],
+                            'content' => [
                                 'type' => 'content_form',
                                 'enabled' => true,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'full' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'forms' => [
+                        'full' => [
                             'type' => FullEditType::class,
                             'enabled' => false,
-                        ),
-                        'design' => array(
+                        ],
+                        'design' => [
                             'type' => 'design_form',
                             'enabled' => true,
-                        ),
-                        'content' => array(
+                        ],
+                        'content' => [
                             'type' => 'content_form',
                             'enabled' => true,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -743,91 +743,91 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsViewTypesMerge()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'view_types' => array(
-                            'default' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'view_types' => [
+                            'default' => [
                                 'name' => 'Default',
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                ),
-                                'valid_parameters' => array('param1', 'param2'),
-                            ),
-                            'large' => array(
+                                    ],
+                                ],
+                                'valid_parameters' => ['param1', 'param2'],
+                            ],
+                            'large' => [
                                 'name' => 'Large',
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                ),
-                                'valid_parameters' => array('param3', 'param4'),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'view_types' => array(
-                            'title' => array(
+                                    ],
+                                ],
+                                'valid_parameters' => ['param3', 'param4'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'view_types' => [
+                            'title' => [
                                 'name' => 'Title',
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                ),
-                                'valid_parameters' => array('param5', 'param6'),
-                            ),
-                            'large' => array(
+                                    ],
+                                ],
+                                'valid_parameters' => ['param5', 'param6'],
+                            ],
+                            'large' => [
                                 'enabled' => false,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'view_types' => array(
-                        'default' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
                                     'enabled' => true,
-                                ),
-                            ),
-                            'valid_parameters' => array('param1', 'param2'),
-                        ),
-                        'title' => array(
+                                ],
+                            ],
+                            'valid_parameters' => ['param1', 'param2'],
+                        ],
+                        'title' => [
                             'name' => 'Title',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
                                     'enabled' => true,
-                                ),
-                            ),
-                            'valid_parameters' => array('param5', 'param6'),
-                        ),
-                        'large' => array(
+                                ],
+                            ],
+                            'valid_parameters' => ['param5', 'param6'],
+                        ],
+                        'large' => [
                             'name' => 'Disabled',
                             'enabled' => false,
-                            'item_view_types' => array(),
+                            'item_view_types' => [],
                             'valid_parameters' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -844,66 +844,66 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsItemViewTypesMerge()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'view_types' => array(
-                            'default' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'view_types' => [
+                            'default' => [
                                 'name' => 'Default',
                                 'enabled' => true,
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'view_types' => array(
-                            'default' => array(
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'view_types' => [
+                            'default' => [
                                 'name' => 'Default',
                                 'enabled' => true,
-                                'item_view_types' => array(
-                                    'other' => array(
+                                'item_view_types' => [
+                                    'other' => [
                                         'name' => 'Other',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'view_types' => array(
-                        'default' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
                                     'enabled' => true,
-                                ),
-                                'other' => array(
+                                ],
+                                'other' => [
                                     'name' => 'Other',
                                     'enabled' => true,
-                                ),
-                            ),
+                                ],
+                            ],
                             'valid_parameters' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -920,45 +920,45 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithoutValidParameters()
     {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'view_types' => array(
-                            'default' => array(
+        $config = [
+            [
+                'block_definitions' => [
+                    'block' => [
+                        'view_types' => [
+                            'default' => [
                                 'name' => 'Default',
                                 'enabled' => true,
-                                'item_view_types' => array(
-                                    'standard' => array(
+                                'item_view_types' => [
+                                    'standard' => [
                                         'name' => 'Standard',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'view_types' => array(
-                        'default' => array(
+        $expectedConfig = [
+            'block_definitions' => [
+                'block' => [
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
                             'enabled' => true,
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
                                     'enabled' => true,
-                                ),
-                            ),
+                                ],
+                            ],
                             'valid_parameters' => null,
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
@@ -973,19 +973,19 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoName()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'view_types' => array(
-                        'default' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -994,16 +994,16 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithEmptyIcon()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
                     'icon' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -1012,16 +1012,16 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNonStringIcon()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
                     'icon' => 42,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -1030,11 +1030,11 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoBlockDefinitions()
     {
-        $config = array(
-            'block_definitions' => array(),
-        );
+        $config = [
+            'block_definitions' => [],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1043,21 +1043,21 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithEmptyCollection()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'collections' => array(
-                        'default' => array(
-                            'valid_item_types' => array(),
-                            'valid_query_types' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                    'collections' => [
+                        'default' => [
+                            'valid_item_types' => [],
+                            'valid_query_types' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config), 'Collections need to allow at least one item type or at least one query type.');
+        $this->assertConfigurationIsInvalid([$config], 'Collections need to allow at least one item type or at least one query type.');
     }
 
     /**
@@ -1066,33 +1066,33 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithMissingContentForm()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'forms' => array(
-                        'full' => array(
+                    'forms' => [
+                        'full' => [
                             'enabled' => false,
-                        ),
-                        'design' => array(
+                        ],
+                        'design' => [
                             'enabled' => true,
-                        ),
-                    ),
-                    'view_types' => array(
-                        'default' => array(
+                        ],
+                    ],
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1101,33 +1101,33 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithMissingDesignForm()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'forms' => array(
-                        'full' => array(
+                    'forms' => [
+                        'full' => [
                             'enabled' => false,
-                        ),
-                        'content' => array(
+                        ],
+                        'content' => [
                             'enabled' => true,
-                        ),
-                    ),
-                    'view_types' => array(
-                        'default' => array(
+                        ],
+                    ],
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1136,33 +1136,33 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithFullAndDesignForm()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'forms' => array(
-                        'full' => array(
+                    'forms' => [
+                        'full' => [
                             'enabled' => true,
-                        ),
-                        'design' => array(
+                        ],
+                        'design' => [
                             'enabled' => true,
-                        ),
-                    ),
-                    'view_types' => array(
-                        'default' => array(
+                        ],
+                    ],
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1171,33 +1171,33 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithFullAndContentForm()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'forms' => array(
-                        'full' => array(
+                    'forms' => [
+                        'full' => [
                             'enabled' => true,
-                        ),
-                        'content' => array(
+                        ],
+                        'content' => [
                             'enabled' => true,
-                        ),
-                    ),
-                    'view_types' => array(
-                        'default' => array(
+                        ],
+                    ],
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1206,36 +1206,36 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithFullAndDesignAndContentForm()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'forms' => array(
-                        'full' => array(
+                    'forms' => [
+                        'full' => [
                             'enabled' => true,
-                        ),
-                        'design' => array(
+                        ],
+                        'design' => [
                             'enabled' => true,
-                        ),
-                        'content' => array(
+                        ],
+                        'content' => [
                             'enabled' => true,
-                        ),
-                    ),
-                    'view_types' => array(
-                        'default' => array(
+                        ],
+                    ],
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
+                            'item_view_types' => [
+                                'standard' => [
                                     'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1244,16 +1244,16 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoViewTypes()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'view_types' => array(),
-                ),
-            ),
-        );
+                    'view_types' => [],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1262,21 +1262,21 @@ final class BlockDefinitionNodeTest extends TestCase
      */
     public function testBlockDefinitionSettingsWithNoItemViewTypes()
     {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
+        $config = [
+            'block_definitions' => [
+                'block' => [
                     'name' => 'Block',
-                    'view_types' => array(
-                        'default' => array(
+                    'view_types' => [
+                        'default' => [
                             'name' => 'Default',
-                            'item_view_types' => array(),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                            'item_view_types' => [],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
-        $this->assertConfigurationIsInvalid(array($config));
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**

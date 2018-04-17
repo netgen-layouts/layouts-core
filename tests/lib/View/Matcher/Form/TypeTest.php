@@ -41,13 +41,13 @@ final class TypeTest extends TestCase
      */
     public function matchProvider()
     {
-        return array(
-            array(array(), false),
-            array(array('other_form_type'), false),
-            array(array('form_type'), true),
-            array(array('other_form_type', 'second_form_type'), false),
-            array(array('form_type', 'other_form_type'), true),
-        );
+        return [
+            [[], false],
+            [['other_form_type'], false],
+            [['form_type'], true],
+            [['other_form_type', 'second_form_type'], false],
+            [['form_type', 'other_form_type'], true],
+        ];
     }
 
     /**
@@ -55,6 +55,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
 }
