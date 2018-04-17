@@ -61,6 +61,7 @@ final class Configuration implements ConfigurationInterface
             new ConfigurationNode\PageLayoutNode(),
             new ConfigurationNode\ApiKeysNode(),
             new ConfigurationNode\ItemsNode(),
+            new ConfigurationNode\DebugNode(),
         ];
     }
 }

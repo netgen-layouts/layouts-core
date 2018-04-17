@@ -66,18 +66,25 @@ final class GlobalVariable
      */
     private $pageLayoutTemplate;
 
+    /**
+     * @var bool
+     */
+    private $debug;
+
     public function __construct(
         ConfigurationInterface $configuration,
         LayoutResolverInterface $layoutResolver,
         PageLayoutResolverInterface $pageLayoutResolver,
         ViewBuilderInterface $viewBuilder,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        $debug
     ) {
         $this->configuration = $configuration;
         $this->layoutResolver = $layoutResolver;
         $this->pageLayoutResolver = $pageLayoutResolver;
         $this->viewBuilder = $viewBuilder;
         $this->requestStack = $requestStack;
+        $this->debug = (bool) $debug;
     }
 
     /**
@@ -183,6 +190,16 @@ final class GlobalVariable
         }
 
         return $layoutView->getTemplate();
+    }
+
+    /**
+     * Returns if debug mode is activated in Netgen Layouts.
+     *
+     * @return bool
+     */
+    public function getDebug()
+    {
+        return $this->debug;
     }
 
     /**

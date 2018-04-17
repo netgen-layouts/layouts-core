@@ -62,7 +62,8 @@ final class GlobalVariableTest extends TestCase
             $this->layoutResolverMock,
             $this->pageLayoutResolverMock,
             $this->viewBuilderMock,
-            $this->requestStack
+            $this->requestStack,
+            true
         );
     }
 
@@ -447,5 +448,13 @@ final class GlobalVariableTest extends TestCase
     public function testGetConfig()
     {
         $this->assertEquals($this->configMock, $this->globalVariable->getConfig());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getDebug
+     */
+    public function testGetDebug()
+    {
+        $this->assertTrue($this->globalVariable->getDebug());
     }
 }
