@@ -101,14 +101,18 @@ body {
     &.sorting {
         .layouts-controls {
             .sorting-show {
-                display:inline-block;
+                display: inline-block;
             }
-            .sorting-hide {
-                display:none !important;
+            .sorting-hide,
+            .nl-filter-dropdown {
+                display: none !important;
             }
         }
         .js-add-rule {
-            display:none;
+            display: none;
+        }
+        .nl-no-filtered-items {
+            display: none !important;
         }
     }
     .multientry-items {
@@ -179,6 +183,9 @@ body {
     }
     .layouts-controls {
         float:right;
+        .nl-dropdown {
+            display: inline-block;
+        }
     }
     &::after {
         content:"";

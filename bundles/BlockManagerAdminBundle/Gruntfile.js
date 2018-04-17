@@ -6,13 +6,16 @@ module.exports = function (grunt) {
 
     // Automatically load required grunt tasks
     require('jit-grunt')(grunt, {
-        lockfile: 'grunt-lock'
+        lockfile: 'grunt-lock',
     });
+
+    const collapse = require('bundle-collapser/plugin');
 
     // Configurable paths
     var config = {
         resources_dir: 'Resources',
-        public_dir: 'Resources/public'
+        public_dir: 'Resources/public',
+        dev_dir: 'Resources/public/dev',
     };
 
     // Define the configuration for all the tasks
@@ -23,7 +26,7 @@ module.exports = function (grunt) {
         // Prevent multiple grunt instances
         lockfile: {
             grunt: {
-                path: 'grunt.lock'
+                path: 'grunt.lock',
             }
         },
 
@@ -32,13 +35,43 @@ module.exports = function (grunt) {
             gruntfile: {
                 files: ['Gruntfile.js'],
                 options: {
-                    reload: true
-                }
+                    reload: true,
+                },
             },
             sass: {
                 files: ['<%= config.resources_dir %>/sass/{,*/}*.{scss,sass}'],
-                tasks: ['sass', 'postcss']
-            }
+                tasks: ['sass', 'postcss'],
+            },
+        },
+
+        // Compiles es6 js files to supported js
+        browserify: {
+            dev: {
+                options: {
+                    watch: true,
+                    browserifyOptions: {
+                        debug: true,
+                    },
+                    transform: [
+                        ['babelify', { presets: ['env', 'es2015', 'stage-0'] }],
+                    ],
+                },
+                files: {
+                    '<%= config.dev_dir %>/js/app.js': ['<%= config.resources_dir %>/es6/app.js'],
+                },
+            },
+            prod: {
+                options: {
+                    transform: [
+                        ['babelify', { presets: ['env', 'es2015', 'stage-0'] }],
+                        ['uglifyify'],
+                    ],
+                    plugin: [collapse],
+                },
+                files: {
+                    '<%= config.public_dir %>/js/app.js': ['<%= config.resources_dir %>/es6/app.js'],
+                },
+            },
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
@@ -47,7 +80,7 @@ module.exports = function (grunt) {
                 sourceMap: true,
                 sourceMapEmbed: true,
                 sourceMapContents: true,
-                includePaths: ['.']
+                includePaths: ['.'],
             },
             dist: {
                 files: [{
@@ -55,9 +88,9 @@ module.exports = function (grunt) {
                     cwd: '<%= config.resources_dir %>/sass',
                     src: ['*.{scss,sass}'],
                     dest: '.tmp/css',
-                    ext: '.css'
-                }]
-            }
+                    ext: '.css',
+                }],
+            },
         },
 
         postcss: {
@@ -66,19 +99,28 @@ module.exports = function (grunt) {
                 processors: [
                     // Add vendor prefixed styles
                     require('autoprefixer')({
-                        browsers: ['> 1%', 'last 3 versions', 'Firefox ESR', 'Opera 12.1']
-                    })
-                ]
+                        browsers: ['> 1%', 'last 3 versions', 'Firefox ESR', 'Opera 12.1'],
+                    }),
+                ],
             },
             dist: {
                 files: [{
                     expand: true,
                     cwd: '.tmp/css/',
                     src: '{,*/}*.css',
-                    dest: '<%= config.public_dir %>/css'
-                }]
-            }
-        }
+                    dest: '<%= config.public_dir %>/css',
+                }],
+            },
+        },
+
+        uglify: {
+            my_target: {
+                files: {
+                    '<%= config.public_dir %>/js/app.js': ['<%= config.public_dir %>/js/app.js'],
+                },
+            },
+        },
+
     });
 
     grunt.registerTask('serve', 'Start the server and preview your app', function () {
@@ -86,11 +128,22 @@ module.exports = function (grunt) {
             'lockfile',
             'sass:dist',
             'postcss',
+            'browserify:dev',
             'watch'
         ]);
     });
 
     grunt.registerTask('default', [
-        'serve'
+        'serve',
     ]);
+
+    grunt.registerTask('build', 'Build production css and js', function () {
+        grunt.task.run([
+            'lockfile',
+            'sass:dist',
+            'postcss',
+            'browserify:prod',
+            'uglify',
+        ]);
+    });
 };

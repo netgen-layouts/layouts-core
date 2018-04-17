@@ -1,0 +1,28 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "indent": [0, 4],
+    "jsx-a11y/href-no-hash": 0,
+    "max-len": 0,
+    "no-alert": 0,
+    "no-unused-expressions": 0,
+    "no-plusplus": 0,
+    "no-mixed-operators": 0,
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }
+    ]
+  },
+  "plugins": [
+    "import"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
