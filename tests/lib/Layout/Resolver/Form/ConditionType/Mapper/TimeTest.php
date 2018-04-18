@@ -25,4 +25,12 @@ final class TimeTest extends TestCase
     {
         $this->assertEquals(TimeType::class, $this->mapper->getFormType());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormOptions
+     */
+    public function testGetFormOptions()
+    {
+        $this->assertEquals(['label' => false], $this->mapper->getFormOptions());
+    }
 }

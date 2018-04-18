@@ -11,4 +11,11 @@ final class Time extends Mapper
     {
         return TimeType::class;
     }
+
+    public function getFormOptions()
+    {
+        return [
+            'label' => false,
+        ];
+    }
 }
