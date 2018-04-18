@@ -96,7 +96,7 @@
 {%- block ngbm_datetime_widget -%}
     <div {{ block('widget_container_attributes') }}>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="datetimepicker">
                     <div class="datetime">
                         <input type="text" class="datetime-input-locale" placeholder="{{ attr.placeholder ?? '' }}">
@@ -106,7 +106,7 @@
                     <button class="js-clear-input"><i class="material-icons">close</i></button>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="timezone">
                     {{ form_row(form.children.timezone) }}
                 </div>

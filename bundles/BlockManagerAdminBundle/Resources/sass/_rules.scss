@@ -270,7 +270,7 @@
             }
             select:not([multiple]) {
                 @extend .nl-select;
-                background: #fff;
+                background-color: #fff;
                 margin: 0 0 1em;
             }
             select[multiple] {
@@ -486,10 +486,10 @@
         }
         i {
             display: block;
-            margin: auto;
             font-size: .375em;
             width: 1em;
             height: 1em;
+            margin: 2em auto;
             color: $textColor;
             background: currentColor;
             border-radius: 500em;
@@ -501,16 +501,16 @@
                 width: 1em;
                 height: 1em;
                 border-radius: 500em;
-                top: 0;
+                left: 0;
                 background: currentColor;
             }
             &::before {
-                right: 100%;
-                margin-right: 1em;
+                top: 100%;
+                margin-top: 1em;
             }
             &::after {
-                left: 100%;
-                margin-left: 1em;
+                bottom: 100%;
+                margin-bottom: 1em;
             }
         }
     }

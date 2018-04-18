@@ -75,6 +75,12 @@ export default class NlRule {
             l > 10 && (l = 10);
             $(el).attr('size', l);
         });
+        form.find('.datetimepicker').each((i, el) => {
+            $(el).closest('form').addClass('ngc');
+            return new NetgenCore.DateTimePicker({
+                el: $(el),
+            });
+        });
     }
 
     addedFormAction(e) {
