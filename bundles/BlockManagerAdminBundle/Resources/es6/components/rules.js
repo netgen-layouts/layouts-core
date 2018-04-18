@@ -85,7 +85,6 @@ export default class NlRules {
                     const $newRule = $('<div class="nl-rule">');
                     $newRule.html(data).addClass('show-body');
                     this.$rulesContainer.append($newRule);
-                    $newRule.nlRule();
                     const newRule = new NlRule($newRule);
                     this.rules.push(newRule);
                     this.toggleUI();
