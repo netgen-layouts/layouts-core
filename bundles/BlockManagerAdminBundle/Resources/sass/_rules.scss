@@ -267,6 +267,7 @@
                 padding: .5em;
                 margin: 0 0 1em;
                 width: 100%;
+                line-height: 1.8;
             }
             select:not([multiple]) {
                 @extend .nl-select;
