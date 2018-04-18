@@ -25,7 +25,8 @@
 .nl-layout-info {
     .nl-layout-description {
         p {
-            margin:0;
+            margin: 0;
+            word-break: break-word;
         }
     }
 }
