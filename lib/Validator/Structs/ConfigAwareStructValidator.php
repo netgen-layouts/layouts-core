@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
+use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
+use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
@@ -21,8 +22,11 @@ final class ConfigAwareStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ConfigAwareStructConstraint::class);
         }
 
-        if (!$constraint->payload instanceof ConfigAwareValue) {
-            throw new UnexpectedTypeException($constraint->payload, ConfigAwareValue::class);
+        if (!$constraint->payload instanceof ConfigDefinitionAwareInterface && !is_array($constraint->payload)) {
+            throw new UnexpectedTypeException(
+                $constraint->payload,
+                sprintf('%s or %s', ConfigDefinitionAwareInterface::class, 'array')
+            );
         }
 
         if (!$value instanceof ConfigAwareStruct) {
@@ -31,11 +35,17 @@ final class ConfigAwareStructValidator extends ConstraintValidator
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
-        $configs = $constraint->payload->getConfigs();
+        $configDefinitions = !is_array($constraint->payload) ?
+            $constraint->payload->getConfigDefinitions() :
+            $constraint->payload;
 
         foreach ($value->getConfigStructs() as $configKey => $configStruct) {
-            if (!isset($configs[$configKey])) {
-                continue;
+            if (!isset($configDefinitions[$configKey]) || !$configDefinitions[$configKey] instanceof ConfigDefinitionInterface) {
+                $this->context->buildViolation($constraint->noConfigDefinitionMessage)
+                    ->setParameter('%configKey%', $configKey)
+                    ->addViolation();
+
+                return;
             }
 
             $validator->atPath('configStructs[' . $configKey . '].parameterValues')->validate(
@@ -43,8 +53,8 @@ final class ConfigAwareStructValidator extends ConstraintValidator
                 [
                     new ParameterStruct(
                         [
-                            'parameterCollection' => $configs[$configKey]->getDefinition(),
-                            'allowMissingFields' => true,
+                            'parameterCollection' => $configDefinitions[$configKey],
+                            'allowMissingFields' => $constraint->allowMissingFields,
                         ]
                     ),
                 ]

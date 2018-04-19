@@ -9,24 +9,19 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraints;
 
 final class BlockValidator extends Validator
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
-     */
-    private $configValidator;
-
-    /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
      */
     private $collectionValidator;
 
-    public function __construct(ConfigValidator $configValidator, CollectionValidator $collectionValidator)
+    public function __construct(CollectionValidator $collectionValidator)
     {
-        $this->configValidator = $configValidator;
         $this->collectionValidator = $collectionValidator;
     }
 
@@ -113,9 +108,13 @@ final class BlockValidator extends Validator
             'parameterValues'
         );
 
-        $this->configValidator->validateConfigStructs(
-            $blockCreateStruct->getConfigStructs(),
-            $blockCreateStruct->definition->getConfigDefinitions()
+        $this->validate(
+            $blockCreateStruct,
+            new ConfigAwareStructConstraint(
+                [
+                    'payload' => $blockCreateStruct->definition,
+                ]
+            )
         );
 
         $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
@@ -145,11 +144,6 @@ final class BlockValidator extends Validator
                     ]
                 ),
             ]
-        );
-
-        $this->configValidator->validateConfigStructs(
-            $blockUpdateStruct->getConfigStructs(),
-            $block->getDefinition()->getConfigDefinitions()
         );
     }
 }

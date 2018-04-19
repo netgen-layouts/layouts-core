@@ -13,22 +13,13 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\Constraints;
 
 final class CollectionValidator extends Validator
 {
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
-     */
-    private $configValidator;
-
-    public function __construct(ConfigValidator $configValidator)
-    {
-        $this->configValidator = $configValidator;
-    }
-
     /**
      * Validates the provided collection create struct.
      *
@@ -161,9 +152,13 @@ final class CollectionValidator extends Validator
             );
         }
 
-        $this->configValidator->validateConfigStructs(
-            $itemCreateStruct->getConfigStructs(),
-            $itemCreateStruct->definition->getConfigDefinitions()
+        $this->validate(
+            $itemCreateStruct,
+            new ConfigAwareStructConstraint(
+                [
+                    'payload' => $itemCreateStruct->definition,
+                ]
+            )
         );
     }
 
@@ -177,9 +172,14 @@ final class CollectionValidator extends Validator
      */
     public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct)
     {
-        $this->configValidator->validateConfigStructs(
-            $itemUpdateStruct->getConfigStructs(),
-            $item->getDefinition()->getConfigDefinitions()
+        $this->validate(
+            $itemUpdateStruct,
+            new ConfigAwareStructConstraint(
+                [
+                    'payload' => $item->getDefinition(),
+                    'allowMissingFields' => true,
+                ]
+            )
         );
     }
 

@@ -85,6 +85,10 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\Structs\QueryUpdateStructValidator();
         }
 
+        if ($name === 'ngbm_config_aware_struct') {
+            return new Validator\Structs\ConfigAwareStructValidator();
+        }
+
         return $this->baseValidatorFactory->getInstance($constraint);
     }
 }

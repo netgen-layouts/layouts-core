@@ -8,7 +8,6 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
@@ -30,13 +29,10 @@ abstract class BlockTest extends ServiceTestCase
 
         $validator = $this->getValidator();
 
-        $configValidator = new ConfigValidator();
-        $configValidator->setValidator($validator);
-
-        $collectionValidator = new CollectionValidator($configValidator);
+        $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($validator);
 
-        $blockValidator = new BlockValidator($configValidator, $collectionValidator);
+        $blockValidator = new BlockValidator($collectionValidator);
         $blockValidator->setValidator($validator);
 
         $layoutValidator = new LayoutValidator();

@@ -9,7 +9,6 @@ use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType;
@@ -27,10 +26,7 @@ abstract class ItemTest extends ServiceTestCase
 
         $validator = $this->getValidator();
 
-        $configValidator = new ConfigValidator();
-        $configValidator->setValidator($validator);
-
-        $collectionValidator = new CollectionValidator($configValidator);
+        $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($validator);
 
         $this->collectionService = $this->createCollectionService($collectionValidator);

@@ -12,7 +12,6 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
@@ -40,13 +39,10 @@ final class BlockValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $configValidator = new ConfigValidator();
-        $configValidator->setValidator($this->validator);
-
-        $collectionValidator = new CollectionValidator($configValidator);
+        $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($this->validator);
 
-        $this->blockValidator = new BlockValidator($configValidator, $collectionValidator);
+        $this->blockValidator = new BlockValidator($collectionValidator);
         $this->blockValidator->setValidator($this->validator);
     }
 

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Config\Form;
 
+use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Form\AbstractType;
@@ -31,7 +32,12 @@ final class EditType extends AbstractType
             return [
                 new ConfigAwareStructConstraint(
                     [
-                        'payload' => $options['configurable'],
+                        'payload' => array_map(
+                            function (Config $config) {
+                                return $config->getDefinition();
+                            },
+                            $options['configurable']->getConfigs()
+                        ),
                     ]
                 ),
             ];

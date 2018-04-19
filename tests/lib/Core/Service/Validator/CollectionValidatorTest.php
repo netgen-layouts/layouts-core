@@ -12,7 +12,6 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -41,10 +40,7 @@ final class CollectionValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $configValidator = new ConfigValidator();
-        $configValidator->setValidator($this->validator);
-
-        $this->collectionValidator = new CollectionValidator($configValidator);
+        $this->collectionValidator = new CollectionValidator();
         $this->collectionValidator->setValidator($this->validator);
     }
 

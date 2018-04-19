@@ -28,7 +28,6 @@ use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
@@ -405,13 +404,10 @@ abstract class ServiceTestCase extends TestCase
                 ->method('validate')
                 ->will($this->returnValue(new ConstraintViolationList()));
 
-            $configValidator = new ConfigValidator();
-            $configValidator->setValidator($validator);
-
-            $collectionValidator = new CollectionValidator($configValidator);
+            $collectionValidator = new CollectionValidator();
             $collectionValidator->setValidator($validator);
 
-            $blockValidator = new BlockValidator($configValidator, $collectionValidator);
+            $blockValidator = new BlockValidator($collectionValidator);
             $blockValidator->setValidator($validator);
         }
 
@@ -444,10 +440,7 @@ abstract class ServiceTestCase extends TestCase
                 ->method('validate')
                 ->will($this->returnValue(new ConstraintViolationList()));
 
-            $configValidator = new ConfigValidator();
-            $configValidator->setValidator($validator);
-
-            $collectionValidator = new CollectionValidator($configValidator);
+            $collectionValidator = new CollectionValidator();
             $collectionValidator->setValidator($validator);
         }
 

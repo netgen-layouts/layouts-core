@@ -16,11 +16,4 @@ interface ItemDefinitionInterface extends ConfigDefinitionAwareInterface
      * @return string
      */
     public function getValueType();
-
-    /**
-     * Returns the available config definitions.
-     *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
-     */
-    public function getConfigDefinitions();
 }
