@@ -736,6 +736,54 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
      */
+    public function testChangeLayoutTypeWithSameLayoutType()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+        $updatedLayout = $this->layoutService->changeLayoutType(
+            $layout,
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            [
+                'top' => ['left', 'right'],
+            ]
+        );
+
+        $this->assertEquals($layout->getId(), $updatedLayout->getId());
+        $this->assertEquals($layout->getStatus(), $updatedLayout->getStatus());
+        $this->assertEquals('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+
+        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+
+        $topZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'top')
+        );
+
+        $leftZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'left')
+        );
+
+        $rightZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'right')
+        );
+
+        $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'bottom')
+        );
+
+        $this->assertCount(3, $topZoneBlocks);
+        $this->assertCount(0, $leftZoneBlocks);
+        $this->assertCount(0, $rightZoneBlocks);
+        $this->assertCount(0, $bottomZoneBlocks);
+
+        $this->assertEquals(32, $topZoneBlocks[0]->getId());
+        $this->assertEquals(31, $topZoneBlocks[1]->getId());
+        $this->assertEquals(35, $topZoneBlocks[2]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     */
     public function testChangeLayoutTypeWithSharedZones()
     {
         $layout = $this->layoutService->loadLayoutDraft(2);
@@ -750,6 +798,53 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertEquals($layout->getId(), $updatedLayout->getId());
         $this->assertEquals($layout->getStatus(), $updatedLayout->getStatus());
         $this->assertEquals('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+
+        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+
+        $topZone = $this->layoutService->loadZoneDraft(2, 'top');
+        $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
+
+        $leftZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(2, 'left')
+        );
+
+        $rightZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(2, 'right')
+        );
+
+        $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(2, 'bottom')
+        );
+
+        $this->assertCount(0, $topZoneBlocks);
+        $this->assertCount(0, $leftZoneBlocks);
+        $this->assertCount(0, $rightZoneBlocks);
+        $this->assertCount(0, $bottomZoneBlocks);
+
+        $this->assertTrue($topZone->hasLinkedZone());
+        $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     */
+    public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZones()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(2);
+        $updatedLayout = $this->layoutService->changeLayoutType(
+            $layout,
+            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            [
+                'top' => ['top'],
+            ]
+        );
+
+        $this->assertEquals($layout->getId(), $updatedLayout->getId());
+        $this->assertEquals($layout->getStatus(), $updatedLayout->getStatus());
+        $this->assertEquals('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
         $this->assertInstanceOf(Layout::class, $updatedLayout);
 
         $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
@@ -828,6 +923,52 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     */
+    public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZonesAndDiscardingSharedZones()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(2);
+        $updatedLayout = $this->layoutService->changeLayoutType(
+            $layout,
+            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            [
+                'top' => ['top'],
+            ],
+            false
+        );
+
+        $this->assertEquals($layout->getId(), $updatedLayout->getId());
+        $this->assertEquals($layout->getStatus(), $updatedLayout->getStatus());
+        $this->assertEquals('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+
+        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+
+        $topZone = $this->layoutService->loadZoneDraft(2, 'top');
+        $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
+
+        $leftZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(2, 'left')
+        );
+
+        $rightZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(2, 'right')
+        );
+
+        $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(2, 'bottom')
+        );
+
+        $this->assertCount(0, $topZoneBlocks);
+        $this->assertCount(0, $leftZoneBlocks);
+        $this->assertCount(0, $rightZoneBlocks);
+        $this->assertCount(0, $bottomZoneBlocks);
+
+        $this->assertFalse($topZone->hasLinkedZone());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "layout" has an invalid state. Layout type can only be changed for draft layouts.
      */
@@ -838,21 +979,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_b')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Layout is already of provided target type.
-     */
-    public function testChangeLayoutTypeThrowsBadStateExceptionOnSameType()
-    {
-        $layout = $this->layoutService->loadLayoutDraft(1);
-
-        $this->layoutService->changeLayoutType(
-            $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a')
         );
     }
 

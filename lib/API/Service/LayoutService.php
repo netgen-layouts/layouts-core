@@ -267,7 +267,6 @@ interface LayoutService extends Service
      * @param bool $preserveSharedZones
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
-     *                                                          If layout is already of provided target type
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */

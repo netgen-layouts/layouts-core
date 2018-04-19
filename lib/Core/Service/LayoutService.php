@@ -440,10 +440,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
-        if ($persistenceLayout->type === $targetLayoutType->getIdentifier()) {
-            throw new BadStateException('layout', 'Layout is already of provided target type.');
-        }
-
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
         $zoneMappings = array_merge(
