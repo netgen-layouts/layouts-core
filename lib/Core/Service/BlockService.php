@@ -263,10 +263,12 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Block does not have the specified translation.');
         }
 
+        $blockDefinition = $block->getDefinition();
+
         $updatedBlock = $this->transaction(
-            function () use ($block, $persistenceBlock, $blockUpdateStruct) {
+            function () use ($blockDefinition, $persistenceBlock, $blockUpdateStruct) {
                 $persistenceBlock = $this->updateBlockTranslations(
-                    $block,
+                    $blockDefinition,
                     $persistenceBlock,
                     $blockUpdateStruct
                 );
@@ -281,7 +283,7 @@ final class BlockService extends Service implements BlockServiceInterface
                             'alwaysAvailable' => $blockUpdateStruct->alwaysAvailable,
                             'config' => $this->configMapper->serializeValues(
                                 $blockUpdateStruct->getConfigStructs(),
-                                $block->getDefinition()->getConfigDefinitions(),
+                                $blockDefinition->getConfigDefinitions(),
                                 $persistenceBlock->config
                             ),
                         ]
@@ -761,14 +763,17 @@ final class BlockService extends Service implements BlockServiceInterface
      * and if any other translation is updated, it needs to take values of untranslatable params
      * from the main translation.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $persistenceBlock
      * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    private function updateBlockTranslations(Block $block, PersistenceBlock $persistenceBlock, APIBlockUpdateStruct $blockUpdateStruct)
-    {
+    private function updateBlockTranslations(
+        BlockDefinitionInterface $blockDefinition,
+        PersistenceBlock $persistenceBlock,
+        APIBlockUpdateStruct $blockUpdateStruct
+    ) {
         if ($blockUpdateStruct->locale === $persistenceBlock->mainLocale) {
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
                 $persistenceBlock,
@@ -776,7 +781,7 @@ final class BlockService extends Service implements BlockServiceInterface
                 new TranslationUpdateStruct(
                     [
                         'parameters' => $this->parameterMapper->serializeValues(
-                            $block->getDefinition(),
+                            $blockDefinition,
                             $blockUpdateStruct->getParameterValues(),
                             $persistenceBlock->parameters[$persistenceBlock->mainLocale]
                         ),
@@ -786,7 +791,7 @@ final class BlockService extends Service implements BlockServiceInterface
         }
 
         $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $block->getDefinition(),
+            $blockDefinition,
             $persistenceBlock->parameters[$persistenceBlock->mainLocale]
         );
 
@@ -803,7 +808,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
             if ($locale === $blockUpdateStruct->locale) {
                 $params = $this->parameterMapper->serializeValues(
-                    $block->getDefinition(),
+                    $blockDefinition,
                     $blockUpdateStruct->getParameterValues(),
                     $params
                 );

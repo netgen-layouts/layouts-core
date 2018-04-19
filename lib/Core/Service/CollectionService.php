@@ -118,7 +118,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->validator->validateCollectionUpdateStruct($collection, $collectionUpdateStruct);
 
         $updatedCollection = $this->transaction(
-            function () use ($collection, $persistenceCollection, $collectionUpdateStruct) {
+            function () use ($persistenceCollection, $collectionUpdateStruct) {
                 return $this->handler->updateCollection(
                     $persistenceCollection,
                     new CollectionUpdateStruct(
@@ -386,10 +386,12 @@ final class CollectionService extends Service implements APICollectionService
             throw new BadStateException('query', 'Query does not have the specified translation.');
         }
 
+        $queryType = $query->getQueryType();
+
         $updatedQuery = $this->transaction(
-            function () use ($query, $persistenceQuery, $queryUpdateStruct) {
+            function () use ($queryType, $persistenceQuery, $queryUpdateStruct) {
                 return $this->updateQueryTranslations(
-                    $query,
+                    $queryType,
                     $persistenceQuery,
                     $queryUpdateStruct
                 );
@@ -438,13 +440,13 @@ final class CollectionService extends Service implements APICollectionService
      * and if any other translation is updated, it needs to take values of untranslatable params
      * from the main translation.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $persistenceQuery
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    private function updateQueryTranslations(Query $query, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct)
+    private function updateQueryTranslations(QueryTypeInterface $queryType, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct)
     {
         if ($queryUpdateStruct->locale === $persistenceQuery->mainLocale) {
             $persistenceQuery = $this->handler->updateQueryTranslation(
@@ -453,7 +455,7 @@ final class CollectionService extends Service implements APICollectionService
                 new QueryTranslationUpdateStruct(
                     [
                         'parameters' => $this->parameterMapper->serializeValues(
-                            $query->getQueryType(),
+                            $queryType,
                             $queryUpdateStruct->getParameterValues(),
                             $persistenceQuery->parameters[$persistenceQuery->mainLocale]
                         ),
@@ -463,7 +465,7 @@ final class CollectionService extends Service implements APICollectionService
         }
 
         $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $query->getQueryType(),
+            $queryType,
             $persistenceQuery->parameters[$persistenceQuery->mainLocale]
         );
 
@@ -480,7 +482,7 @@ final class CollectionService extends Service implements APICollectionService
 
             if ($locale === $queryUpdateStruct->locale) {
                 $params = $this->parameterMapper->serializeValues(
-                    $query->getQueryType(),
+                    $queryType,
                     $queryUpdateStruct->getParameterValues(),
                     $params
                 );
