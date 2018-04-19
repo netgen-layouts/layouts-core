@@ -257,6 +257,11 @@ final class LayoutServiceTest extends ServiceTestCase
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
+            ->method('loadLayoutZones')
+            ->will($this->returnValue([]));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(2))
             ->method('changeLayoutType')
             ->will($this->throwException(new Exception('Test exception text')));
 

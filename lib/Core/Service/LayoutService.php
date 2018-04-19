@@ -439,6 +439,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $layoutZones = $this->layoutHandler->loadLayoutZones($persistenceLayout);
 
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
@@ -448,7 +449,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
 
         $newLayout = $this->transaction(
-            function () use ($layout, $persistenceLayout, $targetLayoutType, $zoneMappings, $preserveSharedZones) {
+            function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $zoneMappings, $preserveSharedZones) {
                 $updatedLayout = $this->layoutHandler->changeLayoutType(
                     $persistenceLayout,
                     $targetLayoutType->getIdentifier(),
@@ -457,10 +458,18 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
                 if ($preserveSharedZones) {
                     foreach ($zoneMappings as $newZone => $oldZones) {
-                        if (count($oldZones) === 1 && $layout->getZone($oldZones[0], true)->hasLinkedZone()) {
-                            $this->linkZone(
-                                $this->loadZoneDraft($updatedLayout->id, $newZone),
-                                $layout->getZone($oldZones[0], true)->getLinkedZone()
+                        if (count($oldZones) === 1 && $layoutZones[$oldZones[0]]->linkedLayoutId !== null) {
+                            $this->layoutHandler->updateZone(
+                                $this->layoutHandler->loadZone($updatedLayout->id, Value::STATUS_DRAFT, $newZone),
+                                new ZoneUpdateStruct(
+                                    [
+                                        'linkedZone' => $this->layoutHandler->loadZone(
+                                            $layoutZones[$oldZones[0]]->linkedLayoutId,
+                                            Value::STATUS_PUBLISHED,
+                                            $layoutZones[$oldZones[0]]->linkedZoneIdentifier
+                                        ),
+                                    ]
+                                )
                             );
                         }
                     }
