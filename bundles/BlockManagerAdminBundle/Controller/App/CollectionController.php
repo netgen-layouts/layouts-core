@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Form\EditType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
-use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,18 +78,10 @@ final class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param string $configKey
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config key does not exist
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function editItemConfigForm(Request $request, Item $item, $configKey = null)
     {
-        if ($configKey !== null) {
-            if (!$item->isConfigEnabled($configKey)) {
-                throw ConfigException::configNotEnabled($configKey);
-            }
-        }
-
         $updateStruct = $this->collectionService->newItemUpdateStruct($item);
 
         $form = $this->createForm(

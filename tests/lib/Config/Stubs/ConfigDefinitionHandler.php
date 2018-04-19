@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Config\Stubs;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
@@ -30,10 +29,5 @@ final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
 
     public function buildParameters(ParameterBuilderInterface $builder)
     {
-    }
-
-    public function isEnabled(ConfigAwareValue $configAwareValue)
-    {
-        return true;
     }
 }

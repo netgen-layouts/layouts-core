@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\Form\ConfigureTranslationType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
-use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\View\ViewInterface;
@@ -101,18 +100,10 @@ final class BlockController extends Controller
      * @param string $locale
      * @param string $configKey
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config key does not exist
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function editConfigForm(Request $request, Block $block, $locale, $configKey = null)
     {
-        if ($configKey !== null) {
-            if (!$block->isConfigEnabled($configKey)) {
-                throw ConfigException::configNotEnabled($configKey);
-            }
-        }
-
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(

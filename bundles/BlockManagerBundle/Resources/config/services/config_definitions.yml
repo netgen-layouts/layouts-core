@@ -8,8 +8,6 @@ services:
     netgen_block_manager.block.config_definition.handler.http_cache:
         class: Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler
         public: false
-        arguments:
-            - "@netgen_block_manager.http_cache.block.cacheable_resolver"
 
     netgen_block_manager.collection.item.config_definition.handler.visibility:
         class: Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler\VisibilityConfigHandler

@@ -186,6 +186,11 @@ final class Block extends Value implements APIBlock
         return $this->definition->isContextual($this);
     }
 
+    public function isCacheable()
+    {
+        return $this->definition->isCacheable($this);
+    }
+
     public function getAvailableLocales()
     {
         return $this->availableLocales;

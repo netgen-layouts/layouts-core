@@ -12,6 +12,7 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
 final class BlockDefinitionFactory
@@ -31,14 +32,21 @@ final class BlockDefinitionFactory
      */
     private $configDefinitionFactory;
 
+    /**
+     * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
+     */
+    private $cacheableResolver;
+
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,
         HandlerPluginRegistryInterface $handlerPluginRegistry,
-        ConfigDefinitionFactory $configDefinitionFactory
+        ConfigDefinitionFactory $configDefinitionFactory,
+        CacheableResolverInterface $cacheableResolver
     ) {
         $this->parameterBuilderFactory = $parameterBuilderFactory;
         $this->handlerPluginRegistry = $handlerPluginRegistry;
         $this->configDefinitionFactory = $configDefinitionFactory;
+        $this->cacheableResolver = $cacheableResolver;
     }
 
     /**
@@ -157,6 +165,7 @@ final class BlockDefinitionFactory
             'identifier' => $identifier,
             'handler' => $handler,
             'handlerPlugins' => $handlerPlugins,
+            'cacheableResolver' => $this->cacheableResolver,
             'parameterDefinitions' => $parameterDefinitions,
             'configDefinitions' => $configDefinitions,
         ] + $this->processConfig($identifier, $config);

@@ -52,7 +52,7 @@ final class EditType extends AbstractType
         }
 
         foreach ($configKeys as $configKey) {
-            if (!$data->hasConfigStruct($configKey) || !$value->isConfigEnabled($configKey)) {
+            if (!$data->hasConfigStruct($configKey)) {
                 continue;
             }
 

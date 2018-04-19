@@ -9,7 +9,6 @@ use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\DisabledConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
@@ -30,14 +29,6 @@ final class EditTypeTest extends FormTestCase
         $this->configurable = new ConfigAwareValue(
             [
                 'configs' => [
-                    'disabled' => new Config(
-                        [
-                            'definition' => new ConfigDefinition(
-                                'disabled',
-                                new DisabledConfigDefinitionHandler()
-                            ),
-                        ]
-                    ),
                     'test' => new Config(
                         [
                             'definition' => new ConfigDefinition('test'),
@@ -92,11 +83,9 @@ final class EditTypeTest extends FormTestCase
         $configStruct = new ConfigStruct();
         $configStruct->setParameterValue('param', 'new_value');
 
-        $updatedStruct->setConfigStruct('disabled', new ConfigStruct());
         $updatedStruct->setConfigStruct('test', $configStruct);
 
         $struct = new ConfigAwareStruct();
-        $struct->setConfigStruct('disabled', new ConfigStruct());
         $struct->setConfigStruct('test', new ConfigStruct());
 
         $form = $this->factory->create(
@@ -115,8 +104,6 @@ final class EditTypeTest extends FormTestCase
 
         $view = $form->createView();
         $children = $view->children;
-
-        $this->assertArrayNotHasKey('disabled', $children);
 
         $this->assertArrayHasKey('test', $children);
         $this->assertArrayHasKey('param', $children['test']);

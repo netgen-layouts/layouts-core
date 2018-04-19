@@ -58,6 +58,11 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
      */
     protected $handlerPlugins = [];
 
+    /**
+     * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
+     */
+    protected $cacheableResolver;
+
     public function getIdentifier()
     {
         return $this->identifier;
@@ -167,5 +172,10 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
         }
 
         return false;
+    }
+
+    public function isCacheable(Block $block)
+    {
+        return $this->cacheableResolver->isCacheable($block);
     }
 }

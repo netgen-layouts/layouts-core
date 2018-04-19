@@ -9,6 +9,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +17,11 @@ use stdClass;
 
 final class BlockDefinitionTest extends TestCase
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $cacheableResolverMock;
+
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
@@ -28,12 +34,20 @@ final class BlockDefinitionTest extends TestCase
 
     public function setUp()
     {
+        $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->with($this->equalTo(new Block()))
+            ->will($this->returnValue(false));
+
         $this->handler = new BlockDefinitionHandler([], true);
 
         $this->blockDefinition = new BlockDefinition(
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
+                'cacheableResolver' => $this->cacheableResolverMock,
                 'handlerPlugins' => [HandlerPlugin::instance()],
                 'name' => 'Block definition',
                 'icon' => '/icon.svg',
@@ -256,6 +270,11 @@ final class BlockDefinitionTest extends TestCase
     public function testIsContextual()
     {
         $this->assertTrue($this->blockDefinition->isContextual(new Block()));
+    }
+
+    public function testIsCacheable()
+    {
+        $this->assertFalse($this->blockDefinition->isCacheable(new Block()));
     }
 
     /**

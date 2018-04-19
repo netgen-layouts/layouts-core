@@ -21,19 +21,6 @@ final class ConfigExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Core\ConfigException::configNotEnabled
-     */
-    public function testConfigNotEnabled()
-    {
-        $exception = ConfigException::configNotEnabled('config');
-
-        $this->assertEquals(
-            'Config with "config" config key is not enabled.',
-            $exception->getMessage()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Exception\Core\ConfigException::noConfigStruct
      */
     public function testNoConfigStruct()

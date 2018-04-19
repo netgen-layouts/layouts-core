@@ -28,7 +28,7 @@ final class ContainerVoterTest extends TestCase
     {
         $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
 
-        $this->voter = new ContainerVoter($this->cacheableResolverMock);
+        $this->voter = new ContainerVoter();
     }
 
     /**
@@ -39,13 +39,21 @@ final class ContainerVoterTest extends TestCase
     {
         $twigBlock = new Block(
             [
-                'definition' => new TwigBlockDefinition(),
+                'definition' => new TwigBlockDefinition(
+                    [
+                        'cacheableResolver' => $this->cacheableResolverMock,
+                    ]
+                ),
             ]
         );
 
         $containerBlock = new Block(
             [
-                'definition' => new ContainerDefinition(),
+                'definition' => new ContainerDefinition(
+                    [
+                        'cacheableResolver' => $this->cacheableResolverMock,
+                    ]
+                ),
                 'placeholders' => [
                     'left' => new Placeholder(
                         [
@@ -64,7 +72,11 @@ final class ContainerVoterTest extends TestCase
 
         $block = new Block(
             [
-                'definition' => new ContainerDefinition(),
+                'definition' => new ContainerDefinition(
+                    [
+                        'cacheableResolver' => $this->cacheableResolverMock,
+                    ]
+                ),
                 'placeholders' => [
                     'left' => new Placeholder(
                         [
@@ -85,7 +97,11 @@ final class ContainerVoterTest extends TestCase
     {
         $regularBlock = new Block(
             [
-                'definition' => new BlockDefinition(),
+                'definition' => new BlockDefinition(
+                    [
+                        'cacheableResolver' => $this->cacheableResolverMock,
+                    ]
+                ),
             ]
         );
 
@@ -97,7 +113,11 @@ final class ContainerVoterTest extends TestCase
 
         $block = new Block(
             [
-                'definition' => new ContainerDefinition(),
+                'definition' => new ContainerDefinition(
+                    [
+                        'cacheableResolver' => $this->cacheableResolverMock,
+                    ]
+                ),
                 'placeholders' => [
                     'left' => new Placeholder(
                         [
@@ -118,7 +138,11 @@ final class ContainerVoterTest extends TestCase
     {
         $block = new Block(
             [
-                'definition' => new BlockDefinition(),
+                'definition' => new BlockDefinition(
+                    [
+                        'cacheableResolver' => $this->cacheableResolverMock,
+                    ]
+                ),
             ]
         );
 

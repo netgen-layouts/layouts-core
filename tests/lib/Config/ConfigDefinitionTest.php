@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Config;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
@@ -37,17 +36,5 @@ final class ConfigDefinitionTest extends TestCase
     public function testGetConfigKey()
     {
         $this->assertEquals('config_definition', $this->configDefinition->getConfigKey());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Config\ConfigDefinition::isEnabled
-     */
-    public function testIsEnabled()
-    {
-        $this->assertTrue(
-            $this->configDefinition->isEnabled(
-                $this->createMock(ConfigAwareValue::class)
-            )
-        );
     }
 }

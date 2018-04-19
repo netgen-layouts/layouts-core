@@ -27,21 +27,6 @@ final class ConfigException extends InvalidArgumentException implements Exceptio
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
-    public static function configNotEnabled($configKey)
-    {
-        return new self(
-            sprintf(
-                'Config with "%s" config key is not enabled.',
-                $configKey
-            )
-        );
-    }
-
-    /**
-     * @param string $configKey
-     *
-     * @return \Netgen\BlockManager\Exception\Core\ConfigException
-     */
     public static function noConfigStruct($configKey)
     {
         return new self(

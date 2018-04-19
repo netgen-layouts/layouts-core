@@ -30,13 +30,4 @@ interface ConfigAwareValue
      * @return bool
      */
     public function hasConfig($configKey);
-
-    /**
-     * Returns if the config with specified config key is enabled or not.
-     *
-     * @param string $configKey
-     *
-     * @return bool
-     */
-    public function isConfigEnabled($configKey);
 }

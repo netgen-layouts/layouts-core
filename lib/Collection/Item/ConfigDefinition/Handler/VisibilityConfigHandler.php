@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
@@ -39,14 +38,5 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
             'visible_to',
             ParameterType\DateTimeType::class
         );
-    }
-
-    public function isEnabled(ConfigAwareValue $configAwareValue)
-    {
-        if (!$configAwareValue instanceof Item) {
-            return false;
-        }
-
-        return true;
     }
 }

@@ -155,4 +155,13 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface, ConfigD
      * @return bool
      */
     public function hasPlugin($className);
+
+    /**
+     * Returns if the provided block is cacheable.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @return bool
+     */
+    public function isCacheable(Block $block);
 }

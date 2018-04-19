@@ -10,6 +10,7 @@ use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Exception\Core\ParameterException;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -226,5 +227,31 @@ final class BlockTest extends TestCase
         );
 
         $this->assertFalse($query->isContextual());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isCacheable
+     */
+    public function testIsCacheable()
+    {
+        $cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
+
+        $block = new Block(
+            [
+                'definition' => new BlockDefinition(
+                    [
+                        'cacheableResolver' => $cacheableResolverMock,
+                    ]
+                ),
+            ]
+        );
+
+        $cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->with($this->equalTo($block))
+            ->will($this->returnValue(false));
+
+        $this->assertFalse($block->isCacheable());
     }
 }

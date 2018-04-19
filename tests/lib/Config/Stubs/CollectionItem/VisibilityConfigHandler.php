@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Config\Stubs\CollectionItem;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
@@ -45,10 +44,5 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
 
     public function buildParameters(ParameterBuilderInterface $builder)
     {
-    }
-
-    public function isEnabled(ConfigAwareValue $configAwareValue)
-    {
-        return true;
     }
 }
