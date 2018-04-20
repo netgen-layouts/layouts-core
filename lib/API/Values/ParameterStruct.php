@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 interface ParameterStruct
 {
@@ -57,18 +57,18 @@ interface ParameterStruct
      *
      * The values need to be in the domain format of the value for the parameter.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
      */
-    public function fill(ParameterCollectionInterface $parameterCollection, array $values = []);
+    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []);
 
     /**
      * Fills the struct values based on provided value.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
      */
-    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue);
+    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue);
 
     /**
      * Fills the struct values based on provided array of values.
@@ -76,8 +76,8 @@ interface ParameterStruct
      * The values in the array need to be in hash format of the value
      * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
      */
-    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = []);
+    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []);
 }

@@ -97,7 +97,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             [
                 new ParameterStruct(
                     [
-                        'parameterCollection' => $blockDefinition,
+                        'parameterDefinitions' => $blockDefinition,
                         'allowMissingFields' => true,
                     ]
                 ),

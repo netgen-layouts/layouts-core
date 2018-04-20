@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
 
 final class QueryType implements QueryTypeInterface
 {
-    use ParameterCollectionTrait;
+    use ParameterDefinitionCollectionTrait;
 
     /**
      * @var string

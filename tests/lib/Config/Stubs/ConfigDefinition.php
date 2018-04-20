@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\Tests\Config\Stubs;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
 
 final class ConfigDefinition implements ConfigDefinitionInterface
 {
-    use ParameterCollectionTrait;
+    use ParameterDefinitionCollectionTrait;
 
     /**
      * @var string

@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 /**
  * Query type represents a model of the query which is used to inject
  * items from CMS to a block collection.
  */
-interface QueryTypeInterface extends ParameterCollectionInterface
+interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
 {
     /**
      * Returns the query type.

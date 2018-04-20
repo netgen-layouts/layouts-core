@@ -206,7 +206,7 @@ final class CollectionValidator extends Validator
             [
                 new ParameterStruct(
                     [
-                        'parameterCollection' => $queryCreateStruct->queryType,
+                        'parameterDefinitions' => $queryCreateStruct->queryType,
                     ]
                 ),
             ],

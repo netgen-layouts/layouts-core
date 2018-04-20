@@ -5,12 +5,12 @@ namespace Netgen\BlockManager\Block;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\BlockManager\Value;
 
 class BlockDefinition extends Value implements BlockDefinitionInterface
 {
-    use ParameterCollectionTrait;
+    use ParameterDefinitionCollectionTrait;
     use ConfigDefinitionAwareTrait;
 
     /**

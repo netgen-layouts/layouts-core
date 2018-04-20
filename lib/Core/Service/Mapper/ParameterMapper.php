@@ -4,23 +4,23 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 final class ParameterMapper
 {
     /**
      * Maps the parameter values based on provided collection of parameters.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $parameterValues
      *
      * @return array
      */
-    public function mapParameters(ParameterCollectionInterface $parameterCollection, array $parameterValues)
+    public function mapParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues)
     {
         $mappedValues = [];
 
-        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
             $parameterType = $parameterDefinition->getType();
 
@@ -51,17 +51,17 @@ final class ParameterMapper
     /**
      * Serializes the parameter values based on provided collection of parameters.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $parameterValues
      * @param array $fallbackValues
      *
      * @return array
      */
-    public function serializeValues(ParameterCollectionInterface $parameterCollection, array $parameterValues, array $fallbackValues = [])
+    public function serializeValues(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues, array $fallbackValues = [])
     {
         $serializedValues = [];
 
-        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
             if (!array_key_exists($parameterName, $parameterValues)) {
                 continue;
@@ -84,16 +84,16 @@ final class ParameterMapper
     }
 
     /**
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $parameterValues
      *
      * @return array
      */
-    public function extractUntranslatableParameters(ParameterCollectionInterface $parameterCollection, array $parameterValues)
+    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues)
     {
         $untranslatableParams = [];
 
-        foreach ($parameterCollection->getParameterDefinitions() as $paramName => $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $paramName => $parameterDefinition) {
             if ($parameterDefinition->getOption('translatable')) {
                 continue;
             }

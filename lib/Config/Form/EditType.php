@@ -68,7 +68,7 @@ final class EditType extends AbstractType
                 [
                     'data' => $data->getConfigStruct($configKey),
                     'property_path' => 'configStructs[' . $configKey . ']',
-                    'parameter_collection' => $value->getConfig($configKey)->getDefinition(),
+                    'parameter_definitions' => $value->getConfig($configKey)->getDefinition(),
                     'label_prefix' => $options['label_prefix'] . '.' . $configKey,
                 ]
             );

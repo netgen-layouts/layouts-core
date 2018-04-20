@@ -38,7 +38,7 @@ final class TranslatableTypeStub extends TranslatableType
                 'inherit_data' => true,
                 'label_prefix' => 'label_prefix',
                 'property_path' => 'parameterValues',
-                'parameter_collection' => $options['block']->getDefinition(),
+                'parameter_definitions' => $options['block']->getDefinition(),
             ]
         );
 

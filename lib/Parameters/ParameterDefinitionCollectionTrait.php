@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
 
-trait ParameterCollectionTrait
+trait ParameterDefinitionCollectionTrait
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]

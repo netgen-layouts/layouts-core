@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Config;
 
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\BlockManager\Value;
 
 /**
@@ -10,7 +10,7 @@ use Netgen\BlockManager\Value;
  */
 class ConfigDefinition extends Value implements ConfigDefinitionInterface
 {
-    use ParameterCollectionTrait;
+    use ParameterDefinitionCollectionTrait;
 
     /**
      * @var string

@@ -4,14 +4,14 @@ namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 /**
  * Block definition represents the model of the block, built from configuration.
  * This model specifies which parameters, view types and item view types
  * the block can have.
  */
-interface BlockDefinitionInterface extends ParameterCollectionInterface, ConfigDefinitionAwareInterface
+interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterface, ConfigDefinitionAwareInterface
 {
     /**
      * Returns the block definition identifier.

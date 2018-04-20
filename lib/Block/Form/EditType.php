@@ -147,7 +147,7 @@ abstract class EditType extends TranslatableType
                 'label' => false,
                 'inherit_data' => true,
                 'property_path' => 'parameterValues',
-                'parameter_collection' => $blockDefinition,
+                'parameter_definitions' => $blockDefinition,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
                 'groups' => $groups,
             ]

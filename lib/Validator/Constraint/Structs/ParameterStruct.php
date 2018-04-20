@@ -12,11 +12,11 @@ final class ParameterStruct extends Constraint
     public $message = 'netgen_block_manager.parameter_struct.invalid_value';
 
     /**
-     * Parameter collection used to validate parameter values against.
+     * Parameter definition collection used to validate parameter values against.
      *
-     * @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface
      */
-    public $parameterCollection;
+    public $parameterDefinitions;
 
     /**
      * If true, missing parameters will pass validation (e.g. when updating the value).

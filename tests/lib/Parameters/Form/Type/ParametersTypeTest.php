@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -88,7 +88,7 @@ final class ParametersTypeTest extends FormTestCase
             ]
         );
 
-        $parameterCollection = new ParameterCollection(
+        $parameterDefinitions = new ParameterDefinitionCollection(
             [
                 'css_class' => new ParameterDefinition(
                     [
@@ -113,7 +113,7 @@ final class ParametersTypeTest extends FormTestCase
             ParametersType::class,
             [
                 'inherit_data' => true,
-                'parameter_collection' => $parameterCollection,
+                'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
             ]
@@ -136,9 +136,9 @@ final class ParametersTypeTest extends FormTestCase
             );
 
             $this->assertEquals(
-                $parameterCollection->getParameterDefinition($key)->getLabel() === null ?
+                $parameterDefinitions->getParameterDefinition($key)->getLabel() === null ?
                     'label.' . $key :
-                    $parameterCollection->getParameterDefinition($key)->getLabel(),
+                    $parameterDefinitions->getParameterDefinition($key)->getLabel(),
                 $paramForm->getConfig()->getOption('label')
             );
         }
@@ -175,7 +175,7 @@ final class ParametersTypeTest extends FormTestCase
             new ParameterStruct()
         );
 
-        $parameterCollection = new ParameterCollection(
+        $parameterDefinitions = new ParameterDefinitionCollection(
             [
                 'excluded' => new ParameterDefinition(
                     [
@@ -199,7 +199,7 @@ final class ParametersTypeTest extends FormTestCase
             ParametersType::class,
             [
                 'inherit_data' => true,
-                'parameter_collection' => $parameterCollection,
+                'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
                 'groups' => ['group'],
@@ -227,7 +227,7 @@ final class ParametersTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = [
-            'parameter_collection' => new ParameterCollection(),
+            'parameter_definitions' => new ParameterDefinitionCollection(),
             'label_prefix' => 'label',
         ];
 
@@ -235,7 +235,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $this->assertEquals(
             [
-                'parameter_collection' => new ParameterCollection(),
+                'parameter_definitions' => new ParameterDefinitionCollection(),
                 'label_prefix' => 'label',
                 'groups' => [],
                 'translation_domain' => 'ngbm',
@@ -247,7 +247,7 @@ final class ParametersTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required options "label_prefix", "parameter_collection" are missing.
+     * @expectedExceptionMessage The required options "label_prefix", "parameter_definitions" are missing.
      */
     public function testConfigureOptionsWithMissingParameters()
     {
@@ -262,7 +262,7 @@ final class ParametersTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "parameter_collection" with value null is expected to be of type "Netgen\BlockManager\Parameters\ParameterCollectionInterface", but is of type "NULL".
+     * @expectedExceptionMessage The option "parameter_definitions" with value null is expected to be of type "Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface", but is of type "NULL".
      */
     public function testConfigureOptionsWithInvalidParameters()
     {
@@ -273,7 +273,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             [
-                'parameter_collection' => null,
+                'parameter_definitions' => null,
                 'label_prefix' => 'label',
             ]
         );

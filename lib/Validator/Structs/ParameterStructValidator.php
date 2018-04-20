@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\Constraint;
@@ -38,7 +38,7 @@ final class ParameterStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, ParameterStruct::class);
         }
 
-        $this->filterParameters($value, $constraint->parameterCollection);
+        $this->filterParameters($value, $constraint->parameterDefinitions);
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
@@ -58,17 +58,19 @@ final class ParameterStructValidator extends ConstraintValidator
      * Filters the parameter values.
      *
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      */
-    private function filterParameters(ParameterStruct $parameterStruct, ParameterCollectionInterface $parameterCollection)
-    {
+    private function filterParameters(
+        ParameterStruct $parameterStruct,
+        ParameterDefinitionCollectionInterface $parameterDefinitions
+    ) {
         foreach ($parameterStruct->getParameterValues() as $parameterName => $parameterValue) {
-            if (!$parameterCollection->hasParameterDefinition($parameterName)) {
+            if (!$parameterDefinitions->hasParameterDefinition($parameterName)) {
                 continue;
             }
 
             $filters = $this->parameterFilterRegistry->getParameterFilters(
-                $parameterCollection->getParameterDefinition($parameterName)->getType()->getIdentifier()
+                $parameterDefinitions->getParameterDefinition($parameterName)->getType()->getIdentifier()
             );
 
             foreach ($filters as $filter) {
@@ -87,10 +89,12 @@ final class ParameterStructValidator extends ConstraintValidator
      *
      * @return array
      */
-    private function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
-    {
+    private function buildConstraintFields(
+        ParameterStruct $parameterStruct,
+        ParameterStructConstraint $constraint
+    ) {
         $fields = [];
-        foreach ($constraint->parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
             $parameterValue = $parameterStruct->hasParameterValue($parameterName) ?
                 $parameterStruct->getParameterValue($parameterName) :

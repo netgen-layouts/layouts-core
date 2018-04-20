@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\BlockManager\Value;
 
 /**
@@ -12,7 +12,7 @@ use Netgen\BlockManager\Value;
  */
 class QueryType extends Value implements QueryTypeInterface
 {
-    use ParameterCollectionTrait;
+    use ParameterDefinitionCollectionTrait;
 
     /**
      * @var string

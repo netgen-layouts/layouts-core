@@ -2,6 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-interface CompoundParameterDefinitionInterface extends ParameterDefinitionInterface, ParameterCollectionInterface
+interface CompoundParameterDefinitionInterface extends ParameterDefinitionInterface, ParameterDefinitionCollectionInterface
 {
 }

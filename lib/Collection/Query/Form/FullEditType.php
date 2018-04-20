@@ -54,7 +54,7 @@ final class FullEditType extends TranslatableType
                 'label' => false,
                 'inherit_data' => true,
                 'property_path' => 'parameterValues',
-                'parameter_collection' => $queryType,
+                'parameter_definitions' => $queryType,
                 'label_prefix' => 'query.' . $queryType->getType(),
             ]
         );

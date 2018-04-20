@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\Form\Type;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,14 +30,14 @@ final class ParametersType extends AbstractType
         $resolver->setRequired(
             [
                 'groups',
-                'parameter_collection',
+                'parameter_definitions',
                 'label_prefix',
             ]
         );
 
         $resolver->setAllowedTypes('groups', 'array');
         $resolver->setAllowedTypes('data', ParameterStruct::class);
-        $resolver->setAllowedTypes('parameter_collection', ParameterCollectionInterface::class);
+        $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
 
         $resolver->setDefault('groups', []);
@@ -45,10 +45,10 @@ final class ParametersType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection */
-        $parameterCollection = $options['parameter_collection'];
+        /** @var \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions */
+        $parameterDefinitions = $options['parameter_definitions'];
 
-        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             if (!$this->includeParameter($parameterDefinition, $options['groups'])) {
                 continue;
             }
@@ -82,7 +82,7 @@ final class ParametersType extends AbstractType
                 $this->buildForm(
                     $parameterForm,
                     [
-                        'parameter_collection' => $parameterDefinition,
+                        'parameter_definitions' => $parameterDefinition,
                     ] + $options
                 );
             }

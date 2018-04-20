@@ -4,5 +4,5 @@ namespace Netgen\BlockManager\Parameters;
 
 final class CompoundParameterDefinition extends ParameterDefinition implements CompoundParameterDefinitionInterface
 {
-    use ParameterCollectionTrait;
+    use ParameterDefinitionCollectionTrait;
 }

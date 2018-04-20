@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-interface ParameterCollectionInterface
+interface ParameterDefinitionCollectionInterface
 {
     /**
      * Returns the list of parameter definitions in the object.

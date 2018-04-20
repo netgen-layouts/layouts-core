@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Config;
 
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 /**
  * Config definition represents an abstract concept reusable by all
@@ -10,7 +10,7 @@ use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
  * stored in the database. For example, blocks use these definitions
  * to specify how the block HTTP cache config is stored and validated.
  */
-interface ConfigDefinitionInterface extends ParameterCollectionInterface
+interface ConfigDefinitionInterface extends ParameterDefinitionCollectionInterface
 {
     /**
      * Returns the config key for the definition.

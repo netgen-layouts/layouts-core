@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 trait ParameterStructTrait
 {
@@ -83,12 +83,12 @@ trait ParameterStructTrait
      *
      * The values need to be in the domain format of the value for the parameter.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
      */
-    public function fill(ParameterCollectionInterface $parameterCollection, array $values = [])
+    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [])
     {
-        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
                 $values[$parameterDefinition->getName()] :
                 $parameterDefinition->getDefaultValue();
@@ -104,12 +104,12 @@ trait ParameterStructTrait
     /**
      * Fills the struct values based on provided value.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
      */
-    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue)
+    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue)
     {
-        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $value = null;
 
             if ($parameterBasedValue->hasParameter($parameterDefinition->getName())) {
@@ -138,15 +138,15 @@ trait ParameterStructTrait
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
      * @param bool $doImport
      */
-    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = [], $doImport = false)
+    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [], $doImport = false)
     {
         $importMethod = $doImport ? 'import' : 'fromHash';
 
-        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
                 $parameterDefinition->getType()->{$importMethod}($parameterDefinition, $values[$parameterDefinition->getName()]) :
                 $parameterDefinition->getDefaultValue();

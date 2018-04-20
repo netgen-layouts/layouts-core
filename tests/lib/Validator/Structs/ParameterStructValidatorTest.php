@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
@@ -36,7 +36,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
         $this->constraint = new ParameterStruct(
             [
-                'parameterCollection' => new ParameterCollection(
+                'parameterDefinitions' => new ParameterDefinitionCollection(
                     [
                         'css_id' => new ParameterDefinition(
                             [

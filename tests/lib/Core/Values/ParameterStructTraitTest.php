@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterStructTraitTest extends TestCase
@@ -128,7 +128,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testFill()
     {
-        $parameterCollection = $this->buildParameterCollection();
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
         $initialValues = [
             'css_class' => 'css',
@@ -137,7 +137,7 @@ final class ParameterStructTraitTest extends TestCase
             'inner' => 'inner',
         ];
 
-        $this->struct->fill($parameterCollection, $initialValues);
+        $this->struct->fill($parameterDefinitions, $initialValues);
 
         $this->assertEquals(
             [
@@ -155,14 +155,14 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testFillWithMissingValues()
     {
-        $parameterCollection = $this->buildParameterCollection();
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
         $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
         ];
 
-        $this->struct->fill($parameterCollection, $initialValues);
+        $this->struct->fill($parameterDefinitions, $initialValues);
 
         $this->assertEquals(
             [
@@ -180,7 +180,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testFillFromValue()
     {
-        $parameterCollection = $this->buildParameterCollection();
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
         $value = new ParameterBasedValue(
             [
@@ -188,20 +188,20 @@ final class ParameterStructTraitTest extends TestCase
                     'css_class' => new Parameter(
                         [
                             'value' => 'css',
-                            'parameterDefinition' => $parameterCollection->getParameterDefinition('css_class'),
+                            'parameterDefinition' => $parameterDefinitions->getParameterDefinition('css_class'),
                         ]
                     ),
                     'inner' => new Parameter(
                         [
                             'value' => 'inner',
-                            'parameterDefinition' => $parameterCollection->getParameterDefinition('compound')->getParameterDefinition('inner'),
+                            'parameterDefinition' => $parameterDefinitions->getParameterDefinition('compound')->getParameterDefinition('inner'),
                         ]
                     ),
                 ],
             ]
         );
 
-        $this->struct->fillFromValue($parameterCollection, $value);
+        $this->struct->fillFromValue($parameterDefinitions, $value);
 
         $this->assertEquals(
             [
@@ -219,7 +219,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testFillFromHash()
     {
-        $parameterCollection = $this->buildParameterCollection();
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
         $initialValues = [
             'css_class' => 'css',
@@ -228,7 +228,7 @@ final class ParameterStructTraitTest extends TestCase
             'inner' => 'inner',
         ];
 
-        $this->struct->fillFromHash($parameterCollection, $initialValues);
+        $this->struct->fillFromHash($parameterDefinitions, $initialValues);
 
         $this->assertEquals(
             [
@@ -246,14 +246,14 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testFillFromHashWithMissingValues()
     {
-        $parameterCollection = $this->buildParameterCollection();
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
         $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
         ];
 
-        $this->struct->fillFromHash($parameterCollection, $initialValues);
+        $this->struct->fillFromHash($parameterDefinitions, $initialValues);
 
         $this->assertEquals(
             [
@@ -267,9 +267,9 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @return \Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection
+     * @return \Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection
      */
-    private function buildParameterCollection()
+    private function buildParameterDefinitionCollection()
     {
         $compoundParameter = new CompoundParameterDefinition(
             [
@@ -306,6 +306,6 @@ final class ParameterStructTraitTest extends TestCase
             'compound' => $compoundParameter,
         ];
 
-        return new ParameterCollection($parameterDefinitions);
+        return new ParameterDefinitionCollection($parameterDefinitions);
     }
 }
