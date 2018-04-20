@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Form\DataMapper;
 
 use DateTimeInterface;
+use Netgen\BlockManager\Utils\DateTimeUtils;
 use Symfony\Component\Form\DataMapperInterface;
 
 /**
@@ -10,6 +11,16 @@ use Symfony\Component\Form\DataMapperInterface;
  */
 final class DateTimeDataMapper implements DataMapperInterface
 {
+    /**
+     * @var bool
+     */
+    private $useDateTime;
+
+    public function __construct($useDateTime = true)
+    {
+        $this->useDateTime = $useDateTime;
+    }
+
     public function mapDataToForms($data, $forms)
     {
         $forms = iterator_to_array($forms);
@@ -41,9 +52,13 @@ final class DateTimeDataMapper implements DataMapperInterface
             return;
         }
 
-        $data = [
+        $dateArray = [
             'datetime' => $dateTime,
             'timezone' => $timeZone,
         ];
+
+        $data = $this->useDateTime ?
+            DateTimeUtils::createFromArray($dateArray) :
+            $dateArray;
     }
 }

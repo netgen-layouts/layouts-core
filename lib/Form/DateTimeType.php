@@ -7,6 +7,7 @@ use Netgen\BlockManager\Utils\DateTimeUtils;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeType extends AbstractType
 {
@@ -19,9 +20,18 @@ final class DateTimeType extends AbstractType
      */
     private $timeZoneList = [];
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired(['use_datetime']);
+        $resolver->setAllowedTypes('use_datetime', 'bool');
+        $resolver->setDefault('use_datetime', true);
+
+        $resolver->setDefault('error_bubbling', false);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->setDataMapper(new DateTimeDataMapper());
+        $builder->setDataMapper(new DateTimeDataMapper($options['use_datetime']));
 
         $builder->add(
             'datetime',
