@@ -23,7 +23,8 @@ interface TargetTypeInterface
     public function getType();
 
     /**
-     * Returns the constraints that will be used to validate the target value.
+     * Returns the constraints that will be used to validate the value of
+     * the target when storing it to the database.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
@@ -31,6 +32,10 @@ interface TargetTypeInterface
 
     /**
      * Provides the value for the target to be used in matching process.
+     *
+     * This is usually a value extracted from a request. The value should
+     * be something that uniquely identifies a page in the CMS or a set of
+     * pages.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
