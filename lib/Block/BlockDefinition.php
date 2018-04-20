@@ -90,7 +90,7 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
 
     public function hasCollection($identifier)
     {
-        return isset($this->collections[$identifier]);
+        return array_key_exists($identifier, $this->collections);
     }
 
     public function getCollection($identifier)
@@ -109,7 +109,7 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
 
     public function hasForm($formName)
     {
-        return isset($this->forms[$formName]);
+        return array_key_exists($formName, $this->forms);
     }
 
     public function getForm($formName)
@@ -133,7 +133,7 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
 
     public function hasViewType($viewType)
     {
-        return isset($this->viewTypes[$viewType]);
+        return array_key_exists($viewType, $this->viewTypes);
     }
 
     public function getViewType($viewType)

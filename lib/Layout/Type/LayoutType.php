@@ -109,7 +109,7 @@ class LayoutType extends Value
      */
     public function hasZone($zoneIdentifier)
     {
-        return isset($this->zones[$zoneIdentifier]);
+        return array_key_exists($zoneIdentifier, $this->zones);
     }
 
     /**

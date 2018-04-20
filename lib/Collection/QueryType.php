@@ -51,7 +51,7 @@ class QueryType extends Value implements QueryTypeInterface
 
     public function hasForm($formName)
     {
-        return isset($this->forms[$formName]);
+        return array_key_exists($formName, $this->forms);
     }
 
     public function getForm($formName)
