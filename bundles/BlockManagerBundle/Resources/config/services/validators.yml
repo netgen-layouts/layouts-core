@@ -61,6 +61,12 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: ngbm_config_aware_struct }
 
+    netgen_block_manager.validator.block_create_struct:
+        class: Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator
+        # public: false
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_block_create_struct }
+
     netgen_block_manager.validator.block_update_struct:
         class: Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator
         # public: false

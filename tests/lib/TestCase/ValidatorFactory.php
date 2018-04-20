@@ -77,6 +77,10 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\Structs\ParameterStructValidator(new ParameterFilterRegistry());
         }
 
+        if ($name === 'ngbm_block_create_struct') {
+            return new Validator\Structs\BlockCreateStructValidator();
+        }
+
         if ($name === 'ngbm_block_update_struct') {
             return new Validator\Structs\BlockUpdateStructValidator();
         }

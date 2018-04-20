@@ -5,13 +5,8 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
-use Netgen\BlockManager\Validator\Constraint\BlockViewType;
+use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
-use Symfony\Component\Validator\Constraints;
 
 final class BlockValidator extends Validator
 {
@@ -35,86 +30,10 @@ final class BlockValidator extends Validator
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
         $this->validate(
-            $blockCreateStruct->definition,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => BlockDefinitionInterface::class]),
-            ],
-            'definition'
-        );
-
-        $this->validate(
-            $blockCreateStruct->viewType,
-            [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
-                new BlockViewType(['definition' => $blockCreateStruct->definition]),
-            ],
-            'viewType'
-        );
-
-        $this->validate(
-            $blockCreateStruct->itemViewType,
-            [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
-                new BlockItemViewType(
-                    [
-                        'viewType' => $blockCreateStruct->viewType,
-                        'definition' => $blockCreateStruct->definition,
-                    ]
-                ),
-            ],
-            'itemViewType'
-        );
-
-        if ($blockCreateStruct->name !== null) {
-            $this->validate(
-                $blockCreateStruct->name,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'name'
-            );
-        }
-
-        $this->validate(
-            $blockCreateStruct->isTranslatable,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => 'bool']),
-            ],
-            'isTranslatable'
-        );
-
-        $this->validate(
-            $blockCreateStruct->alwaysAvailable,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => 'bool']),
-            ],
-            'alwaysAvailable'
-        );
-
-        $this->validate(
             $blockCreateStruct,
             [
-                new ParameterStruct(
-                    [
-                        'parameterCollection' => $blockCreateStruct->definition,
-                    ]
-                ),
-            ],
-            'parameterValues'
-        );
-
-        $this->validate(
-            $blockCreateStruct,
-            new ConfigAwareStructConstraint(
-                [
-                    'payload' => $blockCreateStruct->definition,
-                ]
-            )
+                new BlockCreateStructConstraint(),
+            ]
         );
 
         $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
