@@ -106,7 +106,12 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Returns constraints that will be used when parameter is required.
+     * Returns constraints that will be used when checking if the parameter value exists
+     * or not. Usually, this method will not be overriden for most of the parameter types,
+     * since for most of them, checking for a blank value is enough.
+     *
+     * Boolean parameter types have this overriden due to `false` value being a valid value
+     * which would not validated by a `NotBlank` constraint.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
@@ -126,6 +131,12 @@ abstract class ParameterType implements ParameterTypeInterface
 
     /**
      * Returns constraints that will be used to validate the parameter value.
+     *
+     * As a rule of thumb, these constraints should assume that the provided value
+     * is not null, so they need not include the NotNull constraint. This is due to
+     * the fact that checking for value existence (i.e. not being null) is done
+     * separately, based on if the parameter is specified as a sub-parameter of a compound
+     * boolean.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
