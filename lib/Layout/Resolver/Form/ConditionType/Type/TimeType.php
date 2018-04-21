@@ -15,6 +15,7 @@ final class TimeType extends AbstractType
             DateTimeType::class,
             [
                 'required' => false,
+                'use_datetime' => false,
                 'label' => 'layout_resolver.condition.time.from',
             ]
         );
@@ -24,6 +25,7 @@ final class TimeType extends AbstractType
             DateTimeType::class,
             [
                 'required' => false,
+                'use_datetime' => false,
                 'label' => 'layout_resolver.condition.time.to',
             ]
         );

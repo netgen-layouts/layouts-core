@@ -24,12 +24,12 @@ final class Time implements ConditionTypeInterface
                     'fields' => [
                         'from' => new Constraints\Required(
                             [
-                                new DateTimeConstraint(),
+                                new DateTimeConstraint(['allowArray' => true]),
                             ]
                         ),
                         'to' => new Constraints\Required(
                             [
-                                new DateTimeConstraint(),
+                                new DateTimeConstraint(['allowArray' => true]),
                             ]
                         ),
                     ],
