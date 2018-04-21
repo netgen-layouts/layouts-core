@@ -2,10 +2,12 @@
 
 namespace Netgen\BlockManager\Parameters;
 
+use Closure;
 use Netgen\BlockManager\Exception\BadMethodCallException;
 use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
 
 class ParameterBuilder implements ParameterBuilderInterface
 {
@@ -48,6 +50,11 @@ class ParameterBuilder implements ParameterBuilderInterface
      * @var array
      */
     protected $groups = [];
+
+    /**
+     * @var \Symfony\Component\Validator\Constraint[]
+     */
+    protected $constraints = [];
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
@@ -132,6 +139,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             'default_value' => $this->defaultValue,
             'label' => $this->label,
             'groups' => $this->groups,
+            'constraints' => $this->constraints,
         ];
 
         $options[$name] = $value;
@@ -201,6 +209,26 @@ class ParameterBuilder implements ParameterBuilderInterface
         }
 
         $this->groups = $groups;
+
+        return $this;
+    }
+
+    public function getConstraints()
+    {
+        return $this->constraints;
+    }
+
+    public function setConstraints(array $constraints)
+    {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the constraints is not possible after parameters have been built.');
+        }
+
+        if (!$this->validateConstraints($constraints)) {
+            throw ParameterBuilderException::invalidConstraints();
+        }
+
+        $this->constraints = $constraints;
 
         return $this;
     }
@@ -322,6 +350,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             'defaultValue' => $builder->getDefaultValue(),
             'label' => $builder->getLabel(),
             'groups' => $builder->getGroups(),
+            'constraints' => $builder->getConstraints(),
         ];
 
         // We build the sub parameters in order to lock the child builders
@@ -351,6 +380,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setDefault('required', false);
         $optionsResolver->setDefault('label', null);
         $optionsResolver->setDefault('groups', []);
+        $optionsResolver->setDefault('constraints', []);
 
         if ($this->type instanceof ParameterTypeInterface) {
             $this->type->configureOptions($optionsResolver);
@@ -358,11 +388,19 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $this->configureOptions($optionsResolver);
 
-        $optionsResolver->setRequired(['required', 'default_value', 'label', 'groups']);
+        $optionsResolver->setRequired(['required', 'default_value', 'label', 'groups', 'constraints']);
 
         $optionsResolver->setAllowedTypes('required', 'bool');
         $optionsResolver->setAllowedTypes('label', ['string', 'null', 'bool']);
         $optionsResolver->setAllowedTypes('groups', 'array');
+        $optionsResolver->setAllowedTypes('constraints', 'array');
+
+        $optionsResolver->setAllowedValues(
+            'constraints',
+            function (array $constraints) {
+                return $this->validateConstraints($constraints);
+            }
+        );
 
         $optionsResolver->setNormalizer(
             'groups',
@@ -396,12 +434,14 @@ class ParameterBuilder implements ParameterBuilderInterface
         $this->defaultValue = $resolvedOptions['default_value'];
         $this->label = $resolvedOptions['label'];
         $this->groups = $resolvedOptions['groups'];
+        $this->constraints = $resolvedOptions['constraints'];
 
         unset(
             $resolvedOptions['required'],
             $resolvedOptions['default_value'],
             $resolvedOptions['label'],
-            $resolvedOptions['groups']
+            $resolvedOptions['groups'],
+            $resolvedOptions['constraints']
         );
 
         return $resolvedOptions;
@@ -414,5 +454,23 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     protected function configureOptions(OptionsResolver $optionsResolver)
     {
+    }
+
+    /**
+     * Validates the list of constraints to be either a Symfony constraint or a closure.
+     *
+     * @param array $constraints
+     *
+     * @return bool
+     */
+    private function validateConstraints(array $constraints)
+    {
+        foreach ($constraints as $constraint) {
+            if (!$constraint instanceof Closure && !$constraint instanceof Constraint) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

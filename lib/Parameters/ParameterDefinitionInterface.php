@@ -72,4 +72,11 @@ interface ParameterDefinitionInterface
      * @return array
      */
     public function getGroups();
+
+    /**
+     * Returns the list of constraints.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getConstraints();
 }

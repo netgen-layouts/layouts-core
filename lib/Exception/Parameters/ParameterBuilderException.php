@@ -54,4 +54,12 @@ final class ParameterBuilderException extends InvalidArgumentException implement
     {
         return new self('Parameters cannot be added to non-compound parameters.');
     }
+
+    /**
+     * @return \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
+     */
+    public static function invalidConstraints()
+    {
+        return new self('Parameter constraints need to be either a Symfony constraint or a closure.');
+    }
 }

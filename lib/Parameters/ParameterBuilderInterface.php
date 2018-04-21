@@ -128,6 +128,22 @@ interface ParameterBuilderInterface extends Countable
     public function setGroups(array $groups);
 
     /**
+     * Returns the runtime constraints for this parameter.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getConstraints();
+
+    /**
+     * Sets the parameter constraints.
+     *
+     * @param array $constraints
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setConstraints(array $constraints);
+
+    /**
      * Adds the parameter to the builder.
      *
      * @param string $name

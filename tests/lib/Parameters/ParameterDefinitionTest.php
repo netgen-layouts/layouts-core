@@ -6,11 +6,13 @@ use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterDefinitionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::__construct
+     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
@@ -30,6 +32,7 @@ final class ParameterDefinitionTest extends TestCase
         $this->assertNull($parameterDefinition->getDefaultValue());
         $this->assertNull($parameterDefinition->getLabel());
         $this->assertEquals([], $parameterDefinition->getGroups());
+        $this->assertEquals([], $parameterDefinition->getConstraints());
     }
 
     /**
@@ -54,6 +57,7 @@ final class ParameterDefinitionTest extends TestCase
                 'defaultValue' => 42,
                 'label' => 'Custom label',
                 'groups' => ['group'],
+                'constraints' => [new NotBlank()],
             ]
         );
 
@@ -67,6 +71,7 @@ final class ParameterDefinitionTest extends TestCase
         $this->assertEquals(42, $parameterDefinition->getDefaultValue());
         $this->assertEquals('Custom label', $parameterDefinition->getLabel());
         $this->assertEquals(['group'], $parameterDefinition->getGroups());
+        $this->assertEquals([new NotBlank()], $parameterDefinition->getConstraints());
 
         try {
             $parameterDefinition->getOption('other');

@@ -9,6 +9,8 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterBuilderTest extends TestCase
 {
@@ -370,6 +372,53 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     */
+    public function testGetSetConstraints()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class
+        );
+
+        $this->builder->get('test')->setConstraints([new NotBlank(), function () {}]);
+
+        $this->assertEquals([new NotBlank(), function () {}], $this->builder->get('test')->getConstraints());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getConstraints
+     */
+    public function testGetConstraintsWithoutParentBuilder()
+    {
+        $this->assertEquals([], $this->builder->getConstraints());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
+     * @expectedExceptionMessage Parameter constraints need to be either a Symfony constraint or a closure.
+     */
+    public function testSetConstraintsWithInvalidConstraints()
+    {
+        $this->builder->setConstraints([new stdClass()]);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Setting the constraints is not possible after parameters have been built.
+     */
+    public function testSetConstraintsAfterBuildingParameters()
+    {
+        $this->builder->buildParameterDefinitions();
+        $this->builder->setConstraints([]);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
      */
     public function testGetGroupsWithCompoundParameter()
@@ -420,6 +469,7 @@ final class ParameterBuilderTest extends TestCase
                 'required' => true,
                 'default_value' => 'test value',
                 'groups' => ['group'],
+                'constraints' => [new NotBlank()],
             ]
         );
 
@@ -734,6 +784,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitions()
     {
@@ -745,6 +796,7 @@ final class ParameterBuilderTest extends TestCase
                 'default_value' => 'test value',
                 'label' => null,
                 'groups' => ['group'],
+                'constraints' => [new NotBlank(), function () {}],
             ]
         );
 
@@ -784,6 +836,7 @@ final class ParameterBuilderTest extends TestCase
                         'defaultValue' => 'test value',
                         'label' => null,
                         'groups' => ['group'],
+                        'constraints' => [new NotBlank(), function () {}],
                     ]
                 ),
                 'compound' => new CompoundParameterDefinition(
@@ -795,6 +848,7 @@ final class ParameterBuilderTest extends TestCase
                         'defaultValue' => true,
                         'label' => false,
                         'groups' => ['group 2'],
+                        'constraints' => [],
                         'parameterDefinitions' => [
                             'test2' => new ParameterDefinition(
                                 [
@@ -805,6 +859,7 @@ final class ParameterBuilderTest extends TestCase
                                     'defaultValue' => 'test value 2',
                                     'label' => 'Custom label',
                                     'groups' => ['group 2'],
+                                    'constraints' => [],
                                 ]
                             ),
                         ],
@@ -819,6 +874,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsAfterBuildingParameters()
     {
@@ -830,6 +886,7 @@ final class ParameterBuilderTest extends TestCase
                 'default_value' => 'test value',
                 'label' => null,
                 'groups' => ['group'],
+                'constraints' => [new NotBlank()],
             ]
         );
 
@@ -849,6 +906,7 @@ final class ParameterBuilderTest extends TestCase
                         'defaultValue' => 'test value',
                         'label' => null,
                         'groups' => ['group'],
+                        'constraints' => [new NotBlank()],
                     ]
                 ),
             ]
@@ -860,6 +918,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsWithDefaultOptions()
     {
@@ -879,6 +938,7 @@ final class ParameterBuilderTest extends TestCase
                         'defaultValue' => null,
                         'label' => null,
                         'groups' => [],
+                        'constraints' => [],
                     ]
                 ),
             ]
@@ -890,6 +950,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "required" with value "true" is expected to be of type "bool", but is of type "string".
      */
@@ -911,6 +972,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "groups" with value "group" is expected to be of type "array", but is of type "string".
      */
@@ -932,6 +994,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "label" with value true is invalid.
      */

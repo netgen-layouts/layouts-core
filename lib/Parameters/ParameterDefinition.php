@@ -42,6 +42,11 @@ class ParameterDefinition extends Value implements ParameterDefinitionInterface
      */
     protected $groups = [];
 
+    /**
+     * @var \Symfony\Component\Validator\Constraint[]
+     */
+    protected $constraints = [];
+
     public function getName()
     {
         return $this->name;
@@ -89,5 +94,10 @@ class ParameterDefinition extends Value implements ParameterDefinitionInterface
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    public function getConstraints()
+    {
+        return $this->constraints;
     }
 }

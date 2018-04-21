@@ -58,4 +58,17 @@ final class ParameterBuilderExceptionTest extends TestCase
             $exception->getMessage()
         );
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::invalidConstraints
+     */
+    public function testInvalidConstraints()
+    {
+        $exception = ParameterBuilderException::invalidConstraints();
+
+        $this->assertEquals(
+            'Parameter constraints need to be either a Symfony constraint or a closure.',
+            $exception->getMessage()
+        );
+    }
 }
