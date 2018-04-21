@@ -93,14 +93,10 @@ final class ParameterStructTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
-     * @expectedException \Netgen\BlockManager\Exception\Core\ParameterException
-     * @expectedExceptionMessage Parameter value for "some_other_param" parameter does not exist.
      */
-    public function testGetParameterValueThrowsParameterException()
+    public function testGetParameterValueWithNonExistingParameter()
     {
-        $this->struct->setParameterValue('some_param', 'some_value');
-
-        $this->struct->getParameterValue('some_other_param');
+        $this->assertNull($this->struct->getParameterValue('some_other_param'));
     }
 
     /**

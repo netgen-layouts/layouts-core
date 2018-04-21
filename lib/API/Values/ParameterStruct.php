@@ -33,11 +33,9 @@ interface ParameterStruct
     public function getParameterValues();
 
     /**
-     * Returns the parameter value with provided name.
+     * Returns the parameter value with provided name or null if parameter does not exist.
      *
      * @param string $parameterName
-     *
-     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If parameter value does not exist
      *
      * @return mixed
      */

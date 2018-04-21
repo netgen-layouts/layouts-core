@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
@@ -49,18 +48,16 @@ trait ParameterStructTrait
     }
 
     /**
-     * Returns the parameter value with provided name.
+     * Returns the parameter value with provided name or null if parameter does not exist.
      *
      * @param string $parameterName
-     *
-     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If parameter value does not exist
      *
      * @return mixed
      */
     public function getParameterValue($parameterName)
     {
         if (!$this->hasParameterValue($parameterName)) {
-            throw ParameterException::noParameterValue($parameterName);
+            return;
         }
 
         return $this->parameterValues[$parameterName];

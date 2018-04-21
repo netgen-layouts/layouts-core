@@ -19,17 +19,4 @@ final class ParameterExceptionTest extends TestCase
             $exception->getMessage()
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Exception\Core\ParameterException::noParameterValue
-     */
-    public function testNoParameterValue()
-    {
-        $exception = ParameterException::noParameterValue('param');
-
-        $this->assertEquals(
-            'Parameter value for "param" parameter does not exist.',
-            $exception->getMessage()
-        );
-    }
 }

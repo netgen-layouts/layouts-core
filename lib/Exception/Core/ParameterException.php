@@ -21,19 +21,4 @@ final class ParameterException extends InvalidArgumentException implements Excep
             )
         );
     }
-
-    /**
-     * @param string $parameter
-     *
-     * @return \Netgen\BlockManager\Exception\Core\ParameterException
-     */
-    public static function noParameterValue($parameter)
-    {
-        return new self(
-            sprintf(
-                'Parameter value for "%s" parameter does not exist.',
-                $parameter
-            )
-        );
-    }
 }
