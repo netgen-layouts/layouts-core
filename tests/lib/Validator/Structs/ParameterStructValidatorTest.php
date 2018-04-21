@@ -12,6 +12,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterStructValidatorTest extends ValidatorTestCase
@@ -75,11 +76,58 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate($value, $required, $isValid)
     {
+        $this->constraint->allowMissingFields = !$required;
+
+        $this->assertValid(
+            $isValid,
+            new BlockCreateStruct(['parameterValues' => $value])
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param bool $required
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @dataProvider validateDataProviderWithRuntimeConstraints
+     */
+    public function testValidateWithRuntimeConstraints($value, $required, $isValid)
+    {
+        $this->constraint = new ParameterStruct(
+            [
+                'parameterDefinitions' => new ParameterDefinitionCollection(
+                    [
+                        'css_id' => new ParameterDefinition(
+                            [
+                                'name' => 'css_id',
+                                'type' => new ParameterType\TextLineType(),
+                                'isRequired' => true,
+                                'constraints' => [
+                                    new Length(['max' => 6]),
+                                    function () {
+                                        return new Length(['min' => 3]);
+                                    },
+                                ],
+                            ]
+                        ),
+                    ]
+                ),
+                'allowMissingFields' => true,
+            ]
+        );
+
         $this->constraint->allowMissingFields = !$required;
 
         $this->assertValid(
@@ -160,6 +208,20 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             [['css_id' => 'ID', 'param' => ''], false, false],
             [['css_id' => 'ID', 'param' => null], false, true],
             [['css_id' => 'ID'], false, true],
+        ];
+    }
+
+    public function validateDataProviderWithRuntimeConstraints()
+    {
+        return [
+            [['css_id' => 'fo'], true, false],
+            [['css_id' => 'fooo'], true, true],
+            [['css_id' => 'fooooooo'], true, false],
+            [['css_id' => ''], true, false],
+            [['css_id' => 'fo'], false, false],
+            [['css_id' => 'fooo'], false, true],
+            [['css_id' => 'fooooooo'], false, false],
+            [['css_id' => ''], false, false],
         ];
     }
 }
