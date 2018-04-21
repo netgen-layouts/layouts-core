@@ -74,6 +74,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProvider
      */
