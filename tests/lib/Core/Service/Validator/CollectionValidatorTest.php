@@ -48,7 +48,6 @@ final class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param array $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
      */

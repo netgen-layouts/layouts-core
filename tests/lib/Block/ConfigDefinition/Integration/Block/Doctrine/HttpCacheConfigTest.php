@@ -6,7 +6,6 @@ use Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration\Block\HttpCache
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::__construct
  * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::buildParameters
  */
 final class HttpCacheConfigTest extends BaseHttpCacheConfigTest
