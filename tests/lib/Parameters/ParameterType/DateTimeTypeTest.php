@@ -77,7 +77,7 @@ final class DateTimeTypeTest extends TestCase
             [['datetime' => '2018-02-01 00:00:00', 'timezone' => ''], null],
             [['datetime' => '', 'timezone' => 'Antarctica/Casey'], null],
             [['datetime' => '', 'timezone' => ''], null],
-            [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], ['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey']],
+            [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], null],
             [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), ['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey']],
             [new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), ['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey']],
         ];

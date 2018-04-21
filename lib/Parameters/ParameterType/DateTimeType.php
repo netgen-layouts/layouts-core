@@ -31,16 +31,8 @@ final class DateTimeType extends ParameterType
 
     public function toHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        if (!$value instanceof DateTimeInterface && !is_array($value)) {
-            return;
-        }
-
-        if (is_array($value) && (empty($value['datetime']) || empty($value['timezone']))) {
-            return;
-        }
-
         if (!$value instanceof DateTimeInterface) {
-            $value = $this->fromHash($parameterDefinition, $value);
+            return;
         }
 
         return [
