@@ -31,7 +31,16 @@ final class DateTimeValidator extends ConstraintValidator
         }
 
         if (!$value instanceof DateTimeInterface && !is_array($value)) {
-            throw new UnexpectedTypeException($value, sprintf('%s or array', DateTimeInterface::class));
+            throw new UnexpectedTypeException(
+                $value,
+                $constraint->allowArray ?
+                    sprintf('%s or array', DateTimeInterface::class) :
+                    DateTimeInterface::class
+            );
+        }
+
+        if (!$constraint->allowArray && is_array($value)) {
+            throw new UnexpectedTypeException($value, DateTimeInterface::class);
         }
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
