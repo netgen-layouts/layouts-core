@@ -2,10 +2,13 @@
 
 namespace Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler;
 
+use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * This handler specifies the model of visibility configuration within
@@ -36,7 +39,25 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
 
         $builder->add(
             'visible_to',
-            ParameterType\DateTimeType::class
+            ParameterType\DateTimeType::class,
+            [
+                'constraints' => [
+                    function ($visibleTo, ConfigStruct $configStruct) {
+                        $visibleFrom = $configStruct->getParameterValue('visible_from');
+
+                        if (!$visibleFrom instanceof DateTimeInterface || !$visibleTo instanceof DateTimeInterface) {
+                            return;
+                        }
+
+                        return new Constraints\GreaterThan(
+                            [
+                                'value' => $visibleFrom,
+                                'message' => 'netgen_block_manager.config.item.visibility.visible_to',
+                            ]
+                        );
+                    },
+                ],
+            ]
         );
     }
 }
