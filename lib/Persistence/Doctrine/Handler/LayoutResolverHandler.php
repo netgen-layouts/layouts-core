@@ -54,13 +54,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
 
-        if (empty($data)) {
-            return [];
-        }
-
-        $data = $this->mapper->mapRules($data);
-
-        return $data;
+        return $this->mapper->mapRules($data);
     }
 
     public function getRuleCount(Layout $layout = null)
