@@ -41,16 +41,12 @@ condition_type.button.cancel: 'Cancel'
 condition_type.button.save: 'Save condition'
 
 link.link_type: 'Link type'
-link.link_type.none: 'None'
 link.link_type.url: 'URL'
 link.link_type.email: 'E-mail'
 link.link_type.phone: 'Phone number'
 link.link_type.internal: 'Internal link'
 link.link_suffix: 'Link suffix'
 link.new_window: 'Open in new window'
-
-datetime.datetime: 'Date and time'
-datetime.timezone: 'Time zone'
 
 block.configure_translation.title: 'Configure translation'
 block.configure_translation.translatable: 'Enable translation'
