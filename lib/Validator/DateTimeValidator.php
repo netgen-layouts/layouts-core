@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Validator;
 
 use DateTimeInterface;
 use DateTimeZone;
-use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
 use Netgen\BlockManager\Validator\Constraint\DateTime;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraint;
@@ -20,6 +19,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class DateTimeValidator extends ConstraintValidator
 {
+    private static $dateFormat = 'Y-m-d H:i:s';
+
     public function validate($value, Constraint $constraint)
     {
         if ($value === null) {
@@ -52,7 +53,7 @@ final class DateTimeValidator extends ConstraintValidator
                 [
                     new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
-                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? ['format' => DateTimeType::DATE_FORMAT] : []),
+                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? ['format' => self::$dateFormat] : []),
                 ]
             );
         }
