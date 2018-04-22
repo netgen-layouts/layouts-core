@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Utils\DateTimeUtils;
-use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
+use Netgen\BlockManager\Validator\Constraint\ConditionType\Time as TimeConstraint;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
@@ -19,22 +19,7 @@ final class Time implements ConditionTypeInterface
     {
         return [
             new Constraints\NotBlank(),
-            new Constraints\Collection(
-                [
-                    'fields' => [
-                        'from' => new Constraints\Required(
-                            [
-                                new DateTimeConstraint(['allowArray' => true]),
-                            ]
-                        ),
-                        'to' => new Constraints\Required(
-                            [
-                                new DateTimeConstraint(['allowArray' => true]),
-                            ]
-                        ),
-                    ],
-                ]
-            ),
+            new TimeConstraint(),
         ];
     }
 

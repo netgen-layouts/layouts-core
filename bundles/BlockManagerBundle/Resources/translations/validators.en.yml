@@ -11,3 +11,4 @@ netgen_block_manager.config_aware_struct.missing_definition: 'Config definition 
 netgen_block_manager.datetime.invalid_timezone: 'Time zone "%timeZone%" does not exist'
 
 netgen_block_manager.config.item.visibility.visible_to: '"Visible until" date should be larger than "Visible from" date'
+netgen_block_manager.layout_resolver.condition_type.time.to_lower: '"Until" date should be larger than "From" date'

@@ -47,6 +47,12 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: ngbm_datetime }
 
+    netgen_block_manager.validator.condition_type.time:
+        class: Netgen\BlockManager\Validator\ConditionType\TimeValidator
+        # public: false
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_condition_type_time }
+
     netgen_block_manager.validator.parameter_struct:
         class: Netgen\BlockManager\Validator\Structs\ParameterStructValidator
         # public: false

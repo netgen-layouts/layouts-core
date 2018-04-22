@@ -73,6 +73,10 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\Parameters\ItemLinkValidator($itemLoader);
         }
 
+        if ($name === 'ngbm_condition_type_time') {
+            return new Validator\ConditionType\TimeValidator();
+        }
+
         if ($name === 'ngbm_parameter_struct') {
             return new Validator\Structs\ParameterStructValidator(new ParameterFilterRegistry());
         }
