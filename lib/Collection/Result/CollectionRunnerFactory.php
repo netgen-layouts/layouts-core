@@ -13,15 +13,9 @@ final class CollectionRunnerFactory
      */
     private $itemBuilder;
 
-    /**
-     * @var int
-     */
-    private $contextualLimit;
-
-    public function __construct(ItemBuilderInterface $itemBuilder, $contextualLimit)
+    public function __construct(ItemBuilderInterface $itemBuilder)
     {
         $this->itemBuilder = $itemBuilder;
-        $this->contextualLimit = $contextualLimit;
     }
 
     /**
@@ -56,7 +50,7 @@ final class CollectionRunnerFactory
         $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
 
         if ($query->isContextual() && $showContextualSlots) {
-            return new ContextualQueryRunner($this->contextualLimit);
+            return new ContextualQueryRunner();
         }
 
         return new QueryRunner($this->itemBuilder);
