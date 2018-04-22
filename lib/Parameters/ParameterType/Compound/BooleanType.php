@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\ParameterType\Compound;
 
 use Netgen\BlockManager\Parameters\CompoundParameterType;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -40,12 +40,12 @@ final class BooleanType extends CompoundParameterType
         });
     }
 
-    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
     {
         return $value === null;
     }
 
-    protected function getRequiredConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value)
     {
         if ($parameterDefinition->isRequired()) {
             return [
@@ -56,7 +56,7 @@ final class BooleanType extends CompoundParameterType
         return [];
     }
 
-    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
     {
         return [
             new Constraints\Type(

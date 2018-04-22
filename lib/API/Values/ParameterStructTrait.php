@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 trait ParameterStructTrait
@@ -92,7 +92,7 @@ trait ParameterStructTrait
 
             $this->setParameterValue($parameterDefinition->getName(), $value);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $this->fill($parameterDefinition, $values);
             }
         }
@@ -119,7 +119,7 @@ trait ParameterStructTrait
 
             $this->setParameterValue($parameterDefinition->getName(), $value);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $this->fillFromValue($parameterDefinition, $parameterBasedValue);
             }
         }
@@ -150,7 +150,7 @@ trait ParameterStructTrait
 
             $this->setParameterValue($parameterDefinition->getName(), $value);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $this->fillFromHash($parameterDefinition, $values, $doImport);
             }
         }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 
@@ -12,11 +12,11 @@ use Symfony\Component\Form\DataMapperInterface;
 final class LinkDataMapper implements DataMapperInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     private $parameterDefinition;
 
-    public function __construct(ParameterDefinitionInterface $parameterDefinition)
+    public function __construct(ParameterDefinition $parameterDefinition)
     {
         $this->parameterDefinition = $parameterDefinition;
     }

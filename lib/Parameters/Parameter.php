@@ -12,7 +12,7 @@ final class Parameter extends Value
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     protected $parameterDefinition;
 
@@ -49,7 +49,7 @@ final class Parameter extends Value
     /**
      * Returns the parameter definition.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     public function getParameterDefinition()
     {

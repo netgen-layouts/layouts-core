@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Closure;
 use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\Constraint;
@@ -121,7 +121,7 @@ final class ParameterStructValidator extends ConstraintValidator
 
             $fields[$parameterDefinition->getName()] = $constraints;
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
                     $fields[$subParameterDefinition->getName()] = new Constraints\Optional(
                         // Sub parameter values are always optional (either missing or set to null)
@@ -141,14 +141,14 @@ final class ParameterStructValidator extends ConstraintValidator
      * If $validateEmptyValue is false, values equal to null will not be validated
      * and will simply return an empty array of constraints.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
      * @param bool $validateEmptyValue
      *
      * @return array
      */
     private function getParameterConstraints(
-        ParameterDefinitionInterface $parameterDefinition,
+        ParameterDefinition $parameterDefinition,
         ParameterStruct $parameterStruct,
         $validateEmptyValue = true
     ) {
@@ -170,14 +170,14 @@ final class ParameterStructValidator extends ConstraintValidator
      * Returns all constraints applied on a parameter coming from the parameter definition.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
      *
      * @return array
      */
     private function getRuntimeParameterConstraints(
         ParameterDefinitionCollectionInterface $parameterDefinitions,
-        ParameterDefinitionInterface $parameterDefinition,
+        ParameterDefinition $parameterDefinition,
         ParameterStruct $parameterStruct
     ) {
         $constraints = [];
@@ -208,7 +208,7 @@ final class ParameterStructValidator extends ConstraintValidator
         foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $emptyValues[$parameterDefinition->getName()] = null;
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
                     $emptyValues[$subParameterDefinition->getName()] = null;
                 }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Symfony\Component\Validator\Constraints;
 
@@ -16,7 +16,7 @@ final class UrlType extends ParameterType
         return 'url';
     }
 
-    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
     {
         return [
             new Constraints\Type(['type' => 'string']),

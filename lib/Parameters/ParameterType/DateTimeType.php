@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use DateTimeInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
@@ -24,12 +24,12 @@ final class DateTimeType extends ParameterType
         return 'datetime';
     }
 
-    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
     {
         return !$value instanceof DateTimeInterface;
     }
 
-    public function toHash(ParameterDefinitionInterface $parameterDefinition, $value)
+    public function toHash(ParameterDefinition $parameterDefinition, $value)
     {
         if (!$value instanceof DateTimeInterface) {
             return;
@@ -41,12 +41,12 @@ final class DateTimeType extends ParameterType
         ];
     }
 
-    public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
+    public function fromHash(ParameterDefinition $parameterDefinition, $value)
     {
         return is_array($value) ? DateTimeUtils::createFromArray($value) : null;
     }
 
-    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
     {
         return [
             new DateTimeConstraint(),

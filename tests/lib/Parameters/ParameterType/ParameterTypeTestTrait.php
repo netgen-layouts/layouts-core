@@ -19,7 +19,7 @@ trait ParameterTypeTestTrait
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     public function getParameterDefinition(array $options = [], $required = false, $defaultValue = null)
     {

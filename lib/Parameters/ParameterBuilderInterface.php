@@ -200,7 +200,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Builds the parameter definitions.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
     public function buildParameterDefinitions();
 }

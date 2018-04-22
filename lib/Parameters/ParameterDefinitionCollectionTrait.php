@@ -7,14 +7,14 @@ use Netgen\BlockManager\Exception\Parameters\ParameterException;
 trait ParameterDefinitionCollectionTrait
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
     protected $parameterDefinitions = [];
 
     /**
      * Returns the list of parameter definitions in the object.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
     public function getParameterDefinitions()
     {
@@ -28,7 +28,7 @@ trait ParameterDefinitionCollectionTrait
      *
      * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If parameter with provided name does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     public function getParameterDefinition($parameterName)
     {

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType as BaseParameterType;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -13,7 +13,7 @@ final class ParameterType extends BaseParameterType
         return 'type';
     }
 
-    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
     {
         return [new NotNull()];
     }

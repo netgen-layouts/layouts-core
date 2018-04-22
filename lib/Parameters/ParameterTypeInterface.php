@@ -23,32 +23,32 @@ interface ParameterTypeInterface
     /**
      * Returns the parameter constraints.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints(ParameterDefinitionInterface $parameterDefinition, $value);
+    public function getConstraints(ParameterDefinition $parameterDefinition, $value);
 
     /**
      * Converts the parameter value from a domain format to scalar/hash format.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function toHash(ParameterDefinitionInterface $parameterDefinition, $value);
+    public function toHash(ParameterDefinition $parameterDefinition, $value);
 
     /**
      * Converts the provided parameter value to value usable by the domain.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value);
+    public function fromHash(ParameterDefinition $parameterDefinition, $value);
 
     /**
      * Returns the parameter value converted to a format suitable for exporting.
@@ -57,12 +57,12 @@ interface ParameterTypeInterface
      * when exporting IDs from an external CMS which need to be exported not as IDs
      * but as remote IDs.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function export(ParameterDefinitionInterface $parameterDefinition, $value);
+    public function export(ParameterDefinition $parameterDefinition, $value);
 
     /**
      * Returns the parameter value converted from the exported format.
@@ -71,20 +71,20 @@ interface ParameterTypeInterface
      * when importing IDs from an external CMS which need to be imported as database IDs
      * in contrast to some kind of remote ID which would be stored in the export.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function import(ParameterDefinitionInterface $parameterDefinition, $value);
+    public function import(ParameterDefinition $parameterDefinition, $value);
 
     /**
      * Returns if the parameter value is empty.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return bool
      */
-    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value);
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value);
 }

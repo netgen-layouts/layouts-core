@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Form;
 
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class TranslatableType extends AbstractType
@@ -23,13 +23,13 @@ abstract class TranslatableType extends AbstractType
             $disabled = !$innerType instanceof ParametersType;
 
             $parameterDefinition = $form->getOption('ngbm_parameter_definition');
-            if ($parameterDefinition instanceof ParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof ParameterDefinition) {
                 $disabled = !$parameterDefinition->getOption('translatable');
             }
 
             $form->setDisabled($disabled);
 
-            if ($parameterDefinition instanceof ParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof ParameterDefinition) {
                 continue;
             }
 

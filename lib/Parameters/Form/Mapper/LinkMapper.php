@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class LinkMapper extends Mapper
@@ -15,7 +15,7 @@ final class LinkMapper extends Mapper
         return LinkType::class;
     }
 
-    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition)
     {
         return [
             'label' => false,
@@ -23,7 +23,7 @@ final class LinkMapper extends Mapper
         ];
     }
 
-    public function handleForm(FormBuilderInterface $form, ParameterDefinitionInterface $parameterDefinition)
+    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition)
     {
         $form->setDataMapper(new LinkDataMapper($parameterDefinition));
     }

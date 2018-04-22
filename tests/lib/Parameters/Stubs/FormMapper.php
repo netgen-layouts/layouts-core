@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
 use Netgen\BlockManager\Parameters\Form\Mapper as BaseMapper;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 final class FormMapper extends BaseMapper
@@ -23,7 +23,7 @@ final class FormMapper extends BaseMapper
         return FormType::class;
     }
 
-    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition)
     {
         return [
             'compound' => $this->compound,

@@ -67,7 +67,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $unresolvedChildren = [];
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
     protected $resolvedChildren = [];
 
@@ -338,7 +338,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     protected function buildParameterDefinition(ParameterBuilderInterface $builder)
     {

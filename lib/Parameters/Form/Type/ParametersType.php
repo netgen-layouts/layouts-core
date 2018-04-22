@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Parameters\Form\Type;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -78,7 +78,7 @@ final class ParametersType extends AbstractType
 
             $mapper->handleForm($parameterForm, $parameterDefinition);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $this->buildForm(
                     $parameterForm,
                     [
@@ -94,12 +94,12 @@ final class ParametersType extends AbstractType
     /**
      * Returns if the parameter will be included in the form based on provided groups.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param array $groups
      *
      * @return bool
      */
-    private function includeParameter(ParameterDefinitionInterface $parameterDefinition, array $groups = [])
+    private function includeParameter(ParameterDefinition $parameterDefinition, array $groups = [])
     {
         $parameterGroups = $parameterDefinition->getGroups();
 

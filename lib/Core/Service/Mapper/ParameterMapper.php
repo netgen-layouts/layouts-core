@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
@@ -37,7 +37,7 @@ final class ParameterMapper
                 ]
             );
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $mappedValues = array_merge(
                     $mappedValues,
                     $this->mapParameters($parameterDefinition, $parameterValues)
@@ -72,7 +72,7 @@ final class ParameterMapper
                 $parameterValues[$parameterName]
             );
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $serializedValues = array_merge(
                     $serializedValues,
                     $this->serializeValues($parameterDefinition, $parameterValues)
@@ -102,7 +102,7 @@ final class ParameterMapper
                 $parameterValues[$paramName] :
                 null;
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParamName => $subParameterDefinition) {
                     $untranslatableParams[$subParamName] = isset($parameterValues[$subParamName]) ?
                         $parameterValues[$subParamName] :
