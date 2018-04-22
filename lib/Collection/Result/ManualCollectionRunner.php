@@ -12,7 +12,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
  */
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
-    public function __invoke(Collection $collection, $offset, $limit, $flags = 0)
+    public function runCollection(Collection $collection, $offset, $limit, $flags = 0)
     {
         $itemCount = 0;
         $skippedCount = 0;

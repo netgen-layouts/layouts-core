@@ -17,7 +17,7 @@ final class QueryRunner implements QueryRunnerInterface
         $this->itemBuilder = $itemBuilder;
     }
 
-    public function __invoke(Query $query, $offset = 0, $limit = null)
+    public function runQuery(Query $query, $offset = 0, $limit = null)
     {
         $queryValues = $query->getQueryType()->getValues($query, $offset, $limit);
 

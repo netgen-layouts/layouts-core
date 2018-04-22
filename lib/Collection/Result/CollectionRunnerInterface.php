@@ -17,7 +17,7 @@ interface CollectionRunnerInterface
      *
      * @return \Iterator
      */
-    public function __invoke(Collection $collection, $offset, $limit, $flags = 0);
+    public function runCollection(Collection $collection, $offset, $limit, $flags = 0);
 
     /**
      * Returns the count of items in the provided collection.

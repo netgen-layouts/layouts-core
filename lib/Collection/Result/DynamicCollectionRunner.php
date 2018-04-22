@@ -19,9 +19,9 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $this->queryRunner = $queryRunner;
     }
 
-    public function __invoke(Collection $collection, $offset, $limit, $flags = 0)
+    public function runCollection(Collection $collection, $offset, $limit, $flags = 0)
     {
-        $queryIterator = $this->getQueryIterator($collection, $offset, $limit);
+        $queryIterator = $this->runQuery($collection, $offset, $limit);
 
         for ($i = $offset, $max = $offset + $limit; $i < $max; ++$i) {
             $result = null;
@@ -145,12 +145,12 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * @return \Iterator
      */
-    private function getQueryIterator(Collection $collection, $offset, $limit)
+    private function runQuery(Collection $collection, $offset, $limit)
     {
         $queryOffset = $offset - $this->getManualItemsCount($collection, 0, $offset);
         $queryLimit = $limit - $this->getManualItemsCount($collection, $offset, $offset + $limit);
 
-        return call_user_func($this->queryRunner, $collection->getQuery(), $queryOffset, $queryLimit);
+        return $this->queryRunner->runQuery($collection->getQuery(), $queryOffset, $queryLimit);
     }
 
     /**

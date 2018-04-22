@@ -16,7 +16,7 @@ interface QueryRunnerInterface
      *
      * @return \Iterator
      */
-    public function __invoke(Query $query, $offset = 0, $limit = null);
+    public function runQuery(Query $query, $offset = 0, $limit = null);
 
     /**
      * Returns the count of items in the provided query.

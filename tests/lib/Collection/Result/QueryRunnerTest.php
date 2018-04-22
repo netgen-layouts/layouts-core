@@ -34,8 +34,8 @@ final class QueryRunnerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::__invoke
      * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::count
+     * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::runQuery
      */
     public function testRunner()
     {
@@ -50,7 +50,7 @@ final class QueryRunnerTest extends TestCase
 
         $queryRunner = new QueryRunner($this->itemBuilderMock);
 
-        $this->assertEquals($expectedItems, iterator_to_array($queryRunner($query)));
+        $this->assertEquals($expectedItems, iterator_to_array($queryRunner->runQuery($query)));
         $this->assertEquals(3, $queryRunner->count($query));
     }
 }

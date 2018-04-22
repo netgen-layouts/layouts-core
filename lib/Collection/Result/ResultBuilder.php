@@ -58,8 +58,9 @@ final class ResultBuilder implements ResultBuilderInterface
         $results = [];
         $totalCount = $collectionRunner->count($collection);
         if ($limit > 0 && $offset < $totalCount) {
-            $results = call_user_func($collectionRunner, $collection, $offset, $limit, $flags);
-            $results = iterator_to_array($results);
+            $results = iterator_to_array(
+                $collectionRunner->runCollection($collection, $offset, $limit, $flags)
+            );
         }
 
         return new ResultSet(

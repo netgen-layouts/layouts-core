@@ -32,8 +32,8 @@ final class ManualCollectionRunnerTest extends TestCase
      * @param int $limit
      * @param int $flags
      *
-     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::__invoke
      * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::count
+     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::runCollection
      *
      * @dataProvider manualCollectionProvider
      */
@@ -45,7 +45,10 @@ final class ManualCollectionRunnerTest extends TestCase
         $expectedValues = $this->buildExpectedValues($values);
 
         $this->assertEquals($totalCount, $collectionRunner->count($collection));
-        $this->assertIteratorValues($expectedValues, $collectionRunner($collection, $offset, $limit, $flags));
+        $this->assertIteratorValues(
+            $expectedValues,
+            $collectionRunner->runCollection($collection, $offset, $limit, $flags)
+        );
     }
 
     /**

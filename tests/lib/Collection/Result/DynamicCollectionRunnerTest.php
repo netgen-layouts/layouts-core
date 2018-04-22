@@ -45,13 +45,13 @@ final class DynamicCollectionRunnerTest extends TestCase
      * @param int $limit
      *
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__invoke
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildManualResult
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildOverrideResult
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getManualItemsCount
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryIterator
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryValue
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::runCollection
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::runQuery
      *
      * @dataProvider dynamicCollectionProvider
      */
@@ -71,7 +71,11 @@ final class DynamicCollectionRunnerTest extends TestCase
         $expectedValues = $this->buildExpectedValues($values);
 
         $this->assertEquals($totalCount, $collectionRunner->count($collection));
-        $this->assertIteratorValues($expectedValues, $collectionRunner($collection, $offset, $limit));
+
+        $this->assertIteratorValues(
+            $expectedValues,
+            $collectionRunner->runCollection($collection, $offset, $limit)
+        );
     }
 
     /**

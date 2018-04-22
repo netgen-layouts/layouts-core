@@ -10,15 +10,15 @@ use PHPUnit\Framework\TestCase;
 final class ContextualQueryRunnerTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::__invoke
      * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::count
+     * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::runQuery
      */
     public function testRunner()
     {
         $queryRunner = new ContextualQueryRunner();
 
         $values = [];
-        foreach ($queryRunner(new Query(), 0, 5) as $value) {
+        foreach ($queryRunner->runQuery(new Query(), 0, 5) as $value) {
             $values[] = $value;
         }
 
