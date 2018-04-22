@@ -53,7 +53,7 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function testCreateBlock(array $config, array $expectedConfig)
     {
-        $configDefinition = $this->createConfigDefinition(array_keys($expectedConfig));
+        $configDefinition = $this->createConfigDefinition();
 
         $blockDefinition = $this->createBlockDefinition($configDefinition);
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
@@ -83,19 +83,16 @@ abstract class BlockTest extends ServiceTestCase
 
     /**
      * @param array $config
-     * @param array $testedParams
      * @dataProvider invalidConfigDataProvider
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public function testCreateBlockWithInvalidConfig(array $config, array $testedParams = null)
+    public function testCreateBlockWithInvalidConfig(array $config)
     {
         if (empty($config)) {
             throw ValidationException::validationFailed('config', 'Invalid config');
         }
 
-        $configDefinition = $this->createConfigDefinition(
-            $testedParams !== null ? $testedParams : array_keys($config)
-        );
+        $configDefinition = $this->createConfigDefinition();
 
         $blockDefinition = $this->createBlockDefinition($configDefinition);
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
@@ -181,33 +178,21 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
-     * @param array $parameterNames
-     *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    private function createConfigDefinition(array $parameterNames = [])
+    private function createConfigDefinition()
     {
         $handler = $this->createConfigDefinitionHandler();
 
         $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
         $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
-        $config = $parameterBuilder->buildParameterDefinitions();
-
-        $filteredParameterDefinitions = [];
-        if (!empty($parameterNames)) {
-            foreach ($config as $parameterName => $parameterDefinition) {
-                if (in_array($parameterName, $parameterNames, true)) {
-                    $filteredParameterDefinitions[$parameterName] = $parameterDefinition;
-                }
-            }
-        }
 
         return new ConfigDefinition(
             [
                 'configKey' => 'definition',
                 'handler' => $handler,
-                'parameterDefinitions' => $filteredParameterDefinitions,
+                'parameterDefinitions' => $parameterBuilder->buildParameterDefinitions(),
             ]
         );
     }

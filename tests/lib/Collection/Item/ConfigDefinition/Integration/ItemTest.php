@@ -67,19 +67,16 @@ abstract class ItemTest extends ServiceTestCase
 
     /**
      * @param array $config
-     * @param array $testedParams
      * @dataProvider invalidConfigDataProvider
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public function testCreateItemWithInvalidConfig(array $config, array $testedParams = null)
+    public function testCreateItemWithInvalidConfig(array $config)
     {
         if (empty($config)) {
             throw ValidationException::validationFailed('config', 'Invalid config');
         }
 
-        $configDefinition = $this->createConfigDefinition(
-            $testedParams !== null ? $testedParams : array_keys($config)
-        );
+        $configDefinition = $this->createConfigDefinition();
 
         $itemDefinition = $this->createItemDefinition($configDefinition);
         $itemCreateStruct = $this->collectionService->newItemCreateStruct($itemDefinition, Item::TYPE_MANUAL, 42);
