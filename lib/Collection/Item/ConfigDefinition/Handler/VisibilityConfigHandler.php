@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler;
 
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
@@ -42,10 +41,13 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
             ParameterType\DateTimeType::class,
             [
                 'constraints' => [
-                    function ($visibleTo, ConfigStruct $configStruct) {
-                        $visibleFrom = $configStruct->getParameterValue('visible_from');
+                    function ($visibleTo, array $parameters) {
+                        $visibleFrom = $parameters['visible_from'];
 
-                        if (!$visibleFrom instanceof DateTimeInterface || !$visibleTo instanceof DateTimeInterface) {
+                        if (
+                            !$visibleFrom instanceof DateTimeInterface ||
+                            !$visibleTo instanceof DateTimeInterface
+                        ) {
                             return;
                         }
 

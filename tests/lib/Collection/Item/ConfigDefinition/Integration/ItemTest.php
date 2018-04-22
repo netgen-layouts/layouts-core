@@ -39,7 +39,7 @@ abstract class ItemTest extends ServiceTestCase
      */
     public function testCreateItem(array $config, array $expectedConfig)
     {
-        $configDefinition = $this->createConfigDefinition(array_keys($expectedConfig));
+        $configDefinition = $this->createConfigDefinition();
 
         $itemDefinition = $this->createItemDefinition($configDefinition);
         $itemCreateStruct = $this->collectionService->newItemCreateStruct($itemDefinition, Item::TYPE_MANUAL, 42);
@@ -150,33 +150,21 @@ abstract class ItemTest extends ServiceTestCase
     }
 
     /**
-     * @param array $parameterNames
-     *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    private function createConfigDefinition(array $parameterNames = [])
+    private function createConfigDefinition()
     {
         $handler = $this->createConfigDefinitionHandler();
 
         $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
         $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
-        $config = $parameterBuilder->buildParameterDefinitions();
-
-        $filteredParameterDefinitions = [];
-        if (!empty($parameterNames)) {
-            foreach ($config as $parameterName => $parameterDefinition) {
-                if (in_array($parameterName, $parameterNames, true)) {
-                    $filteredParameterDefinitions[$parameterName] = $parameterDefinition;
-                }
-            }
-        }
 
         return new ConfigDefinition(
             [
                 'configKey' => 'visibility',
                 'handler' => $handler,
-                'parameterDefinitions' => $filteredParameterDefinitions,
+                'parameterDefinitions' => $parameterBuilder->buildParameterDefinitions(),
             ]
         );
     }

@@ -76,6 +76,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterValues
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProvider
@@ -99,6 +100,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterValues
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProviderWithRuntimeConstraints

@@ -62,6 +62,7 @@ final class ParameterStructValidator extends ConstraintValidator
             $validator->atPath('[' . $parameterDefinition->getName() . ']')->validate(
                 $value->getParameterValue($parameterDefinition->getName()),
                 $this->getRuntimeParameterConstraints(
+                    $constraint->parameterDefinitions,
                     $parameterDefinition,
                     $value
                 )
@@ -168,12 +169,14 @@ final class ParameterStructValidator extends ConstraintValidator
     /**
      * Returns all constraints applied on a parameter coming from the parameter definition.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
      *
      * @return array
      */
     private function getRuntimeParameterConstraints(
+        ParameterDefinitionCollectionInterface $parameterDefinitions,
         ParameterDefinitionInterface $parameterDefinition,
         ParameterStruct $parameterStruct
     ) {
@@ -183,7 +186,7 @@ final class ParameterStructValidator extends ConstraintValidator
             if ($constraint instanceof Closure) {
                 $constraint = $constraint(
                     $parameterStruct->getParameterValue($parameterDefinition->getName()),
-                    $parameterStruct,
+                    $this->getParameterValues($parameterDefinitions, $parameterStruct),
                     $parameterDefinition
                 );
             }
@@ -194,5 +197,24 @@ final class ParameterStructValidator extends ConstraintValidator
         }
 
         return $constraints;
+    }
+
+    private function getParameterValues(
+        ParameterDefinitionCollectionInterface $parameterDefinitions,
+        ParameterStruct $parameterStruct
+    ) {
+        $emptyValues = [];
+
+        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+            $emptyValues[$parameterDefinition->getName()] = null;
+
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
+                    $emptyValues[$subParameterDefinition->getName()] = null;
+                }
+            }
+        }
+
+        return $parameterStruct->getParameterValues() + $emptyValues;
     }
 }
