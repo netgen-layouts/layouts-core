@@ -214,6 +214,10 @@ final class LayoutsController extends Controller
                         }
                     }
 
+                    if (!$block->hasConfig('http_cache')) {
+                        return false;
+                    }
+
                     $blockConfig = $block->getConfig('http_cache');
 
                     return $blockConfig->getParameter('use_http_cache')->getValue();
