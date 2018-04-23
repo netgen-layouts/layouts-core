@@ -14,7 +14,6 @@ use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
@@ -157,11 +156,7 @@ final class CollectionMapper
             'value' => $item->value,
             'valueType' => $item->valueType,
             'cmsItem' => function () use ($item, $itemDefinition) {
-                if ($itemDefinition instanceof NullItemDefinition) {
-                    return new NullItem($item->value);
-                }
-
-                return $this->itemLoader->load($item->value, $item->valueType);
+                return $this->itemLoader->load($item->value, $itemDefinition->getValueType());
             },
             'definition' => $itemDefinition,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),

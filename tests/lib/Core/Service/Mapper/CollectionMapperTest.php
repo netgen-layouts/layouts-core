@@ -12,7 +12,6 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\NullQueryType;
 use Netgen\BlockManager\Item\Item as CmsItem;
-use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -324,7 +323,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
         $this->assertEquals('unknown', $item->getValueType());
-        $this->assertEquals(new NullItem('12'), $item->getCmsItem());
+        $this->assertEquals(new CmsItem(), $item->getCmsItem());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
 
