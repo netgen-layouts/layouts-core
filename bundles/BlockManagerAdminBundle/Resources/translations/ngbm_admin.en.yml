@@ -47,6 +47,7 @@ layout_resolver.rule.target_header.request_uri: 'Applied to request URI'
 layout_resolver.rule.target_header.request_uri_prefix: 'Applied to request URI prefix'
 layout_resolver.rule.target_header.route: 'Applied to route'
 layout_resolver.rule.target_header.route_prefix: 'Applied to route prefix'
+layout_resolver.rule.target_header.null: 'Invalid target'
 
 layouts.title: 'Layouts'
 layouts.new_layout: 'New layout'

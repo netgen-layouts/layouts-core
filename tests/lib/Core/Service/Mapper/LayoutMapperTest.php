@@ -6,6 +6,7 @@ use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Layout\Type\NullLayoutType;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -125,6 +126,47 @@ abstract class LayoutMapperTest extends ServiceTestCase
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             $layout->getLayoutType()
         );
+
+        $this->assertInstanceOf(APILayout::class, $layout);
+        $this->assertEquals(1, $layout->getId());
+        $this->assertEquals('My layout', $layout->getName());
+        $this->assertEquals('My description', $layout->getDescription());
+        $this->assertInstanceOf(DateTimeInterface::class, $layout->getCreated());
+        $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
+        $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
+        $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertTrue($layout->isShared());
+        $this->assertTrue($layout->isPublished());
+
+        $this->assertNotEmpty($layout->getZones());
+
+        foreach ($layout as $zone) {
+            $this->assertInstanceOf(APIZone::class, $zone);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayout
+     */
+    public function testMapLayoutWithInvalidLayoutType()
+    {
+        $persistenceLayout = new Layout(
+            [
+                'id' => 1,
+                'type' => 'unknown',
+                'name' => 'My layout',
+                'description' => 'My description',
+                'created' => 1447065813,
+                'modified' => 1447065813,
+                'status' => Value::STATUS_PUBLISHED,
+                'shared' => true,
+            ]
+        );
+
+        $layout = $this->layoutMapper->mapLayout($persistenceLayout);
+
+        $this->assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
 
         $this->assertInstanceOf(APILayout::class, $layout);
         $this->assertEquals(1, $layout->getId());

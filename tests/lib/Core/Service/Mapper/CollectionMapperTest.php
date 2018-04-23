@@ -9,7 +9,10 @@ use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\Item\NullItemDefinition;
+use Netgen\BlockManager\Collection\NullQueryType;
 use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -285,6 +288,50 @@ abstract class CollectionMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapItem
+     */
+    public function testMapItemWithInvalidItemDefinition()
+    {
+        $persistenceItem = new Item(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'position' => 1,
+                'type' => APIItem::TYPE_OVERRIDE,
+                'value' => '12',
+                'valueType' => 'unknown',
+                'config' => [
+                    'visibility' => [
+                        'visibility_status' => APIItem::VISIBILITY_SCHEDULED,
+                        'visible_from' => null,
+                        'visible_to' => [
+                            'datetime' => '2018-02-01 15:00:00.000000',
+                            'timezone' => 'Antarctica/Casey',
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $item = $this->collectionMapper->mapItem($persistenceItem);
+
+        $this->assertInstanceOf(APIItem::class, $item);
+        $this->assertEquals(1, $item->getId());
+        $this->assertEquals(42, $item->getCollectionId());
+        $this->assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
+        $this->assertEquals(1, $item->getPosition());
+        $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
+        $this->assertEquals('12', $item->getValue());
+        $this->assertEquals('unknown', $item->getValueType());
+        $this->assertEquals(new NullItem('12'), $item->getCmsItem());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertTrue($item->isPublished());
+
+        $this->assertFalse($item->hasConfig('visibility'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQuery()
@@ -442,5 +489,48 @@ abstract class CollectionMapperTest extends ServiceTestCase
         );
 
         $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
+     */
+    public function testMapQueryWithInvalidType()
+    {
+        $persistenceQuery = new Query(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'type' => 'unknown',
+                'alwaysAvailable' => false,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'parameters' => [
+                    'en' => [
+                        'param' => 'value',
+                    ],
+                ],
+            ]
+        );
+
+        $query = $this->collectionMapper->mapQuery($persistenceQuery);
+
+        $this->assertInstanceOf(NullQueryType::class, $query->getQueryType());
+
+        $this->assertInstanceOf(APIQuery::class, $query);
+        $this->assertEquals(1, $query->getId());
+        $this->assertEquals(42, $query->getCollectionId());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertTrue($query->isPublished());
+        $this->assertTrue($query->isTranslatable());
+        $this->assertEquals('en', $query->getMainLocale());
+        $this->assertFalse($query->isAlwaysAvailable());
+        $this->assertEquals(['en'], $query->getAvailableLocales());
+
+        $this->assertFalse($query->hasParameter('param'));
+        $this->assertFalse($query->hasParameter('param2'));
+
+        $this->assertEquals('en', $query->getLocale());
     }
 }

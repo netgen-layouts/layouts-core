@@ -10,7 +10,7 @@ final class LayoutTypeFactory
      * @param string $identifier
      * @param array $config
      *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
     public static function buildLayoutType($identifier, array $config)
     {

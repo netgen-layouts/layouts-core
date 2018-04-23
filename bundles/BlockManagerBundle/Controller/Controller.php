@@ -87,7 +87,7 @@ abstract class Controller extends BaseController
      *
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
     protected function getLayoutType($identifier)
     {

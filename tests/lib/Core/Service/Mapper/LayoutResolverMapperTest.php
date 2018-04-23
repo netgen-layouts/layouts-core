@@ -7,6 +7,8 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
+use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
@@ -111,6 +113,33 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapTarget
+     */
+    public function testMapTargetWithInvalidTargetType()
+    {
+        $persistenceTarget = new Target(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 42,
+                'type' => 'unknown',
+                'value' => 42,
+            ]
+        );
+
+        $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
+
+        $this->assertInstanceOf(NullTargetType::class, $target->getTargetType());
+
+        $this->assertInstanceOf(APITarget::class, $target);
+        $this->assertEquals(1, $target->getId());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $target->getStatus());
+        $this->assertEquals(42, $target->getRuleId());
+        $this->assertEquals(42, $target->getValue());
+        $this->assertTrue($target->isPublished());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapCondition
      */
     public function testMapCondition()
@@ -131,6 +160,33 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             $this->conditionTypeRegistry->getConditionType('condition'),
             $condition->getConditionType()
         );
+
+        $this->assertInstanceOf(APICondition::class, $condition);
+        $this->assertEquals(1, $condition->getId());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $condition->getStatus());
+        $this->assertEquals(42, $condition->getRuleId());
+        $this->assertEquals(42, $condition->getValue());
+        $this->assertTrue($condition->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapCondition
+     */
+    public function testMapConditionWithInvalidConditionType()
+    {
+        $persistenceCondition = new Condition(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 42,
+                'type' => 'unknown',
+                'value' => 42,
+            ]
+        );
+
+        $condition = $this->layoutResolverMapper->mapCondition($persistenceCondition);
+
+        $this->assertInstanceOf(NullConditionType::class, $condition->getConditionType());
 
         $this->assertInstanceOf(APICondition::class, $condition);
         $this->assertEquals(1, $condition->getId());

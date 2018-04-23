@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 
 interface LayoutService extends Service
 {
@@ -263,7 +263,7 @@ interface LayoutService extends Service
      * the mapping needs to be 1:1, instead of 1:n.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $targetLayoutType
      * @param array $zoneMappings
      * @param bool $preserveSharedZones
      *
@@ -271,7 +271,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true);
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true);
 
     /**
      * Creates a layout draft.
@@ -329,13 +329,13 @@ interface LayoutService extends Service
     /**
      * Creates a new layout create struct from the provided values.
      *
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      * @param string $name
      * @param string $mainLocale
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct(LayoutType $layoutType, $name, $mainLocale);
+    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, $name, $mainLocale);
 
     /**
      * Creates a new layout update struct.

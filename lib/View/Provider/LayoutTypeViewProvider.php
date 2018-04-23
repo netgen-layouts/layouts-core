@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\View\View\LayoutTypeView;
 
 final class LayoutTypeViewProvider implements ViewProviderInterface
@@ -18,6 +18,6 @@ final class LayoutTypeViewProvider implements ViewProviderInterface
 
     public function supports($value)
     {
-        return $value instanceof LayoutType;
+        return $value instanceof LayoutTypeInterface;
     }
 }

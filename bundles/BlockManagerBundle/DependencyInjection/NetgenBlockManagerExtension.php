@@ -120,6 +120,8 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             'design.yml' => 'netgen_block_manager',
             'http_cache.yml' => 'netgen_block_manager',
             'block_type_groups.yml' => 'netgen_block_manager',
+            'view/block_view.yml' => 'netgen_block_manager',
+            'view/layout_view.yml' => 'netgen_block_manager',
             'view/item_view.yml' => 'netgen_block_manager',
             'view/parameter_view.yml' => 'netgen_block_manager',
             'view/default_templates.yml' => 'netgen_block_manager',

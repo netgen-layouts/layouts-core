@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Symfony\Component\Validator\Constraints;
 
 final class LayoutValidator extends Validator
@@ -52,7 +52,7 @@ final class LayoutValidator extends Validator
             $layoutCreateStruct->layoutType,
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => LayoutType::class]),
+                new Constraints\Type(['type' => LayoutTypeInterface::class]),
             ],
             'layoutType'
         );
@@ -158,13 +158,13 @@ final class LayoutValidator extends Validator
      * Validates zone mappings for changing the provided layout type.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $targetLayoutType
      * @param array $zoneMappings
      * @param bool $preserveSharedZones
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateChangeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
+    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
     {
         $seenZones = [];
         foreach ($zoneMappings as $newZone => $oldZones) {

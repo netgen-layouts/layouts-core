@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Intl\Intl;
@@ -76,11 +76,11 @@ final class LayoutNormalizer implements NormalizerInterface
      * Returns the array with layout zones.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      *
      * @return array
      */
-    private function getZones(Layout $layout, LayoutType $layoutType)
+    private function getZones(Layout $layout, LayoutTypeInterface $layoutType)
     {
         $zones = [];
 
@@ -112,11 +112,11 @@ final class LayoutNormalizer implements NormalizerInterface
      * Returns provided zone name.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      *
      * @return string
      */
-    private function getZoneName(Zone $zone, LayoutType $layoutType)
+    private function getZoneName(Zone $zone, LayoutTypeInterface $layoutType)
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             return $layoutType->getZone($zone->getIdentifier())->getName();
@@ -130,11 +130,11 @@ final class LayoutNormalizer implements NormalizerInterface
      * true if all block definitions are allowed.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      *
      * @return array|bool
      */
-    private function getAllowedBlocks(Zone $zone, LayoutType $layoutType)
+    private function getAllowedBlocks(Zone $zone, LayoutTypeInterface $layoutType)
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());

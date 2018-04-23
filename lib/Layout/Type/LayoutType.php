@@ -7,13 +7,9 @@ use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Value;
 
 /**
- * This class and corresponding namespace represent an model of layout type
- * as specified in configuration. In addition to layout type identifier, name
- * and icon, it provides a list of zones available in the layout type.
- *
  * @final
  */
-class LayoutType extends Value
+class LayoutType extends Value implements LayoutTypeInterface
 {
     /**
      * @var string
@@ -40,87 +36,41 @@ class LayoutType extends Value
      */
     protected $zones = [];
 
-    /**
-     * Returns the layout type identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return $this->identifier;
     }
 
-    /**
-     * Returns if the layout type is enabled or not.
-     *
-     * @return bool
-     */
     public function isEnabled()
     {
         return $this->isEnabled;
     }
 
-    /**
-     * Returns the layout type name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Returns the layout type icon.
-     *
-     * @return string
-     */
     public function getIcon()
     {
         return $this->icon;
     }
 
-    /**
-     * Returns the layout type zones.
-     *
-     * @return \Netgen\BlockManager\Layout\Type\Zone[]
-     */
     public function getZones()
     {
         return $this->zones;
     }
 
-    /**
-     * Returns the layout type zone identifiers.
-     *
-     * @return string[]
-     */
     public function getZoneIdentifiers()
     {
         return array_keys($this->zones);
     }
 
-    /**
-     * Returns if the layout type has a zone with provided identifier.
-     *
-     * @param $zoneIdentifier
-     *
-     * @return bool
-     */
     public function hasZone($zoneIdentifier)
     {
         return array_key_exists($zoneIdentifier, $this->zones);
     }
 
-    /**
-     * Returns the zone with provided identifier.
-     *
-     * @param $zoneIdentifier
-     *
-     * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If zone does not exist
-     *
-     * @return \Netgen\BlockManager\Layout\Type\Zone
-     */
     public function getZone($zoneIdentifier)
     {
         if (!$this->hasZone($zoneIdentifier)) {
@@ -130,14 +80,6 @@ class LayoutType extends Value
         return $this->zones[$zoneIdentifier];
     }
 
-    /**
-     * Returns if the block is allowed within the provided zone.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $definition
-     * @param string $zoneIdentifier
-     *
-     * @return bool
-     */
     public function isBlockAllowedInZone(BlockDefinitionInterface $definition, $zoneIdentifier)
     {
         if (!$this->hasZone($zoneIdentifier)) {

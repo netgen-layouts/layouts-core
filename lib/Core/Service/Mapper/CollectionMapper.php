@@ -2,14 +2,19 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\Collection\Item\NullItemDefinition;
+use Netgen\BlockManager\Collection\NullQueryType;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\LazyCollection;
+use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
+use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
@@ -137,7 +142,11 @@ final class CollectionMapper
      */
     public function mapItem(PersistenceItem $item)
     {
-        $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
+        try {
+            $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
+        } catch (ItemDefinitionException $e) {
+            $itemDefinition = new NullItemDefinition();
+        }
 
         $itemData = [
             'id' => $item->id,
@@ -147,7 +156,11 @@ final class CollectionMapper
             'type' => $item->type,
             'value' => $item->value,
             'valueType' => $item->valueType,
-            'cmsItem' => function () use ($item) {
+            'cmsItem' => function () use ($item, $itemDefinition) {
+                if ($itemDefinition instanceof NullItemDefinition) {
+                    return new NullItem($item->value);
+                }
+
                 return $this->itemLoader->load($item->value, $item->valueType);
             },
             'definition' => $itemDefinition,
@@ -176,7 +189,11 @@ final class CollectionMapper
      */
     public function mapQuery(PersistenceQuery $query, array $locales = null, $useMainLocale = true)
     {
-        $queryType = $this->queryTypeRegistry->getQueryType($query->type);
+        try {
+            $queryType = $this->queryTypeRegistry->getQueryType($query->type);
+        } catch (QueryTypeException $e) {
+            $queryType = new NullQueryType();
+        }
 
         $locales = !empty($locales) ? $locales : [$query->mainLocale];
         if ($useMainLocale && $query->alwaysAvailable) {

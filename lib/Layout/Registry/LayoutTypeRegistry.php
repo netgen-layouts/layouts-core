@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Layout\Registry;
 use ArrayIterator;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 
 final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 {
@@ -14,7 +14,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
      */
     private $layoutTypes = [];
 
-    public function addLayoutType($identifier, LayoutType $layoutType)
+    public function addLayoutType($identifier, LayoutTypeInterface $layoutType)
     {
         $this->layoutTypes[$identifier] = $layoutType;
     }
@@ -41,7 +41,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 
         return array_filter(
             $this->layoutTypes,
-            function (LayoutType $layoutType) {
+            function (LayoutTypeInterface $layoutType) {
                 return $layoutType->isEnabled();
             }
         );

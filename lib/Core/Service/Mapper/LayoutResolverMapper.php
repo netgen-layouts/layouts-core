@@ -7,9 +7,13 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LazyCollection;
+use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
+use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
@@ -113,13 +117,19 @@ final class LayoutResolverMapper
      */
     public function mapTarget(PersistenceTarget $target)
     {
+        try {
+            $targetType = $this->targetTypeRegistry->getTargetType(
+                $target->type
+            );
+        } catch (TargetTypeException $e) {
+            $targetType = new NullTargetType();
+        }
+
         $targetData = [
             'id' => $target->id,
             'status' => $target->status,
             'ruleId' => $target->ruleId,
-            'targetType' => $this->targetTypeRegistry->getTargetType(
-                $target->type
-            ),
+            'targetType' => $targetType,
             'value' => $target->value,
         ];
 
@@ -135,13 +145,19 @@ final class LayoutResolverMapper
      */
     public function mapCondition(PersistenceCondition $condition)
     {
+        try {
+            $conditionType = $this->conditionTypeRegistry->getConditionType(
+                $condition->type
+            );
+        } catch (ConditionTypeException $e) {
+            $conditionType = new NullConditionType();
+        }
+
         $conditionData = [
             'id' => $condition->id,
             'status' => $condition->status,
             'ruleId' => $condition->ruleId,
-            'conditionType' => $this->conditionTypeRegistry->getConditionType(
-                $condition->type
-            ),
+            'conditionType' => $conditionType,
             'value' => $condition->value,
         ];
 

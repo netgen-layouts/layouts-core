@@ -15,7 +15,7 @@ final class Layout extends Value implements APILayout
     protected $id;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutType
+     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
     protected $layoutType;
 

@@ -5,8 +5,10 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Values\LazyCollection;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Type\NullLayoutType;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
@@ -76,9 +78,15 @@ final class LayoutMapper
      */
     public function mapLayout(PersistenceLayout $layout)
     {
+        try {
+            $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->type);
+        } catch (LayoutTypeException $e) {
+            $layoutType = new NullLayoutType();
+        }
+
         $layoutData = [
             'id' => $layout->id,
-            'layoutType' => $this->layoutTypeRegistry->getLayoutType($layout->type),
+            'layoutType' => $layoutType,
             'name' => $layout->name,
             'description' => $layout->description,
             'created' => DateTimeUtils::createFromTimestamp($layout->created),

@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
@@ -213,6 +214,67 @@ abstract class BlockMapperTest extends ServiceTestCase
         );
 
         $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     */
+    public function testMapBlockWithInvalidDefinition()
+    {
+        $persistenceBlock = new Block(
+            [
+                'id' => 31,
+                'layoutId' => 13,
+                'definitionIdentifier' => 'unknown',
+                'viewType' => 'default',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'position' => 3,
+                'alwaysAvailable' => false,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'status' => Value::STATUS_PUBLISHED,
+                'parameters' => [
+                    'en' => [
+                        'css_class' => 'test',
+                        'some_param' => 'some_value',
+                    ],
+                ],
+                'config' => [
+                    'http_cache' => [
+                        'use_http_cache' => true,
+                        'shared_max_age' => 400,
+                    ],
+                ],
+            ]
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
+
+        $this->assertInstanceOf(NullBlockDefinition::class, $block->getDefinition());
+
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(31, $block->getId());
+        $this->assertEquals(13, $block->getLayoutId());
+        $this->assertEquals('default', $block->getViewType());
+        $this->assertEquals('standard', $block->getItemViewType());
+        $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(3, $block->getParentPosition());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertTrue($block->isPublished());
+
+        $this->assertFalse($block->hasParameter('css_class'));
+        $this->assertFalse($block->hasParameter('css_id'));
+
+        $this->assertFalse($block->hasConfig('http_cache'));
+
+        $this->assertTrue($block->isTranslatable());
+        $this->assertEquals('en', $block->getMainLocale());
+        $this->assertFalse($block->isAlwaysAvailable());
+        $this->assertEquals(['en'], $block->getAvailableLocales());
+
+        $this->assertEquals('en', $block->getLocale());
     }
 
     /**

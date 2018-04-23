@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Layout\Registry;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 
 interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -13,9 +13,9 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
      * Adds a layout type to registry.
      *
      * @param string $identifier
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      */
-    public function addLayoutType($identifier, LayoutType $layoutType);
+    public function addLayoutType($identifier, LayoutTypeInterface $layoutType);
 
     /**
      * Returns if registry has a layout type.
@@ -33,7 +33,7 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
      *
      * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If layout type with provided identifier does not exist
      *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
     public function getLayoutType($identifier);
 
@@ -42,7 +42,7 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutType[]
+     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[]
      */
     public function getLayoutTypes($onlyEnabled = false);
 }

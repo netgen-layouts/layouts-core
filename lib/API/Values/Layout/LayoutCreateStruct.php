@@ -11,7 +11,7 @@ final class LayoutCreateStruct extends Value
      *
      * Required.
      *
-     * @var \Netgen\BlockManager\Layout\Type\LayoutType
+     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
     public $layoutType;
 

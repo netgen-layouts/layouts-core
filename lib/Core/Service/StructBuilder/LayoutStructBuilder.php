@@ -6,20 +6,20 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 
 final class LayoutStructBuilder
 {
     /**
      * Creates a new layout create struct from the provided values.
      *
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      * @param string $name
      * @param string $mainLocale
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct(LayoutType $layoutType, $name, $mainLocale)
+    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, $name, $mainLocale)
     {
         return new LayoutCreateStruct(
             [

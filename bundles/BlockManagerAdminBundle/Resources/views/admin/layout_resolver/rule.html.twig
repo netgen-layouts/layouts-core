@@ -1,13 +1,13 @@
 {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
 
 {% trans_default_domain 'ngbm_admin' %}
-{% set target_type = rule.targets is not empty ? rule.targets[0].targetType.type : '' %}
+{% set target_type_identifier = rule.targets is not empty ? rule.targets[0].targetType.type : '' %}
 
 <div class="nl-rule-cell rule-priority">{{ rule.priority }}</div>
 <div class="nl-rule-content
     {% if not rule.enabled %}disabled{% endif %}"
     data-id="{{ rule.id }}"
-    data-target-type="{{ target_type }}"
+    data-target-type="{{ target_type_identifier }}"
     >
     <div class="nl-rule-head">
         <div class="nl-rule-cell rule-layout">
@@ -24,17 +24,19 @@
         </div>
         <div class="nl-rule-cell rule-targets">
             {% if rule.targets is not empty %}
-                {% if rule.targets|length == 1 %}
-                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans({}, 'ngbm') }}:</p>
+                {% if target_type_identifier is same as('null') %}
+                    <p>{{ ('layout_resolver.target.null')|trans({}, 'ngbm') }}</p>
+                {% elseif rule.targets|length == 1 %}
+                    <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'ngbm') }}:</p>
                     <ul>
                         {% for target in rule.targets %}
-                            <li {% if rule_count == 1 and (target_type == 'ezlocation' or target_type == 'ezcontent') %}class="unique"{% endif %}>
+                            <li {% if rule_count == 1 and (target_type_identifier == 'ezlocation' or target_type_identifier == 'ezcontent') %}class="unique"{% endif %}>
                                 {{ ngbm_render_rule_target(target, {}, 'value') }}
                             </li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans({}, 'ngbm') }} ({{ rule.targets|length }})</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'ngbm') }} ({{ rule.targets|length }})</p>
                 {% endif %}
             {% endif %}
         </div>
@@ -95,16 +97,23 @@
                 <h4>{{ 'layout_resolver.rule.mapped_layout'|trans }}:</h4>
                 {% if rule.layout is not empty %}
                     <div class="rule-layout-info">
-                        <div class="rule-layout-info-icon">
-                            <i class="layout-icon {{ rule.layout.layoutType.identifier }}" {% if rule.layout.layoutType.icon is not null %}style="background-image:url({{ asset(rule.layout.layoutType.icon) }})"{% endif %}></i>
-                        </div>
-                        <div class="rule-layout-info-text">
-                            <p><strong>{{ rule.layout.name }}</strong></p>
-                            <p>{{ rule.layout.description }}</p>
-                            {% if is_granted('ROLE_NGBM_EDITOR') %}
-                                <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
-                            {% endif %}
-                        </div>
+                        {% if rule.layout.layoutType.identifier is not same as('null') %}
+                            <div class="rule-layout-info-icon">
+                                <i class="layout-icon {{ rule.layout.layoutType.identifier }}" {% if rule.layout.layoutType.icon is not null %}style="background-image:url({{ asset(rule.layout.layoutType.icon) }})"{% endif %}></i>
+                            </div>
+                            <div class="rule-layout-info-text">
+                                <p><strong>{{ rule.layout.name }}</strong></p>
+                                <p>{{ rule.layout.description }}</p>
+                                {% if is_granted('ROLE_NGBM_EDITOR') %}
+                                    <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="rule-layout-info-text">
+                                <p><strong>{{ rule.layout.name }}</strong></p>
+                                <p>{{ 'layout.invalid_layout'|trans({}, 'ngbm') }}</p>
+                            </div>
+                        {% endif %}
                     </div>
                 {% else %}
                     <div class="panel-name" title="{{ 'layout_resolver.rule.no_mapped_layout'|trans }}">
@@ -117,7 +126,9 @@
                 <div class="nl-grid">
                     <div class="col-xs6">
                         {% if rule.targets is not empty %}
-                            <h4>{{ ('layout_resolver.rule.target_header.' ~ rule.targets[0].targetType.type)|trans }}:</h4>
+                            {% if target_type_identifier is not same as('null') %}
+                                <h4>{{ ('layout_resolver.rule.target_header.' ~ target_type_identifier)|trans }}:</h4>
+                            {% endif %}
 
                             <ul class="settings-list target-list">
                                 {% for target in rule.targets %}
@@ -141,10 +152,12 @@
                                         </select>
                                     {% endif %}
 
-                                    <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
-                                        {% if rule.targets is not empty %} data-target-type="{{ rule.targets[0].targetType.type }}" {% endif %}>
-                                        <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_target'|trans }}
-                                    </a>
+                                    {% if rule.targets is empty or target_type_identifier is not same as('null') %}
+                                        <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
+                                            {% if rule.targets is not empty %} data-target-type="{{ target_type_identifier }}" {% endif %}>
+                                            <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_target'|trans }}
+                                        </a>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endif %}

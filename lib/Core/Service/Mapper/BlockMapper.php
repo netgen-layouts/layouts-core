@@ -4,11 +4,13 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
+use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LazyCollection;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
@@ -86,9 +88,13 @@ final class BlockMapper
      */
     public function mapBlock(PersistenceBlock $block, array $locales = null, $useMainLocale = true)
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $block->definitionIdentifier
-        );
+        try {
+            $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+                $block->definitionIdentifier
+            );
+        } catch (BlockDefinitionException $e) {
+            $blockDefinition = new NullBlockDefinition();
+        }
 
         $locales = !empty($locales) ? $locales : [$block->mainLocale];
         if ($useMainLocale && $block->alwaysAvailable) {

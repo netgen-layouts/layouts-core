@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -11,7 +11,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Layout\Type\LayoutType $layoutType */
+        /** @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType */
         $layoutType = $object->getValue();
 
         return [
@@ -28,17 +28,17 @@ final class LayoutTypeNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof LayoutType && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof LayoutTypeInterface && $data->getVersion() === Version::API_V1;
     }
 
     /**
      * Returns the array with layout type zones.
      *
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      *
      * @return array
      */
-    private function getZones(LayoutType $layoutType)
+    private function getZones(LayoutTypeInterface $layoutType)
     {
         $zones = [];
 

@@ -14,7 +14,7 @@ use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
@@ -432,7 +432,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($copiedLayout);
     }
 
-    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
     {
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
@@ -609,7 +609,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function newLayoutCreateStruct(LayoutType $layoutType, $name, $mainLocale)
+    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, $name, $mainLocale)
     {
         return $this->structBuilder->newLayoutCreateStruct($layoutType, $name, $mainLocale);
     }

@@ -1,4 +1,5 @@
 pagelayout.title: 'Netgen Block Manager'
+layout.invalid_layout: 'This layout is invalid. Please delete it.'
 
 layout.block.move: 'Move block'
 layout.block.delete: 'Delete block'
@@ -25,3 +26,5 @@ block.edit.change: 'Change'
 block.edit.notice.change_collection_type: 'IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.'
 
 block.notice.empty_collection: 'This block is empty. Please pick some items manually or use a dynamic collection to show items in this block.'
+block.notice.invalid_block: 'This block is invalid. Please remove it from the layout.'
+block.invalid_block: 'Invalid block'
