@@ -97,6 +97,10 @@ final class Item extends Value implements APIItem
 
     public function isScheduled()
     {
+        if (!$this->hasConfig('visibility')) {
+            return false;
+        }
+
         $visibilityConfig = $this->getConfig('visibility');
 
         return $visibilityConfig->getParameter('visibility_status')->getValue() === self::VISIBILITY_SCHEDULED;
@@ -104,6 +108,10 @@ final class Item extends Value implements APIItem
 
     public function isVisible(DateTimeInterface $reference = null)
     {
+        if (!$this->hasConfig('visibility')) {
+            return true;
+        }
+
         $visibilityConfig = $this->getConfig('visibility');
         $visibilityStatus = $visibilityConfig->getParameter('visibility_status')->getValue();
 

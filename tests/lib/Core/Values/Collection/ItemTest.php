@@ -166,6 +166,26 @@ final class ItemTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isScheduled
+     */
+    public function testIsScheduledWithoutConfig()
+    {
+        $item = new Item();
+
+        $this->assertFalse($item->isScheduled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isVisible
+     */
+    public function testIsVisibleWithoutConfig()
+    {
+        $item = new Item();
+
+        $this->assertTrue($item->isVisible());
+    }
+
+    /**
      * @param bool $itemVisible
      * @param bool $cmsItemVisible
      * @param bool $isValid
