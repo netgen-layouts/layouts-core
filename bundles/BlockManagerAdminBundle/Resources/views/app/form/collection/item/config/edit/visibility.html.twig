@@ -13,7 +13,7 @@
 
 {% block children %}
     {% if not collection_item.cmsItem.visible %}
-        <p class="info">{{ 'config.collection_item.visibility.info'|trans|raw }}</p>
+        <p class="info-message">{{ 'config.collection_item.visibility.info'|trans|raw }}</p>
     {% endif %}
 
     {{ form_row(visibility_form.children.visibility_status, {label: false}) }}
@@ -22,7 +22,7 @@
         {{ form_row(visibility_form.children.visible_to, {attr: {placeholder: 'config.collection_item.visibility.visible_to.placeholder'|trans}}) }}
     </div>
 
-    <p class="warning">{{ 'config.collection_item.visibility.warning'|trans|raw }}</p>
+    <p class="warning-message">{{ 'config.collection_item.visibility.warning'|trans|raw }}</p>
 {% endblock %}
 
 {% block buttons %}
