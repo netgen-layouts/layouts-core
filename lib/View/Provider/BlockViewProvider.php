@@ -15,15 +15,17 @@ final class BlockViewProvider implements ViewProviderInterface
             ]
         );
 
-        $httpCacheConfig = $value->getConfig('http_cache');
+        if ($value->hasConfig('http_cache')) {
+            $httpCacheConfig = $value->getConfig('http_cache');
 
-        $blockView->setIsCacheable(
-            $httpCacheConfig->getParameter('use_http_cache')->getValue()
-        );
+            $blockView->setIsCacheable(
+                $httpCacheConfig->getParameter('use_http_cache')->getValue()
+            );
 
-        $blockView->setSharedMaxAge(
-            $httpCacheConfig->getParameter('shared_max_age')->getValue()
-        );
+            $blockView->setSharedMaxAge(
+                $httpCacheConfig->getParameter('shared_max_age')->getValue()
+            );
+        }
 
         return $blockView;
     }
