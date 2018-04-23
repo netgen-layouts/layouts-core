@@ -123,9 +123,9 @@ final class BlockManagerDataCollector extends DataCollector
             'id' => $block->getId(),
             'layout_id' => $block->getLayoutId(),
             'definition' => $blockDefinition->getName(),
-            'view_type' => $blockDefinition->getViewType(
-                $block->getViewType()
-            )->getName(),
+            'view_type' => $blockDefinition->hasViewType($block->getViewType()) ?
+                $blockDefinition->getViewType($block->getViewType())->getName() :
+                'Invalid view type',
             'locale' => $block->getLocale(),
             'template' => $templateSource->getName(),
             'template_path' => $templateSource->getPath(),
