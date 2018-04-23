@@ -113,6 +113,98 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
+     */
+    public function testSubmitValidDataWithConfigKey()
+    {
+        $submittedData = [
+            'test' => [
+                'param' => 'new_value',
+            ],
+        ];
+
+        $updatedStruct = new ConfigAwareStruct();
+
+        $configStruct = new ConfigStruct();
+        $configStruct->setParameterValue('param', 'new_value');
+
+        $updatedStruct->setConfigStruct('test', $configStruct);
+
+        $struct = new ConfigAwareStruct();
+        $struct->setConfigStruct('test', new ConfigStruct());
+
+        $form = $this->factory->create(
+            EditType::class,
+            $struct,
+            [
+                'configurable' => $this->configurable,
+                'config_key' => 'test',
+                'label_prefix' => 'config.configurable',
+            ]
+        );
+
+        $form->submit($submittedData);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($updatedStruct, $form->getData());
+
+        $view = $form->createView();
+        $children = $view->children;
+
+        $this->assertArrayHasKey('test', $children);
+        $this->assertArrayHasKey('param', $children['test']);
+
+        $this->assertArrayHasKey('configurable', $view->vars);
+        $this->assertEquals($this->configurable, $view->vars['configurable']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
+     */
+    public function testSubmitDataWithInvalidConfigKey()
+    {
+        $submittedData = [
+            'test' => [
+                'param' => 'new_value',
+            ],
+        ];
+
+        $updatedStruct = new ConfigAwareStruct();
+
+        $configStruct = new ConfigStruct();
+        $updatedStruct->setConfigStruct('test', $configStruct);
+
+        $struct = new ConfigAwareStruct();
+        $struct->setConfigStruct('test', new ConfigStruct());
+
+        $form = $this->factory->create(
+            EditType::class,
+            $struct,
+            [
+                'configurable' => $this->configurable,
+                'config_key' => 'unknown',
+                'label_prefix' => 'config.configurable',
+            ]
+        );
+
+        $form->submit($submittedData);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($updatedStruct, $form->getData());
+
+        $view = $form->createView();
+        $children = $view->children;
+
+        $this->assertArrayNotHasKey('test', $children);
+        $this->assertArrayNotHasKey('unknown', $children);
+
+        $this->assertArrayHasKey('configurable', $view->vars);
+        $this->assertEquals($this->configurable, $view->vars['configurable']);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptions()

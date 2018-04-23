@@ -56,7 +56,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
+     * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Block\BlockCreateStruct", "integer" given
      */
@@ -66,7 +66,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
+     * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Block\BlockDefinitionInterface", "integer" given
      */

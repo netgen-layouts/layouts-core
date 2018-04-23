@@ -103,6 +103,18 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Only published layouts can be used in rules.
+     */
+    public function testLoadRulesWithDraftLayoutThrowsBadStateException()
+    {
+        $this->layoutResolverService->loadRules(
+            $this->layoutService->loadLayoutDraft(1)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
      */
     public function testGetRuleCount()

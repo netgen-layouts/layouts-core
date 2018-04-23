@@ -107,6 +107,22 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      */
     public function testValidateWithRuntimeConstraints($value, $required, $isValid)
     {
+        $compoundParameter = new CompoundParameterDefinition(
+            [
+                'name' => 'checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'parameterDefinitions' => [
+                    'param' => new ParameterDefinition(
+                        [
+                            'name' => 'param',
+                            'type' => new ParameterType\IdentifierType(),
+                            'isRequired' => true,
+                        ]
+                    ),
+                ],
+            ]
+        );
+
         $this->constraint = new ParameterStruct(
             [
                 'parameterDefinitions' => new ParameterDefinitionCollection(
@@ -124,6 +140,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 ],
                             ]
                         ),
+                        'checkbox' => $compoundParameter,
                     ]
                 ),
                 'allowMissingFields' => true,

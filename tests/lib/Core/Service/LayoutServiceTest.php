@@ -1110,6 +1110,22 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     */
+    public function testRestoreFromArchiveWithoutDraft()
+    {
+        $originalLayout = $this->layoutService->loadLayoutDraft(2);
+        $this->layoutService->discardDraft($originalLayout);
+
+        $publishedLayout = $this->layoutService->loadLayout(2);
+        $restoredLayout = $this->layoutService->restoreFromArchive(2);
+
+        $this->assertInstanceOf(Layout::class, $restoredLayout);
+        $this->assertEquals(Layout::STATUS_DRAFT, $restoredLayout->getStatus());
+        $this->assertEquals($publishedLayout->getName(), $restoredLayout->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find layout with identifier "1"
      */

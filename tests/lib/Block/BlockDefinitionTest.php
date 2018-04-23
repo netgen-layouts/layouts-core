@@ -272,6 +272,9 @@ final class BlockDefinitionTest extends TestCase
         $this->assertTrue($this->blockDefinition->isContextual(new Block()));
     }
 
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::isCacheable
+     */
     public function testIsCacheable()
     {
         $this->assertFalse($this->blockDefinition->isCacheable(new Block()));
