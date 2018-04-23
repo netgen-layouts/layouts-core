@@ -84,13 +84,14 @@ interface LayoutService extends Service
     public function getRelatedLayoutsCount(Layout $sharedLayout);
 
     /**
-     * Returns if provided layout has a published status.
+     * Returns if layout with provided ID has a provided status (published, draft or archived).
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param int|string $layoutId
+     * @param int $status
      *
      * @return bool
      */
-    public function hasPublishedState(Layout $layout);
+    public function hasStatus($layoutId, $status);
 
     /**
      * Loads a zone with specified identifier.

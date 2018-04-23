@@ -136,10 +136,16 @@ final class LayoutNormalizerTest extends TestCase
             ->will($this->returnValue([]));
 
         $this->layoutServiceMock
-            ->expects($this->once())
-            ->method('hasPublishedState')
-            ->with($this->equalTo($layout))
+            ->expects($this->at(0))
+            ->method('hasStatus')
+            ->with($this->equalTo($layout->getId(), Layout::STATUS_PUBLISHED))
             ->will($this->returnValue(true));
+
+        $this->layoutServiceMock
+            ->expects($this->at(1))
+            ->method('hasStatus')
+            ->with($this->equalTo($layout->getId(), Layout::STATUS_ARCHIVED))
+            ->will($this->returnValue(false));
 
         $this->assertEquals(
             [
@@ -147,6 +153,7 @@ final class LayoutNormalizerTest extends TestCase
                 'type' => $layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
+                'has_archived_state' => false,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
                 'shared' => true,

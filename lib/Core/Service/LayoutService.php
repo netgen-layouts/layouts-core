@@ -167,9 +167,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->getRelatedLayoutsCount($persistenceLayout);
     }
 
-    public function hasPublishedState(Layout $layout)
+    public function hasStatus($layoutId, $status)
     {
-        return $this->layoutHandler->layoutExists($layout->getId(), Value::STATUS_PUBLISHED);
+        return $this->layoutHandler->layoutExists($layoutId, $status);
     }
 
     public function loadZone($layoutId, $identifier)
