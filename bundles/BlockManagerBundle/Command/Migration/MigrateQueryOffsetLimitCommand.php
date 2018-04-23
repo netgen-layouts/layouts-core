@@ -162,10 +162,10 @@ final class MigrateQueryOffsetLimitCommand extends Command
      *
      * Returned array is in format:
      *
-     * array(
+     * [
      *     'offset' => 'OFFSET_PARAM_NAME',
      *     'limit' => 'LIMIT_PARAM_NAME',
-     * )
+     * ]
      *
      * Each of those can be `null` to indicate that the query type does not have an offset
      * or a limit parameter.

@@ -6,11 +6,11 @@
 
 {% ngbm_render_zone zone context='json' %}
 --DATA--
-return array(
+return [
     'zone' => new \Netgen\BlockManager\Core\Values\Layout\Zone(),
-)
+]
 --CONFIG--
-return array()
+return []
 --EXPECT--
 {"block_id": 5}
 rendered twig block

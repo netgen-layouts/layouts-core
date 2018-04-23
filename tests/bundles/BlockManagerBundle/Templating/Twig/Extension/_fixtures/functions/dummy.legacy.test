@@ -3,8 +3,8 @@ dummy test to avoid risky flag
 --TEMPLATE--
 dummy
 --DATA--
-return array()
+return []
 --CONFIG--
-return array()
+return []
 --EXPECT--
 dummy

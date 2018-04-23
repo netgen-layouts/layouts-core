@@ -251,10 +251,10 @@ interface LayoutService extends Service
      * identifiers of the zones in the new layout type, while the values are the list
      * of old zones which will be mapped to the new one. e.g.
      *
-     * array(
-     *     'left' => array('left', 'right'),
-     *     'top' => array('top'),
-     * )
+     * [
+     *     'left' => ['left', 'right'],
+     *     'top' => ['top'],
+     * ]
      *
      * If $preserveSharedZones is set to true, all zones which are linked to a shared zone
      * will still be preserved as shared after mapping. Due to how shared zones work, if one
