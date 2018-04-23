@@ -1,6 +1,7 @@
 {
     "name": "netgen/block-manager",
     "description": "Netgen Block Manager",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Netgen",
