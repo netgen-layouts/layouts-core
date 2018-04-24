@@ -1,6 +1,9 @@
 pagelayout.title: 'Netgen Block Manager'
 layout.invalid_layout: 'This layout is invalid. Please delete it.'
 
+pagelayout.size_warning.title: 'The current window is too small'
+pagelayout.size_warning.warning: 'Consider resizing your browser window or switching to another device to properly display Netgen Layouts interface.'
+
 layout.block.move: 'Move block'
 layout.block.delete: 'Delete block'
 layout.block.copy: 'Duplicate block'
