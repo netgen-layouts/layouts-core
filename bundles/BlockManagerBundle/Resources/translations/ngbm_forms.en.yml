@@ -62,7 +62,7 @@ config.block.http_cache.submit: 'Set cache'
 
 config.collection_item.visibility.header: 'Configure visibility'
 config.collection_item.visibility.info: 'This item is <strong>hidden</strong> within the CMS. Following settings <strong>will not apply</strong> if the item is not visible in the CMS.'
-config.collection_item.visibility.warning: 'Visibility / Caching warning'
+config.collection_item.visibility.warning: '<strong>Warning:</strong> Please make sure to set proper caching policy on the block in which this item is located.'
 config.collection_item.visibility.visible_from.placeholder: 'Beginning of time'
 config.collection_item.visibility.visible_to.placeholder: 'End of time'
 config.collection_item.visibility.cancel: 'Cancel'
