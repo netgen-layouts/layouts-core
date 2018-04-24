@@ -90,16 +90,16 @@ final class ImportCommand extends Command
             try {
                 $layout = $this->importer->importLayout($layoutData);
 
-                $this->io->note(sprintf('Imported layout #%d into layout ID %d', $index, $layout->getId()));
+                $this->io->note(sprintf('Imported layout #%d into layout ID %d', $index + 1, $layout->getId()));
             } catch (Throwable $t) {
-                $this->io->error(sprintf('Could not import layout with ID #%d', $index));
+                $this->io->error(sprintf('Could not import layout with ID #%d', $index + 1));
                 $this->io->section('Error stack:');
                 $this->renderThrowableStack($t);
                 $this->io->newLine();
 
                 ++$errorCount;
             } catch (Exception $e) {
-                $this->io->error(sprintf('Could not import layout with ID #%d', $index));
+                $this->io->error(sprintf('Could not import layout with ID #%d', $index + 1));
                 $this->io->section('Error stack:');
                 $this->renderThrowableStack($e);
                 $this->io->newLine();
