@@ -1,6 +1,5 @@
 {
     "name": "netgen-layouts-admin",
-    "homepage": "https://www.netgenlabs.com",
     "dependencies": {
         "normalize.scss": "^5.0.4"
     }
