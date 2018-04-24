@@ -65,7 +65,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->itemLoaderMock
             ->expects($this->once())
             ->method('load')
-            ->will($this->returnValue(new NullItem(42)));
+            ->will($this->returnValue(new NullItem()));
 
         $this->assertValid(false, 'value://42');
     }

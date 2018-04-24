@@ -78,7 +78,7 @@ final class ItemLoaderTest extends TestCase
             ['value' => new ValueLoader(true)]
         );
 
-        $this->assertEquals(new NullItem(42), $this->itemLoader->load(42, 'value'));
+        $this->assertEquals(new NullItem(), $this->itemLoader->load(42, 'value'));
     }
 
     /**
@@ -132,7 +132,7 @@ final class ItemLoaderTest extends TestCase
             ['value' => new ValueLoader(true)]
         );
 
-        $this->assertEquals(new NullItem(42), $this->itemLoader->loadByRemoteId(42, 'value'));
+        $this->assertEquals(new NullItem(), $this->itemLoader->loadByRemoteId(42, 'value'));
     }
 
     /**

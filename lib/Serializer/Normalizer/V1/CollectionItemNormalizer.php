@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -27,7 +26,7 @@ final class CollectionItemNormalizer implements NormalizerInterface
         $collectionItem = $object->getValue();
         $cmsItem = $collectionItem->getCmsItem();
 
-        $data = [
+        return [
             'id' => $collectionItem->getId(),
             'collection_id' => $collectionItem->getCollectionId(),
             'position' => $collectionItem->getPosition(),
@@ -38,16 +37,8 @@ final class CollectionItemNormalizer implements NormalizerInterface
             'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
-            'cms_url' => null,
+            'cms_url' => $this->urlGenerator->generate($cmsItem),
         ];
-
-        if ($cmsItem instanceof NullItem) {
-            return $data;
-        }
-
-        $data['cms_url'] = $this->urlGenerator->generate($cmsItem);
-
-        return $data;
     }
 
     public function supportsNormalization($data, $format = null)

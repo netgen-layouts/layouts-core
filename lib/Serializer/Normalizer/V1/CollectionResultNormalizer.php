@@ -6,7 +6,6 @@ use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\Slot;
 use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -65,9 +64,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
 
         if ($resultItem instanceof ManualItem) {
             $collectionItem = $resultItem->getCollectionItem();
-            if (!$resultItem->getCollectionItem()->getCmsItem() instanceof NullItem) {
-                $itemUrl = $this->urlGenerator->generate($resultItem->getCollectionItem()->getCmsItem());
-            }
+            $itemUrl = $this->urlGenerator->generate($resultItem->getCollectionItem()->getCmsItem());
         } elseif (!$resultItem instanceof Slot) {
             $itemUrl = $this->urlGenerator->generate($resultItem);
         }

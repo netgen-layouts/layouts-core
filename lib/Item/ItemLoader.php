@@ -48,7 +48,7 @@ final class ItemLoader implements ItemLoaderInterface
         try {
             $loadedValue = $this->valueLoaders[$valueType]->load($value);
         } catch (ItemException $e) {
-            return new NullItem($value);
+            return new NullItem();
         }
 
         return $this->itemBuilder->build($loadedValue);
@@ -63,7 +63,7 @@ final class ItemLoader implements ItemLoaderInterface
         try {
             $loadedValue = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
         } catch (ItemException $e) {
-            return new NullItem($remoteId);
+            return new NullItem();
         }
 
         return $this->itemBuilder->build($loadedValue);

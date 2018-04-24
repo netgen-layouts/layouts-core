@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 final class NullItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\NullItem::__construct
      * @covers \Netgen\BlockManager\Item\NullItem::getName
      * @covers \Netgen\BlockManager\Item\NullItem::getObject
      * @covers \Netgen\BlockManager\Item\NullItem::getRemoteId
@@ -18,9 +17,9 @@ final class NullItemTest extends TestCase
      */
     public function testObject()
     {
-        $value = new NullItem(42);
+        $value = new NullItem();
 
-        $this->assertEquals(42, $value->getValue());
+        $this->assertNull($value->getValue());
         $this->assertNull($value->getRemoteId());
         $this->assertEquals('null', $value->getValueType());
         $this->assertEquals('(INVALID ITEM)', $value->getName());

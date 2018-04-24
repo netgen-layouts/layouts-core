@@ -192,6 +192,7 @@ final class ItemTest extends TestCase
     {
         $item = new Item(
             [
+                'definition' => new ItemDefinition(),
                 'cmsItem' => new CmsItem(['isVisible' => $cmsItemVisible]),
                 'configs' => [
                     'visibility' => new Config(
@@ -222,7 +223,7 @@ final class ItemTest extends TestCase
     {
         $item = new Item(
             [
-                'cmsItem' => new NullItem(42),
+                'cmsItem' => new NullItem(),
                 'configs' => [
                     'visibility' => new Config(
                         [

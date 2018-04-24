@@ -8,16 +8,8 @@ namespace Netgen\BlockManager\Item;
  */
 final class NullItem implements ItemInterface
 {
-    private $value;
-
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
-
     public function getValue()
     {
-        return $this->value;
     }
 
     public function getRemoteId()

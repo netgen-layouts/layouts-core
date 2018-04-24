@@ -20,7 +20,6 @@ use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 
 /**
@@ -497,7 +496,7 @@ final class LayoutDataHandler
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
                 $this->mapItemType($collectionItemData['type']),
-                $item instanceof NullItem ? null : $item->getValue()
+                $item->getValue()
             );
 
             $this->setConfigStructs(
