@@ -1,10 +1,10 @@
 {% macro layout_path(layout_id) %}
 {% spaceless %}
     {% if constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION_ID') >= 30200 %}
-        {{ path('ngbm_app', {'_fragment': 'layout/' ~ layout_id}) }}
+        {{ path('ngbm_' ~ (ngbm.debug ? 'dev_' : '') ~ 'app', {'_fragment': 'layout/' ~ layout_id}) }}
     {% else %}
         {# @deprecated Remove when support for Symfony 2.8 ends #}
-        {{ path('ngbm_app') }}#layout/{{ layout_id }}
+        {{ path('ngbm_' ~ (ngbm.debug ? 'dev_' : '') ~ 'app') }}#layout/{{ layout_id }}
     {% endif %}
 {% endspaceless %}
 {% endmacro %}
