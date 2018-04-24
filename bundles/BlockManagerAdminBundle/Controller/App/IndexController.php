@@ -20,9 +20,9 @@ final class IndexController extends Controller
 
         return $this->render(
             '@NetgenBlockManagerAdmin/app/index.html.twig',
-            array(
+            [
                 'debug' => $appEnvironment === 'dev',
-            )
+            ]
         );
     }
 
