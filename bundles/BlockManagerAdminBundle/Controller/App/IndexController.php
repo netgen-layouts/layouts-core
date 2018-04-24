@@ -19,9 +19,10 @@ final class IndexController extends Controller
         $appEnvironment = $request->attributes->get('_ngbm_environment');
 
         return $this->render(
-            !empty($appEnvironment) ?
-                sprintf('@NetgenBlockManagerAdmin/app/index_%s.html.twig', $appEnvironment) :
-                '@NetgenBlockManagerAdmin/app/index.html.twig'
+            '@NetgenBlockManagerAdmin/app/index.html.twig',
+            array(
+                'debug' => $appEnvironment === 'dev',
+            )
         );
     }
 

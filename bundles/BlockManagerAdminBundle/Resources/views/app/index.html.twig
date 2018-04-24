@@ -23,7 +23,11 @@
     <meta name="theme-color" content="#ffffff">
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('netgen-block-manager.css', 'ngbm_app_css') }}">
+        {% if debug %}
+            <link rel="stylesheet" href="{{ asset('dev/css/netgen-block-manager.css', 'ngbm_app') }}">
+        {% else %}
+            <link rel="stylesheet" href="{{ asset('netgen-block-manager.css', 'ngbm_app_css') }}">
+        {% endif %}
     {% endblock %}
 
     {% block custom_stylesheets %}
@@ -48,7 +52,12 @@
     {% endblock %}
 
     {% block javascripts %}
-        <script src="{{ asset('netgen-block-manager.js', 'ngbm_app_js') }}"></script>
+        {% if debug %}
+            <script src="{{ asset('dev/js/vendor.js', 'ngbm_app') }}"></script>
+            <script src="{{ asset('dev/js/main.js', 'ngbm_app') }}"></script>
+        {% else %}
+            <script src="{{ asset('netgen-block-manager.js', 'ngbm_app_js') }}"></script>
+        {% endif %}
     {% endblock %}
 </body>
 </html>
