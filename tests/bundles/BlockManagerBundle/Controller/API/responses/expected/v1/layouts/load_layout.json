@@ -2,6 +2,7 @@
     "id": 1,
     "type": "4_zones_a",
     "published": false,
+    "has_archived_state": false,
     "has_published_state": true,
     "created_at": "2015-11-09T11:43:33+0100",
     "updated_at": "2015-11-09T11:43:33+0100",

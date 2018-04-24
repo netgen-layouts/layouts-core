@@ -2,6 +2,7 @@
     "id": 8,
     "type": "4_zones_b",
     "published": true,
+    "has_archived_state": false,
     "has_published_state": true,
     "created_at": "@string@.isDateTime()",
     "updated_at": "@string@.isDateTime()",
