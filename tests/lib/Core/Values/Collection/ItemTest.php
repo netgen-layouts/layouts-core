@@ -223,7 +223,7 @@ final class ItemTest extends TestCase
     {
         $item = new Item(
             [
-                'cmsItem' => new NullItem(),
+                'cmsItem' => new NullItem('value'),
                 'configs' => [
                     'visibility' => new Config(
                         [

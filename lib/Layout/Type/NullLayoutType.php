@@ -6,9 +6,22 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
 final class NullLayoutType implements LayoutTypeInterface
 {
+    /**
+     * @var string
+     */
+    private $layoutType;
+
+    /**
+     * @param string $layoutType
+     */
+    public function __construct($layoutType)
+    {
+        $this->layoutType = $layoutType;
+    }
+
     public function getIdentifier()
     {
-        return 'null';
+        return $this->layoutType;
     }
 
     public function isEnabled()

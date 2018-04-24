@@ -17,15 +17,16 @@ final class NullBlockDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->blockDefinition = new NullBlockDefinition();
+        $this->blockDefinition = new NullBlockDefinition('definition');
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::__construct
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $this->assertEquals('null', $this->blockDefinition->getIdentifier());
+        $this->assertEquals('definition', $this->blockDefinition->getIdentifier());
     }
 
     /**

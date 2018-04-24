@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -40,6 +41,38 @@ final class TypeTest extends TestCase
         $view = new RuleTargetView(['target' => $target]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
+     */
+    public function testMatchWithNullTargetType()
+    {
+        $target = new Target(
+            [
+                'targetType' => new NullTargetType('type'),
+            ]
+        );
+
+        $view = new RuleTargetView(['target' => $target]);
+
+        $this->assertTrue($this->matcher->match($view, ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
+     */
+    public function testMatchWithNullTargetTypeReturnsFalse()
+    {
+        $target = new Target(
+            [
+                'targetType' => new NullTargetType('type'),
+            ]
+        );
+
+        $view = new RuleTargetView(['target' => $target]);
+
+        $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
     /**

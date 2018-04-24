@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View\Matcher\Item;
 
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\ItemViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -18,6 +19,11 @@ final class ValueType implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getItem()->getValueType(), $config, true);
+        $item = $view->getItem();
+        if ($item instanceof NullItem) {
+            return in_array('null', $config, true);
+        }
+
+        return in_array($item->getValueType(), $config, true);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View\Matcher\Layout;
 
+use Netgen\BlockManager\Layout\Type\NullLayoutType;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\LayoutTypeViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
@@ -22,6 +23,10 @@ final class Type implements MatcherInterface
         $layoutType = $view instanceof LayoutViewInterface ?
             $view->getLayout()->getLayoutType() :
             $view->getLayoutType();
+
+        if ($layoutType instanceof NullLayoutType) {
+            return in_array('null', $config, true);
+        }
 
         return in_array($layoutType->getIdentifier(), $config, true);
     }

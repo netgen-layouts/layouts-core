@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\View\Matcher\Form\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\View\Matcher\Block\DefinitionTrait;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -14,6 +15,8 @@ use Netgen\BlockManager\View\ViewInterface;
  */
 final class Definition implements MatcherInterface
 {
+    use DefinitionTrait;
+
     public function match(ViewInterface $view, array $config)
     {
         if (!$view instanceof FormViewInterface) {
@@ -29,6 +32,6 @@ final class Definition implements MatcherInterface
             return false;
         }
 
-        return in_array($block->getDefinition()->getIdentifier(), $config, true);
+        return $this->doMatch($block, $config);
     }
 }

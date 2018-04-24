@@ -81,7 +81,7 @@ final class LayoutMapper
         try {
             $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->type);
         } catch (LayoutTypeException $e) {
-            $layoutType = new NullLayoutType();
+            $layoutType = new NullLayoutType($layout->type);
         }
 
         $layoutData = [

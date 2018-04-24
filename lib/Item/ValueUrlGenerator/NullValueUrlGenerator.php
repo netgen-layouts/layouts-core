@@ -8,6 +8,5 @@ final class NullValueUrlGenerator implements ValueUrlGeneratorInterface
 {
     public function generate($object)
     {
-        return '';
     }
 }

@@ -23,6 +23,6 @@ final class NullValueUrlGeneratorTest extends TestCase
      */
     public function testGenerate()
     {
-        $this->assertEquals('', $this->urlGenerator->generate(new stdClass()));
+        $this->assertNull($this->urlGenerator->generate(new stdClass()));
     }
 }

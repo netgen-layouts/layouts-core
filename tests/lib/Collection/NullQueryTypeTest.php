@@ -15,15 +15,16 @@ final class NullQueryTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->queryType = new NullQueryType();
+        $this->queryType = new NullQueryType('type');
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\NullQueryType::__construct
      * @covers \Netgen\BlockManager\Collection\NullQueryType::getType
      */
     public function testGetType()
     {
-        $this->assertEquals('null', $this->queryType->getType());
+        $this->assertEquals('type', $this->queryType->getType());
     }
 
     /**

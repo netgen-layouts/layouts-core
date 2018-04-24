@@ -31,7 +31,6 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
@@ -133,6 +132,11 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
      */
     protected $layoutResolverMapper;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $itemLoaderMock;
 
     public function setUp()
     {
@@ -524,11 +528,7 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createCollectionMapper()
     {
-        $itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
-        $itemLoaderMock
-            ->expects($this->any())
-            ->method('load')
-            ->will($this->returnValue(new CmsItem()));
+        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
@@ -536,7 +536,7 @@ abstract class ServiceTestCase extends TestCase
             $this->createConfigMapper(),
             $this->itemDefinitionRegistry,
             $this->queryTypeRegistry,
-            $itemLoaderMock
+            $this->itemLoaderMock
         );
     }
 

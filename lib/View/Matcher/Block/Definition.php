@@ -12,12 +12,14 @@ use Netgen\BlockManager\View\ViewInterface;
  */
 final class Definition implements MatcherInterface
 {
+    use DefinitionTrait;
+
     public function match(ViewInterface $view, array $config)
     {
         if (!$view instanceof BlockViewInterface) {
             return false;
         }
 
-        return in_array($view->getBlock()->getDefinition()->getIdentifier(), $config, true);
+        return $this->doMatch($view->getBlock(), $config);
     }
 }

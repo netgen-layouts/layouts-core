@@ -14,15 +14,16 @@ final class NullItemDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->itemDefinition = new NullItemDefinition();
+        $this->itemDefinition = new NullItemDefinition('value');
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::__construct
      * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::getValueType
      */
     public function testGetValueType()
     {
-        $this->assertEquals('null', $this->itemDefinition->getValueType());
+        $this->assertEquals('value', $this->itemDefinition->getValueType());
     }
 
     /**

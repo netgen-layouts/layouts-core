@@ -9,9 +9,22 @@ final class NullQueryType implements QueryTypeInterface
 {
     use ParameterDefinitionCollectionTrait;
 
+    /**
+     * @var string
+     */
+    private $queryType;
+
+    /**
+     * @param string $queryType
+     */
+    public function __construct($queryType)
+    {
+        $this->queryType = $queryType;
+    }
+
     public function getType()
     {
-        return 'null';
+        return $this->queryType;
     }
 
     public function getName()

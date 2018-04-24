@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\Item;
 
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Item\ValueType;
@@ -33,6 +34,26 @@ final class ValueTypeTest extends TestCase
         $view = new ItemView(['item' => new Item(['valueType' => 'value'])]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
+     */
+    public function testMatchWithNullItem()
+    {
+        $view = new ItemView(['item' => new NullItem('value')]);
+
+        $this->assertTrue($this->matcher->match($view, ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
+     */
+    public function testMatchWithNullItemReturnsFalse()
+    {
+        $view = new ItemView(['item' => new NullItem('value')]);
+
+        $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
     /**

@@ -1,7 +1,14 @@
 {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
 
 {% trans_default_domain 'ngbm_admin' %}
+
+{% set target_types = ngbm.config.parameter('target_types') %}
+{% set condition_types = ngbm.config.parameter('condition_types') %}
+
 {% set target_type_identifier = rule.targets is not empty ? rule.targets[0].targetType.type : '' %}
+{% if not target_types[target_type_identifier] is defined %}
+    {% set target_type_identifier = 'null' %}
+{% endif %}
 
 <div class="nl-rule-cell rule-priority">{{ rule.priority }}</div>
 <div class="nl-rule-content
@@ -44,7 +51,9 @@
             {% if rule.conditions is not empty %}
                 <ul class="{% if rule.conditions|length == 2 %}nl-ellipsis{% elseif rule.conditions|length > 2 %}nl-inline{% endif %}">
                     {% for condition in rule.conditions %}
-                        <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}{% if rule.conditions|length <= 2 %}: {{ ngbm_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
+                        {% if condition_types[condition.conditionType.type] is defined %}
+                            <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}{% if rule.conditions|length <= 2 %}: {{ ngbm_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -139,7 +148,6 @@
                             <h4>{{ 'layout_resolver.rule.no_targets'|trans }}</h4>
                         {% endif %}
 
-                        {% set target_types = ngbm.config.parameter('target_types') %}
                         {% if target_types is not empty %}
                             <div class="settings-action">
                                 <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>
@@ -177,7 +185,6 @@
                             <h4>{{ 'layout_resolver.rule.no_conditions'|trans }}</h4>
                         {% endif %}
 
-                        {% set condition_types = ngbm.config.parameter('condition_types') %}
                         {% if condition_types is not empty %}
                             <div class="settings-action">
                                 <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>

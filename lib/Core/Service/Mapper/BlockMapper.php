@@ -93,7 +93,7 @@ final class BlockMapper
                 $block->definitionIdentifier
             );
         } catch (BlockDefinitionException $e) {
-            $blockDefinition = new NullBlockDefinition();
+            $blockDefinition = new NullBlockDefinition($block->definitionIdentifier);
         }
 
         $locales = !empty($locales) ? $locales : [$block->mainLocale];

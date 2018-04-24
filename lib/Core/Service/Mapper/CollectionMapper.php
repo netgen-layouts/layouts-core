@@ -144,7 +144,7 @@ final class CollectionMapper
         try {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
         } catch (ItemDefinitionException $e) {
-            $itemDefinition = new NullItemDefinition();
+            $itemDefinition = new NullItemDefinition($item->valueType);
         }
 
         $itemData = [
@@ -157,7 +157,9 @@ final class CollectionMapper
             'value' => $item->value,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
             'cmsItem' => function () use ($item, $itemDefinition) {
-                return $this->itemLoader->load($item->value, $itemDefinition->getValueType());
+                $valueType = $itemDefinition instanceof NullItemDefinition ? 'null' : $itemDefinition->getValueType();
+
+                return $this->itemLoader->load($item->value, $valueType);
             },
         ];
 
@@ -186,7 +188,7 @@ final class CollectionMapper
         try {
             $queryType = $this->queryTypeRegistry->getQueryType($query->type);
         } catch (QueryTypeException $e) {
-            $queryType = new NullQueryType();
+            $queryType = new NullQueryType($query->type);
         }
 
         $locales = !empty($locales) ? $locales : [$query->mainLocale];

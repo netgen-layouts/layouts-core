@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -40,6 +41,38 @@ final class TypeTest extends TestCase
         $view = new RuleConditionView(['condition' => $condition]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\RuleCondition\Type::match
+     */
+    public function testMatchWithNullConditionType()
+    {
+        $condition = new Condition(
+            [
+                'conditionType' => new NullConditionType('type'),
+            ]
+        );
+
+        $view = new RuleConditionView(['condition' => $condition]);
+
+        $this->assertTrue($this->matcher->match($view, ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\RuleCondition\Type::match
+     */
+    public function testMatchWithNullConditionTypeReturnsFalse()
+    {
+        $condition = new Condition(
+            [
+                'conditionType' => new NullConditionType('type'),
+            ]
+        );
+
+        $view = new RuleConditionView(['condition' => $condition]);
+
+        $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
     /**

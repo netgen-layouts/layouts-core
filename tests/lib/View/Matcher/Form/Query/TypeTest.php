@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
 
+use Netgen\BlockManager\Collection\NullQueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -54,6 +55,46 @@ final class TypeTest extends TestCase
         );
 
         $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     */
+    public function testMatchWithNullQueryType()
+    {
+        $form = $this->formFactory->create(
+            Form::class,
+            null,
+            [
+                'query' => new Query(
+                    [
+                        'queryType' => new NullQueryType('type'),
+                    ]
+                ),
+            ]
+        );
+
+        $this->assertTrue($this->matcher->match(new FormView(['form_object' => $form]), ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     */
+    public function testMatchWithNullQueryTypeReturnsFalse()
+    {
+        $form = $this->formFactory->create(
+            Form::class,
+            null,
+            [
+                'query' => new Query(
+                    [
+                        'queryType' => new NullQueryType('type'),
+                    ]
+                ),
+            ]
+        );
+
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
     }
 
     /**

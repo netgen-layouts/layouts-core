@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\View\Matcher\Form\Query;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Collection\NullQueryType;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -29,6 +30,11 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($query->getQueryType()->getType(), $config, true);
+        $queryType = $query->getQueryType();
+        if ($queryType instanceof NullQueryType) {
+            return in_array('null', $config, true);
+        }
+
+        return in_array($queryType->getType(), $config, true);
     }
 }

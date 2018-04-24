@@ -335,7 +335,7 @@ final class LinkTypeTest extends TestCase
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('24'), $this->equalTo('ezlocation'))
-            ->will($this->returnValue(new NullItem()));
+            ->will($this->returnValue(new NullItem('ezlocation')));
 
         $this->assertEquals(
             [
@@ -455,7 +455,7 @@ final class LinkTypeTest extends TestCase
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('def'), $this->equalTo('ezlocation'))
-            ->will($this->returnValue(new NullItem()));
+            ->will($this->returnValue(new NullItem('ezlocation')));
 
         $this->assertEquals(
             new LinkValue(

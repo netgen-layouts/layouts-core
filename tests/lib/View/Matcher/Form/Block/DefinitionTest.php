@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
@@ -54,6 +55,48 @@ final class DefinitionTest extends TestCase
         );
 
         $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     */
+    public function testMatchWithNullBlockDefinition()
+    {
+        $form = $this->formFactory->create(
+            Form::class,
+            null,
+            [
+                'block' => new Block(
+                    [
+                        'definition' => new NullBlockDefinition('definition'),
+                    ]
+                ),
+            ]
+        );
+
+        $this->assertTrue($this->matcher->match(new FormView(['form_object' => $form]), ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     */
+    public function testMatchWithNullBlockDefinitionReturnsFalse()
+    {
+        $form = $this->formFactory->create(
+            Form::class,
+            null,
+            [
+                'block' => new Block(
+                    [
+                        'definition' => new NullBlockDefinition('definition'),
+                    ]
+                ),
+            ]
+        );
+
+        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
     }
 
     /**

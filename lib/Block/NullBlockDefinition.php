@@ -11,9 +11,22 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     use ParameterDefinitionCollectionTrait;
     use ConfigDefinitionAwareTrait;
 
+    /**
+     * @var string
+     */
+    private $identifier;
+
+    /**
+     * @param string $identifier
+     */
+    public function __construct($identifier)
+    {
+        $this->identifier = $identifier;
+    }
+
     public function getIdentifier()
     {
-        return 'null';
+        return $this->identifier;
     }
 
     public function getName()

@@ -13,9 +13,11 @@ interface ValueUrlGeneratorInterface
      * Returns the object path. Take note that this is not a slug,
      * but a full path, i.e. starting with /.
      *
+     * If the path cannot be generated, this can return null.
+     *
      * @param mixed $object
      *
-     * @return string
+     * @return string|null
      */
     public function generate($object);
 }

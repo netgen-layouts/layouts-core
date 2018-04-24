@@ -15,15 +15,16 @@ final class NullLayoutTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->layoutType = new NullLayoutType();
+        $this->layoutType = new NullLayoutType('type');
     }
 
     /**
+     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::__construct
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $this->assertEquals('null', $this->layoutType->getIdentifier());
+        $this->assertEquals('type', $this->layoutType->getIdentifier());
     }
 
     /**

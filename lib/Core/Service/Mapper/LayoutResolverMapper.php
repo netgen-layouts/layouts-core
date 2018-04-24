@@ -122,7 +122,7 @@ final class LayoutResolverMapper
                 $target->type
             );
         } catch (TargetTypeException $e) {
-            $targetType = new NullTargetType();
+            $targetType = new NullTargetType($target->type);
         }
 
         $targetData = [
@@ -150,7 +150,7 @@ final class LayoutResolverMapper
                 $condition->type
             );
         } catch (ConditionTypeException $e) {
-            $conditionType = new NullConditionType();
+            $conditionType = new NullConditionType($condition->type);
         }
 
         $conditionData = [

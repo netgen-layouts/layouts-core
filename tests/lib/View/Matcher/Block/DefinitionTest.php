@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -27,6 +28,7 @@ final class DefinitionTest extends TestCase
      * @param bool $expected
      *
      * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
+     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, $expected)
@@ -44,6 +46,48 @@ final class DefinitionTest extends TestCase
         );
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
+     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     */
+    public function testMatchWithNullDefinition()
+    {
+        $block = new Block(
+            [
+                'definition' => new NullBlockDefinition('definition'),
+            ]
+        );
+
+        $view = new BlockView(
+            [
+                'block' => $block,
+            ]
+        );
+
+        $this->assertTrue($this->matcher->match($view, ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
+     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     */
+    public function testMatchWithNullDefinitionReturnsFalse()
+    {
+        $block = new Block(
+            [
+                'definition' => new NullBlockDefinition('definition'),
+            ]
+        );
+
+        $view = new BlockView(
+            [
+                'block' => $block,
+            ]
+        );
+
+        $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
     /**

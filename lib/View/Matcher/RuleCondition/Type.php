@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View\Matcher\RuleCondition;
 
+use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\RuleConditionViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -18,6 +19,11 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getCondition()->getConditionType()->getType(), $config, true);
+        $conditionType = $view->getCondition()->getConditionType();
+        if ($conditionType instanceof NullConditionType) {
+            return in_array('null', $config, true);
+        }
+
+        return in_array($conditionType->getType(), $config, true);
     }
 }

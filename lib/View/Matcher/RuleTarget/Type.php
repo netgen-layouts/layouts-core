@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View\Matcher\RuleTarget;
 
+use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\RuleTargetViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -18,6 +19,11 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getTarget()->getTargetType()->getType(), $config, true);
+        $targetType = $view->getTarget()->getTargetType();
+        if ($targetType instanceof NullTargetType) {
+            return in_array('null', $config, true);
+        }
+
+        return in_array($targetType->getType(), $config, true);
     }
 }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Layout;
 
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\NullLayoutType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Layout\Type;
@@ -41,6 +42,38 @@ final class TypeTest extends TestCase
         $view = new LayoutView(['layout' => $layout]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     */
+    public function testMatchWithNullLayoutType()
+    {
+        $layout = new Layout(
+            [
+                'layoutType' => new NullLayoutType('type'),
+            ]
+        );
+
+        $view = new LayoutView(['layout' => $layout]);
+
+        $this->assertTrue($this->matcher->match($view, ['null']));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     */
+    public function testMatchWithNullLayoutTypeReturnsFalse()
+    {
+        $layout = new Layout(
+            [
+                'layoutType' => new NullLayoutType('type'),
+            ]
+        );
+
+        $view = new LayoutView(['layout' => $layout]);
+
+        $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
     /**

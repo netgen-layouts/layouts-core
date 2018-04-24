@@ -12,6 +12,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\NullQueryType;
 use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -259,6 +260,12 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('load')
+            ->with($this->equalTo('12'), $this->equalTo('ezcontent'))
+            ->will($this->returnValue(new CmsItem()));
+
         $item = $this->collectionMapper->mapItem($persistenceItem);
 
         $this->assertInstanceOf(APIItem::class, $item);
@@ -312,6 +319,12 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('load')
+            ->with($this->equalTo('12'), $this->equalTo('null'))
+            ->will($this->returnValue(new NullItem('value')));
+
         $item = $this->collectionMapper->mapItem($persistenceItem);
 
         $this->assertInstanceOf(APIItem::class, $item);
@@ -321,7 +334,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(1, $item->getPosition());
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
-        $this->assertEquals(new CmsItem(), $item->getCmsItem());
+        $this->assertEquals(new NullItem('value'), $item->getCmsItem());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
 

@@ -8,6 +8,19 @@ namespace Netgen\BlockManager\Item;
  */
 final class NullItem implements ItemInterface
 {
+    /**
+     * @var string
+     */
+    private $valueType;
+
+    /**
+     * @param string $valueType
+     */
+    public function __construct($valueType)
+    {
+        $this->valueType = $valueType;
+    }
+
     public function getValue()
     {
     }
@@ -18,7 +31,7 @@ final class NullItem implements ItemInterface
 
     public function getValueType()
     {
-        return 'null';
+        return $this->valueType;
     }
 
     public function getName()

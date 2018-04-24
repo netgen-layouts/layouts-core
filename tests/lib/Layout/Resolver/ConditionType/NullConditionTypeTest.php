@@ -15,15 +15,16 @@ final class NullConditionTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->conditionType = new NullConditionType();
+        $this->conditionType = new NullConditionType('type');
     }
 
     /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::getType
      */
     public function testGetType()
     {
-        $this->assertEquals('null', $this->conditionType->getType());
+        $this->assertEquals('type', $this->conditionType->getType());
     }
 
     /**

@@ -7,9 +7,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class NullTargetType implements TargetTypeInterface
 {
+    /**
+     * @var string
+     */
+    private $targetType;
+
+    /**
+     * @param string $targetType
+     */
+    public function __construct($targetType)
+    {
+        $this->targetType = $targetType;
+    }
+
     public function getType()
     {
-        return 'null';
+        return $this->targetType;
     }
 
     public function getConstraints()
