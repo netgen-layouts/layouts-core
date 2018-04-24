@@ -268,7 +268,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(1, $item->getPosition());
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
-        $this->assertEquals('ezcontent', $item->getValueType());
         $this->assertEquals(new CmsItem(), $item->getCmsItem());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
@@ -322,7 +321,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(1, $item->getPosition());
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
-        $this->assertEquals('unknown', $item->getValueType());
         $this->assertEquals(new CmsItem(), $item->getCmsItem());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());

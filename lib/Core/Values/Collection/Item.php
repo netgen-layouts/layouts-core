@@ -46,11 +46,6 @@ final class Item extends Value implements APIItem
     protected $value;
 
     /**
-     * @var string
-     */
-    protected $valueType;
-
-    /**
      * @var \Netgen\BlockManager\Item\ItemInterface
      */
     protected $cmsItem;
@@ -83,11 +78,6 @@ final class Item extends Value implements APIItem
     public function getValue()
     {
         return $this->value;
-    }
-
-    public function getValueType()
-    {
-        return $this->valueType;
     }
 
     public function getCmsItem()

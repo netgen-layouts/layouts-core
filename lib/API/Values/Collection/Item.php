@@ -85,13 +85,6 @@ interface Item extends Value, ConfigAwareValue
     public function getValue();
 
     /**
-     * Returns the type of value stored inside the item.
-     *
-     * @return string
-     */
-    public function getValueType();
-
-    /**
      * Returns the CMS item loaded from value and value type stored in this collection item.
      *
      * @return \Netgen\BlockManager\Item\ItemInterface

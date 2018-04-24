@@ -32,7 +32,7 @@ final class Item extends Visitor
             'type' => $this->getTypeString($collectionItem),
             'position' => $collectionItem->getPosition(),
             'value' => $collectionItem->getCmsItem()->getRemoteId(),
-            'value_type' => $collectionItem->getValueType(),
+            'value_type' => $collectionItem->getDefinition()->getValueType(),
             'configuration' => $this->visitConfiguration($collectionItem, $subVisitor),
         ];
     }

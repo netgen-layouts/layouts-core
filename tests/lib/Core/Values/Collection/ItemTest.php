@@ -25,7 +25,6 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
      */
     public function testSetDefaultProperties()
     {
@@ -38,7 +37,6 @@ final class ItemTest extends TestCase
         $this->assertNull($item->getPosition());
         $this->assertNull($item->getType());
         $this->assertNull($item->getValue());
-        $this->assertNull($item->getValueType());
         $this->assertNull($item->getCmsItem());
     }
 
@@ -52,7 +50,6 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetProperties()
@@ -66,7 +63,6 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
-                'valueType' => 'ezcontent',
                 'cmsItem' => function () {
                     return new CmsItem();
                 },
@@ -80,7 +76,6 @@ final class ItemTest extends TestCase
         $this->assertEquals(3, $item->getPosition());
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals(32, $item->getValue());
-        $this->assertEquals('ezcontent', $item->getValueType());
         $this->assertEquals(new CmsItem(), $item->getCmsItem());
         $this->assertTrue($item->isPublished());
     }

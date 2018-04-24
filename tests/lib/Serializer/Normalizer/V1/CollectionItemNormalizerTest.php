@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item;
@@ -47,7 +48,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => 3,
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
-                'valueType' => 'ezcontent',
+                'definition' => new ItemDefinition(['valueType' => 'ezcontent']),
                 'cmsItem' => new Item(
                     [
                         'name' => 'Value name',
@@ -85,7 +86,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
                 'value' => $item->getValue(),
-                'value_type' => $item->getValueType(),
+                'value_type' => $item->getDefinition()->getValueType(),
                 'visible' => $item->isVisible(),
                 'scheduled' => $item->isScheduled(),
                 'name' => 'Value name',
@@ -109,7 +110,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => 3,
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
-                'valueType' => 'ezcontent',
+                'definition' => new ItemDefinition(['valueType' => 'ezcontent']),
                 'cmsItem' => new NullItem(12),
                 'configs' => [
                     'visibility' => new Config(

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
@@ -206,7 +207,7 @@ final class ResultBuilderTest extends TestCase
                     'position' => $position,
                     'type' => Item::TYPE_MANUAL,
                     'value' => $id,
-                    'valueType' => 'value',
+                    'definition' => new ItemDefinition(['valueType' => 'value']),
                     'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value']),
                     'configs' => [
                         'visibility' => new Config(
@@ -231,7 +232,7 @@ final class ResultBuilderTest extends TestCase
                     'position' => $position,
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
-                    'valueType' => 'value',
+                    'definition' => new ItemDefinition(['valueType' => 'value']),
                     'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value']),
                     'configs' => [
                         'visibility' => new Config(

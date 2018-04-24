@@ -150,16 +150,15 @@ final class CollectionMapper
         $itemData = [
             'id' => $item->id,
             'status' => $item->status,
+            'definition' => $itemDefinition,
             'collectionId' => $item->collectionId,
             'position' => $item->position,
             'type' => $item->type,
             'value' => $item->value,
-            'valueType' => $item->valueType,
+            'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
             'cmsItem' => function () use ($item, $itemDefinition) {
                 return $this->itemLoader->load($item->value, $itemDefinition->getValueType());
             },
-            'definition' => $itemDefinition,
-            'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
         ];
 
         return new Item($itemData);
