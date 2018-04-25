@@ -3,7 +3,7 @@
     flex-wrap:wrap;
     margin-left:-$gutter;
     margin-right:-$gutter;
-    [class^='col-'] {
+    > [class^='col-'] {
         padding-left:$gutter;
         padding-right:$gutter;
         flex:0 0 100%;
