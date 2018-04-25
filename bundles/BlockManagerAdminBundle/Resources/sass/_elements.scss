@@ -82,6 +82,9 @@
     &:disabled {
         opacity:0.5;
     }
+    .nl-dropdown-active > & {
+        border-radius: 2px 2px 0 0;
+    }
 }
 
 .nl-select {
