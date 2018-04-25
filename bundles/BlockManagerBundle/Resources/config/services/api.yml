@@ -225,10 +225,10 @@ services:
         class: Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
         public: false
         arguments:
-            - "@netgen_block_manager.persistence.handler"
-            - "@netgen_block_manager.core.service.layout.mapper"
+            - "@netgen_block_manager.persistence.layout_resolver.handler"
             - "@netgen_block_manager.layout.resolver.registry.target_type"
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
+            - "@netgen_block_manager.core.service.layout"
 
     netgen_block_manager.core.service.layout_resolver.struct_builder:
         class: Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder

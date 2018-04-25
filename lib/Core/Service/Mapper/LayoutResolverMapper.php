@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
@@ -14,7 +14,7 @@ use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
@@ -22,14 +22,9 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceT
 final class LayoutResolverMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\HandlerInterface
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
-    private $persistenceHandler;
-
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
-     */
-    private $layoutMapper;
+    private $layoutResolverHandler;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
@@ -41,16 +36,21 @@ final class LayoutResolverMapper
      */
     private $conditionTypeRegistry;
 
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    private $layoutService;
+
     public function __construct(
-        HandlerInterface $persistenceHandler,
-        LayoutMapper $layoutMapper,
+        LayoutResolverHandlerInterface $layoutResolverHandler,
         TargetTypeRegistryInterface $targetTypeRegistry,
-        ConditionTypeRegistryInterface $conditionTypeRegistry
+        ConditionTypeRegistryInterface $conditionTypeRegistry,
+        LayoutService $layoutService
     ) {
-        $this->persistenceHandler = $persistenceHandler;
-        $this->layoutMapper = $layoutMapper;
+        $this->layoutResolverHandler = $layoutResolverHandler;
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;
+        $this->layoutService = $layoutService;
     }
 
     /**
@@ -62,20 +62,13 @@ final class LayoutResolverMapper
      */
     public function mapRule(PersistenceRule $rule)
     {
-        $handler = $this->persistenceHandler->getLayoutResolverHandler();
-
         $ruleData = [
             'id' => $rule->id,
             'status' => $rule->status,
             'layout' => function () use ($rule) {
                 try {
                     // Layouts used by rule are always in published status
-                    $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
-                        $rule->layoutId,
-                        Value::STATUS_PUBLISHED
-                    );
-
-                    return $this->layoutMapper->mapLayout($layout);
+                    return $rule->layoutId !== null ? $this->layoutService->loadLayout($rule->layoutId) : null;
                 } catch (NotFoundException $e) {
                     return;
                 }
@@ -84,22 +77,22 @@ final class LayoutResolverMapper
             'priority' => $rule->priority,
             'comment' => $rule->comment,
             'targets' => new LazyCollection(
-                function () use ($handler, $rule) {
+                function () use ($rule) {
                     return array_map(
                         function (PersistenceTarget $target) {
                             return $this->mapTarget($target);
                         },
-                        $handler->loadRuleTargets($rule)
+                        $this->layoutResolverHandler->loadRuleTargets($rule)
                     );
                 }
             ),
             'conditions' => new LazyCollection(
-                function () use ($handler, $rule) {
+                function () use ($rule) {
                     return array_map(
                         function (PersistenceCondition $condition) {
                             return $this->mapCondition($condition);
                         },
-                        $handler->loadRuleConditions($rule)
+                        $this->layoutResolverHandler->loadRuleConditions($rule)
                     );
                 }
             ),

@@ -548,10 +548,10 @@ abstract class ServiceTestCase extends TestCase
     protected function createLayoutResolverMapper()
     {
         return new LayoutResolverMapper(
-            $this->persistenceHandler,
-            $this->createLayoutMapper(),
+            $this->persistenceHandler->getLayoutResolverHandler(),
             $this->targetTypeRegistry,
-            $this->conditionTypeRegistry
+            $this->conditionTypeRegistry,
+            $this->createLayoutService()
         );
     }
 
