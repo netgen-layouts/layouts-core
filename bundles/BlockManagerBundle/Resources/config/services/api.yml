@@ -150,7 +150,8 @@ services:
         class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
         public: false
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.block.handler"
+            - "@netgen_block_manager.persistence.collection.handler"
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.core.service.config_mapper"

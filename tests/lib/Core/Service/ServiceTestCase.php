@@ -513,7 +513,8 @@ abstract class ServiceTestCase extends TestCase
     protected function createBlockMapper()
     {
         return new BlockMapper(
-            $this->persistenceHandler,
+            $this->persistenceHandler->getBlockHandler(),
+            $this->persistenceHandler->getCollectionHandler(),
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
             $this->createConfigMapper(),

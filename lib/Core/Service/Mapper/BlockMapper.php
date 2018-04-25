@@ -12,15 +12,21 @@ use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 
 final class BlockMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\HandlerInterface
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
-    private $persistenceHandler;
+    private $blockHandler;
+
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     */
+    private $collectionHandler;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
@@ -42,31 +48,20 @@ final class BlockMapper
      */
     private $blockDefinitionRegistry;
 
-    /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
-     */
-    private $blockHandler;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
-
     public function __construct(
-        HandlerInterface $persistenceHandler,
+        BlockHandlerInterface $blockHandler,
+        CollectionHandlerInterface $collectionHandler,
         CollectionMapper $collectionMapper,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
     ) {
-        $this->persistenceHandler = $persistenceHandler;
+        $this->blockHandler = $blockHandler;
+        $this->collectionHandler = $collectionHandler;
         $this->collectionMapper = $collectionMapper;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-
-        $this->blockHandler = $this->persistenceHandler->getBlockHandler();
-        $this->collectionHandler = $this->persistenceHandler->getCollectionHandler();
     }
 
     /**
