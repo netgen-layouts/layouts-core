@@ -1032,6 +1032,22 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "1"
+     */
+    public function testDeleteCollectionWithoutQuery()
+    {
+        $this->collectionHandler->deleteCollection(1);
+
+        $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDeleteCollectionInOneStatus()
@@ -1991,5 +2007,19 @@ final class CollectionHandlerTest extends TestCase
 
         // Query with ID 2 was in the collection with ID 3
         $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     */
+    public function testDeleteCollectionQueryWithNoQuery()
+    {
+        $this->collectionHandler->deleteCollectionQuery(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        );
+
+        $this->assertTrue(true);
     }
 }

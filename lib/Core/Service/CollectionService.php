@@ -203,10 +203,8 @@ final class CollectionService extends Service implements APICollectionService
         }
 
         $this->transaction(
-            function () use ($collection, $persistenceCollection, $newType, $queryCreateStruct) {
-                if ($collection->hasQuery()) {
-                    $this->handler->deleteCollectionQuery($persistenceCollection);
-                }
+            function () use ($persistenceCollection, $newType, $queryCreateStruct) {
+                $this->handler->deleteCollectionQuery($persistenceCollection);
 
                 if ($newType === Collection::TYPE_MANUAL) {
                     $persistenceCollection = $this->handler->updateCollection(
@@ -292,15 +290,17 @@ final class CollectionService extends Service implements APICollectionService
 
         $this->validator->validateItemUpdateStruct($item, $itemUpdateStruct);
 
+        $itemDefinition = $item->getDefinition();
+
         $updatedItem = $this->transaction(
-            function () use ($item, $persistenceItem, $itemUpdateStruct) {
+            function () use ($itemDefinition, $persistenceItem, $itemUpdateStruct) {
                 return $this->handler->updateItem(
                     $persistenceItem,
                     new ItemUpdateStruct(
                         [
                             'config' => $this->configMapper->serializeValues(
                                 $itemUpdateStruct->getConfigStructs(),
-                                $item->getDefinition()->getConfigDefinitions(),
+                                $itemDefinition->getConfigDefinitions(),
                                 $persistenceItem->config
                             ),
                         ]
