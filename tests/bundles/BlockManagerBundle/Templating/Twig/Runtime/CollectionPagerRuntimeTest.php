@@ -28,7 +28,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     public function setUp()
     {
-        $this->routeGenerator = function (APIBlock $block, $collectionIdenifier, $page) {
+        $this->routeGenerator = function (APIBlock $block, $collectionIdentifier, $page) {
             return '/generated/uri';
         };
 

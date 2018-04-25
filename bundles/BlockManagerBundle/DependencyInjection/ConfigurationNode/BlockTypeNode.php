@@ -19,7 +19,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
             ->prototype('array')
                 ->canBeDisabled()
                 ->validate()
-                    ->always(function ($v) {
+                    ->always(function (array $v) {
                         if (isset($v['enabled']) && !$v['enabled']) {
                             return $v;
                         }

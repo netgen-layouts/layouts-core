@@ -50,7 +50,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                             ->arrayNode('default')
                                 ->addDefaultsIfNotSet()
                                 ->validate()
-                                    ->ifTrue(function ($v) {
+                                    ->ifTrue(function (array $v) {
                                         if (!isset($v['valid_item_types']) || !isset($v['valid_query_types'])) {
                                             return false;
                                         }
@@ -103,7 +103,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                     ->arrayNode('forms')
                         ->addDefaultsIfNotSet()
                         ->validate()
-                            ->always(function ($v) {
+                            ->always(function (array $v) {
                                 $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
 
                                 if ($v['full']['enabled'] && ($v['design']['enabled'] || $v['content']['enabled'])) {
@@ -166,10 +166,10 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->prototype('array')
                             ->canBeDisabled()
                             ->validate()
-                                ->ifTrue(function ($v) {
+                                ->ifTrue(function (array $v) {
                                     return $v['enabled'] !== true;
                                 })
-                                ->then(function ($v) {
+                                ->then(function (array $v) {
                                     return [
                                         'name' => 'Disabled',
                                         'enabled' => false,
@@ -190,16 +190,16 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->prototype('array')
                                         ->canBeDisabled()
                                         ->validate()
-                                            ->ifTrue(function ($v) {
+                                            ->ifTrue(function (array $v) {
                                                 return $v['enabled'] === true && !isset($v['name']);
                                             })
                                             ->thenInvalid('Item view type name must be specified')
                                         ->end()
                                         ->validate()
-                                            ->ifTrue(function ($v) {
+                                            ->ifTrue(function (array $v) {
                                                 return $v['enabled'] !== true;
                                             })
-                                            ->then(function ($v) {
+                                            ->then(function (array $v) {
                                                 return [
                                                     'name' => 'Disabled',
                                                     'enabled' => false,

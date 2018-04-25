@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -57,7 +58,7 @@ final class CreateType extends AbstractType
                 'required' => true,
                 'choices' => $this->layoutTypeRegistry->getLayoutTypes(true),
                 'choice_value' => 'identifier',
-                'choice_label' => function ($layoutType) {
+                'choice_label' => function (LayoutTypeInterface $layoutType) {
                     return $layoutType->getName();
                 },
                 'choice_translation_domain' => false,

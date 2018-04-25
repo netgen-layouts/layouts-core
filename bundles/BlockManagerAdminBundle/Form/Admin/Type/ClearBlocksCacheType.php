@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type;
 
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -31,7 +32,7 @@ final class ClearBlocksCacheType extends AbstractType
             [
                 'choices' => $options['blocks'],
                 'choice_value' => 'id',
-                'choice_label' => function ($block) {
+                'choice_label' => function (Block $block) {
                     $blockName = $block->getName();
 
                     return !empty($blockName) ? $blockName : ' ';

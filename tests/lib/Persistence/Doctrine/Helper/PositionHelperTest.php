@@ -225,7 +225,7 @@ final class PositionHelperTest extends TestCase
             ->orderBy('position', 'ASC');
 
         return array_map(
-            function ($dataRow) {
+            function (array $dataRow) {
                 return $dataRow['position'];
             },
             $query->execute()->fetchAll()

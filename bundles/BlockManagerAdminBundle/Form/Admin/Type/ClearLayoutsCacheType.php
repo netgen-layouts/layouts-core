@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -31,7 +32,7 @@ final class ClearLayoutsCacheType extends AbstractType
             [
                 'choices' => $options['layouts'],
                 'choice_value' => 'id',
-                'choice_label' => function ($layout) {
+                'choice_label' => function (Layout $layout) {
                     $layoutName = $layout->getName();
 
                     return !empty($layoutName) ? $layoutName : ' ';
