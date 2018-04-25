@@ -21,8 +21,9 @@
         "uglifyify": "^4.0.5"
     },
     "dependencies": {
+        "netgen-content-browser": "0.11.x",
         "netgen-core": "0.11.x",
-        "netgen-content-browser": "0.11.x"
+        "normalize-scss": "^7.0.1"
     },
     "engines": {
         "node": ">=0.10.0"
