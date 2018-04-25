@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
     const ADMIN_FLAG_NAME = 'ngbm_is_admin_request';
+
     private static $adminRoutePrefix = 'ngbm_admin_';
 
     /**
