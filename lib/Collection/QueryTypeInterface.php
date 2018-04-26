@@ -35,7 +35,7 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
     /**
      * Returns if the query type has a form with provided name.
      *
-     * @param $formName
+     * @param string $formName
      *
      * @return bool
      */
@@ -44,7 +44,7 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
     /**
      * Returns the form for provided form name.
      *
-     * @param $formName
+     * @param string $formName
      *
      * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not have the form
      *

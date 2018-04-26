@@ -94,6 +94,9 @@ final class LayoutResolver implements LayoutResolverInterface
     private function innerResolveRules(Request $request = null, array $enabledConditions = null)
     {
         $request = $request ?: $this->requestStack->getCurrentRequest();
+        if (!$request instanceof Request) {
+            return [];
+        }
 
         $resolvedRules = [];
 

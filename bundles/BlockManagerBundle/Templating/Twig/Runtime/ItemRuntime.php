@@ -61,7 +61,7 @@ final class ItemRuntime
      * 2) ID and value type as separate arguments
      * 3) \Netgen\BlockManager\Item\ItemInterface object
      *
-     * @param int|string|\Netgen\BlockManager\Item\ItemInterface $value
+     * @param mixed $value
      * @param string|null $valueType
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If provided item or item reference is not valid

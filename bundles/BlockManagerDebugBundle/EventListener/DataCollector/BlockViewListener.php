@@ -44,7 +44,7 @@ final class BlockViewListener implements EventSubscriberInterface
     {
         $view = $event->getView();
 
-        if (!$event->getView() instanceof BlockViewInterface) {
+        if (!$view instanceof BlockViewInterface) {
             return;
         }
 

@@ -38,7 +38,7 @@ class ParameterDefinition extends Value
     protected $defaultValue;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $label;
 
@@ -48,7 +48,7 @@ class ParameterDefinition extends Value
     protected $groups = [];
 
     /**
-     * @var \Symfony\Component\Validator\Constraint[]
+     * @var array
      */
     protected $constraints = [];
 
@@ -135,7 +135,7 @@ class ParameterDefinition extends Value
     /**
      * Returns the parameter label.
      *
-     * @return string
+     * @return string|null
      */
     public function getLabel()
     {
@@ -155,7 +155,10 @@ class ParameterDefinition extends Value
     /**
      * Returns the list of constraints.
      *
-     * @return \Symfony\Component\Validator\Constraint[]
+     * These can either be instances of Symfony constraints (\Symfony\Component\Validator\Constraint)
+     * or closures that return a Symfony constraint each.
+     *
+     * @return array
      */
     public function getConstraints()
     {

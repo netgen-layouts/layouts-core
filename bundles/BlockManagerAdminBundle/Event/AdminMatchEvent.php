@@ -72,7 +72,7 @@ final class AdminMatchEvent extends Event
     /**
      * Returns the pagelayout template which will be used for admin interface.
      *
-     * @return string
+     * @return string|null
      */
     public function getPageLayoutTemplate()
     {

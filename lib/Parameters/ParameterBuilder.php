@@ -17,12 +17,12 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $builderFactory;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface|null
      */
     protected $type;
 
@@ -57,7 +57,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $constraints = [];
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface|null
      */
     protected $parentBuilder;
 

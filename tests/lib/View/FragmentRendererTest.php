@@ -118,6 +118,45 @@ final class FragmentRendererTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
+     */
+    public function testRenderValueWithNoControllerReference()
+    {
+        $view = new BlockView();
+
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->with(new Block())
+            ->will($this->returnValue($view));
+
+        $this->blockFragmentRendererMock
+            ->expects($this->once())
+            ->method('supportsView')
+            ->will($this->returnValue(true));
+
+        $this->blockFragmentRendererMock
+            ->expects($this->once())
+            ->method('getController')
+            ->will($this->returnValue(null));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo($view))
+            ->will($this->returnValue('rendered template'));
+
+        $this->fragmentHandlerMock
+            ->expects($this->never())
+            ->method('render');
+
+        $renderedTemplate = $this->renderer->renderValue(new Block());
+
+        $this->assertEquals('rendered template', $renderedTemplate);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
     public function testRenderValueWithNonCacheableView()

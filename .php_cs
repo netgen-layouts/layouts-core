@@ -35,7 +35,6 @@ return PhpCsFixer\Config::create()
         'phpdoc_order' => true,
         'psr4' => true,
         'semicolon_after_instruction' => true,
-        'simplified_null_return' => true,
         'strict_comparison' => true,
         'strict_param' => true,
         'string_line_ending' => true,

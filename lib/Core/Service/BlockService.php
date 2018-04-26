@@ -192,7 +192,7 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Blocks can only be created in blocks in draft status.');
         }
 
-        $this->validator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validateIdentifier($placeholder, 'placeholder');
         $this->validator->validatePosition($position, 'position');
         $this->validator->validateBlockCreateStruct($blockCreateStruct);
 
@@ -312,7 +312,7 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'You can only copy block to blocks in the same layout.');
         }
 
-        $this->validator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validateIdentifier($placeholder, 'placeholder');
         $this->validator->validatePosition($position, 'position');
 
         $targetBlockDefinition = $targetBlock->getDefinition();
@@ -391,7 +391,7 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'You can only move block to blocks in the same layout.');
         }
 
-        $this->validator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validateIdentifier($placeholder, 'placeholder');
         $this->validator->validatePosition($position, 'position', true);
 
         $targetBlockDefinition = $targetBlock->getDefinition();

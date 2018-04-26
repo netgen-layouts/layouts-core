@@ -21,7 +21,7 @@ final class Result
     private $item;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemInterface
+     * @var \Netgen\BlockManager\Item\ItemInterface|null
      */
     private $subItem;
 
@@ -58,7 +58,7 @@ final class Result
      * E.g. This can be the manual item that is not visible or is invalid and thus
      * replaced by a dynamic item for display purposes.
      *
-     * @return \Netgen\BlockManager\Item\ItemInterface
+     * @return \Netgen\BlockManager\Item\ItemInterface|null
      */
     public function getSubItem()
     {

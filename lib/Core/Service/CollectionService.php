@@ -198,8 +198,12 @@ final class CollectionService extends Service implements APICollectionService
             throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
         }
 
-        if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
-            throw new BadStateException('queryCreateStruct', 'Query create struct must be defined when converting to dynamic collection.');
+        if ($newType === Collection::TYPE_DYNAMIC) {
+            if ($queryCreateStruct === null) {
+                throw new BadStateException('queryCreateStruct', 'Query create struct must be defined when converting to dynamic collection.');
+            }
+
+            $this->validator->validateQueryCreateStruct($queryCreateStruct);
         }
 
         $this->transaction(

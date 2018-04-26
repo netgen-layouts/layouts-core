@@ -77,7 +77,7 @@ final class CollectionMapper
      * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string[] $locales
+     * @param array $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
@@ -176,7 +176,7 @@ final class CollectionMapper
      * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param string[] $locales
+     * @param array $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales

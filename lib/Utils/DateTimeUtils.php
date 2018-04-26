@@ -44,11 +44,11 @@ final class DateTimeUtils
     public static function createFromArray(array $datetime)
     {
         if (empty($datetime['datetime']) || !is_string($datetime['datetime'])) {
-            return;
+            return null;
         }
 
         if (empty($datetime['timezone']) || !is_string($datetime['timezone'])) {
-            return;
+            return null;
         }
 
         return new DateTimeImmutable($datetime['datetime'], new DateTimeZone($datetime['timezone']));

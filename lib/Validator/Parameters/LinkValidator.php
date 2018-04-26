@@ -35,24 +35,22 @@ final class LinkValidator extends ConstraintValidator
 
         $linkType = $value->getLinkType();
 
-        if ($linkType !== null) {
-            $validator->atPath('linkType')->validate(
-                $linkType,
-                [
-                    new Constraints\Choice(
-                        [
-                            'choices' => [
-                                LinkValue::LINK_TYPE_URL,
-                                LinkValue::LINK_TYPE_EMAIL,
-                                LinkValue::LINK_TYPE_PHONE,
-                                LinkValue::LINK_TYPE_INTERNAL,
-                            ],
-                            'strict' => true,
-                        ]
-                    ),
-                ]
-            );
-        }
+        $validator->atPath('linkType')->validate(
+            $linkType,
+            [
+                new Constraints\Choice(
+                    [
+                        'choices' => [
+                            LinkValue::LINK_TYPE_URL,
+                            LinkValue::LINK_TYPE_EMAIL,
+                            LinkValue::LINK_TYPE_PHONE,
+                            LinkValue::LINK_TYPE_INTERNAL,
+                        ],
+                        'strict' => true,
+                    ]
+                ),
+            ]
+        );
 
         $linkConstraints = [];
         if ($linkType === null) {
@@ -80,14 +78,12 @@ final class LinkValidator extends ConstraintValidator
 
         $validator->atPath('link')->validate($value->getLink(), $linkConstraints);
 
-        if ($value->getLinkSuffix() !== null) {
-            $validator->atPath('linkSuffix')->validate(
-                $value->getLinkSuffix(),
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ]
-            );
-        }
+        $validator->atPath('linkSuffix')->validate(
+            $value->getLinkSuffix(),
+            [
+                new Constraints\Type(['type' => 'string']),
+            ]
+        );
 
         $validator->atPath('newWindow')->validate(
             $value->getNewWindow(),

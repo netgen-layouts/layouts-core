@@ -89,11 +89,11 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
     private function getMaxPages(Block $block)
     {
         if (!$block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
-            return;
+            return null;
         }
 
         if (!$block->getParameter('paged_collections:enabled')->getValue()) {
-            return;
+            return null;
         }
 
         return $block->getParameter('paged_collections:max_pages')->getValue();

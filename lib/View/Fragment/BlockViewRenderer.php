@@ -63,7 +63,9 @@ final class BlockViewRenderer implements ViewRendererInterface
 
     public function getController(ViewInterface $view)
     {
-        /* @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
+        if (!$view instanceof BlockViewInterface) {
+            return null;
+        }
 
         return new ControllerReference(
             $this->blockController,

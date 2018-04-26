@@ -255,6 +255,21 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     */
+    public function testResolveRulesWithNoRequest()
+    {
+        $this->requestStack->pop();
+
+        $this->layoutResolverServiceMock
+            ->expects($this->never())
+            ->method('matchRules');
+
+        $this->assertEquals([], $this->layoutResolver->resolveRules());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      *
@@ -517,6 +532,21 @@ final class LayoutResolverTest extends TestCase
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', null));
+
+        $this->layoutResolverServiceMock
+            ->expects($this->never())
+            ->method('matchRules');
+
+        $this->assertNull($this->layoutResolver->resolveRule());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     */
+    public function testResolveRuleWithNoRequest()
+    {
+        $this->requestStack->pop();
 
         $this->layoutResolverServiceMock
             ->expects($this->never())

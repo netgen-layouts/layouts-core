@@ -40,16 +40,11 @@ abstract class Validator
      *
      * @param string $identifier
      * @param string $propertyPath
-     * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateIdentifier($identifier, $propertyPath = null, $isRequired = false)
+    public function validateIdentifier($identifier, $propertyPath = null)
     {
-        if (!$isRequired && $identifier === null) {
-            return;
-        }
-
         $constraints = [
             new Constraints\NotBlank(),
             new Constraints\Type(['type' => 'string']),
@@ -70,7 +65,7 @@ abstract class Validator
      *
      * Use the $propertyPath to change the name of the validated property in the error message.
      *
-     * @param int $position
+     * @param int|null $position
      * @param string $propertyPath
      * @param bool $isRequired
      *
@@ -94,8 +89,8 @@ abstract class Validator
     /**
      * Validates the provided offset and limit values to be integers.
      *
-     * @param int $offset
-     * @param int $limit
+     * @param int|null $offset
+     * @param int|null $limit
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */

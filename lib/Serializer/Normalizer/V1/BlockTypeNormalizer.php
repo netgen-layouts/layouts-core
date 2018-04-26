@@ -16,18 +16,23 @@ final class BlockTypeNormalizer implements NormalizerInterface
         $blockType = $object->getValue();
         $blockDefinition = $blockType->getDefinition();
 
-        $isContainer = $blockDefinition instanceof ContainerDefinitionInterface;
-
-        return [
+        $data = [
             'identifier' => $blockType->getIdentifier(),
             'enabled' => $blockType->isEnabled(),
             'name' => $blockType->getName(),
             'icon' => $blockType->getIcon(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
-            'is_container' => $isContainer,
-            'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),
+            'is_container' => false,
+            'is_dynamic_container' => false,
             'defaults' => $blockType->getDefaults(),
         ];
+
+        if ($blockDefinition instanceof ContainerDefinitionInterface) {
+            $data['is_container'] = true;
+            $data['is_dynamic_container'] = $blockDefinition->isDynamicContainer();
+        }
+
+        return $data;
     }
 
     public function supportsNormalization($data, $format = null)

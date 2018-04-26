@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\View\Fragment\ViewRendererInterface as FragmentViewRendererInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 /**
@@ -72,10 +73,12 @@ final class FragmentRenderer implements RendererInterface
             return $this->viewRenderer->renderView($view);
         }
 
-        return $this->fragmentHandler->render(
-            $fragmentViewRenderer->getController($view),
-            'esi'
-        );
+        $controller = $fragmentViewRenderer->getController($view);
+        if (!$controller instanceof ControllerReference) {
+            return $this->viewRenderer->renderView($view);
+        }
+
+        return $this->fragmentHandler->render($controller, 'esi');
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -26,7 +25,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
         }
 
         $overflowItems = [];
-        foreach ($this->getoverflowItems($resultSet) as $overflowItem) {
+        foreach ($this->getOverflowItems($resultSet) as $overflowItem) {
             $overflowItems[] = new VersionedValue($overflowItem, $object->getVersion());
         }
 

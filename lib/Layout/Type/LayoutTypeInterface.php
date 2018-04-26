@@ -56,7 +56,7 @@ interface LayoutTypeInterface
     /**
      * Returns if the layout type has a zone with provided identifier.
      *
-     * @param $zoneIdentifier
+     * @param string $zoneIdentifier
      *
      * @return bool
      */
@@ -65,7 +65,7 @@ interface LayoutTypeInterface
     /**
      * Returns the zone with provided identifier.
      *
-     * @param $zoneIdentifier
+     * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If zone does not exist
      *

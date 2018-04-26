@@ -31,7 +31,7 @@ final class BlockController extends Controller
      *
      * @throws \Exception If rendering fails
      *
-     * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function viewBlock(Block $block, $viewContext = ViewInterface::CONTEXT_DEFAULT)
     {
@@ -65,7 +65,7 @@ final class BlockController extends Controller
      *
      * @throws \Exception If rendering fails
      *
-     * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function viewAjaxBlock(Block $block, $collectionIdentifier, $viewContext = ViewInterface::CONTEXT_AJAX)
     {

@@ -41,9 +41,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             $placeholders[] = new VersionedValue($placeholder, $object->getVersion());
         }
 
-        $isContainer = $blockDefinition instanceof ContainerDefinitionInterface;
-
-        return [
+        $data = [
             'id' => $block->getId(),
             'layout_id' => $block->getLayoutId(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
@@ -57,11 +55,18 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             'locale' => $block->getLocale(),
             'is_translatable' => $block->isTranslatable(),
             'always_available' => $block->isAlwaysAvailable(),
-            'is_container' => $isContainer,
-            'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),
+            'is_container' => false,
+            'is_dynamic_container' => false,
             'placeholders' => $this->serializer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizeBlockCollections($block),
         ];
+
+        if ($blockDefinition instanceof ContainerDefinitionInterface) {
+            $data['is_container'] = true;
+            $data['is_dynamic_container'] = $blockDefinition->isDynamicContainer();
+        }
+
+        return $data;
     }
 
     public function supportsNormalization($data, $format = null)

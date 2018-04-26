@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Fragment;
 use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
+use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Fragment\BlockViewRenderer;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\View\LayoutView;
@@ -123,5 +124,13 @@ final class BlockViewRendererTest extends TestCase
             ],
             $controller->attributes
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::getController
+     */
+    public function testGetControllerWithInvalidView()
+    {
+        $this->assertNull($this->blockViewRenderer->getController(new View()));
     }
 }

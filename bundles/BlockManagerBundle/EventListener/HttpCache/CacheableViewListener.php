@@ -73,7 +73,7 @@ final class CacheableViewListener implements EventSubscriberInterface
         // in case of an active session
         // https://github.com/symfony/symfony/pull/26681
         if (Kernel::VERSION_ID >= 40100) {
-            $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, true);
+            $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, '1');
         }
     }
 }

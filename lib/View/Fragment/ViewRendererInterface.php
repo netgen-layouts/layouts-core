@@ -20,7 +20,7 @@ interface ViewRendererInterface
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
-     * @return \Symfony\Component\HttpKernel\Controller\ControllerReference
+     * @return \Symfony\Component\HttpKernel\Controller\ControllerReference|null
      */
     public function getController(ViewInterface $view);
 }

@@ -75,7 +75,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
      * @param \Iterator $queryIterator
      *
-     * @return \Netgen\BlockManager\Collection\Result\Result
+     * @return \Netgen\BlockManager\Collection\Result\Result|null
      */
     private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator)
     {
@@ -83,7 +83,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
         if (!$collectionItem->isValid()) {
             if (!$queryValue instanceof CmsItem) {
-                return;
+                return null;
             }
 
             return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
@@ -101,14 +101,14 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
      * @param \Iterator $queryIterator
      *
-     * @return \Netgen\BlockManager\Collection\Result\Result
+     * @return \Netgen\BlockManager\Collection\Result\Result|null
      */
     private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator)
     {
         if (!$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItem) {
-                return;
+                return null;
             }
 
             return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));

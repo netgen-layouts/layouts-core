@@ -9,7 +9,7 @@ interface Service
      *
      * @param callable $callable
      *
-     * @return $mixed
+     * @return mixed
      */
     public function transaction(callable $callable);
 

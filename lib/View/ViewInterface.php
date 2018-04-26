@@ -91,7 +91,7 @@ interface ViewInterface
     /**
      * Sets the response which will be used to render the view.
      *
-     * @param \Symfony\Component\HttpFoundation\Response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function setResponse(Response $response);
 

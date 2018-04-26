@@ -9,7 +9,7 @@ interface ParameterFilterRegistryInterface
     /**
      * Adds a parameter filter to registry.
      *
-     * @param $parameterType
+     * @param string $parameterType
      * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
      */
     public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter);

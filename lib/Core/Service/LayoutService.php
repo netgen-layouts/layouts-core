@@ -175,7 +175,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
     public function loadZone($layoutId, $identifier)
     {
         $this->validator->validateId($layoutId, 'layoutId');
-        $this->validator->validateIdentifier($identifier, 'identifier', true);
+        $this->validator->validateIdentifier($identifier, 'identifier');
 
         return $this->mapper->mapZone(
             $this->layoutHandler->loadZone(
@@ -189,7 +189,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
     public function loadZoneDraft($layoutId, $identifier)
     {
         $this->validator->validateId($layoutId, 'layoutId');
-        $this->validator->validateIdentifier($identifier, 'identifier', true);
+        $this->validator->validateIdentifier($identifier, 'identifier');
 
         return $this->mapper->mapZone(
             $this->layoutHandler->loadZone(

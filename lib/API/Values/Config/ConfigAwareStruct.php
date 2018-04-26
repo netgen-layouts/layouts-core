@@ -7,7 +7,7 @@ interface ConfigAwareStruct
     /**
      * Sets the config struct to this struct.
      *
-     * @param $configKey
+     * @param string $configKey
      * @param \Netgen\BlockManager\API\Values\Config\ConfigStruct $configStruct
      */
     public function setConfigStruct($configKey, ConfigStruct $configStruct);
@@ -31,7 +31,7 @@ interface ConfigAwareStruct
     /**
      * Gets the config struct with provided config key.
      *
-     * @param $configKey
+     * @param string $configKey
      *
      * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config struct does not exist
      *

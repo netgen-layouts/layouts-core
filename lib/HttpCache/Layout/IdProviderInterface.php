@@ -10,8 +10,7 @@ interface IdProviderInterface
     /**
      * Extracts all relevant IDs for a given layout.
      *
-     * @param int|string
-     * @param mixed $layoutId
+     * @param int|string $layoutId
      *
      * @return int[]|string[]
      */

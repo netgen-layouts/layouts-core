@@ -51,13 +51,12 @@ final class ValidatorTest extends TestCase
 
     /**
      * @param string $identifier
-     * @param bool $isRequired
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
      * @dataProvider validateIdentifierDataProvider
      */
-    public function testValidateIdentifier($identifier, $isRequired, $isValid)
+    public function testValidateIdentifier($identifier, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -66,7 +65,7 @@ final class ValidatorTest extends TestCase
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->validator->validateIdentifier($identifier, null, $isRequired);
+        $this->validator->validateIdentifier($identifier);
     }
 
     /**
@@ -142,20 +141,13 @@ final class ValidatorTest extends TestCase
     public function validateIdentifierDataProvider()
     {
         return [
-            [24, false, false],
-            [24, true, false],
-            [null, false, true],
-            [null, true, false],
-            ['identifier', false, true],
-            ['identifier', true, true],
-            ['identifier_1', false, true],
-            ['identifier_2', true, true],
-            ['123identifier', false, false],
-            ['345identifier', true, false],
-            ['an identifier', false, false],
-            ['other identifier', true, false],
-            ['', false, false],
-            ['', true, false],
+            [24, false],
+            [null, false],
+            ['identifier', true],
+            ['identifier_2', true],
+            ['345identifier', false],
+            ['other identifier', false],
+            ['', false],
         ];
     }
 

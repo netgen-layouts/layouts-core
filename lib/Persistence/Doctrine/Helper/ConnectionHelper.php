@@ -14,7 +14,7 @@ final class ConnectionHelper
     private $connection;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper[]
+     * @var array
      */
     private $databaseSpecificHelpers = [];
 

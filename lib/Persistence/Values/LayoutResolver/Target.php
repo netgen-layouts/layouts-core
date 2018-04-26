@@ -37,7 +37,7 @@ final class Target extends Value
     /**
      * Target value.
      *
-     * @var int|string
+     * @var mixed
      */
     public $value;
 }

@@ -30,7 +30,7 @@ final class CollectionReference extends Value
     /**
      * Collection status.
      *
-     * @var int|string
+     * @var int
      */
     public $collectionStatus;
 

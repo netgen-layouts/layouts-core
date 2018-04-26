@@ -9,6 +9,7 @@ use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -104,12 +105,16 @@ final class GlobalVariable
      *
      * All other cases receive the non-error layout if it exists.
      *
-     * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
+     * @return \Netgen\BlockManager\View\View\LayoutViewInterface|false|null
      */
     public function getLayoutView()
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $masterRequest = $this->requestStack->getMasterRequest();
+
+        if (!$currentRequest instanceof Request || !$masterRequest instanceof Request) {
+            return null;
+        }
 
         if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
             if ($currentRequest !== $masterRequest || !$masterRequest->attributes->has('ngbmLayoutView')) {
@@ -121,30 +126,30 @@ final class GlobalVariable
     }
 
     /**
-     * Returns the currently resolved layout.
+     * Returns the currently resolved layout or null if no layout was resolved.
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout|null
      */
     public function getLayout()
     {
         $layoutView = $this->getLayoutView();
         if (!$layoutView instanceof LayoutViewInterface) {
-            return;
+            return null;
         }
 
         return $layoutView->getLayout();
     }
 
     /**
-     * Returns the rule used to resolve the current layout.
+     * Returns the rule used to resolve the current layout or null if no layout was resolved.
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
      */
     public function getRule()
     {
         $layoutView = $this->getLayoutView();
         if (!$layoutView instanceof LayoutViewInterface) {
-            return;
+            return null;
         }
 
         return $layoutView->getParameter('rule');
@@ -212,12 +217,16 @@ final class GlobalVariable
      *
      * @param string $context
      *
-     * @return \Netgen\BlockManager\View\ViewInterface
+     * @return \Netgen\BlockManager\View\ViewInterface|false|null
      */
     private function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $masterRequest = $this->requestStack->getMasterRequest();
+
+        if (!$currentRequest instanceof Request || !$masterRequest instanceof Request) {
+            return null;
+        }
 
         if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
             // After an exception layout is resolved, this case either means that
@@ -225,7 +234,7 @@ final class GlobalVariable
             // happened before the rendering) or that it is already resolved
             // (if the error happened in subrequest), so this is a subsequent
             // call where we can safely return null in all cases.
-            return;
+            return null;
         }
 
         if (
@@ -235,7 +244,7 @@ final class GlobalVariable
             // This is the case where we request the main layout more than once
             // within the regular page display, without the exception, so again
             // we return null.
-            return;
+            return null;
         }
 
         // Once we're here, we either request the main layout when there's no

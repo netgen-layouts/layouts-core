@@ -74,7 +74,7 @@ final class BlockMapper
      * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string[] $locales
+     * @param array $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any requested translations
@@ -141,7 +141,7 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    private function mapCollectionReferences(PersistenceBlock $block, array $locales)
+    private function mapCollectionReferences(PersistenceBlock $block, array $locales = null)
     {
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
@@ -174,7 +174,7 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Core\Values\Block\Placeholder[]
      */
-    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, array $locales)
+    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, array $locales = null)
     {
         if (!$blockDefinition instanceof ContainerDefinitionInterface) {
             return [];

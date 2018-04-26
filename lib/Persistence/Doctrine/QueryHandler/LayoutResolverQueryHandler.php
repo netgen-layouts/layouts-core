@@ -299,7 +299,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns the lowest priority from the list of all the rules.
      *
-     * @return int
+     * @return int|null
      */
     public function getLowestRulePriority()
     {

@@ -168,6 +168,27 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
+    public function testGetLayoutViewWithNoRequest()
+    {
+        $this->requestStack->pop();
+
+        $this->layoutResolverMock
+            ->expects($this->never())
+            ->method('resolveRule');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        // This will trigger layout resolver
+        $this->globalVariable->getLayoutTemplate();
+
+        $this->assertNull($this->globalVariable->getLayoutView());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
+     */
     public function testGetLayoutViewWithException()
     {
         $subRequest = Request::create('/');
@@ -345,6 +366,30 @@ final class GlobalVariableTest extends TestCase
             $layoutView,
             $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
+     */
+    public function testGetLayoutTemplateWithNoRequest()
+    {
+        $this->requestStack->pop();
+
+        $this->layoutResolverMock
+            ->expects($this->never())
+            ->method('resolveRule');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        $this->pageLayoutResolverMock
+            ->expects($this->at(0))
+            ->method('resolvePageLayout')
+            ->will($this->returnValue('pagelayout.html.twig'));
+
+        $this->assertEquals('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
     }
 
     /**
