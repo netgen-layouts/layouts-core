@@ -1,0 +1,28 @@
+parameters:
+    ignoreErrors:
+        # We should probably remove these when upgrading to PHP 7
+        - "#Casting to string something that's already string#"
+        - "#Casting to bool something that's already bool#"
+        - "#Casting to int something that's already int#"
+
+        # Symfony Config component
+        - '#expects Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition, Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition given#'
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::requiresAtLeastOneElement\(\)#'
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::addDefaultsIfNotSet\(\)#'
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
+
+        # Symfony Form component
+        - '#expects Symfony\\Component\\Form\\FormError, Symfony\\Component\\Form\\FormError|Symfony\\Component\\Form\\FormErrorIterator given#'
+
+        # Doctrine DBAL
+        - '#expects string|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
+        - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement|int#'
+
+        # Compatibility with Symfony 4.1
+        - '#Access to undefined constant Symfony\\Component\\HttpKernel\\EventListener\\AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER#'
+
+        # Compatibility with Symfony 2.8
+        - '#Call to an undefined method Netgen\\Bundle\\BlockManagerDebugBundle\\DataCollector\\BlockManagerDataCollector::varToString\(\)#'
+
+        # Netgen Layouts specifics, we should probably fix these
+        - '#Accessing property $queryType on possibly null value of type Netgen\BlockManager\\API\\Values\\Collection\\QueryCreateStruct|null#'
