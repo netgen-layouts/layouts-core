@@ -44,5 +44,12 @@
                 <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'design'}) }}"></div>
             </div>
         </div>
+    {% else %}
+        <div class="not-selected">
+            <div class="content">
+                <span class="icon-block"></span>
+                <p>{{ 'block.edit.invalid_block'|trans }}</p>
+            </div>
+        </div>
     {% endif %}
 </section>

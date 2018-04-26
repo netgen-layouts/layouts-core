@@ -25,6 +25,7 @@ block.edit.query_type: 'Query type'
 block.edit.cancel: 'Cancel'
 block.edit.apply: 'Apply'
 block.edit.change: 'Change'
+block.edit.invalid_block: 'This block is invalid and cannot be edited. Please remove it from the layout.'
 
 block.edit.notice.change_collection_type: 'IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.'
 
