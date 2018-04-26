@@ -1,5 +1,5 @@
 pagelayout.title: 'Netgen Block Manager'
-layout.invalid_layout: 'This layout is invalid. Please delete it.'
+layout.invalid_layout: 'This layout is invalid. You can remove it.'
 
 pagelayout.size_warning.title: 'The current window is too small'
 pagelayout.size_warning.warning: 'Consider resizing your browser window or switching to another device to properly display Netgen Layouts interface.'
@@ -25,10 +25,10 @@ block.edit.query_type: 'Query type'
 block.edit.cancel: 'Cancel'
 block.edit.apply: 'Apply'
 block.edit.change: 'Change'
-block.edit.invalid_block: 'This block is invalid and cannot be edited. Please remove it from the layout.'
+block.edit.invalid_block: 'This block is invalid and cannot be edited. You can remove it from the layout.'
 
 block.edit.notice.change_collection_type: 'IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.'
 
 block.notice.empty_collection: 'This block is empty. Please pick some items manually or use a dynamic collection to show items in this block.'
-block.notice.invalid_block: 'This block is invalid. Please remove it from the layout.'
+block.notice.invalid_block: 'This block is invalid. You can remove it from the layout.'
 block.invalid_block: 'Invalid block'
