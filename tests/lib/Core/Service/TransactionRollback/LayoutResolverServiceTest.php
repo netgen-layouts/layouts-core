@@ -229,7 +229,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->restoreFromArchive(42);
+        $this->layoutResolverService->restoreFromArchive(new Rule(['status' => Rule::STATUS_ARCHIVED]));
     }
 
     /**

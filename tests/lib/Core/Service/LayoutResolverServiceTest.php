@@ -555,7 +555,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testRestoreFromArchive()
     {
-        $restoredRule = $this->layoutResolverService->restoreFromArchive(2);
+        $restoredRule = $this->layoutResolverService->restoreFromArchive(
+            $this->layoutResolverService->loadRuleArchive(2)
+        );
 
         $this->assertInstanceOf(Rule::class, $restoredRule);
         $this->assertTrue($restoredRule->isDraft());
@@ -563,12 +565,14 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "1"
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Only archived rules can be restored.
      */
-    public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingArchivedVersion()
+    public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout()
     {
-        $this->layoutResolverService->restoreFromArchive(1);
+        $this->layoutResolverService->restoreFromArchive(
+            $this->layoutResolverService->loadRule(2)
+        );
     }
 
     /**

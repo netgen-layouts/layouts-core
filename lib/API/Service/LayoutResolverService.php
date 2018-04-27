@@ -39,10 +39,22 @@ interface LayoutResolverService extends Service
     public function loadRuleDraft($ruleId);
 
     /**
+     * Loads a rule archive by its' ID.
+     *
+     * @param int|string $ruleId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    public function loadRuleArchive($ruleId);
+
+    /**
      * Loads all published rules.
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param int $offset
      * @param int $limit
      *
@@ -199,13 +211,13 @@ interface LayoutResolverService extends Service
      * Restores the archived version of a rule to a draft. If draft already exists,
      * it will be removed.
      *
-     * @param int|string $ruleId
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with provided ID does not have an archived version
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided rule is not archived
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function restoreFromArchive($ruleId);
+    public function restoreFromArchive(Rule $rule);
 
     /**
      * Deletes a rule.

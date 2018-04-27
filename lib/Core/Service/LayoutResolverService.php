@@ -97,6 +97,18 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
+    public function loadRuleArchive($ruleId)
+    {
+        $this->validator->validateId($ruleId, 'ruleId');
+
+        return $this->mapper->mapRule(
+            $this->handler->loadRule(
+                $ruleId,
+                Value::STATUS_ARCHIVED
+            )
+        );
+    }
+
     public function loadRules(Layout $layout = null, $offset = 0, $limit = null)
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
@@ -382,13 +394,17 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($publishedRule);
     }
 
-    public function restoreFromArchive($ruleId)
+    public function restoreFromArchive(Rule $rule)
     {
-        $archivedRule = $this->handler->loadRule($ruleId, Value::STATUS_ARCHIVED);
+        if (!$rule->isArchived()) {
+            throw new BadStateException('rule', 'Only archived rules can be restored.');
+        }
+
+        $archivedRule = $this->handler->loadRule($rule->getId(), Value::STATUS_ARCHIVED);
 
         $draftRule = null;
         try {
-            $draftRule = $this->handler->loadRule($ruleId, Value::STATUS_DRAFT);
+            $draftRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
         } catch (NotFoundException $e) {
             // Do nothing
         }

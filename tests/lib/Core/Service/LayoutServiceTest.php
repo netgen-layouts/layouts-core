@@ -1153,18 +1153,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout()
     {
-        $originalLayout = $this->layoutService->loadLayoutDraft(2);
-        $publishedLayout = $this->layoutService->loadLayout(2);
-        $restoredLayout = $this->layoutService->restoreFromArchive(
+        $this->layoutService->restoreFromArchive(
             $this->layoutService->loadLayout(2)
         );
-
-        $this->assertInstanceOf(Layout::class, $restoredLayout);
-        $this->assertTrue($restoredLayout->isDraft());
-        $this->assertEquals($publishedLayout->getName(), $restoredLayout->getName());
-
-        $this->assertEquals($originalLayout->getCreated(), $restoredLayout->getCreated());
-        $this->assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
     }
 
     /**
