@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'ngbm_forms' %}
 
+{% form_theme form.locales _self %}
+
 {% block header %}
     {{ 'layout.remove_locale.title'|trans }}
 {% endblock %}
@@ -28,3 +30,14 @@
         <button type="button" class="btn btn-link action_cancel">{{ 'layout.remove_locale.button.close'|trans }}</button>
     {% endif %}
 {% endblock %}
+
+{%- block _remove_locale_locales_widget -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div class="checkbox">
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock _remove_locale_locales_widget -%}
