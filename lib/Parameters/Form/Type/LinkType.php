@@ -26,11 +26,10 @@ final class LinkType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
-
         $resolver->setRequired(['value_types']);
         $resolver->setAllowedTypes('value_types', 'array');
         $resolver->setDefault('value_types', []);
+        $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

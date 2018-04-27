@@ -32,8 +32,6 @@ final class AddLocaleType extends AbstractType
 
         $resolver->setRequired(['layout']);
         $resolver->setAllowedTypes('layout', Layout::class);
-
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

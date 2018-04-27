@@ -58,6 +58,7 @@ final class TargetType extends AbstractType
 
         $defaultOptions = [
             'required' => true,
+            'translation_domain' => 'ngbm',
             'label' => sprintf('layout_resolver.target.%s', $targetType->getType()),
             'property_path' => 'value',
             'constraints' => $targetType->getConstraints(),

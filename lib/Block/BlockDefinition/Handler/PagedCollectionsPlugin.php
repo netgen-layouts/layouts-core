@@ -39,7 +39,7 @@ final class PagedCollectionsPlugin extends Plugin
             'paged_collections:enabled',
             ParameterType\Compound\BooleanType::class,
             [
-                'label' => 'block.paged_collections.enabled',
+                'label' => 'block.plugin.paged_collections.enabled',
                 'groups' => $this->defaultGroups,
             ]
         );
@@ -49,7 +49,7 @@ final class PagedCollectionsPlugin extends Plugin
             ParameterType\ChoiceType::class,
             [
                 'options' => $this->pagerTypes,
-                'label' => 'block.paged_collections.type',
+                'label' => 'block.plugin.paged_collections.type',
                 'groups' => $this->defaultGroups,
             ]
         );
@@ -59,7 +59,7 @@ final class PagedCollectionsPlugin extends Plugin
             ParameterType\IntegerType::class,
             [
                 'min' => 1,
-                'label' => 'block.paged_collections.max_pages',
+                'label' => 'block.plugin.paged_collections.max_pages',
                 'groups' => $this->defaultGroups,
             ]
         );
@@ -68,7 +68,7 @@ final class PagedCollectionsPlugin extends Plugin
             'paged_collections:ajax_first',
             ParameterType\BooleanType::class,
             [
-                'label' => 'block.paged_collections.ajax_first',
+                'label' => 'block.plugin.paged_collections.ajax_first',
                 'groups' => $this->defaultGroups,
             ]
         );

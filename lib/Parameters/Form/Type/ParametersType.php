@@ -40,6 +40,7 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
 
+        $resolver->setDefault('translation_domain', 'ngbm');
         $resolver->setDefault('groups', []);
     }
 
@@ -67,6 +68,10 @@ final class ParametersType extends AbstractType
                 'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngbm_parameter_definition' => $parameterDefinition,
             ];
+
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+                $defaultOptions['translation_domain'] = 'ngbm';
+            }
 
             $parameterForm = $builder->create(
                 $parameterName,

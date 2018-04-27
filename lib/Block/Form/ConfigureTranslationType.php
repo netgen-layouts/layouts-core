@@ -19,8 +19,6 @@ final class ConfigureTranslationType extends AbstractType
 
         $resolver->setRequired(['block']);
         $resolver->setAllowedTypes('block', Block::class);
-
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

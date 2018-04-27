@@ -34,7 +34,7 @@ final class CommonParametersPlugin extends Plugin
             ParameterType\TextLineType::class,
             [
                 'groups' => $this->defaultGroups,
-                'label' => 'block.common_params.css_class',
+                'label' => 'block.plugin.common_params.css_class',
                 'translatable' => false,
             ]
         );
@@ -44,7 +44,7 @@ final class CommonParametersPlugin extends Plugin
             ParameterType\TextLineType::class,
             [
                 'groups' => $this->defaultGroups,
-                'label' => 'block.common_params.css_id',
+                'label' => 'block.plugin.common_params.css_id',
                 'translatable' => false,
             ]
         );
@@ -54,7 +54,7 @@ final class CommonParametersPlugin extends Plugin
             ParameterType\BooleanType::class,
             [
                 'groups' => $this->defaultGroups,
-                'label' => 'block.common_params.set_container',
+                'label' => 'block.plugin.common_params.set_container',
                 'translatable' => false,
             ]
         );

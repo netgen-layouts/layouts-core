@@ -58,6 +58,7 @@ final class ConditionType extends AbstractType
 
         $defaultOptions = [
             'required' => true,
+            'translation_domain' => 'ngbm',
             'label' => sprintf('layout_resolver.condition.%s', $conditionType->getType()),
             'property_path' => 'value',
             'constraints' => $conditionType->getConstraints(),
