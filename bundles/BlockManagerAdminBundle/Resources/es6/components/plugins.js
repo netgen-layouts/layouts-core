@@ -77,7 +77,7 @@ class Dropdown {
     }
     open() {
         const rect = this.$el[0].getBoundingClientRect();
-        window.innerHeight - rect.bottom < this.$dropdown[0].scrollHeight ? this.$el.addClass('nl-dropdown-top') : this.$el.removeClass('nl-dropdown-top');
+        window.innerHeight - rect.bottom < this.$dropdown[0].scrollHeight && rect.top >= this.$dropdown[0].scrollHeight ? this.$el.addClass('nl-dropdown-top') : this.$el.removeClass('nl-dropdown-top');
         this.opened = true;
         this.$el.addClass('nl-dropdown-active');
     }
