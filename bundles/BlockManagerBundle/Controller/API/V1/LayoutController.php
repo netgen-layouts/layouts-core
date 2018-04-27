@@ -278,13 +278,15 @@ final class LayoutController extends Controller
     /**
      * Restores the layout from archive to a draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param int|string $archivedLayoutId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function restoreFromArchive(Layout $layout)
+    public function restoreFromArchive($archivedLayoutId)
     {
-        $this->layoutService->restoreFromArchive($layout->getId());
+        $this->layoutService->restoreFromArchive(
+            $this->layoutService->loadLayoutArchive($archivedLayoutId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

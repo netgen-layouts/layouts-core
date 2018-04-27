@@ -6,6 +6,8 @@
     "has_published_state": false,
     "created_at": "@string@.isDateTime()",
     "updated_at": "@string@.isDateTime()",
+    "archive_created_at": null,
+    "archive_updated_at": null,
     "shared": false,
     "name": "My new layout",
     "description": "My new layout description",

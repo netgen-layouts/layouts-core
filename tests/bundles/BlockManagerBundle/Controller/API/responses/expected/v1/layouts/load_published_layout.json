@@ -6,6 +6,8 @@
     "has_published_state": true,
     "created_at": "2015-11-09T11:43:33+0100",
     "updated_at": "2015-11-09T11:43:33+0100",
+    "archive_created_at": null,
+    "archive_updated_at": null,
     "shared": false,
     "name": "My layout",
     "description": "My layout description",

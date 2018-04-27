@@ -77,7 +77,7 @@ ngbm_api_v1_layouts_publish:
         _ngbm_status: draft
 
 ngbm_api_v1_layouts_restore:
-    path: /layouts/{layoutId}/restore
+    path: /layouts/{archivedLayoutId}/restore
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:restoreFromArchive"
