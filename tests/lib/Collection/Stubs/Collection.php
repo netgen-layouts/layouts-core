@@ -79,7 +79,15 @@ final class Collection implements APICollection
     {
     }
 
+    public function isDraft()
+    {
+    }
+
     public function isPublished()
+    {
+    }
+
+    public function isArchived()
     {
     }
 

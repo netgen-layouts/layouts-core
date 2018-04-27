@@ -51,7 +51,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layout = $this->layoutService->loadLayoutDraft(1);
 
-        $this->assertFalse($layout->isPublished());
+        $this->assertTrue($layout->isDraft());
         $this->assertInstanceOf(Layout::class, $layout);
     }
 
@@ -63,6 +63,28 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testLoadLayoutDraftThrowsNotFoundException()
     {
         $this->layoutService->loadLayoutDraft(999999);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutArchive
+     */
+    public function testLoadLayoutArchive()
+    {
+        $layout = $this->layoutService->loadLayoutArchive(2);
+
+        $this->assertTrue($layout->isArchived());
+        $this->assertInstanceOf(Layout::class, $layout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutArchive
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "999999"
+     */
+    public function testLoadLayoutArchiveThrowsNotFoundException()
+    {
+        $this->layoutService->loadLayoutArchive(999999);
     }
 
     /**
@@ -251,7 +273,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
-        $this->assertFalse($zone->isPublished());
+        $this->assertTrue($zone->isDraft());
         $this->assertInstanceOf(Zone::class, $zone);
     }
 
@@ -417,7 +439,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
-        $this->assertFalse($createdLayout->isPublished());
+        $this->assertTrue($createdLayout->isDraft());
         $this->assertInstanceOf(Layout::class, $createdLayout);
 
         $this->assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
@@ -602,7 +624,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedLayout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
 
-        $this->assertFalse($updatedLayout->isPublished());
+        $this->assertTrue($updatedLayout->isDraft());
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('New name', $updatedLayout->getName());
         $this->assertEquals('New description', $updatedLayout->getDescription());
@@ -986,7 +1008,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayout(6);
         $draftLayout = $this->layoutService->createDraft($layout);
 
-        $this->assertFalse($draftLayout->isPublished());
+        $this->assertTrue($draftLayout->isDraft());
         $this->assertInstanceOf(Layout::class, $draftLayout);
 
         $this->assertEquals($layout->getCreated(), $draftLayout->getCreated());
@@ -1001,7 +1023,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayout(1);
         $draftLayout = $this->layoutService->createDraft($layout, true);
 
-        $this->assertFalse($draftLayout->isPublished());
+        $this->assertTrue($draftLayout->isDraft());
         $this->assertInstanceOf(Layout::class, $draftLayout);
 
         $this->assertEquals($layout->getCreated(), $draftLayout->getCreated());
@@ -1094,10 +1116,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $originalLayout = $this->layoutService->loadLayoutDraft(2);
         $publishedLayout = $this->layoutService->loadLayout(2);
-        $restoredLayout = $this->layoutService->restoreFromArchive(2);
+        $restoredLayout = $this->layoutService->restoreFromArchive(
+            $this->layoutService->loadLayoutArchive(2)
+        );
 
         $this->assertInstanceOf(Layout::class, $restoredLayout);
-        $this->assertEquals(Layout::STATUS_DRAFT, $restoredLayout->getStatus());
+        $this->assertTrue($restoredLayout->isDraft());
         $this->assertEquals($publishedLayout->getName(), $restoredLayout->getName());
 
         $this->assertEquals($originalLayout->getCreated(), $restoredLayout->getCreated());
@@ -1113,21 +1137,34 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->layoutService->discardDraft($originalLayout);
 
         $publishedLayout = $this->layoutService->loadLayout(2);
-        $restoredLayout = $this->layoutService->restoreFromArchive(2);
+        $restoredLayout = $this->layoutService->restoreFromArchive(
+            $this->layoutService->loadLayoutArchive(2)
+        );
 
         $this->assertInstanceOf(Layout::class, $restoredLayout);
-        $this->assertEquals(Layout::STATUS_DRAFT, $restoredLayout->getStatus());
+        $this->assertTrue($restoredLayout->isDraft());
         $this->assertEquals($publishedLayout->getName(), $restoredLayout->getName());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "1"
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Only archived layouts can be restored.
      */
-    public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingArchivedVersion()
+    public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout()
     {
-        $this->layoutService->restoreFromArchive(1);
+        $originalLayout = $this->layoutService->loadLayoutDraft(2);
+        $publishedLayout = $this->layoutService->loadLayout(2);
+        $restoredLayout = $this->layoutService->restoreFromArchive(
+            $this->layoutService->loadLayout(2)
+        );
+
+        $this->assertInstanceOf(Layout::class, $restoredLayout);
+        $this->assertTrue($restoredLayout->isDraft());
+        $this->assertEquals($publishedLayout->getName(), $restoredLayout->getName());
+
+        $this->assertEquals($originalLayout->getCreated(), $restoredLayout->getCreated());
+        $this->assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
     }
 
     /**
@@ -1138,7 +1175,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingPublishedVersion()
     {
         $this->persistenceHandler->getLayoutHandler()->deleteLayout(2, Layout::STATUS_PUBLISHED);
-        $this->layoutService->restoreFromArchive(2);
+        $this->layoutService->restoreFromArchive(
+            $this->layoutService->loadLayoutArchive(2)
+        );
     }
 
     /**

@@ -51,7 +51,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertEquals(2, $collection->getId());
         $this->assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
         $this->assertEquals(10, $collection->getOffset());
         $this->assertEquals(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
@@ -204,7 +203,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertEquals(1, $collection->getId());
         $this->assertEquals(APICollection::TYPE_MANUAL, $collection->getType());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
         $this->assertEquals(0, $collection->getOffset());
         $this->assertEquals(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
@@ -276,7 +274,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
         $this->assertEquals(new CmsItem(), $item->getCmsItem());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
 
         $this->assertTrue($item->hasConfig('visibility'));
@@ -335,7 +332,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
         $this->assertEquals(new NullItem('value'), $item->getCmsItem());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
 
         $this->assertFalse($item->hasConfig('visibility'));
@@ -374,7 +370,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertEquals(1, $query->getId());
         $this->assertEquals(42, $query->getCollectionId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertTrue($query->isPublished());
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());
@@ -531,7 +526,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertEquals(1, $query->getId());
         $this->assertEquals(42, $query->getCollectionId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertTrue($query->isPublished());
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());

@@ -17,13 +17,18 @@ abstract class Value extends BaseValue implements APIValue
         return $this->status;
     }
 
-    /**
-     * Returns if the value is published.
-     *
-     * @return bool
-     */
+    public function isDraft()
+    {
+        return $this->status === self::STATUS_DRAFT;
+    }
+
     public function isPublished()
     {
         return $this->status === self::STATUS_PUBLISHED;
+    }
+
+    public function isArchived()
+    {
+        return $this->status === self::STATUS_ARCHIVED;
     }
 }

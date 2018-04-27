@@ -16,6 +16,11 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
 {
+    public function testInstance()
+    {
+        $this->assertInstanceOf(Value::class, new Block());
+    }
+
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
@@ -32,7 +37,6 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
@@ -55,7 +59,6 @@ final class BlockTest extends TestCase
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
         $this->assertNull($block->getParentPosition());
-        $this->assertNull($block->getStatus());
         $this->assertNull($block->isTranslatable());
         $this->assertNull($block->getMainLocale());
         $this->assertNull($block->isAlwaysAvailable());
@@ -80,13 +83,11 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
      */
     public function testSetProperties()
@@ -100,7 +101,6 @@ final class BlockTest extends TestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'parentPosition' => 3,
-                'status' => Value::STATUS_PUBLISHED,
                 'placeholders' => [
                     'main' => new Placeholder(['identifier' => 'main']),
                 ],
@@ -135,8 +135,6 @@ final class BlockTest extends TestCase
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(3, $block->getParentPosition());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
-        $this->assertTrue($block->isPublished());
         $this->assertTrue($block->isTranslatable());
         $this->assertEquals('en', $block->getMainLocale());
         $this->assertTrue($block->isAlwaysAvailable());

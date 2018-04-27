@@ -109,7 +109,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
     {
-        if ($collection->isPublished()) {
+        if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
 
@@ -188,7 +188,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function changeCollectionType(Collection $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
     {
-        if ($collection->isPublished()) {
+        if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }
 
@@ -243,7 +243,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
     {
-        if ($collection->isPublished()) {
+        if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
         }
 
@@ -282,7 +282,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function updateItem(Item $item, APIItemUpdateStruct $itemUpdateStruct)
     {
-        if ($item->isPublished()) {
+        if (!$item->isDraft()) {
             throw new BadStateException('item', 'Only draft items can be updated.');
         }
 
@@ -314,7 +314,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function moveItem(Item $item, $position)
     {
-        if ($item->isPublished()) {
+        if (!$item->isDraft()) {
             throw new BadStateException('item', 'Only draft items can be moved.');
         }
 
@@ -336,7 +336,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function deleteItem(Item $item)
     {
-        if ($item->isPublished()) {
+        if (!$item->isDraft()) {
             throw new BadStateException('item', 'Only draft items can be deleted.');
         }
 
@@ -351,7 +351,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function deleteItems(Collection $collection, $itemType = null)
     {
-        if ($collection->isPublished()) {
+        if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
         }
 
@@ -374,7 +374,7 @@ final class CollectionService extends Service implements APICollectionService
 
     public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
     {
-        if ($query->isPublished()) {
+        if (!$query->isDraft()) {
             throw new BadStateException('query', 'Only draft queries can be updated.');
         }
 

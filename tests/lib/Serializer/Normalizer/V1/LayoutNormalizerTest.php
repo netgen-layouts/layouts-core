@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
 use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -29,6 +30,11 @@ final class LayoutNormalizerTest extends TestCase
     private $blockServiceMock;
 
     /**
+     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
+     */
+    private $layoutType;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
      */
     private $normalizer;
@@ -38,31 +44,7 @@ final class LayoutNormalizerTest extends TestCase
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
-        $this->normalizer = new LayoutNormalizer(
-            $this->layoutServiceMock,
-            $this->blockServiceMock
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getAllowedBlocks
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZoneName
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZones
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
-     */
-    public function testNormalizeLayout()
-    {
-        $currentDate = new DateTimeImmutable();
-        $currentDate->setTimestamp(time());
-
-        $block = new Block(
-            [
-                'id' => 24,
-            ]
-        );
-
-        $layoutType = LayoutTypeFactory::buildLayoutType(
+        $this->layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
             [
                 'name' => '4 zones A',
@@ -81,13 +63,37 @@ final class LayoutNormalizerTest extends TestCase
             ]
         );
 
+        $this->normalizer = new LayoutNormalizer(
+            $this->layoutServiceMock,
+            $this->blockServiceMock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getAllowedBlocks
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZoneName
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
+     */
+    public function testNormalizeLayout()
+    {
+        $date1 = new DateTimeImmutable();
+        $date1 = $date1->setTimestamp(123);
+
+        $block = new Block(
+            [
+                'id' => 24,
+            ]
+        );
+
         $layout = new Layout(
             [
                 'id' => 42,
-                'layoutType' => $layoutType,
+                'layoutType' => $this->layoutType,
                 'status' => Value::STATUS_DRAFT,
-                'created' => $currentDate,
-                'modified' => $currentDate,
+                'created' => $date1,
+                'modified' => $date1,
                 'shared' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr'],
@@ -143,19 +149,21 @@ final class LayoutNormalizerTest extends TestCase
 
         $this->layoutServiceMock
             ->expects($this->at(1))
-            ->method('hasStatus')
+            ->method('loadLayoutArchive')
             ->with($this->equalTo($layout->getId(), Layout::STATUS_ARCHIVED))
-            ->will($this->returnValue(false));
+            ->will($this->throwException(new NotFoundException('layout')));
 
         $this->assertEquals(
             [
                 'id' => $layout->getId(),
-                'type' => $layoutType->getIdentifier(),
+                'type' => $this->layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
                 'has_archived_state' => false,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+                'archive_created_at' => null,
+                'archive_updated_at' => null,
                 'shared' => true,
                 'name' => $layout->getName(),
                 'description' => $layout->getDescription(),
@@ -193,6 +201,52 @@ final class LayoutNormalizerTest extends TestCase
             ],
             $this->normalizer->normalize(new VersionedValue($layout, 1))
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
+     */
+    public function testNormalizeLayoutWithArchivedLayout()
+    {
+        $date1 = new DateTimeImmutable();
+        $date1 = $date1->setTimestamp(123);
+
+        $date2 = new DateTimeImmutable();
+        $date2 = $date2->setTimestamp(456);
+
+        $layout = new Layout(
+            [
+                'layoutType' => $this->layoutType,
+                'created' => $date1,
+                'modified' => $date1,
+            ]
+        );
+
+        $archivedLayout = new Layout(
+            [
+                'layoutType' => $this->layoutType,
+                'created' => $date2,
+                'modified' => $date2,
+            ]
+        );
+
+        $this->layoutServiceMock
+            ->expects($this->at(0))
+            ->method('hasStatus')
+            ->with($this->equalTo($layout->getId(), Layout::STATUS_PUBLISHED))
+            ->will($this->returnValue(true));
+
+        $this->layoutServiceMock
+            ->expects($this->at(1))
+            ->method('loadLayoutArchive')
+            ->with($this->equalTo($layout->getId(), Layout::STATUS_ARCHIVED))
+            ->will($this->returnValue($archivedLayout));
+
+        $data = $this->normalizer->normalize(new VersionedValue($layout, 1));
+
+        $this->assertTrue($data['has_archived_state']);
+        $this->assertEquals($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
+        $this->assertEquals($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);
     }
 
     /**

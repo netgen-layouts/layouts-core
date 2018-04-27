@@ -188,7 +188,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null)
     {
-        if ($targetBlock->isPublished()) {
+        if (!$targetBlock->isDraft()) {
             throw new BadStateException('targetBlock', 'Blocks can only be created in blocks in draft status.');
         }
 
@@ -221,7 +221,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, $position = null)
     {
-        if ($zone->isPublished()) {
+        if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
         }
 
@@ -251,7 +251,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be updated.');
         }
 
@@ -297,11 +297,11 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
         }
 
-        if ($targetBlock->isPublished()) {
+        if (!$targetBlock->isDraft()) {
             throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
         }
 
@@ -340,11 +340,11 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function copyBlockToZone(Block $block, Zone $zone, $position = null)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
         }
 
-        if ($zone->isPublished()) {
+        if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'You can only copy blocks in draft zones.');
         }
 
@@ -376,11 +376,11 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be moved.');
         }
 
-        if ($targetBlock->isPublished()) {
+        if (!$targetBlock->isDraft()) {
             throw new BadStateException('targetBlock', 'You can only move blocks to draft blocks.');
         }
 
@@ -415,11 +415,11 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function moveBlockToZone(Block $block, Zone $zone, $position)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be moved.');
         }
 
-        if ($zone->isPublished()) {
+        if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'You can only move blocks in draft zones.');
         }
 
@@ -447,7 +447,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function restoreBlock(Block $block)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be restored.');
         }
 
@@ -485,7 +485,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function enableTranslations(Block $block)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'You can only enable translations for draft blocks.');
         }
 
@@ -532,7 +532,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function disableTranslations(Block $block)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'You can only disable translations for draft blocks.');
         }
 
@@ -553,7 +553,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
     public function deleteBlock(Block $block)
     {
-        if ($block->isPublished()) {
+        if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be deleted.');
         }
 

@@ -29,9 +29,23 @@ interface Value
     public function getStatus();
 
     /**
+     * Returns if the value is a draft.
+     *
+     * @return bool
+     */
+    public function isDraft();
+
+    /**
      * Returns if the value is published.
      *
      * @return bool
      */
     public function isPublished();
+
+    /**
+     * Returns if the value is archived.
+     *
+     * @return bool
+     */
+    public function isArchived();
 }

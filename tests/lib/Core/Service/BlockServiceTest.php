@@ -66,7 +66,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlockDraft(31);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
     }
 
@@ -157,7 +157,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $leftPlaceholder->getBlocks()[0]->getId());
 
@@ -184,7 +184,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
         $collections = $block->getCollections();
@@ -227,7 +227,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
         $collections = $block->getCollections();
@@ -265,7 +265,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
         $this->assertTrue($block->isTranslatable());
@@ -298,7 +298,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
         $this->assertFalse($block->isTranslatable());
@@ -333,7 +333,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
         $this->assertTrue($block->hasConfig('http_cache'));
@@ -420,7 +420,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $leftPlaceholder->getBlocks()[1]->getId());
     }
@@ -481,7 +481,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $blocks[0]->getId());
 
@@ -532,7 +532,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $blocks[0]->getId());
 
@@ -558,7 +558,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
     }
 
@@ -595,7 +595,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(2, 'top')
         );
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
     }
 
@@ -617,7 +617,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $blocks[2]->getId());
     }
@@ -673,7 +673,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
@@ -705,7 +705,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
@@ -768,7 +768,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
         $this->assertTrue($block->hasConfig('http_cache'));
@@ -794,7 +794,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('My block', $block->getName());
@@ -818,7 +818,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertFalse($block->isPublished());
+        $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('list', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
@@ -877,7 +877,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $originalBlock = $this->blockService->loadBlockDraft(34);
         $this->assertEquals(0, $originalBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(1, $copiedBlock->getParentPosition());
@@ -898,7 +898,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $originalBlock = $this->blockService->loadBlockDraft(34);
         $this->assertEquals(0, $originalBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(1, $copiedBlock->getParentPosition());
@@ -919,7 +919,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(37);
         $this->assertEquals(1, $firstBlockInTargetBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(0, $copiedBlock->getParentPosition());
@@ -1040,17 +1040,17 @@ abstract class BlockServiceTest extends ServiceTestCase
         $secondBlock = $this->blockService->loadBlockDraft(35);
         $this->assertEquals(1, $secondBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(2, $copiedBlock->getParentPosition());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(7);
-        $this->assertFalse($copiedCollection->isPublished());
+        $this->assertTrue($copiedCollection->isDraft());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
 
         $copiedCollection2 = $this->collectionService->loadCollectionDraft(8);
-        $this->assertFalse($copiedCollection2->isPublished());
+        $this->assertTrue($copiedCollection2->isDraft());
         $this->assertInstanceOf(Collection::class, $copiedCollection2);
     }
 
@@ -1071,7 +1071,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $secondBlock = $this->blockService->loadBlockDraft(35);
         $this->assertEquals(2, $secondBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(1, $copiedBlock->getParentPosition());
@@ -1094,7 +1094,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $secondBlock = $this->blockService->loadBlockDraft(35);
         $this->assertEquals(2, $secondBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(0, $copiedBlock->getParentPosition());
@@ -1117,7 +1117,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $secondBlock = $this->blockService->loadBlockDraft(35);
         $this->assertEquals(1, $secondBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(2, $copiedBlock->getParentPosition());
@@ -1140,7 +1140,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $secondBlock = $this->blockService->loadBlockDraft(35);
         $this->assertEquals(2, $secondBlock->getParentPosition());
 
-        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertTrue($copiedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
         $this->assertEquals(0, $copiedBlock->getParentPosition());
@@ -1225,7 +1225,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($movedBlock->isPublished());
+        $this->assertTrue($movedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $movedBlock);
         $this->assertEquals(34, $movedBlock->getId());
 
@@ -1248,7 +1248,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($movedBlock->isPublished());
+        $this->assertTrue($movedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $movedBlock);
         $this->assertEquals(37, $movedBlock->getId());
 
@@ -1273,7 +1273,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($movedBlock->isPublished());
+        $this->assertTrue($movedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $movedBlock);
         $this->assertEquals(37, $movedBlock->getId());
 
@@ -1403,7 +1403,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($movedBlock->isPublished());
+        $this->assertTrue($movedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $movedBlock);
         $this->assertEquals(32, $movedBlock->getId());
 
@@ -1425,7 +1425,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertFalse($movedBlock->isPublished());
+        $this->assertTrue($movedBlock->isDraft());
         $this->assertInstanceOf(Block::class, $movedBlock);
         $this->assertEquals(32, $movedBlock->getId());
 
@@ -1522,7 +1522,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $restoredBlock = $this->blockService->restoreBlock($movedBlock);
 
-        $this->assertFalse($restoredBlock->isPublished());
+        $this->assertTrue($restoredBlock->isDraft());
         $this->assertInstanceOf(Block::class, $restoredBlock);
         $this->assertEquals('grid', $restoredBlock->getViewType());
         $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
@@ -1563,7 +1563,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $restoredBlock = $this->blockService->restoreBlock($block);
 
-        $this->assertFalse($restoredBlock->isPublished());
+        $this->assertTrue($restoredBlock->isDraft());
         $this->assertInstanceOf(Block::class, $restoredBlock);
         $this->assertTrue($restoredBlock->isTranslatable());
 

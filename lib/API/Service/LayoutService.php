@@ -34,6 +34,17 @@ interface LayoutService extends Service
     public function loadLayoutDraft($layoutId);
 
     /**
+     * Loads a layout archive with specified ID.
+     *
+     * @param int|string $layoutId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function loadLayoutArchive($layoutId);
+
+    /**
      * Loads all published layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
@@ -310,14 +321,14 @@ interface LayoutService extends Service
      * Restores the archived version of a layout to a draft. If draft already exists,
      * it will be removed.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with provided ID does not have an archived version
-     *                                                          If layout with provided ID does not have a published version to restore the name from
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not in archived status
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout does not have a published version to restore the name from
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function restoreFromArchive($layoutId);
+    public function restoreFromArchive(Layout $layout);
 
     /**
      * Deletes a specified layout.

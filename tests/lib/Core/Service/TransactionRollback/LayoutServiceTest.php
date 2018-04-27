@@ -269,7 +269,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->changeLayoutType(new Layout(), new LayoutType(['identifier' => 'layout_1']));
+        $this->layoutService->changeLayoutType(new Layout(['status' => Layout::STATUS_DRAFT]), new LayoutType(['identifier' => 'layout_1']));
     }
 
     /**
@@ -380,7 +380,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->restoreFromArchive(2);
+        $this->layoutService->restoreFromArchive(new Layout(['status' => Layout::STATUS_ARCHIVED]));
     }
 
     /**

@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -49,9 +50,11 @@ final class LayoutNormalizer implements NormalizerInterface
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
             'has_published_state' => $this->layoutService->hasStatus($layout->getId(), Layout::STATUS_PUBLISHED),
-            'has_archived_state' => $this->layoutService->hasStatus($layout->getId(), Layout::STATUS_ARCHIVED),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+            'has_archived_state' => false,
+            'archive_created_at' => null,
+            'archive_updated_at' => null,
             'shared' => $layout->isShared(),
             'name' => $layout->getName(),
             'description' => $layout->getDescription(),
@@ -59,6 +62,16 @@ final class LayoutNormalizer implements NormalizerInterface
             'available_locales' => $availableLocales,
             'zones' => $this->getZones($layout, $layoutType),
         ];
+
+        try {
+            $archivedLayout = $this->layoutService->loadLayoutArchive($layout->getId());
+
+            $data['has_archived_state'] = true;
+            $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTime::ISO8601);
+            $data['archive_updated_at'] = $archivedLayout->getCreated()->format(DateTime::ISO8601);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
         return $data;
     }

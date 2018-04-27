@@ -14,6 +14,11 @@ use Traversable;
 
 final class LayoutTest extends TestCase
 {
+    public function testInstance()
+    {
+        $this->assertInstanceOf(Value::class, new Layout());
+    }
+
     /**
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
@@ -24,7 +29,6 @@ final class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
@@ -41,7 +45,6 @@ final class LayoutTest extends TestCase
         $this->assertNull($layout->getDescription());
         $this->assertNull($layout->getCreated());
         $this->assertNull($layout->getModified());
-        $this->assertNull($layout->getStatus());
         $this->assertNull($layout->isShared());
         $this->assertEquals([], $layout->getZones());
         $this->assertNull($layout->getZone('test'));
@@ -63,12 +66,10 @@ final class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetExists
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetGet
@@ -96,7 +97,6 @@ final class LayoutTest extends TestCase
                 'description' => 'My description',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
-                'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
                 'zones' => new ArrayCollection($zones),
                 'mainLocale' => 'en',
@@ -110,7 +110,6 @@ final class LayoutTest extends TestCase
         $this->assertEquals('My description', $layout->getDescription());
         $this->assertEquals($createdDate, $layout->getCreated());
         $this->assertEquals($modifiedDate, $layout->getModified());
-        $this->assertTrue($layout->isPublished());
         $this->assertTrue($layout->isShared());
         $this->assertEquals($zones, $layout->getZones());
         $this->assertNull($layout->getZone('test'));
@@ -118,7 +117,6 @@ final class LayoutTest extends TestCase
         $this->assertEquals($zones['right']->getLinkedZone(), $layout->getZone('right'));
         $this->assertEquals($zones['right'], $layout->getZone('right', true));
         $this->assertTrue($layout->hasZone('right'));
-        $this->assertTrue($layout->isPublished());
         $this->assertEquals('en', $layout->getMainLocale());
         $this->assertEquals(['en'], $layout->getAvailableLocales());
         $this->assertTrue($layout->hasLocale('en'));

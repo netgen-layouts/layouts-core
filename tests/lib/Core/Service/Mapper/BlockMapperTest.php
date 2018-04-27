@@ -70,7 +70,6 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(3, $block->getParentPosition());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
         $this->assertTrue($block->isPublished());
 
         $this->assertEquals('test', $block->getParameter('css_class')->getValue());
@@ -261,7 +260,6 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(3, $block->getParentPosition());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
         $this->assertTrue($block->isPublished());
 
         $this->assertFalse($block->hasParameter('css_class'));

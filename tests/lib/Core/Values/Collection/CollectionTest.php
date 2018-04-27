@@ -11,6 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
+    public function testInstance()
+    {
+        $this->assertInstanceOf(Value::class, new Collection());
+    }
+
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
@@ -21,7 +26,6 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
@@ -31,7 +35,6 @@ final class CollectionTest extends TestCase
         $collection = new Collection();
 
         $this->assertNull($collection->getId());
-        $this->assertNull($collection->getStatus());
         $this->assertNull($collection->getOffset());
         $this->assertNull($collection->getLimit());
         $this->assertNull($collection->getMainLocale());
@@ -60,14 +63,12 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasManualItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      */
     public function testSetProperties()
@@ -80,7 +81,6 @@ final class CollectionTest extends TestCase
         $collection = new Collection(
             [
                 'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
                 'offset' => 5,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -94,11 +94,9 @@ final class CollectionTest extends TestCase
         );
 
         $this->assertEquals(42, $collection->getId());
-        $this->assertTrue($collection->isPublished());
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertEquals(5, $collection->getOffset());
         $this->assertEquals(10, $collection->getLimit());
-        $this->assertTrue($collection->isPublished());
         $this->assertEquals('en', $collection->getMainLocale());
         $this->assertEquals(['en', 'hr'], $collection->getAvailableLocales());
         $this->assertTrue($collection->isTranslatable());

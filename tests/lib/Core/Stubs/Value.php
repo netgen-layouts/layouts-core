@@ -2,16 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Stubs;
 
-use Netgen\BlockManager\API\Values\Value as APIValue;
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\Core\Values\Value as BaseValue;
 
-final class Value extends BaseValue implements APIValue
+final class Value extends BaseValue
 {
-    /**
-     * @var int
-     */
-    public $status;
-
     /**
      * @var mixed
      */
@@ -21,14 +15,4 @@ final class Value extends BaseValue implements APIValue
      * @var mixed
      */
     public $someOtherProperty;
-
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function isPublished()
-    {
-        return $this->status === self::STATUS_PUBLISHED;
-    }
 }

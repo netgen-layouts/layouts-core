@@ -42,12 +42,11 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertEquals('right', $zone->getIdentifier());
         $this->assertEquals(1, $zone->getLayoutId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertTrue($zone->isPublished());
         $this->assertInstanceOf(APIZone::class, $zone->getLinkedZone());
         $this->assertTrue($zone->getLinkedZone()->isPublished());
         $this->assertEquals(3, $zone->getLinkedZone()->getLayoutId());
         $this->assertEquals('right', $zone->getLinkedZone()->getIdentifier());
-        $this->assertTrue($zone->isPublished());
     }
 
     /**
@@ -71,9 +70,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertEquals('right', $zone->getIdentifier());
         $this->assertEquals(1, $zone->getLayoutId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
-        $this->assertNull($zone->getLinkedZone());
         $this->assertTrue($zone->isPublished());
+        $this->assertNull($zone->getLinkedZone());
     }
 
     /**
@@ -97,9 +95,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertEquals('right', $zone->getIdentifier());
         $this->assertEquals(1, $zone->getLayoutId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
-        $this->assertNull($zone->getLinkedZone());
         $this->assertTrue($zone->isPublished());
+        $this->assertNull($zone->getLinkedZone());
     }
 
     /**
@@ -135,9 +132,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
         $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
         $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
-        $this->assertTrue($layout->isShared());
         $this->assertTrue($layout->isPublished());
+        $this->assertTrue($layout->isShared());
 
         $this->assertNotEmpty($layout->getZones());
 
@@ -176,9 +172,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
         $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
         $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
-        $this->assertTrue($layout->isShared());
         $this->assertTrue($layout->isPublished());
+        $this->assertTrue($layout->isShared());
 
         $this->assertNotEmpty($layout->getZones());
 

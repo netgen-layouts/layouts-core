@@ -10,6 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
 {
+    public function testInstance()
+    {
+        $this->assertInstanceOf(Value::class, new Query());
+    }
+
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
@@ -19,7 +24,6 @@ final class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      */
@@ -28,7 +32,6 @@ final class QueryTest extends TestCase
         $query = new Query();
 
         $this->assertNull($query->getId());
-        $this->assertNull($query->getStatus());
         $this->assertNull($query->getCollectionId());
         $this->assertNull($query->getQueryType());
         $this->assertEquals([], $query->getParameters());
@@ -49,10 +52,8 @@ final class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      */
     public function testSetProperties()
@@ -60,7 +61,6 @@ final class QueryTest extends TestCase
         $query = new Query(
             [
                 'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
                 'queryType' => new QueryType('query_type'),
                 'isTranslatable' => true,
@@ -75,14 +75,12 @@ final class QueryTest extends TestCase
         );
 
         $this->assertEquals(42, $query->getId());
-        $this->assertTrue($query->isPublished());
         $this->assertEquals(30, $query->getCollectionId());
         $this->assertEquals(new QueryType('query_type'), $query->getQueryType());
         $this->assertEquals(['param' => 'value'], $query->getParameters());
         $this->assertEquals('value', $query->getParameter('param'));
         $this->assertFalse($query->hasParameter('test'));
         $this->assertTrue($query->hasParameter('param'));
-        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());
         $this->assertTrue($query->isAlwaysAvailable());

@@ -15,6 +15,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
 {
+    public function testInstance()
+    {
+        $this->assertInstanceOf(Value::class, new Item());
+    }
+
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
@@ -22,7 +27,6 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      */
@@ -31,7 +35,6 @@ final class ItemTest extends TestCase
         $item = new Item();
 
         $this->assertNull($item->getId());
-        $this->assertNull($item->getStatus());
         $this->assertNull($item->getCollectionId());
         $this->assertNull($item->getDefinition());
         $this->assertNull($item->getPosition());
@@ -47,17 +50,14 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetProperties()
     {
         $item = new Item(
             [
                 'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
                 'definition' => new ItemDefinition(),
                 'position' => 3,
@@ -70,14 +70,12 @@ final class ItemTest extends TestCase
         );
 
         $this->assertEquals(42, $item->getId());
-        $this->assertTrue($item->isPublished());
         $this->assertEquals(30, $item->getCollectionId());
         $this->assertEquals(new ItemDefinition(), $item->getDefinition());
         $this->assertEquals(3, $item->getPosition());
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals(32, $item->getValue());
         $this->assertEquals(new CmsItem(), $item->getCmsItem());
-        $this->assertTrue($item->isPublished());
     }
 
     /**
