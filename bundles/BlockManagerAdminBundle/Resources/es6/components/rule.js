@@ -80,6 +80,11 @@ export default class NlRule {
             $(el).closest('form').addClass('ngc');
             return new NetgenCore.DateTimePicker({
                 el: $(el),
+                options: {
+                    widgetPositioning: {
+                        vertical: 'bottom',
+                    },
+                },
             });
         });
     }
