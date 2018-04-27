@@ -34,7 +34,7 @@ final class SetMainLocaleType extends AbstractType
                 'data' => $options['layout']->getMainLocale(),
                 'required' => true,
                 'choices' => $options['layout']->getAvailableLocales(),
-                'choice_label' => function ($value, $key, $index) use ($options, $localeBundle) {
+                'choice_label' => function ($value) use ($options, $localeBundle) {
                     $localeName = $localeBundle->getLocaleName($value) . ' (' . $value . ')';
                     if ($value === $options['layout']->getMainLocale()) {
                         return $localeName . ' - main';

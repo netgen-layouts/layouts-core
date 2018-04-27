@@ -17,7 +17,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $itemCount = 0;
         $skippedCount = 0;
 
-        foreach ($collection->getItems() as $index => $collectionItem) {
+        foreach ($collection->getItems() as $collectionItem) {
             if ($itemCount >= $limit) {
                 return;
             }

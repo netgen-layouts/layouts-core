@@ -69,7 +69,7 @@ final class AddLocaleType extends AbstractType
                 'label' => 'layout.add_locale.source_locale',
                 'required' => true,
                 'choices' => $layoutLocales,
-                'choice_label' => function ($value, $key, $index) use ($options, $localeBundle) {
+                'choice_label' => function ($value) use ($options, $localeBundle) {
                     $localeName = $localeBundle->getLocaleName($value) . ' (' . $value . ')';
                     if ($value === $options['layout']->getMainLocale()) {
                         return $localeName . ' - main';

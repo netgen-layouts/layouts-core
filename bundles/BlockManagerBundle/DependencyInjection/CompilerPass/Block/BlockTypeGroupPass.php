@@ -51,14 +51,14 @@ final class BlockTypeGroupPass implements CompilerPassInterface
         // We will add all blocks which are not located in any group to a custom group
         // if it exists
         if (isset($blockTypeGroups['custom'])) {
-            foreach ($blockTypes as $identifier => $blockType) {
+            foreach (array_keys($blockTypes) as $blockType) {
                 foreach ($blockTypeGroups as $blockTypeGroup) {
-                    if (in_array($identifier, $blockTypeGroup['block_types'], true)) {
+                    if (in_array($blockType, $blockTypeGroup['block_types'], true)) {
                         continue 2;
                     }
                 }
 
-                $missingBlockTypes[] = $identifier;
+                $missingBlockTypes[] = $blockType;
             }
 
             $blockTypeGroups['custom']['block_types'] = array_merge(

@@ -46,7 +46,7 @@ final class CompoundBooleanType extends AbstractType
                 }
 
                 if ($clearChildren) {
-                    foreach ($data as $key => $value) {
+                    foreach (array_keys($data) as $key) {
                         if ($key !== '_self') {
                             $data[$key] = null;
                         }
