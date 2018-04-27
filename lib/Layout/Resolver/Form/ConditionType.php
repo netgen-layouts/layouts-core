@@ -9,6 +9,8 @@ use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ConditionType extends AbstractType
@@ -40,15 +42,15 @@ final class ConditionType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired('conditionType');
-        $resolver->setAllowedTypes('conditionType', ConditionTypeInterface::class);
+        $resolver->setRequired('condition_type');
+        $resolver->setAllowedTypes('condition_type', ConditionTypeInterface::class);
         $resolver->setAllowedTypes('data', ConditionStruct::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType */
-        $conditionType = $options['conditionType'];
+        $conditionType = $options['condition_type'];
 
         if (!isset($this->mappers[$conditionType->getType()])) {
             throw ConditionTypeException::noFormMapper($conditionType->getType());
@@ -57,9 +59,8 @@ final class ConditionType extends AbstractType
         $mapper = $this->mappers[$conditionType->getType()];
 
         $defaultOptions = [
+            'label' => false,
             'required' => true,
-            'translation_domain' => 'ngbm',
-            'label' => sprintf('layout_resolver.condition.%s', $conditionType->getType()),
             'property_path' => 'value',
             'constraints' => $conditionType->getConstraints(),
             'error_bubbling' => false,
@@ -74,5 +75,10 @@ final class ConditionType extends AbstractType
         $mapper->handleForm($valueForm);
 
         $builder->add($valueForm);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['condition_type'] = $options['condition_type'];
     }
 }

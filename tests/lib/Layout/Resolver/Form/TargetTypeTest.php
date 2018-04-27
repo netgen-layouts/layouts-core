@@ -51,7 +51,7 @@ final class TargetTypeTest extends FormTestCase
         $this->factory->create(
             TargetTypeForm::class,
             new TargetCreateStruct(),
-            ['targetType' => $this->targetType]
+            ['target_type' => $this->targetType]
         );
     }
 
@@ -67,19 +67,19 @@ final class TargetTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             [
-                'targetType' => $this->targetType,
+                'target_type' => $this->targetType,
                 'data' => new TargetCreateStruct(),
             ]
         );
 
-        $this->assertEquals($this->targetType, $options['targetType']);
+        $this->assertEquals($this->targetType, $options['target_type']);
         $this->assertEquals(new TargetCreateStruct(), $options['data']);
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "targetType" is missing.
+     * @expectedExceptionMessage The required option "target_type" is missing.
      */
     public function testConfigureOptionsWithMissingTargetType()
     {
@@ -94,7 +94,7 @@ final class TargetTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "targetType" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\TargetTypeInterface", but is of type "string".
+     * @expectedExceptionMessage The option "target_type" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\TargetTypeInterface", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidTargetType()
     {
@@ -105,7 +105,7 @@ final class TargetTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             [
-                'targetType' => '',
+                'target_type' => '',
             ]
         );
     }
@@ -124,7 +124,7 @@ final class TargetTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             [
-                'targetType' => $this->targetType,
+                'target_type' => $this->targetType,
                 'data' => '',
             ]
         );

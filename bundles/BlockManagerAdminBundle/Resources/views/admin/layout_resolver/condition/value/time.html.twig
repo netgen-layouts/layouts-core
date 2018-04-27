@@ -1,6 +1,6 @@
 {% import _self as self %}
 
-{% trans_default_domain 'ngbm' %}
+{% trans_default_domain 'ngbm_admin' %}
 
 {% macro format_datetime(datetime) %}
     {% if datetime is not same as(null) %}
@@ -13,13 +13,13 @@
 
 {% if from is not empty or to is not empty %}
     {% if from is not empty %}
-        {{ 'layout_resolver.condition.time.from'|trans }} {{ self.format_datetime(from) }}
+        {{ 'layout_resolver.condition_type.time.from'|trans }} {{ self.format_datetime(from) }}
     {% endif %}
 
     {% if from is not empty and to is not empty %}, {% endif %}
 
     {% if to is not empty %}
-        {{ 'layout_resolver.condition.time.to'|trans }} {{ self.format_datetime(to) }}
+        {{ 'layout_resolver.condition_type.time.to'|trans }} {{ self.format_datetime(to) }}
     {% endif %}
 {% else %}
     Always visible

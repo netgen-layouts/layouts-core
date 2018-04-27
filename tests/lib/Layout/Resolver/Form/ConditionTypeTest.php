@@ -51,7 +51,7 @@ final class ConditionTypeTest extends FormTestCase
         $this->factory->create(
             ConditionTypeForm::class,
             new ConditionCreateStruct(),
-            ['conditionType' => $this->conditionType]
+            ['condition_type' => $this->conditionType]
         );
     }
 
@@ -67,19 +67,19 @@ final class ConditionTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             [
-                'conditionType' => $this->conditionType,
+                'condition_type' => $this->conditionType,
                 'data' => new ConditionCreateStruct(),
             ]
         );
 
-        $this->assertEquals($this->conditionType, $options['conditionType']);
+        $this->assertEquals($this->conditionType, $options['condition_type']);
         $this->assertEquals(new ConditionCreateStruct(), $options['data']);
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "conditionType" is missing.
+     * @expectedExceptionMessage The required option "condition_type" is missing.
      */
     public function testConfigureOptionsWithMissingConditionType()
     {
@@ -94,7 +94,7 @@ final class ConditionTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "conditionType" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface", but is of type "string".
+     * @expectedExceptionMessage The option "condition_type" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidConditionType()
     {
@@ -105,7 +105,7 @@ final class ConditionTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             [
-                'conditionType' => '',
+                'condition_type' => '',
             ]
         );
     }
@@ -124,7 +124,7 @@ final class ConditionTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             [
-                'conditionType' => $this->conditionType,
+                'condition_type' => $this->conditionType,
                 'data' => '',
             ]
         );

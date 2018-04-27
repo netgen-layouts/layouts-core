@@ -54,7 +54,7 @@ final class RouteTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             new TargetCreateStruct(),
-            ['targetType' => $this->targetType]
+            ['target_type' => $this->targetType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

@@ -19,9 +19,9 @@ final class QueryParameter extends Mapper
             'label' => false,
             'required' => false,
             'key_name' => 'parameter_name',
-            'key_label' => 'layout_resolver.condition.query_parameter.parameter_name',
+            'key_label' => 'condition_type.query_parameter.parameter_name',
             'values_name' => 'parameter_values',
-            'values_label' => 'layout_resolver.condition.query_parameter.parameter_values',
+            'values_label' => 'condition_type.query_parameter.parameter_values',
             'values_type' => TextType::class,
             'values_options' => [
                 'empty_data' => ' ',

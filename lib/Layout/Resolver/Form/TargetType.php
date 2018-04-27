@@ -9,6 +9,8 @@ use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TargetType extends AbstractType
@@ -40,15 +42,15 @@ final class TargetType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired('targetType');
-        $resolver->setAllowedTypes('targetType', TargetTypeInterface::class);
+        $resolver->setRequired('target_type');
+        $resolver->setAllowedTypes('target_type', TargetTypeInterface::class);
         $resolver->setAllowedTypes('data', TargetStruct::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType */
-        $targetType = $options['targetType'];
+        $targetType = $options['target_type'];
 
         if (!isset($this->mappers[$targetType->getType()])) {
             throw TargetTypeException::noFormMapper($targetType->getType());
@@ -57,9 +59,8 @@ final class TargetType extends AbstractType
         $mapper = $this->mappers[$targetType->getType()];
 
         $defaultOptions = [
+            'label' => false,
             'required' => true,
-            'translation_domain' => 'ngbm',
-            'label' => sprintf('layout_resolver.target.%s', $targetType->getType()),
             'property_path' => 'value',
             'constraints' => $targetType->getConstraints(),
             'error_bubbling' => false,
@@ -74,5 +75,10 @@ final class TargetType extends AbstractType
         $mapper->handleForm($valueForm);
 
         $builder->add($valueForm);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['target_type'] = $options['target_type'];
     }
 }

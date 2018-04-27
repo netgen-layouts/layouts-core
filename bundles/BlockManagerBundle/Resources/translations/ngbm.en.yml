@@ -28,19 +28,8 @@ layout_resolver.target.route: 'Route'
 layout_resolver.target.route_prefix: 'Route prefix'
 layout_resolver.target.null: 'Invalid target'
 
-layout_resolver.condition.route_parameter: 'Route parameter'
-layout_resolver.condition.route_parameter.parameter_name: 'Parameter name'
-layout_resolver.condition.route_parameter.parameter_values: 'Parameter values'
-
 layout_resolver.condition.query_parameter: 'Query parameter'
-layout_resolver.condition.query_parameter.parameter_name: 'Parameter name'
-layout_resolver.condition.query_parameter.parameter_values: 'Parameter values'
-
+layout_resolver.condition.route_parameter: 'Route parameter'
 layout_resolver.condition.exception: 'HTTP error code'
-layout_resolver.condition.exception.all: 'All error codes'
-
 layout_resolver.condition.time: 'Time'
-layout_resolver.condition.time.from: 'From'
-layout_resolver.condition.time.to: 'Until'
-
 layout_resolver.condition.null: 'Invalid condition'

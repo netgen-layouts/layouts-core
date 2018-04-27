@@ -3,6 +3,8 @@
 {% trans_default_domain 'ngbm_forms' %}
 
 {% block children %}
+    <p>{{ ('layout_resolver.target.' ~ form.vars.target_type.type)|trans({}, 'ngbm') }}</p>
+
     {{ form_row(form.value) }}
 
     <div class="form-actions">

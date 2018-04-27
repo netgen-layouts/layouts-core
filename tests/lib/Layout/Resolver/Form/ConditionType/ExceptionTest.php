@@ -52,7 +52,7 @@ final class ExceptionTest extends FormTestCase
         $form = $this->factory->create(
             ConditionType::class,
             new ConditionCreateStruct(),
-            ['conditionType' => $this->conditionType]
+            ['condition_type' => $this->conditionType]
         );
 
         $valueFormConfig = $form->get('value')->getConfig();

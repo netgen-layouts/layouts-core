@@ -300,7 +300,7 @@ final class LayoutResolverController extends Controller
             TargetType::class,
             $createStruct,
             [
-                'targetType' => $targetType,
+                'target_type' => $targetType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_target_form_create',
                     [
@@ -355,7 +355,7 @@ final class LayoutResolverController extends Controller
             TargetType::class,
             $updateStruct,
             [
-                'targetType' => $targetType,
+                'target_type' => $targetType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_target_form_edit',
                     [
@@ -427,7 +427,7 @@ final class LayoutResolverController extends Controller
             ConditionType::class,
             $createStruct,
             [
-                'conditionType' => $conditionType,
+                'condition_type' => $conditionType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_condition_form_create',
                     [
@@ -482,7 +482,7 @@ final class LayoutResolverController extends Controller
             ConditionType::class,
             $updateStruct,
             [
-                'conditionType' => $conditionType,
+                'condition_type' => $conditionType,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layout_resolver_condition_form_edit',
                     [
