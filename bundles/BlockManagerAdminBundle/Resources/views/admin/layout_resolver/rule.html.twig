@@ -106,7 +106,7 @@
                 <h4>{{ 'layout_resolver.rule.mapped_layout'|trans }}:</h4>
                 {% if rule.layout is not empty %}
                     <div class="rule-layout-info">
-                        {% if rule.layout.layoutType.identifier is not same as('null') %}
+                        {% if rule.layout.layoutType.zones is not empty %}
                             <div class="rule-layout-info-icon">
                                 <i class="layout-icon {{ rule.layout.layoutType.identifier }}" {% if rule.layout.layoutType.icon is not null %}style="background-image:url({{ asset(rule.layout.layoutType.icon) }})"{% endif %}></i>
                             </div>
