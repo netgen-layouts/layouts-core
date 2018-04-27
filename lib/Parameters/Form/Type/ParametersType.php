@@ -39,8 +39,8 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('data', ParameterStruct::class);
         $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
-
         $resolver->setDefault('translation_domain', 'ngbm');
+
         $resolver->setDefault('groups', []);
     }
 
@@ -65,13 +65,10 @@ final class ParametersType extends AbstractType
                 'label' => $parameterLabel === null ?
                     $options['label_prefix'] . '.' . $parameterName :
                     $parameterLabel,
+                'translation_domain' => 'ngbm',
                 'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngbm_parameter_definition' => $parameterDefinition,
             ];
-
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $defaultOptions['translation_domain'] = 'ngbm';
-            }
 
             $parameterForm = $builder->create(
                 $parameterName,
