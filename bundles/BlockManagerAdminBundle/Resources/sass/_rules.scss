@@ -247,6 +247,9 @@
             .rule-layout-info-text {
                 min-width: 80px;
                 flex: 1;
+                p {
+                    word-break: break-word;
+                }
             }
         }
 
