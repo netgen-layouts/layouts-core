@@ -55,7 +55,7 @@ class CsrfValidationListener implements EventSubscriberInterface
         $request = $event->getRequest();
 
         // Skip CSRF validation if no session is available
-        if (!$request->getSession() || !$request->getSession()->isStarted()) {
+        if (!$request->hasSession() || !$request->getSession()->isStarted()) {
             return;
         }
 
