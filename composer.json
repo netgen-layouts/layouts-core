@@ -33,6 +33,7 @@
         "netgen/block-manager-standard": "~0.11.0",
         "phpunit/phpunit": "^5.7 || ^7.1",
         "symfony/phpunit-bridge": "^4.0",
+        "symfony/monolog-bundle": "^3.2",
         "matthiasnoback/symfony-dependency-injection-test": "^1.2 || ^3.0",
         "matthiasnoback/symfony-config-test": "^2.2 || ^4.0",
         "lakion/api-test-case": "^1.1 || ^3.0",
