@@ -18,7 +18,7 @@ final class CreateTypeTest extends FormTestCase
     private $layoutTypeRegistry;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $localeProviderMock;
 

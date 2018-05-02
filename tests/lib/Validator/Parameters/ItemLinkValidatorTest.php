@@ -35,7 +35,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @param array $valueTypes
      * @param bool $isValid
      *

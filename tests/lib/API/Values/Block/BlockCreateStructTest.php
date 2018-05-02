@@ -118,6 +118,9 @@ final class BlockCreateStructTest extends TestCase
     {
         $blockDefinition = $this->buildBlockDefinition();
 
+        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        $compoundDefinition = $blockDefinition->getParameterDefinition('compound');
+
         $block = new Block(
             [
                 'definition' => $blockDefinition,
@@ -131,7 +134,7 @@ final class BlockCreateStructTest extends TestCase
                     'inner' => new Parameter(
                         [
                             'value' => 'inner',
-                            'parameterDefinition' => $blockDefinition->getParameterDefinition('compound')->getParameterDefinition('inner'),
+                            'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
                         ]
                     ),
                 ],

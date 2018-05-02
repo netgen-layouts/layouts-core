@@ -15,7 +15,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     use DatabaseTrait;
 
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     * @var \Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\Kernel\MockerContainer
      */
     protected $clientContainer;
 
@@ -107,6 +107,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     {
         $searchFixtures = require __DIR__ . '/fixtures/search.php';
 
+        /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
         $queryTypeRegistry = $this->clientContainer
             ->get('netgen_block_manager.collection.registry.query_type');
 

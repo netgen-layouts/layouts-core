@@ -14,7 +14,7 @@ use stdClass;
 final class ItemLoaderTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $itemBuilderMock;
 

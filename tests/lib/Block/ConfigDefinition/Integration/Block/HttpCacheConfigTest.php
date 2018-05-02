@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration\Block;
 
 use Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler;
-use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration\BlockTest;
 
 abstract class HttpCacheConfigTest extends BlockTest
@@ -13,7 +12,7 @@ abstract class HttpCacheConfigTest extends BlockTest
      */
     public function createConfigDefinitionHandler()
     {
-        return new HttpCacheConfigHandler($this->createMock(CacheableResolverInterface::class));
+        return new HttpCacheConfigHandler();
     }
 
     /**

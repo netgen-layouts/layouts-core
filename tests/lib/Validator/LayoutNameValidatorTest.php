@@ -33,7 +33,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::__construct

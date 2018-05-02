@@ -29,7 +29,7 @@ final class ItemLinkMapperTest extends TestCase
     private $itemLoaderMock;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
+     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType
      */
     private $type;
 

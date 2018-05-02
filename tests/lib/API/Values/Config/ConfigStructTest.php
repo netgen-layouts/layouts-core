@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\BlockManager\Tests\API\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinition;
@@ -82,6 +82,9 @@ final class ConfigStructTest extends TestCase
     {
         $configDefinition = $this->buildConfigDefinition();
 
+        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        $compoundDefinition = $configDefinition->getParameterDefinition('compound');
+
         $config = new Config(
             [
                 'definition' => $configDefinition,
@@ -95,7 +98,7 @@ final class ConfigStructTest extends TestCase
                     'inner' => new Parameter(
                         [
                             'value' => 'inner',
-                            'parameterDefinition' => $configDefinition->getParameterDefinition('compound')->getParameterDefinition('inner'),
+                            'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
                         ]
                     ),
                 ],

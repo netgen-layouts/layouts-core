@@ -47,6 +47,7 @@ final class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCa
         $this->container->setParameter('kernel.bundles', ['NetgenBlockManagerBundle' => true]);
         $this->container->registerExtension(new NetgenBlockManagerExtension());
 
+        /** @var \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension $extension */
         $extension = $this->container->getExtension('netgen_block_manager_admin');
         $extension->prepend($this->container);
 

@@ -10,6 +10,9 @@ use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserE
 
 final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
+    /**
+     * @var array
+     */
     private $minimalConfig = [
         'design_list' => [
             'standard' => [],
@@ -17,14 +20,24 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     ];
 
     /**
+     * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension
+     */
+    private $extension;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->extension = $this->container->getExtension('netgen_block_manager');
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::hasPlugin
      */
     public function testHasPlugin()
     {
-        $extension = $this->container->getExtension('netgen_block_manager');
-
-        $this->assertTrue($extension->hasPlugin(ExtensionPlugin::class));
+        $this->assertTrue($this->extension->hasPlugin(ExtensionPlugin::class));
     }
 
     /**
@@ -33,9 +46,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testGetPlugin()
     {
-        $extension = $this->container->getExtension('netgen_block_manager');
-
-        $this->assertInstanceOf(ExtensionPlugin::class, $extension->getPlugin(ExtensionPlugin::class));
+        $this->assertInstanceOf(ExtensionPlugin::class, $this->extension->getPlugin(ExtensionPlugin::class));
     }
 
     /**
@@ -46,9 +57,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testGetPluginThrowsRuntimeException()
     {
-        $extension = $this->container->getExtension('netgen_block_manager');
-
-        $extension->getPlugin('unknown');
+        $this->extension->getPlugin('unknown');
     }
 
     /**
@@ -57,8 +66,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testGetPlugins()
     {
-        $extension = $this->container->getExtension('netgen_block_manager');
-        $plugins = $extension->getPlugins();
+        $plugins = $this->extension->getPlugins();
 
         $this->assertInternalType('array', $plugins);
         $this->assertArrayHasKey(ExtensionPlugin::class, $plugins);
@@ -140,9 +148,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testGetConfiguration()
     {
-        $extension = $this->container->getExtension('netgen_block_manager');
-
-        $configuration = $extension->getConfiguration([], $this->container);
+        $configuration = $this->extension->getConfiguration([], $this->container);
         $this->assertInstanceOf(Configuration::class, $configuration);
     }
 
@@ -156,8 +162,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->container->setParameter('kernel.bundles', ['NetgenContentBrowserBundle' => true]);
         $this->container->registerExtension(new NetgenContentBrowserExtension());
 
-        $extension = $this->container->getExtension('netgen_block_manager');
-        $extension->prepend($this->container);
+        $this->extension->prepend($this->container);
 
         $config = array_merge_recursive(
             ...$this->container->getExtensionConfig('netgen_block_manager')
@@ -191,8 +196,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testAppendFromPlugin()
     {
-        $extension = $this->container->getExtension('netgen_block_manager');
-        $extension->prepend($this->container);
+        $this->extension->prepend($this->container);
 
         $config = array_merge_recursive(
             ...$this->container->getExtensionConfig('netgen_block_manager')

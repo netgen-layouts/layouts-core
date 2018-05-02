@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormConfigBuilder;
 abstract class DataMapperTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $dispatcherMock;
 

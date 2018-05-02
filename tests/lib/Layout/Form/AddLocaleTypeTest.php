@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class AddLocaleTypeTest extends FormTestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $localeProviderMock;
 

@@ -456,7 +456,7 @@ final class BlockServiceTest extends ServiceTestCase
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
      *
-     * @return \Netgen\BlockManager\Core\Service\LayoutService
+     * @return \PHPUnit\Framework\MockObject\MockObject
      */
     protected function createLayoutService(LayoutValidator $validator = null)
     {

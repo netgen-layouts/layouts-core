@@ -175,7 +175,7 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder($maxLimit)
     {
         return new ResultBuilder(
-            new CollectionRunnerFactory($this->itemBuilder, 12),
+            new CollectionRunnerFactory($this->itemBuilder),
             12,
             $maxLimit
         );

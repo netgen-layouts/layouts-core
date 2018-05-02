@@ -109,7 +109,7 @@ trait DatabaseTrait
         $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');
 
         $migration = new Migration($configuration);
-        $migration->migrate(0);
+        $migration->migrate('0');
         $migration->migrate();
     }
 

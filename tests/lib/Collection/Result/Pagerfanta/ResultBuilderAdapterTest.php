@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class ResultBuilderAdapterTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $resultBuilderMock;
 

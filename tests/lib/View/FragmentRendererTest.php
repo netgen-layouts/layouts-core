@@ -18,22 +18,22 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 final class FragmentRendererTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\View\ViewBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $viewBuilderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\View\ViewRendererInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $viewRendererMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\HttpKernel\Fragment\FragmentHandler&\PHPUnit\Framework\MockObject\MockObject
      */
     private $fragmentHandlerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\View\Fragment\ViewRendererInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $blockFragmentRendererMock;
 

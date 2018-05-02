@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ClearBlocksCacheTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Block
+     * @var \Netgen\BlockManager\API\Values\Block\Block[]
      */
     private $blocks;
 

@@ -43,7 +43,6 @@ final class EditTypeTest extends FormTestCase
         ];
 
         $updatedStruct = new CollectionUpdateStruct();
-        $updatedStruct->offset = null;
         $updatedStruct->limit = 5;
 
         $form = $this->factory->create(

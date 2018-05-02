@@ -17,12 +17,6 @@ class MockerContainer extends Container
      */
     private $mockedServices = [];
 
-    /**
-     * @param string $id
-     * @param array $arguments
-     *
-     * @return \Mockery\Mock
-     */
     public function mock($id, ...$arguments)
     {
         if (!array_key_exists($id, $this->mockedServices)) {
@@ -33,9 +27,6 @@ class MockerContainer extends Container
         return $this->mockedServices[$id];
     }
 
-    /**
-     * @param string $id
-     */
     public function unmock($id)
     {
         $this->services[$id] = $this->originalServices[$id];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Exception\Collection;
+namespace Netgen\BlockManager\Tests\Exception\Context;
 
 use Netgen\BlockManager\Exception\Context\ContextException;
 use PHPUnit\Framework\TestCase;

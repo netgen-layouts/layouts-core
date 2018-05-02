@@ -15,7 +15,7 @@ final class ManualCollectionRunnerTest extends TestCase
     use IteratorTestTrait;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $itemBuilderMock;
 
@@ -40,7 +40,7 @@ final class ManualCollectionRunnerTest extends TestCase
     public function testCollectionResult(array $collectionItems, array $values, $totalCount, $offset = 0, $limit = 200, $flags = 0)
     {
         $collection = new Collection($collectionItems);
-        $factory = new CollectionRunnerFactory($this->itemBuilderMock, 12);
+        $factory = new CollectionRunnerFactory($this->itemBuilderMock);
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 

@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 final class DebugErrorHandlerTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Psr\Log\LoggerInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $loggerMock;
 

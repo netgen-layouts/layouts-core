@@ -49,16 +49,16 @@ abstract class FormTestCase extends TestCase
             ->method('validate')
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $this->factory = Forms::createFormFactoryBuilder()
+        $factoryBuilder = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
             ->addTypes($this->getTypes())
             ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock));
 
         foreach ($this->getTypeExtensions() as $typeExtension) {
-            $this->factory->addTypeExtension($typeExtension);
+            $factoryBuilder->addTypeExtension($typeExtension);
         }
 
-        $this->factory = $this->factory->getFormFactory();
+        $this->factory = $factoryBuilder->getFormFactory();
 
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);

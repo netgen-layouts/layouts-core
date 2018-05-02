@@ -16,7 +16,7 @@ abstract class NodeTest extends NodeTestCase
         }
 
         if (PHP_VERSION_ID >= 70000) {
-            return sprintf('%s($context["%s"] ?? $this->getContext($context, "%s"))', $line, $name, $name, $name);
+            return sprintf('%s($context["%s"] ?? $this->getContext($context, "%s"))', $line, $name, $name);
         }
 
         return sprintf('%s(isset($context["%s"]) ? $context["%s"] : $this->getContext($context, "%s"))', $line, $name, $name, $name);

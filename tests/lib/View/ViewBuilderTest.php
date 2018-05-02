@@ -14,17 +14,17 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class ViewBuilderTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $viewProviderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\View\TemplateResolverInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $templateResolverMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $eventDispatcherMock;
 

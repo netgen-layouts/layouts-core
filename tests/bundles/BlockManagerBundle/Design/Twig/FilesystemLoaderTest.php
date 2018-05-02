@@ -11,12 +11,12 @@ use Twig\Source;
 final class FilesystemLoaderTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Twig\Loader\FilesystemLoader&\PHPUnit\Framework\MockObject\MockObject
      */
     private $innerLoaderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $configurationMock;
 

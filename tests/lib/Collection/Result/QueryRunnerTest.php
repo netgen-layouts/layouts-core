@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class QueryRunnerTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $itemBuilderMock;
 

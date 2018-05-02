@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Config\Stubs;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
@@ -31,10 +30,5 @@ final class ConfigDefinition implements ConfigDefinitionInterface
     public function getConfigKey()
     {
         return $this->configKey;
-    }
-
-    public function isEnabled(ConfigAwareValue $configAwareValue)
-    {
-        return $this->handler->isEnabled($configAwareValue);
     }
 }

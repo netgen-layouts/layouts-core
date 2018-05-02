@@ -16,12 +16,12 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 final class AdminCsrfValidationListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $csrfTokenManagerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $sessionMock;
 

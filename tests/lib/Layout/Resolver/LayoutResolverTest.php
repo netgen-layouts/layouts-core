@@ -274,7 +274,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      *
      * @param array $matches
-     * @param int $layoutId
+     * @param int|null $layoutId
      *
      * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
@@ -314,7 +314,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      *
      * @param array $matches
-     * @param int $layoutId
+     * @param int|null $layoutId
      *
      * @dataProvider resolveRulesWithRuleConditionsProvider
      */
@@ -561,7 +561,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      *
      * @param array $matches
-     * @param int $layoutId
+     * @param int|null $layoutId
      *
      * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
@@ -598,7 +598,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      *
      * @param array $matches
-     * @param int $layoutId
+     * @param int|null $layoutId
      *
      * @dataProvider resolveRulesWithRuleConditionsProvider
      */

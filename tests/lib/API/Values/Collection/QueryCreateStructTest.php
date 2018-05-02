@@ -82,6 +82,9 @@ final class QueryCreateStructTest extends TestCase
     {
         $queryType = $this->buildQueryType();
 
+        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        $compoundDefinition = $queryType->getParameterDefinition('compound');
+
         $query = new Query(
             [
                 'queryType' => $queryType,
@@ -95,7 +98,7 @@ final class QueryCreateStructTest extends TestCase
                     'inner' => new Parameter(
                         [
                             'value' => 'inner',
-                            'parameterDefinition' => $queryType->getParameterDefinition('compound')->getParameterDefinition('inner'),
+                            'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
                         ]
                     ),
                 ],

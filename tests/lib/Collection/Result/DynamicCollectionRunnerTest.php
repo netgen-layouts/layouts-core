@@ -14,7 +14,7 @@ final class DynamicCollectionRunnerTest extends TestCase
     use IteratorTestTrait;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $itemBuilderMock;
 
@@ -66,7 +66,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $limit = 200
     ) {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $factory = new CollectionRunnerFactory($this->itemBuilderMock, 12);
+        $factory = new CollectionRunnerFactory($this->itemBuilderMock);
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 

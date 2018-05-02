@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\BlockManager\Tests\Validator\ConditionType;
 
 use DateTimeImmutable;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
