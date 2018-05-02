@@ -19,9 +19,6 @@ abstract class ValidatorTestCase extends TestCase
      */
     protected $validator;
 
-    /**
-     * @var \Symfony\Component\Validator\Constraint
-     */
     protected $constraint;
 
     public function setUp()
