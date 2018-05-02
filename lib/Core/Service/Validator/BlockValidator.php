@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 
 final class BlockValidator extends Validator
 {
@@ -36,6 +37,15 @@ final class BlockValidator extends Validator
             ]
         );
 
+        $this->validate(
+            $blockCreateStruct,
+            new ConfigAwareStructConstraint(
+                [
+                    'payload' => $blockCreateStruct->definition,
+                ]
+            )
+        );
+
         $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
         if (!empty($collectionCreateStructs)) {
             foreach ($collectionCreateStructs as $collectionCreateStruct) {
@@ -63,6 +73,16 @@ final class BlockValidator extends Validator
                     ]
                 ),
             ]
+        );
+
+        $this->validate(
+            $blockUpdateStruct,
+            new ConfigAwareStructConstraint(
+                [
+                    'payload' => $block->getDefinition(),
+                    'allowMissingFields' => true,
+                ]
+            )
         );
     }
 }

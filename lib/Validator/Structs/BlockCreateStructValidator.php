@@ -7,7 +7,6 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
@@ -93,15 +92,6 @@ final class BlockCreateStructValidator extends ConstraintValidator
                     ]
                 ),
             ]
-        );
-
-        $validator->validate(
-            $value,
-            new ConfigAwareStruct(
-                [
-                    'payload' => $value->definition,
-                ]
-            )
         );
     }
 }

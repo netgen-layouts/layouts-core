@@ -46,14 +46,14 @@ abstract class ItemTest extends ServiceTestCase
 
         $configStruct = new ConfigStruct();
         $configStruct->fill($configDefinition, $config);
-        $itemCreateStruct->setConfigStruct('visibility', $configStruct);
+        $itemCreateStruct->setConfigStruct('definition', $configStruct);
 
         $collection = $this->collectionService->loadCollectionDraft(1);
         $createdItem = $this->collectionService->addItem($collection, $itemCreateStruct);
 
-        $this->assertTrue($createdItem->hasConfig('visibility'));
+        $this->assertTrue($createdItem->hasConfig('definition'));
 
-        $createdConfig = $createdItem->getConfig('visibility');
+        $createdConfig = $createdItem->getConfig('definition');
 
         $this->assertInstanceOf(Config::class, $createdConfig);
 
@@ -83,7 +83,7 @@ abstract class ItemTest extends ServiceTestCase
 
         $configStruct = new ConfigStruct();
         $configStruct->fill($configDefinition, $config);
-        $itemCreateStruct->setConfigStruct('visibility', $configStruct);
+        $itemCreateStruct->setConfigStruct('definition', $configStruct);
 
         $collection = $this->collectionService->loadCollectionDraft(1);
         $this->collectionService->addItem($collection, $itemCreateStruct);
@@ -137,7 +137,7 @@ abstract class ItemTest extends ServiceTestCase
         $itemDefinition = new ItemDefinition(
             [
                 'valueType' => 'ezlocation',
-                'configDefinitions' => ['visibility' => $configDefinition],
+                'configDefinitions' => ['definition' => $configDefinition],
             ]
         );
 
@@ -159,7 +159,7 @@ abstract class ItemTest extends ServiceTestCase
 
         return new ConfigDefinition(
             [
-                'configKey' => 'visibility',
+                'configKey' => 'definition',
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterBuilder->buildParameterDefinitions(),
             ]

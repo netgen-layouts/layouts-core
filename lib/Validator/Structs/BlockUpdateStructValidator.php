@@ -8,7 +8,6 @@ use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
@@ -103,16 +102,6 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                     ]
                 ),
             ]
-        );
-
-        $validator->validate(
-            $value,
-            new ConfigAwareStruct(
-                [
-                    'payload' => $block->getDefinition(),
-                    'allowMissingFields' => true,
-                ]
-            )
         );
     }
 }

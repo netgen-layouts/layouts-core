@@ -104,13 +104,11 @@ abstract class HttpCacheConfigTest extends BlockTest
                 [
                     'shared_max_age' => '42',
                 ],
-                ['use_http_cache', 'shared_max_age'],
             ],
             [
                 [
                     'shared_max_age' => -5,
                 ],
-                ['use_http_cache', 'shared_max_age'],
             ],
         ];
     }
