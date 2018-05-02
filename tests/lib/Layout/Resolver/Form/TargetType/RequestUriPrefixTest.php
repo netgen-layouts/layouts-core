@@ -37,6 +37,7 @@ final class RequestUriPrefixTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildView
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::handleForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix::getFormOptions
@@ -64,6 +65,11 @@ final class RequestUriPrefixTest extends FormTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($updatedStruct, $form->getData());
 
-        $this->assertArrayHasKey('value', $form->createView()->children);
+        $formView = $form->createView();
+
+        $this->assertArrayHasKey('value', $formView->children);
+
+        $this->assertArrayHasKey('target_type', $formView->vars);
+        $this->assertEquals($this->targetType, $formView->vars['target_type']);
     }
 }

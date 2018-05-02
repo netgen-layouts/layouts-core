@@ -4,8 +4,10 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Block\Stubs\DynamicContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -61,6 +63,27 @@ final class BlockTypeNormalizerTest extends TestCase
             ],
             $this->normalizer->normalize(new VersionedValue($blockType, 1))
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
+     */
+    public function testNormalizeWithContainerBlock()
+    {
+        $blockType = new BlockType(
+            [
+                'definition' => new ContainerDefinition(
+                    [
+                        'handler' => new DynamicContainerDefinitionHandler(),
+                    ]
+                ),
+            ]
+        );
+
+        $data = $this->normalizer->normalize(new VersionedValue($blockType, 1));
+
+        $this->assertTrue($data['is_container']);
+        $this->assertTrue($data['is_dynamic_container']);
     }
 
     /**

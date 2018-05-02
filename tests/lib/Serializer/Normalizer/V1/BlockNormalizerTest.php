@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
@@ -11,6 +12,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Block\Stubs\DynamicContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
@@ -153,6 +155,27 @@ final class BlockNormalizerTest extends TestCase
             ],
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
+     */
+    public function testNormalizeWithContainerBlock()
+    {
+        $block = new Block(
+            [
+                'definition' => new ContainerDefinition(
+                    [
+                        'handler' => new DynamicContainerDefinitionHandler(),
+                    ]
+                ),
+            ]
+        );
+
+        $data = $this->normalizer->normalize(new VersionedValue($block, 1));
+
+        $this->assertTrue($data['is_container']);
+        $this->assertTrue($data['is_dynamic_container']);
     }
 
     /**

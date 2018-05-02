@@ -71,6 +71,30 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleArchive
+     */
+    public function testLoadRuleArchive()
+    {
+        $ruleDraft = $this->layoutResolverService->loadRuleDraft(7);
+        $this->layoutResolverService->publishRule($ruleDraft);
+
+        $ruleArchive = $this->layoutResolverService->loadRuleArchive(7);
+
+        $this->assertTrue($ruleArchive->isArchived());
+        $this->assertInstanceOf(Rule::class, $ruleArchive);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleArchive
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "999999"
+     */
+    public function testLoadRuleArchiveThrowsNotFoundException()
+    {
+        $this->layoutResolverService->loadRuleArchive(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
      */
     public function testLoadRules()

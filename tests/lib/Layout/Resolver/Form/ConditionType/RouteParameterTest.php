@@ -37,6 +37,7 @@ final class RouteParameterTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildView
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::handleForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
@@ -70,6 +71,11 @@ final class RouteParameterTest extends FormTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($updatedStruct, $form->getData());
 
-        $this->assertArrayHasKey('value', $form->createView()->children);
+        $formView = $form->createView();
+
+        $this->assertArrayHasKey('value', $formView->children);
+
+        $this->assertArrayHasKey('condition_type', $formView->vars);
+        $this->assertEquals($this->conditionType, $formView->vars['condition_type']);
     }
 }
