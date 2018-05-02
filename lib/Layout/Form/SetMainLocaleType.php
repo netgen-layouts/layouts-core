@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Layout\Form;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Intl;
@@ -46,7 +47,7 @@ final class SetMainLocaleType extends AbstractType
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
-                    new Constraints\Locale(),
+                    new LocaleConstraint(),
                 ],
             ] + $this->getChoicesAsValuesOption()
         );

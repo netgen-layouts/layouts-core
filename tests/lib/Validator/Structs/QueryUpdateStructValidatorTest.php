@@ -110,15 +110,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'locale' => 42,
-                    'parameterValues' => [
-                        'param' => 'value',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
                     'locale' => 'nonexistent',
                     'parameterValues' => [
                         'param' => 'value',
@@ -134,6 +125,24 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 true,
+            ],
+            [
+                [
+                    'locale' => 'en-US',
+                    'parameterValues' => [
+                        'param' => 'value',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'locale' => 'en_US.utf8',
+                    'parameterValues' => [
+                        'param' => 'value',
+                    ],
+                ],
+                false,
             ],
             [
                 [

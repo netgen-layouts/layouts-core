@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint\Parameters;
+namespace Netgen\BlockManager\Tests\Validator\Constraint;
 
 use Netgen\BlockManager\Validator\Constraint\DateTime;
 use PHPUnit\Framework\TestCase;

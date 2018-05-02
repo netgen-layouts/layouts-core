@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\Constraint;
@@ -39,7 +40,7 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             [
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
-                new Constraints\Locale(),
+                new LocaleConstraint(),
             ]
         );
 

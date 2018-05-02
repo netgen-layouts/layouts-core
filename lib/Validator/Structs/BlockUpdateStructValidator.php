@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
@@ -43,7 +44,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             [
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
-                new Constraints\Locale(),
+                new LocaleConstraint(),
             ]
         );
 

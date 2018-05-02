@@ -60,6 +60,10 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\DateTimeValidator();
         }
 
+        if ($name === 'ngbm_locale') {
+            return new Validator\LocaleValidator();
+        }
+
         if ($name === 'ngbm_link') {
             return new Validator\Parameters\LinkValidator();
         }

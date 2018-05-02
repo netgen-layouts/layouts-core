@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
@@ -132,7 +133,7 @@ abstract class Validator
             [
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
-                new Constraints\Locale(),
+                new LocaleConstraint(),
             ],
             $propertyPath
         );

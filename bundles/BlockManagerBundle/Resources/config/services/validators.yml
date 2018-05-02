@@ -47,6 +47,12 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: ngbm_datetime }
 
+    netgen_block_manager.validator.locale:
+        class: Netgen\BlockManager\Validator\LocaleValidator
+        # public: false
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_locale }
+
     netgen_block_manager.validator.condition_type.time:
         class: Netgen\BlockManager\Validator\ConditionType\TimeValidator
         # public: false

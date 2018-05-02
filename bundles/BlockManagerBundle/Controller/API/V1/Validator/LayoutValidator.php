@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\Bundle\BlockManagerBundle\Controller\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
@@ -31,7 +32,7 @@ final class LayoutValidator extends Validator
             [
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
-                new Constraints\Locale(),
+                new LocaleConstraint(),
             ],
             'locale'
         );

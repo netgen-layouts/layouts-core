@@ -144,7 +144,21 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'locale' => 42,
+                    'locale' => 'en-US',
+                    'alwaysAvailable' => true,
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'locale' => 'en_US.utf8',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',

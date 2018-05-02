@@ -9,6 +9,7 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -94,7 +95,7 @@ final class CreateType extends AbstractType
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
-                    new Constraints\Locale(),
+                    new LocaleConstraint(),
                 ],
                 'property_path' => 'mainLocale',
             ] + $this->getChoicesAsValuesOption()
