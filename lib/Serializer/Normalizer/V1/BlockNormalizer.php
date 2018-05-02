@@ -56,14 +56,12 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             'is_translatable' => $block->isTranslatable(),
             'always_available' => $block->isAlwaysAvailable(),
             'is_container' => false,
-            'is_dynamic_container' => false,
             'placeholders' => $this->serializer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizeBlockCollections($block),
         ];
 
         if ($blockDefinition instanceof ContainerDefinitionInterface) {
             $data['is_container'] = true;
-            $data['is_dynamic_container'] = $blockDefinition->isDynamicContainer();
         }
 
         return $data;

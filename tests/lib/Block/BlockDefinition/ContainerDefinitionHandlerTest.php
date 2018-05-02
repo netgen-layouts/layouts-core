@@ -18,14 +18,6 @@ final class ContainerDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler::isDynamicContainer
-     */
-    public function testIsDynamicContainer()
-    {
-        $this->assertFalse($this->handler->isDynamicContainer());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler::getPlaceholderIdentifiers
      */
     public function testGetPlaceholderIdentifiers()

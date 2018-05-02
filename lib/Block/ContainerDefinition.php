@@ -14,15 +14,6 @@ class ContainerDefinition extends BlockDefinition implements ContainerDefinition
 
     public function getPlaceholders()
     {
-        if ($this->isDynamicContainer()) {
-            return [];
-        }
-
         return $this->handler->getPlaceholderIdentifiers();
-    }
-
-    public function isDynamicContainer()
-    {
-        return $this->handler->isDynamicContainer();
     }
 }

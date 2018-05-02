@@ -12,7 +12,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Block\Stubs\DynamicContainerDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
@@ -141,7 +141,6 @@ final class BlockNormalizerTest extends TestCase
                 'is_translatable' => $block->isTranslatable(),
                 'always_available' => $block->isAlwaysAvailable(),
                 'is_container' => false,
-                'is_dynamic_container' => false,
                 'placeholders' => ['normalized placeholders'],
                 'collections' => [
                     [
@@ -166,7 +165,7 @@ final class BlockNormalizerTest extends TestCase
             [
                 'definition' => new ContainerDefinition(
                     [
-                        'handler' => new DynamicContainerDefinitionHandler(),
+                        'handler' => new ContainerDefinitionHandler(),
                     ]
                 ),
             ]
@@ -175,7 +174,6 @@ final class BlockNormalizerTest extends TestCase
         $data = $this->normalizer->normalize(new VersionedValue($block, 1));
 
         $this->assertTrue($data['is_container']);
-        $this->assertTrue($data['is_dynamic_container']);
     }
 
     /**

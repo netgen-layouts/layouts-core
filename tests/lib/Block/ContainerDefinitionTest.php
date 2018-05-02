@@ -37,12 +37,4 @@ final class ContainerDefinitionTest extends TestCase
     {
         $this->assertEquals(['left', 'right'], $this->blockDefinition->getPlaceholders());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\ContainerDefinition::isDynamicContainer
-     */
-    public function testIsDynamicContainer()
-    {
-        $this->assertFalse($this->blockDefinition->isDynamicContainer());
-    }
 }

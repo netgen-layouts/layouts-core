@@ -23,13 +23,11 @@ final class BlockTypeNormalizer implements NormalizerInterface
             'icon' => $blockType->getIcon(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'is_container' => false,
-            'is_dynamic_container' => false,
             'defaults' => $blockType->getDefaults(),
         ];
 
         if ($blockDefinition instanceof ContainerDefinitionInterface) {
             $data['is_container'] = true;
-            $data['is_dynamic_container'] = $blockDefinition->isDynamicContainer();
         }
 
         return $data;

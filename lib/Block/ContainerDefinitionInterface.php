@@ -15,11 +15,4 @@ interface ContainerDefinitionInterface extends BlockDefinitionInterface
      * @return string[]
      */
     public function getPlaceholders();
-
-    /**
-     * Returns if this block definition is a dynamic container.
-     *
-     * @return bool
-     */
-    public function isDynamicContainer();
 }

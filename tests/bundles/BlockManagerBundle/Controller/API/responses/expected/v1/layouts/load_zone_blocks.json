@@ -23,7 +23,6 @@
         "is_translatable": true,
         "always_available": true,
         "is_container": false,
-        "is_dynamic_container": false,
         "placeholders": [],
         "collections": [
             {
@@ -66,7 +65,6 @@
         "is_translatable": false,
         "always_available": true,
         "is_container": false,
-        "is_dynamic_container": false,
         "placeholders": [],
         "collections": [
             {
