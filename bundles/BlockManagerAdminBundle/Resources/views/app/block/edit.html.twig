@@ -22,18 +22,22 @@
 
             <div class="tab-pane" id="content-tab">
                 <div class="sidebar-panel">
-                    <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
-                        {{ 'block.edit.options'|trans }}
-                    </a>
+                    {% if block.definition.collections is not empty %}
+                        <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
+                            {{ 'block.edit.options'|trans }}
+                        </a>
+                    {% endif %}
 
                     <div class="collapse in" id="collapseSettings">
                         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'content'}) }}"></div>
 
-                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_type.html.twig' %}
+                        {% if block.definition.collections is not empty %}
+                            {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_type.html.twig' %}
 
-                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
+                            {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
 
-                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection.html.twig' %}
+                            {% include '@NetgenBlockManagerAdmin/app/block/edit/collection.html.twig' %}
+                        {% endif %}
                     </div>
                 </div>
 
