@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Validator\Parameters;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
+use Netgen\BlockManager\Validator\StrictEmailValidatorTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -16,6 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class LinkValidator extends ConstraintValidator
 {
+    use StrictEmailValidatorTrait;
+
     public function validate($value, Constraint $constraint)
     {
         if ($value === null) {
@@ -63,7 +66,7 @@ final class LinkValidator extends ConstraintValidator
             if ($linkType === LinkValue::LINK_TYPE_URL) {
                 $linkConstraints[] = new Constraints\Url();
             } elseif ($linkType === LinkValue::LINK_TYPE_EMAIL) {
-                $linkConstraints[] = new Constraints\Email();
+                $linkConstraints[] = new Constraints\Email($this->getStrictEmailValidatorOption());
             } elseif ($linkType === LinkValue::LINK_TYPE_PHONE) {
                 $linkConstraints[] = new Constraints\Type(['type' => 'string']);
             } elseif ($linkType === LinkValue::LINK_TYPE_INTERNAL) {

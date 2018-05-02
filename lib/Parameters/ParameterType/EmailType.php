@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Validator\StrictEmailValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -11,6 +12,8 @@ use Symfony\Component\Validator\Constraints;
  */
 final class EmailType extends ParameterType
 {
+    use StrictEmailValidatorTrait;
+
     public function getIdentifier()
     {
         return 'email';
@@ -20,7 +23,7 @@ final class EmailType extends ParameterType
     {
         return [
             new Constraints\Type(['type' => 'string']),
-            new Constraints\Email(),
+            new Constraints\Email($this->getStrictEmailValidatorOption()),
         ];
     }
 }
