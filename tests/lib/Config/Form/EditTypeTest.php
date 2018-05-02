@@ -3,12 +3,13 @@
 namespace Netgen\BlockManager\Tests\Config\Form;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Config\Form\EditType;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
@@ -26,12 +27,18 @@ final class EditTypeTest extends FormTestCase
     {
         parent::setUp();
 
+        $handler = new ConfigDefinitionHandler();
+
         $this->configurable = new ConfigAwareValue(
             [
                 'configs' => [
                     'test' => new Config(
                         [
-                            'definition' => new ConfigDefinition('test'),
+                            'definition' => new ConfigDefinition(
+                                [
+                                    'parameterDefinitions' => $handler->getParameterDefinitions(),
+                                ]
+                            ),
                         ]
                     ),
                 ],

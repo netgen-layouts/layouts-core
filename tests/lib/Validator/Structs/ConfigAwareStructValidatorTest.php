@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Validator\Structs;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
+use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionAware;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
@@ -19,10 +20,16 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     {
         $this->constraint = new ConfigAwareStructConstraint();
 
+        $handler = new ConfigDefinitionHandler();
+
         $this->constraint->payload = new ConfigDefinitionAware(
             [
                 'configDefinitions' => [
-                    'config' => new ConfigDefinition('config'),
+                    'config' => new ConfigDefinition(
+                        [
+                            'parameterDefinitions' => $handler->getParameterDefinitions(),
+                        ]
+                    ),
                 ],
             ]
         );

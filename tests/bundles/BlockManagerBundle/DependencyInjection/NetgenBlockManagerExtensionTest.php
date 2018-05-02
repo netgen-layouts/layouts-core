@@ -28,7 +28,10 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     {
         parent::setUp();
 
-        $this->extension = $this->container->getExtension('netgen_block_manager');
+        /** @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension $extension */
+        $extension = $this->container->getExtension('netgen_block_manager');
+
+        $this->extension = $extension;
     }
 
     /**

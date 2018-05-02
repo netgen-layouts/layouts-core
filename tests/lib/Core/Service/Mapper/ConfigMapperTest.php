@@ -4,10 +4,11 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigMapperTest extends TestCase
@@ -24,7 +25,13 @@ final class ConfigMapperTest extends TestCase
 
     public function setUp()
     {
-        $this->configDefinition = new ConfigDefinition('config_key');
+        $handler = new ConfigDefinitionHandler();
+
+        $this->configDefinition = new ConfigDefinition(
+            [
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
+            ]
+        );
 
         $this->mapper = new ConfigMapper(new ParameterMapper());
     }

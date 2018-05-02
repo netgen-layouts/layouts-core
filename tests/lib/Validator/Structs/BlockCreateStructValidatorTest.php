@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\ContainerDefinition;
@@ -436,9 +435,9 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    private function getBlockDefinition(BlockDefinitionHandlerInterface $handler = null)
+    private function getBlockDefinition()
     {
-        $handler = $handler ?: new BlockDefinitionHandlerWithRequiredParameter();
+        $handler = new BlockDefinitionHandlerWithRequiredParameter();
 
         return new BlockDefinition(
             [

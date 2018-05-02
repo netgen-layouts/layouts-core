@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\ContainerDefinition;
@@ -87,7 +86,7 @@ final class BlockValidatorTest extends TestCase
                 [
                     'viewType' => 'large',
                     'mainLocale' => 'en',
-                    'definition' => $this->getBlockDefinition(new BlockDefinitionHandler()),
+                    'definition' => $this->getBlockDefinition(false),
                 ]
             ),
             new BlockUpdateStruct($params)
@@ -843,9 +842,16 @@ final class BlockValidatorTest extends TestCase
         ];
     }
 
-    private function getBlockDefinition(BlockDefinitionHandlerInterface $handler = null)
+    /**
+     * @param bool $hasRequiredParam
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition
+     */
+    private function getBlockDefinition($hasRequiredParam = true)
     {
-        $handler = $handler ?: new BlockDefinitionHandlerWithRequiredParameter();
+        $handler = $hasRequiredParam ?
+            new BlockDefinitionHandlerWithRequiredParameter() :
+            new BlockDefinitionHandler();
 
         return new BlockDefinition(
             [

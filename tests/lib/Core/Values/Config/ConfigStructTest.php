@@ -2,20 +2,20 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigStructTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait
+     * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct
      */
     private $struct;
 
     public function setUp()
     {
-        $this->struct = $this->getMockForTrait(ConfigAwareStructTrait::class);
+        $this->struct = new ConfigAwareStruct();
     }
 
     /**

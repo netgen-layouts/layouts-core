@@ -26,7 +26,7 @@ trait DatabaseTrait
     protected $databaseServer;
 
     /**
-     * @var \Doctrine\DBAL\Connection
+     * @var \Doctrine\DBAL\Connection|null
      */
     protected $databaseConnection;
 
@@ -34,17 +34,15 @@ trait DatabaseTrait
      * Sets up the database connection.
      *
      * @param string $fixturesPath
+     *
+     * @return \Doctrine\DBAL\Connection
      */
-    protected function createDatabase($fixturesPath = __DIR__ . '/../../../_fixtures')
+    protected function createDatabaseConnection()
     {
         $this->databaseUri = getenv('DATABASE');
         if (empty($this->databaseUri)) {
             $this->databaseUri = $this->inMemoryDsn;
         }
-
-        $useMigrations = getenv('USE_MIGRATIONS') === 'true';
-
-        $schemaPath = rtrim($fixturesPath, '/') . '/schema';
 
         preg_match('/^(?<db>.+):\/+/', $this->databaseUri, $matches);
         $this->databaseServer = $matches['db'];
@@ -54,6 +52,24 @@ trait DatabaseTrait
                 'url' => $this->databaseUri,
             ]
         );
+
+        return $this->databaseConnection;
+    }
+
+    /**
+     * Sets up the database connection.
+     *
+     * @param string $fixturesPath
+     */
+    protected function createDatabase($fixturesPath = __DIR__ . '/../../../_fixtures')
+    {
+        if ($this->databaseConnection === null) {
+            $this->createDatabaseConnection();
+        }
+
+        $useMigrations = getenv('USE_MIGRATIONS') === 'true';
+
+        $schemaPath = rtrim($fixturesPath, '/') . '/schema';
 
         $useMigrations ?
             $this->executeMigrations() :

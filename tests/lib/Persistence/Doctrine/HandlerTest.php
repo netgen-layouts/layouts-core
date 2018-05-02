@@ -14,15 +14,20 @@ final class HandlerTest extends TestCase
     use TestCaseTrait;
 
     /**
+     * @var \Doctrine\DBAL\Connection&\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $connectionMock;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler
      */
     private $handler;
 
     public function setUp()
     {
-        $this->databaseConnection = $this->createMock(Connection::class);
+        $this->connectionMock = $this->createMock(Connection::class);
 
-        $this->handler = $this->createPersistenceHandler($this->databaseConnection);
+        $this->handler = $this->createPersistenceHandler($this->connectionMock);
     }
 
     /**
@@ -75,7 +80,7 @@ final class HandlerTest extends TestCase
      */
     public function testBeginTransaction()
     {
-        $this->databaseConnection
+        $this->connectionMock
             ->expects($this->once())
             ->method('beginTransaction');
 
@@ -87,7 +92,7 @@ final class HandlerTest extends TestCase
      */
     public function testCommitTransaction()
     {
-        $this->databaseConnection
+        $this->connectionMock
             ->expects($this->once())
             ->method('commit');
 
@@ -99,7 +104,7 @@ final class HandlerTest extends TestCase
      */
     public function testRollbackTransaction()
     {
-        $this->databaseConnection
+        $this->connectionMock
             ->expects($this->once())
             ->method('rollback');
 

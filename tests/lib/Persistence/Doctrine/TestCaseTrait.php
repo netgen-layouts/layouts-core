@@ -27,19 +27,20 @@ trait TestCaseTrait
     /**
      * Returns the persistence handler under test.
      *
-     * @param \Doctrine\DBAL\Connection $connection
+     * @param \Doctrine\DBAL\Connection|null $connection
      *
      * @return \Netgen\BlockManager\Persistence\HandlerInterface
      */
     private function createPersistenceHandler(Connection $connection = null)
     {
-        $this->databaseConnection = $connection;
-        if ($this->databaseConnection === null) {
-            $this->createDatabase();
+        if ($connection === null) {
+            $connection = $this->createDatabaseConnection();
         }
 
+        $this->createDatabase();
+
         return new Handler(
-            $this->databaseConnection,
+            $connection,
             $this->createLayoutHandler(),
             $this->createBlockHandler(),
             $this->createCollectionHandler(),
