@@ -139,7 +139,8 @@ final class BlockController extends Controller
         $copiedBlock = $this->blockService->copyBlock(
             $block,
             $targetBlock,
-            $request->request->get('placeholder')
+            $request->request->get('placeholder'),
+            $request->request->get('position')
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -160,7 +161,11 @@ final class BlockController extends Controller
             $request->request->get('zone_identifier')
         );
 
-        $copiedBlock = $this->blockService->copyBlockToZone($block, $zone);
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $block,
+            $zone,
+            $request->request->get('position')
+        );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
     }
