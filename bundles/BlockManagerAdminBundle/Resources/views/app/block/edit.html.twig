@@ -21,27 +21,27 @@
             </ul>
 
             <div class="tab-pane" id="content-tab">
-                <div class="sidebar-panel">
-                    {% if block.definition.collections is not empty %}
+                {% if block.definition.collections is not empty %}
+                    <div class="sidebar-panel">
                         <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
                             {{ 'block.edit.options'|trans }}
                         </a>
-                    {% endif %}
 
-                    <div class="collapse in" id="collapseSettings">
-                        <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'content'}) }}"></div>
+                        <div class="collapse in" id="collapseSettings">
+                            <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'content'}) }}"></div>
 
-                        {% if block.definition.collections is not empty %}
                             {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_type.html.twig' %}
 
                             {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
 
                             {% include '@NetgenBlockManagerAdmin/app/block/edit/collection.html.twig' %}
-                        {% endif %}
+                        </div>
                     </div>
-                </div>
 
-                {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_items.html.twig' %}
+                    {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_items.html.twig' %}
+                {% else %}
+                    <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'content'}) }}"></div>
+                {% endif %}
             </div>
 
             <div class="tab-pane" id="design-tab">
