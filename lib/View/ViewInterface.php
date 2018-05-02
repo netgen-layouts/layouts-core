@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\View;
 
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\Response;
 
-interface ViewInterface
+interface ViewInterface extends JsonSerializable
 {
     /**
      * Context used to render the values in the frontend.

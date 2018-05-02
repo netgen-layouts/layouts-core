@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\View;
 
-use JsonSerializable;
 use Netgen\BlockManager\Exception\View\ViewException;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class View implements ViewInterface, JsonSerializable
+abstract class View implements ViewInterface
 {
     /**
      * @var string

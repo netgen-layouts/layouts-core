@@ -23,7 +23,7 @@ final class ItemException extends InvalidArgumentException implements Exception
     }
 
     /**
-     * @param string $value
+     * @param string|int $value
      *
      * @return \Netgen\BlockManager\Exception\Item\ItemException
      */

@@ -18,7 +18,7 @@ interface Placeholder extends ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns all blocks in this placeholder.
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
     public function getBlocks();
 }

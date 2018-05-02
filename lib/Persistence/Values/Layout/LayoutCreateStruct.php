@@ -44,7 +44,7 @@ final class LayoutCreateStruct extends Value
     /**
      * Main locale of the new layout.
      *
-     * @var bool
+     * @var string
      */
     public $mainLocale;
 }
