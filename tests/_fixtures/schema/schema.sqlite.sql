@@ -1,5 +1,6 @@
 PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = MEMORY;
+PRAGMA synchronous = OFF;
 
 DROP TABLE IF EXISTS `ngbm_block_collection`;
 DROP TABLE IF EXISTS `ngbm_collection_item`;
