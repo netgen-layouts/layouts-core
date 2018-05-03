@@ -11,6 +11,13 @@ final class Version001100 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
+        $layoutTable = $schema->getTable('ngbm_layout');
+        $layoutTable->addIndex(['type']);
+        $layoutTable->addIndex(['shared']);
+
+        $zoneTable = $schema->getTable('ngbm_zone');
+        $zoneTable->addIndex(['linked_layout_id', 'linked_zone_identifier']);
+
         $this->addSql('ALTER TABLE ngbm_collection_item ADD COLUMN config text NOT NULL');
         $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value_id value varchar(255)');
     }
