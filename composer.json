@@ -42,7 +42,7 @@
         "franzl/studio": "*"
     },
     "config": {
-        "process-timeout": 600
+        "process-timeout": 3600
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",
