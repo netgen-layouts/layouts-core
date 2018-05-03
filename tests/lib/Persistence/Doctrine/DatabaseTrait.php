@@ -26,7 +26,7 @@ trait DatabaseTrait
     protected $databaseServer;
 
     /**
-     * @var \Doctrine\DBAL\Connection|null
+     * @var \Doctrine\DBAL\Connection
      */
     protected $databaseConnection;
 

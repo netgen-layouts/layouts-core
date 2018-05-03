@@ -33,14 +33,16 @@ trait TestCaseTrait
      */
     private function createPersistenceHandler(Connection $connection = null)
     {
+        $this->databaseConnection = $connection === null ?
+            $this->createDatabaseConnection() :
+            $connection;
+
         if ($connection === null) {
-            $connection = $this->createDatabaseConnection();
+            $this->createDatabase();
         }
 
-        $this->createDatabase();
-
         return new Handler(
-            $connection,
+            $this->databaseConnection,
             $this->createLayoutHandler(),
             $this->createBlockHandler(),
             $this->createCollectionHandler(),
