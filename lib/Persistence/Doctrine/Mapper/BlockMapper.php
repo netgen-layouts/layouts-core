@@ -50,6 +50,9 @@ final class BlockMapper
         return array_values(
             array_map(
                 function (array $blockData) {
+                    ksort($blockData['parameters']);
+                    sort($blockData['availableLocales']);
+
                     return new Block($blockData);
                 },
                 $blocks

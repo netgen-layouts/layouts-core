@@ -41,6 +41,8 @@ final class CollectionMapper
         return array_values(
             array_map(
                 function (array $collectionData) {
+                    sort($collectionData['availableLocales']);
+
                     return new Collection($collectionData);
                 },
                 $collections
@@ -108,6 +110,9 @@ final class CollectionMapper
         $queries = array_values(
             array_map(
                 function (array $queryData) {
+                    ksort($queryData['parameters']);
+                    sort($queryData['availableLocales']);
+
                     return new Query($queryData);
                 },
                 $queries
