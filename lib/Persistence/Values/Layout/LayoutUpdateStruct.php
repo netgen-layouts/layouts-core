@@ -14,6 +14,13 @@ final class LayoutUpdateStruct extends Value
     public $name;
 
     /**
+     * Modification date of the layout.
+     *
+     * @var int
+     */
+    public $modified;
+
+    /**
      * New human readable description of the layout.
      *
      * @var string

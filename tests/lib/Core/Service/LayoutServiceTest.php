@@ -1082,6 +1082,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testPublishLayout()
     {
         $layout = $this->layoutService->loadLayoutDraft(1);
+        $currentlyPublishedLayout = $this->layoutService->loadLayout(1);
         $publishedLayout = $this->layoutService->publishLayout($layout);
 
         $this->assertInstanceOf(Layout::class, $publishedLayout);
@@ -1089,6 +1090,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $this->assertEquals($layout->getCreated(), $publishedLayout->getCreated());
         $this->assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
+
+        $archivedLayout = $this->layoutService->loadLayoutArchive(1);
+        $this->assertEquals($currentlyPublishedLayout->getModified(), $archivedLayout->getModified());
 
         try {
             $this->layoutService->loadLayoutDraft($layout->getId());

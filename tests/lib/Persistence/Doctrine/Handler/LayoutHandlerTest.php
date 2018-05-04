@@ -721,6 +721,7 @@ final class LayoutHandlerTest extends TestCase
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
+        $layoutUpdateStruct->modified = 123;
         $layoutUpdateStruct->description = 'New description';
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
@@ -733,7 +734,7 @@ final class LayoutHandlerTest extends TestCase
         $this->assertEquals('New name', $updatedLayout->name);
         $this->assertEquals('New description', $updatedLayout->description);
         $this->assertEquals($originalLayout->created, $updatedLayout->created);
-        $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
+        $this->assertEquals(123, $updatedLayout->modified);
     }
 
     /**

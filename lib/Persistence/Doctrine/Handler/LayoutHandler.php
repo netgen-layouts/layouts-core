@@ -244,6 +244,10 @@ final class LayoutHandler implements LayoutHandlerInterface
             $updatedLayout->name = trim($layoutUpdateStruct->name);
         }
 
+        if ($layoutUpdateStruct->modified !== null) {
+            $updatedLayout->modified = (int) $layoutUpdateStruct->modified;
+        }
+
         if ($layoutUpdateStruct->description !== null) {
             $updatedLayout->description = trim($layoutUpdateStruct->description);
         }

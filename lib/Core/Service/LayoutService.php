@@ -550,16 +550,24 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
 
                 if ($this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
-                    $archivedLayout = $this->layoutHandler->createLayoutStatus(
-                        $this->layoutHandler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED),
-                        Value::STATUS_ARCHIVED
-                    );
+                    $currentlyPublishedLayout = $this->layoutHandler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
+                    $archivedLayout = $this->layoutHandler->createLayoutStatus($currentlyPublishedLayout, Value::STATUS_ARCHIVED);
 
                     // Update the archived layout to blank the name in order not to block
-                    // usage of the old layout name.
-                    // When restoring from archive, we need to reuse the name of the published
-                    // layout.
-                    $this->layoutHandler->updateLayout($archivedLayout, new LayoutUpdateStruct(['name' => '']));
+                    // usage of the old layout name. When restoring from archive, we need to
+                    // reuse the name of the published layout.
+
+                    // Also sets the modified date of the archived layout to the modified date of
+                    // currently published layout, so we know when the archive was last published.
+                    $this->layoutHandler->updateLayout(
+                        $archivedLayout,
+                        new LayoutUpdateStruct(
+                            [
+                                'name' => '',
+                                'modified' => $currentlyPublishedLayout->modified,
+                            ]
+                        )
+                    );
 
                     $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
                 }
