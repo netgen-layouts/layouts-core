@@ -6,11 +6,6 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin as Base
 
 final class ExtensionPlugin extends BaseExtensionPlugin
 {
-    /**
-     * Returns available configuration nodes for the bundle.
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
-     */
     public function getConfigurationNodes()
     {
         return [

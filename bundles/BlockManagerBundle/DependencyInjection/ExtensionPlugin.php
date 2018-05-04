@@ -25,13 +25,6 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
         return [];
     }
 
-    /**
-     * Post-processes the resolved configuration.
-     *
-     * @param array $config
-     *
-     * @return array
-     */
     public function postProcessConfiguration(array $config)
     {
         return $config;
