@@ -43,7 +43,11 @@
     <script src="{{ asset('ckeditor/ckeditor.js', 'ngbm_app_vendor') }}"></script>
     <script src="{{ asset('ace-editor/ace.js', 'ngbm_app_vendor') }}"></script>
 
-    {% include '@NetgenBlockManager/google_maps.html.twig' %}
+    {% set google_maps_api_key = ngbm.config.parameter('api_keys').google_maps %}
+
+    {% if google_maps_api_key is not empty %}
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}" async defer></script>
+    {% endif %}
 
     {% block custom_javascripts %}
         {% for javascript in ngbm.config.parameter('app').javascripts %}
