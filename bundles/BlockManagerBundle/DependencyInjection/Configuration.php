@@ -12,10 +12,7 @@ final class Configuration implements ConfigurationInterface
      */
     private $extension;
 
-    /**
-     * @param \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension $extension
-     */
-    public function __construct($extension)
+    public function __construct(NetgenBlockManagerExtension $extension)
     {
         $this->extension = $extension;
     }
