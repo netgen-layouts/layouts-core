@@ -29,7 +29,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     public function setUp()
     {
         if (Kernel::VERSION_ID < 30400) {
-            $this->markTestSkipped('CacheableViewSessionListener does nothing versions of Symfony lower than 3.4');
+            $this->markTestSkipped('CacheableViewSessionListener does nothing on versions of Symfony lower than 3.4');
         }
 
         $this->innerListenerMock = $this->createMock(SessionListener::class);
