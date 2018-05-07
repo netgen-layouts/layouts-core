@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         lockfile: {
             grunt: {
                 path: 'grunt.lock',
-            }
+            },
         },
 
         // Watches files for changes and runs tasks based on the changed files
@@ -120,7 +120,6 @@ module.exports = function (grunt) {
                 },
             },
         },
-
     });
 
     grunt.registerTask('serve', 'Start the server and preview your app', function () {
@@ -129,7 +128,7 @@ module.exports = function (grunt) {
             'sass:dist',
             'postcss',
             'browserify:dev',
-            'watch'
+            'watch',
         ]);
     });
 
@@ -137,7 +136,7 @@ module.exports = function (grunt) {
         'serve',
     ]);
 
-    grunt.registerTask('build', 'Build production css and js', function () {
+    grunt.registerTask('build', 'Build production assets', function () {
         grunt.task.run([
             'lockfile',
             'sass:dist',
