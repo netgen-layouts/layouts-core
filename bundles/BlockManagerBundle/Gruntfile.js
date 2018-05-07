@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                     debug: true,
                 },
                 transform: [
-                    ['babelify', { presets: ['es2015', 'stage-0'] }]
+                    ['babelify', { presets: ['es2015', 'stage-0'] }],
                 ],
             },
             dist: {
