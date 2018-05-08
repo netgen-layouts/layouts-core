@@ -154,23 +154,29 @@ export default class NlRules {
         this.filterMappings();
     }
     filterMappings() {
-        let showBetween = true;
+        let hiddenItems = 0;
         $('.nl-rule-between').remove();
         const $filterAmount = this.$el.find('.filter-checked-amount');
+        const addRuleBetween = (rule, amount) => {
+            rule.$el.before(`<div class="nl-rule-between"><i class="material-icons">more_vert</i><span class="hidden-amount">${amount}</span></div>`);
+        };
         if (this.filter.length) {
             $filterAmount.show().html(this.filter.length);
         } else {
             $filterAmount.hide();
         }
-        this.rules.forEach((rule) => {
+        this.rules.forEach((rule, i) => {
             const isHidden = !!this.filter.length && !this.filter.includes(rule.attributes.targetType);
             rule.isHidden = isHidden; // eslint-disable-line no-param-reassign
             rule.$el.toggleClass('nl-rule-hidden', isHidden);
-            if (!isHidden) {
-                showBetween = true;
-            } else if (showBetween) {
-                rule.$el.before('<div class="nl-rule-between"><i></i></div>');
-                showBetween = false;
+            if (isHidden) {
+                hiddenItems++;
+                if (i === this.rules.length - 1) {
+                    addRuleBetween(rule, hiddenItems);
+                }
+            } else if (hiddenItems) {
+                addRuleBetween(rule, hiddenItems);
+                hiddenItems = 0;
             }
         });
         this.$el.toggleClass('no-filtered-items', !!this.rules.length && !this.rules.some(rule => !rule.isHidden));

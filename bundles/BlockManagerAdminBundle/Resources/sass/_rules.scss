@@ -484,38 +484,22 @@
     padding: 4px $gutter * 1.5 $gutter * 4 $gutter * 1.5;
     .nl-rule-between {
         text-align: center;
-        padding: .5em 0 1em;
+        margin: .75em 0;
+        position: relative;
         .sorting & {
             display: none;
         }
         i {
-            display: block;
-            font-size: .25em;
-            width: 1em;
-            height: 1em;
-            margin: 2em auto;
-            color: $textColor;
-            background: currentColor;
-            border-radius: 500em;
-            position: relative;
-            &::before,
-            &::after {
-                content: '';
-                position: absolute;
-                width: 1em;
-                height: 1em;
-                border-radius: 500em;
-                left: 0;
-                background: currentColor;
-            }
-            &::before {
-                top: 100%;
-                margin-top: 1em;
-            }
-            &::after {
-                bottom: 100%;
-                margin-bottom: 1em;
-            }
+            vertical-align: middle;
+            font-size: 1.75em;
+        }
+        .hidden-amount {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(0, -50%, 0);
+            font-size: .8em;
+            margin-left: 1em;
         }
     }
 }
