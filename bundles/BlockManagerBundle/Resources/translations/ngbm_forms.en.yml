@@ -14,7 +14,7 @@ collection.offset_limit: 'Offset & limit'
 
 query.advanced_options: 'Advanced options'
 
-layout.copy.title: 'Enter the name for the new layout:'
+layout.copy.title: 'Enter the name for the new layout'
 layout.copy.button.copy: 'Copy layout'
 layout.copy.button.cancel: 'Cancel'
 
@@ -23,7 +23,7 @@ layout.create.button.create: 'Create layout'
 
 layout.edit.button.cancel: 'Cancel'
 layout.edit.button.save: 'Save'
-layout.edit.title: 'Edit layout name and description:'
+layout.edit.title: 'Edit layout name and description'
 
 layout.set_main_locale.title: 'Set main translation'
 layout.set_main_locale.button.cancel: 'Cancel'
