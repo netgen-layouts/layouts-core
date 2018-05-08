@@ -55,17 +55,4 @@ final class RuleViewTest extends TestCase
     {
         $this->assertEquals('rule_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\RuleView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'ruleId' => 42,
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }

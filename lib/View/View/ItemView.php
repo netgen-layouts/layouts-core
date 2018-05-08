@@ -20,13 +20,4 @@ final class ItemView extends View implements ItemViewInterface
     {
         return 'item_view';
     }
-
-    public function jsonSerialize()
-    {
-        return [
-            'value' => $this->getItem()->getValue(),
-            'valueType' => $this->getItem()->getValueType(),
-            'viewType' => $this->getViewType(),
-        ];
-    }
 }

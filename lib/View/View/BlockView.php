@@ -18,11 +18,4 @@ final class BlockView extends View implements BlockViewInterface
     {
         return 'block_view';
     }
-
-    public function jsonSerialize()
-    {
-        return [
-            'blockId' => $this->getBlock()->getId(),
-        ];
-    }
 }

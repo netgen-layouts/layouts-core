@@ -10,9 +10,4 @@ class View extends BaseView
     {
         return 'view';
     }
-
-    public function jsonSerialize()
-    {
-        return [];
-    }
 }

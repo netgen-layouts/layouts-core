@@ -74,18 +74,4 @@ final class PlaceholderViewTest extends TestCase
     {
         $this->assertEquals('placeholder_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\PlaceholderView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'blockId' => 42,
-                'placeholder' => 'main',
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }

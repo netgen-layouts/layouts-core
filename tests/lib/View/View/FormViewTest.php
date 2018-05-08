@@ -61,18 +61,4 @@ final class FormViewTest extends TestCase
     {
         $this->assertEquals('form_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\FormView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'formName' => 'form',
-                'formType' => FormType::class,
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }

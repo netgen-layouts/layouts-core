@@ -62,17 +62,4 @@ final class BlockViewTest extends TestCase
     {
         $this->assertEquals('block_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\BlockView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'blockId' => 42,
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }

@@ -25,12 +25,4 @@ final class FormView extends View implements FormViewInterface
     {
         return 'form_view';
     }
-
-    public function jsonSerialize()
-    {
-        return [
-            'formName' => $this->getForm()->getName(),
-            'formType' => $this->getFormType(),
-        ];
-    }
 }

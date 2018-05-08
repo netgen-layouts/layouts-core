@@ -55,17 +55,4 @@ final class RuleTargetViewTest extends TestCase
     {
         $this->assertEquals('rule_target_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\RuleTargetView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'targetId' => 42,
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }

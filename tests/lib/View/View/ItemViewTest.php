@@ -70,19 +70,4 @@ final class ItemViewTest extends TestCase
     {
         $this->assertEquals('item_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\ItemView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'value' => 42,
-                'valueType' => 'type',
-                'viewType' => 'view_type',
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }

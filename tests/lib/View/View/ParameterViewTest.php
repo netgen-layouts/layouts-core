@@ -73,18 +73,4 @@ final class ParameterViewTest extends TestCase
     {
         $this->assertEquals('parameter_view', $this->view->getIdentifier());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\ParameterView::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        $this->assertEquals(
-            [
-                'name' => 'paramName',
-                'type' => 'type',
-            ],
-            $this->view->jsonSerialize()
-        );
-    }
 }
