@@ -34,6 +34,8 @@
         "netgen/block-manager-standard": "~0.12.0",
         "phpunit/phpunit": "^5.7 || ^7.1",
         "symfony/phpunit-bridge": "^4.0",
+        "phpstan/phpstan": "^0.9",
+        "phpstan/phpstan-phpunit": "^0.9",
         "symfony/monolog-bundle": "^3.2",
         "matthiasnoback/symfony-dependency-injection-test": "^1.2 || ^3.0",
         "matthiasnoback/symfony-config-test": "^2.2 || ^4.0",
@@ -48,7 +50,9 @@
         "test": "@php vendor/bin/phpunit --colors=always",
         "test-api": "@php -dmemory_limit=-1 vendor/bin/phpunit -c phpunit-api.xml --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-html=coverage --colors=always",
-        "coverage-api": "@php -dzend_extension=xdebug.so vendor/bin/phpunit -c phpunit-api.xml --coverage-html=coverage_api --colors=always"
+        "coverage-api": "@php -dzend_extension=xdebug.so vendor/bin/phpunit -c phpunit-api.xml --coverage-html=coverage_api --colors=always",
+        "phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon --level=7 --ansi lib bundles migrations",
+        "phpstan-tests": "@php vendor/bin/phpstan analyse -c phpstan.tests.neon --level=7 --ansi tests"
     },
     "repositories": [
         { "type": "composer", "url": "https://packagist.netgen.biz" }
