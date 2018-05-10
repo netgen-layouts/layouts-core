@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\Kernel;
+namespace Netgen\BlockManager\Tests\Kernel;
 
 use Mockery;
 use Symfony\Component\DependencyInjection\Container;

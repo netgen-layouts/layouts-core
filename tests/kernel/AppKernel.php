@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\Kernel;
+namespace Netgen\BlockManager\Tests\Kernel;
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
