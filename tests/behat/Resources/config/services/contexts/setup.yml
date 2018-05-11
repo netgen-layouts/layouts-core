@@ -1,0 +1,15 @@
+services:
+    netgen_block_manager.behat.context.setup.admin_security:
+        class: Netgen\BlockManager\Behat\Context\Setup\AdminSecurityContext
+        public: false
+        tags:
+            - { name: fob.context_service }
+
+    netgen_block_manager.behat.context.setup.layout:
+        class: Netgen\BlockManager\Behat\Context\Setup\LayoutContext
+        public: false
+        arguments:
+            - "@__symfony__.netgen_block_manager.api.service.layout"
+            - "@__symfony__.netgen_block_manager.layout.registry.layout_type"
+        tags:
+            - { name: fob.context_service }

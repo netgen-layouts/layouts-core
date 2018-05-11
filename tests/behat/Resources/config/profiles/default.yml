@@ -1,0 +1,34 @@
+default:
+    extensions:
+        Behat\MinkExtension:
+            base_url: "http://admin:admin@localhost:8000"
+            default_session: symfony
+            javascript_session: chrome
+            show_auto: false
+            sessions:
+                symfony:
+                    symfony: ~
+                chrome:
+                    selenium2:
+                        browser: chrome
+                        capabilities:
+                            browserName: chrome
+                            browser: chrome
+                            version: ""
+                            chrome:
+                                switches:
+                                    - "disable-extensions"
+                                    - "start-fullscreen"
+
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: Netgen\BlockManager\Tests\Kernel\AppKernel
+                bootstrap: vendor/autoload.php
+
+        FriendsOfBehat\ContextServiceExtension:
+            imports:
+                - tests/behat/Resources/config/services.yml
+
+        FriendsOfBehat\CrossContainerExtension: ~
+
+        FriendsOfBehat\VariadicExtension: ~

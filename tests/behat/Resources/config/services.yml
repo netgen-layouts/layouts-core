@@ -1,0 +1,10 @@
+imports:
+    - services/contexts.yml
+    - services/pages.yml
+
+services:
+    mink.default_session:
+        class: Behat\Mink\Session
+        factory: ["@__behat__.mink", "getSession"]
+        public: false
+        lazy: true

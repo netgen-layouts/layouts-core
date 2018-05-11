@@ -1,0 +1,10 @@
+headless:
+    extensions:
+        Behat\MinkExtension:
+            sessions:
+                chrome:
+                    selenium2:
+                        capabilities:
+                            chrome:
+                                switches:
+                                    - "headless"

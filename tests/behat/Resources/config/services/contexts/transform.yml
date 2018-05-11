@@ -1,0 +1,8 @@
+services:
+    netgen_block_manager.behat.context.transform.layout:
+        class: Netgen\BlockManager\Behat\Context\Transform\LayoutContext
+        public: false
+        arguments:
+            - "@__symfony__.netgen_block_manager.api.service.layout"
+        tags:
+            - { name: fob.context_service }

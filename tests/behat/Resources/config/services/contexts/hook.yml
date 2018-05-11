@@ -1,0 +1,6 @@
+services:
+    netgen_block_manager.behat.context.hook.doctrine_database:
+        class: Netgen\BlockManager\Behat\Context\Hook\DoctrineDatabaseContext
+        public: false
+        tags:
+            - { name: fob.context_service }

@@ -40,6 +40,16 @@
         "matthiasnoback/symfony-dependency-injection-test": "^1.2 || ^3.0",
         "matthiasnoback/symfony-config-test": "^2.2 || ^4.0",
         "lakion/api-test-case": "^1.1 || ^3.0",
+        "webmozart/assert": "^1.3",
+        "behat/behat": "^3.4",
+        "behat/mink": "^1.7",
+        "behat/mink-extension": "^2.3",
+        "behat/mink-browserkit-driver": "^1.3",
+        "behat/mink-selenium2-driver": "^1.3",
+        "friends-of-behat/context-service-extension": "^0.3 || ^1.2",
+        "friends-of-behat/cross-container-extension": "^0.3 || ^1.1",
+        "friends-of-behat/symfony-extension": "^0.2 || ^1.2",
+        "friends-of-behat/variadic-extension": "^0.1 || ^1.1",
         "franzl/studio": "*"
     },
     "config": {
@@ -50,6 +60,8 @@
         "test-api": "@php -dmemory_limit=-1 vendor/bin/phpunit -c phpunit-api.xml --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-html=coverage --colors=always",
         "coverage-api": "@php -dzend_extension=xdebug.so vendor/bin/phpunit -c phpunit-api.xml --coverage-html=coverage_api --colors=always",
+        "behat": "@php vendor/bin/behat --colors --strict --no-interaction -vvv -f progress",
+        "behat-headless": "@php vendor/bin/behat --colors --strict --no-interaction -vvv -f progress -p headless",
         "phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon --level=7 --ansi lib bundles migrations",
         "phpstan-tests": "@php vendor/bin/phpstan analyse -c phpstan.tests.neon --level=7 --ansi tests"
     },
@@ -71,6 +83,7 @@
     "autoload-dev": {
         "psr-4": {
             "Netgen\\BlockManager\\Tests\\": "tests/lib/",
+            "Netgen\\BlockManager\\Behat\\": "tests/behat/",
             "Netgen\\BlockManager\\Tests\\Kernel\\": "tests/application/app/",
             "Netgen\\Bundle\\BlockManagerBundle\\Tests\\": "tests/bundles/BlockManagerBundle/",
             "Netgen\\Bundle\\BlockManagerAdminBundle\\Tests\\": "tests/bundles/BlockManagerAdminBundle/",

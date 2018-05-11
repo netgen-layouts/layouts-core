@@ -1,0 +1,5 @@
+imports:
+    - contexts/admin.yml
+    - contexts/hook.yml
+    - contexts/setup.yml
+    - contexts/transform.yml
