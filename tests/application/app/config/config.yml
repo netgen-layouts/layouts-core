@@ -17,6 +17,8 @@ framework:
         collect: false
     session:
         storage_id: session.storage.mock_file
+    form: ~
+    translator: { fallback: en }
     csrf_protection: ~
     validation: ~
     test: ~

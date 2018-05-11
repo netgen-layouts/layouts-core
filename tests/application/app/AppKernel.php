@@ -17,13 +17,21 @@ final class AppKernel extends Kernel
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
+            new \Symfony\Bundle\WebServerBundle\WebServerBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+
+            // Other dependencies
+
+            new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             // Netgen Layouts
 
             new \Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle(),
+            new \Netgen\Bundle\ContentBrowserUIBundle\NetgenContentBrowserUIBundle(),
             new \Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle(),
+            new \Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle(),
+            new \Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBundle(),
             new \Netgen\Bundle\BlockManagerFixturesBundle\NetgenBlockManagerFixturesBundle(),
             new \Netgen\Bundle\BlockManagerStandardBundle\NetgenBlockManagerStandardBundle(),
         ];
