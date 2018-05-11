@@ -1270,7 +1270,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     {
         // We're using the container from kernel to bypass injection of
         // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
-        /** @var \Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\Kernel\MockerContainer $clientContainer */
+        /** @var \Netgen\BlockManager\Tests\Kernel\MockerContainer $clientContainer */
         $clientContainer = static::$kernel->getContainer();
 
         /** @var \Mockery\MockInterface $layoutServiceMock */
