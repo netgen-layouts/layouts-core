@@ -6,6 +6,7 @@ node_modules/
 vendor/
 **/Resources/public/dev/
 .php_cs.cache
+.web-server-pid
 composer.lock
 composer.phar
 grunt.lock
