@@ -22,7 +22,9 @@ export default class NlModal {
         this.$container.html(this.options.html);
         this.$el.append(this.$loader, this.$container);
         $('body').append(this.$el);
-        $(document).on('keydown.closemodal', e => e.keyCode === 27 && this.closeModal());
+        $(document).on('keydown.closemodal', (e) => {
+            e.keyCode === 27 && this.closeModal();
+        });
     }
 
     setupEvents() {
