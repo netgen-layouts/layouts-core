@@ -92,7 +92,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -127,7 +127,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -182,7 +182,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => 2,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],
@@ -234,7 +234,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => 2,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],
@@ -369,7 +369,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => $collection->id,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['de', 'en', 'hr'],
@@ -436,7 +436,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => $collection->id,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['de', 'en', 'hr'],
@@ -695,7 +695,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '72',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_PUBLISHED,
                         'config' => [],
                     ]
@@ -707,7 +707,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 3,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '73',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_PUBLISHED,
                         'config' => [],
                     ]
@@ -719,7 +719,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '74',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_PUBLISHED,
                         'config' => [],
                     ]
@@ -733,7 +733,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 5,
                     'collectionId' => $copiedCollection->id,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],
@@ -797,7 +797,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 0,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '72',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_DRAFT,
                         'config' => [],
                     ]
@@ -809,7 +809,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 1,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '73',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_DRAFT,
                         'config' => [],
                     ]
@@ -821,7 +821,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '74',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_DRAFT,
                         'config' => [],
                     ]
@@ -872,7 +872,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '72',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_ARCHIVED,
                         'config' => [],
                     ]
@@ -884,7 +884,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 3,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '73',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_ARCHIVED,
                         'config' => [],
                     ]
@@ -896,7 +896,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '74',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_ARCHIVED,
                         'config' => [],
                     ]
@@ -910,7 +910,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 2,
                     'collectionId' => 3,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],
@@ -975,7 +975,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 0,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '72',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_ARCHIVED,
                         'config' => [],
                     ]
@@ -987,7 +987,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 1,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '73',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_ARCHIVED,
                         'config' => [],
                     ]
@@ -999,7 +999,7 @@ final class CollectionHandlerTest extends TestCase
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
                         'value' => '74',
-                        'valueType' => 'ezlocation',
+                        'valueType' => 'my_value_type',
                         'status' => Value::STATUS_ARCHIVED,
                         'config' => [],
                     ]
@@ -1100,7 +1100,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => $collection->id,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en'],
@@ -1189,7 +1189,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 1;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
@@ -1200,7 +1200,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 1,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '42',
-                    'valueType' => 'ezcontent',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => ['config' => ['value' => 42]],
                 ]
@@ -1228,7 +1228,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
@@ -1239,7 +1239,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '42',
-                    'valueType' => 'ezcontent',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => ['config' => ['value' => 42]],
                 ]
@@ -1273,7 +1273,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 4;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
@@ -1284,7 +1284,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 4,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '42',
-                    'valueType' => 'ezcontent',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => ['config' => ['value' => 42]],
                 ]
@@ -1311,7 +1311,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $this->assertEquals(
@@ -1322,7 +1322,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 3,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '42',
-                    'valueType' => 'ezcontent',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => ['config' => ['value' => 42]],
                 ]
@@ -1349,7 +1349,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = -1;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
@@ -1373,7 +1373,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 9999;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
@@ -1403,7 +1403,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => ['new_config' => ['val' => 24]],
                 ]
@@ -1433,7 +1433,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '74',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1469,7 +1469,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 1,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1505,7 +1505,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1541,7 +1541,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '73',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1574,7 +1574,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 1,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '74',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1610,7 +1610,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 4,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1646,7 +1646,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '73',
-                    'valueType' => 'ezlocation',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -1809,7 +1809,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_OVERRIDE;
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = [];
 
         $collection = $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
@@ -1835,7 +1835,7 @@ final class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
 
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->type = 'ezcontent_search';
+        $queryCreateStruct->type = 'my_query_type';
         $queryCreateStruct->parameters = [
             'param' => 'value',
         ];
@@ -1845,7 +1845,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 5,
                     'collectionId' => $collection->id,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],
@@ -1877,7 +1877,7 @@ final class CollectionHandlerTest extends TestCase
     public function testCreateQueryThrowsBadStateExceptionWithExistingQuery()
     {
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->type = 'ezcontent_search';
+        $queryCreateStruct->type = 'my_query_type';
         $queryCreateStruct->parameters = [
             'param' => 'value',
         ];
@@ -1906,7 +1906,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => 2,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],
@@ -1947,7 +1947,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => 2,
-                    'type' => 'ezcontent_search',
+                    'type' => 'my_query_type',
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => ['en', 'hr'],

@@ -217,7 +217,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct->isTranslatable = true;
 
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->queryType = $this->queryTypeRegistry->getQueryType('ezcontent_search');
+        $queryCreateStruct->queryType = $this->queryTypeRegistry->getQueryType('my_query_type');
 
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->queryCreateStruct = $queryCreateStruct;
@@ -241,7 +241,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertTrue($collection->hasQuery());
         $this->assertInstanceOf(Query::class, $collection->getQuery());
-        $this->assertEquals('ezcontent_search', $collection->getQuery()->getQueryType()->getType());
+        $this->assertEquals('my_query_type', $collection->getQuery()->getQueryType()->getType());
 
         $this->assertEquals($block->isTranslatable(), $collection->isTranslatable());
         $this->assertEquals($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());

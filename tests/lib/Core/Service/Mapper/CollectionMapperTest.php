@@ -244,7 +244,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'position' => 1,
                 'type' => APIItem::TYPE_OVERRIDE,
                 'value' => '12',
-                'valueType' => 'ezcontent',
+                'valueType' => 'my_value_type',
                 'config' => [
                     'visibility' => [
                         'visibility_status' => APIItem::VISIBILITY_SCHEDULED,
@@ -261,7 +261,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('12'), $this->equalTo('ezcontent'))
+            ->with($this->equalTo('12'), $this->equalTo('my_value_type'))
             ->will($this->returnValue(new CmsItem()));
 
         $item = $this->collectionMapper->mapItem($persistenceItem);
@@ -269,7 +269,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIItem::class, $item);
         $this->assertEquals(1, $item->getId());
         $this->assertEquals(42, $item->getCollectionId());
-        $this->assertEquals($this->itemDefinitionRegistry->getItemDefinition('ezcontent'), $item->getDefinition());
+        $this->assertEquals($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
         $this->assertEquals(1, $item->getPosition());
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
@@ -347,7 +347,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -363,7 +363,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $query = $this->collectionMapper->mapQuery($persistenceQuery);
 
         $this->assertEquals(
-            $this->queryTypeRegistry->getQueryType('ezcontent_search'),
+            $this->queryTypeRegistry->getQueryType('my_query_type'),
             $query->getQueryType()
         );
 
@@ -393,7 +393,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     {
         $persistenceQuery = new Query(
             [
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
@@ -415,7 +415,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     {
         $persistenceQuery = new Query(
             [
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
@@ -437,7 +437,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     {
         $persistenceQuery = new Query(
             [
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -463,7 +463,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceQuery = new Query(
             [
                 'id' => 42,
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -485,7 +485,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceQuery = new Query(
             [
                 'id' => 42,
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'alwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],

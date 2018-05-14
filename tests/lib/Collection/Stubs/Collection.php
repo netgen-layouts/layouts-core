@@ -58,7 +58,7 @@ final class Collection implements APICollection
             $this->query = new Query(
                 [
                     'queryType' => new QueryType(
-                        'ezcontent_search',
+                        'my_query_type',
                         $queryValues,
                         $queryCount
                     ),

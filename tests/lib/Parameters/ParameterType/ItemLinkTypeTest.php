@@ -35,7 +35,7 @@ final class ItemLinkTypeTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('42'), $this->equalTo('ezlocation'))
+            ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new Item(
@@ -50,7 +50,7 @@ final class ItemLinkTypeTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('abc'), $this->equalTo('ezlocation'))
+            ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new Item(
@@ -192,7 +192,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testExport()
     {
-        $this->assertEquals('ezlocation://abc', $this->type->export($this->getParameterDefinition(), 'ezlocation://42'));
+        $this->assertEquals('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
     }
 
     /**
@@ -202,7 +202,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testImport()
     {
-        $this->assertEquals('ezlocation://42', $this->type->import($this->getParameterDefinition(), 'ezlocation://abc'));
+        $this->assertEquals('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
     }
 
     /**

@@ -310,7 +310,7 @@ final class LinkTypeTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('42'), $this->equalTo('ezlocation'))
+            ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new Item(
@@ -334,8 +334,8 @@ final class LinkTypeTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('24'), $this->equalTo('ezlocation'))
-            ->will($this->returnValue(new NullItem('ezlocation')));
+            ->with($this->equalTo('24'), $this->equalTo('my_value_type'))
+            ->will($this->returnValue(new NullItem('my_value_type')));
 
         $this->assertEquals(
             [
@@ -349,7 +349,7 @@ final class LinkTypeTest extends TestCase
                 new LinkValue(
                     [
                         'linkType' => 'internal',
-                        'link' => 'ezlocation://24',
+                        'link' => 'my_value_type://24',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ]
@@ -385,14 +385,14 @@ final class LinkTypeTest extends TestCase
                 new LinkValue(
                     [
                         'linkType' => 'internal',
-                        'link' => 'ezlocation://42',
+                        'link' => 'my-value-type://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ]
                 ),
                 [
                     'link_type' => 'internal',
-                    'link' => 'ezlocation://abc',
+                    'link' => 'my-value-type://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
@@ -430,7 +430,7 @@ final class LinkTypeTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('abc'), $this->equalTo('ezlocation'))
+            ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new Item(
@@ -454,8 +454,8 @@ final class LinkTypeTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('def'), $this->equalTo('ezlocation'))
-            ->will($this->returnValue(new NullItem('ezlocation')));
+            ->with($this->equalTo('def'), $this->equalTo('my_value_type'))
+            ->will($this->returnValue(new NullItem('my_value_type')));
 
         $this->assertEquals(
             new LinkValue(
@@ -470,7 +470,7 @@ final class LinkTypeTest extends TestCase
                 $this->getParameterDefinition(),
                 [
                     'link_type' => 'internal',
-                    'link' => 'ezlocation://def',
+                    'link' => 'my_value_type://def',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ]
@@ -522,14 +522,14 @@ final class LinkTypeTest extends TestCase
             [
                 [
                     'link_type' => 'internal',
-                    'link' => 'ezlocation://abc',
+                    'link' => 'my-value-type://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
                 new LinkValue(
                     [
                         'linkType' => 'internal',
-                        'link' => 'ezlocation://42',
+                        'link' => 'my-value-type://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ]
@@ -599,7 +599,7 @@ final class LinkTypeTest extends TestCase
             [new LinkValue(['linkType' => 'tel', 'link' => '123456']), false],
             [new LinkValue(['linkType' => 'tel', 'linkSuffix' => '?suffix']), true],
             [new LinkValue(['linkType' => 'internal']), true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'ezlocation://42']), false],
+            [new LinkValue(['linkType' => 'internal', 'link' => 'my_value_type://42']), false],
             [new LinkValue(['linkType' => 'internal', 'linkSuffix' => '?suffix']), true],
         ];
     }

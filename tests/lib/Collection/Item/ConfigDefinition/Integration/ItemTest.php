@@ -136,12 +136,12 @@ abstract class ItemTest extends ServiceTestCase
     {
         $itemDefinition = new ItemDefinition(
             [
-                'valueType' => 'ezlocation',
+                'valueType' => 'my_value_type',
                 'configDefinitions' => ['definition' => $configDefinition],
             ]
         );
 
-        $this->itemDefinitionRegistry->addItemDefinition('ezlocation', $itemDefinition);
+        $this->itemDefinitionRegistry->addItemDefinition('my_value_type', $itemDefinition);
 
         return $itemDefinition;
     }

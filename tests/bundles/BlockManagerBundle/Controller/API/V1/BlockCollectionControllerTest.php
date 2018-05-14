@@ -66,13 +66,13 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 74,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                     ],
                 ],
             ]
@@ -103,13 +103,13 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 74,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                     ],
                 ],
             ]
@@ -144,13 +144,13 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 74,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                     ],
                 ],
             ]
@@ -268,7 +268,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => 'type',
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                 ],
@@ -303,7 +303,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => [
                     [
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                 ],
@@ -339,7 +339,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => [42],
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                 ],
@@ -374,7 +374,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => [
                     [
                         'type' => Item::TYPE_MANUAL,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                 ],
@@ -481,7 +481,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => '3',
                     ],
                 ],
@@ -517,7 +517,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                     ],
                 ],
             ]
@@ -552,7 +552,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                     [
                         'type' => Item::TYPE_MANUAL,
                         'value' => 73,
-                        'value_type' => 'ezlocation',
+                        'value_type' => 'my_value_type',
                         'position' => 9999,
                     ],
                 ],
@@ -610,7 +610,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'new_type' => Collection::TYPE_DYNAMIC,
-                'query_type' => 'ezcontent_search',
+                'query_type' => 'my_query_type',
             ]
         );
 
@@ -661,7 +661,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'new_type' => Collection::TYPE_DYNAMIC,
-                'query_type' => 'ezcontent_search',
+                'query_type' => 'my_query_type',
             ]
         );
 

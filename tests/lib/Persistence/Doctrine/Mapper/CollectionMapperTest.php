@@ -99,7 +99,7 @@ final class CollectionMapperTest extends TestCase
                 'position' => 2,
                 'type' => Item::TYPE_MANUAL,
                 'value' => '32',
-                'value_type' => 'ezcontent',
+                'value_type' => 'my_value_type',
                 'status' => Value::STATUS_PUBLISHED,
                 'config' => '{"config_item":{"id":42}}',
             ],
@@ -109,7 +109,7 @@ final class CollectionMapperTest extends TestCase
                 'position' => 5,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => '42',
-                'value_type' => 'ezcontent',
+                'value_type' => 'my_value_type',
                 'status' => Value::STATUS_DRAFT,
                 'config' => '',
             ],
@@ -123,7 +123,7 @@ final class CollectionMapperTest extends TestCase
                     'position' => 2,
                     'type' => Item::TYPE_MANUAL,
                     'value' => '32',
-                    'valueType' => 'ezcontent',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_PUBLISHED,
                     'config' => [
                         'config_item' => [
@@ -139,7 +139,7 @@ final class CollectionMapperTest extends TestCase
                     'position' => 5,
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
-                    'valueType' => 'ezcontent',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_DRAFT,
                     'config' => [],
                 ]
@@ -159,7 +159,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collection_id' => 1,
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'locale' => 'en',
                 'parameters' => '{"param":"value"}',
                 'status' => Value::STATUS_PUBLISHED,
@@ -167,7 +167,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collection_id' => 1,
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'locale' => 'hr',
                 'parameters' => '{"param2":"value2"}',
                 'status' => Value::STATUS_PUBLISHED,
@@ -178,7 +178,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collectionId' => 1,
-                'type' => 'ezcontent_search',
+                'type' => 'my_query_type',
                 'availableLocales' => ['en', 'hr'],
                 'parameters' => [
                     'en' => [

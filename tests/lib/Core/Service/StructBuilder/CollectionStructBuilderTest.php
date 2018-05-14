@@ -165,13 +165,13 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewQueryCreateStruct()
     {
         $queryCreateStruct = $this->structBuilder->newQueryCreateStruct(
-            new QueryType('ezcontent_search')
+            new QueryType('my_query_type')
         );
 
         $this->assertEquals(
             new QueryCreateStruct(
                 [
-                    'queryType' => new QueryType('ezcontent_search'),
+                    'queryType' => new QueryType('my_query_type'),
                     'parameterValues' => [
                         'param' => null,
                         'param2' => null,

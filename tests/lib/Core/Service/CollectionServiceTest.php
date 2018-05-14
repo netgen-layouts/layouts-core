@@ -226,7 +226,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $collection,
             Collection::TYPE_DYNAMIC,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('ezcontent_search')
+                new QueryType('my_query_type')
             )
         );
 
@@ -290,7 +290,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $collection,
             999,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('ezcontent_search')
+                new QueryType('my_query_type')
             )
         );
     }
@@ -316,7 +316,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItem()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'ezcontent']),
+            new ItemDefinition(['valueType' => 'my_value_type']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -341,7 +341,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'ezcontent']),
+            new ItemDefinition(['valueType' => 'my_value_type']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -363,7 +363,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'ezcontent']),
+            new ItemDefinition(['valueType' => 'my_value_type']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -510,7 +510,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollectionDraft(3);
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'ezcontent']),
+            new ItemDefinition(['valueType' => 'my_value_type']),
             Item::TYPE_OVERRIDE,
             66
         );
@@ -563,7 +563,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertTrue($updatedQuery->isDraft());
         $this->assertInstanceOf(Query::class, $updatedQuery);
 
-        $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
+        $this->assertEquals('my_query_type', $updatedQuery->getQueryType()->getType());
 
         $this->assertNull($updatedQuery->getParameter('param')->getValue());
         $this->assertEquals(0, $updatedQuery->getParameter('param2')->getValue());
@@ -594,7 +594,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertTrue($updatedQuery->isDraft());
         $this->assertInstanceOf(Query::class, $updatedQuery);
 
-        $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
+        $this->assertEquals('my_query_type', $updatedQuery->getQueryType()->getType());
 
         $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
 
@@ -716,13 +716,13 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(
             new ItemCreateStruct(
                 [
-                    'definition' => new ItemDefinition(['valueType' => 'ezcontent']),
+                    'definition' => new ItemDefinition(['valueType' => 'my_value_type']),
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
                 ]
             ),
             $this->collectionService->newItemCreateStruct(
-                new ItemDefinition(['valueType' => 'ezcontent']),
+                new ItemDefinition(['valueType' => 'my_value_type']),
                 Item::TYPE_OVERRIDE,
                 '42'
             )
@@ -748,13 +748,13 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testNewQueryCreateStruct()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search')
+            new QueryType('my_query_type')
         );
 
         $this->assertEquals(
             new QueryCreateStruct(
                 [
-                    'queryType' => new QueryType('ezcontent_search'),
+                    'queryType' => new QueryType('my_query_type'),
                     'parameterValues' => [
                         'param' => null,
                         'param2' => null,

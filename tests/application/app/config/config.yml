@@ -33,5 +33,5 @@ twig:
 netgen_block_manager:
     items:
         value_types:
-            ezlocation:
-                name: 'eZ location'
+            my_value_type:
+                name: 'My value type'

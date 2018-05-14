@@ -40,7 +40,7 @@ final class CollectionQueryNormalizerTest extends TestCase
             [
                 'id' => 42,
                 'collectionId' => 24,
-                'queryType' => new QueryType('ezcontent_search'),
+                'queryType' => new QueryType('my_query_type'),
                 'isTranslatable' => true,
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',

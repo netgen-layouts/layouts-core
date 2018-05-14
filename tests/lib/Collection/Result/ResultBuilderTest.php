@@ -257,7 +257,7 @@ final class ResultBuilderTest extends TestCase
                 'query' => new Query(
                     [
                         'queryType' => new QueryType(
-                            'ezcontent_search',
+                            'my_query_type',
                             $this->buildQueryValues($queryValues),
                             $queryCount,
                             $contextual

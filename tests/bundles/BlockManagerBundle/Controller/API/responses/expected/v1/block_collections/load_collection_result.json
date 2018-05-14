@@ -9,7 +9,7 @@
             "cms_url": "/some/url",
             "cms_visible": true,
             "value": 140,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "Will Starbucks Lose Its Coffee Smell To Fresh Croissants?",
             "position": 0
         },
@@ -22,7 +22,7 @@
             "cms_url": "/some/url",
             "cms_visible": true,
             "value": 79,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "Airbus Regains Top Spot From Boeing In Q1",
             "position": 1
         },
@@ -35,7 +35,7 @@
             "cms_url": "/some/url",
             "cms_visible": true,
             "value": 72,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "NHL Upsets This Week's Social TV Rankings",
             "position": 2
         },
@@ -48,7 +48,7 @@
             "cms_url": "/some/url",
             "cms_visible": true,
             "value": 73,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
             "position": 3
         },
@@ -61,7 +61,7 @@
             "cms_url": "/some/url",
             "cms_visible": true,
             "value": 78,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "British Airways rolls out first painted A380",
             "position": 4
         },
@@ -74,7 +74,7 @@
             "cms_url": "/some/url",
             "cms_visible": true,
             "value": 74,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
             "position": 5
         }

@@ -115,8 +115,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $queryTypeRegistry = $this->clientContainer
             ->get('netgen_block_manager.collection.registry.query_type');
 
-        $queryType = new QueryType('ezcontent_search', $searchFixtures, count($searchFixtures));
-        $queryTypeRegistry->addQueryType('ezcontent_search', $queryType);
+        $queryType = new QueryType('my_query_type', $searchFixtures, count($searchFixtures));
+        $queryTypeRegistry->addQueryType('my_query_type', $queryType);
     }
 
     /**

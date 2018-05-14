@@ -30,7 +30,7 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
-                'valueType' => 'ezcontent',
+                'valueType' => 'my_value_type',
                 'status' => Value::STATUS_PUBLISHED,
             ]
         );
@@ -40,7 +40,7 @@ final class ItemTest extends TestCase
         $this->assertEquals(3, $item->position);
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->type);
         $this->assertEquals(32, $item->value);
-        $this->assertEquals('ezcontent', $item->valueType);
+        $this->assertEquals('my_value_type', $item->valueType);
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->status);
     }
 }

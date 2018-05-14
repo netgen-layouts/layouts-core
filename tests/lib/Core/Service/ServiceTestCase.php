@@ -189,18 +189,9 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $itemDefinition1 = new ItemDefinition(
+        $itemDefinition = new ItemDefinition(
             [
-                'valueType' => 'ezlocation',
-                'configDefinitions' => [
-                    'visibility' => $itemVisibilityDefinition,
-                ],
-            ]
-        );
-
-        $itemDefinition2 = new ItemDefinition(
-            [
-                'valueType' => 'ezcontent',
+                'valueType' => 'my_value_type',
                 'configDefinitions' => [
                     'visibility' => $itemVisibilityDefinition,
                 ],
@@ -208,11 +199,10 @@ abstract class ServiceTestCase extends TestCase
         );
 
         $this->itemDefinitionRegistry = new ItemDefinitionRegistry();
-        $this->itemDefinitionRegistry->addItemDefinition('ezlocation', $itemDefinition1);
-        $this->itemDefinitionRegistry->addItemDefinition('ezcontent', $itemDefinition2);
+        $this->itemDefinitionRegistry->addItemDefinition('my_value_type', $itemDefinition);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
-        $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
+        $this->queryTypeRegistry->addQueryType('my_query_type', new QueryType('my_query_type'));
 
         $httpCacheHandler = new HttpCacheConfigHandler();
         $httpCacheDefinition = new ConfigDefinition(
@@ -346,16 +336,9 @@ abstract class ServiceTestCase extends TestCase
         $this->targetTypeRegistry->addTargetType(new TargetType('path_info_prefix'));
         $this->targetTypeRegistry->addTargetType(new TargetType('request_uri'));
         $this->targetTypeRegistry->addTargetType(new TargetType('request_uri_prefix'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('ezcontent'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('ezlocation'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('ezchildren'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('ezsubtree'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('ez_semantic_path_info'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('ez_semantic_path_info_prefix'));
 
         $this->conditionTypeRegistry = new ConditionTypeRegistry();
-        $this->conditionTypeRegistry->addConditionType(new ConditionType('condition'));
-        $this->conditionTypeRegistry->addConditionType(new ConditionType('ez_site_access'));
+        $this->conditionTypeRegistry->addConditionType(new ConditionType('my_condition'));
         $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();

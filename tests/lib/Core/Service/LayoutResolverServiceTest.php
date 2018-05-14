@@ -101,7 +101,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         $rules = $this->layoutResolverService->loadRules();
 
-        $this->assertCount(20, $rules);
+        $this->assertCount(12, $rules);
 
         foreach ($rules as $rule) {
             $this->assertTrue($rule->isPublished());
@@ -118,7 +118,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
             $this->layoutService->loadLayout(1)
         );
 
-        $this->assertCount(3, $rules);
+        $this->assertCount(2, $rules);
 
         foreach ($rules as $rule) {
             $this->assertTrue($rule->isPublished());
@@ -145,7 +145,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         $ruleCount = $this->layoutResolverService->getRuleCount();
 
-        $this->assertEquals(20, $ruleCount);
+        $this->assertEquals(12, $ruleCount);
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
             $this->layoutService->loadLayout(1)
         );
 
-        $this->assertEquals(3, $ruleCount);
+        $this->assertEquals(2, $ruleCount);
     }
 
     /**
@@ -410,7 +410,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertEquals($rule->isPublished(), $copiedRule->isPublished());
         $this->assertInstanceOf(Rule::class, $copiedRule);
-        $this->assertEquals(22, $copiedRule->getId());
+        $this->assertEquals(13, $copiedRule->getId());
     }
 
     /**
@@ -658,7 +658,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoLayout()
     {
-        $rule = $this->layoutResolverService->loadRule(15);
+        $rule = $this->layoutResolverService->loadRule(11);
 
         $this->layoutResolverService->enableRule($rule);
     }
@@ -670,7 +670,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoTargets()
     {
-        $rule = $this->layoutResolverService->loadRule(16);
+        $rule = $this->layoutResolverService->loadRule(12);
 
         $this->layoutResolverService->enableRule($rule);
     }
@@ -842,10 +842,10 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     public function testAddCondition()
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'ez_site_access'
+            'my_condition'
         );
 
-        $conditionCreateStruct->value = 'cro';
+        $conditionCreateStruct->value = 'value';
 
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
@@ -866,10 +866,10 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     public function testAddConditionThrowsBadStateExceptionOnNonDraftRule()
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'ez_site_access'
+            'my_condition'
         );
 
-        $conditionCreateStruct->value = 'cro';
+        $conditionCreateStruct->value = 'value';
 
         $rule = $this->layoutResolverService->loadRule(5);
 

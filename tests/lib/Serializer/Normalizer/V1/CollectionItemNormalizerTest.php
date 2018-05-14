@@ -47,13 +47,13 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => 3,
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
-                'definition' => new ItemDefinition(['valueType' => 'ezcontent']),
+                'definition' => new ItemDefinition(['valueType' => 'my_value_type']),
                 'cmsItem' => new Item(
                     [
                         'name' => 'Value name',
                         'isVisible' => true,
                         'value' => 12,
-                        'valueType' => 'ezcontent',
+                        'valueType' => 'my_value_type',
                     ]
                 ),
                 'configs' => [

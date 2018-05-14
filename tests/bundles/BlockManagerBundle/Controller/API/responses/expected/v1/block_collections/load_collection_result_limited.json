@@ -8,7 +8,7 @@
             "visible": true,
             "scheduled": false,
             "value": 72,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "NHL Upsets This Week's Social TV Rankings",
             "cms_visible": true,
             "cms_url": "/some/url"
@@ -21,7 +21,7 @@
             "visible": true,
             "scheduled": false,
             "value": 73,
-            "value_type": "ezlocation",
+            "value_type": "my_value_type",
             "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
             "cms_visible": true,
             "cms_url": "/some/url"
