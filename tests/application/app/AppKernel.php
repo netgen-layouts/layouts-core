@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Kernel;
 
+use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -10,14 +11,13 @@ final class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return [
+        $bundles = [
             // Symfony
 
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \Symfony\Bundle\WebServerBundle\WebServerBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
             // Other dependencies
@@ -35,6 +35,12 @@ final class AppKernel extends Kernel
             new \Netgen\Bundle\BlockManagerFixturesBundle\NetgenBlockManagerFixturesBundle(),
             new \Netgen\Bundle\BlockManagerStandardBundle\NetgenBlockManagerStandardBundle(),
         ];
+
+        if (class_exists(WebServerBundle::class)) {
+            $bundles[] = new WebServerBundle();
+        }
+
+        return $bundles;
     }
 
     public function boot()
