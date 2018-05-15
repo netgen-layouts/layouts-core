@@ -15,6 +15,7 @@ final class ConfigControllerTest extends JsonApiTestCase
      */
     public function testGetConfig()
     {
+        /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
         $tokenManager = $this->clientContainer->get('security.csrf.token_manager');
         $tokenId = $this->clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
 
@@ -39,6 +40,7 @@ final class ConfigControllerTest extends JsonApiTestCase
      */
     public function testGetConfigWithInvalidToken()
     {
+        /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
         $tokenManager = $this->clientContainer->get('security.csrf.token_manager');
         $tokenId = $this->clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
 

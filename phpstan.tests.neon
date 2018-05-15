@@ -13,9 +13,8 @@ parameters:
         # Symfony Form component
         - '#Parameter \#2 \$dataClass of class Symfony\\Component\\Form\\FormConfigBuilder constructor expects string, null given.#'
 
-        # JSON API Test Case & Mockery
+        # JSON API Test Case
         - '#JsonApiTestCase::(\w+)\(\) expects Symfony\\Component\\HttpFoundation\\Response, Symfony\\Component\\HttpFoundation\\Response|null given.#'
-        - '#Call to an undefined method Mockery\\ExpectationInterface|Mockery\\HigherOrderMessage::(\w+)\(\).#'
 
         # Layouts tests specifics
         - '#on possibly null value of type#'
