@@ -4,8 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
 final class ConfigControllerTest extends JsonApiTestCase
 {
@@ -17,6 +15,11 @@ final class ConfigControllerTest extends JsonApiTestCase
      */
     public function testGetConfig()
     {
+        $tokenManager = $this->clientContainer->get('security.csrf.token_manager');
+        $tokenId = $this->clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
+
+        $currentToken = $tokenManager->getToken($tokenId);
+
         $this->client->request('GET', '/bm/api/v1/config');
 
         $response = $this->client->getResponse();
@@ -27,7 +30,7 @@ final class ConfigControllerTest extends JsonApiTestCase
 
         $this->assertInternalType('array', $responseContent);
         $this->assertArrayHasKey('csrf_token', $responseContent);
-        $this->assertNotEmpty($responseContent['csrf_token']);
+        $this->assertEquals($currentToken, $responseContent['csrf_token']);
     }
 
     /**
@@ -36,31 +39,13 @@ final class ConfigControllerTest extends JsonApiTestCase
      */
     public function testGetConfigWithInvalidToken()
     {
-        /** @var \Mockery\MockInterface $tokenManagerMock */
-        $tokenManagerMock = $this->clientContainer->mock(
-            'security.csrf.token_manager',
-            CsrfTokenManager::class
-        );
-
-        $tokenManagerMock->makePartial();
-
+        $tokenManager = $this->clientContainer->get('security.csrf.token_manager');
         $tokenId = $this->clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
-        $invalidToken = new CsrfToken($tokenId, 'invalidToken');
 
-        $tokenManagerMock
-            ->shouldReceive('getToken')
-            ->withArgs([$tokenId])
-            ->andReturn($invalidToken);
+        $currentToken = $tokenManager->getToken($tokenId);
 
-        $tokenManagerMock
-            ->shouldReceive('isTokenValid')
-            ->withArgs([$invalidToken])
-            ->andReturn(false);
-
-        $tokenManagerMock
-            ->shouldReceive('refreshToken')
-            ->withArgs([$tokenId])
-            ->andReturn(new CsrfToken($tokenId, 'refreshedToken'));
+        // Invalidates the token to trigger the refresh
+        $tokenManager->removeToken($tokenId);
 
         $this->client->request('GET', '/bm/api/v1/config');
 
@@ -72,7 +57,7 @@ final class ConfigControllerTest extends JsonApiTestCase
 
         $this->assertInternalType('array', $responseContent);
         $this->assertArrayHasKey('csrf_token', $responseContent);
-        $this->assertEquals('refreshedToken', $responseContent['csrf_token']);
+        $this->assertNotEquals($currentToken, $responseContent['csrf_token']);
     }
 
     /**
