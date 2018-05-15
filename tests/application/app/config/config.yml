@@ -29,9 +29,3 @@ sensio_framework_extra:
 
 twig:
     strict_variables: '%kernel.debug%'
-
-netgen_block_manager:
-    items:
-        value_types:
-            my_value_type:
-                name: 'My value type'

@@ -8,9 +8,9 @@
         "scheduled": false,
         "value": 72,
         "value_type": "my_value_type",
-        "name": "NHL Upsets This Week's Social TV Rankings",
+        "name": "Value with ID #72",
         "cms_visible": true,
-        "cms_url": "/some/url"
+        "cms_url": "/value/72/some/url"
     },
     {
         "id": 8,
@@ -21,9 +21,9 @@
         "scheduled": false,
         "value": 73,
         "value_type": "my_value_type",
-        "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
+        "name": "Value with ID #73",
         "cms_visible": true,
-        "cms_url": "/some/url"
+        "cms_url": "/value/73/some/url"
     },
     {
         "id": 9,
@@ -34,8 +34,8 @@
         "scheduled": false,
         "value": 74,
         "value_type": "my_value_type",
-        "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
+        "name": "Value with ID #74",
         "cms_visible": true,
-        "cms_url": "/some/url"
+        "cms_url": "/value/74/some/url"
     }
 ]

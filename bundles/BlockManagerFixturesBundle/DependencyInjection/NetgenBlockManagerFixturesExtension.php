@@ -2,9 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerFixturesBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
@@ -12,6 +14,12 @@ final class NetgenBlockManagerFixturesExtension extends Extension implements Pre
 {
     public function load(array $configs, ContainerBuilder $container)
     {
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__ . '/../Resources/config')
+        );
+
+        $loader->load('services.yml');
     }
 
     public function prepend(ContainerBuilder $container)
@@ -20,6 +28,7 @@ final class NetgenBlockManagerFixturesExtension extends Extension implements Pre
             'layout_types.yml' => 'netgen_block_manager',
             'block_definitions.yml' => 'netgen_block_manager',
             'block_types.yml' => 'netgen_block_manager',
+            'value_types.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
         ];
 

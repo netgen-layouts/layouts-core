@@ -6,11 +6,11 @@
             "visible": true,
             "scheduled": false,
             "is_dynamic": true,
-            "cms_url": "/some/url",
+            "cms_url": "/value/140/some/url",
             "cms_visible": true,
             "value": 140,
             "value_type": "my_value_type",
-            "name": "Will Starbucks Lose Its Coffee Smell To Fresh Croissants?",
+            "name": "Value with ID #140",
             "position": 0
         },
         {
@@ -19,11 +19,11 @@
             "visible": true,
             "scheduled": false,
             "is_dynamic": true,
-            "cms_url": "/some/url",
+            "cms_url": "/value/79/some/url",
             "cms_visible": true,
             "value": 79,
             "value_type": "my_value_type",
-            "name": "Airbus Regains Top Spot From Boeing In Q1",
+            "name": "Value with ID #79",
             "position": 1
         },
         {
@@ -32,11 +32,11 @@
             "visible": true,
             "scheduled": false,
             "is_dynamic": false,
-            "cms_url": "/some/url",
+            "cms_url": "/value/72/some/url",
             "cms_visible": true,
             "value": 72,
             "value_type": "my_value_type",
-            "name": "NHL Upsets This Week's Social TV Rankings",
+            "name": "Value with ID #72",
             "position": 2
         },
         {
@@ -45,11 +45,11 @@
             "visible": true,
             "scheduled": false,
             "is_dynamic": false,
-            "cms_url": "/some/url",
+            "cms_url": "/value/73/some/url",
             "cms_visible": true,
             "value": 73,
             "value_type": "my_value_type",
-            "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
+            "name": "Value with ID #73",
             "position": 3
         },
         {
@@ -58,11 +58,11 @@
             "visible": true,
             "scheduled": false,
             "is_dynamic": true,
-            "cms_url": "/some/url",
+            "cms_url": "/value/78/some/url",
             "cms_visible": true,
             "value": 78,
             "value_type": "my_value_type",
-            "name": "British Airways rolls out first painted A380",
+            "name": "Value with ID #78",
             "position": 4
         },
         {
@@ -71,11 +71,11 @@
             "visible": true,
             "scheduled": false,
             "is_dynamic": false,
-            "cms_url": "/some/url",
+            "cms_url": "/value/74/some/url",
             "cms_visible": true,
             "value": 74,
             "value_type": "my_value_type",
-            "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
+            "name": "Value with ID #74",
             "position": 5
         }
     ],

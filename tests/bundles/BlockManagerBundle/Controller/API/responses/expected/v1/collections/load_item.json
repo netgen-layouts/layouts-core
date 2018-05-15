@@ -7,7 +7,7 @@
     "scheduled": false,
     "value": 72,
     "value_type": "my_value_type",
-    "name": "NHL Upsets This Week's Social TV Rankings",
+    "name": "Value with ID #72",
     "cms_visible": true,
-    "cms_url": "/some/url"
+    "cms_url": "/value/72/some/url"
 }

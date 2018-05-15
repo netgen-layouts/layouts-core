@@ -3,9 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +21,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         parent::setUp();
 
         $this->setUpClient();
-        $this->mockItemLoader();
-        $this->mockItemBuilder();
-        $this->mockItemUrlGenerator();
         $this->mockQueryType();
         $this->createDatabase();
 
@@ -55,65 +49,12 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->client->setServerParameter('PHP_AUTH_PW', getenv('SF_PASSWORD'));
     }
 
-    protected function mockItemLoader()
-    {
-        /** @var \Mockery\MockInterface $itemLoaderMock */
-        $itemLoaderMock = $this->clientContainer->mock(
-            'netgen_block_manager.item.item_loader',
-            ItemLoaderInterface::class
-        );
-
-        $itemFixtures = require __DIR__ . '/fixtures/items.php';
-
-        foreach ($itemFixtures as $value => $item) {
-            $itemLoaderMock
-                ->shouldReceive('load')
-                ->with($item->getValue(), $item->getValueType())
-                ->andReturn($item);
-        }
-    }
-
-    protected function mockItemBuilder()
-    {
-        /** @var \Mockery\MockInterface $itemBuilderMock */
-        $itemBuilderMock = $this->clientContainer->mock(
-            'netgen_block_manager.item.item_builder',
-            ItemBuilderInterface::class
-        );
-
-        $dynamicItemFixtures = require __DIR__ . '/fixtures/dynamic_items.php';
-
-        foreach ($dynamicItemFixtures as $dynamicItem) {
-            $itemBuilderMock
-                ->shouldReceive('build')
-                ->andReturnUsing(
-                    function ($argument) use ($dynamicItemFixtures) {
-                        return $dynamicItemFixtures[$argument->id];
-                    }
-                );
-        }
-    }
-
-    protected function mockItemUrlGenerator()
-    {
-        /** @var \Mockery\MockInterface $urlGeneratorMock */
-        $urlGeneratorMock = $this->clientContainer->mock(
-            'netgen_block_manager.item.url_generator',
-            UrlGeneratorInterface::class
-        );
-
-        $urlGeneratorMock
-            ->shouldReceive('generate')
-            ->andReturn('/some/url');
-    }
-
     protected function mockQueryType()
     {
         $searchFixtures = require __DIR__ . '/fixtures/search.php';
 
         /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
-        $queryTypeRegistry = $this->clientContainer
-            ->get('netgen_block_manager.collection.registry.query_type');
+        $queryTypeRegistry = $this->clientContainer->get('netgen_block_manager.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchFixtures, count($searchFixtures));
         $queryTypeRegistry->addQueryType('my_query_type', $queryType);

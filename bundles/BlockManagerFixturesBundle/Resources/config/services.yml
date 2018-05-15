@@ -1,0 +1,18 @@
+services:
+    netgen_block_manager.fixtures.item.value_converter.my_value_type:
+        class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueConverter\MyValueTypeValueConverter
+        public: false
+        tags:
+            - { name: netgen_block_manager.item.value_converter }
+
+    netgen_block_manager.fixtures.item.value_loader.my_value_type:
+        class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueLoader\MyValueTypeValueLoader
+        public: false
+        tags:
+            - { name: netgen_block_manager.item.value_loader, value_type: "my_value_type" }
+
+    netgen_block_manager.fixtures.item.value_url_generator.my_value_type:
+        class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueUrlGenerator\MyValueTypeValueUrlGenerator
+        public: false
+        tags:
+            - { name: netgen_block_manager.item.value_url_generator, value_type: "my_value_type" }

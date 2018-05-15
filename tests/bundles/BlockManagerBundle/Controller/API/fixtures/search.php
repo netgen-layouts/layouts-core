@@ -1,6 +1,6 @@
 <?php
 
-require_once 'classes.php';
+use Netgen\Bundle\BlockManagerFixturesBundle\Item\Value;
 
 return [
     new Value(

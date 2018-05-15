@@ -3,9 +3,6 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
-    autoload_files:
-        - tests/bundles/BlockManagerBundle/Controller/API/fixtures/classes.php
-
     excludes_analyse:
         - tests/application/web/bundles/
 

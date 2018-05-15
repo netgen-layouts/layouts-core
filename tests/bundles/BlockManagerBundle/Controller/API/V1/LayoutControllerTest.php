@@ -2,9 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -1261,58 +1259,6 @@ final class LayoutControllerTest extends JsonApiTestCase
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "9999"'
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::createDraft
-     */
-    public function testCreateDraftWithTransactionRollback()
-    {
-        // We're using the container from kernel to bypass injection of
-        // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
-        /** @var \Netgen\BlockManager\Tests\Kernel\MockerContainer $clientContainer */
-        $clientContainer = static::$kernel->getContainer();
-
-        /** @var \Mockery\MockInterface $layoutServiceMock */
-        $layoutServiceMock = $clientContainer->mock(
-            'netgen_block_manager.api.service.layout',
-            LayoutService::class
-        );
-
-        $layoutServiceMock
-            ->shouldReceive('beginTransaction')
-            ->getMock()
-                ->shouldReceive('rollbackTransaction')
-                ->once()
-            ->getMock()
-                ->shouldReceive('loadLayout')
-                ->andReturn(new Layout())
-            ->getMock()
-                ->shouldReceive('loadLayoutDraft')
-            ->getMock()
-                ->shouldReceive('discardDraft')
-            ->getMock()
-                ->shouldReceive('createDraft')
-                ->andThrow(new BadStateException('test', 'Test message.'));
-
-        $data = $this->jsonEncode([]);
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/layouts/1/draft?html=false',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "test" has an invalid state. Test message.'
-        );
-
-        $clientContainer->unmock('netgen_block_manager.api.service.layout');
     }
 
     /**
