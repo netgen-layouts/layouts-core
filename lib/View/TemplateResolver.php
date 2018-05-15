@@ -98,7 +98,7 @@ class TemplateResolver implements TemplateResolverInterface
     }
 
     /**
-     * Iterates over all provided parameters and evalutes the values with expression
+     * Iterates over all provided parameters and evaluates the values with expression
      * engine if the parameter value specifies so.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
