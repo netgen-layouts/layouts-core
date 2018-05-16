@@ -164,7 +164,7 @@ final class LayoutsController extends Controller
     {
         if ($request->getMethod() !== Request::METHOD_DELETE) {
             return $this->render(
-                '@NetgenBlockManagerAdmin/admin/layouts/form/delete.html.twig',
+                '@NetgenBlockManagerAdmin/admin/layouts/form/delete_layout.html.twig',
                 [
                     'submitted' => false,
                     'error' => false,
@@ -190,7 +190,7 @@ final class LayoutsController extends Controller
     {
         if ($request->getMethod() !== Request::METHOD_POST) {
             return $this->render(
-                '@NetgenBlockManagerAdmin/admin/layouts/cache/layout.html.twig',
+                '@NetgenBlockManagerAdmin/admin/layouts/form/clear_layout_cache.html.twig',
                 [
                     'submitted' => false,
                     'error' => false,
@@ -208,7 +208,7 @@ final class LayoutsController extends Controller
         }
 
         return $this->render(
-            '@NetgenBlockManagerAdmin/admin/layouts/cache/layout.html.twig',
+            '@NetgenBlockManagerAdmin/admin/layouts/form/clear_layout_cache.html.twig',
             [
                 'submitted' => true,
                 'error' => !$cacheCleared,
