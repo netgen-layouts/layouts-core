@@ -12,7 +12,6 @@
     forceCoversAnnotation="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
     beStrictAboutOutputDuringTests="true"
-    beStrictAboutTestSize="true"
     beStrictAboutChangesToGlobalState="true"
 >
     <php>

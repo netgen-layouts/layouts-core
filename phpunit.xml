@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
     backupGlobals="false"
-    bootstrap="vendor/autoload.php"
+    bootstrap="tests/bootstrap.php"
     colors="true"
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
@@ -12,7 +12,6 @@
     forceCoversAnnotation="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
     beStrictAboutOutputDuringTests="true"
-    beStrictAboutTestSize="true"
     beStrictAboutChangesToGlobalState="true"
 >
     <testsuites>
@@ -37,6 +36,8 @@
             <exclude>
                 <file>bundles/BlockManagerBundle/NetgenBlockManagerBundle.php</file>
                 <file>bundles/BlockManagerAdminBundle/NetgenBlockManagerAdminBundle.php</file>
+            </exclude>
+            <exclude>
                 <directory>bundles/*Bundle/Command</directory>
                 <directory>bundles/*Bundle/Controller</directory>
                 <directory>bundles/*Bundle/Resources</directory>
