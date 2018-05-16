@@ -6,7 +6,12 @@ const $ = NetgenCore.$;
 export default class NlModal {
     constructor(opt) {
         this.options = $.extend({
-            html: '<div class="nl-modal"><button class="close-modal"></button><div class="nl-modal-body"><p>Empty modal</p></div></div>',
+            preload: false,
+            cancelDisabled: false,
+            body: '<p>Empty modal</p>',
+            title: '',
+            cancelText: 'Cancel',
+            applyText: 'OK',
         }, opt);
         this.className = `nl-modal-mask ${this.options.className}`;
         this.$el = $(`<div class="${this.className}">`);
@@ -18,8 +23,8 @@ export default class NlModal {
     }
 
     loadModal() {
-        this.options.preload && this.$el.addClass('modal-loading');
-        this.$container.html(this.options.html);
+        this.options.preload && this.loadingStart();
+        this.$container.html(this.getHtml());
         this.$el.append(this.$loader, this.$container);
         $('body').append(this.$el);
         $(document).on('keydown.closemodal', (e) => {
@@ -27,14 +32,38 @@ export default class NlModal {
         });
     }
 
-    setupEvents() {
-        this.$el.on('click', '.close-modal', (e) => {
-            e.preventDefault();
-            this.closeModal();
-        });
+    getHtml() {
+        return `<div class="nl-modal">
+                    <button class="close-modal"></button>
+                    <div class="nl-modal-head">${this.options.title}</div>
+                    <div class="nl-modal-body">${this.options.body}</div>
+                    <div class="nl-modal-actions">
+                        <button type="button" class="nl-btn nl-btn-default action-cancel">${this.options.cancelText}</button>
+                        <button type="button" class="nl-btn nl-btn-primary action-apply">${this.options.applyText}</button>
+                    </div>
+                </div>`;
     }
 
-    closeModal() {
+    setupEvents() {
+        this.$el.on('click', '.close-modal', this.closeModal.bind(this));
+        this.$el.on('click', '.action-apply', this.apply.bind(this));
+        this.$el.on('click', '.action-cancel', this.cancel.bind(this));
+    }
+
+    apply(e) {
+        e && e.preventDefault();
+        this.$el.trigger('apply');
+        this.closeModal();
+    }
+
+    cancel(e) {
+        e && e.preventDefault();
+        this.$el.trigger('cancel');
+        this.closeModal();
+    }
+
+    closeModal(e) {
+        e && e.preventDefault();
         this.$el.fadeOut(150, this.destroy.bind(this));
         $(document).off('keydown.closemodal');
     }
@@ -53,6 +82,7 @@ export default class NlModal {
     }
 
     destroy() {
+        this.$el.trigger('close');
         this.$el.remove();
     }
 }

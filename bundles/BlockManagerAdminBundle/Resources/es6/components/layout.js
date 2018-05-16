@@ -34,7 +34,12 @@ export default class NlLayout {
         if (this.published) {
             url += '?published=true';
         }
-        if (confirm('Are you sure you want to delete this layout?')) {
+        const modal = new NlModal({
+            title: `Delete layout <strong>${this.attributes.name}</strong>`,
+            body: 'Are you sure you want to delete this layout?',
+            applyText: 'Delete',
+        });
+        modal.$el.on('apply', () => {
             $.ajax({
                 type: 'DELETE',
                 url,
@@ -50,7 +55,7 @@ export default class NlLayout {
                     return true;
                 },
             });
-        }
+        });
     }
 
     layoutCopy(e) {
@@ -107,14 +112,16 @@ export default class NlLayout {
                 error: (xhr) => {
                     const modal = new NlModal();
                     modal.insertModalHtml(xhr.responseText);
-                    modal.$el.find('button[type="submit"]').on('click', () => {
-                        modal.closeModal();
-                        clearCache();
-                    });
+                    modal.$el.on('apply', clearCache);
                 },
             });
         };
-        confirm('Are you sure you want to clear caches for this layout?') && clearCache();
+        const modal = new NlModal({
+            title: `Clear layout cache for: <strong>${this.attributes.name}</strong>`,
+            body: 'Are you sure you want to clear caches for this layout?',
+            applyText: 'Clear cache',
+        });
+        modal.$el.on('apply', clearCache);
     }
 
     clearBlockCaches(e) {
