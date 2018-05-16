@@ -80,6 +80,7 @@ layouts.layout.sort.descending: 'Descending'
 layouts.layout.invalid_layout: 'Invalid layout'
 
 layouts.cache.layout.title: 'Clear layout cache for'
+layouts.cache.layout.message: 'Are you sure you want to clear caches for this layout?'
 layouts.cache.layout.error: 'An error occurred while clearing the layout cache. Please check the log for details.'
 layouts.cache.layout.button.clear: 'Try again'
 

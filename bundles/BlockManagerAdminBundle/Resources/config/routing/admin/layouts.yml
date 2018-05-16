@@ -24,7 +24,7 @@ ngbm_admin_layouts_layout_delete:
 
 ngbm_admin_layouts_cache:
     path: /{layoutId}/cache
-    methods: [POST]
+    methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layouts:clearLayoutCache"
         _ngbm_status: published

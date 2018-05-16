@@ -169,12 +169,24 @@ final class LayoutsController extends Controller
     /**
      * Clears the HTTP cache for provided layout.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function clearLayoutCache(Layout $layout)
+    public function clearLayoutCache(Request $request, Layout $layout)
     {
+        if ($request->getMethod() !== Request::METHOD_POST) {
+            return $this->render(
+                '@NetgenBlockManagerAdmin/admin/layouts/cache/layout.html.twig',
+                [
+                    'submitted' => false,
+                    'error' => false,
+                    'layout' => $layout,
+                ]
+            );
+        }
+
         $this->httpCacheClient->invalidateLayouts([$layout->getId()]);
 
         $cacheCleared = $this->httpCacheClient->commit();
@@ -186,6 +198,7 @@ final class LayoutsController extends Controller
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/layouts/cache/layout.html.twig',
             [
+                'submitted' => true,
                 'error' => !$cacheCleared,
                 'layout' => $layout,
             ],
