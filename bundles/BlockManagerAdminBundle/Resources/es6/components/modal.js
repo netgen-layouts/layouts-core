@@ -24,8 +24,7 @@ export default class NlModal {
     }
 
     loadModal() {
-        this.options.preload && this.loadingStart();
-        this.$container.html(this.getHtml());
+        this.options.preload ? this.loadingStart() : this.$container.html(this.getHtml());
         this.$el.append(this.$loader, this.$container);
         $('body').append(this.$el);
         $(document).on('keydown.closemodal', (e) => {
