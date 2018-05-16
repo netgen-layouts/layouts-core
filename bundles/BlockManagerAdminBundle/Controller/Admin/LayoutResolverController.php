@@ -271,12 +271,24 @@ final class LayoutResolverController extends Controller
     /**
      * Deletes a rule.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteRule(Rule $rule)
+    public function deleteRule(Request $request, Rule $rule)
     {
+        if ($request->getMethod() !== Request::METHOD_DELETE) {
+            return $this->render(
+                '@NetgenBlockManagerAdmin/admin/layout_resolver/form/delete_rule.html.twig',
+                [
+                    'submitted' => false,
+                    'error' => false,
+                    'rule' => $rule,
+                ]
+            );
+        }
+
         $this->layoutResolverService->deleteRule($rule);
 
         return new Response(null, Response::HTTP_NO_CONTENT);

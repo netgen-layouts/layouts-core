@@ -59,8 +59,8 @@ ngbm_admin_layout_resolver_rule_publish:
         _ngbm_status: draft
 
 ngbm_admin_layout_resolver_rule_delete:
-    path: /rules/{ruleId}
-    methods: [DELETE]
+    path: /rules/{ruleId}/delete
+    methods: [GET, DELETE]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:deleteRule"
         _ngbm_status: published

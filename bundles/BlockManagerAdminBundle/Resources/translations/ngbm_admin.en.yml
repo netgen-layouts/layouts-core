@@ -42,6 +42,12 @@ layout_resolver.rule.cancel: 'Cancel'
 layout_resolver.rule.save_changes: 'Save changes'
 layout_resolver.rule.details: 'Details'
 
+layout_resolver.rule.delete.title: 'Delete mapping'
+layout_resolver.rule.delete.message: 'Are you sure you want to delete this mapping?'
+layout_resolver.rule.delete.error: 'An error occurred while deleting the mapping. Please check the log for details.'
+layout_resolver.rule.delete.button.delete: 'Delete'
+layout_resolver.rule.delete.button.cancel: 'Cancel'
+
 layout_resolver.rule.target_header.path_info: 'Applied to path info'
 layout_resolver.rule.target_header.path_info_prefix: 'Applied to path info prefix'
 layout_resolver.rule.target_header.request_uri: 'Applied to request URI'
