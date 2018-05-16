@@ -30,20 +30,20 @@ export default class NlLayout {
 
     layoutDelete(e) {
         e.preventDefault();
-        let url = this.baseUrl + this.id;
-        if (this.published) {
-            url += '?published=true';
-        }
+        const url = `${this.baseUrl}${this.id}/delete${this.published ? '?published=true' : ''}`;
         const modal = new NlModal({
-            title: `Delete layout <strong>${this.attributes.name}</strong>`,
-            body: 'Are you sure you want to delete this layout?',
-            applyText: 'Delete',
+            preload: true,
+            autoClose: false,
         });
-        modal.$el.on('apply', () => {
+        $('body').click();
+        const formAction = (ev) => {
+            ev.preventDefault();
             $.ajax({
                 type: 'DELETE',
                 url,
+                beforeSend: () => modal.loadingStart(),
                 success: () => {
+                    modal.close();
                     for (let i = 0, len = this.layouts.layouts.length; i < len; i++) {
                         if (this.layouts.layouts[i].id === this.id) {
                             this.layouts.layouts.splice(i, 1);
@@ -54,26 +54,39 @@ export default class NlLayout {
                     }
                     return true;
                 },
+                error: (xhr) => {
+                    modal.insertModalHtml(xhr.responseText);
+                },
             });
+        };
+        $.ajax({
+            type: 'GET',
+            url,
+            success: (data) => {
+                modal.insertModalHtml(data);
+                modal.$el.on('apply', formAction);
+            },
         });
     }
 
     layoutCopy(e) {
         e.preventDefault();
-        const modal = new NlModal({ preload: true });
+        const url = `${this.baseUrl}${this.id}/copy${this.published ? '?published=true' : ''}`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
         $('body').click();
         const formAction = (ev) => {
             ev.preventDefault();
-            const $form = $(ev.currentTarget);
+            const $form = $(ev.currentTarget).find('form');
             $.ajax({
-                type: $form.attr('method'),
-                url: $form.attr('action') + (this.published ? '?published=true' : ''),
+                type: 'POST',
+                url,
                 data: $form.serialize(),
-                beforeSend: () => {
-                    modal.loadingStart();
-                },
+                beforeSend: () => modal.loadingStart(),
                 success: (data) => {
-                    modal.closeModal();
+                    modal.close();
                     const $newLayout = $('<div class="nl-panel nl-layout">');
                     this.$el.parent().append($newLayout);
                     $newLayout.html(data);
@@ -83,107 +96,117 @@ export default class NlLayout {
                     $newLayout.data('layout').scrollToMe();
                 },
                 error: (xhr) => {
-                    $form.html(xhr.responseText);
-                    modal.loadingStop();
+                    modal.insertModalHtml(xhr.responseText);
                 },
             });
         };
-
         $.ajax({
             type: 'GET',
-            url: `${this.baseUrl}${this.id}/copy${this.published ? '?published=true' : ''}`,
+            url,
             success: (data) => {
-                const $form = $(data);
-                modal.insertModalHtml($form);
-                $form.on('click', '.js-cancel-copy', modal.closeModal.bind(modal));
-                $form.on('submit', formAction.bind(this));
+                modal.insertModalHtml(data);
+                modal.$el.on('apply', formAction);
             },
         });
     }
 
     clearLayoutCache(e) {
         e.preventDefault();
-        const self = this;
-        const clearCache = () => {
-            $('body').click();
+        const url = `${this.baseUrl}${this.id}/cache`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        $('body').click();
+        const formAction = () => {
             $.ajax({
                 type: 'POST',
-                url: `${self.baseUrl}${self.id}/cache`,
-                error: (xhr) => {
-                    const modal = new NlModal();
-                    modal.insertModalHtml(xhr.responseText);
-                    modal.$el.on('apply', clearCache);
-                },
-            });
-        };
-        const modal = new NlModal({
-            title: `Clear layout cache for: <strong>${this.attributes.name}</strong>`,
-            body: 'Are you sure you want to clear caches for this layout?',
-            applyText: 'Clear cache',
-        });
-        modal.$el.on('apply', clearCache);
-    }
-
-    clearBlockCaches(e) {
-        e.preventDefault();
-        const modal = new NlModal({ preload: true, className: 'nl-modal-cache' });
-        $('body').click();
-        const formAction = (el) => {
-            el.preventDefault();
-            const $form = $(el.currentTarget);
-            $.ajax({
-                type: $form.attr('method'),
-                url: $form.attr('action'),
-                data: $form.serialize(),
+                url,
                 beforeSend: () => modal.loadingStart(),
-                success: () => modal.closeModal(),
+                success: () => {
+                    modal.close();
+                },
                 error: (xhr) => {
-                    $form.html(xhr.responseText);
-                    NlLayout.indeterminateCheckboxes($form);
-                    modal.loadingStop();
+                    modal.insertModalHtml(xhr.responseText);
                 },
             });
         };
         $.ajax({
             type: 'GET',
-            url: `${this.baseUrl}${this.id}/cache/blocks`,
+            url,
             success: (data) => {
-                const $form = $(data);
-                modal.insertModalHtml($form);
-                NlLayout.indeterminateCheckboxes($form);
-                $form.on('submit', formAction.bind(this));
+                modal.insertModalHtml(data);
+                modal.$el.on('apply', formAction);
+            },
+        });
+    }
+
+    clearBlockCaches(e) {
+        e.preventDefault();
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+            className: 'nl-modal-cache',
+        });
+        const url = `${this.baseUrl}${this.id}/cache/blocks`;
+        $('body').click();
+        const formAction = (ev) => {
+            ev.preventDefault();
+            const $form = $(ev.currentTarget).find('form');
+            $.ajax({
+                type: 'POST',
+                url,
+                data: $form.serialize(),
+                beforeSend: () => modal.loadingStart(),
+                success: () => modal.close(),
+                error: (xhr) => {
+                    modal.insertModalHtml(xhr.responseText);
+                    NlLayout.indeterminateCheckboxes(modal.$el);
+                },
+            });
+        };
+        $.ajax({
+            type: 'GET',
+            url,
+            success: (data) => {
+                modal.insertModalHtml(data);
+                NlLayout.indeterminateCheckboxes(modal.$el);
+                modal.$el.on('apply', formAction);
             },
         });
     }
 
     clearRelatedLayoutCaches(e) {
         e.preventDefault();
-        const modal = new NlModal({ preload: true, className: 'nl-modal-cache' });
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+            className: 'nl-modal-cache',
+        });
+        const url = `${this.baseUrl}${this.id}/cache/related_layouts`;
         $('body').click();
-        const formAction = (el) => {
-            el.preventDefault();
-            const $form = $(el.currentTarget);
+        const formAction = (ev) => {
+            ev.preventDefault();
+            const $form = $(ev.currentTarget).find('form');
             $.ajax({
-                type: $form.attr('method'),
-                url: $form.attr('action'),
+                type: 'POST',
+                url,
                 data: $form.serialize(),
                 beforeSend: () => modal.loadingStart(),
-                success: () => modal.closeModal(),
+                success: () => modal.close(),
                 error: (xhr) => {
-                    $form.html(xhr.responseText);
-                    NlLayout.indeterminateCheckboxes($form);
-                    modal.loadingStop();
+                    modal.insertModalHtml(xhr.responseText);
+                    NlLayout.indeterminateCheckboxes(modal.$el);
                 },
             });
         };
         $.ajax({
             type: 'GET',
-            url: `${this.baseUrl}${this.id}/cache/related_layouts`,
+            url,
             success: (data) => {
-                const $form = $(data);
-                modal.insertModalHtml($form);
-                NlLayout.indeterminateCheckboxes($form);
-                $form.on('submit', formAction.bind(this));
+                modal.insertModalHtml(data);
+                NlLayout.indeterminateCheckboxes(modal.$el);
+                modal.$el.on('apply', formAction);
             },
         });
     }

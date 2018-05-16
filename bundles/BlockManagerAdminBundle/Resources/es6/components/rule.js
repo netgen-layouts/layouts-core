@@ -1,5 +1,6 @@
 import Browser from 'netgen-content-browser';
 import NetgenCore from 'netgen-core';
+import NlModal from './modal';
 
 const $ = NetgenCore.$;
 
@@ -151,17 +152,35 @@ export default class NlRule {
     }
     ruleDelete(e) {
         e.preventDefault();
-        if (confirm('Are you sure you want to delete this mapping?')) {
-            const url = `rules/${this.id}`;
+        const url = `${this.baseUrl}rules/${this.id}/delete`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        const formAction = (ev) => {
+            ev.preventDefault();
             $.ajax({
                 type: 'DELETE',
-                url: this.baseUrl + url,
+                url,
+                beforeSend: () => modal.loadingStart(),
                 success: () => {
+                    modal.close();
                     this.$el.remove();
                     $(document).trigger('delete-rule', { nlRule: this });
                 },
+                error: (xhr) => {
+                    modal.insertModalHtml(xhr.responseText);
+                },
             });
-        }
+        };
+        $.ajax({
+            type: 'GET',
+            url,
+            success: (data) => {
+                modal.insertModalHtml(data);
+                modal.$el.on('apply', formAction);
+            },
+        });
     }
     settingDelete(e) {
         e.preventDefault();

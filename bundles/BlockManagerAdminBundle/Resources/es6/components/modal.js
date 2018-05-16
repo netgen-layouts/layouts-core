@@ -8,6 +8,7 @@ export default class NlModal {
         this.options = $.extend({
             preload: false,
             cancelDisabled: false,
+            autoClose: true,
             body: '<p>Empty modal</p>',
             title: '',
             cancelText: 'Cancel',
@@ -28,7 +29,7 @@ export default class NlModal {
         this.$el.append(this.$loader, this.$container);
         $('body').append(this.$el);
         $(document).on('keydown.closemodal', (e) => {
-            e.keyCode === 27 && this.closeModal();
+            e.keyCode === 27 && this.close();
         });
     }
 
@@ -45,7 +46,7 @@ export default class NlModal {
     }
 
     setupEvents() {
-        this.$el.on('click', '.close-modal', this.closeModal.bind(this));
+        this.$el.on('click', '.close-modal', this.close.bind(this));
         this.$el.on('click', '.action-apply', this.apply.bind(this));
         this.$el.on('click', '.action-cancel', this.cancel.bind(this));
     }
@@ -53,16 +54,16 @@ export default class NlModal {
     apply(e) {
         e && e.preventDefault();
         this.$el.trigger('apply');
-        this.closeModal();
+        this.options.autoClose && this.close();
     }
 
     cancel(e) {
         e && e.preventDefault();
         this.$el.trigger('cancel');
-        this.closeModal();
+        this.close();
     }
 
-    closeModal(e) {
+    close(e) {
         e && e.preventDefault();
         this.$el.fadeOut(150, this.destroy.bind(this));
         $(document).off('keydown.closemodal');
