@@ -17,5 +17,12 @@
 {% endblock %}
 
 {% block buttons %}
-    <button type="submit" class="nl-btn nl-btn-primary action-apply">{{ 'layouts.cache.layout.button.clear'|trans }}</button>
+    <button type="button" class="nl-btn action-cancel">{{ 'layouts.cache.layout.button.cancel'|trans }}</button>
+    <button type="submit" class="nl-btn nl-btn-primary action-apply">
+        {% if submitted or error %}
+            {{ 'layouts.cache.layout.button.try_again'|trans }}
+        {% else %}
+            {{ 'layouts.cache.layout.button.clear'|trans }}
+        {% endif %}
+    </button>
 {% endblock %}
