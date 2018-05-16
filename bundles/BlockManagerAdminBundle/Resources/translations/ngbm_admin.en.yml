@@ -93,6 +93,12 @@ layouts.cache.blocks.no_blocks: 'There are no blocks with enabled cache.'
 layouts.cache.blocks.button.clear: 'Clear selected'
 layouts.cache.blocks.error: 'An error occurred while clearing the block caches. Please check the log for details.'
 
+layouts.layout.delete.title: 'Delete layout'
+layouts.layout.delete.message: 'Are you sure you want to delete this layout?'
+layouts.layout.delete.error: 'An error occurred while deleting the layout. Please check the log for details.'
+layouts.layout.delete.button.delete: 'Delete'
+layouts.layout.delete.button.cancel: 'Cancel'
+
 shared_layouts.title: 'Shared layouts'
 shared_layouts.new_layout: 'New shared layout'
 shared_layouts.no_layouts: 'There are no shared layouts defined'

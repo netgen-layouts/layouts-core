@@ -18,7 +18,7 @@ ngbm_admin_shared_layouts_export:
 
 ngbm_admin_shared_layouts_layout_delete:
     path: /{layoutId}
-    methods: [DELETE]
+    methods: [GET, DELETE]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layouts:deleteLayout"
 

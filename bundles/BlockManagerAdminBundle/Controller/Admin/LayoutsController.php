@@ -155,12 +155,24 @@ final class LayoutsController extends Controller
     /**
      * Deletes a layout.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteLayout(Layout $layout)
+    public function deleteLayout(Request $request, Layout $layout)
     {
+        if ($request->getMethod() !== Request::METHOD_DELETE) {
+            return $this->render(
+                '@NetgenBlockManagerAdmin/admin/layouts/form/delete.html.twig',
+                [
+                    'submitted' => false,
+                    'error' => false,
+                    'layout' => $layout,
+                ]
+            );
+        }
+
         $this->layoutService->deleteLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
