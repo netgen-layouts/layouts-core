@@ -6,17 +6,10 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\Form\DateTimeType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use Netgen\BlockManager\Utils\DateTimeUtils;
-use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeTypeTest extends FormTestCase
 {
-    public static function setUpBeforeClass()
-    {
-        ClockMock::register(DateTimeUtils::class);
-    }
-
     /**
      * @return \Symfony\Component\Form\FormTypeInterface
      */

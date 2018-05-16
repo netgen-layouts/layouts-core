@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionType\Time;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Netgen\BlockManager\Utils\DateTimeUtils;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +15,6 @@ final class TimeTest extends TestCase
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\Time
      */
     private $conditionType;
-
-    public static function setUpBeforeClass()
-    {
-        ClockMock::register(DateTimeUtils::class);
-    }
 
     public function setUp()
     {

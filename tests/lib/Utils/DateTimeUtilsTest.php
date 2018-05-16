@@ -10,11 +10,6 @@ use Symfony\Bridge\PhpUnit\ClockMock;
 
 final class DateTimeUtilsTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
-        ClockMock::register(DateTimeUtils::class);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
      */
