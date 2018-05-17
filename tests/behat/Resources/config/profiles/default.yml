@@ -20,6 +20,10 @@ default:
                                     - "disable-extensions"
                                     - "start-fullscreen"
 
+        FriendsOfBehat\SuiteSettingsExtension:
+            paths:
+                - Resources/features
+
         FriendsOfBehat\SymfonyExtension:
             kernel:
                 class: Netgen\BlockManager\Tests\Kernel\AppKernel
@@ -27,7 +31,7 @@ default:
 
         FriendsOfBehat\ContextServiceExtension:
             imports:
-                - tests/behat/Resources/config/services.yml
+                - Resources/config/services.yml
 
         FriendsOfBehat\CrossContainerExtension: ~
 

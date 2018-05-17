@@ -1,3 +1,0 @@
-imports:
-    - tests/behat/Resources/config/profiles.yml
-    - tests/behat/Resources/config/suites.yml

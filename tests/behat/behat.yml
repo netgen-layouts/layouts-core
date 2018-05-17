@@ -1,0 +1,3 @@
+imports:
+    - Resources/config/profiles.yml
+    - Resources/config/suites.yml
