@@ -4,10 +4,8 @@ namespace Netgen\BlockManager\Behat\Context\Admin;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Behat\Context\Transform\LayoutContext;
-use Netgen\BlockManager\Behat\Exception\LayoutException;
 use Netgen\BlockManager\Behat\Page\Admin\Layouts\IndexPage;
 use Netgen\BlockManager\Behat\Page\App\IndexPage as AppIndexPage;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Webmozart\Assert\Assert;
 
 final class ManagingLayoutsContext extends AdminContext
@@ -141,20 +139,10 @@ final class ManagingLayoutsContext extends AdminContext
      * @Then /^a layout called "([^"]+)" should not exist$/
      *
      * @param string $layoutName
-     *
-     * @throws \Netgen\BlockManager\Behat\Exception\LayoutException
      */
     public function layoutShouldNotExist($layoutName)
     {
-        try {
-            $this->layoutContext->getLayoutByName($layoutName);
-        } catch (NotFoundException $e) {
-            // Do nothing
-
-            return;
-        }
-
-        throw LayoutException::layoutWithNameExists($layoutName);
+        Assert::false($this->layoutContext->hasLayoutWithName($layoutName));
     }
 
     public function iShouldGetAnError($errorMessage)
