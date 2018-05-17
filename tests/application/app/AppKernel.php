@@ -36,6 +36,7 @@ final class AppKernel extends Kernel
             new \Netgen\Bundle\BlockManagerStandardBundle\NetgenBlockManagerStandardBundle(),
         ];
 
+        // @deprecated Remove class_exists check when support for Symfony 2.8 ends
         if (class_exists(WebServerBundle::class)) {
             $bundles[] = new WebServerBundle();
         }
