@@ -11,3 +11,7 @@ Feature: Editing a shared layout
     Scenario: Editing a shared layout
         When I edit a shared layout called "Example layout"
         Then edit interface for shared layout called "Example layout" should open
+
+    Scenario: Editing a shared layout by clicking on a name
+        When I click on a shared layout called "Example layout"
+        Then edit interface for shared layout called "Example layout" should open

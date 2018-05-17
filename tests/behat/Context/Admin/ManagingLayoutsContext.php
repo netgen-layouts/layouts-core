@@ -47,6 +47,18 @@ final class ManagingLayoutsContext extends AdminContext
     }
 
     /**
+     * @When /^I click on a (layout called "[^"]+")$/
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     */
+    public function iClickOnALayout(Layout $layout)
+    {
+        $this->indexPage->open();
+
+        $this->indexPage->clickLayoutName($layout->getName());
+    }
+
+    /**
      * @When /^I duplicate a (layout called "[^"]+") with name "([^"]+)"$/
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

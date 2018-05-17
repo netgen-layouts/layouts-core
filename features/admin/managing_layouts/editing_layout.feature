@@ -11,3 +11,7 @@ Feature: Editing a layout
     Scenario: Editing a layout
         When I edit a layout called "Example layout"
         Then edit interface for layout called "Example layout" should open
+
+    Scenario: Editing a layout by clicking on a name
+        When I click on a layout called "Example layout"
+        Then edit interface for layout called "Example layout" should open

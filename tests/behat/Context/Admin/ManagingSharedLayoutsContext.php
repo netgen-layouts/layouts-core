@@ -47,6 +47,18 @@ final class ManagingSharedLayoutsContext extends AdminContext
     }
 
     /**
+     * @When /^I click on a (shared layout called "[^"]+")$/
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     */
+    public function iClickOnASharedLayout(Layout $layout)
+    {
+        $this->indexPage->open();
+
+        $this->indexPage->clickLayoutName($layout->getName());
+    }
+
+    /**
      * @When /^I duplicate a (shared layout called "[^"]+") with name "([^"]+)"$/
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

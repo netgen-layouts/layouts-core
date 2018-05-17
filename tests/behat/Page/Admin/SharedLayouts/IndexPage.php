@@ -17,6 +17,11 @@ final class IndexPage extends AdminPage
         $this->getElement('edit_layout_action', ['%layout-name%' => $layoutName])->click();
     }
 
+    public function clickLayoutName($layoutName)
+    {
+        $this->getElement('layout_name', ['%layout-name%' => $layoutName])->click();
+    }
+
     public function openDuplicateLayoutModal($layoutName)
     {
         $this->openModal(
@@ -47,6 +52,7 @@ final class IndexPage extends AdminPage
         return array_merge(
             parent::getDefinedElements(),
             [
+                'layout_name' => '.nl-layout-name a:contains("%layout-name%")',
                 'actions_dropdown' => '.nl-layout [data-name="%layout-name%"] button.nl-dropdown-toggle',
 
                 'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
