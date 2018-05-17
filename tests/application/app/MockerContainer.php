@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Kernel;
 
-use Mockery;
 use Symfony\Component\DependencyInjection\Container;
 
 class MockerContainer extends Container
@@ -17,11 +16,13 @@ class MockerContainer extends Container
      */
     private $mockedServices = [];
 
-    public function mock($id, ...$arguments)
+    public function mock($id, /* PHPUnit\Framework\MockObject\MockObject */ $mock)
     {
+        // @deprecated Enable MockObject type hint when support for PHP 5.6 (and PHPUnit 5) ends
+
         if (!array_key_exists($id, $this->mockedServices)) {
             $this->originalServices[$id] = $this->get($id);
-            $this->mockedServices[$id] = $this->services[$id] = Mockery::mock(...$arguments);
+            $this->mockedServices[$id] = $this->services[$id] = $mock;
         }
 
         return $this->mockedServices[$id];
