@@ -33,6 +33,16 @@ final class ManagingSharedLayoutsContext extends AdminContext
     }
 
     /**
+     * @When /^I create a new shared layout$/
+     */
+    public function iCreateANewSharedLayout()
+    {
+        $this->indexPage->open();
+
+        $this->indexPage->createLayout();
+    }
+
+    /**
      * @When /^I edit a (shared layout called "[^"]+")$/
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
@@ -123,6 +133,15 @@ final class ManagingSharedLayoutsContext extends AdminContext
         $this->appPage->verifyRoute();
         $this->appPage->verifyFragment('layout/' . $layout->getId());
         $this->appPage->verifyLayout($layout->getName());
+    }
+
+    /**
+     * @Then /^interface for creating a new shared layout should open$/
+     */
+    public function editInterfaceForNewLayoutShouldOpen()
+    {
+        $this->appPage->verifyRoute();
+        $this->appPage->verifyCreateForm(true);
     }
 
     /**

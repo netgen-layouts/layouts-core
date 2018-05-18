@@ -33,6 +33,16 @@ final class ManagingLayoutsContext extends AdminContext
     }
 
     /**
+     * @When /^I create a new layout$/
+     */
+    public function iCreateANewLayout()
+    {
+        $this->indexPage->open();
+
+        $this->indexPage->createLayout();
+    }
+
+    /**
      * @When /^I edit a (layout called "[^"]+")$/
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
@@ -123,6 +133,15 @@ final class ManagingLayoutsContext extends AdminContext
         $this->appPage->verifyRoute();
         $this->appPage->verifyFragment('layout/' . $layout->getId());
         $this->appPage->verifyLayout($layout->getName());
+    }
+
+    /**
+     * @Then /^interface for creating a new layout should open$/
+     */
+    public function editInterfaceForNewLayoutShouldOpen()
+    {
+        $this->appPage->verifyRoute();
+        $this->appPage->verifyCreateForm();
     }
 
     /**

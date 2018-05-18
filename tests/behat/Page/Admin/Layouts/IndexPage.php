@@ -11,6 +11,11 @@ final class IndexPage extends AdminPage
         return 'ngbm_admin_layouts_index';
     }
 
+    public function createLayout()
+    {
+        $this->getElement('create_new_layout')->click();
+    }
+
     public function editLayout($layoutName)
     {
         $this->getElement('actions_dropdown', ['%layout-name%' => $layoutName])->press();
@@ -53,6 +58,7 @@ final class IndexPage extends AdminPage
             parent::getDefinedElements(),
             [
                 'layout_name' => '.nl-layout-name a:contains("%layout-name%")',
+                'create_new_layout' => 'a#add-new-button',
                 'actions_dropdown' => '.nl-layout [data-name="%layout-name%"] button.nl-dropdown-toggle',
 
                 'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
