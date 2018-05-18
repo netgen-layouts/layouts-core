@@ -31,12 +31,11 @@ final class IndexPage extends SymfonyPage
             throw new PageException('Expected to have a form for creating a layout but none found.');
         }
 
-        $sharedLayoutField = $this->getDocument()->findField('create[shared]');
-        if ($sharedLayoutField === null) {
+        if (!$this->getDocument()->hasField('create[shared]')) {
             throw new PageException('Expected to have a field named "create[shared]" but none found.');
         }
 
-        $sharedLayoutValue = $sharedLayoutField->getValue();
+        $sharedLayoutValue = $this->getDocument()->findField('create[shared]')->getValue();
 
         if ($shared && $sharedLayoutValue !== '1') {
             throw new PageException(sprintf('Expected to have a field named "create[shared]" with value "1", but found value "%s".', $sharedLayoutValue));
