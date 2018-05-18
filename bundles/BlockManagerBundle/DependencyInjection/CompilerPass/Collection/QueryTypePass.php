@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection;
 
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

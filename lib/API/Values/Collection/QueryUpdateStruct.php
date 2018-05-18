@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Value;
 
 final class QueryUpdateStruct extends Value implements ParameterStruct
@@ -25,7 +25,7 @@ final class QueryUpdateStruct extends Value implements ParameterStruct
      *
      * The values need to be in the domain format of the value for the parameter.
      *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      * @param array $values
      */
     public function fillParameters(QueryTypeInterface $queryType, array $values = [])
@@ -53,7 +53,7 @@ final class QueryUpdateStruct extends Value implements ParameterStruct
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      * @param array $values
      * @param bool $doImport
      */

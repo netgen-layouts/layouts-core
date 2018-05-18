@@ -75,7 +75,7 @@ abstract class Controller extends BaseController
      *
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     protected function getQueryType($identifier)
     {

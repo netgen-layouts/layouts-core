@@ -3,14 +3,14 @@
 namespace Netgen\BlockManager\Collection\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 final class QueryTypeRegistry implements QueryTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryTypeInterface[]
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[]
      */
     private $queryTypes = [];
 

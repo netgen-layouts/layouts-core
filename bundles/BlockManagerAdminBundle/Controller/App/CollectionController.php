@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Form\EditType;
-use Netgen\BlockManager\Collection\Query\Form\FullEditType;
+use Netgen\BlockManager\Collection\Form\QueryEditType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -136,7 +136,7 @@ final class CollectionController extends Controller
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 
         $form = $this->createForm(
-            FullEditType::class,
+            QueryEditType::class,
             $updateStruct,
             [
                 'query' => $query,

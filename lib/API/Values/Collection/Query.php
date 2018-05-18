@@ -31,7 +31,7 @@ interface Query extends Value, ParameterBasedValue
     /**
      * Returns the query type.
      *
-     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     public function getQueryType();
 

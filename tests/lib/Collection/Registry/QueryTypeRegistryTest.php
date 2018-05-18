@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 final class QueryTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     private $queryType1;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     private $queryType2;
 

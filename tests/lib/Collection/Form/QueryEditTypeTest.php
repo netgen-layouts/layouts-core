@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\Query\Form;
+namespace Netgen\BlockManager\Tests\Collection\Form;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Query\Form\FullEditType;
+use Netgen\BlockManager\Collection\Form\QueryEditType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper;
@@ -13,10 +13,10 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class FullEditTypeTest extends FormTestCase
+final class QueryEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     private $queryType;
 
@@ -39,7 +39,7 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new FullEditType();
+        return new QueryEditType();
     }
 
     /**
@@ -63,8 +63,8 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildView
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
      */
     public function testSubmitValidData()
     {
@@ -78,7 +78,7 @@ final class FullEditTypeTest extends FormTestCase
         $updatedStruct->setParameterValue('param', 'Param value');
 
         $form = $this->factory->create(
-            FullEditType::class,
+            QueryEditType::class,
             new QueryUpdateStruct(),
             ['query' => $this->query]
         );
@@ -104,13 +104,13 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildView
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
      */
     public function testDisableUntranslatableFormsOnNonMainLocale()
     {
         $form = $this->factory->create(
-            FullEditType::class,
+            QueryEditType::class,
             new QueryUpdateStruct(['locale' => 'hr']),
             [
                 'query' => new Query(
@@ -128,13 +128,13 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildView
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
      */
     public function testDisableUntranslatableFormsOnMainLocale()
     {
         $form = $this->factory->create(
-            FullEditType::class,
+            QueryEditType::class,
             new QueryUpdateStruct(['locale' => 'en']),
             [
                 'query' => new Query(
@@ -152,7 +152,7 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -173,7 +173,7 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "query" is missing.
      */
@@ -188,7 +188,7 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "query" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\Query", but is of type "string".
      */
@@ -207,7 +207,7 @@ final class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct", but is of type "string".
      */

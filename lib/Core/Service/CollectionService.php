@@ -13,7 +13,7 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreat
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
@@ -440,7 +440,7 @@ final class CollectionService extends Service implements APICollectionService
      * and if any other translation is updated, it needs to take values of untranslatable params
      * from the main translation.
      *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $persistenceQuery
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *

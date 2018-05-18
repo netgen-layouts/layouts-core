@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View\Matcher\Form\Query;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\NullQueryType;
+use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;

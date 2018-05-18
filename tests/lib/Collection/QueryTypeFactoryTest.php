@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
+use Netgen\BlockManager\Collection\QueryType\QueryTypeFactory;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Collection\QueryTypeFactory;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +17,7 @@ final class QueryTypeFactoryTest extends TestCase
     private $parameterBuilderFactoryMock;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryTypeFactory
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory
      */
     private $factory;
 
@@ -37,8 +37,8 @@ final class QueryTypeFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryTypeFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\QueryTypeFactory::buildQueryType
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::buildQueryType
      */
     public function testBuildQueryType()
     {
@@ -59,8 +59,8 @@ final class QueryTypeFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryTypeFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\QueryTypeFactory::buildQueryType
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::buildQueryType
      */
     public function testBuildQueryTypeWithEmptyName()
     {

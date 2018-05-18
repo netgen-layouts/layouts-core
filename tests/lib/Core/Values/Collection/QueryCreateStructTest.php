@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryCreateStructTest extends TestCase

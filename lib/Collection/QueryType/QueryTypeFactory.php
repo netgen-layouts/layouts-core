@@ -1,8 +1,7 @@
 <?php
 
-namespace Netgen\BlockManager\Collection;
+namespace Netgen\BlockManager\Collection\QueryType;
 
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
 final class QueryTypeFactory
@@ -24,7 +23,7 @@ final class QueryTypeFactory
      * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface $handler
      * @param array $config
      *
-     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     public function buildQueryType(
         $type,

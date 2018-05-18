@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 final class QueryTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryType
      */
     private $queryType;
 
@@ -27,8 +27,8 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::__construct
-     * @covers \Netgen\BlockManager\Collection\QueryType::getType
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::__construct
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getType
      */
     public function testGetType()
     {
@@ -36,7 +36,7 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::isEnabled
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::isEnabled
      */
     public function testIsEnabled()
     {
@@ -44,7 +44,7 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getName
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getName
      */
     public function testGetName()
     {
@@ -52,7 +52,7 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getValues
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getValues
      */
     public function testGetValues()
     {
@@ -60,7 +60,7 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getCount
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getCount
      */
     public function testGetCount()
     {
@@ -68,7 +68,7 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::isContextual
+     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::isContextual
      */
     public function testIsContextual()
     {

@@ -40,7 +40,7 @@ view:
             query\full_edit:
                 template: "@NetgenBlockManagerAdmin/app/form/query/edit/full.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
+                    form\type: Netgen\BlockManager\Collection\Form\QueryEditType
             block\configure_translation:
                 template: "@NetgenBlockManagerAdmin/app/form/block/configure_translation.html.twig"
                 match:

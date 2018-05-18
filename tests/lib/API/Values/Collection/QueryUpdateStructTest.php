@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -171,7 +171,7 @@ final class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     private function buildQueryType()
     {

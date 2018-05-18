@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\NullQueryType;
+use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
 
 final class NullQueryTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\NullQueryType
+     * @var \Netgen\BlockManager\Collection\QueryType\NullQueryType
      */
     private $queryType;
 
@@ -19,8 +19,8 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::__construct
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::getType
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::__construct
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getType
      */
     public function testGetType()
     {
@@ -28,7 +28,7 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::isEnabled
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::isEnabled
      */
     public function testIsEnabled()
     {
@@ -36,7 +36,7 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::getName
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getName
      */
     public function testGetName()
     {
@@ -44,7 +44,7 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::getValues
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getValues
      */
     public function testGetValues()
     {
@@ -52,7 +52,7 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::getCount
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getCount
      */
     public function testGetCount()
     {
@@ -60,7 +60,7 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::isContextual
+     * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::isContextual
      */
     public function testIsContextual()
     {

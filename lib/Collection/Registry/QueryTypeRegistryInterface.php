@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Collection\Registry;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 
 interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -13,7 +13,7 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
      * Adds a query type to registry.
      *
      * @param string $type
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      */
     public function addQueryType($type, QueryTypeInterface $queryType);
 
@@ -33,7 +33,7 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not exist
      *
-     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     public function getQueryType($type);
 
@@ -42,7 +42,7 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Collection\QueryTypeInterface[]
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[]
      */
     public function getQueryTypes($onlyEnabled = false);
 }

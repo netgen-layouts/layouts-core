@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Collection\Query\Form;
+namespace Netgen\BlockManager\Collection\Form;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class FullEditType extends TranslatableType
+final class QueryEditType extends TranslatableType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -44,7 +44,7 @@ final class FullEditType extends TranslatableType
         $locale = $options['data']->locale;
         $mainLocale = $options['query']->getMainLocale();
 
-        /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
+        /** @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType */
         $queryType = $options['query']->getQueryType();
 
         $builder->add(

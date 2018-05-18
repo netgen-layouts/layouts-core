@@ -11,7 +11,7 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 
 interface CollectionService extends Service
 {
@@ -269,7 +269,7 @@ interface CollectionService extends Service
     /**
      * Creates a new query create struct from provided query type.
      *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */

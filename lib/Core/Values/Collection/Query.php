@@ -21,7 +21,7 @@ final class Query extends Value implements APIQuery
     protected $collectionId;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     protected $queryType;
 

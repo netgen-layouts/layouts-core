@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Collection;
+namespace Netgen\BlockManager\Collection\QueryType;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;

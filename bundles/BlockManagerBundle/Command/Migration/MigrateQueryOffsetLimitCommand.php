@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Symfony\Component\Console\Command\Command;
@@ -170,7 +170,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * Each of those can be `null` to indicate that the query type does not have an offset
      * or a limit parameter.
      *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      *
      * @return array
      */
@@ -203,7 +203,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
      *
      * Considers if the parameter is a compound and includes it's sub-parameters too.
      *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      *
      * @return array
      */

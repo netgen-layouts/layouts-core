@@ -36,7 +36,7 @@ services:
             - {name: pagerfanta.view, alias: ngbm_collection}
 
     netgen_block_manager.collection.query_type_factory:
-        class: Netgen\BlockManager\Collection\QueryTypeFactory
+        class: Netgen\BlockManager\Collection\QueryType\QueryTypeFactory
         public: false
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"

@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
-use Netgen\BlockManager\Collection\NullQueryType;
+use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;

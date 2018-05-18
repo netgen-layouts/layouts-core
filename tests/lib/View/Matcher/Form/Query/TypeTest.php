@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\Collection\NullQueryType;
+use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;

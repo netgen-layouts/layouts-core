@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
-use Netgen\BlockManager\Collection\NullQueryType;
+use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Collection\Collection;

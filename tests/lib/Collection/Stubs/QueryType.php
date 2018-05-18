@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
 
 final class QueryType implements QueryTypeInterface
