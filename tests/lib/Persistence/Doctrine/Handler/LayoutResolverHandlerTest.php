@@ -22,12 +22,12 @@ final class LayoutResolverHandlerTest extends TestCase
     use TestCaseTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
@@ -92,11 +92,15 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertCount(12, $rules);
 
+        $previousPriority = null;
         foreach ($rules as $index => $rule) {
             $this->assertInstanceOf(Rule::class, $rule);
+
             if ($index > 0) {
-                $this->assertLessThanOrEqual($rules[$index - 1]->priority, $rules[$index]->priority);
+                $this->assertLessThanOrEqual($previousPriority, $rule->priority);
             }
+
+            $previousPriority = $rule->priority;
         }
     }
 
@@ -113,11 +117,15 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertCount(2, $rules);
 
+        $previousPriority = null;
         foreach ($rules as $index => $rule) {
             $this->assertInstanceOf(Rule::class, $rule);
+
             if ($index > 0) {
-                $this->assertLessThanOrEqual($rules[$index - 1]->priority, $rules[$index]->priority);
+                $this->assertLessThanOrEqual($previousPriority, $rule->priority);
             }
+
+            $previousPriority = $rule->priority;
         }
     }
 

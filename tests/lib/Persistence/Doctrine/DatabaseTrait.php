@@ -33,15 +33,15 @@ trait DatabaseTrait
     /**
      * Sets up the database connection.
      *
-     * @param string $fixturesPath
-     *
      * @return \Doctrine\DBAL\Connection
      */
     protected function createDatabaseConnection()
     {
-        $this->databaseUri = getenv('DATABASE');
-        if (empty($this->databaseUri)) {
-            $this->databaseUri = $this->inMemoryDsn;
+        $this->databaseUri = $this->inMemoryDsn;
+
+        $databaseUri = getenv('DATABASE');
+        if (is_string($databaseUri) && !empty($databaseUri)) {
+            $this->databaseUri = $databaseUri;
         }
 
         preg_match('/^(?<db>.+):\/+/', $this->databaseUri, $matches);
@@ -106,6 +106,10 @@ trait DatabaseTrait
         }
 
         $schema = file_get_contents($fullPath);
+        if (!is_string($schema)) {
+            throw new RuntimeException("File '{$fullPath}' is not readable.");
+        }
+
         $sqlQueries = explode(';', $schema);
 
         foreach ($sqlQueries as $sqlQuery) {

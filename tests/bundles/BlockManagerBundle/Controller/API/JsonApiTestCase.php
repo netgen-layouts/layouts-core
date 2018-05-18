@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
@@ -45,8 +46,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->clientContainer = $clientContainer;
 
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
-        $this->client->setServerParameter('PHP_AUTH_USER', getenv('SF_USERNAME'));
-        $this->client->setServerParameter('PHP_AUTH_PW', getenv('SF_PASSWORD'));
+        $this->client->setServerParameter('PHP_AUTH_USER', (string) getenv('SF_USERNAME'));
+        $this->client->setServerParameter('PHP_AUTH_PW', (string) getenv('SF_PASSWORD'));
     }
 
     protected function mockQueryType()
@@ -118,10 +119,23 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      *
      * @param array $content
      *
+     * @throws \RuntimeException If encoding failed
+     *
      * @return string
      */
     protected function jsonEncode(array $content)
     {
-        return json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $encodedContent = json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        if (!is_string($encodedContent)) {
+            throw new RuntimeException(
+                sprintf(
+                    'There was an error encoding the value: %s',
+                    json_last_error_msg()
+                )
+            );
+        }
+
+        return $encodedContent;
     }
 }

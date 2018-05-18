@@ -38,7 +38,7 @@ final class IndexPage extends SymfonyPage
         $sharedLayoutValue = $this->getDocument()->findField('create[shared]')->getValue();
 
         if ($shared && $sharedLayoutValue !== '1') {
-            throw new PageException(sprintf('Expected to have a field named "create[shared]" with value "1", but found value "%s".', $sharedLayoutValue));
+            throw new PageException(sprintf('Expected to have a field named "create[shared]" with value "1", but found value "%s".', var_export($sharedLayoutValue, true)));
         }
 
         if (!$shared && $sharedLayoutValue === '1') {

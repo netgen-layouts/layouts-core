@@ -20,17 +20,17 @@ final class LayoutHandlerTest extends TestCase
     use TestCaseTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 

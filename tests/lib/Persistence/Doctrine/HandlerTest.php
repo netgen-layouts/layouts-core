@@ -19,7 +19,7 @@ final class HandlerTest extends TestCase
     private $connectionMock;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler
+     * @var \Netgen\BlockManager\Persistence\HandlerInterface
      */
     private $handler;
 

@@ -259,7 +259,7 @@ abstract class Page
      */
     private function getSelectorAsXpath($selector, SelectorsHandler $selectorsHandler)
     {
-        $selectorType = is_array($selector) ? key($selector) : 'css';
+        $selectorType = is_array($selector) ? (string) key($selector) : 'css';
         $locator = is_array($selector) ? $selector[$selectorType] : $selector;
 
         return $selectorsHandler->selectorToXpath($selectorType, $locator);

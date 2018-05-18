@@ -21,7 +21,7 @@ final class CollectionHandlerTest extends TestCase
     use TestCaseTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 

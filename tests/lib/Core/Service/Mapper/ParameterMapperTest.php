@@ -42,6 +42,9 @@ final class ParameterMapperTest extends TestCase
             ]
         );
 
+        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
+        $compoundParameter = $blockDefinition->getParameterDefinition('compound');
+
         $this->assertCount(4, $mappedParameters);
         $this->assertArrayHasKey('css_class', $mappedParameters);
         $this->assertArrayHasKey('css_id', $mappedParameters);
@@ -64,7 +67,7 @@ final class ParameterMapperTest extends TestCase
         $this->assertFalse($mappedParameters['compound']->isEmpty());
 
         $this->assertInstanceOf(Parameter::class, $mappedParameters['inner']);
-        $this->assertEquals($blockDefinition->getParameterDefinition('compound')->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
+        $this->assertEquals($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
         $this->assertEquals('inner-value', $mappedParameters['inner']->getValue());
         $this->assertFalse($mappedParameters['inner']->isEmpty());
     }

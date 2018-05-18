@@ -33,10 +33,7 @@ abstract class SymfonyPage extends Page
     public function verifyRoute(array $requiredUrlParameters = [])
     {
         $url = $this->getDriver()->getCurrentUrl();
-        $path = parse_url($url)['path'];
-
-        $path = preg_replace('#^/app(_[\w]+)?\.php/#', '/', $path);
-        $matchedRoute = $this->router->match($path);
+        $matchedRoute = $this->router->match(parse_url($url)['path']);
 
         $this->verifyStatusCode();
         $this->verifyRouteName($matchedRoute, $url);

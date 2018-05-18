@@ -178,6 +178,9 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
+        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
+        $compoundParameter = $parameterDefinitions->getParameterDefinition('compound');
+
         $value = new ParameterBasedValue(
             [
                 'parameters' => [
@@ -190,7 +193,7 @@ final class ParameterStructTraitTest extends TestCase
                     'inner' => new Parameter(
                         [
                             'value' => 'inner',
-                            'parameterDefinition' => $parameterDefinitions->getParameterDefinition('compound')->getParameterDefinition('inner'),
+                            'parameterDefinition' => $compoundParameter->getParameterDefinition('inner'),
                         ]
                     ),
                 ],
