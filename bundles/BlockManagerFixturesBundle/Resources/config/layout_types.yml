@@ -1,10 +1,4 @@
 layout_types:
-    1_zones_a:
-        name: '1 zones A'
-        zones:
-            main:
-                name: 'Main'
-
     4_zones_a:
         name: '4 zones A'
         zones:
@@ -25,34 +19,6 @@ layout_types:
                 name: 'Top'
             left:
                 name: 'Left'
-            right:
-                name: 'Right'
-            bottom:
-                name: 'Bottom'
-
-    4_zones_c:
-        name: '4 zones C'
-        zones:
-            top:
-                name: 'Top'
-            left:
-                name: 'Left'
-            right:
-                name: 'Right'
-            bottom:
-                name: 'Bottom'
-
-    6_zones_a:
-        name: '6 zones A'
-        zones:
-            top1:
-                name: 'Top 1'
-            top2:
-                name: 'Top 2'
-            left:
-                name: 'Left'
-            center:
-                name: 'Center'
             right:
                 name: 'Right'
             bottom:

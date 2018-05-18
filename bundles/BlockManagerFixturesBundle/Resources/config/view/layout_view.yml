@@ -1,10 +1,6 @@
 view:
     layout_view:
         default:
-            1_zones_a:
-                template: "@NetgenBlockManagerFixtures/layout/1_zones_a.html.twig"
-                match:
-                    layout\type: 1_zones_a
             4_zones_a:
                 template: "@NetgenBlockManagerFixtures/layout/4_zones_a.html.twig"
                 match:
@@ -13,20 +9,7 @@ view:
                 template: "@NetgenBlockManagerFixtures/layout/4_zones_b.html.twig"
                 match:
                     layout\type: 4_zones_b
-            4_zones_c:
-                template: "@NetgenBlockManagerFixtures/layout/4_zones_c.html.twig"
-                match:
-                    layout\type: 4_zones_c
-            6_zones_a:
-                template: "@NetgenBlockManagerFixtures/layout/6_zones_a.html.twig"
-                match:
-                    layout\type: 6_zones_a
         api:
-            1_zones_a:
-                template: "@NetgenBlockManagerFixtures/api/layout/1_zones_a.html.twig"
-                match:
-                    layout\type: 1_zones_a
-                    api_version: 1
             4_zones_a:
                 template: "@NetgenBlockManagerFixtures/api/layout/4_zones_a.html.twig"
                 match:
@@ -36,14 +19,4 @@ view:
                 template: "@NetgenBlockManagerFixtures/api/layout/4_zones_b.html.twig"
                 match:
                     layout\type: 4_zones_b
-                    api_version: 1
-            4_zones_c:
-                template: "@NetgenBlockManagerFixtures/api/layout/4_zones_c.html.twig"
-                match:
-                    layout\type: 4_zones_c
-                    api_version: 1
-            6_zones_a:
-                template: "@NetgenBlockManagerFixtures/api/layout/6_zones_a.html.twig"
-                match:
-                    layout\type: 6_zones_a
                     api_version: 1
