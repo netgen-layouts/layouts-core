@@ -26,28 +26,28 @@ final class BlockUpdateStruct extends Value implements ParameterStruct, ConfigAw
     /**
      * New view type of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $viewType;
 
     /**
      * New item view type of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $itemViewType;
 
     /**
      * New human readable name of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $name;
 
     /**
      * New state of the always available flag.
      *
-     * @var bool
+     * @var bool|null
      */
     public $alwaysAvailable;
 

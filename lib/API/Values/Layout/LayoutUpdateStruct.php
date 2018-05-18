@@ -9,14 +9,14 @@ final class LayoutUpdateStruct extends Value
     /**
      * New human readable name of the layout.
      *
-     * @var string
+     * @var string|null
      */
     public $name;
 
     /**
      * New description of the layout.
      *
-     * @var string
+     * @var string|null
      */
     public $description;
 }

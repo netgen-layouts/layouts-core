@@ -43,8 +43,8 @@ abstract class QueryHandler
      * Applies offset and limit to the query.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param int $offset
-     * @param int $limit
+     * @param int|null $offset
+     * @param int|null $limit
      */
     public function applyOffsetAndLimit(QueryBuilder $query, $offset, $limit)
     {

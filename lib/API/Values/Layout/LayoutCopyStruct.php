@@ -18,7 +18,7 @@ final class LayoutCopyStruct extends Value
     /**
      * Description of the copied layout.
      *
-     * @var string
+     * @var string|null
      */
     public $description;
 }

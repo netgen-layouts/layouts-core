@@ -9,7 +9,7 @@ final class ZoneUpdateStruct extends Value
     /**
      * New linked zone.
      *
-     * @var \Netgen\BlockManager\Persistence\Values\Layout\Zone
+     * @var \Netgen\BlockManager\Persistence\Values\Layout\Zone|null
      */
     public $linkedZone;
 }

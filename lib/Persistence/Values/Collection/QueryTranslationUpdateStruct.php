@@ -9,7 +9,7 @@ final class QueryTranslationUpdateStruct extends Value
     /**
      * New parameter values for the query.
      *
-     * @var array
+     * @var array|null
      */
     public $parameters;
 }

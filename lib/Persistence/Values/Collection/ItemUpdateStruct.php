@@ -9,7 +9,7 @@ final class ItemUpdateStruct extends Value
     /**
      * New item configuration.
      *
-     * @var array
+     * @var array|null
      */
     public $config;
 }

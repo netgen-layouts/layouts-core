@@ -9,42 +9,42 @@ final class BlockUpdateStruct extends Value
     /**
      * New view type of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $viewType;
 
     /**
      * New item view type of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $itemViewType;
 
     /**
      * New human readable name of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $name;
 
     /**
      * Flag indicating if the block will be always available.
      *
-     * @var bool
+     * @var bool|null
      */
     public $alwaysAvailable;
 
     /**
      * Flag indicating if the block will be translatable.
      *
-     * @var bool
+     * @var bool|null
      */
     public $isTranslatable;
 
     /**
      * New block configuration.
      *
-     * @var array
+     * @var array|null
      */
     public $config;
 }

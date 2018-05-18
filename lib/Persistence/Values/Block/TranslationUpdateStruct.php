@@ -9,7 +9,7 @@ final class TranslationUpdateStruct extends Value
     /**
      * New block parameters.
      *
-     * @var array
+     * @var array|null
      */
     public $parameters;
 }

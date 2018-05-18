@@ -9,7 +9,7 @@ final class CollectionUpdateStruct extends Value
     /**
      * The new offset for the collection.
      *
-     * @var int
+     * @var int|null
      */
     public $offset;
 
@@ -18,7 +18,7 @@ final class CollectionUpdateStruct extends Value
      *
      * Set to 0 to disable the limit.
      *
-     * @var int
+     * @var int|null
      */
     public $limit;
 }

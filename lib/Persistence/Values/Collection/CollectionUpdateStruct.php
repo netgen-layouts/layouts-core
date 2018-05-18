@@ -9,7 +9,7 @@ final class CollectionUpdateStruct extends Value
     /**
      * Starting offset for the collection results.
      *
-     * @var int
+     * @var int|null
      */
     public $offset;
 
@@ -18,21 +18,21 @@ final class CollectionUpdateStruct extends Value
      *
      * Set to 0 to disable the limit.
      *
-     * @var int
+     * @var int|null
      */
     public $limit;
 
     /**
      * Flag indicating if the collection will be always available.
      *
-     * @var bool
+     * @var bool|null
      */
     public $alwaysAvailable;
 
     /**
      * Flag indicating if the collection will be translatable.
      *
-     * @var bool
+     * @var bool|null
      */
     public $isTranslatable;
 }
