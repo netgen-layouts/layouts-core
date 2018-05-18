@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection;
+namespace Netgen\BlockManager\Tests\Collection\QueryType;
 
 use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
