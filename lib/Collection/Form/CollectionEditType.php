@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-final class EditType extends TranslatableType
+final class CollectionEditType extends TranslatableType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

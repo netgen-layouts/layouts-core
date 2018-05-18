@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Form\EditType;
+use Netgen\BlockManager\Collection\Form\CollectionEditType;
 use Netgen\BlockManager\Collection\Form\QueryEditType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\View\ViewInterface;
@@ -39,7 +39,7 @@ final class CollectionController extends Controller
         $updateStruct = $this->collectionService->newCollectionUpdateStruct($collection);
 
         $form = $this->createForm(
-            EditType::class,
+            CollectionEditType::class,
             $updateStruct,
             [
                 'collection' => $collection,

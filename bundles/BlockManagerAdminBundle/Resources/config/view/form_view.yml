@@ -36,7 +36,7 @@ view:
             collection\full_edit:
                 template: "@NetgenBlockManagerAdmin/app/form/collection/edit/full.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Collection\Form\EditType
+                    form\type: Netgen\BlockManager\Collection\Form\CollectionEditType
             query\full_edit:
                 template: "@NetgenBlockManagerAdmin/app/form/query/edit/full.html.twig"
                 match:

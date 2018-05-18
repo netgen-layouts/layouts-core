@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\Collection\Form;
 
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Collection\Form\EditType;
+use Netgen\BlockManager\Collection\Form\CollectionEditType;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class EditTypeTest extends FormTestCase
+final class CollectionEditTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
@@ -28,12 +28,12 @@ final class EditTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new EditType();
+        return new CollectionEditType();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildView
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
      */
     public function testSubmitValidData()
     {
@@ -46,7 +46,7 @@ final class EditTypeTest extends FormTestCase
         $updatedStruct->limit = 5;
 
         $form = $this->factory->create(
-            EditType::class,
+            CollectionEditType::class,
             new CollectionUpdateStruct(),
             ['collection' => $this->collection]
         );
@@ -68,8 +68,8 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildView
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
      */
     public function testSubmitValidDataWithDynamicCollection()
     {
@@ -85,7 +85,7 @@ final class EditTypeTest extends FormTestCase
         $updatedStruct->limit = 5;
 
         $form = $this->factory->create(
-            EditType::class,
+            CollectionEditType::class,
             new CollectionUpdateStruct(),
             ['collection' => $this->collection]
         );
@@ -107,7 +107,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -129,7 +129,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "collection" is missing.
      */
@@ -144,7 +144,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "collection" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\Collection", but is of type "string".
      */
@@ -163,7 +163,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct", but is of type "string".
      */
