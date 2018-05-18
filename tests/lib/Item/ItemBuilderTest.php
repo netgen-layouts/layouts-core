@@ -8,20 +8,9 @@ use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class ItemBuilderTest extends TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Value converter "stdClass" needs to implement "Netgen\BlockManager\Item\ValueConverterInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
-    {
-        new ItemBuilder([new stdClass()]);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build

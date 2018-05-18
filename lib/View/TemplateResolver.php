@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
@@ -28,17 +27,13 @@ class TemplateResolver implements TemplateResolverInterface
      */
     public function __construct(array $matchers = [], array $viewConfig = [])
     {
-        foreach ($matchers as $matcher) {
-            if (!$matcher instanceof MatcherInterface) {
-                throw new InvalidInterfaceException(
-                    'Template matcher',
-                    get_class($matcher),
-                    MatcherInterface::class
-                );
+        $this->matchers = array_filter(
+            $matchers,
+            function (MatcherInterface $matcher) {
+                return $matcher;
             }
-        }
+        );
 
-        $this->matchers = $matchers;
         $this->viewConfig = $viewConfig;
     }
 

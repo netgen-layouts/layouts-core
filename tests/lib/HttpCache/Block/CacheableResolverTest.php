@@ -5,21 +5,9 @@ namespace Netgen\BlockManager\Tests\HttpCache\Block;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class CacheableResolverTest extends TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::setVoters
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Voter "stdClass" needs to implement "Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface" interface.
-     */
-    public function testSetVotersThrowsInvalidInterfaceException()
-    {
-        $cacheableResolver = new CacheableResolver();
-        $cacheableResolver->setVoters([new stdClass()]);
-    }
-
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::isCacheable
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::setVoters

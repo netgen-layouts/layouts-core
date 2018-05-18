@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType as TargetTypeForm;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use stdClass;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TargetTypeTest extends FormTestCase
@@ -29,16 +28,6 @@ final class TargetTypeTest extends FormTestCase
     public function getMainType()
     {
         return new TargetTypeForm();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Form mapper for target type "type" needs to implement "Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceException()
-    {
-        $this->formType = new TargetTypeForm(['type' => new stdClass()]);
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ValueException;
 
 final class ItemBuilder implements ItemBuilderInterface
@@ -17,17 +16,12 @@ final class ItemBuilder implements ItemBuilderInterface
      */
     public function __construct(array $valueConverters = [])
     {
-        foreach ($valueConverters as $valueConverter) {
-            if (!$valueConverter instanceof ValueConverterInterface) {
-                throw new InvalidInterfaceException(
-                    'Value converter',
-                    get_class($valueConverter),
-                    ValueConverterInterface::class
-                );
+        $this->valueConverters = array_filter(
+            $valueConverters,
+            function (ValueConverterInterface $valueConverter) {
+                return $valueConverter;
             }
-        }
-
-        $this->valueConverters = $valueConverters;
+        );
     }
 
     public function build($object)

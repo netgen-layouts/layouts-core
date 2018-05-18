@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\HttpCache\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface;
 
 final class CacheableResolver implements CacheableResolverInterface
@@ -20,17 +19,12 @@ final class CacheableResolver implements CacheableResolverInterface
      */
     public function setVoters(array $voters = [])
     {
-        foreach ($voters as $voter) {
-            if (!$voter instanceof VoterInterface) {
-                throw new InvalidInterfaceException(
-                    'Voter',
-                    get_class($voter),
-                    VoterInterface::class
-                );
+        $this->voters = array_filter(
+            $voters,
+            function (VoterInterface $voter) {
+                return $voter;
             }
-        }
-
-        $this->voters = $voters;
+        );
     }
 
     public function isCacheable(Block $block)

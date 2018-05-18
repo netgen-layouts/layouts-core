@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ItemException;
 
 final class UrlGenerator implements UrlGeneratorInterface
@@ -17,17 +16,12 @@ final class UrlGenerator implements UrlGeneratorInterface
      */
     public function __construct(array $valueUrlGenerators = [])
     {
-        foreach ($valueUrlGenerators as $valueUrlGenerator) {
-            if (!$valueUrlGenerator instanceof ValueUrlGeneratorInterface) {
-                throw new InvalidInterfaceException(
-                    'Value URL generator',
-                    get_class($valueUrlGenerator),
-                    ValueUrlGeneratorInterface::class
-                );
+        $this->valueUrlGenerators = array_filter(
+            $valueUrlGenerators,
+            function (ValueUrlGeneratorInterface $valueUrlGenerator) {
+                return $valueUrlGenerator;
             }
-        }
-
-        $this->valueUrlGenerators = $valueUrlGenerators;
+        );
     }
 
     public function generate(ItemInterface $item)

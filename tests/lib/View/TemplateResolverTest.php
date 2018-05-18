@@ -7,7 +7,6 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\TemplateResolver;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class TemplateResolverTest extends TestCase
 {
@@ -20,20 +19,6 @@ final class TemplateResolverTest extends TestCase
     {
         $this->view = new View(['value' => new Value()]);
         $this->view->setContext('context');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Template matcher "stdClass" needs to implement "Netgen\BlockManager\View\Matcher\MatcherInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceExceptionIfNoMatcherInterface()
-    {
-        new TemplateResolver(
-            [
-                'definition_identifier' => new stdClass(),
-            ]
-        );
     }
 
     /**

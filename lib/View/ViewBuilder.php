@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -33,19 +32,15 @@ final class ViewBuilder implements ViewBuilderInterface
      */
     public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders = [])
     {
-        foreach ($viewProviders as $viewProvider) {
-            if (!$viewProvider instanceof ViewProviderInterface) {
-                throw new InvalidInterfaceException(
-                    'View provider',
-                    get_class($viewProvider),
-                    ViewProviderInterface::class
-                );
-            }
-        }
-
         $this->templateResolver = $templateResolver;
         $this->eventDispatcher = $eventDispatcher;
-        $this->viewProviders = $viewProviders;
+
+        $this->viewProviders = array_filter(
+            $viewProviders,
+            function (ViewProviderInterface $viewProvider) {
+                return $viewProvider;
+            }
+        );
     }
 
     public function buildView($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = [])

@@ -7,7 +7,6 @@ use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlGenerator;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlGenerator;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class UrlGeneratorTest extends TestCase
 {
@@ -21,16 +20,6 @@ final class UrlGeneratorTest extends TestCase
         $this->urlGenerator = new UrlGenerator(
             ['value' => new ValueUrlGenerator()]
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Value URL generator "stdClass" needs to implement "Netgen\BlockManager\Item\ValueUrlGeneratorInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
-    {
-        new UrlGenerator([new stdClass()]);
     }
 
     /**

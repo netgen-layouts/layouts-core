@@ -11,7 +11,6 @@ use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
@@ -63,21 +62,6 @@ final class FragmentRendererTest extends TestCase
             [
                 $this->blockFragmentRendererMock,
             ]
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Fragment view renderer "stdClass" needs to implement "Netgen\BlockManager\View\Fragment\ViewRendererInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
-    {
-        new FragmentRenderer(
-            $this->viewBuilderMock,
-            $this->viewRendererMock,
-            $this->fragmentHandlerMock,
-            [new stdClass()]
         );
     }
 

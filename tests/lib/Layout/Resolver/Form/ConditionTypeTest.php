@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use stdClass;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ConditionTypeTest extends FormTestCase
@@ -29,16 +28,6 @@ final class ConditionTypeTest extends FormTestCase
     public function getMainType()
     {
         return new ConditionTypeForm();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Form mapper for condition type "type" needs to implement "Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceException()
-    {
-        $this->formType = new ConditionTypeForm(['type' => new stdClass()]);
     }
 
     /**

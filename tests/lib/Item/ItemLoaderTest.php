@@ -9,7 +9,6 @@ use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class ItemLoaderTest extends TestCase
 {
@@ -26,16 +25,6 @@ final class ItemLoaderTest extends TestCase
     public function setUp()
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Value loader "stdClass" needs to implement "Netgen\BlockManager\Item\ValueLoaderInterface" interface.
-     */
-    public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
-    {
-        new ItemLoader($this->itemBuilderMock, [new stdClass()]);
     }
 
     /**

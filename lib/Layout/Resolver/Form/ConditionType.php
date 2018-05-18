@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct;
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
@@ -25,17 +24,12 @@ final class ConditionType extends AbstractType
      */
     public function __construct(array $mappers = [])
     {
-        foreach ($mappers as $conditionType => $mapper) {
-            if (!$mapper instanceof MapperInterface) {
-                throw new InvalidInterfaceException(
-                    'Form mapper for condition type',
-                    $conditionType,
-                    MapperInterface::class
-                );
+        $this->mappers = array_filter(
+            $mappers,
+            function (MapperInterface $mapper) {
+                return $mapper;
             }
-        }
-
-        $this->mappers = $mappers;
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
