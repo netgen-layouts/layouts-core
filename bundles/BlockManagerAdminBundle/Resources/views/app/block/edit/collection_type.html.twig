@@ -11,7 +11,7 @@
     {% set collection_config = block.definition.collection(collection_identifier) %}
 
     {% for query_type in query_types %}
-        {% if collection_config.validQueryType(query_type.type) %}
+        {% if query_type.enabled and collection_config.validQueryType(query_type.type) %}
             {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
         {% endif %}
     {% endfor %}
@@ -22,7 +22,11 @@
         {% endif %}
     {% endfor %}
 {% else %}
-    {% set allowed_query_types = query_types %}
+    {% for query_type in query_types %}
+        {% if query_type.enabled %}
+            {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
+        {% endif %}
+    {% endfor %}
 
     {% for value_type in value_types %}
         {% if value_type.enabled %}

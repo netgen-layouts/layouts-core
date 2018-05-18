@@ -25,12 +25,6 @@ final class QueryTypeNodeTest extends TestCase
                     'type' => [
                         'name' => 'Type',
                         'handler' => 'handler',
-                        'forms' => [
-                            'full' => [
-                                'type' => 'full_edit',
-                                'enabled' => true,
-                            ],
-                        ],
                     ],
                 ],
             ],
@@ -39,14 +33,9 @@ final class QueryTypeNodeTest extends TestCase
         $expectedConfig = [
             'query_types' => [
                 'type' => [
+                    'enabled' => true,
                     'name' => 'Type',
                     'handler' => 'handler',
-                    'forms' => [
-                        'full' => [
-                            'type' => 'full_edit',
-                            'enabled' => true,
-                        ],
-                    ],
                 ],
             ],
         ];

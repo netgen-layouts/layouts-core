@@ -27,23 +27,14 @@ final class NullQueryType implements QueryTypeInterface
         return $this->queryType;
     }
 
+    public function isEnabled()
+    {
+        return true;
+    }
+
     public function getName()
     {
         return 'Invalid query type';
-    }
-
-    public function getForms()
-    {
-        return [];
-    }
-
-    public function hasForm($formName)
-    {
-        return false;
-    }
-
-    public function getForm($formName)
-    {
     }
 
     public function getValues(Query $query, $offset = 0, $limit = null)

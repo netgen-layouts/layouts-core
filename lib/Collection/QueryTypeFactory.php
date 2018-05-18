@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
@@ -36,28 +35,11 @@ final class QueryTypeFactory
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
-        $forms = [];
-
-        if (isset($config['forms'])) {
-            foreach ($config['forms'] as $formIdentifier => $formConfig) {
-                if (!$formConfig['enabled']) {
-                    continue;
-                }
-
-                $forms[$formIdentifier] = new Form(
-                    [
-                        'identifier' => $formIdentifier,
-                        'type' => $formConfig['type'],
-                    ]
-                );
-            }
-        }
-
         return new QueryType(
             [
                 'type' => $type,
+                'isEnabled' => $config['enabled'],
                 'name' => isset($config['name']) ? $config['name'] : '',
-                'forms' => $forms,
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
             ]

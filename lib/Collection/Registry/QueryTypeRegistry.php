@@ -33,9 +33,18 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
         return $this->queryTypes[$type];
     }
 
-    public function getQueryTypes()
+    public function getQueryTypes($onlyEnabled = false)
     {
-        return $this->queryTypes;
+        if (!$onlyEnabled) {
+            return $this->queryTypes;
+        }
+
+        return array_filter(
+            $this->queryTypes,
+            function (QueryTypeInterface $queryType) {
+                return $queryType->isEnabled();
+            }
+        );
     }
 
     public function getIterator()

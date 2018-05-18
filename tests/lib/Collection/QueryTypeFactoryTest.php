@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryTypeFactory;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
@@ -47,30 +46,36 @@ final class QueryTypeFactoryTest extends TestCase
             'type',
             $this->createMock(QueryTypeHandlerInterface::class),
             [
-                'forms' => [
-                    'full' => [
-                        'enabled' => true,
-                        'identifier' => 'full',
-                        'type' => 'form_type',
-                    ],
-                    'disabled' => [
-                        'enabled' => false,
-                        'identifier' => 'disabled',
-                        'type' => 'form_type',
-                    ],
-                ],
+                'enabled' => false,
+                'name' => 'Query type',
             ]
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
         $this->assertEquals('type', $queryType->getType());
 
-        $this->assertTrue($queryType->hasForm('full'));
-        $this->assertInstanceOf(Form::class, $queryType->getForm('full'));
+        $this->assertFalse($queryType->isEnabled());
+        $this->assertEquals('Query type', $queryType->getName());
+    }
 
-        $this->assertEquals('full', $queryType->getForm('full')->getIdentifier());
-        $this->assertEquals('form_type', $queryType->getForm('full')->getType());
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryTypeFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\QueryTypeFactory::buildQueryType
+     */
+    public function testBuildQueryTypeWithEmptyName()
+    {
+        $queryType = $this->factory->buildQueryType(
+            'type',
+            $this->createMock(QueryTypeHandlerInterface::class),
+            [
+                'enabled' => true,
+            ]
+        );
 
-        $this->assertFalse($queryType->hasForm('disabled'));
+        $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
+        $this->assertEquals('type', $queryType->getType());
+
+        $this->assertTrue($queryType->isEnabled());
+        $this->assertEquals('', $queryType->getName());
     }
 }

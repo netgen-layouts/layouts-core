@@ -16,13 +16,19 @@ final class QueryType implements QueryTypeInterface
     private $type;
 
     /**
+     * @var bool
+     */
+    private $enabled;
+
+    /**
      * @var \Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler
      */
     private $handler;
 
-    public function __construct($type, array $values = [], $count = null, $isContextual = false)
+    public function __construct($type, array $values = [], $count = null, $isContextual = false, $enabled = true)
     {
         $this->type = $type;
+        $this->enabled = $enabled;
 
         $this->handler = new QueryTypeHandler($values, $count, $isContextual);
         $this->parameterDefinitions = $this->handler->getParameterDefinitions();
@@ -48,22 +54,13 @@ final class QueryType implements QueryTypeInterface
         return $this->type;
     }
 
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
     public function getName()
     {
         return $this->type;
-    }
-
-    public function getForms()
-    {
-        return [];
-    }
-
-    public function hasForm($formName)
-    {
-        return false;
-    }
-
-    public function getForm($formName)
-    {
     }
 }

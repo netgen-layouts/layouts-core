@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Form\EditType;
+use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -126,17 +127,16 @@ final class CollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param string $locale
-     * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function queryEditForm(Query $query, $locale, $formName, Request $request)
+    public function queryEditForm(Query $query, $locale, Request $request)
     {
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 
         $form = $this->createForm(
-            $query->getQueryType()->getForm($formName)->getType(),
+            FullEditType::class,
             $updateStruct,
             [
                 'query' => $query,
@@ -145,7 +145,6 @@ final class CollectionController extends Controller
                     [
                         'queryId' => $query->getId(),
                         'locale' => $locale,
-                        'formName' => $formName,
                     ]
                 ),
             ]

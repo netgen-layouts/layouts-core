@@ -12,7 +12,12 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    private $queryType;
+    private $queryType1;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
+     */
+    private $queryType2;
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
@@ -23,9 +28,38 @@ final class QueryTypeRegistryTest extends TestCase
     {
         $this->registry = new QueryTypeRegistry();
 
-        $this->queryType = new QueryType('query_type');
+        $this->queryType1 = new QueryType('query_type1');
+        $this->queryType2 = new QueryType('query_type2', [], null, false, false);
 
-        $this->registry->addQueryType('query_type', $this->queryType);
+        $this->registry->addQueryType('query_type1', $this->queryType1);
+        $this->registry->addQueryType('query_type2', $this->queryType2);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
+     */
+    public function testGetQueryTypes()
+    {
+        $this->assertEquals(
+            [
+                'query_type1' => $this->queryType1,
+                'query_type2' => $this->queryType2,
+            ],
+            $this->registry->getQueryTypes()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
+     */
+    public function testGetEnabledQueryTypes()
+    {
+        $this->assertEquals(
+            [
+                'query_type1' => $this->queryType1,
+            ],
+            $this->registry->getQueryTypes(true)
+        );
     }
 
     /**
@@ -34,7 +68,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testAddQueryType()
     {
-        $this->assertEquals(['query_type' => $this->queryType], $this->registry->getQueryTypes());
+        $this->assertEquals(['query_type1' => $this->queryType1, 'query_type2' => $this->queryType2], $this->registry->getQueryTypes());
     }
 
     /**
@@ -42,7 +76,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testGetQueryType()
     {
-        $this->assertEquals($this->queryType, $this->registry->getQueryType('query_type'));
+        $this->assertEquals($this->queryType1, $this->registry->getQueryType('query_type1'));
     }
 
     /**
@@ -60,7 +94,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testHasQueryType()
     {
-        $this->assertTrue($this->registry->hasQueryType('query_type'));
+        $this->assertTrue($this->registry->hasQueryType('query_type1'));
     }
 
     /**
@@ -91,7 +125,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testCount()
     {
-        $this->assertCount(1, $this->registry);
+        $this->assertCount(2, $this->registry);
     }
 
     /**
@@ -99,7 +133,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testOffsetExists()
     {
-        $this->assertArrayHasKey('query_type', $this->registry);
+        $this->assertArrayHasKey('query_type1', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
     }
 
@@ -108,7 +142,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testOffsetGet()
     {
-        $this->assertEquals($this->queryType, $this->registry['query_type']);
+        $this->assertEquals($this->queryType1, $this->registry['query_type1']);
     }
 
     /**
@@ -118,7 +152,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testOffsetSet()
     {
-        $this->registry['query_type'] = $this->queryType;
+        $this->registry['query_type1'] = $this->queryType1;
     }
 
     /**
@@ -128,6 +162,6 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testOffsetUnset()
     {
-        unset($this->registry['query_type']);
+        unset($this->registry['query_type1']);
     }
 }

@@ -87,7 +87,7 @@ ngbm_app_collection_form_edit_item_config:
         configKey: null
 
 ngbm_app_collection_query_form_edit:
-    path: /app/{locale}/collections/query/{queryId}/form/edit/{formName}
+    path: /app/{locale}/collections/query/{queryId}/form/edit
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.collection:queryEditForm"

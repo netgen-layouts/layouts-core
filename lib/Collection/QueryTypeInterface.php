@@ -19,38 +19,18 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
     public function getType();
 
     /**
+     * Returns if the query type is enabled or not.
+     *
+     * @return bool
+     */
+    public function isEnabled();
+
+    /**
      * Returns the query type name.
      *
      * @return string
      */
     public function getName();
-
-    /**
-     * Returns all forms.
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
-     */
-    public function getForms();
-
-    /**
-     * Returns if the query type has a form with provided name.
-     *
-     * @param string $formName
-     *
-     * @return bool
-     */
-    public function hasForm($formName);
-
-    /**
-     * Returns the form for provided form name.
-     *
-     * @param string $formName
-     *
-     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not have the form
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form
-     */
-    public function getForm($formName);
 
     /**
      * Returns the values from the query.

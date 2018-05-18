@@ -28,35 +28,19 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\NullQueryType::isEnabled
+     */
+    public function testIsEnabled()
+    {
+        $this->assertTrue($this->queryType->isEnabled());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Collection\NullQueryType::getName
      */
     public function testGetName()
     {
         $this->assertEquals('Invalid query type', $this->queryType->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::getForms
-     */
-    public function testGetForms()
-    {
-        $this->assertEquals([], $this->queryType->getForms());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::hasForm
-     */
-    public function testHasForm()
-    {
-        $this->assertFalse($this->queryType->hasForm('full'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\NullQueryType::getForm
-     */
-    public function testGetForm()
-    {
-        $this->assertNull($this->queryType->getForm('full'));
     }
 
     /**

@@ -40,7 +40,9 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
     /**
      * Returns all query types.
      *
+     * @param bool $onlyEnabled
+     *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface[]
      */
-    public function getQueryTypes();
+    public function getQueryTypes($onlyEnabled = false);
 }

@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode;
 
-use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -17,6 +16,7 @@ final class QueryTypeNode implements ConfigurationNodeInterface
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('identifier')
             ->prototype('array')
+                ->canBeDisabled()
                 ->children()
                     ->scalarNode('name')
                         ->isRequired()
@@ -24,22 +24,6 @@ final class QueryTypeNode implements ConfigurationNodeInterface
                     ->end()
                     ->scalarNode('handler')
                         ->cannotBeEmpty()
-                    ->end()
-                    ->arrayNode('forms')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->arrayNode('full')
-                                ->canBeDisabled()
-                                ->addDefaultsIfNotSet()
-                                ->children()
-                                    ->scalarNode('type')
-                                        ->treatNullLike(FullEditType::class)
-                                        ->defaultValue(FullEditType::class)
-                                        ->cannotBeEmpty()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
                     ->end()
                 ->end()
             ->end();

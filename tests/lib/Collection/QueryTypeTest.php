@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
@@ -21,15 +20,8 @@ final class QueryTypeTest extends TestCase
             [
                 'handler' => new QueryTypeHandler(['val1', 'val2']),
                 'type' => 'query_type',
+                'isEnabled' => false,
                 'name' => 'Query type',
-                'forms' => [
-                    'full' => new Form(
-                        [
-                            'identifier' => 'full',
-                            'type' => 'form_type',
-                        ]
-                    ),
-                ],
             ]
         );
     }
@@ -44,54 +36,19 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::isEnabled
+     */
+    public function testIsEnabled()
+    {
+        $this->assertFalse($this->queryType->isEnabled());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Collection\QueryType::getName
      */
     public function testGetName()
     {
         $this->assertEquals('Query type', $this->queryType->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getForms
-     */
-    public function testGetForms()
-    {
-        $this->assertEquals(
-            [
-                'full' => new Form(['identifier' => 'full', 'type' => 'form_type']),
-            ],
-            $this->queryType->getForms()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::hasForm
-     */
-    public function testHasForm()
-    {
-        $this->assertTrue($this->queryType->hasForm('full'));
-        $this->assertFalse($this->queryType->hasForm('unknown'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getForm
-     */
-    public function testGetForm()
-    {
-        $this->assertEquals(
-            new Form(['identifier' => 'full', 'type' => 'form_type']),
-            $this->queryType->getForm('full')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getForm
-     * @expectedException \Netgen\BlockManager\Exception\Collection\QueryTypeException
-     * @expectedExceptionMessage Form "unknown" does not exist in "query_type" query type.
-     */
-    public function testGetFormThrowsQueryTypeException()
-    {
-        $this->queryType->getForm('unknown');
     }
 
     /**
