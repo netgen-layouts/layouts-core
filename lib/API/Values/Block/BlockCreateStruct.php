@@ -45,7 +45,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
     /**
      * Human readable name of the block.
      *
-     * @var string
+     * @var string|null
      */
     public $name;
 

@@ -9,14 +9,14 @@ final class RuleCreateStruct extends Value
     /**
      * The ID of the layout to which the rule will be mapped.
      *
-     * @var int|string
+     * @var int|string|null
      */
     public $layoutId;
 
     /**
      * Priority of the rule.
      *
-     * @var int
+     * @var int|null
      */
     public $priority;
 
@@ -30,7 +30,7 @@ final class RuleCreateStruct extends Value
     /**
      * Description of the rule.
      *
-     * @var string
+     * @var string|null
      */
     public $comment;
 }

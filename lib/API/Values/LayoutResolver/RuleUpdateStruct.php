@@ -11,14 +11,14 @@ final class RuleUpdateStruct extends Value
      *
      * Set to 0 to remove the mapping.
      *
-     * @var int|string
+     * @var int|string|null
      */
     public $layoutId;
 
     /**
      * Description of the rule.
      *
-     * @var string
+     * @var string|null
      */
     public $comment;
 }

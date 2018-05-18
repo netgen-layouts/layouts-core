@@ -9,7 +9,7 @@ final class RuleMetadataUpdateStruct extends Value
     /**
      * New priority of the layout.
      *
-     * @var int
+     * @var int|null
      */
     public $priority;
 }

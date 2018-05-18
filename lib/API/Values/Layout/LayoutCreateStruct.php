@@ -27,7 +27,7 @@ final class LayoutCreateStruct extends Value
     /**
      * Description of the layout.
      *
-     * @var string
+     * @var string|null
      */
     public $description;
 

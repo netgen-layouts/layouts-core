@@ -16,14 +16,14 @@ final class CollectionCreateStruct extends Value
     /**
      * The limit for the collection.
      *
-     * @var int
+     * @var int|null
      */
     public $limit;
 
     /**
      * If set, the collection will have a query created from this query struct.
      *
-     * @var \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
+     * @var \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct|null
      */
     public $queryCreateStruct;
 }

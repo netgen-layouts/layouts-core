@@ -13,6 +13,8 @@ final class ItemCreateStruct extends Value implements ConfigAwareStruct
     /**
      * The definition of the item which will be created.
      *
+     * Required.
+     *
      * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
     public $definition;
