@@ -23,6 +23,13 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
         $this->viewRenderer = $viewRenderer;
     }
 
+    /**
+     * @param \Netgen\BlockManager\Serializer\Values\ViewInterface $object
+     * @param string $format
+     * @param array $context
+     *
+     * @return array
+     */
     public function normalize($object, $format = null, array $context = [])
     {
         $normalizedData = $this->serializer->normalize(

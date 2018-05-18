@@ -65,7 +65,7 @@ final class Block extends Value
     /**
      * Block parameters. Keys are locales, values are parameters in the specific locale.
      *
-     * @var array
+     * @var array[]
      */
     public $parameters;
 

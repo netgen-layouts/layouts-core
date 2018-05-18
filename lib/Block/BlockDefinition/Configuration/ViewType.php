@@ -23,7 +23,7 @@ final class ViewType extends Value
     protected $itemViewTypes = [];
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $validParameters;
 
@@ -70,7 +70,9 @@ final class ViewType extends Value
     /**
      * Returns the valid parameters.
      *
-     * @return array
+     * If null is returned, all parameters are valid.
+     *
+     * @return array|null
      */
     public function getValidParameters()
     {

@@ -44,6 +44,7 @@ abstract class Controller extends BaseController
         array $parameters = [],
         Response $response = null
     ) {
+        /** @var \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder */
         $viewBuilder = $this->get('netgen_block_manager.view.view_builder');
         $view = $viewBuilder->buildView($value, $context, $parameters);
 
@@ -63,6 +64,7 @@ abstract class Controller extends BaseController
      */
     protected function getItemDefinition($valueType)
     {
+        /** @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface $itemDefinitionRegistry */
         $itemDefinitionRegistry = $this->get('netgen_block_manager.collection.registry.item_definition');
 
         return $itemDefinitionRegistry->getItemDefinition($valueType);
@@ -77,6 +79,7 @@ abstract class Controller extends BaseController
      */
     protected function getQueryType($identifier)
     {
+        /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
         $queryTypeRegistry = $this->get('netgen_block_manager.collection.registry.query_type');
 
         return $queryTypeRegistry->getQueryType($identifier);
@@ -91,6 +94,7 @@ abstract class Controller extends BaseController
      */
     protected function getLayoutType($identifier)
     {
+        /** @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry */
         $layoutTypeRegistry = $this->get('netgen_block_manager.layout.registry.layout_type');
 
         return $layoutTypeRegistry->getLayoutType($identifier);
@@ -105,6 +109,7 @@ abstract class Controller extends BaseController
      */
     protected function getBlockType($identifier)
     {
+        /** @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface $blockTypeRegistry */
         $blockTypeRegistry = $this->get('netgen_block_manager.block.registry.block_type');
 
         return $blockTypeRegistry->getBlockType($identifier);
@@ -119,6 +124,7 @@ abstract class Controller extends BaseController
      */
     protected function hasValueType($type)
     {
+        /** @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry */
         $valueTypeRegistry = $this->get('netgen_block_manager.item.registry.value_type');
 
         return $valueTypeRegistry->hasValueType($type);

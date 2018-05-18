@@ -18,7 +18,7 @@ final class Rule extends Value implements APIRule
     protected $id;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\BlockManager\API\Values\Layout\Layout|null
      */
     protected $layout;
 

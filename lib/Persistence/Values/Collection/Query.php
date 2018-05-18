@@ -30,7 +30,7 @@ final class Query extends Value
     /**
      * Query parameters.
      *
-     * @var array
+     * @var array[]
      */
     public $parameters;
 

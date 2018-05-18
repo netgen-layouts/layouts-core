@@ -12,12 +12,12 @@ final class Collection extends Value
     protected $identifier;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $validItemTypes;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $validQueryTypes;
 
@@ -34,7 +34,9 @@ final class Collection extends Value
     /**
      * Returns the valid query types.
      *
-     * @return array
+     * If null, all query types are valid.
+     *
+     * @return array|null
      */
     public function getValidQueryTypes()
     {
@@ -60,7 +62,9 @@ final class Collection extends Value
     /**
      * Returns the valid item types.
      *
-     * @return array
+     * If null, all item types are valid.
+     *
+     * @return array|null
      */
     public function getValidItemTypes()
     {

@@ -35,7 +35,7 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
             foreach ($viewTemplates as $context => $template) {
                 $rules = [];
 
-                if (isset($allRules[$viewName][$context])) {
+                if (isset($allRules[$viewName][$context]) && is_array($allRules[$viewName][$context])) {
                     $rules = $allRules[$viewName][$context];
                 }
 
@@ -54,14 +54,12 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
      * @param string $viewName
      * @param string $context
      * @param array $rules
-     * @param array $defaultTemplate
+     * @param string $defaultTemplate
      *
      * @return array
      */
-    protected function addDefaultRule($viewName, $context, $rules, $defaultTemplate)
+    protected function addDefaultRule($viewName, $context, array $rules, $defaultTemplate)
     {
-        $rules = is_array($rules) ? $rules : [];
-
         $rules += [
             "___{$viewName}_{$context}_default___" => [
                 'template' => $defaultTemplate,

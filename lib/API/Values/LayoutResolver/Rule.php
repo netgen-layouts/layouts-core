@@ -16,7 +16,7 @@ interface Rule extends Value
     /**
      * Returns the layout mapped to this rule.
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout|null
      */
     public function getLayout();
 

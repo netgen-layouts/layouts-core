@@ -84,7 +84,7 @@ final class ExportCommand extends Command
         $file = trim($input->getArgument('file'));
         !empty($file) ?
             $this->fileSystem->dumpFile($file, $json) :
-            $output->writeln($json);
+            $output->writeln((string) $json);
     }
 
     /**
