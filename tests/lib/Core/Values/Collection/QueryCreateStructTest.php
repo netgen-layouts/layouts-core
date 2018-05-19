@@ -8,13 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $queryCreateStruct = new QueryCreateStruct();
-
-        $this->assertNull($queryCreateStruct->queryType);
-    }
-
     public function testSetProperties()
     {
         $queryCreateStruct = new QueryCreateStruct(

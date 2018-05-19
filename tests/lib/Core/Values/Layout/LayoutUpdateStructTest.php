@@ -7,14 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutUpdateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $layoutUpdateStruct = new LayoutUpdateStruct();
-
-        $this->assertNull($layoutUpdateStruct->name);
-        $this->assertNull($layoutUpdateStruct->description);
-    }
-
     public function testSetProperties()
     {
         $layoutUpdateStruct = new LayoutUpdateStruct(

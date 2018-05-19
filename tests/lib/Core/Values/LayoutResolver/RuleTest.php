@@ -19,23 +19,13 @@ final class RuleTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayout
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getPriority
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
      */
     public function testSetDefaultProperties()
     {
         $rule = new Rule();
 
-        $this->assertNull($rule->getId());
-        $this->assertNull($rule->getLayout());
-        $this->assertNull($rule->getPriority());
-        $this->assertNull($rule->isEnabled());
-        $this->assertNull($rule->getComment());
         $this->assertEquals([], $rule->getTargets());
         $this->assertEquals([], $rule->getConditions());
     }

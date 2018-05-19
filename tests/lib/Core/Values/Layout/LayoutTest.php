@@ -22,36 +22,14 @@ final class LayoutTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getCreated
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getDescription
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getId
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getLayoutType
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
      */
-    public function testSetDefaultProperties()
+    public function testDefaultProperties()
     {
         $layout = new Layout();
 
-        $this->assertNull($layout->getId());
-        $this->assertNull($layout->getLayoutType());
-        $this->assertNull($layout->getName());
-        $this->assertNull($layout->getDescription());
-        $this->assertNull($layout->getCreated());
-        $this->assertNull($layout->getModified());
-        $this->assertNull($layout->isShared());
         $this->assertEquals([], $layout->getZones());
-        $this->assertNull($layout->getZone('test'));
-        $this->assertFalse($layout->hasZone('test'));
-        $this->assertNull($layout->getMainLocale());
         $this->assertEquals([], $layout->getAvailableLocales());
-        $this->assertFalse($layout->hasLocale('en'));
     }
 
     /**

@@ -7,14 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $targetCreateStruct = new TargetCreateStruct();
-
-        $this->assertNull($targetCreateStruct->type);
-        $this->assertNull($targetCreateStruct->value);
-    }
-
     public function testSetProperties()
     {
         $targetCreateStruct = new TargetCreateStruct(

@@ -8,17 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $query = new Query();
-
-        $this->assertNull($query->id);
-        $this->assertNull($query->collectionId);
-        $this->assertNull($query->type);
-        $this->assertNull($query->parameters);
-        $this->assertNull($query->status);
-    }
-
     public function testSetProperties()
     {
         $query = new Query(

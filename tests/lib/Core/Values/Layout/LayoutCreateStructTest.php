@@ -12,11 +12,7 @@ final class LayoutCreateStructTest extends TestCase
     {
         $layoutCreateStruct = new LayoutCreateStruct();
 
-        $this->assertNull($layoutCreateStruct->layoutType);
-        $this->assertNull($layoutCreateStruct->name);
-        $this->assertNull($layoutCreateStruct->description);
         $this->assertFalse($layoutCreateStruct->shared);
-        $this->assertNull($layoutCreateStruct->mainLocale);
     }
 
     public function testSetProperties()

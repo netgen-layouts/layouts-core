@@ -8,17 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $condition = new Condition();
-
-        $this->assertNull($condition->id);
-        $this->assertNull($condition->ruleId);
-        $this->assertNull($condition->type);
-        $this->assertNull($condition->value);
-        $this->assertNull($condition->status);
-    }
-
     public function testSetProperties()
     {
         $condition = new Condition(

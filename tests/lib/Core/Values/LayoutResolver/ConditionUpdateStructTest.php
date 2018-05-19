@@ -7,13 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionUpdateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $conditionUpdateStruct = new ConditionUpdateStruct();
-
-        $this->assertNull($conditionUpdateStruct->value);
-    }
-
     public function testSetProperties()
     {
         $conditionUpdateStruct = new ConditionUpdateStruct(

@@ -8,17 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $target = new Target();
-
-        $this->assertNull($target->id);
-        $this->assertNull($target->ruleId);
-        $this->assertNull($target->type);
-        $this->assertNull($target->value);
-        $this->assertNull($target->status);
-    }
-
     public function testSetProperties()
     {
         $target = new Target(

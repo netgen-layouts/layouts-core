@@ -19,32 +19,14 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLocale
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      */
-    public function testSetDefaultProperties()
+    public function testDefaultProperties()
     {
         $collection = new Collection();
 
-        $this->assertNull($collection->getId());
-        $this->assertNull($collection->getOffset());
-        $this->assertNull($collection->getLimit());
-        $this->assertNull($collection->getMainLocale());
         $this->assertEquals([], $collection->getAvailableLocales());
-        $this->assertNull($collection->isTranslatable());
-        $this->assertNull($collection->isAlwaysAvailable());
-        $this->assertNull($collection->getLocale());
         $this->assertEquals([], $collection->getItems());
-        $this->assertNull($collection->getQuery());
-        $this->assertFalse($collection->hasQuery());
     }
 
     /**

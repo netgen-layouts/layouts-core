@@ -8,28 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $block = new Block();
-
-        $this->assertNull($block->id);
-        $this->assertNull($block->layoutId);
-        $this->assertNull($block->depth);
-        $this->assertNull($block->path);
-        $this->assertNull($block->parentId);
-        $this->assertNull($block->placeholder);
-        $this->assertNull($block->position);
-        $this->assertNull($block->definitionIdentifier);
-        $this->assertNull($block->parameters);
-        $this->assertNull($block->viewType);
-        $this->assertNull($block->itemViewType);
-        $this->assertNull($block->name);
-        $this->assertNull($block->alwaysAvailable);
-        $this->assertNull($block->mainLocale);
-        $this->assertNull($block->availableLocales);
-        $this->assertNull($block->status);
-    }
-
     public function testSetProperties()
     {
         $block = new Block(

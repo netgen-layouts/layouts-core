@@ -7,17 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $blockUpdateStruct = new BlockUpdateStruct();
-
-        $this->assertNull($blockUpdateStruct->viewType);
-        $this->assertNull($blockUpdateStruct->itemViewType);
-        $this->assertNull($blockUpdateStruct->name);
-        $this->assertNull($blockUpdateStruct->alwaysAvailable);
-        $this->assertNull($blockUpdateStruct->locale);
-    }
-
     public function testSetProperties()
     {
         $blockUpdateStruct = new BlockUpdateStruct(

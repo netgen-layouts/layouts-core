@@ -7,14 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionUpdateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $collectionUpdateStruct = new CollectionUpdateStruct();
-
-        $this->assertNull($collectionUpdateStruct->offset);
-        $this->assertNull($collectionUpdateStruct->limit);
-    }
-
     public function testSetProperties()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct(

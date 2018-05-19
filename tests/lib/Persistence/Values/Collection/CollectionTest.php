@@ -8,14 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $collection = new Collection();
-
-        $this->assertNull($collection->id);
-        $this->assertNull($collection->status);
-    }
-
     public function testSetProperties()
     {
         $collection = new Collection(

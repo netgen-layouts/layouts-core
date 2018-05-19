@@ -8,20 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $layout = new Layout();
-
-        $this->assertNull($layout->id);
-        $this->assertNull($layout->type);
-        $this->assertNull($layout->name);
-        $this->assertNull($layout->description);
-        $this->assertNull($layout->shared);
-        $this->assertNull($layout->created);
-        $this->assertNull($layout->modified);
-        $this->assertNull($layout->status);
-    }
-
     public function testSetProperties()
     {
         $layout = new Layout(

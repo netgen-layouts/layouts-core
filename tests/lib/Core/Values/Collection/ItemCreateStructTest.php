@@ -13,8 +13,6 @@ final class ItemCreateStructTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
 
-        $this->assertNull($itemCreateStruct->definition);
-        $this->assertNull($itemCreateStruct->value);
         $this->assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
     }
 

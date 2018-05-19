@@ -7,14 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $conditionCreateStruct = new ConditionCreateStruct();
-
-        $this->assertNull($conditionCreateStruct->type);
-        $this->assertNull($conditionCreateStruct->value);
-    }
-
     public function testSetProperties()
     {
         $conditionCreateStruct = new ConditionCreateStruct(

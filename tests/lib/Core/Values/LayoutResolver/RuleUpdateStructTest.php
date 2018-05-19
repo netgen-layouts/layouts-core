@@ -7,14 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleUpdateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $ruleUpdateStruct = new RuleUpdateStruct();
-
-        $this->assertNull($ruleUpdateStruct->layoutId);
-        $this->assertNull($ruleUpdateStruct->comment);
-    }
-
     public function testSetProperties()
     {
         $ruleUpdateStruct = new RuleUpdateStruct(

@@ -8,18 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $rule = new Rule();
-
-        $this->assertNull($rule->id);
-        $this->assertNull($rule->layoutId);
-        $this->assertNull($rule->priority);
-        $this->assertNull($rule->enabled);
-        $this->assertNull($rule->comment);
-        $this->assertNull($rule->status);
-    }
-
     public function testSetProperties()
     {
         $rule = new Rule(

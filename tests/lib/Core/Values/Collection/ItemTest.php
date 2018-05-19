@@ -30,29 +30,6 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      */
-    public function testSetDefaultProperties()
-    {
-        $item = new Item();
-
-        $this->assertNull($item->getId());
-        $this->assertNull($item->getCollectionId());
-        $this->assertNull($item->getDefinition());
-        $this->assertNull($item->getPosition());
-        $this->assertNull($item->getType());
-        $this->assertNull($item->getValue());
-        $this->assertNull($item->getCmsItem());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCollectionId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
-     */
     public function testSetProperties()
     {
         $item = new Item(

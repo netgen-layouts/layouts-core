@@ -8,19 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $item = new Item();
-
-        $this->assertNull($item->id);
-        $this->assertNull($item->collectionId);
-        $this->assertNull($item->position);
-        $this->assertNull($item->type);
-        $this->assertNull($item->value);
-        $this->assertNull($item->valueType);
-        $this->assertNull($item->status);
-    }
-
     public function testSetProperties()
     {
         $item = new Item(

@@ -7,13 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleMetadataUpdateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $ruleUpdateStruct = new RuleMetadataUpdateStruct();
-
-        $this->assertNull($ruleUpdateStruct->priority);
-    }
-
     public function testSetProperties()
     {
         $ruleUpdateStruct = new RuleMetadataUpdateStruct(

@@ -24,46 +24,18 @@ final class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollection
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLocale
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
      */
-    public function testSetDefaultProperties()
+    public function testDefaultProperties()
     {
         $block = new Block();
 
-        $this->assertNull($block->getId());
-        $this->assertNull($block->getLayoutId());
-        $this->assertNull($block->getDefinition());
         $this->assertEquals([], $block->getParameters());
         $this->assertEquals([], $block->getPlaceholders());
-        $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertEquals([], $block->getCollections());
-        $this->assertFalse($block->hasCollection('test'));
-        $this->assertNull($block->getViewType());
-        $this->assertNull($block->getItemViewType());
-        $this->assertNull($block->getName());
-        $this->assertNull($block->getParentPosition());
-        $this->assertNull($block->isTranslatable());
-        $this->assertNull($block->getMainLocale());
-        $this->assertNull($block->isAlwaysAvailable());
         $this->assertEquals([], $block->getAvailableLocales());
-        $this->assertNull($block->getLocale());
     }
 
     /**

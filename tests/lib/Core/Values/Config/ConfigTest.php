@@ -12,18 +12,6 @@ final class ConfigTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Config\Config::getConfigKey
      * @covers \Netgen\BlockManager\Core\Values\Config\Config::getDefinition
      */
-    public function testSetDefaultProperties()
-    {
-        $config = new Config();
-
-        $this->assertNull($config->getConfigKey());
-        $this->assertNull($config->getDefinition());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Values\Config\Config::getConfigKey
-     * @covers \Netgen\BlockManager\Core\Values\Config\Config::getDefinition
-     */
     public function testSetProperties()
     {
         $definition = new ConfigDefinition();

@@ -11,10 +11,7 @@ final class RuleCreateStructTest extends TestCase
     {
         $ruleCreateStruct = new RuleCreateStruct();
 
-        $this->assertNull($ruleCreateStruct->layoutId);
-        $this->assertNull($ruleCreateStruct->priority);
         $this->assertFalse($ruleCreateStruct->enabled);
-        $this->assertNull($ruleCreateStruct->comment);
     }
 
     public function testSetProperties()

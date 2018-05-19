@@ -8,18 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
 {
-    public function testSetDefaultProperties()
-    {
-        $zone = new Zone();
-
-        $this->assertNull($zone->identifier);
-        $this->assertNull($zone->layoutId);
-        $this->assertNull($zone->status);
-        $this->assertNull($zone->rootBlockId);
-        $this->assertNull($zone->linkedLayoutId);
-        $this->assertNull($zone->linkedZoneIdentifier);
-    }
-
     public function testSetProperties()
     {
         $zone = new Zone(

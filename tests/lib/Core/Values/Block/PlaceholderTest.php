@@ -13,14 +13,12 @@ final class PlaceholderTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getBlocks
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
      */
-    public function testSetDefaultProperties()
+    public function testDefaultProperties()
     {
         $placeholder = new Placeholder();
 
-        $this->assertNull($placeholder->getIdentifier());
         $this->assertEquals([], $placeholder->getBlocks());
     }
 

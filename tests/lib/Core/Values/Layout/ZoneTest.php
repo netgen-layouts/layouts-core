@@ -20,23 +20,6 @@ final class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
      */
-    public function testSetDefaultProperties()
-    {
-        $zone = new Zone();
-
-        $this->assertNull($zone->getIdentifier());
-        $this->assertNull($zone->getLayoutId());
-        $this->assertFalse($zone->hasLinkedZone());
-        $this->assertNull($zone->getLinkedZone());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
-     */
     public function testSetProperties()
     {
         $zone = new Zone(

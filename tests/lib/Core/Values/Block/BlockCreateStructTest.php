@@ -8,18 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
-    {
-        $blockCreateStruct = new BlockCreateStruct();
-
-        $this->assertNull($blockCreateStruct->definition);
-        $this->assertNull($blockCreateStruct->viewType);
-        $this->assertNull($blockCreateStruct->itemViewType);
-        $this->assertNull($blockCreateStruct->name);
-        $this->assertNull($blockCreateStruct->isTranslatable);
-        $this->assertNull($blockCreateStruct->alwaysAvailable);
-    }
-
     public function testSetProperties()
     {
         $blockCreateStruct = new BlockCreateStruct(
