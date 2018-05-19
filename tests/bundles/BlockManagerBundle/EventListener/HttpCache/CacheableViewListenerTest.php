@@ -103,7 +103,7 @@ final class CacheableViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertNull($event->getResponse());
+        $this->assertFalse($event->hasResponse());
     }
 
     /**

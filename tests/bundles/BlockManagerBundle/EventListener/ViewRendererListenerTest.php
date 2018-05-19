@@ -136,6 +136,6 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertNull($event->getResponse());
+        $this->assertFalse($event->hasResponse());
     }
 }

@@ -149,7 +149,7 @@ final class SerializerListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertNull($event->getResponse());
+        $this->assertFalse($event->hasResponse());
     }
 
     /**
@@ -170,6 +170,6 @@ final class SerializerListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertNull($event->getResponse());
+        $this->assertFalse($event->hasResponse());
     }
 }

@@ -88,7 +88,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $converted ?
             $this->assertEquals($exception, $event->getException()->getPrevious()) :
-            $this->assertNull($event->getException()->getPrevious());
+            $this->assertEquals($exception, $event->getException());
     }
 
     /**
