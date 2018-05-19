@@ -30,7 +30,7 @@ class TemplateResolver implements TemplateResolverInterface
         $this->matchers = array_filter(
             $matchers,
             function (MatcherInterface $matcher) {
-                return $matcher;
+                return true;
             }
         );
 

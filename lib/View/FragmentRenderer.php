@@ -51,7 +51,7 @@ final class FragmentRenderer implements RendererInterface
         $this->fragmentViewRenderers = array_filter(
             $fragmentViewRenderers,
             function (FragmentViewRendererInterface $fragmentViewRenderer) {
-                return $fragmentViewRenderer;
+                return true;
             }
         );
     }

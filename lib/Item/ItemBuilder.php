@@ -19,7 +19,7 @@ final class ItemBuilder implements ItemBuilderInterface
         $this->valueConverters = array_filter(
             $valueConverters,
             function (ValueConverterInterface $valueConverter) {
-                return $valueConverter;
+                return true;
             }
         );
     }

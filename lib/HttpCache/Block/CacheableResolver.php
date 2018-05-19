@@ -22,7 +22,7 @@ final class CacheableResolver implements CacheableResolverInterface
         $this->voters = array_filter(
             $voters,
             function (VoterInterface $voter) {
-                return $voter;
+                return true;
             }
         );
     }

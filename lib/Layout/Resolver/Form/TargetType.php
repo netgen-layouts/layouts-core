@@ -27,7 +27,7 @@ final class TargetType extends AbstractType
         $this->mappers = array_filter(
             $mappers,
             function (MapperInterface $mapper) {
-                return $mapper;
+                return true;
             }
         );
     }

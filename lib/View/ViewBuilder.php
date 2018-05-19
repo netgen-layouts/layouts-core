@@ -38,7 +38,7 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->viewProviders = array_filter(
             $viewProviders,
             function (ViewProviderInterface $viewProvider) {
-                return $viewProvider;
+                return true;
             }
         );
     }

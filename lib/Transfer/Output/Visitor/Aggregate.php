@@ -28,7 +28,7 @@ final class Aggregate extends Visitor
         $this->visitors = array_filter(
             $visitors,
             function (VisitorInterface $visitor) {
-                return $visitor;
+                return true;
             }
         );
     }

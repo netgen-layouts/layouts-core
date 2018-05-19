@@ -27,7 +27,7 @@ final class ItemLoader implements ItemLoaderInterface
         $this->valueLoaders = array_filter(
             $valueLoaders,
             function (ValueLoaderInterface $valueLoader) {
-                return $valueLoader;
+                return true;
             }
         );
     }
