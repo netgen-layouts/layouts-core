@@ -68,9 +68,9 @@ interface ViewInterface
     public function setFallbackContext($fallbackContext);
 
     /**
-     * Returns the view template.
+     * Returns the view template or null if template does not exist in the view.
      *
-     * @return string
+     * @return string|null
      */
     public function getTemplate();
 

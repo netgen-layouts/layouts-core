@@ -18,7 +18,7 @@ abstract class View implements ViewInterface
     protected $fallbackContext;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $template;
 
