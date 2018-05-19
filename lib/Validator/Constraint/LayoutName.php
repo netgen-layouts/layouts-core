@@ -14,7 +14,7 @@ final class LayoutName extends Constraint
     /**
      * If specified, layout with this ID will be excluded from the check.
      *
-     * @var int
+     * @var int|null
      */
     public $excludedLayoutId;
 

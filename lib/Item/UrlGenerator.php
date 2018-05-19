@@ -27,7 +27,7 @@ final class UrlGenerator implements UrlGeneratorInterface
     public function generate(ItemInterface $item)
     {
         if ($item instanceof NullItem) {
-            return;
+            return null;
         }
 
         if (!isset($this->valueUrlGenerators[$item->getValueType()])) {
