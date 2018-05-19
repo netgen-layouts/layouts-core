@@ -10,8 +10,6 @@ final class ParameterTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getName
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
      * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
      */
@@ -19,10 +17,8 @@ final class ParameterTest extends TestCase
     {
         $parameter = new Parameter();
 
-        $this->assertNull($parameter->getName());
-        $this->assertNull($parameter->getParameterDefinition());
         $this->assertNull($parameter->getValue());
-        $this->assertNull($parameter->isEmpty());
+        $this->assertTrue($parameter->isEmpty());
         $this->assertEquals('', (string) $parameter);
     }
 

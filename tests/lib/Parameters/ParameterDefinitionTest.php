@@ -16,17 +16,13 @@ final class ParameterDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getName
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getType
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      */
     public function testSetDefaultProperties()
     {
         $parameterDefinition = new ParameterDefinition();
 
-        $this->assertNull($parameterDefinition->getName());
-        $this->assertNull($parameterDefinition->getType());
         $this->assertEquals([], $parameterDefinition->getOptions());
         $this->assertFalse($parameterDefinition->isRequired());
         $this->assertNull($parameterDefinition->getDefaultValue());

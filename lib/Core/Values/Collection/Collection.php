@@ -24,7 +24,7 @@ final class Collection extends Value implements APICollection
     protected $offset;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $limit;
 
@@ -34,7 +34,7 @@ final class Collection extends Value implements APICollection
     protected $items;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query
+     * @var \Netgen\BlockManager\API\Values\Collection\Query|null
      */
     protected $query;
 

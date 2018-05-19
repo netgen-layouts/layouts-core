@@ -18,7 +18,7 @@ interface LayoutResolverInterface
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param array $enabledConditions
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
      */
     public function resolveRule(Request $request = null, array $enabledConditions = null);
 

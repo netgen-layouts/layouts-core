@@ -21,7 +21,7 @@ final class Zone extends Value implements APIZone
     protected $layoutId;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Zone
+     * @var \Netgen\BlockManager\API\Values\Layout\Zone|null
      */
     protected $linkedZone;
 

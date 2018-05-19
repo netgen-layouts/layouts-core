@@ -13,22 +13,6 @@ final class LinkValueTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getNewWindow
      */
-    public function testSetDefaultProperties()
-    {
-        $linkValue = new LinkValue();
-
-        $this->assertNull($linkValue->getLinkType());
-        $this->assertNull($linkValue->getLink());
-        $this->assertNull($linkValue->getLinkSuffix());
-        $this->assertFalse($linkValue->getNewWindow());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLink
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkSuffix
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getNewWindow
-     */
     public function testSetProperties()
     {
         $linkValue = new LinkValue(

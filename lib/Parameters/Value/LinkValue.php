@@ -15,7 +15,7 @@ final class LinkValue extends Value
     const LINK_TYPE_INTERNAL = 'internal';
 
     /**
-     * @var string|null
+     * @var string
      */
     protected $linkType;
 
@@ -35,9 +35,9 @@ final class LinkValue extends Value
     protected $newWindow;
 
     /**
-     * Returns the link type or null if this is an empty link.
+     * Returns the link type.
      *
-     * @return string|null
+     * @return string
      */
     public function getLinkType()
     {

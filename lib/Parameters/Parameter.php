@@ -24,7 +24,7 @@ final class Parameter extends Value
     /**
      * @var bool
      */
-    protected $isEmpty;
+    protected $isEmpty = true;
 
     /**
      * Returns the string representation of the parameter value.

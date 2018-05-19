@@ -41,9 +41,9 @@ interface Collection extends Value
     public function getOffset();
 
     /**
-     * Returns the starting collection limit.
+     * Returns the starting collection limit or null if no limit is set.
      *
-     * @return int
+     * @return int|null
      */
     public function getLimit();
 
@@ -127,9 +127,9 @@ interface Collection extends Value
     public function getOverrideItems();
 
     /**
-     * Returns the query from the collection.
+     * Returns the query from the collection or null if no query exists.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
+     * @return \Netgen\BlockManager\API\Values\Collection\Query|null
      */
     public function getQuery();
 

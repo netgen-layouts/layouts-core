@@ -9,7 +9,7 @@ final class ValueWithLazyProperty
     use LazyPropertyTrait;
 
     /**
-     * @var mixed
+     * @var callable
      */
     public $value;
 

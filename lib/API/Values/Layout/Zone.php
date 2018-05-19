@@ -28,9 +28,9 @@ interface Zone extends Value
     public function hasLinkedZone();
 
     /**
-     * Returns the linked zone.
+     * Returns the linked zone or null if no linked zone exists.
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone|null
      */
     public function getLinkedZone();
 }

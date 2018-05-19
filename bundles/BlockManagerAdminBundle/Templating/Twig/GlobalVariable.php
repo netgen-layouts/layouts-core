@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig;
 final class GlobalVariable
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $pageLayoutTemplate;
 
@@ -20,9 +20,9 @@ final class GlobalVariable
     }
 
     /**
-     * Returns the pagelayout template.
+     * Returns the pagelayout template or null if no pagelayout template exists.
      *
-     * @return string
+     * @return string|null
      */
     public function getPageLayoutTemplate()
     {
