@@ -139,7 +139,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
                 $configFile = __DIR__ . '/../Resources/config/' . $configFile;
             }
 
-            $config = Yaml::parse(file_get_contents($configFile));
+            $config = Yaml::parse((string) file_get_contents($configFile));
             $container->prependExtensionConfig($prependConfig, $config);
             $container->addResource(new FileResource($configFile));
         }
