@@ -33,10 +33,7 @@ final class NetgenBlockManagerFixturesExtension extends Extension implements Pre
         ];
 
         foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
-            if ($configFile[0] !== '/') {
-                $configFile = __DIR__ . '/../Resources/config/' . $configFile;
-            }
-
+            $configFile = __DIR__ . '/../Resources/config/' . $configFile;
             $config = Yaml::parse((string) file_get_contents($configFile));
             $container->prependExtensionConfig($prependConfig, $config);
             $container->addResource(new FileResource($configFile));

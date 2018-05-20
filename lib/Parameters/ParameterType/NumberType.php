@@ -48,7 +48,7 @@ final class NumberType extends ParameterType
         $optionsResolver->setDefault(
             'default_value',
             function (Options $options, $previousValue) {
-                if ($options['required']) {
+                if ($options['required'] === true) {
                     return $options['min'];
                 }
 

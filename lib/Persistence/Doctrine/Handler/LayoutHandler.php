@@ -261,15 +261,13 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $updatedZone = clone $zone;
 
-        if ($zoneUpdateStruct->linkedZone !== null) {
-            // Linked zone other than a zone object indicates we want to remove the link
+        if ($zoneUpdateStruct->linkedZone instanceof Zone) {
+            $updatedZone->linkedLayoutId = $zoneUpdateStruct->linkedZone->layoutId;
+            $updatedZone->linkedZoneIdentifier = $zoneUpdateStruct->linkedZone->identifier;
+        } elseif ($zoneUpdateStruct->linkedZone !== null) {
+            // Linked zone other than a zone object (e.g. false) indicates we want to remove the link
             $updatedZone->linkedLayoutId = null;
             $updatedZone->linkedZoneIdentifier = null;
-
-            if ($zoneUpdateStruct->linkedZone instanceof Zone) {
-                $updatedZone->linkedLayoutId = $zoneUpdateStruct->linkedZone->layoutId;
-                $updatedZone->linkedZoneIdentifier = $zoneUpdateStruct->linkedZone->identifier;
-            }
         }
 
         $this->queryHandler->updateZone($updatedZone);

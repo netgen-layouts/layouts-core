@@ -32,7 +32,7 @@ final class BooleanType extends CompoundParameterType
         $optionsResolver->setDefault('reverse', false);
 
         $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
-            if ($options['required']) {
+            if ($options['required'] === true) {
                 return false;
             }
 

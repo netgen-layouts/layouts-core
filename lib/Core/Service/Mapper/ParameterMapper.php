@@ -94,7 +94,7 @@ final class ParameterMapper
         $untranslatableParams = [];
 
         foreach ($parameterDefinitions->getParameterDefinitions() as $paramName => $parameterDefinition) {
-            if ($parameterDefinition->getOption('translatable')) {
+            if ($parameterDefinition->getOption('translatable') === true) {
                 continue;
             }
 

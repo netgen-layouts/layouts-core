@@ -234,7 +234,7 @@ final class LayoutsController extends Controller
                 $this->blockService->loadLayoutBlocks($layout),
                 function (Block $block) {
                     if ($block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
-                        if ($block->getParameter('paged_collections:enabled')->getValue()) {
+                        if ($block->getParameter('paged_collections:enabled')->getValue() === true) {
                             return true;
                         }
                     }

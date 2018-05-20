@@ -175,9 +175,9 @@ final class BlockController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $isTranslatable = $form->get('translatable')->getData();
 
-            if ($block->isTranslatable() && !$isTranslatable) {
+            if ($block->isTranslatable() && $isTranslatable !== true) {
                 $this->blockService->disableTranslations($block);
-            } elseif (!$block->isTranslatable() && $isTranslatable) {
+            } elseif (!$block->isTranslatable() && $isTranslatable === true) {
                 $this->blockService->enableTranslations($block);
             }
 

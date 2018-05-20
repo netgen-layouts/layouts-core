@@ -24,7 +24,7 @@ abstract class TranslatableType extends AbstractType
 
             $parameterDefinition = $form->getOption('ngbm_parameter_definition');
             if ($parameterDefinition instanceof ParameterDefinition) {
-                $disabled = !$parameterDefinition->getOption('translatable');
+                $disabled = $parameterDefinition->getOption('translatable') !== true;
             }
 
             $form->setDisabled($disabled);
