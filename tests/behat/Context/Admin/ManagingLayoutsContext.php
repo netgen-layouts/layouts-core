@@ -151,7 +151,7 @@ final class ManagingLayoutsContext extends AdminContext
      */
     public function layoutShouldExist(Layout $layout)
     {
-        // No need to do anything
+        Assert::true($this->indexPage->layoutExists($layout->getName()));
     }
 
     /**
@@ -162,6 +162,7 @@ final class ManagingLayoutsContext extends AdminContext
     public function layoutShouldNotExist($layoutName)
     {
         Assert::false($this->layoutContext->hasLayoutWithName($layoutName));
+        Assert::false($this->indexPage->layoutExists($layoutName));
     }
 
     public function iShouldGetAnError($errorMessage)

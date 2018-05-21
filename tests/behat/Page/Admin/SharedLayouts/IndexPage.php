@@ -47,6 +47,11 @@ final class IndexPage extends AdminPage
         );
     }
 
+    public function layoutExists($layoutName)
+    {
+        return $this->hasElement('layout', ['%layout-name%' => $layoutName]);
+    }
+
     public function nameDuplicatedLayout($layoutName)
     {
         $this->getDocument()->fillField('copy_name', $layoutName);
@@ -57,10 +62,12 @@ final class IndexPage extends AdminPage
         return array_merge(
             parent::getDefinedElements(),
             [
+                'layout' => '.nl-layout [data-name="%layout-name%"]',
                 'layout_name' => '.nl-layout-name a:contains("%layout-name%")',
-                'create_new_layout' => 'a#add-new-button',
-                'actions_dropdown' => '.nl-layout [data-name="%layout-name%"] button.nl-dropdown-toggle',
 
+                'create_new_layout' => 'a#add-new-button',
+
+                'actions_dropdown' => '.nl-layout [data-name="%layout-name%"] button.nl-dropdown-toggle',
                 'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
                 'copy_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-copy',
                 'delete_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-delete',
