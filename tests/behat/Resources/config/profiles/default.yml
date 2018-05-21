@@ -18,6 +18,7 @@ default:
                             chrome:
                                 switches:
                                     - "disable-extensions"
+                                    - "disable-infobars"
                                     - "start-fullscreen"
 
         FriendsOfBehat\SuiteSettingsExtension:
