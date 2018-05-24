@@ -18,8 +18,6 @@ interface TargetHandlerInterface
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
      * @param mixed $value
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     public function handleQuery(QueryBuilder $query, $value);
 }

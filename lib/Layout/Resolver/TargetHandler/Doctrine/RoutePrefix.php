@@ -30,7 +30,5 @@ final class RoutePrefix implements TargetHandlerInterface
             )
         )
         ->setParameter(':target_value', $value, Type::STRING);
-
-        return $query;
     }
 }
