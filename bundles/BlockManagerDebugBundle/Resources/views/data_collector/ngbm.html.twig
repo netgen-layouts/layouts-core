@@ -162,7 +162,12 @@
                         {% for target in rule.targets %}
                             <tr>
                                 <th>{{ target.type }}</th>
-                                <td>{{ profiler_dump(target.value, maxDepth=0) }}</td>
+                                {% if constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION_ID') >= 30200 %}
+                                    <td>{{ profiler_dump(target.value, maxDepth=0) }}</td>
+                                {% else %}
+                                    {# @deprecated Remove when support for Symfony 2.8 ends #}
+                                    <td>{{ profiler_dump(target.value) }}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -182,7 +187,12 @@
                             {% for condition in rule.conditions %}
                                 <tr>
                                     <th>{{ condition.type }}</th>
-                                    <td>{{ profiler_dump(condition.value, maxDepth=0) }}</td>
+                                    {% if constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION_ID') >= 30200 %}
+                                        <td>{{ profiler_dump(condition.value, maxDepth=0) }}</td>
+                                    {% else %}
+                                        {# @deprecated Remove when support for Symfony 2.8 ends #}
+                                        <td>{{ profiler_dump(condition.value) }}</td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                             </tbody>
