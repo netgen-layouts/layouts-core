@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\Serializer\Values\ValueInterface;
+use Netgen\BlockManager\Serializer\Values\AbstractValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -39,7 +39,7 @@ final class SerializerListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $value = $event->getControllerResult();
-        if (!$value instanceof ValueInterface) {
+        if (!$value instanceof AbstractValue) {
             return;
         }
 

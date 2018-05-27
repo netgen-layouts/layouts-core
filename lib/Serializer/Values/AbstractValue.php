@@ -27,7 +27,7 @@ abstract class AbstractValue
     }
 
     /**
-     * Returns the value.
+     * Returns the serialized value.
      *
      * @return mixed
      */
@@ -37,7 +37,7 @@ abstract class AbstractValue
     }
 
     /**
-     * Returns the status code.
+     * Returns the status code of the response that should be used.
      *
      * @return int
      */

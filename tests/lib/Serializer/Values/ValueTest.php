@@ -20,7 +20,7 @@ final class ValueTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Values\AbstractValue::__construct
+     * @covers \Netgen\BlockManager\Serializer\Values\Value::__construct
      * @covers \Netgen\BlockManager\Serializer\Values\Value::getValue
      */
     public function testGetValue()

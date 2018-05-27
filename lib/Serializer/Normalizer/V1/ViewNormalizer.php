@@ -1,11 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\Normalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
+use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 
@@ -24,7 +26,7 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
     }
 
     /**
-     * @param \Netgen\BlockManager\Serializer\Values\ViewInterface $object
+     * @param \Netgen\BlockManager\Serializer\Values\View $object
      * @param string $format
      * @param array $context
      *
@@ -45,10 +47,8 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
         if (!isset($context['disable_html']) || $context['disable_html'] !== true) {
             $normalizedData['html'] = $this->viewRenderer->renderValue(
                 $object->getValue(),
-                $object->getContext(),
-                [
-                    'api_version' => $object->getVersion(),
-                ] + $object->getViewParameters()
+                ViewInterface::CONTEXT_API,
+                ['api_version' => $object->getVersion()]
             );
         }
 
@@ -57,6 +57,10 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
 
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof View;
+        if (!$data instanceof View) {
+            return false;
+        }
+
+        return $data->getVersion() === Version::API_V1;
     }
 }

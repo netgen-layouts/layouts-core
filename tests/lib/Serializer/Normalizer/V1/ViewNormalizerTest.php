@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
+namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -25,7 +25,7 @@ final class ViewNormalizerTest extends TestCase
     private $serializerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer
      */
     private $normalizer;
 
@@ -39,8 +39,8 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -56,17 +56,11 @@ final class ViewNormalizerTest extends TestCase
             ->with(
                 $this->equalTo(new Value()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(
-                    [
-                        'api_version' => 1,
-                        'param' => 'value',
-                    ]
-                )
+                $this->equalTo(['api_version' => 1])
             )
             ->will($this->returnValue('rendered view'));
 
         $view = new View(new Value(), 1);
-        $view->setViewParameters(['param' => 'value']);
 
         $data = $this->normalizer->normalize($view);
 
@@ -77,7 +71,7 @@ final class ViewNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

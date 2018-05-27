@@ -5,27 +5,19 @@ services:
         tags:
             - { name: serializer.normalizer }
 
-    netgen_block_manager.normalizer.view:
-        class: Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer
-        public: false
-        arguments:
-            - "@netgen_block_manager.view.renderer"
-        tags:
-            - { name: serializer.normalizer }
-
-    netgen_block_manager.normalizer.form_view:
-        class: Netgen\BlockManager\Serializer\Normalizer\FormViewNormalizer
-        public: false
-        arguments:
-            - "@netgen_block_manager.view.renderer"
-        tags:
-            - { name: serializer.normalizer }
-
     netgen_block_manager.normalizer.exception:
         class: Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
         public: false
         calls:
             - [setOutputDebugInfo, ["%kernel.debug%"]]
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.view:
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer
+        public: false
+        arguments:
+            - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }
 

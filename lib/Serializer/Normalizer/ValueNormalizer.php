@@ -11,6 +11,13 @@ final class ValueNormalizer implements NormalizerInterface, SerializerAwareInter
 {
     use SerializerAwareTrait;
 
+    /**
+     * @param \Netgen\BlockManager\Serializer\Values\Value $object
+     * @param string $format
+     * @param array $context
+     *
+     * @return array
+     */
     public function normalize($object, $format = null, array $context = [])
     {
         return $this->serializer->normalize($object->getValue(), $format, $context);

@@ -67,11 +67,7 @@ final class ConfigController extends Controller
      */
     public function getConfig()
     {
-        return new Value(
-            [
-                'csrf_token' => $this->getCsrfToken(),
-            ]
-        );
+        return new Value(['csrf_token' => $this->getCsrfToken()]);
     }
 
     /**
