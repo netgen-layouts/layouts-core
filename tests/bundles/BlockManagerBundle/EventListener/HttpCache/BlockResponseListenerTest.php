@@ -9,7 +9,7 @@ use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListen
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -38,25 +38,27 @@ final class BlockResponseListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            [KernelEvents::VIEW => 'onView'],
+            [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
             $this->listener->getSubscribedEvents()
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
      */
-    public function testOnView()
+    public function testOnKernelResponse()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $request->attributes->set('ngbmView', new BlockView(['block' => new Block()]));
+
+        $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new BlockView(['block' => new Block()])
+            new Response()
         );
 
         $this->taggerMock
@@ -64,50 +66,54 @@ final class BlockResponseListenerTest extends TestCase
             ->method('tagBlock')
             ->with($this->equalTo(new Response()), $this->equalTo(new Block()));
 
-        $this->listener->onView($event);
+        $this->listener->onKernelResponse($event);
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
      */
-    public function testOnViewWithSubRequest()
+    public function testOnKernelResponseWithSubRequest()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $request->attributes->set('ngbmView', new BlockView());
+
+        $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new BlockView()
+            new Response()
         );
 
         $this->taggerMock
             ->expects($this->never())
             ->method('tagBlock');
 
-        $this->listener->onView($event);
+        $this->listener->onKernelResponse($event);
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
      */
-    public function testOnViewWithoutSupportedValue()
+    public function testOnKernelResponseWithoutSupportedValue()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $request->attributes->set('ngbmView', 42);
+
+        $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            42
+            new Response()
         );
 
         $this->taggerMock
             ->expects($this->never())
             ->method('tagBlock');
 
-        $this->listener->onView($event);
+        $this->listener->onKernelResponse($event);
     }
 }

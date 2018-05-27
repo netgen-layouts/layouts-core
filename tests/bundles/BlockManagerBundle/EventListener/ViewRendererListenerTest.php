@@ -11,6 +11,7 @@ use Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response as FoundationResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -30,7 +31,10 @@ final class ViewRendererListenerTest extends TestCase
     public function setUp()
     {
         $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
-        $this->listener = new ViewRendererListener($this->viewRendererMock, new ErrorHandler());
+        $this->listener = new ViewRendererListener(
+            $this->viewRendererMock,
+            new ErrorHandler()
+        );
     }
 
     /**
@@ -54,6 +58,7 @@ final class ViewRendererListenerTest extends TestCase
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');
+
         $view->setResponse($response);
 
         $this->viewRendererMock
@@ -74,7 +79,7 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(Response::class, $event->getResponse());
+        $this->assertInstanceOf(FoundationResponse::class, $event->getResponse());
 
         // Verify that we use the response available in view object
         $this->assertEquals($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
@@ -91,6 +96,7 @@ final class ViewRendererListenerTest extends TestCase
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');
+
         $view->setResponse($response);
 
         $this->viewRendererMock
@@ -111,7 +117,7 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(Response::class, $event->getResponse());
+        $this->assertInstanceOf(FoundationResponse::class, $event->getResponse());
 
         // Verify that we use the response available in view object
         $this->assertEquals($event->getResponse()->headers->get('X-NGBM-Test'), 'test');

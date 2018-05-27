@@ -7,6 +7,7 @@ use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
@@ -41,22 +42,26 @@ final class ViewRendererListener implements EventSubscriberInterface
      */
     public function onView(GetResponseForControllerResultEvent $event)
     {
-        $controllerResult = $event->getControllerResult();
-        if (!$controllerResult instanceof ViewInterface) {
+        $view = $event->getControllerResult();
+        if (!$view instanceof ViewInterface) {
             return;
         }
 
         $renderedView = '';
 
         try {
-            $renderedView = $this->viewRenderer->renderView($controllerResult);
+            $renderedView = $this->viewRenderer->renderView($view);
         } catch (Throwable $t) {
             $this->errorHandler->handleError($t);
         } catch (Exception $e) {
             $this->errorHandler->handleError($e);
         }
 
-        $response = $controllerResult->getResponse();
+        $response = $view->getResponse();
+        if (!$response instanceof Response) {
+            return;
+        }
+
         $response->setContent($renderedView);
 
         $event->setResponse($response);

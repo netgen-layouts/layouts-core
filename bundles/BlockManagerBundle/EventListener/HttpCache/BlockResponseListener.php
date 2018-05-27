@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class BlockResponseListener implements EventSubscriberInterface
@@ -22,28 +22,25 @@ final class BlockResponseListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return [KernelEvents::VIEW => 'onView'];
+        return [KernelEvents::RESPONSE => ['onKernelResponse', -255]];
     }
 
     /**
      * Tags the response with the data for block provided by the event.
      *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
 
-        $controllerResult = $event->getControllerResult();
-        if (!$controllerResult instanceof BlockViewInterface) {
+        $blockView = $event->getRequest()->attributes->get('ngbmView');
+        if (!$blockView instanceof BlockViewInterface) {
             return;
         }
 
-        $this->tagger->tagBlock(
-            $controllerResult->getResponse(),
-            $controllerResult->getBlock()
-        );
+        $this->tagger->tagBlock($event->getResponse(), $blockView->getBlock());
     }
 }

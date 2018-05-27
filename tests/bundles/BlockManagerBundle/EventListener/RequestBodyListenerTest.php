@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -62,10 +63,14 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            'value',
-            $event->getRequest()->request->get('test')
-        );
+        $request = $event->getRequest();
+
+        $this->assertTrue($request->attributes->has('data'));
+
+        $data = $event->getRequest()->attributes->get('data');
+        $this->assertInstanceOf(ParameterBag::class, $data);
+
+        $this->assertEquals('value', $data->get('test'));
     }
 
     /**
@@ -82,9 +87,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse(
-            $event->getRequest()->attributes->has('test')
-        );
+        $this->assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -102,9 +105,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse(
-            $event->getRequest()->attributes->has('test')
-        );
+        $this->assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -122,9 +123,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse(
-            $event->getRequest()->attributes->has('test')
-        );
+        $this->assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -143,9 +142,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse(
-            $event->getRequest()->attributes->has('test')
-        );
+        $this->assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**

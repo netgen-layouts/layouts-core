@@ -59,7 +59,7 @@ final class RequestBodyListener implements EventSubscriberInterface
             throw new BadRequestHttpException('Request body has an invalid format');
         }
 
-        $request->request = new ParameterBag($data);
+        $request->attributes->set('data', new ParameterBag($data));
     }
 
     /**

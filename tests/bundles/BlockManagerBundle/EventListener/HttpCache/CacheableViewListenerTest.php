@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -30,80 +29,9 @@ final class CacheableViewListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            [
-                KernelEvents::VIEW => 'onView',
-                KernelEvents::RESPONSE => ['onKernelResponse', -255],
-            ],
+            [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
             $this->listener->getSubscribedEvents()
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
-     */
-    public function testOnView()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $blockView = new BlockView();
-        $blockView->setSharedMaxAge(42);
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $blockView
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertTrue($request->attributes->has('ngbmView'));
-        $this->assertEquals($blockView, $request->attributes->get('ngbmView'));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
-     */
-    public function testOnViewWithSubRequest()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $blockView = new BlockView();
-        $blockView->setSharedMaxAge(42);
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::SUB_REQUEST,
-            $blockView
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertNull($blockView->getResponse()->getMaxAge());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
-     */
-    public function testOnViewWithoutSupportedValue()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            42
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertFalse($event->hasResponse());
     }
 
     /**

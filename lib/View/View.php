@@ -77,10 +77,6 @@ abstract class View implements ViewInterface
 
     public function getResponse()
     {
-        if ($this->response === null) {
-            $this->response = new Response();
-        }
-
         return $this->response;
     }
 

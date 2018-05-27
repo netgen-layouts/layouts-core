@@ -67,10 +67,12 @@ final class BlockController extends Controller
      */
     public function create(Block $block, Request $request)
     {
-        $this->validator->validateCreateBlock($request);
+        $requestData = $request->attributes->get('data');
+
+        $this->validator->validateCreateBlock($requestData);
 
         try {
-            $blockType = $this->getBlockType($request->request->get('block_type'));
+            $blockType = $this->getBlockType($requestData->get('block_type'));
         } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
@@ -80,8 +82,8 @@ final class BlockController extends Controller
         $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,
             $block,
-            $request->request->get('placeholder'),
-            $request->request->get('position')
+            $requestData->get('placeholder'),
+            $requestData->get('position')
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -98,17 +100,19 @@ final class BlockController extends Controller
      */
     public function createInZone(Request $request)
     {
-        $this->validator->validateCreateBlock($request);
+        $requestData = $request->attributes->get('data');
+
+        $this->validator->validateCreateBlock($requestData);
 
         try {
-            $blockType = $this->getBlockType($request->request->get('block_type'));
+            $blockType = $this->getBlockType($requestData->get('block_type'));
         } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
         $zone = $this->layoutService->loadZoneDraft(
-            $request->request->get('layout_id'),
-            $request->request->get('zone_identifier')
+            $requestData->get('layout_id'),
+            $requestData->get('zone_identifier')
         );
 
         $blockCreateStruct = $this->createBlockCreateStruct($blockType);
@@ -116,7 +120,7 @@ final class BlockController extends Controller
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $zone,
-            $request->request->get('position')
+            $requestData->get('position')
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -132,15 +136,17 @@ final class BlockController extends Controller
      */
     public function copy(Block $block, Request $request)
     {
+        $requestData = $request->attributes->get('data');
+
         $targetBlock = $this->blockService->loadBlockDraft(
-            $request->request->get('block_id')
+            $requestData->get('block_id')
         );
 
         $copiedBlock = $this->blockService->copyBlock(
             $block,
             $targetBlock,
-            $request->request->get('placeholder'),
-            $request->request->get('position')
+            $requestData->get('placeholder'),
+            $requestData->get('position')
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -156,15 +162,17 @@ final class BlockController extends Controller
      */
     public function copyToZone(Block $block, Request $request)
     {
+        $requestData = $request->attributes->get('data');
+
         $zone = $this->layoutService->loadZoneDraft(
-            $request->request->get('layout_id'),
-            $request->request->get('zone_identifier')
+            $requestData->get('layout_id'),
+            $requestData->get('zone_identifier')
         );
 
         $copiedBlock = $this->blockService->copyBlockToZone(
             $block,
             $zone,
-            $request->request->get('position')
+            $requestData->get('position')
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -180,15 +188,17 @@ final class BlockController extends Controller
      */
     public function move(Block $block, Request $request)
     {
+        $requestData = $request->attributes->get('data');
+
         $targetBlock = $this->blockService->loadBlockDraft(
-            $request->request->get('block_id')
+            $requestData->get('block_id')
         );
 
         $this->blockService->moveBlock(
             $block,
             $targetBlock,
-            $request->request->get('placeholder'),
-            $request->request->get('position')
+            $requestData->get('placeholder'),
+            $requestData->get('position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -204,15 +214,17 @@ final class BlockController extends Controller
      */
     public function moveToZone(Block $block, Request $request)
     {
+        $requestData = $request->attributes->get('data');
+
         $zone = $this->layoutService->loadZoneDraft(
-            $request->request->get('layout_id'),
-            $request->request->get('zone_identifier')
+            $requestData->get('layout_id'),
+            $requestData->get('zone_identifier')
         );
 
         $this->blockService->moveBlockToZone(
             $block,
             $zone,
-            $request->request->get('position')
+            $requestData->get('position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);

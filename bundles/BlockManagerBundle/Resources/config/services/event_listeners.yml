@@ -31,6 +31,12 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_block_manager.event_listener.view:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewListener
+        # public: false
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.view_renderer:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
         # public: false

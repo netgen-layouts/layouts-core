@@ -64,7 +64,7 @@ final class ViewTest extends TestCase
      */
     public function testGetDefaultResponse()
     {
-        $this->assertEquals(new Response(), $this->view->getResponse());
+        $this->assertNull($this->view->getResponse());
     }
 
     /**

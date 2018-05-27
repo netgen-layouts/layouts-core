@@ -82,7 +82,8 @@ interface ViewInterface
     public function setTemplate($template);
 
     /**
-     * Returns the response which will be used to render the view.
+     * Returns the response which will be used to render the view
+     * or null if no response has been set.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

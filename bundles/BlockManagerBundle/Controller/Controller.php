@@ -48,9 +48,7 @@ abstract class Controller extends BaseController
         $viewBuilder = $this->get('netgen_block_manager.view.view_builder');
         $view = $viewBuilder->buildView($value, $context, $parameters);
 
-        if ($response instanceof Response) {
-            $view->setResponse($response);
-        }
+        $view->setResponse($response instanceof Response ? $response : new Response());
 
         return $view;
     }

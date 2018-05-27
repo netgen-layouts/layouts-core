@@ -79,7 +79,9 @@ final class BlockCollectionController extends Controller
      */
     public function addItems(Block $block, $collectionIdentifier, Request $request)
     {
-        $items = $request->request->get('items');
+        $requestData = $request->attributes->get('data');
+
+        $items = $requestData->get('items');
 
         $this->validator->validateAddItems($block, $collectionIdentifier, $items);
 
@@ -120,8 +122,10 @@ final class BlockCollectionController extends Controller
      */
     public function changeCollectionType(Block $block, $collectionIdentifier, Request $request)
     {
-        $newType = (int) $request->request->get('new_type');
-        $queryType = $request->request->get('query_type');
+        $requestData = $request->attributes->get('data');
+
+        $newType = $requestData->getInt('new_type');
+        $queryType = $requestData->get('query_type');
 
         $this->validator->validateChangeCollectionType($block, $collectionIdentifier, $newType, $queryType);
 

@@ -136,9 +136,11 @@ final class LayoutController extends Controller
      */
     public function linkZone(Zone $zone, Request $request)
     {
+        $requestData = $request->attributes->get('data');
+
         $linkedZone = $this->layoutService->loadZone(
-            $request->request->get('linked_layout_id'),
-            $request->request->get('linked_zone_identifier')
+            $requestData->get('linked_layout_id'),
+            $requestData->get('linked_zone_identifier')
         );
 
         $this->layoutService->linkZone($zone, $linkedZone);
@@ -171,21 +173,23 @@ final class LayoutController extends Controller
      */
     public function create(Request $request)
     {
-        $this->validator->validateCreateLayout($request);
+        $requestData = $request->attributes->get('data');
+
+        $this->validator->validateCreateLayout($requestData);
 
         try {
-            $layoutType = $this->getLayoutType($request->request->get('layout_type'));
+            $layoutType = $this->getLayoutType($requestData->get('layout_type'));
         } catch (LayoutTypeException $e) {
             throw new BadStateException('layout_type', 'Layout type does not exist.', $e);
         }
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
-            $request->request->get('name'),
-            $request->request->get('locale')
+            $requestData->get('name'),
+            $requestData->get('locale')
         );
 
-        $layoutCreateStruct->description = $request->request->get('description');
+        $layoutCreateStruct->description = $requestData->get('description');
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
@@ -202,9 +206,11 @@ final class LayoutController extends Controller
      */
     public function copy(Layout $layout, Request $request)
     {
+        $requestData = $request->attributes->get('data');
+
         $copyStruct = $this->layoutService->newLayoutCopyStruct();
-        $copyStruct->name = $request->request->get('name');
-        $copyStruct->description = $request->request->get('description');
+        $copyStruct->name = $requestData->get('name');
+        $copyStruct->description = $requestData->get('description');
 
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
@@ -221,8 +227,10 @@ final class LayoutController extends Controller
      */
     public function changeType(Layout $layout, Request $request)
     {
-        $layoutType = $this->getLayoutType($request->request->get('new_type'));
-        $zoneMappings = $request->request->get('zone_mappings');
+        $requestData = $request->attributes->get('data');
+
+        $layoutType = $this->getLayoutType($requestData->get('new_type'));
+        $zoneMappings = $requestData->get('zone_mappings');
 
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,

@@ -77,7 +77,7 @@ final class CollectionController extends Controller
     {
         $this->collectionService->moveItem(
             $item,
-            $request->request->get('position')
+            $request->attributes->get('data')->get('position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
