@@ -57,10 +57,6 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
 
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof View) {
-            return false;
-        }
-
-        return $data->getVersion() === Version::API_V1;
+        return $data instanceof View && $data->getVersion() === Version::API_V1;
     }
 }
