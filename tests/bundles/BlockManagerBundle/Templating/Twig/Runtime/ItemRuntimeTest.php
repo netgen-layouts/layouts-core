@@ -11,12 +11,12 @@ use PHPUnit\Framework\TestCase;
 final class ItemRuntimeTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $itemLoaderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $urlGeneratorMock;
 
@@ -145,7 +145,11 @@ final class ItemRuntimeTest extends TestCase
      */
     public function testGetItemPathThrowsItemExceptionInDebugModeWithInvalidValue()
     {
-        $this->runtime->setDebug(true);
+        $this->runtime = new ItemRuntime(
+            $this->itemLoaderMock,
+            $this->urlGeneratorMock,
+            true
+        );
 
         $this->itemLoaderMock
             ->expects($this->never())
@@ -182,7 +186,11 @@ final class ItemRuntimeTest extends TestCase
      */
     public function testGetItemPathThrowsItemExceptionInDebugModeWithUnsupportedValue()
     {
-        $this->runtime->setDebug(true);
+        $this->runtime = new ItemRuntime(
+            $this->itemLoaderMock,
+            $this->urlGeneratorMock,
+            true
+        );
 
         $this->itemLoaderMock
             ->expects($this->never())

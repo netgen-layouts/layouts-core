@@ -16,11 +16,9 @@ final class ExceptionNormalizer implements NormalizerInterface
     private $outputDebugInfo = false;
 
     /**
-     * Sets if the normalizer should output debugging information.
-     *
      * @param bool $outputDebugInfo
      */
-    public function setOutputDebugInfo($outputDebugInfo = false)
+    public function __construct($outputDebugInfo = false)
     {
         $this->outputDebugInfo = (bool) $outputDebugInfo;
     }

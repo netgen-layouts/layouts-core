@@ -8,8 +8,8 @@ services:
     netgen_block_manager.normalizer.exception:
         class: Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
         public: false
-        calls:
-            - [setOutputDebugInfo, ["%kernel.debug%"]]
+        arguments:
+            - "%kernel.debug%"
         tags:
             - { name: serializer.normalizer }
 

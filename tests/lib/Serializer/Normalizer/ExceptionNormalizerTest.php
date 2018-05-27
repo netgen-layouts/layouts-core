@@ -43,7 +43,7 @@ final class ExceptionNormalizerTest extends TestCase
      */
     public function testNormalizeWithDebugOutput()
     {
-        $this->exceptionNormalizer->setOutputDebugInfo(true);
+        $this->exceptionNormalizer = new ExceptionNormalizer(true);
 
         $previousException = new Exception('Previous exception', 321);
         $exception = new Exception('Exception message', 123, $previousException);

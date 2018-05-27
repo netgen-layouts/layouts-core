@@ -23,33 +23,25 @@ final class ItemRuntime
     private $urlGenerator;
 
     /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @var bool
      */
     private $debug = false;
 
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
     public function __construct(
         ItemLoaderInterface $itemLoader,
         UrlGeneratorInterface $urlGenerator,
+        $debug = false,
         LoggerInterface $logger = null
     ) {
         $this->itemLoader = $itemLoader;
         $this->urlGenerator = $urlGenerator;
-        $this->logger = $logger ?: new NullLogger();
-    }
-
-    /**
-     * Sets if debug is enabled or not.
-     *
-     * @param bool $debug
-     */
-    public function setDebug($debug)
-    {
         $this->debug = (bool) $debug;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**

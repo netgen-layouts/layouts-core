@@ -74,9 +74,8 @@ services:
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_generator"
+            - "%kernel.debug%"
             - "@?logger"
-        calls:
-            - [setDebug, ["%kernel.debug%"]]
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }
