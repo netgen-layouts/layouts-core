@@ -8,9 +8,9 @@ block.view_type: 'View type'
 block.item_view_type: 'Item view type'
 block.name: 'Block label'
 
-collection.offset: 'Offset'
-collection.limit: 'Limit'
-collection.offset_limit: 'Offset & limit'
+collection.offset: 'Skip first No. of items'
+collection.limit: 'Number of items'
+collection.offset_limit: 'Offset & number of items'
 
 query.advanced_options: 'Advanced options'
 
