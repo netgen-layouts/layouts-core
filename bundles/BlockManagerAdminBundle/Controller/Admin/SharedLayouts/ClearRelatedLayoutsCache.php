@@ -1,17 +1,17 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\SharedLayouts;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SharedLayoutsController extends Controller
+final class ClearRelatedLayoutsCache extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
@@ -30,21 +30,6 @@ final class SharedLayoutsController extends Controller
     }
 
     /**
-     * Displays the index page of shared layouts admin interface.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index()
-    {
-        return $this->render(
-            '@NetgenBlockManagerAdmin/admin/shared_layouts/index.html.twig',
-            [
-                'shared_layouts' => $this->layoutService->loadSharedLayouts(true),
-            ]
-        );
-    }
-
-    /**
      * Clears the HTTP caches for layouts related to provided shared layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
@@ -52,7 +37,7 @@ final class SharedLayoutsController extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function clearRelatedLayoutsCache(Layout $layout, Request $request)
+    public function __invoke(Layout $layout, Request $request)
     {
         $cacheCleared = true;
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
@@ -107,10 +92,5 @@ final class SharedLayoutsController extends Controller
                     Response::HTTP_OK
             )
         );
-    }
-
-    protected function checkPermissions()
-    {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_ADMIN');
     }
 }

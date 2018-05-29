@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Utils;
 
 use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-final class LayoutResolverValidator
+final class PrioritiesValidator
 {
     use ValidatorTrait;
 

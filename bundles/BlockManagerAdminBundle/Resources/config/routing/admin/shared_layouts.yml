@@ -2,36 +2,36 @@ ngbm_admin_shared_layouts_index:
     path: /
     methods: [GET]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.shared_layouts:index"
+        _controller: "netgen_block_manager.controller.admin.shared_layouts.index"
 
 ngbm_admin_shared_layouts_layout_copy:
     path: /{layoutId}/copy
     methods: [GET, POST]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.layouts:copyLayout"
+        _controller: "netgen_block_manager.controller.admin.layouts.copy_layout_form"
 
 ngbm_admin_shared_layouts_export:
     path: /export
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.layouts:exportLayouts"
+        _controller: "netgen_block_manager.controller.admin.layouts.export_layouts"
 
 ngbm_admin_shared_layouts_layout_delete:
     path: /{layoutId}/delete
     methods: [GET, DELETE]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.layouts:deleteLayout"
+        _controller: "netgen_block_manager.controller.admin.layouts.delete_layout"
 
 ngbm_admin_shared_layouts_cache_blocks:
     path: /{layoutId}/cache/blocks
     methods: [GET, POST]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.layouts:clearBlocksCache"
+        _controller: "netgen_block_manager.controller.admin.layouts.clear_blocks_cache"
         _ngbm_status: published
 
 ngbm_admin_shared_layouts_cache_related_layouts:
     path: /{layoutId}/cache/related_layouts
     methods: [GET, POST]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.shared_layouts:clearRelatedLayoutsCache"
+        _controller: "netgen_block_manager.controller.admin.shared_layouts.clear_related_layouts_cache"
         _ngbm_status: published
