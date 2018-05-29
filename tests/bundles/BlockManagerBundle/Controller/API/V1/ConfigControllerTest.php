@@ -8,10 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 final class ConfigControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::checkPermissions
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::getConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::getCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\Controller::checkPermissions
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__invoke
      */
     public function testGetConfig()
     {
@@ -35,35 +34,8 @@ final class ConfigControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::getConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::getCsrfToken
-     */
-    public function testGetConfigWithInvalidToken()
-    {
-        /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
-        $tokenManager = $this->clientContainer->get('security.csrf.token_manager');
-        $tokenId = $this->clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
-
-        $currentToken = $tokenManager->getToken($tokenId);
-
-        // Invalidates the token to trigger the refresh
-        $tokenManager->removeToken($tokenId);
-
-        $this->client->request('GET', '/bm/api/v1/config');
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_OK);
-
-        $responseContent = json_decode($response->getContent(), true);
-
-        $this->assertInternalType('array', $responseContent);
-        $this->assertArrayHasKey('csrf_token', $responseContent);
-        $this->assertNotEquals($currentToken, $responseContent['csrf_token']);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::getBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes::__invoke
      */
     public function testGetBlockTypes()
     {
@@ -87,7 +59,8 @@ final class ConfigControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::getLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadLayoutTypes::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadLayoutTypes::__invoke
      */
     public function testGetLayoutTypes()
     {

@@ -1,14 +1,16 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils;
 
 use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
-use Netgen\Bundle\BlockManagerBundle\Controller\Validator\Validator;
+use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Validator\Constraints;
 
-final class LayoutValidator extends Validator
+final class CreateStructValidator
 {
+    use ValidatorTrait;
+
     /**
      * Validates layout creation parameters from the request.
      *

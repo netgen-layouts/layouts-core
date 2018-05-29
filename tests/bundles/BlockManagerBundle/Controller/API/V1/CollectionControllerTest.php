@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class CollectionControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::checkPermissions
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollection
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection::__invoke
      */
     public function testLoadCollection()
     {
@@ -24,7 +22,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollection
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection::__invoke
      */
     public function testLoadCollectionWithNonExistentCollection()
     {
@@ -38,7 +36,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadItems::__invoke
      */
     public function testLoadCollectionItems()
     {
@@ -52,7 +50,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadItems::__invoke
      */
     public function testLoadCollectionItemsWithNonExistentCollection()
     {
@@ -66,7 +64,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadItem::__invoke
      */
     public function testLoadItem()
     {
@@ -80,7 +78,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadItem::__invoke
      */
     public function testLoadItemWithNonExistentItem()
     {
@@ -94,7 +92,8 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
     public function testMoveItem()
     {
@@ -117,7 +116,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
     public function testMoveItemWithNonExistentItem()
     {
@@ -140,7 +139,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
     public function testMoveItemWithOutOfRangePosition()
     {
@@ -167,7 +166,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
     public function testMoveItemWithInvalidPosition()
     {
@@ -194,7 +193,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
     public function testMoveItemWithMissingPosition()
     {
@@ -217,7 +216,8 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItem::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItem::__invoke
      */
     public function testDeleteItem()
     {
@@ -236,7 +236,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItem::__invoke
      */
     public function testDeleteItemWithNonExistentItem()
     {
@@ -259,7 +259,8 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItems::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItems::__invoke
      */
     public function testDeleteItems()
     {
@@ -278,7 +279,7 @@ final class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItems::__invoke
      */
     public function testDeleteItemsWithNonExistentCollection()
     {

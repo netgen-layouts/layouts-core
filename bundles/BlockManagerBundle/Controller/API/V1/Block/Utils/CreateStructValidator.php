@@ -1,13 +1,15 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils;
 
-use Netgen\Bundle\BlockManagerBundle\Controller\Validator\Validator;
+use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Validator\Constraints;
 
-final class BlockValidator extends Validator
+final class CreateStructValidator
 {
+    use ValidatorTrait;
+
     /**
      * Validates block create parameters from the provided parameter bag.
      *

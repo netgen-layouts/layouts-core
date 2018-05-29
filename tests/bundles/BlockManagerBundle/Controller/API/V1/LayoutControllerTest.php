@@ -2,16 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
-use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LayoutControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::checkPermissions
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::loadSharedLayouts
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadSharedLayouts::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadSharedLayouts::__invoke
      */
     public function testLoadSharedLayouts()
     {
@@ -25,7 +23,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Load::__invoke
      */
     public function testLoad()
     {
@@ -39,7 +37,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Load::__invoke
      */
     public function testLoadInPublishedState()
     {
@@ -53,7 +51,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Load::__invoke
      */
     public function testLoadWithNonExistentLayout()
     {
@@ -67,7 +65,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewLayoutBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
     public function testViewLayoutBlocks()
     {
@@ -81,7 +80,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewLayoutBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
     public function testViewLayoutBlocksInPublishedState()
     {
@@ -95,7 +94,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewLayoutBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
     public function testViewLayoutBlocksWithNonExistentLayout()
     {
@@ -109,7 +108,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewLayoutBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
     public function testViewLayoutBlocksWithNonExistentLayoutLocale()
     {
@@ -123,7 +122,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
     public function testViewZoneBlocks()
     {
@@ -137,7 +137,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
     public function testViewZoneBlocksInPublishedState()
     {
@@ -151,7 +151,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
     public function testViewZoneBlocksWithNonExistentZone()
     {
@@ -165,7 +165,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
     public function testViewZoneBlocksWithNonExistentLayout()
     {
@@ -179,7 +179,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
     public function testViewZoneBlocksWithNonExistentLayoutLocale()
     {
@@ -193,7 +193,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZone()
     {
@@ -217,7 +218,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithNonExistentZone()
     {
@@ -240,7 +241,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithNonExistentLayout()
     {
@@ -263,7 +264,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithMissingLinkedLayoutId()
     {
@@ -290,7 +291,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithInvalidLinkedLayoutId()
     {
@@ -318,7 +319,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithMissingLinkedZoneIdentifier()
     {
@@ -345,7 +346,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithInvalidLinkedZoneIdentifier()
     {
@@ -373,7 +374,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithNonExistentLinkedZone()
     {
@@ -401,7 +402,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithNonExistentLinkedLayout()
     {
@@ -429,7 +430,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::linkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
     public function testLinkZoneWithNonSharedLinkedLayout()
     {
@@ -457,7 +458,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::unlinkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__invoke
      */
     public function testUnlinkZone()
     {
@@ -476,7 +478,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::unlinkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__invoke
      */
     public function testUnlinkZoneWithNonExistentZone()
     {
@@ -499,7 +501,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::unlinkZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__invoke
      */
     public function testUnlinkZoneWithNonExistentLayout()
     {
@@ -522,8 +524,9 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreate()
     {
@@ -553,8 +556,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithMissingDescription()
     {
@@ -583,8 +586,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithEmptyDescription()
     {
@@ -614,8 +617,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithInvalidLayoutType()
     {
@@ -644,8 +647,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithMissingLayoutType()
     {
@@ -673,8 +676,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithInvalidName()
     {
@@ -703,8 +706,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithMissingName()
     {
@@ -732,8 +735,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithInvalidDescription()
     {
@@ -763,8 +766,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithInvalidLocale()
     {
@@ -794,8 +797,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithMissingLocale()
     {
@@ -824,8 +827,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithNonExistentLocale()
     {
@@ -855,8 +858,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithNonExistingLayoutType()
     {
@@ -885,8 +888,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
     public function testCreateWithExistingName()
     {
@@ -915,7 +918,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopy()
     {
@@ -943,7 +947,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyInPublishedState()
     {
@@ -971,7 +975,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithNonExistingDescription()
     {
@@ -998,7 +1002,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithEmptyDescription()
     {
@@ -1026,7 +1030,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithNonExistingLayout()
     {
@@ -1053,7 +1057,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithInvalidName()
     {
@@ -1080,7 +1084,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithMissingName()
     {
@@ -1103,7 +1107,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithExistingName()
     {
@@ -1130,7 +1134,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
     public function testCopyWithInvalidDescription()
     {
@@ -1158,7 +1162,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::changeType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType::__invoke
      */
     public function testChangeType()
     {
@@ -1189,7 +1194,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::changeType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType::__invoke
      */
     public function testChangeTypeWithoutMappings()
     {
@@ -1216,7 +1221,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::createDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft::__invoke
      */
     public function testCreateDraft()
     {
@@ -1239,7 +1245,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::createDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft::__invoke
      */
     public function testCreateDraftWithNonExistentLayout()
     {
@@ -1262,7 +1268,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::discardDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft::__invoke
      */
     public function testDiscardDraft()
     {
@@ -1281,7 +1288,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::discardDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft::__invoke
      */
     public function testDiscardDraftWithNonExistentLayout()
     {
@@ -1304,7 +1311,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::publishDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft::__invoke
      */
     public function testPublishDraft()
     {
@@ -1323,7 +1331,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::publishDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft::__invoke
      */
     public function testPublishDraftWithNonExistentLayout()
     {
@@ -1346,7 +1354,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::restoreFromArchive
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive::__invoke
      */
     public function testRestoreFromArchive()
     {
@@ -1365,7 +1374,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::restoreFromArchive
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive::__invoke
      */
     public function testRestoreFromArchiveWithNonExistentLayout()
     {
@@ -1388,7 +1397,8 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::delete
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete::__invoke
      */
     public function testDelete()
     {
@@ -1407,7 +1417,7 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::delete
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete::__invoke
      */
     public function testDeleteWithNonExistentLayout()
     {

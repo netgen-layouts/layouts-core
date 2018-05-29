@@ -41,7 +41,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
 
         /** @var \Netgen\BlockManager\Tests\Kernel\MockerContainer $clientContainer */
-        $clientContainer = static::$kernel->getContainer();
+        $clientContainer = self::$kernel->getContainer();
 
         $this->clientContainer = $clientContainer;
 

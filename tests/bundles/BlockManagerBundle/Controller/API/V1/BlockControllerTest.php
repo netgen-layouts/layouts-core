@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class BlockControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::checkPermissions
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::view
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load::__invoke
      */
     public function testView()
     {
@@ -24,7 +22,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::view
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load::__invoke
      */
     public function testViewInPublishedState()
     {
@@ -38,7 +36,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::view
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load::__invoke
      */
     public function testViewWithNonExistentBlock()
     {
@@ -52,9 +50,11 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreate()
     {
@@ -83,9 +83,9 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithViewType()
     {
@@ -114,9 +114,9 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithItemViewType()
     {
@@ -145,9 +145,9 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNoPosition()
     {
@@ -175,8 +175,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNonContainerTargetBlock()
     {
@@ -205,8 +205,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithContainerInsideContainer()
     {
@@ -235,8 +235,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithInvalidBlockType()
     {
@@ -265,8 +265,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithMissingBlockType()
     {
@@ -294,8 +294,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithInvalidPlaceholder()
     {
@@ -324,8 +324,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithMissingPlaceholder()
     {
@@ -353,8 +353,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithInvalidPosition()
     {
@@ -383,8 +383,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNonExistentBlockType()
     {
@@ -413,8 +413,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNonExistentPlaceholder()
     {
@@ -443,8 +443,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithOutOfRangePosition()
     {
@@ -473,9 +473,10 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZone()
     {
@@ -505,9 +506,9 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNoPosition()
     {
@@ -536,8 +537,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithInvalidBlockType()
     {
@@ -567,8 +568,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithMissingBlockType()
     {
@@ -597,8 +598,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithInvalidLayoutId()
     {
@@ -628,8 +629,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithMissingLayoutId()
     {
@@ -658,8 +659,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithInvalidZoneIdentifier()
     {
@@ -689,8 +690,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithMissingZoneIdentifier()
     {
@@ -719,8 +720,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithInvalidPosition()
     {
@@ -750,8 +751,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNonExistentBlockType()
     {
@@ -781,8 +782,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNonExistentLayout()
     {
@@ -812,8 +813,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNonExistentLayoutZone()
     {
@@ -843,8 +844,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithOutOfRangePosition()
     {
@@ -874,8 +875,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNotAllowedBlockDefinition()
     {
@@ -905,7 +906,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopy()
     {
@@ -933,7 +935,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithNonExistentBlock()
     {
@@ -956,7 +958,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithNonExistentTargetBlock()
     {
@@ -984,7 +986,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithNonExistentPlaceholder()
     {
@@ -1012,7 +1014,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithNonContainerTargetBlock()
     {
@@ -1040,7 +1042,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithContainerInsideContainer()
     {
@@ -1068,7 +1070,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithInvalidBlockId()
     {
@@ -1096,7 +1098,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithInvalidPlaceholder()
     {
@@ -1124,7 +1126,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithMissingBlockId()
     {
@@ -1151,7 +1153,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
     public function testCopyWithMissingPlaceholder()
     {
@@ -1178,7 +1180,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZone()
     {
@@ -1206,7 +1209,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithNonExistentBlock()
     {
@@ -1229,7 +1232,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithNonExistentLayout()
     {
@@ -1257,7 +1260,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithNonExistentZone()
     {
@@ -1285,7 +1288,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithNotAllowedBlockDefinition()
     {
@@ -1313,7 +1316,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithInvalidLayoutId()
     {
@@ -1341,7 +1344,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithInvalidZoneIdentifier()
     {
@@ -1369,7 +1372,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithMissingLayoutId()
     {
@@ -1396,7 +1399,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
     public function testCopyToZoneWithMissingZoneIdentifier()
     {
@@ -1423,7 +1426,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMove()
     {
@@ -1448,7 +1452,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveToDifferentPlaceholder()
     {
@@ -1473,7 +1477,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveToDifferentBlock()
     {
@@ -1498,7 +1502,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithNonExistentBlock()
     {
@@ -1521,7 +1525,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithNonExistentTargetBlock()
     {
@@ -1550,7 +1554,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithNonExistentPlaceholder()
     {
@@ -1579,7 +1583,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithNonContainerTargetBlock()
     {
@@ -1608,7 +1612,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithOutOfRangePosition()
     {
@@ -1637,7 +1641,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithContainerInsideContainer()
     {
@@ -1666,7 +1670,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithInvalidBlockId()
     {
@@ -1695,7 +1699,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithInvalidPlaceholder()
     {
@@ -1724,7 +1728,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithInvalidPosition()
     {
@@ -1753,7 +1757,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithMissingBlockId()
     {
@@ -1781,7 +1785,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithMissingPlaceholder()
     {
@@ -1809,7 +1813,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
     public function testMoveWithMissingPosition()
     {
@@ -1837,7 +1841,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZone()
     {
@@ -1862,7 +1867,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithNonExistentBlock()
     {
@@ -1885,7 +1890,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithNonExistentLayout()
     {
@@ -1914,7 +1919,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithNonExistentZoneIdentifier()
     {
@@ -1943,7 +1948,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithNotAllowedBlockDefinition()
     {
@@ -1972,7 +1977,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithOutOfRangePosition()
     {
@@ -2001,7 +2006,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithInvalidLayoutId()
     {
@@ -2030,7 +2035,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithInvalidZoneIdentifier()
     {
@@ -2059,7 +2064,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithInvalidPosition()
     {
@@ -2088,7 +2093,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithMissingLayoutId()
     {
@@ -2116,7 +2121,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithMissingZoneIdentifier()
     {
@@ -2144,7 +2149,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
     public function testMoveToZoneWithMissingPosition()
     {
@@ -2172,7 +2177,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::restore
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore::__invoke
      */
     public function testRestore()
     {
@@ -2195,7 +2201,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::restore
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore::__invoke
      */
     public function testRestoreWithNonExistentBlock()
     {
@@ -2218,7 +2224,8 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::delete
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Delete::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Delete::__invoke
      */
     public function testDelete()
     {
@@ -2237,7 +2244,7 @@ final class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::delete
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Delete::__invoke
      */
     public function testDeleteWithNonExistentBlock()
     {

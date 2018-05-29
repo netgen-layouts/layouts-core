@@ -1,5 +1,5 @@
 parameters:
-    netgen_block_manager.controller.block_controller: 'ngbm_block:viewBlock'
+    netgen_block_manager.controller.block_controller: "ngbm_block"
 
 services:
     netgen_block_manager.templating.twig.runtime.container_loader:

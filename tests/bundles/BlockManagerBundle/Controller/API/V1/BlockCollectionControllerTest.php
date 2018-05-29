@@ -10,9 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 final class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::checkPermissions
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
     public function testLoadCollectionResult()
     {
@@ -26,7 +25,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
     public function testLoadCollectionResultWithNonExistentBlock()
     {
@@ -40,7 +39,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
     public function testLoadCollectionResultWithNonExistentCollectionReference()
     {
@@ -54,9 +53,10 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItems()
     {
@@ -91,9 +91,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithNonExistentBlock()
     {
@@ -132,9 +132,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithNonExistentCollectionReference()
     {
@@ -173,9 +173,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithEmptyItems()
     {
@@ -202,9 +202,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithInvalidItems()
     {
@@ -231,9 +231,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithMissingItems()
     {
@@ -256,9 +256,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithInvalidItemType()
     {
@@ -292,9 +292,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithMissingItemType()
     {
@@ -327,9 +327,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithInvalidValue()
     {
@@ -363,9 +363,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithMissingValue()
     {
@@ -398,9 +398,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithInvalidValueType()
     {
@@ -434,9 +434,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithMissingValueType()
     {
@@ -469,9 +469,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithInvalidPosition()
     {
@@ -505,9 +505,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithMissingPosition()
     {
@@ -540,9 +540,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
     public function testAddItemsWithOutOfRangePosition()
     {
@@ -576,9 +576,10 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromManualToManual()
     {
@@ -601,9 +602,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromManualToDynamic()
     {
@@ -627,9 +628,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromDynamicToManual()
     {
@@ -652,9 +653,9 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromDynamicToDynamic()
     {
