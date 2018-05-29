@@ -34,28 +34,105 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.controller.app.index:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\IndexController
-        public: true
+    # App controllers
+
+    netgen_block_manager.controller.app.base:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller
+        public: false
+        abstract: true
         parent: netgen_block_manager.controller.base
 
-    netgen_block_manager.controller.app.layout:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\LayoutController
+    ## Index controller
+
+    netgen_block_manager.controller.app.index:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Index
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_block_manager.controller.app.base
+
+    ## Layout controllers
+
+    netgen_block_manager.controller.app.layout.create_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\CreateForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
-    netgen_block_manager.controller.app.block:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\BlockController
+    netgen_block_manager.controller.app.layout.edit_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\EditForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+
+    netgen_block_manager.controller.app.layout.set_main_locale_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\SetMainLocaleForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+
+    netgen_block_manager.controller.app.layout.add_locale_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\AddLocaleForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+
+    netgen_block_manager.controller.app.layout.remove_locale_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\RemoveLocaleForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+
+    ## Block controllers
+
+    netgen_block_manager.controller.app.block.edit:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block\Edit
+        public: true
+        parent: netgen_block_manager.controller.app.base
+
+    netgen_block_manager.controller.app.block.edit_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block\EditForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
-    netgen_block_manager.controller.app.collection:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\CollectionController
+    netgen_block_manager.controller.app.block.edit_config_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block\EditConfigForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+
+    netgen_block_manager.controller.app.block.configure_translation_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block\ConfigureTranslationForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+
+    ## Collection controllers
+
+    netgen_block_manager.controller.app.collection.edit_collection_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Collection\EditCollectionForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
+
+    netgen_block_manager.controller.app.collection.edit_item_config_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Collection\EditItemConfigForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
+
+    netgen_block_manager.controller.app.collection.edit_query_form:
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Collection\EditQueryForm
+        public: true
+        parent: netgen_block_manager.controller.app.base
         arguments:
             - "@netgen_block_manager.api.service.collection"

@@ -2,10 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-final class IndexController extends Controller
+final class Index extends Controller
 {
     /**
      * Displays the Block Manager app index page.
@@ -14,7 +13,7 @@ final class IndexController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Request $request)
+    public function __invoke(Request $request)
     {
         $appEnvironment = $request->attributes->get('_ngbm_environment');
 
@@ -24,10 +23,5 @@ final class IndexController extends Controller
                 'debug' => $appEnvironment === 'dev',
             ]
         );
-    }
-
-    protected function checkPermissions()
-    {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_EDITOR');
     }
 }
