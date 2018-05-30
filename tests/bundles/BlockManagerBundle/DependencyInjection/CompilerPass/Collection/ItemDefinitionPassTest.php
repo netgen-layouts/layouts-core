@@ -50,6 +50,20 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
      */
+    public function testProcessWithoutItemsConfig()
+    {
+        $this->setDefinition('netgen_block_manager.collection.registry.item_definition', new Definition());
+
+        $this->compile();
+
+        $registry = $this->container->getDefinition('netgen_block_manager.collection.registry.item_definition');
+
+        $this->assertEmpty($registry->getMethodCalls());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
+     */
     public function testProcessWithEmptyContainer()
     {
         $this->compile();

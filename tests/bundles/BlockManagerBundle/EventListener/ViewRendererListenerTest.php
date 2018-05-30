@@ -128,6 +128,32 @@ final class ViewRendererListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
      */
+    public function testOnViewWithoutViewResponse()
+    {
+        $view = new View(['value' => new Value()]);
+
+        $this->viewRendererMock
+            ->expects($this->never())
+            ->method('renderView');
+
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $event = new GetResponseForControllerResultEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $view
+        );
+
+        $this->listener->onView($event);
+
+        $this->assertFalse($event->hasResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
+     */
     public function testOnViewWithoutSupportedValue()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

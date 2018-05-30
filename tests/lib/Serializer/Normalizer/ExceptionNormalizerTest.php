@@ -22,6 +22,7 @@ final class ExceptionNormalizerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalize()
@@ -39,7 +40,6 @@ final class ExceptionNormalizerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::setOutputDebugInfo
      */
     public function testNormalizeWithDebugOutput()
     {
@@ -94,11 +94,6 @@ final class ExceptionNormalizerTest extends TestCase
         $this->assertEquals($expected, $this->exceptionNormalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
     public function supportsNormalizationProvider()
     {
         return [

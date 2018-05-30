@@ -47,6 +47,11 @@ final class ViewRendererListener implements EventSubscriberInterface
             return;
         }
 
+        $response = $view->getResponse();
+        if (!$response instanceof Response) {
+            return;
+        }
+
         $renderedView = '';
 
         try {
@@ -55,11 +60,6 @@ final class ViewRendererListener implements EventSubscriberInterface
             $this->errorHandler->handleError($t);
         } catch (Exception $e) {
             $this->errorHandler->handleError($e);
-        }
-
-        $response = $view->getResponse();
-        if (!$response instanceof Response) {
-            return;
         }
 
         $response->setContent($renderedView);

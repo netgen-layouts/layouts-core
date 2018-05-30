@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,10 +28,11 @@ final class ConditionTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new ConditionTypeForm();
+        return new ConditionTypeForm(['other_type' => new ConditionTypeMapper()]);
     }
 
     /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
      * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      * @expectedExceptionMessage Form mapper for "type" condition type does not exist.
