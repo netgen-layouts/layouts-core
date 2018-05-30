@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadConfigTest extends JsonApiTestCase
@@ -20,7 +21,7 @@ final class LoadConfigTest extends JsonApiTestCase
 
         $currentToken = $tokenManager->getToken($tokenId);
 
-        $this->client->request('GET', '/bm/api/v1/config');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/config');
 
         $response = $this->client->getResponse();
 

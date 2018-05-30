@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\BlockCollecti
 
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class AddItemsTest extends JsonApiTestCase
@@ -35,7 +36,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -72,7 +73,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/9999/collections/default/items',
             [],
             [],
@@ -113,7 +114,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/unknown/items',
             [],
             [],
@@ -142,7 +143,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -171,7 +172,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -196,7 +197,7 @@ final class AddItemsTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -232,7 +233,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -267,7 +268,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -303,7 +304,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -338,7 +339,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -374,7 +375,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -409,7 +410,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -445,7 +446,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
@@ -480,7 +481,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/featured/items',
             [],
             [],
@@ -516,7 +517,7 @@ final class AddItemsTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/items',
             [],
             [],

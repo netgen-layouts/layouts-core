@@ -56,7 +56,7 @@ final class RequestBodyListenerTest extends TestCase
             ->will($this->returnValue(['test' => 'value']));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/', 'POST', [], [], [], [], '{"test": "value"}');
+        $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -81,7 +81,7 @@ final class RequestBodyListenerTest extends TestCase
         $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/', 'POST', [], [], [], [], '{"test": "value"}');
+        $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -98,7 +98,7 @@ final class RequestBodyListenerTest extends TestCase
         $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/', 'POST', [], [], [], [], '{"test": "value"}');
+        $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->headers->set('Content-Type', 'application/json');
 
@@ -135,7 +135,7 @@ final class RequestBodyListenerTest extends TestCase
         $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/', 'POST', [], [], [], [], '{"test": "value"}');
+        $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'some/type');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -159,7 +159,7 @@ final class RequestBodyListenerTest extends TestCase
             ->will($this->throwException(new UnexpectedValueException()));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/', 'POST', [], [], [], [], '{]');
+        $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{]');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -181,7 +181,7 @@ final class RequestBodyListenerTest extends TestCase
             ->will($this->returnValue(42));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/', 'POST', [], [], [], [], '42');
+        $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '42');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

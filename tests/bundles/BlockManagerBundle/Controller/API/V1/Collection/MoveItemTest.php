@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Collection;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class MoveItemTest extends JsonApiTestCase
@@ -20,7 +21,7 @@ final class MoveItemTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/collections/items/1/move',
             [],
             [],
@@ -39,7 +40,7 @@ final class MoveItemTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/collections/items/9999/move',
             [],
             [],
@@ -66,7 +67,7 @@ final class MoveItemTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/collections/items/1/move',
             [],
             [],
@@ -93,7 +94,7 @@ final class MoveItemTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/collections/items/1/move',
             [],
             [],
@@ -116,7 +117,7 @@ final class MoveItemTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/collections/items/1/move',
             [],
             [],

@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\BlockCollecti
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 final class ChangeCollectionTypeTest extends JsonApiTestCase
 {
@@ -22,7 +23,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/change_type',
             [],
             [],
@@ -48,7 +49,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/default/change_type',
             [],
             [],
@@ -73,7 +74,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/featured/change_type',
             [],
             [],
@@ -99,7 +100,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/31/collections/featured/change_type',
             [],
             [],

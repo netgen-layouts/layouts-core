@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadBlockTypesTest extends JsonApiTestCase
@@ -13,7 +14,7 @@ final class LoadBlockTypesTest extends JsonApiTestCase
      */
     public function testLoadBlockTypes()
     {
-        $this->client->request('GET', '/bm/api/v1/config/block_types');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/config/block_types');
 
         $response = $this->client->getResponse();
 

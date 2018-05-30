@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Layout;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadLayoutBlocksTest extends JsonApiTestCase
@@ -13,7 +14,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocks()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/1/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -27,7 +28,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/1/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -41,7 +42,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayout()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/9999/blocks');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -55,7 +56,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayoutLocale()
     {
-        $this->client->request('GET', '/bm/api/v1/unknown/layouts/1/blocks');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/blocks');
 
         $this->assertException(
             $this->client->getResponse(),

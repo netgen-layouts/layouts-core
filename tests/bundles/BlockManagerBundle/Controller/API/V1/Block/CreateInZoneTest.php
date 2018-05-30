@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Block;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CreateInZoneTest extends JsonApiTestCase
@@ -25,7 +26,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks?html=false',
             [],
             [],
@@ -56,7 +57,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks?html=false',
             [],
             [],
@@ -87,7 +88,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -117,7 +118,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -148,7 +149,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -178,7 +179,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -209,7 +210,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -239,7 +240,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -270,7 +271,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -301,7 +302,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -332,7 +333,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -363,7 +364,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -394,7 +395,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],
@@ -425,7 +426,7 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks',
             [],
             [],

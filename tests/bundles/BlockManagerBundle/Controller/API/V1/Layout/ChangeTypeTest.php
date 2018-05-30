@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Layout;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ChangeTypeTest extends JsonApiTestCase
@@ -24,7 +25,7 @@ final class ChangeTypeTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/layouts/1/change_type?html=false',
             [],
             [],
@@ -51,7 +52,7 @@ final class ChangeTypeTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/layouts/1/change_type?html=false',
             [],
             [],

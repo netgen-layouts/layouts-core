@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Layout;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class PublishDraftTest extends JsonApiTestCase
@@ -16,7 +17,7 @@ final class PublishDraftTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/layouts/1/publish',
             [],
             [],
@@ -35,7 +36,7 @@ final class PublishDraftTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/layouts/9999/publish',
             [],
             [],

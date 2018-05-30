@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Collection;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class DeleteItemTest extends JsonApiTestCase
@@ -16,7 +17,7 @@ final class DeleteItemTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'DELETE',
+            Request::METHOD_DELETE,
             '/bm/api/v1/collections/items/7',
             [],
             [],
@@ -35,7 +36,7 @@ final class DeleteItemTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'DELETE',
+            Request::METHOD_DELETE,
             '/bm/api/v1/collections/items/9999',
             [],
             [],

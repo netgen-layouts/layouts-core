@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Block;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CopyTest extends JsonApiTestCase
@@ -21,7 +22,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy?html=false',
             [],
             [],
@@ -44,7 +45,7 @@ final class CopyTest extends JsonApiTestCase
         $data = $this->jsonEncode([]);
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/9999/copy',
             [],
             [],
@@ -72,7 +73,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],
@@ -100,7 +101,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],
@@ -128,7 +129,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],
@@ -156,7 +157,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/33/copy',
             [],
             [],
@@ -184,7 +185,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],
@@ -212,7 +213,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],
@@ -239,7 +240,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],
@@ -266,7 +267,7 @@ final class CopyTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            Request::METHOD_POST,
             '/bm/api/v1/en/blocks/34/copy',
             [],
             [],

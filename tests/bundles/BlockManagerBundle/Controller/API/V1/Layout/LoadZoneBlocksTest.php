@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Layout;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadZoneBlocksTest extends JsonApiTestCase
@@ -13,7 +14,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocks()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/1/zones/right/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -27,7 +28,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -41,7 +42,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentZone()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/1/zones/unknown/blocks');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/unknown/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -55,7 +56,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentLayout()
     {
-        $this->client->request('GET', '/bm/api/v1/en/layouts/9999/zones/right/blocks');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -69,7 +70,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentLayoutLocale()
     {
-        $this->client->request('GET', '/bm/api/v1/unknown/layouts/1/zones/right/blocks');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),

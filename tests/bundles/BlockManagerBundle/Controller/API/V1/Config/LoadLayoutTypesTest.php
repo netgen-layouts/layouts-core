@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadLayoutTypesTest extends JsonApiTestCase
@@ -13,7 +14,7 @@ final class LoadLayoutTypesTest extends JsonApiTestCase
      */
     public function testLoadLayoutTypes()
     {
-        $this->client->request('GET', '/bm/api/v1/config/layout_types');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/config/layout_types');
 
         $response = $this->client->getResponse();
 

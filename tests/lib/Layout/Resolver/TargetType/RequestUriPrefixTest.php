@@ -47,7 +47,7 @@ final class RequestUriPrefixTest extends TestCase
      */
     public function testProvideValue()
     {
-        $request = Request::create('/the/answer', 'GET', ['a' => 42]);
+        $request = Request::create('/the/answer', Request::METHOD_GET, ['a' => 42]);
 
         $this->assertEquals(
             '/the/answer?a=42',

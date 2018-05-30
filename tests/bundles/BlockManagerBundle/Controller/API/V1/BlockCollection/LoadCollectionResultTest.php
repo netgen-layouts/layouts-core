@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\BlockCollection;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadCollectionResultTest extends JsonApiTestCase
@@ -13,7 +14,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
      */
     public function testLoadCollectionResult()
     {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/35/collections/default/result');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/35/collections/default/result');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -27,7 +28,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithNonExistentBlock()
     {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/9999/collections/default/result');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999/collections/default/result');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -41,7 +42,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithNonExistentCollectionReference()
     {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections/unknown/result');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31/collections/unknown/result');
 
         $this->assertException(
             $this->client->getResponse(),

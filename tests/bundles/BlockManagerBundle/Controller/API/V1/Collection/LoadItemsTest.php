@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Collection;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadItemsTest extends JsonApiTestCase
@@ -12,7 +13,7 @@ final class LoadItemsTest extends JsonApiTestCase
      */
     public function testLoadItems()
     {
-        $this->client->request('GET', '/bm/api/v1/collections/3/items');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/3/items');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -26,7 +27,7 @@ final class LoadItemsTest extends JsonApiTestCase
      */
     public function testLoadItemsWithNonExistentCollection()
     {
-        $this->client->request('GET', '/bm/api/v1/collections/9999/items');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/9999/items');
 
         $this->assertException(
             $this->client->getResponse(),

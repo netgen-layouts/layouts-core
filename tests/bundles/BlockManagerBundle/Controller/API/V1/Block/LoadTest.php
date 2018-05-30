@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Block;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadTest extends JsonApiTestCase
@@ -12,7 +13,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoad()
     {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/31?html=false');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -26,7 +27,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/31?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -40,7 +41,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadWithNonExistentBlock()
     {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/9999');
+        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999');
 
         $this->assertException(
             $this->client->getResponse(),
