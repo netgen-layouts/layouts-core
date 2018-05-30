@@ -1,0 +1,37 @@
+<?php
+
+namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Collection;
+
+use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
+use Symfony\Component\HttpFoundation\Response;
+
+final class LoadCollectionTest extends JsonApiTestCase
+{
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection::__invoke
+     */
+    public function testLoadCollection()
+    {
+        $this->client->request('GET', '/bm/api/v1/collections/3');
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/collections/load_collection',
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection::__invoke
+     */
+    public function testLoadCollectionWithNonExistentCollection()
+    {
+        $this->client->request('GET', '/bm/api/v1/collections/9999');
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
+        );
+    }
+}

@@ -1,57 +1,13 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\BlockCollection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class BlockCollectionControllerTest extends JsonApiTestCase
+final class AddItemsTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
-     */
-    public function testLoadCollectionResult()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/35/collections/default/result');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/block_collections/load_collection_result',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
-     */
-    public function testLoadCollectionResultWithNonExistentBlock()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/9999/collections/default/result');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "9999"'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
-     */
-    public function testLoadCollectionResultWithNonExistentCollectionReference()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections/unknown/result');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'Collection with "unknown" identifier does not exist in the block.'
-        );
-    }
-
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
@@ -573,108 +529,5 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
-     */
-    public function testChangeCollectionTypeFromManualToManual()
-    {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => Collection::TYPE_MANUAL,
-            ]
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/en/blocks/31/collections/default/change_type',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
-     */
-    public function testChangeCollectionTypeFromManualToDynamic()
-    {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => Collection::TYPE_DYNAMIC,
-                'query_type' => 'my_query_type',
-            ]
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/en/blocks/31/collections/default/change_type',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
-     */
-    public function testChangeCollectionTypeFromDynamicToManual()
-    {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => Collection::TYPE_MANUAL,
-            ]
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/en/blocks/31/collections/featured/change_type',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::getCollectionConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
-     */
-    public function testChangeCollectionTypeFromDynamicToDynamic()
-    {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => Collection::TYPE_DYNAMIC,
-                'query_type' => 'my_query_type',
-            ]
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/en/blocks/31/collections/featured/change_type',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
     }
 }
