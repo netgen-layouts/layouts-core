@@ -18,7 +18,7 @@ final class Index extends Controller
     }
 
     /**
-     * Displays the index page of shared layouts admin interface.
+     * Displays the index page of layouts admin interface.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
