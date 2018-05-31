@@ -185,8 +185,8 @@
                                 <tr>
                                     <th>{{ condition.type }}</th>
                                     {# @deprecated Remove usage without maxDepth=0 when support for Symfony 2.8 ends #}
-                                    <td>{{ profiler_dump(target.value) }}</td>
-                                    {# <td>{{ profiler_dump(target.value, maxDepth=0) }}</td> #}
+                                    <td>{{ profiler_dump(condition.value) }}</td>
+                                    {# <td>{{ profiler_dump(condition.value, maxDepth=0) }}</td> #}
                                 </tr>
                             {% endfor %}
                             </tbody>
