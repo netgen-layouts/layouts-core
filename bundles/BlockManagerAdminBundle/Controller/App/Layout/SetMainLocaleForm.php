@@ -9,6 +9,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class SetMainLocaleForm extends Controller
 {
@@ -28,7 +29,7 @@ final class SetMainLocaleForm extends Controller
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\JsonResponse
      */
     public function __invoke(Layout $layout, Request $request)
     {
