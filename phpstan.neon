@@ -18,9 +18,6 @@ parameters:
         - '#expects string|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement|int#'
 
-        # Compatibility with Symfony 4.1
-        - '#Access to undefined constant Symfony\\Component\\HttpKernel\\EventListener\\AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER#'
-
         # Compatibility with Symfony 2.8
         - '#Call to an undefined method Netgen\\Bundle\\BlockManagerDebugBundle\\DataCollector\\BlockManagerDataCollector::varToString\(\)#'
 
