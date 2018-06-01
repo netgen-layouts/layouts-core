@@ -16,11 +16,13 @@
                     {{ form_row(child) }}
                 {% endfor %}
             {% endblock %}
+        </div>
 
-        </div>
-        <div class="nl-modal-actions">
-            {% block buttons %}{% endblock %}
-        </div>
+        {% block actions %}
+            <div class="nl-modal-actions">
+                {% block buttons %}{% endblock %}
+            </div>
+        {% endblock %}
     </div>
 
     {{ form_rest(form) }}
