@@ -7,9 +7,9 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\SetMainLocaleType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class SetMainLocaleForm extends Controller
 {
