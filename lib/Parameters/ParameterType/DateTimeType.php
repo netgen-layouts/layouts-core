@@ -31,7 +31,7 @@ final class DateTimeType extends ParameterType
     public function toHash(ParameterDefinition $parameterDefinition, $value)
     {
         if (!$value instanceof DateTimeInterface) {
-            return;
+            return null;
         }
 
         return [

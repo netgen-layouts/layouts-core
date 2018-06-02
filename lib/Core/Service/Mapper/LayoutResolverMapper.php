@@ -70,7 +70,7 @@ final class LayoutResolverMapper
                     // Layouts used by rule are always in published status
                     return $rule->layoutId !== null ? $this->layoutService->loadLayout($rule->layoutId) : null;
                 } catch (NotFoundException $e) {
-                    return;
+                    return null;
                 }
             },
             'enabled' => $rule->enabled,

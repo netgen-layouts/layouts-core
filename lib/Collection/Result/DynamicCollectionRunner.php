@@ -127,7 +127,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     private function getQueryValue(Iterator $queryIterator)
     {
         if (!$queryIterator->valid()) {
-            return;
+            return null;
         }
 
         $queryValue = $queryIterator->current();

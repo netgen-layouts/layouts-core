@@ -50,12 +50,12 @@ final class Zone extends Visitor
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
-     * @return mixed
+     * @return array|null
      */
     private function visitLinkedZone(ZoneValue $zone)
     {
         if (!$zone->hasLinkedZone()) {
-            return;
+            return null;
         }
 
         return [

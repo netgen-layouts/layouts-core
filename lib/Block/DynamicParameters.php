@@ -25,7 +25,7 @@ final class DynamicParameters implements ArrayAccess, Countable
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
-            return;
+            return null;
         }
 
         if (!is_callable($this->dynamicParameters[$offset])) {

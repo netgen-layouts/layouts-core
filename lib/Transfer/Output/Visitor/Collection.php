@@ -67,12 +67,12 @@ final class Collection extends Visitor
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @return mixed
+     * @return array|null
      */
     private function visitQuery(CollectionValue $collection, VisitorInterface $subVisitor)
     {
         if (!$collection->hasQuery()) {
-            return;
+            return null;
         }
 
         return $subVisitor->visit($collection->getQuery());

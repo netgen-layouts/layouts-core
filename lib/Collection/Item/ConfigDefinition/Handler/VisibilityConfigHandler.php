@@ -48,7 +48,7 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
                             !$visibleFrom instanceof DateTimeInterface ||
                             !$visibleTo instanceof DateTimeInterface
                         ) {
-                            return;
+                            return null;
                         }
 
                         return new Constraints\GreaterThan(

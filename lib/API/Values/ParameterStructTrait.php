@@ -57,7 +57,7 @@ trait ParameterStructTrait
     public function getParameterValue($parameterName)
     {
         if (!$this->hasParameterValue($parameterName)) {
-            return;
+            return null;
         }
 
         return $this->parameterValues[$parameterName];
