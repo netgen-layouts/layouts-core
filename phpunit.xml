@@ -24,7 +24,6 @@
         </testsuite>
         <testsuite name="Netgen\Bundle\BlockManagerAdminBundle">
             <directory>tests/bundles/BlockManagerAdminBundle</directory>
-            <exclude>tests/bundles/BlockManagerAdminBundle/Controller</exclude>
         </testsuite>
     </testsuites>
 
