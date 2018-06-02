@@ -41,10 +41,12 @@ final class ChangeCollectionTypeValidator
             'new_type'
         );
 
-        $collectionConfig = $this->getCollectionConfig($block, $collectionIdentifier);
-        if ($collectionConfig === null) {
+        $blockDefinition = $block->getDefinition();
+        if (!$blockDefinition->hasCollection($collectionIdentifier)) {
             return;
         }
+
+        $collectionConfig = $blockDefinition->getCollection($collectionIdentifier);
 
         if ($newType === Collection::TYPE_DYNAMIC) {
             if (!$collectionConfig->isValidQueryType($queryType)) {
@@ -64,24 +66,5 @@ final class ChangeCollectionTypeValidator
                 );
             }
         }
-    }
-
-    /**
-     * Returns the block collection configuration.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection|null
-     */
-    private function getCollectionConfig(Block $block, $collectionIdentifier)
-    {
-        $blockDefinition = $block->getDefinition();
-
-        if (!$blockDefinition->hasCollection($collectionIdentifier)) {
-            return null;
-        }
-
-        return $blockDefinition->getCollection($collectionIdentifier);
     }
 }

@@ -57,10 +57,12 @@ final class AddItemsValidator
             'items'
         );
 
-        $collectionConfig = $this->getCollectionConfig($block, $collectionIdentifier);
-        if ($collectionConfig === null) {
+        $blockDefinition = $block->getDefinition();
+        if (!$blockDefinition->hasCollection($collectionIdentifier)) {
             return;
         }
+
+        $collectionConfig = $blockDefinition->getCollection($collectionIdentifier);
 
         foreach ($items as $item) {
             if (!$collectionConfig->isValidItemType($item['value_type'])) {
@@ -73,24 +75,5 @@ final class AddItemsValidator
                 );
             }
         }
-    }
-
-    /**
-     * Returns the block collection configuration.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection|null
-     */
-    private function getCollectionConfig(Block $block, $collectionIdentifier)
-    {
-        $blockDefinition = $block->getDefinition();
-
-        if (!$blockDefinition->hasCollection($collectionIdentifier)) {
-            return null;
-        }
-
-        return $blockDefinition->getCollection($collectionIdentifier);
     }
 }
