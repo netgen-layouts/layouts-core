@@ -15,3 +15,6 @@ parameters:
 
         # Layouts tests specifics
         - '#on possibly null value of type#'
+
+        # Uncomment when upgrading to PHPStan 0.10
+        # - '#Call to method PHPUnit\\Framework\\Assert::assertInternalType\(\) with (.+) and callable will always evaluate to false.#'
