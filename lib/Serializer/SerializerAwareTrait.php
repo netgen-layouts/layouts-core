@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 trait SerializerAwareTrait
 {
     /**
-     * @var \Symfony\Component\Serializer\SerializerInterface&\Symfony\Component\Serializer\Normalizer\NormalizerInterface
+     * @var \Symfony\Component\Serializer\SerializerInterface
      */
     private $serializer;
 
