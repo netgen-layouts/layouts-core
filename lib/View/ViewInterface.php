@@ -85,7 +85,7 @@ interface ViewInterface
      * Returns the response which will be used to render the view
      * or null if no response has been set.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response|null
      */
     public function getResponse();
 

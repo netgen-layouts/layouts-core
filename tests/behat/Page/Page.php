@@ -125,7 +125,7 @@ abstract class Page
     /**
      * @param string $name
      *
-     * @return \Behat\Mink\Element\NodeElement|null
+     * @return mixed
      */
     protected function getParameter($name)
     {
