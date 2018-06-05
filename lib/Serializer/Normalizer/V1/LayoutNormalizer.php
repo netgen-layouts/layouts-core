@@ -68,7 +68,7 @@ final class LayoutNormalizer implements NormalizerInterface
 
             $data['has_archived_state'] = true;
             $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTime::ISO8601);
-            $data['archive_updated_at'] = $archivedLayout->getCreated()->format(DateTime::ISO8601);
+            $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTime::ISO8601);
         } catch (NotFoundException $e) {
             // Do nothing
         }
