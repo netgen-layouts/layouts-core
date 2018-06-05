@@ -70,7 +70,31 @@ final class RuleParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'ruleId' => 42,
-                    'published' => true,
+                    'status' => 'published',
+                ]
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValue
+     */
+    public function testLoadValueArchive()
+    {
+        $rule = new Rule();
+
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
+            ->method('loadRuleArchive')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($rule));
+
+        $this->assertEquals(
+            $rule,
+            $this->paramConverter->loadValue(
+                [
+                    'ruleId' => 42,
+                    'status' => 'archived',
                 ]
             )
         );
@@ -94,7 +118,7 @@ final class RuleParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'ruleId' => 42,
-                    'published' => false,
+                    'status' => 'draft',
                 ]
             )
         );

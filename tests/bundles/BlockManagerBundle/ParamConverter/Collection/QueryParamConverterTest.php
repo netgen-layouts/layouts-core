@@ -70,7 +70,7 @@ final class QueryParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'queryId' => 42,
-                    'published' => true,
+                    'status' => 'published',
                 ]
             )
         );
@@ -94,7 +94,7 @@ final class QueryParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'queryId' => 42,
-                    'published' => false,
+                    'status' => 'draft',
                 ]
             )
         );

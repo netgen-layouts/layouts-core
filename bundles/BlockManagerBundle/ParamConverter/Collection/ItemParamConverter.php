@@ -35,7 +35,7 @@ final class ItemParamConverter extends ParamConverter
 
     public function loadValue(array $values)
     {
-        if ($values['published']) {
+        if ($values['status'] === self::$statusPublished) {
             return $this->collectionService->loadItem($values['itemId']);
         }
 

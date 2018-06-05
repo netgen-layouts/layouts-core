@@ -70,7 +70,7 @@ final class CollectionParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'collectionId' => 42,
-                    'published' => true,
+                    'status' => 'published',
                 ]
             )
         );
@@ -94,7 +94,7 @@ final class CollectionParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'collectionId' => 42,
-                    'published' => false,
+                    'status' => 'draft',
                 ]
             )
         );

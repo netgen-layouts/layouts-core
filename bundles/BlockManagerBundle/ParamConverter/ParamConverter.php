@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
+    protected static $statusPublished = 'published';
+
+    protected static $statusDraft = 'draft';
+
+    protected static $statusArchived = 'archived';
     private static $routeStatusParam = '_ngbm_status';
 
     public function apply(Request $request, ParamConverterConfiguration $configuration)
@@ -39,11 +44,11 @@ abstract class ParamConverter implements ParamConverterInterface
         $routeStatusParam = $request->attributes->get(self::$routeStatusParam);
         $queryPublishedParam = $request->query->get('published');
 
-        $values['published'] = false;
-        if (in_array($routeStatusParam, ['published', 'draft'], true)) {
-            $values['published'] = $routeStatusParam === 'published';
+        $values['status'] = self::$statusDraft;
+        if (in_array($routeStatusParam, [self::$statusPublished, self::$statusDraft, self::$statusArchived], true)) {
+            $values['status'] = $routeStatusParam;
         } elseif ($queryPublishedParam === 'true') {
-            $values['published'] = true;
+            $values['status'] = self::$statusPublished;
         }
 
         if ($request->attributes->has('locale')) {

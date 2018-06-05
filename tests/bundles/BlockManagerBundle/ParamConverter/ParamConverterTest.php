@@ -79,6 +79,25 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
+    public function testApplyWithArchivedRouteStatusParam()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->attributes->set('_ngbm_status', 'archived');
+        $configuration = new ParamConverterConfiguration([]);
+        $configuration->setClass(Value::class);
+
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
+            new Value(['id' => 42, 'status' => Value::STATUS_ARCHIVED]),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
     public function testApplyWithDraftRouteStatusParam()
     {
         $request = Request::create('/');

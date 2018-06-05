@@ -37,7 +37,7 @@ final class CollectionParamConverter extends ParamConverter
     {
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
-        if ($values['published']) {
+        if ($values['status'] === self::$statusPublished) {
             return $this->collectionService->loadCollection($values['collectionId'], $locales);
         }
 

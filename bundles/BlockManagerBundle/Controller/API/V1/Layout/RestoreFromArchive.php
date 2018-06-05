@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,15 +22,13 @@ final class RestoreFromArchive extends Controller
     /**
      * Restores the layout from archive to a draft.
      *
-     * @param int|string $archivedLayoutId
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke($archivedLayoutId)
+    public function __invoke(Layout $layout)
     {
-        $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive($archivedLayoutId)
-        );
+        $this->layoutService->restoreFromArchive($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

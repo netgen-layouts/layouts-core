@@ -70,7 +70,7 @@ final class ConditionParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'conditionId' => 42,
-                    'published' => true,
+                    'status' => 'published',
                 ]
             )
         );
@@ -94,7 +94,7 @@ final class ConditionParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'conditionId' => 42,
-                    'published' => false,
+                    'status' => 'draft',
                 ]
             )
         );

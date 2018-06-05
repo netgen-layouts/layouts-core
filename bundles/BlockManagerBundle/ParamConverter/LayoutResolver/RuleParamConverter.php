@@ -35,8 +35,12 @@ final class RuleParamConverter extends ParamConverter
 
     public function loadValue(array $values)
     {
-        if ($values['published']) {
+        if ($values['status'] === self::$statusPublished) {
             return $this->layoutResolverService->loadRule($values['ruleId']);
+        }
+
+        if ($values['status'] === self::$statusArchived) {
+            return $this->layoutResolverService->loadRuleArchive($values['ruleId']);
         }
 
         return $this->layoutResolverService->loadRuleDraft($values['ruleId']);

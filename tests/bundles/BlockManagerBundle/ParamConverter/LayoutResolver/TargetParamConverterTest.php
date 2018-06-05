@@ -70,7 +70,7 @@ final class TargetParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'targetId' => 42,
-                    'published' => true,
+                    'status' => 'published',
                 ]
             )
         );
@@ -94,7 +94,7 @@ final class TargetParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'targetId' => 42,
-                    'published' => false,
+                    'status' => 'draft',
                 ]
             )
         );

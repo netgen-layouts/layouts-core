@@ -67,7 +67,36 @@ final class LayoutParamConverterTest extends TestCase
 
         $this->assertEquals(
             $layout,
-            $this->paramConverter->loadValue(['layoutId' => 42, 'published' => true])
+            $this->paramConverter->loadValue(
+                [
+                    'layoutId' => 42,
+                    'status' => 'published',
+                ]
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValue
+     */
+    public function testLoadValueArchive()
+    {
+        $layout = new Layout();
+
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('loadLayoutArchive')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($layout));
+
+        $this->assertEquals(
+            $layout,
+            $this->paramConverter->loadValue(
+                [
+                    'layoutId' => 42,
+                    'status' => 'archived',
+                ]
+            )
         );
     }
 
@@ -89,7 +118,7 @@ final class LayoutParamConverterTest extends TestCase
             $this->paramConverter->loadValue(
                 [
                     'layoutId' => 42,
-                    'published' => false,
+                    'status' => 'draft',
                 ]
             )
         );

@@ -37,7 +37,7 @@ final class QueryParamConverter extends ParamConverter
     {
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
-        if ($values['published']) {
+        if ($values['status'] === self::$statusPublished) {
             return $this->collectionService->loadQuery($values['queryId'], $locales);
         }
 
