@@ -299,8 +299,8 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertTrue($updatedRule->isDraft());
         $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertTrue($updatedRule->getLayout()->isPublished());
         $this->assertInstanceOf(Layout::class, $updatedRule->getLayout());
+        $this->assertTrue($updatedRule->getLayout()->isPublished());
         $this->assertEquals(3, $updatedRule->getLayout()->getId());
         $this->assertEquals('Updated comment', $updatedRule->getComment());
     }
@@ -319,8 +319,8 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertTrue($updatedRule->isDraft());
         $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertTrue($rule->getLayout()->isPublished());
-        $this->assertInstanceOf(Layout::class, $rule->getLayout());
+        $this->assertInstanceOf(Layout::class, $updatedRule->getLayout());
+        $this->assertTrue($updatedRule->getLayout()->isPublished());
         $this->assertEquals(2, $updatedRule->getLayout()->getId());
         $this->assertEquals('Updated comment', $updatedRule->getComment());
     }

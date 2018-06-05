@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Behat\Page\App;
 
+use Behat\Mink\Element\NodeElement;
 use Netgen\BlockManager\Behat\Exception\PageException;
 use Netgen\BlockManager\Behat\Page\SymfonyPage;
 
@@ -35,7 +36,12 @@ final class IndexPage extends SymfonyPage
             throw new PageException('Expected to have a field named "create[shared]" but none found.');
         }
 
-        $sharedLayoutValue = $this->getDocument()->findField('create[shared]')->getValue();
+        $sharedLayoutField = $this->getDocument()->findField('create[shared]');
+        if (!$sharedLayoutField instanceof NodeElement) {
+            throw new PageException('Expected to have a field named "create[shared]", but found none.');
+        }
+
+        $sharedLayoutValue = $sharedLayoutField->getValue();
 
         if ($shared && $sharedLayoutValue !== '1') {
             throw new PageException(sprintf('Expected to have a field named "create[shared]" with value "1", but found value "%s".', var_export($sharedLayoutValue, true)));

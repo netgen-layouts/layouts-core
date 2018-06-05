@@ -842,6 +842,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertCount(0, $bottomZoneBlocks);
 
         $this->assertTrue($topZone->hasLinkedZone());
+
+        $this->assertInstanceOf(Zone::class, $layout->getZone('top', true)->getLinkedZone());
+        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+
         $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
         $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
@@ -889,6 +893,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertCount(0, $bottomZoneBlocks);
 
         $this->assertTrue($topZone->hasLinkedZone());
+
+        $this->assertInstanceOf(Zone::class, $layout->getZone('top', true)->getLinkedZone());
+        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+
         $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
         $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
