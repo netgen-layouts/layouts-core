@@ -1,0 +1,37 @@
+[
+    {
+        "__format": {
+            "type": "layout",
+            "version": 1
+        },
+        "id": "@integer@",
+        "type_identifier": "4_zones_a",
+        "name": "My layout",
+        "description": "My layout description",
+        "status": "PUBLISHED",
+        "main_locale": "en",
+        "available_locales": [
+            "en"
+        ],
+        "creation_date": "@integer@",
+        "modification_date": "@integer@",
+        "is_shared": false,
+        "zones": {
+            "bottom": {
+                "identifier": "bottom",
+                "linked_zone": null,
+                "blocks": []
+            },
+            "left": {
+                "identifier": "left",
+                "linked_zone": null,
+                "blocks": []
+            },
+            "top": {
+                "identifier": "top",
+                "linked_zone": null,
+                "blocks": []
+            }
+        }
+    }
+]
