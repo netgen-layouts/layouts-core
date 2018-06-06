@@ -147,9 +147,8 @@ final class ImportCommand extends Command
         $value = json_decode($data, true);
 
         if (!is_array($value)) {
-            $type = gettype($value);
             throw new RuntimeException(
-                sprintf('Data is malformed, expected array, got %s', $type)
+                sprintf('Data is malformed, expected array, got %s', gettype($value))
             );
         }
 
