@@ -1,6 +1,7 @@
 layout_types:
     4_zones_a:
         name: '4 zones A'
+        enabled: false
         zones:
             top:
                 name: 'Top'
@@ -14,6 +15,7 @@ layout_types:
 
     4_zones_b:
         name: '4 zones B'
+        enabled: false
         zones:
             top:
                 name: 'Top'
