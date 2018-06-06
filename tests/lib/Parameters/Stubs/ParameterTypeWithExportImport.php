@@ -6,11 +6,21 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType as BaseParameterType;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-final class ParameterType extends BaseParameterType
+final class ParameterTypeWithExportImport extends BaseParameterType
 {
     public function getIdentifier()
     {
         return 'type';
+    }
+
+    public function import(ParameterDefinition $parameterDefinition, $value)
+    {
+        return 'import_value';
+    }
+
+    public function export(ParameterDefinition $parameterDefinition, $value)
+    {
+        return 'export_value';
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)

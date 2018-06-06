@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Parameters\Parameter as ParameterValue;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterTypeWithExportImport;
 use Netgen\BlockManager\Transfer\Output\Visitor\Parameter;
 
 abstract class ParameterTest extends VisitorTest
@@ -35,7 +35,7 @@ abstract class ParameterTest extends VisitorTest
     public function visitProvider()
     {
         return [
-            [new ParameterValue(['parameterDefinition' => new ParameterDefinition(['type' => new ParameterType()])]), 'parameter/parameter.json'],
+            [new ParameterValue(['parameterDefinition' => new ParameterDefinition(['type' => new ParameterTypeWithExportImport()])]), 'parameter/parameter.json'],
         ];
     }
 }
