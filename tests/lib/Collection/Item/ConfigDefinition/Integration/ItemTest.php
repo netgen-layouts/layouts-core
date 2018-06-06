@@ -11,7 +11,6 @@ use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
@@ -21,8 +20,6 @@ abstract class ItemTest extends ServiceTestCase
     public function setUp()
     {
         parent::setUp();
-
-        $this->prepareParameterTypeRegistry();
 
         $validator = $this->getValidator();
 
@@ -105,19 +102,6 @@ abstract class ItemTest extends ServiceTestCase
     abstract public function invalidConfigDataProvider();
 
     /**
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface[]
-     */
-    public function getParameterTypes()
-    {
-        return [];
-    }
-
-    public function getValidators()
-    {
-        return [];
-    }
-
-    /**
      * @return \Symfony\Component\Validator\Validator\ValidatorInterface
      */
     public function getValidator()
@@ -164,15 +148,5 @@ abstract class ItemTest extends ServiceTestCase
                 'parameterDefinitions' => $parameterBuilder->buildParameterDefinitions(),
             ]
         );
-    }
-
-    private function prepareParameterTypeRegistry()
-    {
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\ChoiceType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\DateTimeType());
-
-        foreach ($this->getParameterTypes() as $parameterType) {
-            $this->parameterTypeRegistry->addParameterType($parameterType);
-        }
     }
 }

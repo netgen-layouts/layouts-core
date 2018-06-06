@@ -10,10 +10,6 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -24,8 +20,6 @@ abstract class BlockTest extends ServiceTestCase
     public function setUp()
     {
         parent::setUp();
-
-        $this->prepareParameterTypeRegistry();
 
         $validator = $this->getValidator();
 
@@ -115,19 +109,6 @@ abstract class BlockTest extends ServiceTestCase
     abstract public function invalidParametersDataProvider();
 
     /**
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface[]
-     */
-    public function getParameterTypes()
-    {
-        return [];
-    }
-
-    public function getValidators()
-    {
-        return [];
-    }
-
-    /**
      * @return \Symfony\Component\Validator\Validator\ValidatorInterface
      */
     public function getValidator()
@@ -191,29 +172,5 @@ abstract class BlockTest extends ServiceTestCase
         $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);
 
         return $blockDefinition;
-    }
-
-    private function prepareParameterTypeRegistry()
-    {
-        $remoteIdConverter = new RemoteIdConverter($this->createMock(ItemLoaderInterface::class));
-
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\UrlType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\RangeType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\NumberType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\LinkType(new ValueTypeRegistry(), $remoteIdConverter));
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\ItemLinkType(new ValueTypeRegistry(), $remoteIdConverter));
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\IdentifierType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\HtmlType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\EmailType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\ChoiceType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
-
-        foreach ($this->getParameterTypes() as $parameterType) {
-            $this->parameterTypeRegistry->addParameterType($parameterType);
-        }
     }
 }

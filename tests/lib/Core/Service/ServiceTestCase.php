@@ -32,12 +32,14 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\Zone;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
@@ -140,6 +142,8 @@ abstract class ServiceTestCase extends TestCase
 
     public function setUp()
     {
+        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+
         $this->prepareRegistries();
         $this->preparePersistence();
     }
@@ -341,10 +345,7 @@ abstract class ServiceTestCase extends TestCase
         $this->conditionTypeRegistry->addConditionType(new ConditionType('my_condition'));
         $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
+        $this->prepareParameterTypeRegistry();
     }
 
     /**
@@ -512,8 +513,6 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createCollectionMapper()
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
-
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
             $this->createParameterMapper(),
@@ -557,5 +556,27 @@ abstract class ServiceTestCase extends TestCase
     protected function createConfigMapper()
     {
         return new ConfigMapper($this->createParameterMapper());
+    }
+
+    protected function prepareParameterTypeRegistry()
+    {
+        $remoteIdConverter = new RemoteIdConverter($this->itemLoaderMock);
+
+        $this->parameterTypeRegistry = new ParameterTypeRegistry();
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\UrlType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\RangeType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\NumberType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\LinkType(new ValueTypeRegistry(), $remoteIdConverter));
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\ItemLinkType(new ValueTypeRegistry(), $remoteIdConverter));
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\IdentifierType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\HtmlType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\EmailType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\ChoiceType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\DateTimeType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
     }
 }
