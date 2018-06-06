@@ -16,3 +16,9 @@ services:
         public: false
         tags:
             - { name: netgen_block_manager.item.value_url_generator, value_type: "my_value_type" }
+
+    netgen_block_manager.fixtures.collection.query_type.my_query_type:
+        class: Netgen\Bundle\BlockManagerFixturesBundle\Collection\QueryType\Handler\MyQueryType
+        public: false
+        tags:
+            - { name: netgen_block_manager.collection.query_type_handler, type: my_query_type }

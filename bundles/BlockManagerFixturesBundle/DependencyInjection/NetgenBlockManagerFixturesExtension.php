@@ -27,6 +27,7 @@ final class NetgenBlockManagerFixturesExtension extends Extension implements Pre
         $prependConfigs = [
             'layout_types.yml' => 'netgen_block_manager',
             'block_definitions.yml' => 'netgen_block_manager',
+            'query_types.yml' => 'netgen_block_manager',
             'block_types.yml' => 'netgen_block_manager',
             'value_types.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
