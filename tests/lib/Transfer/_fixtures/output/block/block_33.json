@@ -17,6 +17,8 @@
     "parameters": {
         "en": []
     },
-    "configuration": [],
+    "configuration": {
+        "http_cache": "sub_visit_value"
+    },
     "collections": []
 }
