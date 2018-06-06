@@ -92,8 +92,6 @@ final class LayoutDataHandler
      *
      * @param array $data
      *
-     * @throws \Exception If thrown by the underlying API
-     *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function createLayout(array $data)
@@ -125,7 +123,6 @@ final class LayoutDataHandler
      * @param array $layoutData
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If data is not consistent
-     * @throws \Exception If thrown by the underlying API
      */
     private function processZones(Layout $layout, array $layoutData)
     {
@@ -145,8 +142,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param array $layoutData
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function addTranslations(Layout $layout, array $layoutData)
     {
@@ -179,7 +174,6 @@ final class LayoutDataHandler
      * @param array $translationsData Block parameters data by translation locale
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
-     * @throws \Exception If thrown by the underlying API
      */
     private function updateBlockTranslations(Block $block, array $translationsData)
     {
@@ -206,8 +200,6 @@ final class LayoutDataHandler
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $parameterData
      * @param string $locale
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function updateBlockTranslation(Block $block, array $parameterData, $locale)
     {
@@ -224,7 +216,6 @@ final class LayoutDataHandler
      * @param array $translationsData Query parameters data by translation locale
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
-     * @throws \Exception If thrown by the underlying API
      */
     private function updateQueryTranslations(Query $query, array $translationsData)
     {
@@ -251,8 +242,6 @@ final class LayoutDataHandler
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param array $parameterData
      * @param string $locale
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function updateQueryTranslation(Query $query, array $parameterData, $locale)
     {
@@ -269,8 +258,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param array $zoneData
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function processZone(Zone $zone, array $zoneData)
     {
@@ -285,8 +272,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param array $zoneData
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function linkZone(Zone $zone, array $zoneData)
     {
@@ -301,8 +286,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param array $blocksData
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function createBlocks(Zone $zone, array $blocksData)
     {
@@ -316,8 +299,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param array $blockData
-     *
-     * @throws \Exception If thrown by the underlying API
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
@@ -339,8 +320,6 @@ final class LayoutDataHandler
      * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
      * @param string $placeholder
      * @param array $blockData
-     *
-     * @throws \Exception If thrown by the underlying API
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
@@ -376,8 +355,6 @@ final class LayoutDataHandler
      *
      * @param array $blockData
      *
-     * @throws \Exception If thrown by the underlying API
-     *
      * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
     private function buildBlockCreateStruct(array $blockData)
@@ -402,9 +379,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
      * @param array $data
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @throws \Exception If thrown by the underlying API
      */
     private function setCollectionStructs(BlockCreateStruct $blockCreateStruct, array $data)
     {
@@ -431,9 +405,6 @@ final class LayoutDataHandler
      * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct
      * @param \Netgen\BlockManager\Config\ConfigDefinitionAwareInterface $configDefinitionAware
      * @param array $configurationData
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @throws \Exception If thrown by the underlying API
      */
     private function setConfigStructs(
         ConfigAwareStruct $configAwareStruct,
@@ -454,8 +425,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $collectionsData Collections data
-     *
-     * @throws \Exception If thrown by the underlying API
      */
     private function processCollections(Block $block, array $collectionsData)
     {
@@ -479,9 +448,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param array $collectionItemsData
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException
-     * @throws \Netgen\BlockManager\Exception\RuntimeException
      */
     private function createItems(Collection $collection, array $collectionItemsData)
     {

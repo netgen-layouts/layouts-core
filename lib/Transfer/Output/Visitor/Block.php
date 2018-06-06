@@ -80,8 +80,6 @@ final class Block extends Visitor
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
-     *
      * @return array
      */
     private function visitParameters(BlockValue $block, VisitorInterface $subVisitor)

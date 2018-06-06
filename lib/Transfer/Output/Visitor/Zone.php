@@ -72,9 +72,7 @@ final class Zone extends Visitor
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException
-     *
-     * @return mixed
+     * @return array
      */
     private function visitBlocks(ZoneValue $zone, VisitorInterface $subVisitor)
     {

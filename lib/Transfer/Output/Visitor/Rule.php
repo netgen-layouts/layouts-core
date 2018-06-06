@@ -47,7 +47,7 @@ final class Rule extends Visitor
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @return mixed
+     * @return array
      */
     private function visitTargets(RuleValue $rule, VisitorInterface $subVisitor)
     {
@@ -66,7 +66,7 @@ final class Rule extends Visitor
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @return mixed
+     * @return array
      */
     private function visitConditions(RuleValue $rule, VisitorInterface $subVisitor)
     {

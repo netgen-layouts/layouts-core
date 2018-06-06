@@ -13,7 +13,6 @@ interface ImporterInterface
      * @param array $data
      *
      * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted for import
-     * @throws \Exception If thrown by the underlying API
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */

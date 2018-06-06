@@ -55,8 +55,6 @@ final class Query extends Visitor
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
-     *
      * @return array
      */
     private function visitParameters(QueryValue $query, VisitorInterface $subVisitor)
