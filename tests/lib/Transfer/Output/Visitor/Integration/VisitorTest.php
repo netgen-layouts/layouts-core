@@ -55,7 +55,7 @@ abstract class VisitorTest extends ServiceTestCase
      */
     public function testVisit($value, $fixturePath)
     {
-        $fixturePath = __DIR__ . '/_fixtures/' . $fixturePath;
+        $fixturePath = __DIR__ . '/../../../_fixtures/output/' . $fixturePath;
 
         if (!file_exists($fixturePath)) {
             throw new RuntimeException(sprintf('%s file does not exist.', $fixturePath));
