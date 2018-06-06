@@ -295,6 +295,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition5 = new ContainerDefinition(
             [
                 'identifier' => 'column',
+                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
                 'viewTypes' => [
                     'column' => new ViewType(
@@ -311,6 +312,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition6 = new ContainerDefinition(
             [
                 'identifier' => 'two_columns',
+                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
                 'viewTypes' => [
                     'two_columns_50_50' => new ViewType(
