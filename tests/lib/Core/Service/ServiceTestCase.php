@@ -136,7 +136,7 @@ abstract class ServiceTestCase extends TestCase
     protected $layoutResolverMapper;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $itemLoaderMock;
 

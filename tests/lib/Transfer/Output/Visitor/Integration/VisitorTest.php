@@ -13,7 +13,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 abstract class VisitorTest extends ServiceTestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $subVisitorMock;
 
