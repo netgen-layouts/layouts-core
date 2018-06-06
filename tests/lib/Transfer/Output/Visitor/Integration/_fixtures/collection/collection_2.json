@@ -1,0 +1,18 @@
+{
+    "id": 2,
+    "offset": 0,
+    "limit": null,
+    "is_translatable": true,
+    "is_always_available": true,
+    "main_locale": "en",
+    "available_locales": [
+        "en",
+        "hr"
+    ],
+    "items": [
+        "sub_visit_value",
+        "sub_visit_value",
+        "sub_visit_value"
+    ],
+    "query": "sub_visit_value"
+}

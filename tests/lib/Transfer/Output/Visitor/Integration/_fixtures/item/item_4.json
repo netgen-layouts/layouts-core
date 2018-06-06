@@ -1,0 +1,10 @@
+{
+    "id": 4,
+    "type": "MANUAL",
+    "position": 1,
+    "value": "abc",
+    "value_type": "my_value_type",
+    "configuration": {
+        "visibility": "sub_visit_value"
+    }
+}

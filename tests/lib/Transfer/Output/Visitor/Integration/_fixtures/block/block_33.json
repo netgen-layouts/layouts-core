@@ -1,0 +1,22 @@
+{
+    "id": 33,
+    "definition_identifier": "two_columns",
+    "is_translatable": true,
+    "is_always_available": true,
+    "main_locale": "en",
+    "available_locales": [
+        "en"
+    ],
+    "view_type": "two_columns_50_50",
+    "item_view_type": "standard",
+    "name": "My third block",
+    "placeholders": {
+        "left": "sub_visit_value",
+        "right": "sub_visit_value"
+    },
+    "parameters": {
+        "en": []
+    },
+    "configuration": [],
+    "collections": []
+}

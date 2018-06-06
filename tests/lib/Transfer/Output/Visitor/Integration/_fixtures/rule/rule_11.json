@@ -1,0 +1,10 @@
+{
+    "id": 11,
+    "status": "PUBLISHED",
+    "layout_id": null,
+    "is_enabled": false,
+    "priority": -1,
+    "comment": null,
+    "targets": [],
+    "conditions": []
+}

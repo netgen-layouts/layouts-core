@@ -1,0 +1,32 @@
+{
+    "id": 31,
+    "definition_identifier": "list",
+    "is_translatable": true,
+    "is_always_available": true,
+    "main_locale": "en",
+    "available_locales": [
+        "en",
+        "hr"
+    ],
+    "view_type": "grid",
+    "item_view_type": "standard_with_intro",
+    "name": "My published block",
+    "placeholders": [],
+    "parameters": {
+        "en": {
+            "css_class": "sub_visit_value",
+            "css_id": "sub_visit_value"
+        },
+        "hr": {
+            "css_class": "sub_visit_value",
+            "css_id": "sub_visit_value"
+        }
+    },
+    "configuration": {
+        "http_cache": "sub_visit_value"
+    },
+    "collections": {
+        "default": "sub_visit_value",
+        "featured": "sub_visit_value"
+    }
+}

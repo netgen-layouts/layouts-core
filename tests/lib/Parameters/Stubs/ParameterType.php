@@ -13,6 +13,11 @@ final class ParameterType extends BaseParameterType
         return 'type';
     }
 
+    public function export(ParameterDefinition $parameterDefinition, $value)
+    {
+        return 'export_value';
+    }
+
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
     {
         return [new NotNull()];

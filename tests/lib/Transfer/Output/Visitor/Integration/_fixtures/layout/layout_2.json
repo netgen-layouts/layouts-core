@@ -1,0 +1,24 @@
+{
+    "__format": {
+        "type": "layout",
+        "version": 1
+    },
+    "id": 2,
+    "type_identifier": "4_zones_b",
+    "name": "My other layout",
+    "description": "My other layout description",
+    "status": "PUBLISHED",
+    "main_locale": "en",
+    "available_locales": [
+        "en"
+    ],
+    "creation_date": "@integer@",
+    "modification_date": "@integer@",
+    "is_shared": false,
+    "zones": {
+        "bottom": "sub_visit_value",
+        "left": "sub_visit_value",
+        "right": "sub_visit_value",
+        "top": "sub_visit_value"
+    }
+}

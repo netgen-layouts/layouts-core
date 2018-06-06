@@ -1,0 +1,15 @@
+{
+    "id": 2,
+    "status": "PUBLISHED",
+    "layout_id": 2,
+    "is_enabled": true,
+    "priority": 8,
+    "comment": "My other comment",
+    "targets": {
+        "3": "sub_visit_value",
+        "4": "sub_visit_value"
+    },
+    "conditions": {
+        "1": "sub_visit_value"
+    }
+}

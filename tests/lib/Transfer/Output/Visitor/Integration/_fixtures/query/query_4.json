@@ -1,0 +1,16 @@
+{
+    "id": 4,
+    "is_translatable": false,
+    "is_always_available": true,
+    "main_locale": "en",
+    "available_locales": [
+        "en"
+    ],
+    "parameters": {
+        "en": {
+            "param": "sub_visit_value",
+            "param2": "sub_visit_value"
+        }
+    },
+    "query_type": "my_query_type"
+}

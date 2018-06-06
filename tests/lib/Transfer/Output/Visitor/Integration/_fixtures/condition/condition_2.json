@@ -1,0 +1,11 @@
+{
+    "id": 2,
+    "type": "route_parameter",
+    "value": {
+        "parameter_name": "some_param",
+        "parameter_values": [
+            3,
+            4
+        ]
+    }
+}
