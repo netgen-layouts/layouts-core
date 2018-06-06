@@ -140,7 +140,7 @@ final class ImportCommand extends Command
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string could not be decoded
      *
-     * @return mixed
+     * @return array
      */
     private function decode($data)
     {
