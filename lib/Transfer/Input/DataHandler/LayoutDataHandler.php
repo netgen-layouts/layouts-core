@@ -98,12 +98,12 @@ final class LayoutDataHandler
      */
     public function createLayout(array $data)
     {
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($data['type_identifier']);
         $createStruct = $this->layoutService->newLayoutCreateStruct(
-            $layoutType,
+            $this->layoutTypeRegistry->getLayoutType($data['type_identifier']),
             sprintf('%s (Imported on %s)', $data['name'], date('D, d M Y H:i:s')),
             $data['main_locale']
         );
+
         $createStruct->description = $data['description'];
         $createStruct->shared = $data['is_shared'];
 
