@@ -186,7 +186,7 @@ final class LayoutDataHandler
 
             if (!array_key_exists($locale, $translationsData)) {
                 throw new RuntimeException(
-                    sprintf("Could not find locale '%s' in the given data", $locale)
+                    sprintf("Could not find locale '%s' in the given block data", $locale)
                 );
             }
 
@@ -228,7 +228,7 @@ final class LayoutDataHandler
 
             if (!array_key_exists($locale, $translationsData)) {
                 throw new RuntimeException(
-                    sprintf("Could not find locale '%s' in the given data", $locale)
+                    sprintf("Could not find locale '%s' in the given query data", $locale)
                 );
             }
 
