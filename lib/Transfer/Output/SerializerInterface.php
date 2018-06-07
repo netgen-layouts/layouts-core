@@ -2,9 +2,6 @@
 
 namespace Netgen\BlockManager\Transfer\Output;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-
 /**
  * Serializer serializes domain entity into hash representation, which can be
  * transferred through a plain text format, like JSON or XML.
@@ -15,20 +12,20 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 interface SerializerInterface
 {
     /**
-     * Serializes the provided layout.
+     * Serializes the layouts with provided IDs.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param array $layoutIds
      *
      * @return array
      */
-    public function serializeLayout(Layout $layout);
+    public function serializeLayouts(array $layoutIds);
 
     /**
-     * Serializes the provided rule.
+     * Serializes the rules with provided IDs.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param array $ruleIds
      *
      * @return array
      */
-    public function serializeRule(Rule $rule);
+    public function serializeRules(array $ruleIds);
 }

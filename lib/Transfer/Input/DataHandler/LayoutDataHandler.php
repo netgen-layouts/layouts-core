@@ -129,7 +129,7 @@ final class LayoutDataHandler
         foreach ($layout->getZones() as $zone) {
             if (!array_key_exists($zone->getIdentifier(), $layoutData['zones'])) {
                 throw new RuntimeException(
-                    sprintf("Missing data for zone '%s'", $zone->getIdentifier())
+                    sprintf('Missing data for zone "%s"', $zone->getIdentifier())
                 );
             }
 
@@ -186,7 +186,7 @@ final class LayoutDataHandler
 
             if (!array_key_exists($locale, $translationsData)) {
                 throw new RuntimeException(
-                    sprintf("Could not find locale '%s' in the given block data", $locale)
+                    sprintf('Could not find locale "%s" in the given block data', $locale)
                 );
             }
 
@@ -228,7 +228,7 @@ final class LayoutDataHandler
 
             if (!array_key_exists($locale, $translationsData)) {
                 throw new RuntimeException(
-                    sprintf("Could not find locale '%s' in the given query data", $locale)
+                    sprintf('Could not find locale "%s" in the given query data', $locale)
                 );
             }
 
@@ -262,7 +262,7 @@ final class LayoutDataHandler
     private function processZone(Zone $zone, array $zoneData)
     {
         $this->createBlocks($zone, $zoneData['blocks']);
-        if (!empty($zoneData['linked_zone'])) {
+        if (is_array($zoneData['linked_zone'])) {
             $this->linkZone($zone, $zoneData['linked_zone']);
         }
     }
@@ -359,6 +359,12 @@ final class LayoutDataHandler
      */
     private function buildBlockCreateStruct(array $blockData)
     {
+        if (!array_key_exists($blockData['main_locale'], $blockData['parameters'])) {
+            throw new RuntimeException(
+                sprintf('Missing data for block main locale "%s"', $blockData['main_locale'])
+            );
+        }
+
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($blockData['definition_identifier']);
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
@@ -384,7 +390,14 @@ final class LayoutDataHandler
     {
         foreach ($data as $collectionIdentifier => $collectionData) {
             $queryCreateStruct = null;
-            if ($collectionData['query'] !== null) {
+
+            if (is_array($collectionData['query'])) {
+                if (!array_key_exists($collectionData['main_locale'], $collectionData['query']['parameters'])) {
+                    throw new RuntimeException(
+                        sprintf('Missing data for query main locale "%s"', $collectionData['main_locale'])
+                    );
+                }
+
                 $queryType = $this->queryTypeRegistry->getQueryType($collectionData['query']['query_type']);
                 $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
 
@@ -428,14 +441,10 @@ final class LayoutDataHandler
      */
     private function processCollections(Block $block, array $collectionsData)
     {
-        if (empty($collectionsData)) {
-            return;
-        }
-
         foreach ($block->getCollections() as $identifier => $collection) {
             $collectionData = $collectionsData[$identifier];
 
-            if ($collection->hasQuery()) {
+            if ($collection->hasQuery() && is_array($collectionData['query'])) {
                 $this->updateQueryTranslations($collection->getQuery(), $collectionData['query']['parameters']);
             }
 
@@ -478,23 +487,18 @@ final class LayoutDataHandler
     }
 
     /**
-     * Map item's exported type string to the real type value.
+     * Map items' exported type string to the real type value.
      *
-     * @param string $typeString Item exported type string
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If type string is not recognized
+     * @param string $typeString
      *
      * @return int
      */
     private function mapItemType($typeString)
     {
-        switch ($typeString) {
-            case 'MANUAL':
-                return Item::TYPE_MANUAL;
-            case 'OVERRIDE':
-                return Item::TYPE_OVERRIDE;
+        if ($typeString === 'OVERRIDE') {
+            return Item::TYPE_OVERRIDE;
         }
 
-        throw new RuntimeException(sprintf("Unknown item type '%s'", $typeString));
+        return Item::TYPE_MANUAL;
     }
 }

@@ -70,10 +70,10 @@ final class ExportCommand extends Command
 
         switch ($type) {
             case 'layout':
-                $hash = $this->serializeLayouts($ids);
+                $hash = $this->serializer->serializeLayouts($ids);
                 break;
             case 'rule':
-                $hash = $this->serializeRules($ids);
+                $hash = $this->serializer->serializeRules($ids);
                 break;
             default:
                 throw new RuntimeException(sprintf('Unhandled type %s', $type));
@@ -85,45 +85,5 @@ final class ExportCommand extends Command
         !empty($file) ?
             $this->fileSystem->dumpFile($file, $json) :
             $output->writeln((string) $json);
-    }
-
-    /**
-     * Serialize all layouts form the given array of layout IDs.
-     *
-     * @param string[]|int[] $ids
-     *
-     * @return array
-     */
-    private function serializeLayouts(array $ids)
-    {
-        $layouts = [];
-
-        foreach ($ids as $id) {
-            $layouts[] = $this->serializer->serializeLayout(
-                $this->layoutService->loadLayout($id)
-            );
-        }
-
-        return $layouts;
-    }
-
-    /**
-     * Serialize all rules form the given array of rule IDs.
-     *
-     * @param string[]|int[] $ids
-     *
-     * @return array
-     */
-    private function serializeRules(array $ids)
-    {
-        $rules = [];
-
-        foreach ($ids as $id) {
-            $rules[] = $this->serializer->serializeRule(
-                $this->layoutResolverService->loadRule($id)
-            );
-        }
-
-        return $rules;
     }
 }

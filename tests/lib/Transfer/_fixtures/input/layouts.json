@@ -1,676 +1,664 @@
-[
-    {
-        "__format": {
-            "type": "layout",
-            "version": 1
-        },
-        "id": "@integer@",
-        "type_identifier": "4_zones_a",
-        "name": "My layout",
-        "description": "My layout description",
-        "status": "PUBLISHED",
-        "main_locale": "en",
-        "available_locales": [
-            "en",
-            "hr"
-        ],
-        "creation_date": 1528371500,
-        "modification_date": 1528372000,
-        "is_shared": false,
-        "zones": {
-            "bottom": {
-                "identifier": "bottom",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "left": {
-                "identifier": "left",
-                "linked_zone": null,
-                "blocks": [
-                    {
-                        "id": "@integer@",
-                        "definition_identifier": "list",
-                        "is_translatable": true,
-                        "is_always_available": true,
-                        "main_locale": "en",
-                        "available_locales": [
-                            "en",
-                            "hr"
-                        ],
-                        "view_type": "grid",
-                        "item_view_type": "standard",
-                        "name": "My other block",
-                        "placeholders": [],
-                        "parameters": {
-                            "en": {
-                                "number_of_columns": 3,
-                                "paged_collections:enabled": null,
-                                "paged_collections:type": null,
-                                "paged_collections:max_pages": null,
-                                "paged_collections:ajax_first": null,
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            },
-                            "hr": {
-                                "number_of_columns": 3,
-                                "paged_collections:enabled": null,
-                                "paged_collections:type": null,
-                                "paged_collections:max_pages": null,
-                                "paged_collections:ajax_first": null,
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            }
-                        },
-                        "configuration": {
-                            "http_cache": {
-                                "use_http_cache": false,
-                                "shared_max_age": null
-                            }
-                        },
-                        "collections": []
-                    }
-                ]
-            },
-            "right": {
-                "identifier": "right",
-                "linked_zone": null,
-                "blocks": [
-                    {
-                        "id": "@integer@",
-                        "definition_identifier": "list",
-                        "is_translatable": true,
-                        "is_always_available": true,
-                        "main_locale": "en",
-                        "available_locales": [
-                            "en",
-                            "hr"
-                        ],
-                        "view_type": "grid",
-                        "item_view_type": "standard_with_intro",
-                        "name": "My published block",
-                        "placeholders": [],
-                        "parameters": {
-                            "en": {
-                                "number_of_columns": 3,
-                                "paged_collections:enabled": null,
-                                "paged_collections:type": null,
-                                "paged_collections:max_pages": null,
-                                "paged_collections:ajax_first": null,
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            },
-                            "hr": {
-                                "number_of_columns": 3,
-                                "paged_collections:enabled": null,
-                                "paged_collections:type": null,
-                                "paged_collections:max_pages": null,
-                                "paged_collections:ajax_first": null,
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            }
-                        },
-                        "configuration": {
-                            "http_cache": {
-                                "use_http_cache": false,
-                                "shared_max_age": null
-                            }
-                        },
-                        "collections": {
-                            "default": {
-                                "id": "@integer@",
-                                "offset": 0,
-                                "limit": null,
-                                "is_translatable": true,
-                                "is_always_available": true,
-                                "main_locale": "en",
-                                "available_locales": [
-                                    "en",
-                                    "hr"
-                                ],
-                                "items": [
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 1,
-                                        "value": "72",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 2,
-                                        "value": "73",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 5,
-                                        "value": "74",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    }
-                                ],
-                                "query": {
-                                    "id": "@integer@",
-                                    "is_translatable": true,
-                                    "is_always_available": true,
-                                    "main_locale": "en",
-                                    "available_locales": [
-                                        "en",
-                                        "hr"
-                                    ],
-                                    "parameters": {
-                                        "en": {
-                                            "param": "abc",
-                                            "param2" :"def"
-                                        },
-                                        "hr": {
-                                            "param": "abc",
-                                            "param2" :"zyx"
-                                        }
-                                    },
-                                    "query_type": "my_query_type"
+{
+    "__version": 1,
+    "entities": [
+        {
+            "__type": "layout",
+            "id": "@integer@",
+            "type_identifier": "4_zones_a",
+            "name": "My layout",
+            "description": "My layout description",
+            "status": "PUBLISHED",
+            "main_locale": "en",
+            "available_locales": [
+                "en",
+                "hr"
+            ],
+            "creation_date": 1528371500,
+            "modification_date": 1528372000,
+            "is_shared": false,
+            "zones": {
+                "bottom": {
+                    "identifier": "bottom",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "left": {
+                    "identifier": "left",
+                    "linked_zone": null,
+                    "blocks": [
+                        {
+                            "id": "@integer@",
+                            "definition_identifier": "list",
+                            "is_translatable": true,
+                            "is_always_available": true,
+                            "main_locale": "en",
+                            "available_locales": [
+                                "en",
+                                "hr"
+                            ],
+                            "view_type": "grid",
+                            "item_view_type": "standard",
+                            "name": "My other block",
+                            "placeholders": [],
+                            "parameters": {
+                                "en": {
+                                    "number_of_columns": 3,
+                                    "paged_collections:enabled": null,
+                                    "paged_collections:type": null,
+                                    "paged_collections:max_pages": null,
+                                    "paged_collections:ajax_first": null,
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
+                                },
+                                "hr": {
+                                    "number_of_columns": 3,
+                                    "paged_collections:enabled": null,
+                                    "paged_collections:type": null,
+                                    "paged_collections:max_pages": null,
+                                    "paged_collections:ajax_first": null,
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
                                 }
                             },
-                            "featured": {
-                                "id": "@integer@",
-                                "offset": 4,
-                                "limit": 2,
-                                "is_translatable": true,
-                                "is_always_available": true,
-                                "main_locale": "en",
-                                "available_locales": [
-                                    "en",
-                                    "hr"
-                                ],
-                                "items": [
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 2,
-                                        "value": "72",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 3,
-                                        "value": "73",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 5,
-                                        "value": "74",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    }
-                                ],
-                                "query": {
-                                    "id": "@integer@",
-                                    "is_translatable": true,
-                                    "is_always_available": true,
-                                    "main_locale": "en",
-                                    "available_locales": [
-                                        "en",
-                                        "hr"
-                                    ],
-                                    "parameters": {
-                                        "en": {
-                                            "param": "abc2",
-                                            "param2" :"def2"
-                                        },
-                                        "hr": {
-                                            "param": "abc2",
-                                            "param2" :"zyx2"
-                                        }
-                                    },
-                                    "query_type": "my_query_type"
+                            "configuration": {
+                                "http_cache": {
+                                    "use_http_cache": false,
+                                    "shared_max_age": null
                                 }
-                            }
+                            },
+                            "collections": []
                         }
-                    },
-                    {
-                        "id": "@integer@",
-                        "definition_identifier": "list",
-                        "is_translatable": false,
-                        "is_always_available": true,
-                        "main_locale": "en",
-                        "available_locales": [
-                            "en"
-                        ],
-                        "view_type": "grid",
-                        "item_view_type": "standard",
-                        "name": "My fourth block",
-                        "placeholders": [],
-                        "parameters": {
-                            "en": {
-                                "number_of_columns": 3,
-                                "paged_collections:enabled": null,
-                                "paged_collections:type": null,
-                                "paged_collections:max_pages": null,
-                                "paged_collections:ajax_first": null,
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            }
-                        },
-                        "configuration": {
-                            "http_cache": {
-                                "use_http_cache": false,
-                                "shared_max_age": null
-                            }
-                        },
-                        "collections": {
-                            "default": {
-                                "id": "@integer@",
-                                "offset": 0,
-                                "limit": null,
-                                "is_translatable": false,
-                                "is_always_available": true,
-                                "main_locale": "en",
-                                "available_locales": [
-                                    "en"
-                                ],
-                                "items": [
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 2,
-                                        "value": "72",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "id": "@integer@",
-                                        "type": "MANUAL",
-                                        "position": 3,
-                                        "value": "73",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "id": "@integer@",
-                                        "type": "OVERRIDE",
-                                        "position": 5,
-                                        "value": "74",
-                                        "value_type": "my_value_type",
-                                        "configuration": {
-                                            "visibility": {
-                                                "visibility_status": "visible",
-                                                "visible_from": null,
-                                                "visible_to": null
-                                            }
-                                        }
-                                    }
-                                ],
-                                "query": {
+                    ]
+                },
+                "right": {
+                    "identifier": "right",
+                    "linked_zone": null,
+                    "blocks": [
+                        {
+                            "id": "@integer@",
+                            "definition_identifier": "list",
+                            "is_translatable": true,
+                            "is_always_available": true,
+                            "main_locale": "en",
+                            "available_locales": [
+                                "en",
+                                "hr"
+                            ],
+                            "view_type": "grid",
+                            "item_view_type": "standard_with_intro",
+                            "name": "My published block",
+                            "placeholders": [],
+                            "parameters": {
+                                "en": {
+                                    "number_of_columns": 3,
+                                    "paged_collections:enabled": null,
+                                    "paged_collections:type": null,
+                                    "paged_collections:max_pages": null,
+                                    "paged_collections:ajax_first": null,
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
+                                },
+                                "hr": {
+                                    "number_of_columns": 3,
+                                    "paged_collections:enabled": null,
+                                    "paged_collections:type": null,
+                                    "paged_collections:max_pages": null,
+                                    "paged_collections:ajax_first": null,
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
+                                }
+                            },
+                            "configuration": {
+                                "http_cache": {
+                                    "use_http_cache": false,
+                                    "shared_max_age": null
+                                }
+                            },
+                            "collections": {
+                                "default": {
                                     "id": "@integer@",
+                                    "offset": 0,
+                                    "limit": null,
+                                    "is_translatable": true,
+                                    "is_always_available": true,
+                                    "main_locale": "en",
+                                    "available_locales": [
+                                        "en",
+                                        "hr"
+                                    ],
+                                    "items": [
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 1,
+                                            "value": "72",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 2,
+                                            "value": "73",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 5,
+                                            "value": "74",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "query": {
+                                        "id": "@integer@",
+                                        "is_translatable": true,
+                                        "is_always_available": true,
+                                        "main_locale": "en",
+                                        "available_locales": [
+                                            "en",
+                                            "hr"
+                                        ],
+                                        "parameters": {
+                                            "en": {
+                                                "param": "abc",
+                                                "param2": "def"
+                                            },
+                                            "hr": {
+                                                "param": "abc",
+                                                "param2": "zyx"
+                                            }
+                                        },
+                                        "query_type": "my_query_type"
+                                    }
+                                },
+                                "featured": {
+                                    "id": "@integer@",
+                                    "offset": 4,
+                                    "limit": 2,
+                                    "is_translatable": true,
+                                    "is_always_available": true,
+                                    "main_locale": "en",
+                                    "available_locales": [
+                                        "en",
+                                        "hr"
+                                    ],
+                                    "items": [
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 2,
+                                            "value": "72",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 3,
+                                            "value": "73",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 5,
+                                            "value": "74",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "query": {
+                                        "id": "@integer@",
+                                        "is_translatable": true,
+                                        "is_always_available": true,
+                                        "main_locale": "en",
+                                        "available_locales": [
+                                            "en",
+                                            "hr"
+                                        ],
+                                        "parameters": {
+                                            "en": {
+                                                "param": "abc2",
+                                                "param2": "def2"
+                                            },
+                                            "hr": {
+                                                "param": "abc2",
+                                                "param2": "zyx2"
+                                            }
+                                        },
+                                        "query_type": "my_query_type"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": "@integer@",
+                            "definition_identifier": "list",
+                            "is_translatable": false,
+                            "is_always_available": true,
+                            "main_locale": "en",
+                            "available_locales": [
+                                "en"
+                            ],
+                            "view_type": "grid",
+                            "item_view_type": "standard",
+                            "name": "My fourth block",
+                            "placeholders": [],
+                            "parameters": {
+                                "en": {
+                                    "number_of_columns": 3,
+                                    "paged_collections:enabled": null,
+                                    "paged_collections:type": null,
+                                    "paged_collections:max_pages": null,
+                                    "paged_collections:ajax_first": null,
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
+                                }
+                            },
+                            "configuration": {
+                                "http_cache": {
+                                    "use_http_cache": false,
+                                    "shared_max_age": null
+                                }
+                            },
+                            "collections": {
+                                "default": {
+                                    "id": "@integer@",
+                                    "offset": 0,
+                                    "limit": null,
                                     "is_translatable": false,
                                     "is_always_available": true,
                                     "main_locale": "en",
                                     "available_locales": [
                                         "en"
                                     ],
-                                    "parameters": {
-                                        "en": {
-                                            "param": "abc3",
-                                            "param2" :"def3"
+                                    "items": [
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 2,
+                                            "value": "72",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": "@integer@",
+                                            "type": "MANUAL",
+                                            "position": 3,
+                                            "value": "73",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": "@integer@",
+                                            "type": "OVERRIDE",
+                                            "position": 5,
+                                            "value": "74",
+                                            "value_type": "my_value_type",
+                                            "configuration": {
+                                                "visibility": {
+                                                    "visibility_status": "visible",
+                                                    "visible_from": null,
+                                                    "visible_to": null
+                                                }
+                                            }
                                         }
-                                    },
-                                    "query_type": "my_query_type"
-                                }
-                            }
-                        }
-                    }
-                ]
-            },
-            "top": {
-                "identifier": "top",
-                "linked_zone": null,
-                "blocks": []
-            }
-        }
-    },
-    {
-        "__format": {
-            "type": "layout",
-            "version": 1
-        },
-        "id": "@integer@",
-        "type_identifier": "4_zones_b",
-        "name": "My other layout",
-        "description": "My other layout description",
-        "status": "PUBLISHED",
-        "main_locale": "en",
-        "available_locales": [
-            "en"
-        ],
-        "creation_date": 1528371500,
-        "modification_date": 1528372000,
-        "is_shared": false,
-        "zones": {
-            "bottom": {
-                "identifier": "bottom",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "left": {
-                "identifier": "left",
-                "linked_zone": null,
-                "blocks": [
-                    {
-                        "id": "@integer@",
-                        "definition_identifier": "title",
-                        "is_translatable": false,
-                        "is_always_available": true,
-                        "main_locale": "en",
-                        "available_locales": [
-                            "en"
-                        ],
-                        "view_type": "title",
-                        "item_view_type": "standard",
-                        "name": "My fourth block",
-                        "placeholders": [],
-                        "parameters": {
-                            "en": {
-                                "tag": "h3",
-                                "title": "Title",
-                                "use_link": null,
-                                "link": {
-                                    "link_type": null,
-                                    "link": null,
-                                    "link_suffix": null,
-                                    "new_window": false
-                                },
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            }
-                        },
-                        "configuration": {
-                            "http_cache": {
-                                "use_http_cache": false,
-                                "shared_max_age": null
-                            }
-                        },
-                        "collections": []
-                    }
-                ]
-            },
-            "right": {
-                "identifier": "right",
-                "linked_zone": null,
-                "blocks": [
-                    {
-                        "id": "@integer@",
-                        "definition_identifier": "two_columns",
-                        "is_translatable": true,
-                        "is_always_available": true,
-                        "main_locale": "en",
-                        "available_locales": [
-                            "en"
-                        ],
-                        "view_type": "two_columns_50_50",
-                        "item_view_type": "standard",
-                        "name": "My third block",
-                        "placeholders": {
-                            "left": {
-                                "identifier": "left",
-                                "blocks": [
-                                    {
+                                    ],
+                                    "query": {
                                         "id": "@integer@",
-                                        "definition_identifier": "text",
                                         "is_translatable": false,
                                         "is_always_available": true,
                                         "main_locale": "en",
                                         "available_locales": [
                                             "en"
                                         ],
-                                        "view_type": "text",
-                                        "item_view_type": "standard",
-                                        "name": "My seventh block",
-                                        "placeholders": [],
                                         "parameters": {
                                             "en": {
-                                                "content": "Text",
-                                                "css_class": null,
-                                                "css_id": null,
-                                                "set_container": null
+                                                "param": "abc3",
+                                                "param2": "def3"
                                             }
                                         },
-                                        "configuration": {
-                                            "http_cache": {
-                                                "use_http_cache": false,
-                                                "shared_max_age": null
-                                            }
-                                        },
-                                        "collections": {
-                                            "default": {
-                                                "id": "@integer@",
-                                                "offset": 0,
-                                                "limit": 5,
-                                                "is_translatable": false,
-                                                "is_always_available": true,
-                                                "main_locale": "en",
-                                                "available_locales": [
-                                                    "en"
-                                                ],
-                                                "items": [],
-                                                "query": null
+                                        "query_type": "my_query_type"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "top": {
+                    "identifier": "top",
+                    "linked_zone": null,
+                    "blocks": []
+                }
+            }
+        },
+        {
+            "__type": "layout",
+            "id": "@integer@",
+            "type_identifier": "4_zones_b",
+            "name": "My other layout",
+            "description": "My other layout description",
+            "status": "PUBLISHED",
+            "main_locale": "en",
+            "available_locales": [
+                "en"
+            ],
+            "creation_date": 1528371500,
+            "modification_date": 1528372000,
+            "is_shared": false,
+            "zones": {
+                "bottom": {
+                    "identifier": "bottom",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "left": {
+                    "identifier": "left",
+                    "linked_zone": null,
+                    "blocks": [
+                        {
+                            "id": "@integer@",
+                            "definition_identifier": "title",
+                            "is_translatable": false,
+                            "is_always_available": true,
+                            "main_locale": "en",
+                            "available_locales": [
+                                "en"
+                            ],
+                            "view_type": "title",
+                            "item_view_type": "standard",
+                            "name": "My fourth block",
+                            "placeholders": [],
+                            "parameters": {
+                                "en": {
+                                    "tag": "h3",
+                                    "title": "Title",
+                                    "use_link": null,
+                                    "link": {
+                                        "link_type": null,
+                                        "link": null,
+                                        "link_suffix": null,
+                                        "new_window": false
+                                    },
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
+                                }
+                            },
+                            "configuration": {
+                                "http_cache": {
+                                    "use_http_cache": false,
+                                    "shared_max_age": null
+                                }
+                            },
+                            "collections": []
+                        }
+                    ]
+                },
+                "right": {
+                    "identifier": "right",
+                    "linked_zone": null,
+                    "blocks": [
+                        {
+                            "id": "@integer@",
+                            "definition_identifier": "two_columns",
+                            "is_translatable": true,
+                            "is_always_available": true,
+                            "main_locale": "en",
+                            "available_locales": [
+                                "en"
+                            ],
+                            "view_type": "two_columns_50_50",
+                            "item_view_type": "standard",
+                            "name": "My third block",
+                            "placeholders": {
+                                "left": {
+                                    "identifier": "left",
+                                    "blocks": [
+                                        {
+                                            "id": "@integer@",
+                                            "definition_identifier": "text",
+                                            "is_translatable": false,
+                                            "is_always_available": true,
+                                            "main_locale": "en",
+                                            "available_locales": [
+                                                "en"
+                                            ],
+                                            "view_type": "text",
+                                            "item_view_type": "standard",
+                                            "name": "My seventh block",
+                                            "placeholders": [],
+                                            "parameters": {
+                                                "en": {
+                                                    "content": "Text",
+                                                    "css_class": null,
+                                                    "css_id": null,
+                                                    "set_container": null
+                                                }
+                                            },
+                                            "configuration": {
+                                                "http_cache": {
+                                                    "use_http_cache": false,
+                                                    "shared_max_age": null
+                                                }
+                                            },
+                                            "collections": {
+                                                "default": {
+                                                    "id": "@integer@",
+                                                    "offset": 0,
+                                                    "limit": 5,
+                                                    "is_translatable": false,
+                                                    "is_always_available": true,
+                                                    "main_locale": "en",
+                                                    "available_locales": [
+                                                        "en"
+                                                    ],
+                                                    "items": [],
+                                                    "query": null
+                                                }
                                             }
                                         }
-                                    }
-                                ]
+                                    ]
+                                },
+                                "right": {
+                                    "identifier": "right",
+                                    "blocks": []
+                                }
                             },
-                            "right": {
-                                "identifier": "right",
-                                "blocks": []
-                            }
-                        },
-                        "parameters": {
-                            "en": {
-                                "css_class": null,
-                                "css_id": null,
-                                "set_container": null
-                            }
-                        },
-                        "configuration": {
-                            "http_cache": {
-                                "use_http_cache": false,
-                                "shared_max_age": null
-                            }
-                        },
-                        "collections": []
-                    }
-                ]
-            },
-            "top": {
-                "identifier": "top",
-                "linked_zone": {
-                    "identifier": "top",
-                    "layout_id": 3
+                            "parameters": {
+                                "en": {
+                                    "css_class": null,
+                                    "css_id": null,
+                                    "set_container": null
+                                }
+                            },
+                            "configuration": {
+                                "http_cache": {
+                                    "use_http_cache": false,
+                                    "shared_max_age": null
+                                }
+                            },
+                            "collections": []
+                        }
+                    ]
                 },
-                "blocks": []
+                "top": {
+                    "identifier": "top",
+                    "linked_zone": {
+                        "identifier": "top",
+                        "layout_id": 3
+                    },
+                    "blocks": []
+                }
             }
-        }
-    },
-    {
-        "__format": {
-            "type": "layout",
-            "version": 1
         },
-        "id": "@integer@",
-        "type_identifier": "4_zones_b",
-        "name": "My third layout",
-        "description": "My third layout description",
-        "status": "PUBLISHED",
-        "main_locale": "en",
-        "available_locales": [
-            "en"
-        ],
-        "creation_date": 1528371500,
-        "modification_date": 1528372000,
-        "is_shared": true,
-        "zones": {
-            "bottom": {
-                "identifier": "bottom",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "left": {
-                "identifier": "left",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "right": {
-                "identifier": "right",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "top": {
-                "identifier": "top",
-                "linked_zone": null,
-                "blocks": []
+        {
+            "__type": "layout",
+            "id": "@integer@",
+            "type_identifier": "4_zones_b",
+            "name": "My third layout",
+            "description": "My third layout description",
+            "status": "PUBLISHED",
+            "main_locale": "en",
+            "available_locales": [
+                "en"
+            ],
+            "creation_date": 1528371500,
+            "modification_date": 1528372000,
+            "is_shared": true,
+            "zones": {
+                "bottom": {
+                    "identifier": "bottom",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "left": {
+                    "identifier": "left",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "right": {
+                    "identifier": "right",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "top": {
+                    "identifier": "top",
+                    "linked_zone": null,
+                    "blocks": []
+                }
             }
-        }
-    },
-    {
-        "__format": {
-            "type": "layout",
-            "version": 1
         },
-        "id": "@integer@",
-        "type_identifier": "4_zones_b",
-        "name": "My fifth layout",
-        "description": "My fifth layout description",
-        "status": "PUBLISHED",
-        "main_locale": "en",
-        "available_locales": [
-            "en"
-        ],
-        "creation_date": 1528371500,
-        "modification_date": 1528372000,
-        "is_shared": true,
-        "zones": {
-            "bottom": {
-                "identifier": "bottom",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "left": {
-                "identifier": "left",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "right": {
-                "identifier": "right",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "top": {
-                "identifier": "top",
-                "linked_zone": null,
-                "blocks": []
+        {
+            "__type": "layout",
+            "id": "@integer@",
+            "type_identifier": "4_zones_b",
+            "name": "My fifth layout",
+            "description": "My fifth layout description",
+            "status": "PUBLISHED",
+            "main_locale": "en",
+            "available_locales": [
+                "en"
+            ],
+            "creation_date": 1528371500,
+            "modification_date": 1528372000,
+            "is_shared": true,
+            "zones": {
+                "bottom": {
+                    "identifier": "bottom",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "left": {
+                    "identifier": "left",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "right": {
+                    "identifier": "right",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "top": {
+                    "identifier": "top",
+                    "linked_zone": null,
+                    "blocks": []
+                }
             }
-        }
-    },
-    {
-        "__format": {
-            "type": "layout",
-            "version": 1
         },
-        "id": "@integer@",
-        "type_identifier": "4_zones_b",
-        "name": "My sixth layout",
-        "description": "My sixth layout description",
-        "status": "PUBLISHED",
-        "main_locale": "en",
-        "available_locales": [
-            "en"
-        ],
-        "creation_date": 1528371500,
-        "modification_date": 1528372000,
-        "is_shared": false,
-        "zones": {
-            "bottom": {
-                "identifier": "bottom",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "left": {
-                "identifier": "left",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "right": {
-                "identifier": "right",
-                "linked_zone": null,
-                "blocks": []
-            },
-            "top": {
-                "identifier": "top",
-                "linked_zone": null,
-                "blocks": []
+        {
+            "__type": "layout",
+            "id": "@integer@",
+            "type_identifier": "4_zones_b",
+            "name": "My sixth layout",
+            "description": "My sixth layout description",
+            "status": "PUBLISHED",
+            "main_locale": "en",
+            "available_locales": [
+                "en"
+            ],
+            "creation_date": 1528371500,
+            "modification_date": 1528372000,
+            "is_shared": false,
+            "zones": {
+                "bottom": {
+                    "identifier": "bottom",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "left": {
+                    "identifier": "left",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "right": {
+                    "identifier": "right",
+                    "linked_zone": null,
+                    "blocks": []
+                },
+                "top": {
+                    "identifier": "top",
+                    "linked_zone": null,
+                    "blocks": []
+                }
             }
         }
-    }
-]
+    ]
+}

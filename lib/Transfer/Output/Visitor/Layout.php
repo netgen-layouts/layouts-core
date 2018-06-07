@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Descriptor;
 use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -29,10 +28,7 @@ final class Layout extends Visitor
         /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
 
         return [
-            '__format' => [
-                'type' => Descriptor::LAYOUT_FORMAT_TYPE,
-                'version' => Descriptor::LAYOUT_FORMAT_VERSION,
-            ],
+            '__type' => 'layout',
             'id' => $layout->getId(),
             'type_identifier' => $layout->getLayoutType()->getIdentifier(),
             'name' => $layout->getName(),

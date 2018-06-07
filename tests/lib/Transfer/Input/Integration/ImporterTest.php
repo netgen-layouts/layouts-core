@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Transfer\Input\Integration;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Diff;
 use Diff_Renderer_Text_Unified;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
@@ -12,6 +13,7 @@ use Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver;
 use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
@@ -24,6 +26,9 @@ use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\BlockManager\Transfer\Input\Importer;
+use Netgen\BlockManager\Transfer\Input\JsonValidator;
+use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
+use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
 use Netgen\BlockManager\Transfer\Output\Serializer;
 use Netgen\BlockManager\Transfer\Output\Visitor;
 
@@ -53,6 +58,7 @@ abstract class ImporterTest extends ServiceTestCase
         $this->blockService = $this->createBlockService();
         $this->collectionService = $this->createCollectionService();
         $this->layoutService = $this->createLayoutService();
+        $this->layoutResolverService = $this->createLayoutResolverService();
 
         $this->itemLoaderMock
             ->expects($this->any())
@@ -87,6 +93,7 @@ abstract class ImporterTest extends ServiceTestCase
             );
 
         $this->importer = new Importer(
+            new JsonValidator(),
             new LayoutDataHandler(
                 $this->blockService,
                 $this->collectionService,
@@ -100,6 +107,8 @@ abstract class ImporterTest extends ServiceTestCase
         );
 
         $this->serializer = new Serializer(
+            $this->layoutService,
+            $this->layoutResolverService,
             new Visitor\Aggregate(
                 [
                     new Visitor\Block($this->blockService),
@@ -119,204 +128,135 @@ abstract class ImporterTest extends ServiceTestCase
     }
 
     /**
-     * @param array $layoutData
-     *
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @dataProvider importLayoutProvider
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::__construct
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportLayout(array $layoutData)
+    public function testImportData()
     {
-        $importedLayout = $this->importer->importLayout($layoutData);
+        $importData = file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
+        $decodedData = json_decode($importData, true);
 
-        $exportedLayoutData = $this->serializer->serializeLayout(
-            $this->layoutService->loadLayout(
-                $importedLayout->getId()
-            )
-        );
+        foreach ($this->importer->importData($importData) as $index => $result) {
+            $this->assertInstanceOf(SuccessResult::class, $result);
+            $this->assertInstanceOf(Value::class, $result->getEntity());
 
-        // After we check that layout names are different, we remove them
-        // from the data, so they don't kill the test
-        $this->assertNotEquals($layoutData['name'], $exportedLayoutData['name']);
-        unset($layoutData['name'], $exportedLayoutData['name']);
+            $layoutData = $decodedData['entities'][$index];
+            $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntity()->getId()]);
 
-        // Same goes for creation and modification date
-        $this->assertGreaterThan($layoutData['creation_date'], $exportedLayoutData['creation_date']);
-        $this->assertGreaterThan($layoutData['modification_date'], $exportedLayoutData['modification_date']);
-        $this->assertEquals($exportedLayoutData['creation_date'], $exportedLayoutData['modification_date']);
-        unset($layoutData['creation_date'], $exportedLayoutData['creation_date']);
-        unset($layoutData['modification_date'], $exportedLayoutData['modification_date']);
+            $exportedLayoutData = $exportedLayoutData['entities'][0];
 
-        $matcher = $this->matcherFactory->createMatcher();
-        $matchResult = $matcher->match($exportedLayoutData, $layoutData);
+            // After we check that layout names are different, we remove them
+            // from the data, so they don't kill the test
+            $this->assertNotEquals($layoutData['name'], $exportedLayoutData['name']);
+            unset($layoutData['name'], $exportedLayoutData['name']);
 
-        if (!$matchResult) {
-            $prettyLayoutData = json_encode($layoutData, JSON_PRETTY_PRINT);
-            $prettyExportedLayoutData = json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
-            $diff = new Diff(explode(PHP_EOL, $prettyExportedLayoutData), explode(PHP_EOL, $prettyLayoutData));
+            // Same goes for creation and modification date
+            $this->assertGreaterThan($layoutData['creation_date'], $exportedLayoutData['creation_date']);
+            unset($layoutData['creation_date'], $exportedLayoutData['creation_date']);
 
-            $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
+            $this->assertGreaterThan($layoutData['modification_date'], $exportedLayoutData['modification_date']);
+            unset($layoutData['modification_date'], $exportedLayoutData['modification_date']);
+
+            $matcher = $this->matcherFactory->createMatcher();
+            $matchResult = $matcher->match($exportedLayoutData, $layoutData);
+
+            if (!$matchResult) {
+                $prettyLayoutData = json_encode($layoutData, JSON_PRETTY_PRINT);
+                $prettyExportedLayoutData = json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
+                $diff = new Diff(explode(PHP_EOL, $prettyExportedLayoutData), explode(PHP_EOL, $prettyLayoutData));
+
+                $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
+            }
         }
 
         // Fake assertion to disable risky flag
         $this->assertTrue(true);
     }
 
-    public function importLayoutProvider()
+    /**
+     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     */
+    public function testImportDataWithMissingQueryTranslationThrowsRuntimeException()
     {
-        $layoutsData = json_decode(
-            file_get_contents(
-                __DIR__ . '/../../_fixtures/input/layouts.json'
-            ),
-            true
+        $layoutData = file_get_contents(
+            __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
         );
 
-        foreach ($layoutsData as $layoutData) {
-            yield [$layoutData];
-        }
+        $result = iterator_to_array($this->importer->importData($layoutData));
+
+        $this->assertInstanceOf(ErrorResult::class, $result[0]);
+        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        $this->assertEquals('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
     }
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Unknown item type 'INVALID'
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportLayoutWithInvalidItemTypeThrowsRuntimeException()
+    public function testImportDataWithMissingMainQueryTranslationThrowsRuntimeException()
     {
-        $layoutData = json_decode(
-            file_get_contents(
-                __DIR__ . '/../../_fixtures/input/invalid/layout_with_invalid_item_type.json'
-            ),
-            true
-        )[0];
+        $layoutData = file_get_contents(
+            __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
+        );
 
-        $this->importer->importLayout($layoutData);
+        $result = iterator_to_array($this->importer->importData($layoutData));
+
+        $this->assertInstanceOf(ErrorResult::class, $result[0]);
+        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        $this->assertEquals('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
     }
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Could not find locale 'hr' in the given query data
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportLayoutWithMissingQueryTranslationThrowsRuntimeException()
+    public function testImportDataWithMissingBlockTranslationThrowsRuntimeException()
     {
-        $layoutData = json_decode(
-            file_get_contents(
-                __DIR__ . '/../../_fixtures/input/invalid/layout_with_missing_query_translation.json'
-            ),
-            true
-        )[0];
+        $layoutData = file_get_contents(
+            __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
+        );
 
-        $this->importer->importLayout($layoutData);
+        $result = iterator_to_array($this->importer->importData($layoutData));
+
+        $this->assertInstanceOf(ErrorResult::class, $result[0]);
+        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        $this->assertEquals('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
     }
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Could not find locale 'hr' in the given block data
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportLayoutWithMissingBlockTranslationThrowsRuntimeException()
+    public function testImportDataWithMissingMainBlockTranslationThrowsRuntimeException()
     {
-        $layoutData = json_decode(
-            file_get_contents(
-                __DIR__ . '/../../_fixtures/input/invalid/layout_with_missing_block_translation.json'
-            ),
-            true
-        )[0];
+        $layoutData = file_get_contents(
+            __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
+        );
 
-        $this->importer->importLayout($layoutData);
+        $result = iterator_to_array($this->importer->importData($layoutData));
+
+        $this->assertInstanceOf(ErrorResult::class, $result[0]);
+        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        $this->assertEquals('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
     }
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Missing data for zone 'right'
+     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportLayoutWithMissingZoneThrowsRuntimeException()
+    public function testImportDataWithMissingZoneThrowsRuntimeException()
     {
-        $layoutData = json_decode(
-            file_get_contents(
-                __DIR__ . '/../../_fixtures/input/invalid/layout_with_missing_zone.json'
-            ),
-            true
-        )[0];
+        $layoutData = file_get_contents(
+            __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'
+        );
 
-        $this->importer->importLayout($layoutData);
-    }
+        $result = iterator_to_array($this->importer->importData($layoutData));
 
-    /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::__construct
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
-     * @expectedExceptionMessage Could not find format information in the provided data.
-     */
-    public function testImportLayoutWithoutFormatThrowsDataNotAcceptedException()
-    {
-        $this->importer->importLayout([]);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
-     * @expectedExceptionMessage Supported type is "layout", type "invalid" was given.
-     */
-    public function testImportLayoutWithInvalidTypeThrowsDataNotAcceptedException()
-    {
-        $this->importer->importLayout(['__format' => ['type' => 'invalid', 'version' => 1]]);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
-     * @expectedExceptionMessage Supported type is "layout", type "" was given.
-     */
-    public function testImportLayoutWithMissingTypeThrowsDataNotAcceptedException()
-    {
-        $this->importer->importLayout(['__format' => ['version' => 1]]);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
-     * @expectedExceptionMessage Supported version is "1", version "9999" was given.
-     */
-    public function testImportLayoutWithInvalidVersionThrowsDataNotAcceptedException()
-    {
-        $this->importer->importLayout(['__format' => ['type' => 'layout', 'version' => 9999]]);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::acceptLayout
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importLayout
-     *
-     * @expectedException \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
-     * @expectedExceptionMessage Supported version is "1", version "" was given.
-     */
-    public function testImportLayoutWithMissingVersionThrowsDataNotAcceptedException()
-    {
-        $this->importer->importLayout(['__format' => ['type' => 'layout']]);
+        $this->assertInstanceOf(ErrorResult::class, $result[0]);
+        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        $this->assertEquals('Missing data for zone "right"', $result[0]->getError()->getMessage());
     }
 
     private function prepareBlockDefinitionRegistry()

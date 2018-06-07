@@ -3,6 +3,8 @@ services:
         class: Netgen\BlockManager\Transfer\Output\Serializer
         public: false
         arguments:
+            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.api.service.layout_resolver"
             - "@netgen_block_manager.transfer.serializer.visitor.aggregate"
 
     netgen_block_manager.transfer.input.data_handler.layout:
@@ -18,8 +20,13 @@ services:
             - "@netgen_block_manager.collection.registry.query_type"
             - "@netgen_block_manager.item.item_loader"
 
+    netgen_block_manager.transfer.input.json_validator:
+        class: Netgen\BlockManager\Transfer\Input\JsonValidator
+        public: false
+
     netgen_block_manager.transfer.input.importer:
         class: Netgen\BlockManager\Transfer\Input\Importer
         public: false
         arguments:
+            - "@netgen_block_manager.transfer.input.json_validator"
             - "@netgen_block_manager.transfer.input.data_handler.layout"

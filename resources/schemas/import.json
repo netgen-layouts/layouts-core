@@ -1,0 +1,435 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "description": "Import specification",
+    "required": ["__version", "entities"],
+    "additionalProperties": false,
+    "properties": {
+        "__version": {
+            "description": "Version of the import specification",
+            "const": 1
+        },
+        "entities": {
+            "type": "array",
+            "description": "The list of entities to import",
+            "minItems": 1,
+            "items": {
+                "oneOf": [
+                    {
+                        "if": { "type": "object", "properties": { "__type": { "const": "layout" } } },
+                        "then": { "$ref": "#/definitions/complex/layout" },
+                        "else": false
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "simple": {
+            "unique_id": {
+                "type": ["integer", "string"],
+                "description": "A definition representing a unique database ID",
+                "minimum": 1,
+                "minLength": 1
+            },
+            "identifier": {
+                "type": "string",
+                "description": "A definition representing an identifier",
+                "pattern": "^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$"
+            },
+            "timestamp": {
+                "type": "integer",
+                "description": "A definition representing a timestamp",
+                "minimum": 0
+            },
+            "locale": {
+                "type": "string",
+                "description": "A definition representing a locale",
+                "minLength": 2,
+                "pattern": "^[a-z][a-z](_[A-Za-z_]+)?$",
+                "examples": [
+                    "en",
+                    "en_GB",
+                    "hr_HR"
+                ]
+            }
+        },
+        "list": {
+            "locales": {
+                "type": "array",
+                "description": "A definition representing a list of locales",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                    "$ref": "#/definitions/simple/locale"
+                }
+            },
+            "parameters": {
+                "type": "object",
+                "description": "The list of parameters in the query",
+                "patternProperties": {
+                    "^[a-z][a-z](_[A-Za-z_]+)?$": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                }
+            },
+            "configuration": {
+                "type": "object",
+                "description": "The list of parameters in the query",
+                "patternProperties": {
+                    "^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$": {
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                }
+            }
+        },
+        "complex": {
+            "layout": {
+                "type": "object",
+                "description": "A layout",
+                "required": ["__type", "status", "type_identifier", "name", "description", "creation_date", "modification_date", "is_shared", "main_locale", "available_locales", "zones"],
+                "additionalProperties": false,
+                "properties": {
+                    "__type": {
+                        "type": "string",
+                        "description": "The type of the entity to import",
+                        "const": "layout"
+                    },
+                    "id": {
+                        "$ref": "#/definitions/simple/unique_id",
+                        "description": "The ID of the layout"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the layout",
+                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                    },
+                    "type_identifier": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The type of the layout"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the layout",
+                        "minLength": 1
+                    },
+                    "description": {
+                        "type": ["string", "null"],
+                        "description": "The description of the layout"
+                    },
+                    "creation_date": {
+                        "$ref": "#/definitions/simple/timestamp",
+                        "description": "The timestamp when the layout was created"
+                    },
+                    "modification_date": {
+                        "$ref": "#/definitions/simple/timestamp",
+                        "description": "The timestamp when the layout was last updated"
+                    },
+                    "is_shared": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the layout is shared"
+                    },
+                    "main_locale": {
+                        "$ref": "#/definitions/simple/locale",
+                        "description": "The main locale of the layout"
+                    },
+                    "available_locales": {
+                        "$ref": "#/definitions/list/locales",
+                        "description": "The list of locales available in the layout"
+                    },
+                    "zones": {
+                        "type": "object",
+                        "description": "The list of zones in the layout",
+                        "minProperties": 1,
+                        "patternProperties": {
+                            "^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$": {
+                                "$ref": "#/definitions/complex/zone"
+                            }
+                        }
+                    }
+                }
+            },
+            "zone": {
+                "type": "object",
+                "description": "A zone",
+                "required": ["identifier", "linked_zone", "blocks"],
+                "additionalProperties": false,
+                "properties": {
+                    "identifier": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The identifier of the zone"
+                    },
+                    "linked_zone": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/complex/linked_zone" },
+                            { "type": "null" }
+                        ]
+                    },
+                    "blocks": {
+                        "type": "array",
+                        "description": "The list of blocks in the zone",
+                        "items": {
+                            "$ref": "#/definitions/complex/block"
+                        }
+                    }
+                }
+            },
+            "linked_zone": {
+                "type": "object",
+                "description": "The reference to the linked zone",
+                "required": ["identifier", "layout_id"],
+                "additionalProperties": false,
+                "properties": {
+                    "identifier": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The identifier of the linked zone"
+                    },
+                    "layout_id": {
+                        "$ref": "#/definitions/simple/unique_id",
+                        "description": "The layout ID of the linked zone"
+                    }
+                }
+            },
+            "block": {
+                "type": "object",
+                "description": "A block",
+                "required": ["definition_identifier", "name", "view_type", "item_view_type", "is_translatable", "is_always_available", "main_locale", "available_locales", "parameters", "configuration", "placeholders", "collections"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/unique_id",
+                        "description": "The ID of the block"
+                    },
+                    "definition_identifier": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The identifier of the block definition"
+                    },
+                    "name": {
+                        "type": ["string", "null"],
+                        "description": "The name of the block"
+                    },
+                    "view_type": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The view type of the block"
+                    },
+                    "item_view_type": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The view type of the block items"
+                    },
+                    "is_translatable": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the block is translatable"
+                    },
+                    "is_always_available": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the block is always available"
+                    },
+                    "main_locale": {
+                        "$ref": "#/definitions/simple/locale",
+                        "description": "The main locale of the block"
+                    },
+                    "available_locales": {
+                        "$ref": "#/definitions/list/locales",
+                        "description": "The list of locales available in the block"
+                    },
+                    "parameters": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/list/parameters" },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    },
+                    "configuration": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/list/configuration" },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    },
+                    "placeholders": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "description": "The list of placeholders in the block",
+                                "minProperties": 1,
+                                "patternProperties": {
+                                    "^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$": {
+                                        "$ref": "#/definitions/complex/placeholder"
+                                    }
+                                }
+                            },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    },
+                    "collections": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "description": "The list of collections in the block",
+                                "minProperties": 1,
+                                "patternProperties": {
+                                    "^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$": {
+                                        "$ref": "#/definitions/complex/collection"
+                                    }
+                                }
+                            },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    }
+                }
+            },
+            "placeholder": {
+                "type": "object",
+                "description": "A block placeholder",
+                "required": ["identifier", "blocks"],
+                "additionalProperties": false,
+                "properties": {
+                    "identifier": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The identifier of the placeholder"
+                    },
+                    "blocks": {
+                        "type": "array",
+                        "description": "The list of blocks in the zone",
+                        "items": {
+                            "$ref": "#/definitions/complex/block"
+                        }
+                    }
+                }
+            },
+            "collection": {
+                "type": "object",
+                "description": "A collection",
+                "required": ["offset", "limit", "is_translatable", "is_always_available", "main_locale", "available_locales", "items", "query"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/unique_id",
+                        "description": "The ID of the collection"
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "description": "The collection offset",
+                        "minimum": 0
+                    },
+                    "limit": {
+                        "type": ["integer", "null"],
+                        "description": "The collection limit",
+                        "minimum": 1
+                    },
+                    "is_translatable": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the collection is translatable"
+                    },
+                    "is_always_available": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the collection is always available"
+                    },
+                    "main_locale": {
+                        "$ref": "#/definitions/simple/locale",
+                        "description": "The main locale of the collection"
+                    },
+                    "available_locales": {
+                        "$ref": "#/definitions/list/locales",
+                        "description": "The list of locales available in the collection"
+                    },
+                    "items": {
+                        "type": "array",
+                        "description": "The list of items in the collection",
+                        "items": {
+                            "$ref": "#/definitions/complex/item"
+                        }
+                    },
+                    "query": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/complex/query" },
+                            { "type": "null" }
+                        ]
+                    }
+                }
+            },
+            "item": {
+                "type": "object",
+                "description": "A collection item",
+                "required": ["type", "position", "value", "value_type", "configuration"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/unique_id",
+                        "description": "The ID of the collection item"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the collection item",
+                        "enum": ["MANUAL", "OVERRIDE"]
+                    },
+                    "position": {
+                        "type": "integer",
+                        "description": "The position of the collection item",
+                        "minimum": 0
+                    },
+                    "value": {
+                        "description": "The value of the collection item",
+                        "examples": [
+                            null,
+                            42,
+                            "2a7b26be9b0499dc087f3c6b7d2ec343",
+                            [24, "abc"],
+                            true,
+                            { "foo": "bar" }
+                        ]
+                    },
+                    "value_type": {
+                        "type": "string",
+                        "description": "The value type of the collection item",
+                        "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "configuration": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/list/configuration" },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    }
+                }
+            },
+            "query": {
+                "type": "object",
+                "description": "A collection query",
+                "required": ["query_type", "is_translatable", "is_always_available", "main_locale", "available_locales", "parameters"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/unique_id",
+                        "description": "The ID of the collection query"
+                    },
+                    "query_type": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The type of the query"
+                    },
+                    "is_translatable": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the query is translatable"
+                    },
+                    "is_always_available": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the query is always available"
+                    },
+                    "main_locale": {
+                        "$ref": "#/definitions/simple/locale",
+                        "description": "The main locale of the query"
+                    },
+                    "available_locales": {
+                        "$ref": "#/definitions/list/locales",
+                        "description": "The list of locales available in the query"
+                    },
+                    "parameters": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/list/parameters" },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

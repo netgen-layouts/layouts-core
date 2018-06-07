@@ -2,9 +2,11 @@
 
 namespace Netgen\BlockManager\Transfer\Input;
 
-use Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException;
-use Netgen\BlockManager\Transfer\Descriptor;
+use Exception;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
+use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
+use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
+use Throwable;
 
 /**
  * Importer creates Netgen Layouts entities from the serialized JSON data.
@@ -12,44 +14,44 @@ use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 final class Importer implements ImporterInterface
 {
     /**
+     * @var \Netgen\BlockManager\Transfer\Input\JsonValidatorInterface
+     */
+    private $jsonValidator;
+
+    /**
      * @var \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
      */
     private $layoutDataHandler;
 
-    public function __construct(LayoutDataHandler $layoutDataHandler)
+    /**
+     * The path to the root schema directory.
+     *
+     * @var string
+     */
+    private static $schemaFile = __DIR__ . '/../../../resources/schemas/import.json';
+
+    public function __construct(JsonValidatorInterface $jsonValidator, LayoutDataHandler $layoutDataHandler)
     {
+        $this->jsonValidator = $jsonValidator;
         $this->layoutDataHandler = $layoutDataHandler;
     }
 
-    public function importLayout(array $data)
+    public function importData($data)
     {
-        $this->acceptLayout($data);
+        $schema = file_get_contents(self::$schemaFile);
+        $this->jsonValidator->validateJson($data, $schema);
 
-        return $this->layoutDataHandler->createLayout($data);
-    }
+        $data = json_decode($data, true);
 
-    /**
-     * Checks that given $data is in the accepted format.
-     *
-     * @param array $data
-     *
-     * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted
-     */
-    private function acceptLayout(array $data)
-    {
-        if (!array_key_exists('__format', $data)) {
-            throw DataNotAcceptedException::noFormatInformation();
-        }
-
-        $actualType = array_key_exists('type', $data['__format']) ? $data['__format']['type'] : null;
-        $actualVersion = array_key_exists('version', $data['__format']) ? $data['__format']['version'] : null;
-
-        if ($actualType !== Descriptor::LAYOUT_FORMAT_TYPE) {
-            throw DataNotAcceptedException::typeNotAccepted(Descriptor::LAYOUT_FORMAT_TYPE, $actualType);
-        }
-
-        if ($actualVersion !== Descriptor::LAYOUT_FORMAT_VERSION) {
-            throw DataNotAcceptedException::versionNotAccepted(Descriptor::LAYOUT_FORMAT_VERSION, $actualVersion);
+        foreach ($data['entities'] as $entityData) {
+            try {
+                $layout = $this->layoutDataHandler->createLayout($entityData);
+                yield new SuccessResult('layout', $entityData, $layout);
+            } catch (Throwable $t) {
+                yield new ErrorResult('layout', $entityData, $t);
+            } catch (Exception $e) {
+                yield new ErrorResult('layout', $entityData, $e);
+            }
         }
     }
 }

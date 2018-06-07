@@ -1,8 +1,5 @@
 {
-    "__format": {
-        "type": "layout",
-        "version": 1
-    },
+    "__type": "layout",
     "id": 2,
     "type_identifier": "4_zones_b",
     "name": "My other layout",

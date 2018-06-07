@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,18 +36,9 @@ final class ExportLayouts extends Controller
      */
     public function __invoke(Request $request)
     {
-        $layoutIds = array_unique($request->request->get('layout_ids'));
-
-        $serializedLayouts = [];
-        foreach ($layoutIds as $layoutId) {
-            try {
-                $layout = $this->layoutService->loadLayout($layoutId);
-            } catch (NotFoundException $e) {
-                continue;
-            }
-
-            $serializedLayouts[] = $this->transferSerializer->serializeLayout($layout);
-        }
+        $serializedLayouts = $this->transferSerializer->serializeLayouts(
+            array_unique($request->request->get('layout_ids'))
+        );
 
         $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT);
 

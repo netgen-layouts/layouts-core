@@ -2,15 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Command;
 
-use Exception;
-use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Input\ImporterInterface;
+use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
+use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Throwable;
 
 /**
  * Command to import Netgen Layouts entities.
@@ -84,27 +83,22 @@ final class ImportCommand extends Command
     {
         $errorCount = 0;
 
-        $layouts = $this->decode($data);
+        foreach ($this->importer->importData($data) as $index => $result) {
+            if ($result instanceof SuccessResult) {
+                $this->io->note(sprintf('Imported %1$s #%2$d into %1$s ID %3$d', $result->getEntityType(), $index + 1, $result->getEntity()->getId()));
 
-        foreach ($layouts as $index => $layoutData) {
-            try {
-                $layout = $this->importer->importLayout($layoutData);
+                continue;
+            }
 
-                $this->io->note(sprintf('Imported layout #%d into layout ID %d', $index + 1, $layout->getId()));
-            } catch (Throwable $t) {
-                $this->io->error(sprintf('Could not import layout with ID #%d', $index + 1));
+            if ($result instanceof ErrorResult) {
+                $this->io->error(sprintf('Could not import %s #%d', $result->getEntityType(), $index + 1));
                 $this->io->section('Error stack:');
-                $this->renderThrowableStack($t);
+                $this->renderThrowableStack($result->getError());
                 $this->io->newLine();
 
                 ++$errorCount;
-            } catch (Exception $e) {
-                $this->io->error(sprintf('Could not import layout with ID #%d', $index + 1));
-                $this->io->section('Error stack:');
-                $this->renderThrowableStack($e);
-                $this->io->newLine();
 
-                ++$errorCount;
+                continue;
             }
         }
 
@@ -131,27 +125,5 @@ final class ImportCommand extends Command
         if ($previous !== null) {
             $this->renderThrowableStack($previous, $number + 1);
         }
-    }
-
-    /**
-     * Decode given JSON $data string.
-     *
-     * @param string $data
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string could not be decoded
-     *
-     * @return array
-     */
-    private function decode($data)
-    {
-        $value = json_decode($data, true);
-
-        if (!is_array($value)) {
-            throw new RuntimeException(
-                sprintf('Data is malformed, expected array, got %s', gettype($value))
-            );
-        }
-
-        return $value;
     }
 }

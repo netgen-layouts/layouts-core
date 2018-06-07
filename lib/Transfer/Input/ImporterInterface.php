@@ -8,13 +8,12 @@ namespace Netgen\BlockManager\Transfer\Input;
 interface ImporterInterface
 {
     /**
-     * Create a new layout from the given $data array.
+     * Imports the data into the system from provided JSON string.
      *
-     * @param array $data
+     * @param string $data
      *
-     * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted for import
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     * @return \Traversable A traversable instance holding the results of the import as
+     *                      \Netgen\BlockManager\Transfer\Input\Result\ResultInterface objects
      */
-    public function importLayout(array $data);
+    public function importData($data);
 }
