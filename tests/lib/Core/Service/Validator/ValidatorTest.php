@@ -143,10 +143,15 @@ final class ValidatorTest extends TestCase
         return [
             [24, false],
             [null, false],
+            ['a', true],
             ['identifier', true],
             ['identifier_2', true],
-            ['345identifier', false],
+            ['345identifier', true],
+            ['345_identifier', true],
             ['other identifier', false],
+            ['345', false],
+            ['345_678', false],
+            ['___', false],
             ['', false],
         ];
     }

@@ -51,7 +51,7 @@ abstract class Validator
             new Constraints\Type(['type' => 'string']),
             new Constraints\Regex(
                 [
-                    'pattern' => '/^[A-Za-z]([A-Za-z0-9_])*$/',
+                    'pattern' => '/^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$/',
                 ]
             ),
         ];
