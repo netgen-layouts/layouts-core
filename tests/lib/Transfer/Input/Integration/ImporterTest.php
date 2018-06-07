@@ -142,6 +142,13 @@ abstract class ImporterTest extends ServiceTestCase
         $this->assertNotEquals($layoutData['name'], $exportedLayoutData['name']);
         unset($layoutData['name'], $exportedLayoutData['name']);
 
+        // Same goes for creation and modification date
+        $this->assertGreaterThan($layoutData['creation_date'], $exportedLayoutData['creation_date']);
+        $this->assertGreaterThan($layoutData['modification_date'], $exportedLayoutData['modification_date']);
+        $this->assertEquals($exportedLayoutData['creation_date'], $exportedLayoutData['modification_date']);
+        unset($layoutData['creation_date'], $exportedLayoutData['creation_date']);
+        unset($layoutData['modification_date'], $exportedLayoutData['modification_date']);
+
         $matcher = $this->matcherFactory->createMatcher();
         $matchResult = $matcher->match($exportedLayoutData, $layoutData);
 

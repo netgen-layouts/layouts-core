@@ -14,8 +14,8 @@
             "en",
             "hr"
         ],
-        "creation_date": "@integer@",
-        "modification_date": "@integer@",
+        "creation_date": 1528371500,
+        "modification_date": 1528372000,
         "is_shared": false,
         "zones": {
             "bottom": {
@@ -404,8 +404,8 @@
         "available_locales": [
             "en"
         ],
-        "creation_date": "@integer@",
-        "modification_date": "@integer@",
+        "creation_date": 1528371500,
+        "modification_date": 1528372000,
         "is_shared": false,
         "zones": {
             "bottom": {
@@ -567,8 +567,8 @@
         "available_locales": [
             "en"
         ],
-        "creation_date": "@integer@",
-        "modification_date": "@integer@",
+        "creation_date": 1528371500,
+        "modification_date": 1528372000,
         "is_shared": true,
         "zones": {
             "bottom": {
@@ -607,8 +607,8 @@
         "available_locales": [
             "en"
         ],
-        "creation_date": "@integer@",
-        "modification_date": "@integer@",
+        "creation_date": 1528371500,
+        "modification_date": 1528372000,
         "is_shared": true,
         "zones": {
             "bottom": {
@@ -647,8 +647,8 @@
         "available_locales": [
             "en"
         ],
-        "creation_date": "@integer@",
-        "modification_date": "@integer@",
+        "creation_date": 1528371500,
+        "modification_date": 1528372000,
         "is_shared": false,
         "zones": {
             "bottom": {
