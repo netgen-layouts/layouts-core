@@ -39,7 +39,6 @@ final class ImportCommand extends Command
         $this
             ->setName('ngbm:import')
             ->setDescription('Imports Netgen Layouts entities')
-            ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to import')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
@@ -48,20 +47,9 @@ final class ImportCommand extends Command
     {
         $this->io = new SymfonyStyle($input, $output);
 
-        $type = $input->getArgument('type');
         $file = $input->getArgument('file');
 
-        $data = file_get_contents($file);
-
-        switch ($type) {
-            case 'layout':
-                $errorCount = $this->importLayouts($data);
-                break;
-            default:
-                $this->io->error(sprintf("Unknown entity type '%s'", $type));
-
-                return 1;
-        }
+        $errorCount = $this->importData(file_get_contents($file));
 
         $errorCount > 0 ?
             $this->io->caution('Import completed with errors.') :
@@ -71,21 +59,29 @@ final class ImportCommand extends Command
     }
 
     /**
-     * Import new layouts from the given $data string.
+     * Import new entities from the given data.
      *
      * @param string $data
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string is malformed
-     *
      * @return int The count of errors
      */
-    private function importLayouts($data)
+    private function importData($data)
     {
         $errorCount = 0;
 
         foreach ($this->importer->importData($data) as $index => $result) {
             if ($result instanceof SuccessResult) {
-                $this->io->note(sprintf('Imported %1$s #%2$d into %1$s ID %3$d', $result->getEntityType(), $index + 1, $result->getEntity()->getId()));
+                /* @var \Netgen\BlockManager\API\Values\Layout\Layout $entity */
+                $entity = $result->getEntity();
+
+                $this->io->note(
+                    sprintf(
+                        'Imported %1$s #%2$d into %1$s ID %3$d',
+                        $result->getEntityType(),
+                        $index + 1,
+                        $entity->getId()
+                    )
+                );
 
                 continue;
             }
