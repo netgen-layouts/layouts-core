@@ -133,7 +133,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'layoutId' => $ruleCreateStruct->layoutId,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $this->getRulePriority($ruleCreateStruct),
-                'comment' => trim($ruleCreateStruct->comment),
+                'comment' => $ruleCreateStruct->comment !== null ?
+                    trim($ruleCreateStruct->comment) :
+                    '',
             ]
         );
 

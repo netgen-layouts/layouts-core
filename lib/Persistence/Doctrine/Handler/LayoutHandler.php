@@ -126,7 +126,9 @@ final class LayoutHandler implements LayoutHandlerInterface
             [
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
-                'description' => trim($layoutCreateStruct->description),
+                'description' => $layoutCreateStruct->description !== null ?
+                    trim($layoutCreateStruct->description) :
+                    '',
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
                 'status' => $layoutCreateStruct->status,

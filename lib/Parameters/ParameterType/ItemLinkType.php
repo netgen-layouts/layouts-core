@@ -71,6 +71,10 @@ final class ItemLinkType extends ParameterType
 
     public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
     {
+        if (!is_string($value)) {
+            return true;
+        }
+
         $parsedValue = parse_url($value);
 
         return empty($parsedValue['scheme']) || (empty($parsedValue['host'] && $parsedValue['host'] !== '0'));

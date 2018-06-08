@@ -130,7 +130,9 @@ final class BlockHandler implements BlockHandlerInterface
                 'config' => $blockCreateStruct->config,
                 'viewType' => $blockCreateStruct->viewType,
                 'itemViewType' => $blockCreateStruct->itemViewType,
-                'name' => trim($blockCreateStruct->name),
+                'name' => $blockCreateStruct->name !== null
+                    ? trim($blockCreateStruct->name) :
+                    '',
                 'isTranslatable' => $blockCreateStruct->isTranslatable,
                 'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                 'mainLocale' => $layout->mainLocale,

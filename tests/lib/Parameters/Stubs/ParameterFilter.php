@@ -8,6 +8,6 @@ final class ParameterFilter implements ParameterFilterInterface
 {
     public function filter($value)
     {
-        return strrev($value);
+        return is_string($value) ? strrev($value) : $value;
     }
 }

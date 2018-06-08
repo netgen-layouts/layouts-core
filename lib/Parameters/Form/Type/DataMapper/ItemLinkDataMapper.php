@@ -12,6 +12,10 @@ final class ItemLinkDataMapper implements DataMapperInterface
 {
     public function mapDataToForms($data, $forms)
     {
+        if (!is_string($data)) {
+            return;
+        }
+
         $parsedData = parse_url($data);
         if (is_array($parsedData) && !empty($parsedData['scheme']) && (!empty($parsedData['host']) || $parsedData['host'] === '0')) {
             $forms = iterator_to_array($forms);
