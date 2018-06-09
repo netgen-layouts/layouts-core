@@ -152,7 +152,6 @@ services:
         public: true
         parent: netgen_block_manager.controller.admin.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.transfer.serializer"
 
     netgen_block_manager.controller.admin.layouts.delete_layout:

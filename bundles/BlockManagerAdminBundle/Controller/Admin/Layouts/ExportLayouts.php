@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,19 +11,13 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 final class ExportLayouts extends Controller
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    private $layoutService;
-
-    /**
      * @var \Netgen\BlockManager\Transfer\Output\SerializerInterface
      */
-    private $transferSerializer;
+    private $serializer;
 
-    public function __construct(LayoutService $layoutService, SerializerInterface $transferSerializer)
+    public function __construct(SerializerInterface $serializer)
     {
-        $this->layoutService = $layoutService;
-        $this->transferSerializer = $transferSerializer;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -36,7 +29,7 @@ final class ExportLayouts extends Controller
      */
     public function __invoke(Request $request)
     {
-        $serializedLayouts = $this->transferSerializer->serializeLayouts(
+        $serializedLayouts = $this->serializer->serializeLayouts(
             array_unique($request->request->get('layout_ids'))
         );
 
