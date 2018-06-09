@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Transfer\Input\Integration;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Diff;
 use Diff_Renderer_Text_Unified;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
@@ -139,10 +139,11 @@ abstract class ImporterTest extends ServiceTestCase
 
         foreach ($this->importer->importData($importData) as $index => $result) {
             $this->assertInstanceOf(SuccessResult::class, $result);
-            $this->assertInstanceOf(Value::class, $result->getEntity());
+            $this->assertInstanceOf(Layout::class, $result->getEntity());
+            $this->assertEquals($result->getEntity()->getId(), $result->getEntityId());
 
             $layoutData = $decodedData['entities'][$index];
-            $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntity()->getId()]);
+            $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntityId()]);
 
             $exportedLayoutData = $exportedLayoutData['entities'][0];
 

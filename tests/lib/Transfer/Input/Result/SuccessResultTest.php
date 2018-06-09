@@ -15,7 +15,7 @@ final class SuccessResultTest extends TestCase
 
     public function setUp()
     {
-        $this->result = new SuccessResult('type', ['data'], new Value());
+        $this->result = new SuccessResult('type', ['data'], 42, new Value());
     }
 
     /**
@@ -33,6 +33,14 @@ final class SuccessResultTest extends TestCase
     public function testGetData()
     {
         $this->assertEquals(['data'], $this->result->getData());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Transfer\Input\Result\SuccessResult::getEntityId
+     */
+    public function testGetEntityId()
+    {
+        $this->assertEquals(42, $this->result->getEntityId());
     }
 
     /**

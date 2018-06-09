@@ -19,6 +19,11 @@ final class ErrorResult implements ResultInterface
      */
     private $error;
 
+    /**
+     * @param string $entityType
+     * @param array $data
+     * @param \Throwable $error
+     */
     public function __construct($entityType, array $data, /* Throwable */ $error)
     {
         $this->entityType = $entityType;

@@ -71,15 +71,12 @@ final class ImportCommand extends Command
 
         foreach ($this->importer->importData($data) as $index => $result) {
             if ($result instanceof SuccessResult) {
-                /* @var \Netgen\BlockManager\API\Values\Layout\Layout $entity */
-                $entity = $result->getEntity();
-
                 $this->io->note(
                     sprintf(
                         'Imported %1$s #%2$d into %1$s ID %3$d',
                         $result->getEntityType(),
                         $index + 1,
-                        $entity->getId()
+                        $result->getEntityId()
                     )
                 );
 

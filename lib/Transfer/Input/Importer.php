@@ -46,7 +46,7 @@ final class Importer implements ImporterInterface
         foreach ($data['entities'] as $entityData) {
             try {
                 $layout = $this->layoutDataHandler->createLayout($entityData);
-                yield new SuccessResult('layout', $entityData, $layout);
+                yield new SuccessResult('layout', $entityData, $layout->getId(), $layout);
             } catch (Throwable $t) {
                 yield new ErrorResult('layout', $entityData, $t);
             } catch (Exception $e) {

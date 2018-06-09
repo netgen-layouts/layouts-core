@@ -17,14 +17,26 @@ final class SuccessResult implements ResultInterface
     private $data;
 
     /**
+     * @var int|string
+     */
+    private $entityId;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Value
      */
     private $entity;
 
-    public function __construct($entityType, array $data, Value $entity)
+    /**
+     * @param string $entityType
+     * @param array $data
+     * @param int|string $entityId
+     * @param \Netgen\BlockManager\API\Values\Value $entity
+     */
+    public function __construct($entityType, array $data, $entityId, Value $entity)
     {
         $this->entityType = $entityType;
         $this->data = $data;
+        $this->entityId = $entityId;
         $this->entity = $entity;
     }
 
@@ -36,6 +48,16 @@ final class SuccessResult implements ResultInterface
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * Returns the ID of the entity which was imported.
+     *
+     * @return int|string
+     */
+    public function getEntityId()
+    {
+        return $this->entityId;
     }
 
     /**
