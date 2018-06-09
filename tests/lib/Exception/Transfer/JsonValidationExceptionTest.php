@@ -9,9 +9,35 @@ use PHPUnit\Framework\TestCase;
 final class JsonValidationExceptionTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::parseError
+     */
+    public function testParseError()
+    {
+        $exception = JsonValidationException::parseError('Error message', 42);
+
+        $this->assertEquals(
+            'Provided data is not a valid JSON string: Error message (error code 42)',
+            $exception->getMessage()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::notAcceptable
+     */
+    public function testNotAcceptable()
+    {
+        $exception = JsonValidationException::notAcceptable('A reason');
+
+        $this->assertEquals(
+            'Provided data is not an acceptable JSON string: A reason',
+            $exception->getMessage()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::validationFailed
      */
-    public function testVersionNotAccepted()
+    public function testValidationFailed()
     {
         $exception = JsonValidationException::validationFailed('Error message', new Exception());
 
