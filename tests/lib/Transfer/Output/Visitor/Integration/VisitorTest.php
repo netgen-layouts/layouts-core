@@ -61,7 +61,7 @@ abstract class VisitorTest extends ServiceTestCase
             throw new RuntimeException(sprintf('%s file does not exist.', $fixturePath));
         }
 
-        if (is_callable($value)) {
+        if ($value instanceof Closure) {
             // We're using closures as values in case data providers need dependencies
             // from setUp method, because data providers are executed before the setUp method
             // This rebinds the closure to $this, to get the instantiated dependencies
@@ -77,7 +77,7 @@ abstract class VisitorTest extends ServiceTestCase
         $matchResult = $matcher->match($visitedData, json_decode($expectedData, true));
 
         if (!$matchResult) {
-            $diff = new Diff(explode(PHP_EOL, json_encode($visitedData, JSON_PRETTY_PRINT)), explode(PHP_EOL, $expectedData));
+            $diff = new Diff(explode(PHP_EOL, (string) json_encode($visitedData, JSON_PRETTY_PRINT)), explode(PHP_EOL, $expectedData));
 
             $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
         }

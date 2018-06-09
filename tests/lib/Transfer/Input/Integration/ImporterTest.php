@@ -134,7 +134,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     public function testImportData()
     {
-        $importData = file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
+        $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
         $decodedData = json_decode($importData, true);
 
         foreach ($this->importer->importData($importData) as $index => $result) {
@@ -163,8 +163,8 @@ abstract class ImporterTest extends ServiceTestCase
             $matchResult = $matcher->match($exportedLayoutData, $layoutData);
 
             if (!$matchResult) {
-                $prettyLayoutData = json_encode($layoutData, JSON_PRETTY_PRINT);
-                $prettyExportedLayoutData = json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
+                $prettyLayoutData = (string) json_encode($layoutData, JSON_PRETTY_PRINT);
+                $prettyExportedLayoutData = (string) json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
                 $diff = new Diff(explode(PHP_EOL, $prettyExportedLayoutData), explode(PHP_EOL, $prettyLayoutData));
 
                 $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
@@ -181,7 +181,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     public function testImportDataWithMissingQueryTranslationThrowsRuntimeException()
     {
-        $layoutData = file_get_contents(
+        $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
         );
 
@@ -198,7 +198,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     public function testImportDataWithMissingMainQueryTranslationThrowsRuntimeException()
     {
-        $layoutData = file_get_contents(
+        $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
         );
 
@@ -215,7 +215,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     public function testImportDataWithMissingBlockTranslationThrowsRuntimeException()
     {
-        $layoutData = file_get_contents(
+        $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
         );
 
@@ -232,7 +232,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     public function testImportDataWithMissingMainBlockTranslationThrowsRuntimeException()
     {
-        $layoutData = file_get_contents(
+        $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
         );
 
@@ -249,7 +249,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     public function testImportDataWithMissingZoneThrowsRuntimeException()
     {
-        $layoutData = file_get_contents(
+        $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'
         );
 
