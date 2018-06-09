@@ -2,8 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Command;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -23,29 +21,13 @@ final class ExportCommand extends Command
     private $serializer;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    private $layoutService;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
-
-    /**
      * @var \Symfony\Component\Filesystem\Filesystem
      */
     private $fileSystem;
 
-    public function __construct(
-        SerializerInterface $serializer,
-        LayoutService $layoutService,
-        LayoutResolverService $layoutResolverService,
-        Filesystem $fileSystem
-    ) {
+    public function __construct(SerializerInterface $serializer, Filesystem $fileSystem)
+    {
         $this->serializer = $serializer;
-        $this->layoutService = $layoutService;
-        $this->layoutResolverService = $layoutResolverService;
         $this->fileSystem = $fileSystem;
 
         // Parent constructor call is mandatory in commands registered as services
@@ -81,9 +63,12 @@ final class ExportCommand extends Command
 
         $json = json_encode($hash, JSON_PRETTY_PRINT);
 
-        $file = trim($input->getArgument('file'));
-        !empty($file) ?
-            $this->fileSystem->dumpFile($file, $json) :
+        $file = $input->getArgument('file');
+
+        $file !== null ?
+            $this->fileSystem->dumpFile(trim($file), $json) :
             $output->writeln((string) $json);
+
+        return 0;
     }
 }
