@@ -43,6 +43,7 @@ final class ExportLayouts extends Controller
             $fileName
         );
 
+        $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Content-Disposition', $disposition);
         // X-Filename header is needed for AJAX file download support
         $response->headers->set('X-Filename', $fileName);
