@@ -7,9 +7,6 @@ parameters:
         - tests/application/web/bundles/
 
     ignoreErrors:
-        # Symfony Config component
-        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface::end\(\).#'
-
         # Symfony Form component
         - '#Parameter \#2 \$dataClass of class Symfony\\Component\\Form\\FormConfigBuilder constructor expects string, null given.#'
 
