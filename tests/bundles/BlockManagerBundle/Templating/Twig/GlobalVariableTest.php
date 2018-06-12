@@ -55,7 +55,6 @@ final class GlobalVariableTest extends TestCase
         $this->viewBuilderMock = $this->createMock(ViewBuilderInterface::class);
 
         $this->requestStack = new RequestStack();
-        $this->requestStack->push(Request::create('/'));
 
         $this->globalVariable = new GlobalVariable(
             $this->configMock,
@@ -88,6 +87,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayout()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -117,6 +119,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutWithNoResolvedRules()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -133,6 +138,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutWithNoResolverExecuted()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->assertNull($this->globalVariable->getLayout());
     }
 
@@ -141,6 +149,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutView()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -170,8 +181,6 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutViewWithNoRequest()
     {
-        $this->requestStack->pop();
-
         $this->layoutResolverMock
             ->expects($this->never())
             ->method('resolveRule');
@@ -224,6 +233,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutViewWithNoResolvedRules()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -244,6 +256,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutViewWithNoResolverExecuted()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->assertNull($this->globalVariable->getLayoutView());
     }
 
@@ -252,6 +267,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetRule()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -281,6 +299,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetRuleWithNoResolvedRules()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -297,6 +318,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetRuleWithNoResolverExecuted()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->assertNull($this->globalVariable->getRule());
     }
 
@@ -306,6 +330,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplate()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -330,10 +357,7 @@ final class GlobalVariableTest extends TestCase
 
         $this->assertEquals('layout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        $this->assertEquals(
-            $layoutView,
-            $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
-        );
+        $this->assertEquals($layoutView, $request->attributes->get('ngbmLayoutView'));
     }
 
     /**
@@ -345,7 +369,9 @@ final class GlobalVariableTest extends TestCase
         $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
 
-        $this->requestStack->getCurrentRequest()->attributes->set('ngbmLayoutView', $layoutView);
+        $request = Request::create('/');
+        $request->attributes->set('ngbmLayoutView', $layoutView);
+        $this->requestStack->push($request);
 
         $this->layoutResolverMock
             ->expects($this->never())
@@ -362,10 +388,7 @@ final class GlobalVariableTest extends TestCase
 
         $this->assertEquals('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        $this->assertEquals(
-            $layoutView,
-            $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
-        );
+        $this->assertEquals($layoutView, $request->attributes->get('ngbmLayoutView'));
     }
 
     /**
@@ -374,8 +397,6 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithNoRequest()
     {
-        $this->requestStack->pop();
-
         $this->layoutResolverMock
             ->expects($this->never())
             ->method('resolveRule');
@@ -398,6 +419,10 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithException()
     {
+        $request = Request::create('/');
+        $request->attributes->set('exception', new Exception());
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -420,12 +445,9 @@ final class GlobalVariableTest extends TestCase
             ->expects($this->never())
             ->method('resolvePageLayout');
 
-        $currentRequest = $this->requestStack->getCurrentRequest();
-        $currentRequest->attributes->set('exception', new Exception());
-
         $this->assertEquals('layout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        $this->assertEquals($layoutView, $currentRequest->attributes->get('ngbmExceptionLayoutView'));
+        $this->assertEquals($layoutView, $request->attributes->get('ngbmExceptionLayoutView'));
     }
 
     /**
@@ -437,7 +459,10 @@ final class GlobalVariableTest extends TestCase
         $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
 
-        $this->requestStack->getCurrentRequest()->attributes->set('ngbmExceptionLayoutView', $layoutView);
+        $request = Request::create('/');
+        $request->attributes->set('exception', new Exception());
+        $request->attributes->set('ngbmExceptionLayoutView', $layoutView);
+        $this->requestStack->push($request);
 
         $this->layoutResolverMock
             ->expects($this->never())
@@ -452,12 +477,9 @@ final class GlobalVariableTest extends TestCase
             ->method('resolvePageLayout')
             ->will($this->returnValue('pagelayout.html.twig'));
 
-        $currentRequest = $this->requestStack->getCurrentRequest();
-        $currentRequest->attributes->set('exception', new Exception());
-
         $this->assertEquals('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        $this->assertEquals($layoutView, $currentRequest->attributes->get('ngbmExceptionLayoutView'));
+        $this->assertEquals($layoutView, $request->attributes->get('ngbmExceptionLayoutView'));
     }
 
     /**
@@ -466,6 +488,9 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithNoResolvedRules()
     {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
@@ -482,7 +507,7 @@ final class GlobalVariableTest extends TestCase
         );
 
         $this->assertFalse(
-            $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
+            $request->attributes->get('ngbmLayoutView')
         );
     }
 
