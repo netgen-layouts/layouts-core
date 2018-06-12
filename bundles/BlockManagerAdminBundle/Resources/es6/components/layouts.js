@@ -1,4 +1,5 @@
 import NetgenCore from 'netgen-core';
+import FileSaver from 'file-saver';
 import NlLayout from './layout';
 
 const $ = NetgenCore.$;
@@ -111,22 +112,8 @@ export default class NlLayouts {
     }
 
     static downloadFile(fileName, json) {
-        if (navigator.userAgent.indexOf('MSIE') !== -1
-            || navigator.appVersion.indexOf('Trident/') > 0) {
-            const IEwindow = window.open('', '', 'Width=0px; Height=0px');
-            IEwindow.document.write(`sep=,\r\n${json}`);
-            IEwindow.document.close();
-            IEwindow.document.execCommand('SaveAs', true, fileName);
-            IEwindow.close();
-        } else {
-            const aLink = document.createElement('a');
-            const evt = document.createEvent('MouseEvents');
-            evt.initMouseEvent('click', true, true, window,
-                0, 0, 0, 0, 0, false, false, false, false, 0, null);
-            aLink.download = fileName;
-            aLink.href = `data:application/json;charset=UTF-8,${json}`;
-            aLink.dispatchEvent(evt);
-        }
+        const blob = new Blob([json], { type: 'application/json;charset=UTF-8' });
+        FileSaver.saveAs(blob, fileName);
     }
 
     downloadLayouts(e) {
@@ -142,7 +129,7 @@ export default class NlLayouts {
             },
             beforeSend: () => $('.ng-layouts-app').addClass('ajax-loading'),
             success: (data, status, jqXHR) => {
-                NlLayouts.downloadFile(jqXHR.getResponseHeader('X-Filename'), encodeURIComponent(jqXHR.responseText));
+                NlLayouts.downloadFile(jqXHR.getResponseHeader('X-Filename'), jqXHR.responseText);
                 this.endExport();
             },
             complete: () => $('.ng-layouts-app').removeClass('ajax-loading'),
