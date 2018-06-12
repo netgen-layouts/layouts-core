@@ -13,9 +13,7 @@ final class ExtensionPlugin extends BaseExtensionPlugin
             ->children()
                 ->scalarNode('test_config')
                     ->defaultValue('test')
-                    ->cannotBeEmpty()
-                ->end()
-            ->end();
+                    ->cannotBeEmpty();
     }
 
     public function appendConfigurationFiles()
