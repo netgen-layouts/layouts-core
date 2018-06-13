@@ -137,10 +137,8 @@ trait DatabaseTrait
 
     /**
      * Inserts database fixtures.
-     *
-     * @param string $fixturesPath
      */
-    protected function insertDatabaseFixtures($fixturesPath)
+    protected function insertDatabaseFixtures(string $fixturesPath): void
     {
         $data = require $fixturesPath . '/data.php';
 
