@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
@@ -24,10 +25,19 @@ final class Create extends Controller
      */
     private $createStructValidator;
 
-    public function __construct(LayoutService $layoutService, CreateStructValidator $createStructValidator)
-    {
+    /**
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     */
+    private $layoutTypeRegistry;
+
+    public function __construct(
+        LayoutService $layoutService,
+        CreateStructValidator $createStructValidator,
+        LayoutTypeRegistryInterface $layoutTypeRegistry
+    ) {
         $this->layoutService = $layoutService;
         $this->createStructValidator = $createStructValidator;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -46,7 +56,7 @@ final class Create extends Controller
         $this->createStructValidator->validateCreateLayout($requestData);
 
         try {
-            $layoutType = $this->getLayoutType($requestData->get('layout_type'));
+            $layoutType = $this->layoutTypeRegistry->getLayoutType($requestData->get('layout_type'));
         } catch (LayoutTypeException $e) {
             throw new BadStateException('layout_type', 'Layout type does not exist.', $e);
         }

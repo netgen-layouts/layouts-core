@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +23,19 @@ final class ChangeCollectionType extends Controller
      */
     private $validator;
 
-    public function __construct(CollectionService $collectionService, ChangeCollectionTypeValidator $validator)
-    {
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     */
+    private $queryTypeRegistry;
+
+    public function __construct(
+        CollectionService $collectionService,
+        ChangeCollectionTypeValidator $validator,
+        QueryTypeRegistryInterface $queryTypeRegistry
+    ) {
         $this->collectionService = $collectionService;
         $this->validator = $validator;
+        $this->queryTypeRegistry = $queryTypeRegistry;
     }
 
     /**
@@ -59,7 +69,7 @@ final class ChangeCollectionType extends Controller
             }
         } elseif ($newType === Collection::TYPE_DYNAMIC) {
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-                $this->getQueryType($queryType)
+                $this->queryTypeRegistry->getQueryType($queryType)
             );
         }
 

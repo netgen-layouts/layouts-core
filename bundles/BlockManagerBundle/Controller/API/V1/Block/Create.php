@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
 use Netgen\BlockManager\Serializer\Values\View;
@@ -31,14 +32,21 @@ final class Create extends Controller
      */
     private $createStructValidator;
 
+    /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface
+     */
+    private $blockTypeRegistry;
+
     public function __construct(
         BlockService $blockService,
         CreateStructBuilder $createStructBuilder,
-        CreateStructValidator $createStructValidator
+        CreateStructValidator $createStructValidator,
+        BlockTypeRegistryInterface $blockTypeRegistry
     ) {
         $this->blockService = $blockService;
         $this->createStructBuilder = $createStructBuilder;
         $this->createStructValidator = $createStructValidator;
+        $this->blockTypeRegistry = $blockTypeRegistry;
     }
 
     /**
@@ -58,7 +66,7 @@ final class Create extends Controller
         $this->createStructValidator->validateCreateBlock($requestData);
 
         try {
-            $blockType = $this->getBlockType($requestData->get('block_type'));
+            $blockType = $this->blockTypeRegistry->getBlockType($requestData->get('block_type'));
         } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }

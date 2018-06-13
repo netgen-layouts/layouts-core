@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
@@ -16,9 +17,15 @@ final class ChangeType extends Controller
      */
     private $layoutService;
 
-    public function __construct(LayoutService $layoutService)
+    /**
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     */
+    private $layoutTypeRegistry;
+
+    public function __construct(LayoutService $layoutService, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         $this->layoutService = $layoutService;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -33,12 +40,11 @@ final class ChangeType extends Controller
     {
         $requestData = $request->attributes->get('data');
 
-        $layoutType = $this->getLayoutType($requestData->get('new_type'));
         $zoneMappings = $requestData->get('zone_mappings');
 
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $layoutType,
+            $this->layoutTypeRegistry->getLayoutType($requestData->get('new_type')),
             is_array($zoneMappings) ? $zoneMappings : []
         );
 

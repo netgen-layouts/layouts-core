@@ -122,6 +122,7 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.controller.api.v1.layout.create_struct_validator"
+            - "@netgen_block_manager.layout.registry.layout_type"
 
     netgen_block_manager.controller.api.v1.layout.copy:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy
@@ -136,6 +137,7 @@ services:
         parent: netgen_block_manager.controller.api.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.layout.registry.layout_type"
 
     netgen_block_manager.controller.api.v1.layout.create_draft:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft
@@ -199,6 +201,7 @@ services:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.controller.api.v1.block.create_struct_builder"
             - "@netgen_block_manager.controller.api.v1.block.create_struct_validator"
+            - "@netgen_block_manager.block.registry.block_type"
 
     netgen_block_manager.controller.api.v1.block.create_in_zone:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone
@@ -209,6 +212,7 @@ services:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.controller.api.v1.block.create_struct_builder"
             - "@netgen_block_manager.controller.api.v1.block.create_struct_validator"
+            - "@netgen_block_manager.block.registry.block_type"
 
     netgen_block_manager.controller.api.v1.block.copy:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy
@@ -275,6 +279,7 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.controller.api.v1.block_collection.add_items_validator"
+            - "@netgen_block_manager.collection.registry.item_definition"
 
     netgen_block_manager.controller.api.v1.block_collection.change_collection_type:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType
@@ -283,6 +288,7 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.controller.api.v1.block_collection.change_collection_type_validator"
+            - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.controller.api.v1.block_collection.load_collection_result:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult

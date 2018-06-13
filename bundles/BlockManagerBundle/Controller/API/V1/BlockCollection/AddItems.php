@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,19 @@ final class AddItems extends Controller
      */
     private $validator;
 
-    public function __construct(CollectionService $collectionService, AddItemsValidator $validator)
-    {
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     */
+    private $itemDefinitionRegistry;
+
+    public function __construct(
+        CollectionService $collectionService,
+        AddItemsValidator $validator,
+        ItemDefinitionRegistryInterface $itemDefinitionRegistry
+    ) {
         $this->collectionService = $collectionService;
         $this->validator = $validator;
+        $this->itemDefinitionRegistry = $itemDefinitionRegistry;
     }
 
     /**
@@ -47,10 +57,8 @@ final class AddItems extends Controller
         $this->collectionService->transaction(
             function () use ($block, $collectionIdentifier, $items) {
                 foreach ($items as $item) {
-                    $itemDefinition = $this->getItemDefinition($item['value_type']);
-
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-                        $itemDefinition,
+                        $this->itemDefinitionRegistry->getItemDefinition($item['value_type']),
                         $item['type'],
                         $item['value']
                     );
