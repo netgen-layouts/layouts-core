@@ -124,7 +124,7 @@ EOT
 
         $this->addSql('ALTER TABLE ngbm_collection_query ADD COLUMN parameters text NOT NULL AFTER type');
 
-        // ?? $this->addSql('UPDATE ngbm_collection_query q INNER JOIN ngbm_collection_query_translation qt ON q.id = qt.query_id AND q.status = qt.status AND q.main_locale = qt.locale SET q.parameters = qt.parameters');
+        $this->addSql('UPDATE ngbm_collection_query q INNER JOIN ngbm_collection_query_translation qt ON q.id = qt.query_id AND q.status = qt.status AND q.main_locale = qt.locale SET q.parameters = qt.parameters');
 
         $this->addSql('DROP TABLE ngbm_collection_query_translation');
 
