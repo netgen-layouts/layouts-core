@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class AppKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles(): array
     {
         $bundles = [
             // Symfony
@@ -46,7 +46,7 @@ final class AppKernel extends Kernel
         return $bundles;
     }
 
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
@@ -55,32 +55,32 @@ final class AppKernel extends Kernel
         putenv('DATABASE=' . $databaseUrl);
     }
 
-    public function getProjectDir()
+    public function getProjectDir(): string
     {
         return dirname(__DIR__);
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return sys_get_temp_dir() . '/ngbm/cache';
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
         return sys_get_temp_dir() . '/ngbm/logs';
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config/config.yml');
     }
 
-    protected function getContainerBaseClass()
+    protected function getContainerBaseClass(): string
     {
         return '\\' . MockerContainer::class;
     }
 
-    protected function prepareContainer(ContainerBuilder $container)
+    protected function prepareContainer(ContainerBuilder $container): void
     {
         parent::prepareContainer($container);
 

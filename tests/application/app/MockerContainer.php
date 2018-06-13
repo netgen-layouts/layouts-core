@@ -18,7 +18,7 @@ class MockerContainer extends Container
      */
     private $mockedServices = [];
 
-    public function mock($id, /* PHPUnit\Framework\MockObject\MockObject */ $mock)
+    public function mock(string $id, /* PHPUnit\Framework\MockObject\MockObject */ $mock)
     {
         // @deprecated Enable MockObject type hint when support for PHPUnit 5 ends
 
@@ -30,16 +30,13 @@ class MockerContainer extends Container
         return $this->mockedServices[$id];
     }
 
-    public function unmock($id)
+    public function unmock(string $id): void
     {
         $this->services[$id] = $this->originalServices[$id];
         unset($this->originalServices[$id], $this->mockedServices[$id]);
     }
 
-    /**
-     * @return array
-     */
-    public function getMockedServices()
+    public function getMockedServices(): array
     {
         return $this->mockedServices;
     }
