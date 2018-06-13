@@ -125,7 +125,7 @@ final class LayoutResolver implements LayoutResolverInterface
         usort(
             $resolvedRules,
             function (Rule $a, Rule $b) {
-                return $b->getPriority() - $a->getPriority();
+                return $b->getPriority() <=> $a->getPriority();
             }
         );
 
