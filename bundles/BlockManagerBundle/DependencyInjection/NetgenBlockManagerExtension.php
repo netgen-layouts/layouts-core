@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Jean85\PrettyVersions;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\HttpKernel\Kernel;
@@ -107,12 +107,10 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
 
     public function prepend(ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader(
-            $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
+        $container->setParameter(
+            'ngbm.asset.version',
+            PrettyVersions::getVersion('netgen/block-manager')->getCommitHash()
         );
-
-        $loader->load('framework/assets.xml');
 
         $prependConfigs = [
             'framework/assets.yml' => 'framework',

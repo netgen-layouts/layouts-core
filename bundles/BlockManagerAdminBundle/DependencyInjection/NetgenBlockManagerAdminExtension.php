@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection;
 
+use Jean85\PrettyVersions;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
@@ -32,12 +32,10 @@ final class NetgenBlockManagerAdminExtension extends Extension implements Prepen
 
     public function prepend(ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader(
-            $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
+        $container->setParameter(
+            'ngbm_admin.asset.version',
+            PrettyVersions::getVersion('netgen/block-manager')->getCommitHash()
         );
-
-        $loader->load('framework/assets.xml');
 
         $prependConfigs = [
             'framework/assets.yml' => 'framework',

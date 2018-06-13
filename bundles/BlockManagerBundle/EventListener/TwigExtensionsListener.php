@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
+use EdiModric\Twig\VersionExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -37,10 +38,12 @@ class TwigExtensionsListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ($this->twig->hasExtension(IntlExtension::class)) {
-            return;
+        if (!$this->twig->hasExtension(IntlExtension::class)) {
+            $this->twig->addExtension(new IntlExtension());
         }
 
-        $this->twig->addExtension(new IntlExtension());
+        if (!$this->twig->hasExtension(VersionExtension::class)) {
+            $this->twig->addExtension(new VersionExtension());
+        }
     }
 }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
 
 use Exception;
+use Jean85\PrettyVersions;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Version;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Twig\Environment;
+use Version\Exception\InvalidVersionStringException;
+use Version\Version;
 
 final class BlockManagerDataCollector extends DataCollector
 {
@@ -32,11 +34,14 @@ final class BlockManagerDataCollector extends DataCollector
         $this->globalVariable = $globalVariable;
         $this->twig = $twig;
 
-        $this->data['version'] = Version::VERSION;
+        $this->data['version'] = PrettyVersions::getVersion('netgen/block-manager')->getPrettyVersion();
         $this->data['docs_version'] = 'latest';
 
-        if (Version::EXTRA_VERSION !== 'DEV' || Version::RELEASE_VERSION > 0) {
-            $this->data['docs_version'] = sprintf('%d.%d', Version::MAJOR_VERSION, Version::MINOR_VERSION);
+        try {
+            $version = Version::fromString($this->data['version']);
+            $this->data['docs_version'] = sprintf('%d.%d', $version->getMajor(), $version->getMinor());
+        } catch (InvalidVersionStringException $e) {
+            // Do nothing
         }
 
         $this->reset();
