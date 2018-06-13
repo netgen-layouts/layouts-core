@@ -32,11 +32,6 @@ final class NetgenBlockManagerAdminExtension extends Extension implements Prepen
 
     public function prepend(ContainerBuilder $container)
     {
-        $container->setParameter(
-            'ngbm_admin.asset.version',
-            PrettyVersions::getVersion('netgen/block-manager')->getShortCommitHash()
-        );
-
         $prependConfigs = [
             'framework/assets.yml' => 'framework',
             'framework/twig.yml' => 'twig',
