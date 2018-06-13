@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Error;
 
+use Throwable;
+
 interface ErrorHandlerInterface
 {
     /**
@@ -12,8 +14,6 @@ interface ErrorHandlerInterface
      * @param \Throwable $throwable The throwable that needs to be handled
      * @param string $message
      * @param array $context
-     *
-     * @todo Add \Throwable type hint when support for PHP 5.6 ends.
      */
-    public function handleError(/* Throwable */ $throwable, $message = null, array $context = []);
+    public function handleError(Throwable $throwable, $message = null, array $context = []);
 }

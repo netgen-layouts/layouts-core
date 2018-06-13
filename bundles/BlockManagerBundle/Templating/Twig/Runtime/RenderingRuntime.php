@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
-use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -86,14 +85,6 @@ final class RenderingRuntime
             );
 
             $this->errorHandler->handleError($t, $message);
-        } catch (Exception $e) {
-            $message = sprintf(
-                'Error rendering an item with value "%s" and value type "%s"',
-                $item->getValue(),
-                $item->getValueType()
-            );
-
-            $this->errorHandler->handleError($e, $message);
         }
 
         return '';
@@ -124,13 +115,6 @@ final class RenderingRuntime
             );
 
             $this->errorHandler->handleError($t, $message, ['object' => $value]);
-        } catch (Exception $e) {
-            $message = sprintf(
-                'Error rendering a value of type "%s"',
-                is_object($value) ? get_class($value) : gettype($value)
-            );
-
-            $this->errorHandler->handleError($e, $message, ['object' => $value]);
         }
 
         return '';
@@ -189,10 +173,6 @@ final class RenderingRuntime
             $message = sprintf('Error rendering a block with ID "%s"', $block->getId());
 
             $this->errorHandler->handleError($t, $message);
-        } catch (Exception $e) {
-            $message = sprintf('Error rendering a block with ID "%s"', $block->getId());
-
-            $this->errorHandler->handleError($e, $message);
         }
 
         return '';
@@ -228,14 +208,6 @@ final class RenderingRuntime
             );
 
             $this->errorHandler->handleError($t, $message);
-        } catch (Exception $e) {
-            $message = sprintf(
-                'Error rendering a placeholder "%s" in block with ID "%s"',
-                $placeholder,
-                $block->getId()
-            );
-
-            $this->errorHandler->handleError($e, $message);
         }
 
         return '';

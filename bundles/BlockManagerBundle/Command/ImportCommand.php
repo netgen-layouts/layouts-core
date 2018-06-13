@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Throwable;
 
 /**
  * Command to import Netgen Layouts entities.
@@ -106,7 +107,7 @@ final class ImportCommand extends Command
      * @param \Throwable $throwable
      * @param int $number
      */
-    private function renderThrowableStack(/* Throwable */ $throwable, $number = 0)
+    private function renderThrowableStack(Throwable $throwable, $number = 0)
     {
         $this->io->writeln(sprintf(' #%d:', $number));
         $throwableClass = get_class($throwable);

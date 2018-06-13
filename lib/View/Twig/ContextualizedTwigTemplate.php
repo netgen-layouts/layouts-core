@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\View\Twig;
 
-use Exception;
 use Throwable;
 use Twig\Template;
 
@@ -67,12 +66,6 @@ final class ContextualizedTwigTemplate
             }
 
             throw $t;
-        } catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-
-            throw $e;
         }
 
         return (string) ob_get_clean();

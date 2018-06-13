@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\Block;
 
-use Exception;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -43,10 +42,6 @@ final class ViewBlock extends Controller
             $message = sprintf('Error rendering a block with ID %d', $block->getId());
 
             $this->errorHandler->handleError($t, $message);
-        } catch (Exception $e) {
-            $message = sprintf('Error rendering a block with ID %d', $block->getId());
-
-            $this->errorHandler->handleError($e, $message);
         }
 
         return new Response();

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Stubs;
 
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
+use Throwable;
 
 final class ErrorHandler implements ErrorHandlerInterface
 {
@@ -15,7 +16,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         $this->throw = $throw;
     }
 
-    public function handleError(/* Throwable */ $throwable, $message = null, array $context = [])
+    public function handleError(Throwable $throwable, $message = null, array $context = [])
     {
         if ($this->throw) {
             throw $throwable;

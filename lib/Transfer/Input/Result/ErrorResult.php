@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Input\Result;
 
+use Throwable;
+
 final class ErrorResult implements ResultInterface
 {
     /**
@@ -26,7 +28,7 @@ final class ErrorResult implements ResultInterface
      * @param array $data
      * @param \Throwable $error
      */
-    public function __construct($entityType, array $data, /* Throwable */ $error)
+    public function __construct($entityType, array $data, Throwable $error)
     {
         $this->entityType = $entityType;
         $this->data = $data;

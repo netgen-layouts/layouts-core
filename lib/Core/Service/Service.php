@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Exception;
 use Netgen\BlockManager\API\Service\Service as APIService;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
@@ -31,9 +30,6 @@ abstract class Service implements APIService
         } catch (Throwable $t) {
             $this->rollbackTransaction();
             throw $t;
-        } catch (Exception $e) {
-            $this->rollbackTransaction();
-            throw $e;
         }
 
         $this->commitTransaction();
@@ -52,8 +48,6 @@ abstract class Service implements APIService
             $this->persistenceHandler->commitTransaction();
         } catch (Throwable $t) {
             throw new RuntimeException($t->getMessage(), 0, $t);
-        } catch (Exception $e) {
-            throw new RuntimeException($e->getMessage(), 0, $e);
         }
     }
 
@@ -63,8 +57,6 @@ abstract class Service implements APIService
             $this->persistenceHandler->rollbackTransaction();
         } catch (Throwable $t) {
             throw new RuntimeException($t->getMessage(), 0, $t);
-        } catch (Exception $e) {
-            throw new RuntimeException($e->getMessage(), 0, $e);
         }
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Input;
 
-use Exception;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
 use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
@@ -51,8 +50,6 @@ final class Importer implements ImporterInterface
                 yield new SuccessResult('layout', $entityData, $layout->getId(), $layout);
             } catch (Throwable $t) {
                 yield new ErrorResult('layout', $entityData, $t);
-            } catch (Exception $e) {
-                yield new ErrorResult('layout', $entityData, $e);
             }
         }
     }

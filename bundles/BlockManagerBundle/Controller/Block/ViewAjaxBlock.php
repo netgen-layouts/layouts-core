@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\Block;
 
-use Exception;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -59,14 +58,6 @@ final class ViewAjaxBlock extends Controller
             );
 
             $this->errorHandler->handleError($t, $message);
-        } catch (Exception $e) {
-            $message = sprintf(
-                'Error rendering an AJAX block with ID %d and collection %s',
-                $block->getId(),
-                $collectionIdentifier
-            );
-
-            $this->errorHandler->handleError($e, $message);
         }
 
         return new Response();

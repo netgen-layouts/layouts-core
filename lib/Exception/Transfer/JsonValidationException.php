@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Exception\Transfer;
 
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
+use Throwable;
 
 final class JsonValidationException extends InvalidArgumentException implements Exception
 {
@@ -53,7 +54,7 @@ final class JsonValidationException extends InvalidArgumentException implements 
      *
      * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      */
-    public static function validationFailed($errorMessage, /* Throwable */ $previous = null)
+    public static function validationFailed($errorMessage, Throwable $previous = null)
     {
         return new self(
             sprintf(

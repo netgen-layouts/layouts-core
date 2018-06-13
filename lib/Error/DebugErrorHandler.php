@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Error;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Throwable;
 
 /**
  * This error handler rethrows the error if debug mode is on.
@@ -32,7 +33,7 @@ final class DebugErrorHandler implements ErrorHandlerInterface
         $this->debug = $debug;
     }
 
-    public function handleError(/* Throwable */ $throwable, $message = null, array $context = [])
+    public function handleError(Throwable $throwable, $message = null, array $context = [])
     {
         $this->logError($throwable, $message, $context);
 
@@ -48,7 +49,7 @@ final class DebugErrorHandler implements ErrorHandlerInterface
      * @param string $message
      * @param array $context
      */
-    private function logError(/* Throwable */ $throwable, $message = null, array $context = [])
+    private function logError(Throwable $throwable, $message = null, array $context = [])
     {
         if ($message === null) {
             $message = $throwable->getMessage();

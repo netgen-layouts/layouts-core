@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Exception;
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
@@ -60,8 +59,6 @@ final class ViewRendererListener implements EventSubscriberInterface
             $renderedView = $this->viewRenderer->renderView($view);
         } catch (Throwable $t) {
             $this->errorHandler->handleError($t);
-        } catch (Exception $e) {
-            $this->errorHandler->handleError($e);
         }
 
         $response->setContent($renderedView);
