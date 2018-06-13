@@ -20,7 +20,7 @@ class MockerContainer extends Container
 
     public function mock($id, /* PHPUnit\Framework\MockObject\MockObject */ $mock)
     {
-        // @deprecated Enable MockObject type hint when support for PHP 5.6 (and PHPUnit 5) ends
+        // @deprecated Enable MockObject type hint when support for PHPUnit 5 ends
 
         if (!array_key_exists($id, $this->mockedServices)) {
             $this->originalServices[$id] = $this->get($id);
