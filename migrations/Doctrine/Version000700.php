@@ -9,7 +9,7 @@ use Doctrine\DBAL\Schema\Schema;
 
 final class Version000700 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         // ngbm_layout table
 
@@ -186,7 +186,7 @@ final class Version000700 extends AbstractMigration
         $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'collection_status'], ['id', 'status']);
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $schema->dropTable('ngbm_block_collection');
         $schema->dropTable('ngbm_collection_item');

@@ -15,7 +15,7 @@ use Symfony\Component\Intl\Intl;
 
 final class Version000900 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
@@ -118,7 +118,7 @@ EOT
         $this->addSql('ALTER TABLE ngbm_collection_query DROP COLUMN parameters');
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
@@ -159,10 +159,8 @@ EOT
 
     /**
      * Returns if the database already contains some layouts.
-     *
-     * @return bool
      */
-    private function hasLayouts()
+    private function hasLayouts(): bool
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select('count(id) as count')
@@ -175,17 +173,15 @@ EOT
 
     /**
      * Asks the user for default layout locale and returns it.
-     *
-     * @return string
      */
-    private function askDefaultLocale()
+    private function askDefaultLocale(): string
     {
         $io = new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
 
         return $io->ask(
             'Please input the default locale for existing layouts',
-            null,
-            function ($locale) {
+            '',
+            function (string $locale): string {
                 if (Intl::getLocaleBundle()->getLocaleName($locale) === null) {
                     throw new RuntimeException('Specified locale is not valid');
                 }
