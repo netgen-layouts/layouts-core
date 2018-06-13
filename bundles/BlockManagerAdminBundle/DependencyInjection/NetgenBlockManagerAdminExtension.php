@@ -34,7 +34,7 @@ final class NetgenBlockManagerAdminExtension extends Extension implements Prepen
     {
         $container->setParameter(
             'ngbm_admin.asset.version',
-            PrettyVersions::getVersion('netgen/block-manager')->getCommitHash()
+            PrettyVersions::getVersion('netgen/block-manager')->getShortCommitHash()
         );
 
         $prependConfigs = [
