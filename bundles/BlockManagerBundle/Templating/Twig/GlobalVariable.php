@@ -174,9 +174,7 @@ final class GlobalVariable
      */
     public function getPageLayoutTemplate()
     {
-        if ($this->pageLayoutTemplate === null) {
-            $this->pageLayoutTemplate = $this->pageLayoutResolver->resolvePageLayout();
-        }
+        $this->pageLayoutTemplate = $this->pageLayoutTemplate ?? $this->pageLayoutResolver->resolvePageLayout();
 
         return $this->pageLayoutTemplate;
     }

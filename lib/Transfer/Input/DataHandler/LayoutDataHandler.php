@@ -376,7 +376,7 @@ final class LayoutDataHandler
         $blockCreateStruct->isTranslatable = $blockData['is_translatable'];
         $blockCreateStruct->alwaysAvailable = $blockData['is_always_available'];
         $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockData['parameters'][$blockData['main_locale']], true);
-        $this->setConfigStructs($blockCreateStruct, $blockDefinition, isset($blockData['configuration']) ? $blockData['configuration'] : []);
+        $this->setConfigStructs($blockCreateStruct, $blockDefinition, $blockData['configuration'] ?? []);
         $this->setCollectionStructs($blockCreateStruct, $blockData['collections']);
 
         return $blockCreateStruct;
@@ -479,9 +479,7 @@ final class LayoutDataHandler
             $this->setConfigStructs(
                 $itemCreateStruct,
                 $itemDefinition,
-                isset($collectionItemData['configuration']) ?
-                    $collectionItemData['configuration'] :
-                    []
+                $collectionItemData['configuration'] ?? []
             );
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);

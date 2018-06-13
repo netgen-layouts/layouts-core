@@ -26,10 +26,7 @@ final class ParameterFilterPass implements CompilerPassInterface
         uasort(
             $parameterFilters,
             function (array $a, array $b) {
-                $a[0]['priority'] = isset($a[0]['priority']) ? $a[0]['priority'] : 0;
-                $b[0]['priority'] = isset($b[0]['priority']) ? $b[0]['priority'] : 0;
-
-                return $b[0]['priority'] - $a[0]['priority'];
+                return ($b[0]['priority'] ?? 0) - ($a[0]['priority'] ?? 0);
             }
         );
 

@@ -22,6 +22,6 @@ final class CollectionDataMapper implements DataMapperInterface
         $limit = $forms['limit']->getData();
 
         $data->offset = $forms['offset']->getData();
-        $data->limit = $limit !== null ? $limit : 0;
+        $data->limit = $limit ?? 0;
     }
 }

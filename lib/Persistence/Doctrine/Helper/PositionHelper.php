@@ -139,7 +139,7 @@ final class PositionHelper
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0][$columnName]) ? (int) $data[0][$columnName] + 1 : 0;
+        return (int) ($data[0][$columnName] ?? -1) + 1;
     }
 
     /**

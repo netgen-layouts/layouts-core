@@ -75,7 +75,7 @@ abstract class BlockTest extends ServiceTestCase
         }
 
         $blockDefinition = $this->createBlockDefinition(
-            $testedParams !== null ? $testedParams : array_keys($parameters)
+            $testedParams ?? array_keys($parameters)
         );
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);

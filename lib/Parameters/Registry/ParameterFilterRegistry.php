@@ -20,8 +20,6 @@ final class ParameterFilterRegistry implements ParameterFilterRegistryInterface
 
     public function getParameterFilters($parameterType)
     {
-        return isset($this->parameterFilters[$parameterType]) ?
-            $this->parameterFilters[$parameterType] :
-            [];
+        return $this->parameterFilters[$parameterType] ?? [];
     }
 }

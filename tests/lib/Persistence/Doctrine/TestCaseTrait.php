@@ -35,9 +35,7 @@ trait TestCaseTrait
      */
     private function createPersistenceHandler(Connection $connection = null)
     {
-        $this->databaseConnection = $connection === null ?
-            $this->createDatabaseConnection() :
-            $connection;
+        $this->databaseConnection = $connection ?? $this->createDatabaseConnection();
 
         if ($connection === null) {
             $this->createDatabase();

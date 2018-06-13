@@ -66,9 +66,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                     new Constraints\Type(['type' => 'string']),
                     new BlockItemViewType(
                         [
-                            'viewType' => $value->viewType !== null ?
-                                $value->viewType :
-                                $block->getViewType(),
+                            'viewType' => $value->viewType ?? $block->getViewType(),
                             'definition' => $blockDefinition,
                         ]
                     ),

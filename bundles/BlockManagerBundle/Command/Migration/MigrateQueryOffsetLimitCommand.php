@@ -243,7 +243,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 $parameters = json_decode($queryDataItem['parameters'], true);
                 if (!empty($queryTypeParameters[$queryDataItem['type']]['offset'])) {
                     $offsetParameter = $queryTypeParameters[$queryDataItem['type']]['offset'];
-                    $offset = isset($parameters[$offsetParameter]) ? (int) $parameters[$offsetParameter] : 0;
+                    $offset = (int) ($parameters[$offsetParameter] ?? 0);
                 }
 
                 if (!empty($queryTypeParameters[$queryDataItem['type']]['limit'])) {

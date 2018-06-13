@@ -65,9 +65,7 @@ final class Layout extends Value implements APILayout
     {
         parent::__construct($properties);
 
-        if ($this->zones === null) {
-            $this->zones = new ArrayCollection();
-        }
+        $this->zones = $this->zones ?? new ArrayCollection();
     }
 
     public function getId()

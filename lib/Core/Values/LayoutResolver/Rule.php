@@ -53,13 +53,8 @@ final class Rule extends Value implements APIRule
     {
         parent::__construct($properties);
 
-        if ($this->targets === null) {
-            $this->targets = new ArrayCollection();
-        }
-
-        if ($this->conditions === null) {
-            $this->conditions = new ArrayCollection();
-        }
+        $this->targets = $this->targets ?? new ArrayCollection();
+        $this->conditions = $this->conditions ?? new ArrayCollection();
     }
 
     public function getId()

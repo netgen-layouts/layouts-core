@@ -70,11 +70,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
 
     public function getCount(Query $query)
     {
-        if ($this->count !== null) {
-            return $this->count;
-        }
-
-        return count($this->values);
+        return $this->count ?? count($this->values);
     }
 
     public function isContextual(Query $query)

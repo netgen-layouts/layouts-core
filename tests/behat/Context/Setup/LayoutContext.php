@@ -55,7 +55,7 @@ final class LayoutContext implements Context
      */
     private function createLayout($layoutName, LayoutTypeInterface $layoutType = null, $mainLocale = 'en', $shared = false)
     {
-        $layoutType = $layoutType !== null ? $layoutType : $this->getFirstLayoutType();
+        $layoutType = $layoutType ?? $this->getFirstLayoutType();
 
         $createStruct = $this->layoutService->newLayoutCreateStruct($layoutType, $layoutName, $mainLocale);
         $createStruct->shared = $shared;

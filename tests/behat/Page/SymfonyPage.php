@@ -96,7 +96,7 @@ abstract class SymfonyPage extends Page
                         "Matched route does not match the expected parameter '%s'='%s' (%s found)",
                         $key,
                         $value,
-                        isset($matchedRoute[$key]) ? $matchedRoute[$key] : 'null'
+                        $matchedRoute[$key] ?? 'null'
                     )
                 );
             }

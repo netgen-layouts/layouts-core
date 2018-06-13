@@ -68,7 +68,7 @@ final class AddItems extends Controller
                     $this->collectionService->addItem(
                         $block->getCollection($collectionIdentifier),
                         $itemCreateStruct,
-                        isset($item['position']) ? $item['position'] : null
+                        $item['position'] ?? null
                     );
                 }
             }

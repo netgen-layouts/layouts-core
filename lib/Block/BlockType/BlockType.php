@@ -113,7 +113,7 @@ class BlockType extends Value
      */
     public function getDefaultName()
     {
-        return isset($this->defaults['name']) ? $this->defaults['name'] : '';
+        return $this->defaults['name'] ?? '';
     }
 
     /**
@@ -123,7 +123,7 @@ class BlockType extends Value
      */
     public function getDefaultViewType()
     {
-        return isset($this->defaults['view_type']) ? $this->defaults['view_type'] : '';
+        return $this->defaults['view_type'] ?? '';
     }
 
     /**
@@ -133,7 +133,7 @@ class BlockType extends Value
      */
     public function getDefaultItemViewType()
     {
-        return isset($this->defaults['item_view_type']) ? $this->defaults['item_view_type'] : '';
+        return $this->defaults['item_view_type'] ?? '';
     }
 
     /**
@@ -143,6 +143,6 @@ class BlockType extends Value
      */
     public function getDefaultParameters()
     {
-        return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : [];
+        return $this->defaults['parameters'] ?? [];
     }
 }

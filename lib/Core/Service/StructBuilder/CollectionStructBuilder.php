@@ -59,10 +59,7 @@ final class CollectionStructBuilder
 
         if ($collection !== null) {
             $collectionUpdateStruct->offset = $collection->getOffset();
-            $collectionUpdateStruct->limit = $collection->getLimit();
-            if ($collectionUpdateStruct->limit === null) {
-                $collectionUpdateStruct->limit = 0;
-            }
+            $collectionUpdateStruct->limit = $collection->getLimit() ?? 0;
         }
 
         return $collectionUpdateStruct;

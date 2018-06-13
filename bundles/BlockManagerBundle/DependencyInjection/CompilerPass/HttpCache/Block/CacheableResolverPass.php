@@ -24,7 +24,7 @@ final class CacheableResolverPass implements CompilerPassInterface
 
         $voters = [];
         foreach ($voterServices as $serviceName => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
+            $priority = (int) ($tag[0]['priority'] ?? 0);
             $voters[$priority][] = new Reference($serviceName);
         }
 

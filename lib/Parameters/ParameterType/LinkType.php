@@ -86,9 +86,9 @@ final class LinkType extends ParameterType
         return new LinkValue(
             [
                 'linkType' => $value['link_type'],
-                'link' => isset($value['link']) ? $value['link'] : null,
-                'linkSuffix' => isset($value['link_suffix']) ? $value['link_suffix'] : null,
-                'newWindow' => isset($value['new_window']) ? $value['new_window'] : false,
+                'link' => $value['link'] ?? null,
+                'linkSuffix' => $value['link_suffix'] ?? null,
+                'newWindow' => $value['new_window'] ?? false,
             ]
         );
     }
@@ -121,7 +121,7 @@ final class LinkType extends ParameterType
             return new LinkValue();
         }
 
-        $valueLink = isset($value['link']) ? $value['link'] : null;
+        $valueLink = $value['link'] ?? null;
 
         // If the link is internal, we need to convert the format
         // from value_type://remote_id to value_type://value
@@ -133,8 +133,8 @@ final class LinkType extends ParameterType
             [
                 'linkType' => $value['link_type'],
                 'link' => $valueLink,
-                'linkSuffix' => isset($value['link_suffix']) ? $value['link_suffix'] : null,
-                'newWindow' => isset($value['new_window']) ? $value['new_window'] : false,
+                'linkSuffix' => $value['link_suffix'] ?? null,
+                'newWindow' => $value['new_window'] ?? false,
             ]
         );
     }

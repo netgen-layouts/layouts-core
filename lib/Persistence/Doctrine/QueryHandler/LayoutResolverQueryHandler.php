@@ -116,7 +116,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
+        return (int) ($data[0]['count'] ?? 0);
     }
 
     /**
@@ -220,7 +220,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
+        return (int) ($data[0]['count'] ?? 0);
     }
 
     /**
@@ -289,7 +289,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
+        return (int) ($data[0]['count'] ?? 0) > 0;
     }
 
     /**
@@ -330,12 +330,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'comment' => ':comment',
                 ]
             )
-            ->setValue(
-                'id',
-                $rule->id !== null ?
-                    (int) $rule->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule')
-            )
+            ->setValue('id', (int) ($rule->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_rule')))
             ->setParameter('status', $rule->status, Type::INTEGER)
             ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
             ->setParameter('comment', $rule->comment, Type::STRING);
@@ -509,12 +504,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'value' => ':value',
                 ]
             )
-            ->setValue(
-                'id',
-                $target->id !== null ?
-                    (int) $target->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')
-            )
+            ->setValue('id', (int) ($target->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')))
             ->setParameter('status', $target->status, Type::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
             ->setParameter('type', $target->type, Type::STRING)
@@ -522,9 +512,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if ($target->id === null) {
-            $target->id = (int) $this->connectionHelper->lastInsertId('ngbm_rule_target');
-        }
+        $target->id = $target->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_rule_target');
 
         return $target;
     }
@@ -596,12 +584,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'value' => ':value',
                 ]
             )
-            ->setValue(
-                'id',
-                $condition->id !== null ?
-                    (int) $condition->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')
-            )
+            ->setValue('id', (int) ($condition->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')))
             ->setParameter('status', $condition->status, Type::INTEGER)
             ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
             ->setParameter('type', $condition->type, Type::STRING)
@@ -609,9 +592,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if ($condition->id === null) {
-            $condition->id = (int) $this->connectionHelper->lastInsertId('ngbm_rule_condition');
-        }
+        $condition->id = $condition->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_rule_condition');
 
         return $condition;
     }

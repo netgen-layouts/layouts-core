@@ -39,7 +39,7 @@ final class Sqlite
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['id']) ? (int) $data[0]['id'] + 1 : 1;
+        return (int) ($data[0]['id'] ?? 0) + 1;
     }
 
     /**
@@ -58,6 +58,6 @@ final class Sqlite
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['id']) ? (int) $data[0]['id'] : 0;
+        return (int) ($data[0]['id'] ?? 0);
     }
 }

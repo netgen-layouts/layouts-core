@@ -156,7 +156,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
+        return (int) ($data[0]['count'] ?? 0);
     }
 
     /**
@@ -228,7 +228,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
+        return (int) ($data[0]['count'] ?? 0) > 0;
     }
 
     /**
@@ -258,7 +258,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
+        return (int) ($data[0]['count'] ?? 0) > 0;
     }
 
     /**
@@ -288,7 +288,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
+        return (int) ($data[0]['count'] ?? 0) > 0;
     }
 
     /**
@@ -315,12 +315,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'main_locale' => ':main_locale',
                 ]
             )
-            ->setValue(
-                'id',
-                $layout->id !== null ?
-                    (int) $layout->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
-            )
+            ->setValue('id', (int) ($layout->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_layout')))
             ->setParameter('status', $layout->status, Type::INTEGER)
             ->setParameter('type', $layout->type, Type::STRING)
             ->setParameter('name', $layout->name, Type::STRING)
@@ -332,9 +327,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if ($layout->id === null) {
-            $layout->id = (int) $this->connectionHelper->lastInsertId('ngbm_layout');
-        }
+        $layout->id = $layout->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_layout');
 
         return $layout;
     }

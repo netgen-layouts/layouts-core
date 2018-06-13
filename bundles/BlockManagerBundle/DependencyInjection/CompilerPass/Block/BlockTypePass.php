@@ -86,9 +86,7 @@ final class BlockTypePass implements CompilerPassInterface
         }
 
         foreach ($blockTypes as $identifier => $blockType) {
-            $definitionIdentifier = isset($blockType['definition_identifier']) ?
-                $blockType['definition_identifier'] :
-                $identifier;
+            $definitionIdentifier = $blockType['definition_identifier'] ?? $identifier;
 
             if (!isset($blockDefinitions[$definitionIdentifier])) {
                 continue;

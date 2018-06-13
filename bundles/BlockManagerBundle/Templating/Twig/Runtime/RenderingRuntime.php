@@ -166,7 +166,7 @@ final class RenderingRuntime
                 $block,
                 $this->getViewContext($context, $viewContext),
                 [
-                    'twig_template' => $this->getTwigTemplate($context),
+                    'twig_template' => $context['twig_template'] ?? null,
                 ] + $parameters
             );
         } catch (Throwable $t) {
@@ -197,7 +197,7 @@ final class RenderingRuntime
                 $this->getViewContext($context, $viewContext),
                 [
                     'block' => $block,
-                    'twig_template' => $this->getTwigTemplate($context),
+                    'twig_template' => $context['twig_template'] ?? null,
                 ] + $parameters
             );
         } catch (Throwable $t) {
@@ -233,21 +233,5 @@ final class RenderingRuntime
         }
 
         return ViewInterface::CONTEXT_DEFAULT;
-    }
-
-    /**
-     * Returns the Twig template if it exists in provided Twig context.
-     *
-     * @param array $context
-     *
-     * @return \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate|null
-     */
-    private function getTwigTemplate(array $context)
-    {
-        if (!isset($context['twig_template'])) {
-            return null;
-        }
-
-        return $context['twig_template'];
     }
 }

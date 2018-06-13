@@ -23,7 +23,7 @@ final class HandlerPluginPass implements CompilerPassInterface
 
         $handlerPlugins = [];
         foreach ($container->findTaggedServiceIds(self::$tagName) as $handlerPlugin => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
+            $priority = (int) ($tag[0]['priority'] ?? 0);
             $handlerPlugins[$priority][] = new Reference($handlerPlugin);
         }
 

@@ -51,7 +51,7 @@ final class DateTimeValidator extends ConstraintValidator
 
         if (is_array($value)) {
             $validator->atPath('datetime')->validate(
-                isset($value['datetime']) ? $value['datetime'] : '',
+                $value['datetime'] ?? '',
                 [
                     new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
@@ -62,7 +62,7 @@ final class DateTimeValidator extends ConstraintValidator
 
         $timeZone = $value instanceof DateTimeInterface ?
             $value->getTimezone()->getName() :
-            (isset($value['timezone']) ? $value['timezone'] : '');
+            ($value['timezone'] ?? '');
 
         $validator->atPath('timezone')->validate(
             $timeZone,

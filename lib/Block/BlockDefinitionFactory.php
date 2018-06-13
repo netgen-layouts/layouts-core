@@ -259,7 +259,7 @@ final class BlockDefinitionFactory
                 $viewTypes[$viewTypeIdentifier] = new ViewType(
                     [
                         'identifier' => $viewTypeIdentifier,
-                        'name' => isset($viewTypeConfig['name']) ? $viewTypeConfig['name'] : '',
+                        'name' => $viewTypeConfig['name'] ?? '',
                         'itemViewTypes' => $itemViewTypes,
                         'validParameters' => array_key_exists('valid_parameters', $viewTypeConfig) ? $viewTypeConfig['valid_parameters'] : null,
                     ]
@@ -277,9 +277,9 @@ final class BlockDefinitionFactory
         }
 
         return [
-            'name' => isset($config['name']) ? $config['name'] : '',
-            'icon' => isset($config['icon']) ? $config['icon'] : '',
-            'isTranslatable' => isset($config['translatable']) ? $config['translatable'] : false,
+            'name' => $config['name'] ?? '',
+            'icon' => $config['icon'] ?? '',
+            'isTranslatable' => $config['translatable'] ?? false,
             'collections' => $collections,
             'forms' => $forms,
             'viewTypes' => $viewTypes,

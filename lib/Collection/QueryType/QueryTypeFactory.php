@@ -40,7 +40,7 @@ final class QueryTypeFactory
             [
                 'type' => $type,
                 'isEnabled' => $config['enabled'],
-                'name' => isset($config['name']) ? $config['name'] : '',
+                'name' => $config['name'] ?? '',
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
             ]

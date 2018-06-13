@@ -34,8 +34,8 @@ final class DateTimeDataMapper implements DataMapperInterface
             $dateTime = $data->format('Y-m-d H:i:s');
             $timeZone = $data->getTimezone()->getName();
         } elseif (is_array($data)) {
-            $dateTime = isset($data['datetime']) ? $data['datetime'] : $dateTime;
-            $timeZone = isset($data['timezone']) ? $data['timezone'] : $timeZone;
+            $dateTime = $data['datetime'] ?? $dateTime;
+            $timeZone = $data['timezone'] ?? $timeZone;
         }
 
         $forms['datetime']->setData($dateTime);

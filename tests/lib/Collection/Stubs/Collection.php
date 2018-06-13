@@ -132,9 +132,7 @@ final class Collection implements APICollection
 
     public function getManualItem($position)
     {
-        return isset($this->manualItems[$position]) ?
-            $this->manualItems[$position] :
-            null;
+        return $this->manualItems[$position] ?? null;
     }
 
     public function getManualItems()
@@ -149,9 +147,7 @@ final class Collection implements APICollection
 
     public function getOverrideItem($position)
     {
-        return isset($this->overrideItems[$position]) ?
-            $this->overrideItems[$position] :
-            null;
+        return $this->overrideItems[$position] ?? null;
     }
 
     public function getOverrideItems()

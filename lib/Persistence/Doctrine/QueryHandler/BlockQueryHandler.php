@@ -156,7 +156,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
+        return (int) ($data[0]['count'] ?? 0) > 0;
     }
 
     /**
@@ -191,12 +191,7 @@ final class BlockQueryHandler extends QueryHandler
                     'config' => ':config',
                 ]
             )
-            ->setValue(
-                'id',
-                $block->id !== null ?
-                    (int) $block->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_block')
-            )
+            ->setValue('id', (int) ($block->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_block')))
             ->setParameter('status', $block->status, Type::INTEGER)
             ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
             ->setParameter('depth', $block->depth, Type::STRING)
@@ -216,9 +211,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if ($block->id === null) {
-            $block->id = (int) $this->connectionHelper->lastInsertId('ngbm_block');
-        }
+        $block->id = $block->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_block');
 
         if (!$updatePath) {
             return $block;

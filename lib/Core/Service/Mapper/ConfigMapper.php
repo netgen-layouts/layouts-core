@@ -34,9 +34,7 @@ final class ConfigMapper
         foreach ($configDefinitions as $configKey => $configDefinition) {
             $parameters = $this->parameterMapper->mapParameters(
                 $configDefinition,
-                isset($config[$configKey]) ?
-                    $config[$configKey] :
-                    []
+                $config[$configKey] ?? []
             );
 
             $configs[$configKey] = new Config(
@@ -77,9 +75,7 @@ final class ConfigMapper
             $configs[$configKey] = $this->parameterMapper->serializeValues(
                 $configDefinition,
                 $configValues,
-                isset($fallbackValues[$configKey]) ?
-                    $fallbackValues[$configKey] :
-                    []
+                $fallbackValues[$configKey] ?? []
             );
         }
 

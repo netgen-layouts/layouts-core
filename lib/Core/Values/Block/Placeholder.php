@@ -31,9 +31,7 @@ final class Placeholder extends Value implements APIPlaceholder
     {
         parent::__construct($properties);
 
-        if ($this->blocks === null) {
-            $this->blocks = new ArrayCollection();
-        }
+        $this->blocks = $this->blocks ?? new ArrayCollection();
     }
 
     public function getIdentifier()

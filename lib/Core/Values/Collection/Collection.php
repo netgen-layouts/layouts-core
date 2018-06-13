@@ -69,9 +69,7 @@ final class Collection extends Value implements APICollection
     {
         parent::__construct($properties);
 
-        if ($this->items === null) {
-            $this->items = new ArrayCollection();
-        }
+        $this->items = $this->items ?? new ArrayCollection();
     }
 
     public function getId()

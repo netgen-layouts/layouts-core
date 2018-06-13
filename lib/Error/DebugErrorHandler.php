@@ -51,12 +51,8 @@ final class DebugErrorHandler implements ErrorHandlerInterface
      */
     private function logError(Throwable $throwable, $message = null, array $context = [])
     {
-        if ($message === null) {
-            $message = $throwable->getMessage();
-        }
-
         $context['error'] = $throwable;
 
-        $this->logger->critical($message, $context);
+        $this->logger->critical($message ?? $throwable->getMessage(), $context);
     }
 }

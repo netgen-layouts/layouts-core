@@ -100,15 +100,11 @@ final class ParameterMapper
                 continue;
             }
 
-            $untranslatableParams[$paramName] = isset($parameterValues[$paramName]) ?
-                $parameterValues[$paramName] :
-                null;
+            $untranslatableParams[$paramName] = $parameterValues[$paramName] ?? null;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParamName => $subParameterDefinition) {
-                    $untranslatableParams[$subParamName] = isset($parameterValues[$subParamName]) ?
-                        $parameterValues[$subParamName] :
-                        null;
+                    $untranslatableParams[$subParamName] = $parameterValues[$subParamName] ?? null;
                 }
             }
         }

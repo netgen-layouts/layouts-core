@@ -223,8 +223,6 @@ final class Block extends Value implements APIBlock
      */
     private function buildDynamicParameters()
     {
-        if ($this->dynamicParameters === null) {
-            $this->dynamicParameters = $this->definition->getDynamicParameters($this);
-        }
+        $this->dynamicParameters = $this->dynamicParameters ?? $this->definition->getDynamicParameters($this);
     }
 }

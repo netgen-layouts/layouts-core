@@ -64,9 +64,7 @@ final class ParametersType extends AbstractType
             );
 
             $defaultOptions = [
-                'label' => $parameterLabel === null ?
-                    $options['label_prefix'] . '.' . $parameterName :
-                    $parameterLabel,
+                'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,
                 'translation_domain' => 'ngbm',
                 'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngbm_parameter_definition' => $parameterDefinition,

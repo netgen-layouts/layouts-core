@@ -138,9 +138,7 @@ final class ParametersTypeTest extends FormTestCase
             );
 
             $this->assertEquals(
-                $parameterDefinitions->getParameterDefinition($key)->getLabel() === null ?
-                    'label.' . $key :
-                    $parameterDefinitions->getParameterDefinition($key)->getLabel(),
+                $parameterDefinitions->getParameterDefinition($key)->getLabel() ?? 'label.' . $key,
                 $paramForm->getConfig()->getOption('label')
             );
         }

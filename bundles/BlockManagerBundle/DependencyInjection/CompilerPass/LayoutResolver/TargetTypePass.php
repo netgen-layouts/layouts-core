@@ -23,7 +23,7 @@ final class TargetTypePass implements CompilerPassInterface
 
         $targetTypes = [];
         foreach ($container->findTaggedServiceIds(self::$tagName) as $targetType => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
+            $priority = (int) ($tag[0]['priority'] ?? 0);
             $targetTypes[$priority][] = new Reference($targetType);
         }
 

@@ -116,7 +116,7 @@ final class BlockMapper
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
-            'parentPosition' => $block->position !== null ? $block->position : null,
+            'parentPosition' => $block->position,
             'status' => $block->status,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locales),
             'collectionReferences' => $this->mapCollectionReferences($block, $locales),

@@ -84,7 +84,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected function assertException(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
     {
-        if (isset($_SERVER['OPEN_ERROR_IN_BROWSER']) && true === $_SERVER['OPEN_ERROR_IN_BROWSER']) {
+        if (($_SERVER['OPEN_ERROR_IN_BROWSER'] ?? false) === true) {
             $this->showErrorInBrowserIfOccurred($response);
         }
 
