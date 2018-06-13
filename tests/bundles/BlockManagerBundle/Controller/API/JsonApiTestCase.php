@@ -52,7 +52,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function mockQueryType()
     {
-        $searchFixtures = require __DIR__ . '/fixtures/search.php';
+        $searchFixtures = require __DIR__ . '/_fixtures/search.php';
 
         /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
         $queryTypeRegistry = $this->clientContainer->get('netgen_block_manager.collection.registry.query_type');
