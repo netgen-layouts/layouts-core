@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection;
 
-use Jean85\PrettyVersions;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

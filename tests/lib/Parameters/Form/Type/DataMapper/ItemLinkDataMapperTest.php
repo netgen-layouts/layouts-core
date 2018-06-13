@@ -63,6 +63,26 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
+     */
+    public function testMapDataToFormsWithNonStringData()
+    {
+        $data = 42;
+
+        $forms = new ArrayIterator(
+            [
+                'item_id' => $this->getForm('item_id'),
+                'item_type' => $this->getForm('item_type'),
+            ]
+        );
+
+        $this->mapper->mapDataToForms($data, $forms);
+
+        $this->assertNull($forms['item_id']->getData());
+        $this->assertNull($forms['item_type']->getData());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
     public function testMapFormsToData()
