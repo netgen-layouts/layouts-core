@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 
 final class MyQueryType implements QueryTypeHandlerInterface
 {
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add('param', TextLineType::class, ['required' => true, 'translatable' => false]);
         $builder->add('param2', TextLineType::class, ['required' => false, 'translatable' => true]);
@@ -22,12 +22,12 @@ final class MyQueryType implements QueryTypeHandlerInterface
         return [];
     }
 
-    public function getCount(Query $query)
+    public function getCount(Query $query): int
     {
         return 0;
     }
 
-    public function isContextual(Query $query)
+    public function isContextual(Query $query): bool
     {
         return false;
     }

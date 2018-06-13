@@ -9,12 +9,12 @@ use Netgen\Bundle\BlockManagerFixturesBundle\Item\Value;
 
 final class MyValueTypeValueConverter implements ValueConverterInterface
 {
-    public function supports($object)
+    public function supports($object): bool
     {
         return $object instanceof Value;
     }
 
-    public function getValueType($object)
+    public function getValueType($object): string
     {
         return 'my_value_type';
     }
@@ -44,12 +44,12 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
      *
      * @return string
      */
-    public function getName($object)
+    public function getName($object): string
     {
         return 'Value with ID #' . $object->id;
     }
 
-    public function getIsVisible($object)
+    public function getIsVisible($object): bool
     {
         return true;
     }

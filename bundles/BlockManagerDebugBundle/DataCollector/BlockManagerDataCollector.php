@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Twig\Environment;
+use Twig\Source;
 use Version\Exception\InvalidVersionStringException;
 use Version\Version;
 
@@ -47,7 +48,7 @@ final class BlockManagerDataCollector extends DataCollector
         $this->reset();
     }
 
-    public function collect(Request $request, Response $response, Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null): void
     {
         $rule = $this->globalVariable->getRule();
         $layoutView = $this->globalVariable->getLayoutView();
@@ -63,7 +64,7 @@ final class BlockManagerDataCollector extends DataCollector
         }
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->data['rule'] = null;
         $this->data['layout'] = null;
@@ -72,10 +73,8 @@ final class BlockManagerDataCollector extends DataCollector
 
     /**
      * Collects the layout data.
-     *
-     * @param \Netgen\BlockManager\View\View\LayoutViewInterface $layoutView
      */
-    public function collectLayout(LayoutViewInterface $layoutView)
+    public function collectLayout(LayoutViewInterface $layoutView): void
     {
         $layout = $layoutView->getLayout();
         $templateSource = $this->getTemplateSource($layoutView->getTemplate());
@@ -92,10 +91,8 @@ final class BlockManagerDataCollector extends DataCollector
 
     /**
      * Collects the rule data.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      */
-    public function collectRule(Rule $rule)
+    public function collectRule(Rule $rule): void
     {
         $this->data['rule'] = [
             'id' => $rule->getId(),
@@ -118,10 +115,8 @@ final class BlockManagerDataCollector extends DataCollector
 
     /**
      * Collects the block view data.
-     *
-     * @param \Netgen\BlockManager\View\View\BlockViewInterface $blockView
      */
-    public function collectBlockView(BlockViewInterface $blockView)
+    public function collectBlockView(BlockViewInterface $blockView): void
     {
         $block = $blockView->getBlock();
         $blockDefinition = $block->getDefinition();
@@ -142,25 +137,18 @@ final class BlockManagerDataCollector extends DataCollector
 
     /**
      * Returns the collected data.
-     *
-     * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'ngbm';
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Twig\Source
-     */
-    private function getTemplateSource($name)
+    private function getTemplateSource(string $name): Source
     {
         return $this->twig->load($name)->getSourceContext();
     }

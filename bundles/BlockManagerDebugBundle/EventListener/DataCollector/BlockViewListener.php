@@ -32,7 +32,7 @@ final class BlockViewListener implements EventSubscriberInterface
         $this->enabledContexts = $enabledContexts;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerEvents::BUILD_VIEW => ['onBuildView', -65535]];
     }
@@ -42,7 +42,7 @@ final class BlockViewListener implements EventSubscriberInterface
      *
      * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onBuildView(CollectViewParametersEvent $event)
+    public function onBuildView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
 
