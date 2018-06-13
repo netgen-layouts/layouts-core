@@ -330,7 +330,12 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'comment' => ':comment',
                 ]
             )
-            ->setValue('id', (int) ($rule->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_rule')))
+            ->setValue(
+                'id',
+                $rule->id !== null ?
+                    (int) $rule->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule')
+            )
             ->setParameter('status', $rule->status, Type::INTEGER)
             ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
             ->setParameter('comment', $rule->comment, Type::STRING);
@@ -504,7 +509,12 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'value' => ':value',
                 ]
             )
-            ->setValue('id', (int) ($target->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')))
+            ->setValue(
+                'id',
+                $target->id !== null ?
+                    (int) $target->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')
+            )
             ->setParameter('status', $target->status, Type::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
             ->setParameter('type', $target->type, Type::STRING)
@@ -584,7 +594,12 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'value' => ':value',
                 ]
             )
-            ->setValue('id', (int) ($condition->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')))
+            ->setValue(
+                'id',
+                $condition->id !== null ?
+                    (int) $condition->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')
+            )
             ->setParameter('status', $condition->status, Type::INTEGER)
             ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
             ->setParameter('type', $condition->type, Type::STRING)

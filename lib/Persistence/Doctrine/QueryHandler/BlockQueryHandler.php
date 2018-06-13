@@ -191,7 +191,12 @@ final class BlockQueryHandler extends QueryHandler
                     'config' => ':config',
                 ]
             )
-            ->setValue('id', (int) ($block->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_block')))
+            ->setValue(
+                'id',
+                $block->id !== null ?
+                    (int) $block->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_block')
+            )
             ->setParameter('status', $block->status, Type::INTEGER)
             ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
             ->setParameter('depth', $block->depth, Type::STRING)

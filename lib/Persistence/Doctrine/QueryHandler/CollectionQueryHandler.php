@@ -222,7 +222,12 @@ final class CollectionQueryHandler extends QueryHandler
                     'always_available' => ':always_available',
                 ]
             )
-            ->setValue('id', (int) ($collection->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_collection')))
+            ->setValue(
+                'id',
+                $collection->id !== null ?
+                    (int) $collection->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
+            )
             ->setParameter('status', $collection->status, Type::INTEGER)
             ->setParameter('start', $collection->offset, Type::INTEGER)
             ->setParameter('length', $collection->limit, Type::INTEGER)
@@ -384,7 +389,12 @@ final class CollectionQueryHandler extends QueryHandler
                     'config' => ':config',
                 ]
             )
-            ->setValue('id', (int) ($item->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')))
+            ->setValue(
+                'id',
+                $item->id !== null ?
+                    (int) $item->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
+            )
             ->setParameter('status', $item->status, Type::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
             ->setParameter('position', $item->position, Type::INTEGER)
@@ -528,7 +538,12 @@ final class CollectionQueryHandler extends QueryHandler
                     'type' => ':type',
                 ]
             )
-            ->setValue('id', (int) ($query->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')))
+            ->setValue(
+                'id',
+                $query->id !== null ?
+                    (int) $query->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
+            )
             ->setParameter('status', $query->status, Type::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
             ->setParameter('type', $query->type, Type::STRING);

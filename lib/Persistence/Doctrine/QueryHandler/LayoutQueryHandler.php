@@ -315,7 +315,12 @@ final class LayoutQueryHandler extends QueryHandler
                     'main_locale' => ':main_locale',
                 ]
             )
-            ->setValue('id', (int) ($layout->id ?? $this->connectionHelper->getAutoIncrementValue('ngbm_layout')))
+            ->setValue(
+                'id',
+                $layout->id !== null ?
+                    (int) $layout->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
+            )
             ->setParameter('status', $layout->status, Type::INTEGER)
             ->setParameter('type', $layout->type, Type::STRING)
             ->setParameter('name', $layout->name, Type::STRING)
