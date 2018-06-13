@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerDebugBundle\EventListener\DataCollector;
 
 use Netgen\BlockManager\Event\BlockManagerEvents;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;

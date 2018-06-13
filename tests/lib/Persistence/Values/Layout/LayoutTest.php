@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Persistence\Values\Layout;
 
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;

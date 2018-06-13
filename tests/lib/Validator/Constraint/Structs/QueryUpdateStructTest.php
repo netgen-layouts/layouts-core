@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Validator\Constraint\Structs;
 
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct;

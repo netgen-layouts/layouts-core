@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Config;
 
 use Netgen\BlockManager\API\Values\Collection\Item;

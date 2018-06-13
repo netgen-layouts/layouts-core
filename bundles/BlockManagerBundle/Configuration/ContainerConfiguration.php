@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 
 use Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException;

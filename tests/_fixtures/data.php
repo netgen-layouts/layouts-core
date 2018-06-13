@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'ngbm_layout' => [
         ['id' => 1, 'status' => 0, 'type' => '4_zones_a', 'name' => 'My layout', 'description' => 'My layout description', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0, 'main_locale' => 'en'],

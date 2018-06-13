@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Validator\Constraint\Parameters;
 
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;

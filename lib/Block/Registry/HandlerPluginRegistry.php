@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Block\Registry;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;

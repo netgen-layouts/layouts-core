@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Form\Stubs;
 
 use Netgen\BlockManager\API\Values\Block\Block;

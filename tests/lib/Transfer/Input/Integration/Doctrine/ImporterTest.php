@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Transfer\Input\Integration\Doctrine;
 
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;

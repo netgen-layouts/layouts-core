@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Exception\Persistence;
 
 use Netgen\BlockManager\Exception\Exception;

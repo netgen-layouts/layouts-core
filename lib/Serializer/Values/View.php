@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Serializer\Values;
 
 use Symfony\Component\HttpFoundation\Response;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;

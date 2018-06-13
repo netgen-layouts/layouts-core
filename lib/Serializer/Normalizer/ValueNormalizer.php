@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;

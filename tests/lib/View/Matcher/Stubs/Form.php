@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Matcher\Stubs;
 
 use Symfony\Component\Form\AbstractType;

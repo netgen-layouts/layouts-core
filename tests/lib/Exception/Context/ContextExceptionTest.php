@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Exception\Context;
 
 use Netgen\BlockManager\Exception\Context\ContextException;

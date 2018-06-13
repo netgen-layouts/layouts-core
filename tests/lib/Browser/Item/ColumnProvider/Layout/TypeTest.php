@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
 
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Transfer\Input;
 
 use Netgen\BlockManager\Transfer\Input\JsonValidator;

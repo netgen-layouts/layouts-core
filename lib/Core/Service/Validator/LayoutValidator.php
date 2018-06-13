@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;

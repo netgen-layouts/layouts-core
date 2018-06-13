@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\Exception\RuntimeException;

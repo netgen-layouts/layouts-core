@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;

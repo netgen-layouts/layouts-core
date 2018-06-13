@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller as BaseController;

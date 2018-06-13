@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\TestCase;
 
 use Netgen\BlockManager\Item\ItemLoaderInterface;

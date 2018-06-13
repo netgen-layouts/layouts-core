@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Exception\Collection;
 
 use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;

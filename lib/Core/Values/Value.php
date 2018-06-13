@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Core\Values;
 
 use Netgen\BlockManager\API\Values\Value as APIValue;

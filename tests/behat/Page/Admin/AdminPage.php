@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Behat\Page\Admin;
 
 use Netgen\BlockManager\Behat\Exception\PageException;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Collection\Item;
 
 use Netgen\BlockManager\Collection\Item\ItemDefinition;

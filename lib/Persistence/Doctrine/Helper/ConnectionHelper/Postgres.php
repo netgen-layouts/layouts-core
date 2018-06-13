@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;

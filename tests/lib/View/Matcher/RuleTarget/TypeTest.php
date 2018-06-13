@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;

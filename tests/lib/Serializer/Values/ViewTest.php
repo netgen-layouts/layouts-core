@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\View;

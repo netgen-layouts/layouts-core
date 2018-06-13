@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use DateTimeInterface;

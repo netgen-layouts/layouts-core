@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Node;
 
 use Netgen\BlockManager\API\Values\Layout\Zone;

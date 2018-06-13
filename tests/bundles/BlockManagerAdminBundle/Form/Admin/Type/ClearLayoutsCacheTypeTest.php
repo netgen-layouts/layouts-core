@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 
 use Netgen\BlockManager\Core\Values\Layout\Layout;

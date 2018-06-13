@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\API\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;

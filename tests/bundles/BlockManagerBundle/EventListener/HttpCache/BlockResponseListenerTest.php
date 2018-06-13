@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
 use Netgen\BlockManager\Core\Values\Block\Block;

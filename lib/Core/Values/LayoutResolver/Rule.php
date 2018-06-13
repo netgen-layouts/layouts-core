@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;

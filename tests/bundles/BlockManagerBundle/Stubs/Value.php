@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\BlockManager\API\Values\Value as APIValue;

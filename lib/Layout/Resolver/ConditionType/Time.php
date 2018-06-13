@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;

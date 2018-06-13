@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Exception\View;
 
 use Netgen\BlockManager\Exception\View\ViewException;

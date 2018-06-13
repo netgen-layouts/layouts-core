@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;

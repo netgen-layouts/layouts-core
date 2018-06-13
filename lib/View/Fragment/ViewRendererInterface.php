@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\View\Fragment;
 
 use Netgen\BlockManager\View\ViewInterface;

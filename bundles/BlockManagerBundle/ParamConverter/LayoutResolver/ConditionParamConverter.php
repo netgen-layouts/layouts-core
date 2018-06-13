@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Collection\QueryType;
 
 use Netgen\BlockManager\Collection\QueryType\QueryTypeFactory;

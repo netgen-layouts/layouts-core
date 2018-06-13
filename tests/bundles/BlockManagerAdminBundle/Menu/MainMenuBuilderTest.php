@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Menu;
 
 use Knp\Menu\Integration\Symfony\RoutingExtension;

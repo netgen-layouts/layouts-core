@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;

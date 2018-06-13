@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\View\Matcher\Item;
 
 use Netgen\BlockManager\Item\NullItem;

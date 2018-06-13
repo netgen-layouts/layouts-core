@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;

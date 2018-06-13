@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Core\Values;
 
 use Doctrine\Common\Collections\AbstractLazyCollection;

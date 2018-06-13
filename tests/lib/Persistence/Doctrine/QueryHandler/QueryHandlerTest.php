@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\DriverManager;

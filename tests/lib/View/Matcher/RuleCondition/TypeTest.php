@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;

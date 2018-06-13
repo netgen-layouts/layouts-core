@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Type;
 
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType;

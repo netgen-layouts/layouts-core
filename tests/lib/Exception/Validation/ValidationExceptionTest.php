@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Exception\Validation;
 
 use Netgen\BlockManager\Exception\Validation\ValidationException;

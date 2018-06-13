@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Item\ValueLoader;
 
 use Netgen\BlockManager\Item\ValueLoader\NullValueLoader;

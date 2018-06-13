@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 
 use Netgen\BlockManager\Parameters\ParameterDefinition;

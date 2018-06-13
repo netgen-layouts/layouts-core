@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Collection\Result\Pagerfanta;
 
 use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter;

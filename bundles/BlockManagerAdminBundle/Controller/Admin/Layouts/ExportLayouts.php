@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;

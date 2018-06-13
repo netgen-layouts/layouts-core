@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Value;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;

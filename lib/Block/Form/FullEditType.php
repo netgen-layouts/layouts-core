@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Block\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;

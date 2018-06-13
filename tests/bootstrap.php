@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Netgen\BlockManager\Utils\DateTimeUtils;
 use Symfony\Bridge\PhpUnit\ClockMock;
 

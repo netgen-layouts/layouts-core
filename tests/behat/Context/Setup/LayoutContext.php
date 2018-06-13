@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;

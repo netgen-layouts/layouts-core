@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Exception\Locale;
 
 use Netgen\BlockManager\Exception\Exception;

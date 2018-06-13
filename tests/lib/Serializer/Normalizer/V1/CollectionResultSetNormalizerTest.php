@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Doctrine\Common\Collections\ArrayCollection;

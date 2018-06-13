@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;

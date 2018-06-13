@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;

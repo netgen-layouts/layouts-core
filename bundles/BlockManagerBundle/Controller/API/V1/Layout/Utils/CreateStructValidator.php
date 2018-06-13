@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils;
 
 use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;

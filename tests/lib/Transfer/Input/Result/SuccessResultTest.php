@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Transfer\Input\Result;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
 
 use Netgen\BlockManager\Core\Values\Collection\Query;

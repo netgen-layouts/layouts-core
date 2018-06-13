@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Exception\Persistence;
 
 use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;

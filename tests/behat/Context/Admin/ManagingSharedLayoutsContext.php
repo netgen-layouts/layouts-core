@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Behat\Context\Admin;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;

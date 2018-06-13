@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;

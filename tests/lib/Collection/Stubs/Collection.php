@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;

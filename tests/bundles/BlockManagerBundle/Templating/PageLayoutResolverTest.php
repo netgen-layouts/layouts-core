@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver;

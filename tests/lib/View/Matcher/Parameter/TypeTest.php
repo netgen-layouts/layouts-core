@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Matcher\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;

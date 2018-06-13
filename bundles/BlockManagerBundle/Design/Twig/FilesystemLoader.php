@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Design\Twig;
 
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Config\Form;
 
 use Netgen\BlockManager\API\Values\Config\Config;

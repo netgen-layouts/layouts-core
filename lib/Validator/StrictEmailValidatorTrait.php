@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Validator;
 
 use Egulias\EmailValidator\Validation\EmailValidation;

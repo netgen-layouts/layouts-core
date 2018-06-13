@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\View\Stubs;
 
 use Netgen\BlockManager\View\CacheableViewInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Serializer;
 
 use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerAwareValue;

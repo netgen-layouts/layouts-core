@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Config\Stubs\Block;
 
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Item\ValueUrlGenerator;
 
 use Netgen\BlockManager\Item\ValueUrlGenerator\NullValueUrlGenerator;

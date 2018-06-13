@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Collection\Form;
 
 use Netgen\BlockManager\API\Values\Collection\Query;

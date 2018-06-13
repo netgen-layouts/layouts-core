@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Form;
 
 use Netgen\BlockManager\Form\KeyValuesType;

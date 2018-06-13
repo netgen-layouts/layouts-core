@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueConverter;
 
 use Netgen\BlockManager\Item\ValueConverterInterface;

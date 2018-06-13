@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Exception\Parameters;
 
 use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;

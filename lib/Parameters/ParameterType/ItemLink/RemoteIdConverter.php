@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Parameters\ParameterType\ItemLink;
 
 use Netgen\BlockManager\Item\ItemLoaderInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime\CollectionPager;
 
 use Netgen\BlockManager\Context\ContextInterface;

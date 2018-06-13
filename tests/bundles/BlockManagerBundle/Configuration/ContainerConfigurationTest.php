@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Configuration;
 
 use Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration;

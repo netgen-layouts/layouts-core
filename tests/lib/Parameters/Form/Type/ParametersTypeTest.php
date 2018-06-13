@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;

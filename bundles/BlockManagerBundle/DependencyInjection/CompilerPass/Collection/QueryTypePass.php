@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection;
 
 use Netgen\BlockManager\Collection\QueryType\QueryType;

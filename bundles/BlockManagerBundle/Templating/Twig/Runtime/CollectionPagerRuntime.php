@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\API\Values\Block\Block;

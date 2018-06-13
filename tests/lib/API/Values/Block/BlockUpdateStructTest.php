@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;

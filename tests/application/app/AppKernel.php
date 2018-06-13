@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Kernel;
 
 use Symfony\Bundle\WebServerBundle\WebServerBundle;

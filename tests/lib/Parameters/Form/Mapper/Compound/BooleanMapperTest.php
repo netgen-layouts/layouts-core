@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper\Compound;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;

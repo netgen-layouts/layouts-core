@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Persistence\Values;
 
 use Netgen\BlockManager\Value as BaseValue;

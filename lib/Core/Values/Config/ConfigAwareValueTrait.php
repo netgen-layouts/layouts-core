@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Core\Values\Config;
 
 use Netgen\BlockManager\Exception\Core\ConfigException;

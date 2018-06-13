@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\View\Matcher\Form;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;

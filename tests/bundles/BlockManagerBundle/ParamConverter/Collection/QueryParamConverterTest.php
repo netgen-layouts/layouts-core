@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;

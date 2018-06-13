@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\HttpCache\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;

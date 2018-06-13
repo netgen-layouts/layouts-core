@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct;

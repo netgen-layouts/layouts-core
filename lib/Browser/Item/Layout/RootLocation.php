@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Browser\Item\Layout;
 
 use Netgen\ContentBrowser\Item\LocationInterface;

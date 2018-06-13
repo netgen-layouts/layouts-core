@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Core\Service\Validator\Validator;

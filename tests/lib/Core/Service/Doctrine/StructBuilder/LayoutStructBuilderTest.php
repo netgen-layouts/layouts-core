@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\StructBuilder;
 
 use Netgen\BlockManager\Tests\Core\Service\StructBuilder\LayoutStructBuilderTest as BaseLayoutStructBuilderTest;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\LayoutView;
 
 use Netgen\BlockManager\Core\Values\Layout\Layout;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Utils;
 
 use Netgen\BlockManager\Validator\ValidatorTrait;

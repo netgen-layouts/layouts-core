@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;

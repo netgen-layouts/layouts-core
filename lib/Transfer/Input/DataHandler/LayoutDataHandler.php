@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Transfer\Input\DataHandler;
 
 use Netgen\BlockManager\API\Service\BlockService;

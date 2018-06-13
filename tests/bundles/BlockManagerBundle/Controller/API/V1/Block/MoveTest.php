@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Block;
 
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;

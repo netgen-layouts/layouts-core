@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;

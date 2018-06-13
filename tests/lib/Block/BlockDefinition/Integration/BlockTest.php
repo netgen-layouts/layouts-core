@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Integration;
 
 use Netgen\BlockManager\Block\BlockDefinition;

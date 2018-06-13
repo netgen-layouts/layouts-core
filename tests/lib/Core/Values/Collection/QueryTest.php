@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Value;

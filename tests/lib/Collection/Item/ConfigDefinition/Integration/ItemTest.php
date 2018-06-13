@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Collection\Item\ConfigDefinition\Integration;
 
 use Netgen\BlockManager\API\Values\Collection\Item;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Behat\Page\App;
 
 use Behat\Mink\Element\NodeElement;

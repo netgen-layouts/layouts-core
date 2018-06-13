@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;

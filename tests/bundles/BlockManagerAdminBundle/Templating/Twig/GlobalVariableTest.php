@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Templating\Twig;
 
 use Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable;

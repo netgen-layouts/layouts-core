@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;

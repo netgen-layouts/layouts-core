@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
 use Netgen\BlockManager\API\Values\Block\Block;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerFixturesBundle\Collection\QueryType\Handler;
 
 use Netgen\BlockManager\API\Values\Collection\Query;

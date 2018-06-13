@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType\Compound;
 
 use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;

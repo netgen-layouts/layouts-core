@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\CsrfValidation;
 
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener;

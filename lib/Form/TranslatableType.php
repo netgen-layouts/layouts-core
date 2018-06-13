@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Form;
 
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;

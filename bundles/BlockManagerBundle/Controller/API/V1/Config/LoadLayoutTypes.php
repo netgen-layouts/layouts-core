@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config;
 
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Event;
 
 use Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent;

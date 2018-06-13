@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Collection\Item;
 
 use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;

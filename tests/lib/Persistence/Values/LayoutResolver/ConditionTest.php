@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;

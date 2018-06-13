@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Mapper;
 
 use Netgen\BlockManager\Tests\Core\Service\Mapper\LayoutMapperTest as BaseLayoutMapperTest;
