@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
@@ -47,7 +48,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadRuleData($ruleId, $status)
+    public function loadRuleData($ruleId, int $status): array
     {
         $query = $this->getRuleSelectQuery();
         $query->where(
@@ -70,7 +71,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadRulesData($status, Layout $layout = null, $offset = 0, $limit = null)
+    public function loadRulesData(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array
     {
         $query = $this->getRuleSelectQuery();
 
@@ -99,7 +100,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return int
      */
-    public function getRuleCount($ruleStatus, Layout $layout = null)
+    public function getRuleCount(int $ruleStatus, Layout $layout = null): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -127,7 +128,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function matchRules($targetType, $targetValue)
+    public function matchRules(string $targetType, $targetValue): array
     {
         $query = $this->getRuleSelectQuery();
         $query
@@ -165,7 +166,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadTargetData($targetId, $status)
+    public function loadTargetData($targetId, int $status): array
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
@@ -185,7 +186,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadRuleTargetsData(Rule $rule)
+    public function loadRuleTargetsData(Rule $rule): array
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
@@ -206,7 +207,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return int
      */
-    public function getTargetCount(Rule $rule)
+    public function getTargetCount(Rule $rule): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -231,7 +232,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadConditionData($conditionId, $status)
+    public function loadConditionData($conditionId, int $status): array
     {
         $query = $this->getConditionSelectQuery();
         $query->where(
@@ -251,7 +252,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadRuleConditionsData(Rule $rule)
+    public function loadRuleConditionsData(Rule $rule): array
     {
         $query = $this->getConditionSelectQuery();
         $query->where(
@@ -273,7 +274,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function ruleExists($ruleId, $status = null)
+    public function ruleExists($ruleId, int $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -297,7 +298,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return int|null
      */
-    public function getLowestRulePriority()
+    public function getLowestRulePriority(): ?int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('priority')
@@ -318,7 +319,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function createRule(Rule $rule)
+    public function createRule(Rule $rule): Rule
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule')
@@ -369,7 +370,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      */
-    public function updateRule(Rule $rule)
+    public function updateRule(Rule $rule): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -393,7 +394,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      */
-    public function updateRuleData(Rule $rule)
+    public function updateRuleData(Rule $rule): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -416,7 +417,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRuleTargets($ruleId, $status = null)
+    public function deleteRuleTargets($ruleId, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -439,7 +440,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRuleConditions($ruleId, $status = null)
+    public function deleteRuleConditions($ruleId, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -462,7 +463,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRule($ruleId, $status = null)
+    public function deleteRule($ruleId, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_rule')
@@ -496,7 +497,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
-    public function addTarget(Target $target)
+    public function addTarget(Target $target): Target
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_target')
@@ -532,7 +533,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      */
-    public function updateTarget(Target $target)
+    public function updateTarget(Target $target): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -559,7 +560,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $targetId
      * @param int $status
      */
-    public function deleteTarget($targetId, $status)
+    public function deleteTarget($targetId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -581,7 +582,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
-    public function addCondition(Condition $condition)
+    public function addCondition(Condition $condition): Condition
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_condition')
@@ -617,7 +618,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      */
-    public function updateCondition(Condition $condition)
+    public function updateCondition(Condition $condition): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -644,7 +645,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $conditionId
      * @param int $status
      */
-    public function deleteCondition($conditionId, $status)
+    public function deleteCondition($conditionId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -664,7 +665,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getRuleSelectQuery()
+    private function getRuleSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT r.*', 'rd.*')
@@ -684,7 +685,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getTargetSelectQuery()
+    private function getTargetSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_rule_target.*')
@@ -698,7 +699,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getConditionSelectQuery()
+    private function getConditionSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_rule_condition.*')

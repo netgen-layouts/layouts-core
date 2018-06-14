@@ -509,7 +509,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testDeleteItemsWithSpecificItemType(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(1);
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             new ItemDefinition(['valueType' => 'my_value_type']),

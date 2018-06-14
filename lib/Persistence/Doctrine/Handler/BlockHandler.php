@@ -55,7 +55,7 @@ final class BlockHandler implements BlockHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    public function loadBlock($blockId, $status)
+    public function loadBlock($blockId, int $status): Block
     {
         $data = $this->queryHandler->loadBlockData($blockId, $status);
 
@@ -68,33 +68,33 @@ final class BlockHandler implements BlockHandlerInterface
         return reset($data);
     }
 
-    public function blockExists($blockId, $status)
+    public function blockExists($blockId, int $status): bool
     {
         return $this->queryHandler->blockExists($blockId, $status);
     }
 
-    public function loadLayoutBlocks(Layout $layout)
+    public function loadLayoutBlocks(Layout $layout): array
     {
         $data = $this->queryHandler->loadLayoutBlocksData($layout);
 
         return $this->blockMapper->mapBlocks($data);
     }
 
-    public function loadZoneBlocks(Zone $zone)
+    public function loadZoneBlocks(Zone $zone): array
     {
         $data = $this->queryHandler->loadZoneBlocksData($zone);
 
         return $this->blockMapper->mapBlocks($data);
     }
 
-    public function loadChildBlocks(Block $block, $placeholder = null)
+    public function loadChildBlocks(Block $block, string $placeholder = null): array
     {
         $data = $this->queryHandler->loadChildBlocksData($block, $placeholder);
 
         return $this->blockMapper->mapBlocks($data);
     }
 
-    public function loadCollectionReference(Block $block, $identifier)
+    public function loadCollectionReference(Block $block, string $identifier): CollectionReference
     {
         $data = $this->queryHandler->loadCollectionReferencesData($block, $identifier);
 
@@ -107,14 +107,14 @@ final class BlockHandler implements BlockHandlerInterface
         return reset($data);
     }
 
-    public function loadCollectionReferences(Block $block)
+    public function loadCollectionReferences(Block $block): array
     {
         $data = $this->queryHandler->loadCollectionReferencesData($block);
 
         return $this->blockMapper->mapCollectionReferences($data);
     }
 
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, $placeholder = null)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, string $placeholder = null): Block
     {
         if ($targetBlock !== null && $targetBlock->layoutId !== $layout->id) {
             throw new BadStateException('targetBlock', 'Target block is not in the provided layout.');
@@ -165,7 +165,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $newBlock;
     }
 
-    public function createBlockTranslation(Block $block, $locale, $sourceLocale)
+    public function createBlockTranslation(Block $block, string $locale, string $sourceLocale): Block
     {
         if (in_array($locale, $block->availableLocales, true)) {
             throw new BadStateException('locale', 'Block already has the provided locale.');
@@ -194,7 +194,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct)
+    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct): CollectionReference
     {
         $newCollectionReference = new CollectionReference(
             [
@@ -211,7 +211,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $newCollectionReference;
     }
 
-    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct): Block
     {
         $updatedBlock = clone $block;
 
@@ -261,7 +261,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function updateBlockTranslation(Block $block, $locale, TranslationUpdateStruct $translationUpdateStruct)
+    public function updateBlockTranslation(Block $block, string $locale, TranslationUpdateStruct $translationUpdateStruct): Block
     {
         $updatedBlock = clone $block;
 
@@ -278,7 +278,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function setMainTranslation(Block $block, $mainLocale)
+    public function setMainTranslation(Block $block, string $mainLocale): Block
     {
         if (!in_array($mainLocale, $block->availableLocales, true)) {
             throw new BadStateException('mainLocale', 'Block does not have the provided locale.');
@@ -302,7 +302,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null)
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block
     {
         if (mb_strpos($targetBlock->path, $block->path) === 0) {
             throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
@@ -344,7 +344,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $newBlock;
     }
 
-    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
+    public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): Block
     {
         if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
             throw new BadStateException('targetBlock', 'Block is already in specified target block and placeholder.');
@@ -377,7 +377,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->loadBlock($block->id, $block->status);
     }
 
-    public function moveBlockToPosition(Block $block, $position)
+    public function moveBlockToPosition(Block $block, int $position): Block
     {
         $movedBlock = clone $block;
 
@@ -396,7 +396,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $movedBlock;
     }
 
-    public function createBlockStatus(Block $block, $newStatus)
+    public function createBlockStatus(Block $block, int $newStatus): Block
     {
         $newBlock = clone $block;
         $newBlock->status = $newStatus;
@@ -412,7 +412,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $newBlock;
     }
 
-    public function restoreBlock(Block $block, $fromStatus)
+    public function restoreBlock(Block $block, int $fromStatus): Block
     {
         if ($block->status === $fromStatus) {
             throw new BadStateException('block', 'Block is already in provided status.');
@@ -437,21 +437,24 @@ final class BlockHandler implements BlockHandlerInterface
         return $newBlock;
     }
 
-    public function deleteBlock(Block $block)
+    public function deleteBlock(Block $block): void
     {
         $blockIds = $this->queryHandler->loadSubBlockIds($block->id, $block->status);
         $this->deleteBlocks($blockIds, $block->status);
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperConditions(
-                $block->parentId,
-                $block->status,
-                $block->placeholder
-            ),
-            $block->position
-        );
+
+        if ($block->parentId !== null) {
+            $this->positionHelper->removePosition(
+                $this->getPositionHelperConditions(
+                    $block->parentId,
+                    $block->status,
+                    $block->placeholder
+                ),
+                $block->position
+            );
+        }
     }
 
-    public function deleteBlockTranslation(Block $block, $locale)
+    public function deleteBlockTranslation(Block $block, string $locale): Block
     {
         if (!in_array($locale, $block->availableLocales, true)) {
             throw new BadStateException('locale', 'Block does not have the provided locale.');
@@ -476,13 +479,13 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->loadBlock($block->id, $block->status);
     }
 
-    public function deleteLayoutBlocks($layoutId, $status = null)
+    public function deleteLayoutBlocks($layoutId, int $status = null): void
     {
         $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
         $this->deleteBlocks($blockIds, $status);
     }
 
-    public function deleteBlocks(array $blockIds, $status = null)
+    public function deleteBlocks(array $blockIds, int $status = null): void
     {
         $this->deleteBlockCollections($blockIds, $status);
         $this->queryHandler->deleteBlockTranslations($blockIds, $status);
@@ -495,7 +498,7 @@ final class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      */
-    private function copyBlockCollections(Block $block, Block $targetBlock)
+    private function copyBlockCollections(Block $block, Block $targetBlock): void
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -530,7 +533,7 @@ final class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
      */
-    private function createBlockCollectionsStatus(Block $block, $newStatus)
+    private function createBlockCollectionsStatus(Block $block, int $newStatus): void
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -568,7 +571,7 @@ final class BlockHandler implements BlockHandlerInterface
      * @param array $blockIds
      * @param int $status
      */
-    private function deleteBlockCollections(array $blockIds, $status = null)
+    private function deleteBlockCollections(array $blockIds, int $status = null): void
     {
         $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
         foreach ($collectionIds as $collectionId) {
@@ -587,7 +590,7 @@ final class BlockHandler implements BlockHandlerInterface
      *
      * @return array
      */
-    private function getPositionHelperConditions($parentId, $status, $placeholder)
+    private function getPositionHelperConditions($parentId, int $status, string $placeholder): array
     {
         return [
             'table' => 'ngbm_block',

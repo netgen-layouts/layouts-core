@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -20,7 +21,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutData($layoutId, $status)
+    public function loadLayoutData($layoutId, int $status): array
     {
         $query = $this->getLayoutSelectQuery();
         $query->where(
@@ -44,7 +45,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutsData($includeDrafts, $shared, $offset = 0, $limit = null)
+    public function loadLayoutsData(bool $includeDrafts, bool $shared, int $offset = 0, int $limit = null): array
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -92,7 +93,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadRelatedLayoutsData(Layout $sharedLayout, $offset = 0, $limit = null)
+    public function loadRelatedLayoutsData(Layout $sharedLayout, int $offset = 0, int $limit = null): array
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -129,7 +130,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return int
      */
-    public function getRelatedLayoutsCount(Layout $sharedLayout)
+    public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(DISTINCT ngbm_layout.id) AS count')
@@ -168,7 +169,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadZoneData($layoutId, $status, $identifier)
+    public function loadZoneData($layoutId, int $status, string $identifier): array
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
@@ -192,7 +193,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutZonesData(Layout $layout)
+    public function loadLayoutZonesData(Layout $layout): array
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
@@ -214,7 +215,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function layoutExists($layoutId, $status)
+    public function layoutExists($layoutId, int $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -240,7 +241,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $status, $identifier)
+    public function zoneExists($layoutId, int $status, string $identifier): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -269,7 +270,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function layoutNameExists($name, $excludedLayoutId = null)
+    public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -298,7 +299,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function createLayout(Layout $layout)
+    public function createLayout(Layout $layout): Layout
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_layout')
@@ -343,7 +344,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param string $locale
      */
-    public function createLayoutTranslation(Layout $layout, $locale)
+    public function createLayoutTranslation(Layout $layout, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_layout_translation')
@@ -366,7 +367,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      */
-    public function createZone(Zone $zone)
+    public function createZone(Zone $zone): void
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_zone')
@@ -395,7 +396,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      */
-    public function updateLayout(Layout $layout)
+    public function updateLayout(Layout $layout): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -429,7 +430,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      */
-    public function updateZone(Zone $zone)
+    public function updateZone(Zone $zone): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -460,7 +461,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayoutZones($layoutId, $status = null)
+    public function deleteLayoutZones($layoutId, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_zone')
@@ -482,7 +483,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayout($layoutId, $status = null)
+    public function deleteLayout($layoutId, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_layout')
@@ -505,7 +506,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param string $zoneIdentifier
      * @param int $status
      */
-    public function deleteZone($layoutId, $zoneIdentifier, $status = null)
+    public function deleteZone($layoutId, string $zoneIdentifier, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_zone')
@@ -532,7 +533,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int $status
      * @param string $locale
      */
-    public function deleteLayoutTranslations($layoutId, $status = null, $locale = null)
+    public function deleteLayoutTranslations($layoutId, int $status = null, string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -560,7 +561,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getLayoutSelectQuery()
+    private function getLayoutSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT l.*, lt.*')
@@ -583,7 +584,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getZoneSelectQuery()
+    private function getZoneSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_zone.*')

@@ -30,7 +30,7 @@ final class Postgres
      *
      * @return mixed
      */
-    public function getAutoIncrementValue($table, $column = 'id')
+    public function getAutoIncrementValue(string $table, string $column = 'id')
     {
         return "nextval('" . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
     }
@@ -43,7 +43,7 @@ final class Postgres
      *
      * @return mixed
      */
-    public function lastInsertId($table, $column = 'id')
+    public function lastInsertId(string $table, string $column = 'id')
     {
         return $this->connection->lastInsertId(
             $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column)

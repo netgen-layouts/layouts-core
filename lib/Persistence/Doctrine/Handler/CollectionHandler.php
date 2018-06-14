@@ -47,7 +47,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    public function loadCollection($collectionId, $status)
+    public function loadCollection($collectionId, int $status): Collection
     {
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
 
@@ -60,7 +60,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return reset($data);
     }
 
-    public function loadItem($itemId, $status)
+    public function loadItem($itemId, int $status): Item
     {
         $data = $this->queryHandler->loadItemData($itemId, $status);
 
@@ -73,7 +73,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return reset($data);
     }
 
-    public function loadItemWithPosition(Collection $collection, $position)
+    public function loadItemWithPosition(Collection $collection, int $position): Item
     {
         $data = $this->queryHandler->loadItemWithPositionData($collection, $position);
 
@@ -92,14 +92,14 @@ final class CollectionHandler implements CollectionHandlerInterface
         return reset($data);
     }
 
-    public function loadCollectionItems(Collection $collection)
+    public function loadCollectionItems(Collection $collection): array
     {
         return $this->collectionMapper->mapItems(
             $this->queryHandler->loadCollectionItemsData($collection)
         );
     }
 
-    public function loadQuery($queryId, $status)
+    public function loadQuery($queryId, int $status): Query
     {
         $data = $this->queryHandler->loadQueryData($queryId, $status);
 
@@ -118,7 +118,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    public function loadCollectionQuery(Collection $collection)
+    public function loadCollectionQuery(Collection $collection): Query
     {
         $data = $this->queryHandler->loadCollectionQueryData($collection);
 
@@ -135,12 +135,12 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    public function collectionExists($collectionId, $status)
+    public function collectionExists($collectionId, int $status): bool
     {
         return $this->queryHandler->collectionExists($collectionId, $status);
     }
 
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct)
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct): Collection
     {
         $newCollection = new Collection(
             [
@@ -164,7 +164,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    public function createCollectionTranslation(Collection $collection, $locale, $sourceLocale)
+    public function createCollectionTranslation(Collection $collection, string $locale, string $sourceLocale): Collection
     {
         if (in_array($locale, $collection->availableLocales, true)) {
             throw new BadStateException('locale', 'Collection already has the provided locale.');
@@ -197,7 +197,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    public function setMainTranslation(Collection $collection, $mainLocale)
+    public function setMainTranslation(Collection $collection, string $mainLocale): Collection
     {
         if (!in_array($mainLocale, $collection->availableLocales, true)) {
             throw new BadStateException('mainLocale', 'Collection does not have the provided locale.');
@@ -211,7 +211,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection
     {
         $updatedCollection = clone $collection;
 
@@ -239,7 +239,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    public function copyCollection(Collection $collection)
+    public function copyCollection(Collection $collection): Collection
     {
         $newCollection = clone $collection;
         $newCollection->id = null;
@@ -284,7 +284,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    public function createCollectionStatus(Collection $collection, $newStatus)
+    public function createCollectionStatus(Collection $collection, int $newStatus): Collection
     {
         $newCollection = clone $collection;
         $newCollection->status = $newStatus;
@@ -325,7 +325,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    public function deleteCollection($collectionId, $status = null)
+    public function deleteCollection($collectionId, int $status = null): void
     {
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
 
@@ -337,7 +337,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->queryHandler->deleteCollection($collectionId, $status);
     }
 
-    public function deleteCollectionTranslation(Collection $collection, $locale)
+    public function deleteCollectionTranslation(Collection $collection, string $locale): Collection
     {
         if (!in_array($locale, $collection->availableLocales, true)) {
             throw new BadStateException('locale', 'Collection does not have the provided locale.');
@@ -355,7 +355,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->loadCollection($collection->id, $collection->status);
     }
 
-    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct)
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct): Item
     {
         $position = $this->createItemPosition($collection, $itemCreateStruct->position);
 
@@ -374,7 +374,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->queryHandler->addItem($newItem);
     }
 
-    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct)
+    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct): Item
     {
         $updatedItem = clone $item;
 
@@ -387,7 +387,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedItem;
     }
 
-    public function moveItem(Item $item, $position)
+    public function moveItem(Item $item, int $position): Item
     {
         $collection = $this->loadCollection($item->collectionId, $item->status);
 
@@ -420,7 +420,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $movedItem;
     }
 
-    public function switchItemPositions(Item $item1, Item $item2)
+    public function switchItemPositions(Item $item1, Item $item2): void
     {
         if ($item1->id === $item2->id) {
             throw new BadStateException('item1', 'First and second items are the same.');
@@ -440,7 +440,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->queryHandler->updateItem($updatedItem2);
     }
 
-    public function deleteItem(Item $item)
+    public function deleteItem(Item $item): void
     {
         $collection = $this->loadCollection($item->collectionId, $item->status);
 
@@ -457,14 +457,14 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
     }
 
-    public function deleteItems(Collection $collection, $itemType = null)
+    public function deleteItems(Collection $collection, int $itemType = null): Collection
     {
         $this->queryHandler->deleteItems($collection->id, $collection->status, $itemType);
 
         return $this->loadCollection($collection->id, $collection->status);
     }
 
-    public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
+    public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct): Query
     {
         try {
             $this->loadCollectionQuery($collection);
@@ -501,7 +501,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newQuery;
     }
 
-    public function updateQueryTranslation(Query $query, $locale, QueryTranslationUpdateStruct $translationUpdateStruct)
+    public function updateQueryTranslation(Query $query, string $locale, QueryTranslationUpdateStruct $translationUpdateStruct): Query
     {
         $updatedQuery = clone $query;
 
@@ -518,7 +518,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedQuery;
     }
 
-    public function deleteCollectionQuery(Collection $collection)
+    public function deleteCollectionQuery(Collection $collection): void
     {
         $queryIds = $this->queryHandler->loadCollectionQueryIds($collection->id, $collection->status);
         $this->queryHandler->deleteQueryTranslations($queryIds, $collection->status);
@@ -532,7 +532,7 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * @return bool
      */
-    private function isCollectionDynamic(Collection $collection)
+    private function isCollectionDynamic(Collection $collection): bool
     {
         try {
             $this->loadCollectionQuery($collection);
@@ -554,11 +554,11 @@ final class CollectionHandler implements CollectionHandlerInterface
      * until the first break in positions.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int $newPosition
+     * @param int|null $newPosition
      *
      * @return int
      */
-    private function createItemPosition(Collection $collection, $newPosition)
+    private function createItemPosition(Collection $collection, ?int $newPosition): int
     {
         if (!$this->isCollectionDynamic($collection)) {
             return $this->positionHelper->createPosition(
@@ -568,6 +568,10 @@ final class CollectionHandler implements CollectionHandlerInterface
                 ),
                 $newPosition
             );
+        }
+
+        if ($newPosition === null) {
+            throw new BadStateException('collection', 'When adding items to dynamic collections, position is mandatory.');
         }
 
         return $this->incrementItemPositions($collection, $newPosition);
@@ -588,7 +592,7 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * @return int
      */
-    private function moveItemToPosition(Collection $collection, Item $item, $newPosition)
+    private function moveItemToPosition(Collection $collection, Item $item, int $newPosition): int
     {
         if (!$this->isCollectionDynamic($collection)) {
             return $this->positionHelper->moveToPosition(
@@ -611,11 +615,11 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param int $startPosition
-     * @param int $maxPosition
+     * @param int|null $maxPosition
      *
      * @return int
      */
-    private function incrementItemPositions(Collection $collection, $startPosition, $maxPosition = null)
+    private function incrementItemPositions(Collection $collection, int $startPosition, int $maxPosition = null): int
     {
         $items = $this->loadCollectionItems($collection);
         $endPosition = $startPosition - 1;
@@ -659,7 +663,7 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * @return array
      */
-    private function getPositionHelperItemConditions($collectionId, $status)
+    private function getPositionHelperItemConditions($collectionId, int $status): array
     {
         return [
             'table' => 'ngbm_collection_item',

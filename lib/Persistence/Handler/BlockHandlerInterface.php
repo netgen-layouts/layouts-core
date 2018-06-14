@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
@@ -24,7 +25,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function loadBlock($blockId, $status);
+    public function loadBlock($blockId, int $status): Block;
 
     /**
      * Returns if block with specified ID exists.
@@ -34,7 +35,7 @@ interface BlockHandlerInterface
      *
      * @return bool
      */
-    public function blockExists($blockId, $status);
+    public function blockExists($blockId, int $status): bool;
 
     /**
      * Loads all blocks from specified layout.
@@ -43,7 +44,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout);
+    public function loadLayoutBlocks(Layout $layout): array;
 
     /**
      * Loads all blocks from specified zone.
@@ -52,7 +53,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone);
+    public function loadZoneBlocks(Zone $zone): array;
 
     /**
      * Loads all blocks from specified block, optionally filtered by placeholder.
@@ -62,7 +63,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function loadChildBlocks(Block $block, $placeholder = null);
+    public function loadChildBlocks(Block $block, string $placeholder = null): array;
 
     /**
      * Loads a collection reference.
@@ -74,7 +75,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
      */
-    public function loadCollectionReference(Block $block, $identifier);
+    public function loadCollectionReference(Block $block, string $identifier): CollectionReference;
 
     /**
      * Loads all collection references belonging to the provided block.
@@ -83,7 +84,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
-    public function loadCollectionReferences(Block $block);
+    public function loadCollectionReferences(Block $block): array;
 
     /**
      * Creates a block in specified target block.
@@ -98,7 +99,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, $placeholder = null);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, string $placeholder = null): Block;
 
     /**
      * Creates a block translation.
@@ -112,7 +113,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlockTranslation(Block $block, $locale, $sourceLocale);
+    public function createBlockTranslation(Block $block, string $locale, string $sourceLocale): Block;
 
     /**
      * Creates the collection reference.
@@ -122,7 +123,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
      */
-    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct);
+    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct): CollectionReference;
 
     /**
      * Updates a block with specified ID.
@@ -132,7 +133,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct);
+    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct): Block;
 
     /**
      * Updates a block translation.
@@ -145,7 +146,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function updateBlockTranslation(Block $block, $locale, TranslationUpdateStruct $translationUpdateStruct);
+    public function updateBlockTranslation(Block $block, string $locale, TranslationUpdateStruct $translationUpdateStruct): Block;
 
     /**
      * Updates the main translation of the block.
@@ -157,7 +158,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function setMainTranslation(Block $block, $mainLocale);
+    public function setMainTranslation(Block $block, string $mainLocale): Block;
 
     /**
      * Copies a block to a specified target block and placeholder.
@@ -172,7 +173,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null);
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block;
 
     /**
      * Moves a block to specified position in a specified target block and placeholder.
@@ -188,7 +189,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position);
+    public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): Block;
 
     /**
      * Moves a block to specified position in the current placeholder.
@@ -200,7 +201,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function moveBlockToPosition(Block $block, $position);
+    public function moveBlockToPosition(Block $block, int $position): Block;
 
     /**
      * Creates a new block status.
@@ -213,7 +214,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlockStatus(Block $block, $newStatus);
+    public function createBlockStatus(Block $block, int $newStatus): Block;
 
     /**
      * Restores all block data (except placement and position) from the specified status.
@@ -225,14 +226,14 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function restoreBlock(Block $block, $fromStatus);
+    public function restoreBlock(Block $block, int $fromStatus): Block;
 
     /**
      * Deletes a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      */
-    public function deleteBlock(Block $block);
+    public function deleteBlock(Block $block): void;
 
     /**
      * Deletes provided block translation.
@@ -245,7 +246,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function deleteBlockTranslation(Block $block, $locale);
+    public function deleteBlockTranslation(Block $block, string $locale): Block;
 
     /**
      * Deletes all blocks belonging to specified layout.
@@ -253,7 +254,7 @@ interface BlockHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayoutBlocks($layoutId, $status = null);
+    public function deleteLayoutBlocks($layoutId, int $status = null): void;
 
     /**
      * Deletes provided blocks.
@@ -265,5 +266,5 @@ interface BlockHandlerInterface
      * @param array $blockIds
      * @param int $status
      */
-    public function deleteBlocks(array $blockIds, $status = null);
+    public function deleteBlocks(array $blockIds, int $status = null): void;
 }

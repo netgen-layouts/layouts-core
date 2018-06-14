@@ -39,7 +39,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->mapper = $mapper;
     }
 
-    public function loadRule($ruleId, $status)
+    public function loadRule($ruleId, int $status): Rule
     {
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
 
@@ -52,19 +52,19 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    public function loadRules($status, Layout $layout = null, $offset = 0, $limit = null)
+    public function loadRules(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array
     {
         $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
 
         return $this->mapper->mapRules($data);
     }
 
-    public function getRuleCount(Layout $layout = null)
+    public function getRuleCount(Layout $layout = null): int
     {
         return $this->queryHandler->getRuleCount(Value::STATUS_PUBLISHED, $layout);
     }
 
-    public function matchRules($targetType, $targetValue)
+    public function matchRules(string $targetType, $targetValue): array
     {
         $data = $this->queryHandler->matchRules($targetType, $targetValue);
 
@@ -77,7 +77,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $data;
     }
 
-    public function loadTarget($targetId, $status)
+    public function loadTarget($targetId, int $status): Target
     {
         $data = $this->queryHandler->loadTargetData($targetId, $status);
 
@@ -90,19 +90,19 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    public function loadRuleTargets(Rule $rule)
+    public function loadRuleTargets(Rule $rule): array
     {
         return $this->mapper->mapTargets(
             $this->queryHandler->loadRuleTargetsData($rule)
         );
     }
 
-    public function getTargetCount(Rule $rule)
+    public function getTargetCount(Rule $rule): int
     {
         return $this->queryHandler->getTargetCount($rule);
     }
 
-    public function loadCondition($conditionId, $status)
+    public function loadCondition($conditionId, int $status): Condition
     {
         $data = $this->queryHandler->loadConditionData($conditionId, $status);
 
@@ -115,19 +115,19 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    public function loadRuleConditions(Rule $rule)
+    public function loadRuleConditions(Rule $rule): array
     {
         return $this->mapper->mapConditions(
             $this->queryHandler->loadRuleConditionsData($rule)
         );
     }
 
-    public function ruleExists($ruleId, $status)
+    public function ruleExists($ruleId, int $status): bool
     {
         return $this->queryHandler->ruleExists($ruleId, $status);
     }
 
-    public function createRule(RuleCreateStruct $ruleCreateStruct)
+    public function createRule(RuleCreateStruct $ruleCreateStruct): Rule
     {
         $newRule = new Rule(
             [
@@ -142,7 +142,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->createRule($newRule);
     }
 
-    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct): Rule
     {
         $updatedRule = clone $rule;
 
@@ -162,7 +162,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedRule;
     }
 
-    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
+    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct): Rule
     {
         $updatedRule = clone $rule;
 
@@ -179,7 +179,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedRule;
     }
 
-    public function copyRule(Rule $rule)
+    public function copyRule(Rule $rule): Rule
     {
         // First copy the rule
 
@@ -217,7 +217,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    public function createRuleStatus(Rule $rule, $newStatus)
+    public function createRuleStatus(Rule $rule, int $newStatus): Rule
     {
         // First copy the rule
 
@@ -251,14 +251,14 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    public function deleteRule($ruleId, $status = null)
+    public function deleteRule($ruleId, int $status = null): void
     {
         $this->queryHandler->deleteRuleTargets($ruleId, $status);
         $this->queryHandler->deleteRuleConditions($ruleId, $status);
         $this->queryHandler->deleteRule($ruleId, $status);
     }
 
-    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
+    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target
     {
         $newTarget = new Target(
             [
@@ -272,7 +272,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->addTarget($newTarget);
     }
 
-    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct): Target
     {
         $updatedTarget = clone $target;
         $updatedTarget->value = $targetUpdateStruct->value;
@@ -282,12 +282,12 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedTarget;
     }
 
-    public function deleteTarget(Target $target)
+    public function deleteTarget(Target $target): void
     {
         $this->queryHandler->deleteTarget($target->id, $target->status);
     }
 
-    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition
     {
         $newCondition = new Condition(
             [
@@ -301,7 +301,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->addCondition($newCondition);
     }
 
-    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): Condition
     {
         $updatedCondition = clone $condition;
 
@@ -312,7 +312,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedCondition;
     }
 
-    public function deleteCondition(Condition $condition)
+    public function deleteCondition(Condition $condition): void
     {
         $this->queryHandler->deleteCondition($condition->id, $condition->status);
     }
@@ -330,7 +330,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
      *
      * @return int
      */
-    private function getRulePriority(RuleCreateStruct $ruleCreateStruct)
+    private function getRulePriority(RuleCreateStruct $ruleCreateStruct): int
     {
         if ($ruleCreateStruct->priority !== null) {
             return (int) $ruleCreateStruct->priority;

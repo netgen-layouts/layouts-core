@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
@@ -22,7 +23,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadBlockData($blockId, $status)
+    public function loadBlockData($blockId, int $status): array
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -43,7 +44,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionReferencesData(Block $block, $identifier = null)
+    public function loadCollectionReferencesData(Block $block, string $identifier = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier')
@@ -71,7 +72,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutBlocksData(Layout $layout)
+    public function loadLayoutBlocksData(Layout $layout): array
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -91,7 +92,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadZoneBlocksData(Zone $zone)
+    public function loadZoneBlocksData(Zone $zone): array
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -112,7 +113,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadChildBlocksData(Block $block, $placeholder = null)
+    public function loadChildBlocksData(Block $block, string $placeholder = null): array
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -142,7 +143,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function blockExists($blockId, $status)
+    public function blockExists($blockId, int $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -167,7 +168,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlock(Block $block, $updatePath = true)
+    public function createBlock(Block $block, bool $updatePath = true): Block
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_block')
@@ -249,7 +250,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $locale
      */
-    public function createBlockTranslation(Block $block, $locale)
+    public function createBlockTranslation(Block $block, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_block_translation')
@@ -274,7 +275,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
      */
-    public function createCollectionReference(CollectionReference $collectionReference)
+    public function createCollectionReference(CollectionReference $collectionReference): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -302,7 +303,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      */
-    public function updateBlock(Block $block)
+    public function updateBlock(Block $block): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -351,7 +352,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $locale
      */
-    public function updateBlockTranslation(Block $block, $locale)
+    public function updateBlockTranslation(Block $block, string $locale): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -381,7 +382,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param string $placeholder
      * @param int $position
      */
-    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
+    public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -431,7 +432,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param array $blockIds
      * @param int $status
      */
-    public function deleteBlocks(array $blockIds, $status = null)
+    public function deleteBlocks(array $blockIds, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -455,7 +456,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param int $status
      * @param string $locale
      */
-    public function deleteBlockTranslations(array $blockIds, $status = null, $locale = null)
+    public function deleteBlockTranslations(array $blockIds, int $status = null, string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -484,7 +485,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param array $blockIds
      * @param int $status
      */
-    public function deleteCollectionReferences(array $blockIds, $status = null)
+    public function deleteCollectionReferences(array $blockIds, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -509,7 +510,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadSubBlockIds($blockId, $status = null)
+    public function loadSubBlockIds($blockId, int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -541,7 +542,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutBlockIds($layoutId, $status = null)
+    public function loadLayoutBlockIds($layoutId, int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -573,7 +574,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadBlockCollectionIds(array $blockIds, $status = null)
+    public function loadBlockCollectionIds(array $blockIds, int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT bc.collection_id')
@@ -602,7 +603,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getBlockSelectQuery()
+    private function getBlockSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT b.*, bt.*')

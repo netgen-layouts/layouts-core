@@ -14,15 +14,15 @@ abstract class Value extends BaseValue
     /**
      * @const int
      */
-    const STATUS_DRAFT = 0;
+    public const STATUS_DRAFT = 0;
 
     /**
      * @const int
      */
-    const STATUS_PUBLISHED = 1;
+    public const STATUS_PUBLISHED = 1;
 
     /**
      * @const int
      */
-    const STATUS_ARCHIVED = 2;
+    public const STATUS_ARCHIVED = 2;
 }

@@ -26,7 +26,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function loadCollection($collectionId, $status);
+    public function loadCollection($collectionId, int $status): Collection;
 
     /**
      * Loads an item with specified ID.
@@ -38,7 +38,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function loadItem($itemId, $status);
+    public function loadItem($itemId, int $status): Item;
 
     /**
      * Loads an item with specified position in specified collection.
@@ -50,7 +50,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function loadItemWithPosition(Collection $collection, $position);
+    public function loadItemWithPosition(Collection $collection, int $position): Item;
 
     /**
      * Loads all items that belong to collection with specified ID.
@@ -59,7 +59,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
      */
-    public function loadCollectionItems(Collection $collection);
+    public function loadCollectionItems(Collection $collection): array;
 
     /**
      * Loads a query with specified ID.
@@ -71,7 +71,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function loadQuery($queryId, $status);
+    public function loadQuery($queryId, int $status): Query;
 
     /**
      * Loads the query that belongs to collection with specified ID.
@@ -82,7 +82,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function loadCollectionQuery(Collection $collection);
+    public function loadCollectionQuery(Collection $collection): Query;
 
     /**
      * Returns if collection with specified ID exists.
@@ -92,7 +92,7 @@ interface CollectionHandlerInterface
      *
      * @return bool
      */
-    public function collectionExists($collectionId, $status);
+    public function collectionExists($collectionId, int $status): bool;
 
     /**
      * Creates a collection.
@@ -101,7 +101,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct);
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct): Collection;
 
     /**
      * Creates a collection translation.
@@ -115,7 +115,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollectionTranslation(Collection $collection, $locale, $sourceLocale);
+    public function createCollectionTranslation(Collection $collection, string $locale, string $sourceLocale): Collection;
 
     /**
      * Updates the main translation of the collection.
@@ -127,7 +127,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function setMainTranslation(Collection $collection, $mainLocale);
+    public function setMainTranslation(Collection $collection, string $mainLocale): Collection;
 
     /**
      * Updates a collection with specified ID.
@@ -137,7 +137,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection;
 
     /**
      * Copies a collection.
@@ -146,7 +146,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection);
+    public function copyCollection(Collection $collection): Collection;
 
     /**
      * Creates a new collection status.
@@ -156,7 +156,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollectionStatus(Collection $collection, $newStatus);
+    public function createCollectionStatus(Collection $collection, int $newStatus): Collection;
 
     /**
      * Deletes a collection with specified ID.
@@ -164,7 +164,7 @@ interface CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollection($collectionId, $status = null);
+    public function deleteCollection($collectionId, int $status = null): void;
 
     /**
      * Deletes provided collection translation.
@@ -177,7 +177,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function deleteCollectionTranslation(Collection $collection, $locale);
+    public function deleteCollectionTranslation(Collection $collection, string $locale): Collection;
 
     /**
      * Adds an item to collection.
@@ -189,7 +189,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct);
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct): Item;
 
     /**
      * Updates an item with specified ID.
@@ -199,7 +199,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct);
+    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct): Item;
 
     /**
      * Moves an item to specified position in the collection.
@@ -211,7 +211,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function moveItem(Item $item, $position);
+    public function moveItem(Item $item, int $position): Item;
 
     /**
      * Switch item positions within the same collection.
@@ -222,14 +222,14 @@ interface CollectionHandlerInterface
      * @throws \Netgen\BlockManager\Exception\BadStateException If items are the same
      *                                                          If items are not within the same collection
      */
-    public function switchItemPositions(Item $item1, Item $item2);
+    public function switchItemPositions(Item $item1, Item $item2): void;
 
     /**
      * Removes an item.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      */
-    public function deleteItem(Item $item);
+    public function deleteItem(Item $item): void;
 
     /**
      * Removes all manual and override items from provided collection.
@@ -242,7 +242,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function deleteItems(Collection $collection, $itemType = null);
+    public function deleteItems(Collection $collection, int $itemType = null): Collection;
 
     /**
      * Adds a query to collection.
@@ -254,7 +254,7 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct);
+    public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct): Query;
 
     /**
      * Updates a query translation.
@@ -267,12 +267,12 @@ interface CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function updateQueryTranslation(Query $query, $locale, QueryTranslationUpdateStruct $translationUpdateStruct);
+    public function updateQueryTranslation(Query $query, string $locale, QueryTranslationUpdateStruct $translationUpdateStruct): Query;
 
     /**
      * Removes a query from the collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      */
-    public function deleteCollectionQuery(Collection $collection);
+    public function deleteCollectionQuery(Collection $collection): void;
 }

@@ -16,7 +16,7 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function mapBlocks(array $data = [])
+    public function mapBlocks(array $data = []): array
     {
         $blocks = [];
 
@@ -69,7 +69,7 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
-    public function mapCollectionReferences(array $data = [])
+    public function mapCollectionReferences(array $data = []): array
     {
         $collectionReferences = [];
 
@@ -95,7 +95,7 @@ final class BlockMapper
      *
      * @return array
      */
-    private function buildParameters($parameters)
+    private function buildParameters(?string $parameters): array
     {
         $parameters = !empty($parameters) ? json_decode($parameters, true) : [];
 

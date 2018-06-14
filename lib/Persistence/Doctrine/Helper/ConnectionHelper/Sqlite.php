@@ -31,7 +31,7 @@ final class Sqlite
      *
      * @return mixed
      */
-    public function getAutoIncrementValue($table, $column = 'id')
+    public function getAutoIncrementValue(string $table, string $column = 'id')
     {
         $query = $this->connection->createQueryBuilder();
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
@@ -50,7 +50,7 @@ final class Sqlite
      *
      * @return mixed
      */
-    public function lastInsertId($table, $column = 'id')
+    public function lastInsertId(string $table, string $column = 'id')
     {
         $query = $this->connection->createQueryBuilder();
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')

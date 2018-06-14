@@ -24,7 +24,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function loadLayout($layoutId, $status);
+    public function loadLayout($layoutId, int $status): Layout;
 
     /**
      * Loads a zone with specified identifier.
@@ -37,7 +37,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
-    public function loadZone($layoutId, $status, $identifier);
+    public function loadZone($layoutId, int $status, string $identifier): Zone;
 
     /**
      * Loads all layouts. If $includeDrafts is set to true, drafts which have no
@@ -49,7 +49,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null);
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
 
     /**
      * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -61,7 +61,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null);
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
 
     /**
      * Loads all layouts related to provided shared layout.
@@ -72,7 +72,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array;
 
     /**
      * Loads the count of layouts related to provided shared layout.
@@ -81,7 +81,7 @@ interface LayoutHandlerInterface
      *
      * @return int
      */
-    public function getRelatedLayoutsCount(Layout $sharedLayout);
+    public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 
     /**
      * Returns if layout with specified ID exists.
@@ -91,7 +91,7 @@ interface LayoutHandlerInterface
      *
      * @return bool
      */
-    public function layoutExists($layoutId, $status);
+    public function layoutExists($layoutId, int $status): bool;
 
     /**
      * Returns if zone with specified identifier exists in the layout.
@@ -102,7 +102,7 @@ interface LayoutHandlerInterface
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $status, $identifier);
+    public function zoneExists($layoutId, int $status, string $identifier): bool;
 
     /**
      * Loads all zones that belong to layout with specified ID.
@@ -111,7 +111,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
      */
-    public function loadLayoutZones(Layout $layout);
+    public function loadLayoutZones(Layout $layout): array;
 
     /**
      * Returns if layout with provided name exists.
@@ -121,7 +121,7 @@ interface LayoutHandlerInterface
      *
      * @return bool
      */
-    public function layoutNameExists($name, $excludedLayoutId = null);
+    public function layoutNameExists(string $name, $excludedLayoutId = null): bool;
 
     /**
      * Creates a layout.
@@ -130,7 +130,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct): Layout;
 
     /**
      * Creates a layout translation.
@@ -144,7 +144,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function createLayoutTranslation(Layout $layout, $locale, $sourceLocale);
+    public function createLayoutTranslation(Layout $layout, string $locale, string $sourceLocale): Layout;
 
     /**
      * Updates the main translation of the layout.
@@ -156,7 +156,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function setMainTranslation(Layout $layout, $mainLocale);
+    public function setMainTranslation(Layout $layout, string $mainLocale): Layout;
 
     /**
      * Creates a zone in provided layout.
@@ -166,7 +166,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
-    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct);
+    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct): Zone;
 
     /**
      * Updates a layout with specified ID.
@@ -176,7 +176,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct);
+    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct): Layout;
 
     /**
      * Updates a specified zone.
@@ -186,7 +186,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
-    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct);
+    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct): Zone;
 
     /**
      * Copies the layout.
@@ -196,7 +196,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct);
+    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct): Layout;
 
     /**
      * Changes the provided layout type.
@@ -207,7 +207,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = []);
+    public function changeLayoutType(Layout $layout, string $targetLayoutType, array $zoneMappings = []): Layout;
 
     /**
      * Creates a new layout status.
@@ -217,7 +217,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function createLayoutStatus(Layout $layout, $newStatus);
+    public function createLayoutStatus(Layout $layout, int $newStatus): Layout;
 
     /**
      * Deletes a layout with specified ID.
@@ -225,7 +225,7 @@ interface LayoutHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayout($layoutId, $status = null);
+    public function deleteLayout($layoutId, int $status = null): void;
 
     /**
      * Deletes provided layout translation.
@@ -238,5 +238,5 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function deleteLayoutTranslation(Layout $layout, $locale);
+    public function deleteLayoutTranslation(Layout $layout, string $locale): Layout;
 }

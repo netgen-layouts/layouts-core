@@ -17,7 +17,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function mapCollections(array $data = [])
+    public function mapCollections(array $data = []): array
     {
         $collections = [];
 
@@ -59,7 +59,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
      */
-    public function mapItems(array $data = [])
+    public function mapItems(array $data = []): array
     {
         $items = [];
 
@@ -88,7 +88,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function mapQuery(array $data = [])
+    public function mapQuery(array $data = []): Query
     {
         $queries = [];
 
@@ -131,7 +131,7 @@ final class CollectionMapper
      *
      * @return array
      */
-    private function buildParameters($parameters)
+    private function buildParameters(?string $parameters): array
     {
         $parameters = !empty($parameters) ? json_decode($parameters, true) : [];
 

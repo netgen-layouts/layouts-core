@@ -35,7 +35,7 @@ final class PositionHelper
      *
      * @return int
      */
-    public function createPosition(array $conditions, $position = null, $endPosition = null, $allowOutOfRange = false)
+    public function createPosition(array $conditions, int $position = null, int $endPosition = null, bool $allowOutOfRange = false): int
     {
         $nextPosition = $this->getNextPosition($conditions);
 
@@ -77,7 +77,7 @@ final class PositionHelper
      *
      * @return int
      */
-    public function moveToPosition(array $conditions, $originalPosition, $position, $allowOutOfRange = false)
+    public function moveToPosition(array $conditions, int $originalPosition, int $position, bool $allowOutOfRange = false): int
     {
         $nextPosition = $this->getNextPosition($conditions);
 
@@ -112,7 +112,7 @@ final class PositionHelper
      * @param array $conditions
      * @param int $removedPosition
      */
-    public function removePosition(array $conditions, $removedPosition)
+    public function removePosition(array $conditions, int $removedPosition): void
     {
         $this->decrementPositions(
             $conditions,
@@ -127,7 +127,7 @@ final class PositionHelper
      *
      * @return int
      */
-    public function getNextPosition(array $conditions)
+    public function getNextPosition(array $conditions): int
     {
         $columnName = $conditions['column'];
 
@@ -149,7 +149,7 @@ final class PositionHelper
      * @param int $startPosition
      * @param int $endPosition
      */
-    private function incrementPositions(array $conditions, $startPosition = null, $endPosition = null)
+    private function incrementPositions(array $conditions, int $startPosition = null, int $endPosition = null): void
     {
         $columnName = $conditions['column'];
 
@@ -181,7 +181,7 @@ final class PositionHelper
      * @param int $startPosition
      * @param int $endPosition
      */
-    private function decrementPositions(array $conditions, $startPosition = null, $endPosition = null)
+    private function decrementPositions(array $conditions, int $startPosition = null, int $endPosition = null): void
     {
         $columnName = $conditions['column'];
 
@@ -212,7 +212,7 @@ final class PositionHelper
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
      * @param array $conditions
      */
-    private function applyConditions(QueryBuilder $query, array $conditions)
+    private function applyConditions(QueryBuilder $query, array $conditions): void
     {
         foreach ($conditions as $identifier => $value) {
             $query->andWhere(

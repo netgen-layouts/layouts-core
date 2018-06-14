@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence;
 
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
+
 interface HandlerInterface
 {
     /**
@@ -11,41 +16,41 @@ interface HandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
-    public function getLayoutHandler();
+    public function getLayoutHandler(): LayoutHandlerInterface;
 
     /**
      * Returns the block handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
-    public function getBlockHandler();
+    public function getBlockHandler(): BlockHandlerInterface;
 
     /**
      * Returns the collection handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
-    public function getCollectionHandler();
+    public function getCollectionHandler(): CollectionHandlerInterface;
 
     /**
      * Returns the layout resolver handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
-    public function getLayoutResolverHandler();
+    public function getLayoutResolverHandler(): LayoutResolverHandlerInterface;
 
     /**
      * Begins the transaction.
      */
-    public function beginTransaction();
+    public function beginTransaction(): void;
 
     /**
      * Commits the transaction.
      */
-    public function commitTransaction();
+    public function commitTransaction(): void;
 
     /**
      * Rollbacks the transaction.
      */
-    public function rollbackTransaction();
+    public function rollbackTransaction(): void;
 }

@@ -42,7 +42,7 @@ final class ConnectionHelper
      *
      * @return mixed
      */
-    public function getAutoIncrementValue($table, $column = 'id')
+    public function getAutoIncrementValue(string $table, string $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
         if (isset($this->databaseSpecificHelpers[$databaseServer])) {
@@ -61,7 +61,7 @@ final class ConnectionHelper
      *
      * @return mixed
      */
-    public function lastInsertId($table, $column = 'id')
+    public function lastInsertId(string $table, string $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
         if (isset($this->databaseSpecificHelpers[$databaseServer])) {

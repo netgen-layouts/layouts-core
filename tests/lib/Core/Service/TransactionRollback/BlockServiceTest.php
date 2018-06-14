@@ -107,7 +107,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['identifier' => 'right'])));
+            ->will($this->returnValue(new PersistenceZone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -242,7 +242,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['identifier' => 'right'])));
+            ->will($this->returnValue(new PersistenceZone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -329,7 +329,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['identifier' => 'right'])));
+            ->will($this->returnValue(new PersistenceZone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -364,6 +364,11 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('loadBlock')
             ->will($this->returnValue(new PersistenceBlock()));
 
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('restoreBlock')
@@ -392,6 +397,11 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->at(1))
             ->method('loadBlock')
             ->will($this->returnValue(new PersistenceBlock(['isTranslatable' => true, 'depth' => 1])));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->blockHandlerMock
             ->expects($this->at(2))

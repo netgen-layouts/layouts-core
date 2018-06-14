@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
@@ -21,7 +22,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionData($collectionId, $status)
+    public function loadCollectionData($collectionId, int $status): array
     {
         $query = $this->getCollectionSelectQuery();
         $query->where(
@@ -42,7 +43,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadItemData($itemId, $status)
+    public function loadItemData($itemId, int $status): array
     {
         $query = $this->getItemSelectQuery();
         $query->where(
@@ -63,7 +64,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadItemWithPositionData(Collection $collection, $position)
+    public function loadItemWithPositionData(Collection $collection, int $position): array
     {
         $query = $this->getItemSelectQuery();
         $query->where(
@@ -88,7 +89,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadQueryData($queryId, $status)
+    public function loadQueryData($queryId, int $status): array
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
@@ -108,7 +109,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionItemsData(Collection $collection)
+    public function loadCollectionItemsData(Collection $collection): array
     {
         $query = $this->getItemSelectQuery();
         $query->where(
@@ -131,7 +132,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionQueryIds($collectionId, $status = null)
+    public function loadCollectionQueryIds($collectionId, int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -162,7 +163,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionQueryData(Collection $collection)
+    public function loadCollectionQueryData(Collection $collection): array
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
@@ -183,7 +184,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function collectionExists($collectionId, $status)
+    public function collectionExists($collectionId, int $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -207,7 +208,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(Collection $collection)
+    public function createCollection(Collection $collection): Collection
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection')
@@ -248,7 +249,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param string $locale
      */
-    public function createCollectionTranslation(Collection $collection, $locale)
+    public function createCollectionTranslation(Collection $collection, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_translation')
@@ -271,7 +272,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      */
-    public function updateCollection(Collection $collection)
+    public function updateCollection(Collection $collection): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -302,7 +303,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollection($collectionId, $status = null)
+    public function deleteCollection($collectionId, int $status = null): void
     {
         // Delete all connections between blocks and collections
 
@@ -343,7 +344,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int $status
      * @param string $locale
      */
-    public function deleteCollectionTranslations($collectionId, $status = null, $locale = null)
+    public function deleteCollectionTranslations($collectionId, int $status = null, string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -373,7 +374,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem(Item $item)
+    public function addItem(Item $item): Item
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_item')
@@ -415,7 +416,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      */
-    public function updateItem(Item $item)
+    public function updateItem(Item $item): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -449,7 +450,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $itemId
      * @param int $status
      */
-    public function deleteItem($itemId, $status)
+    public function deleteItem($itemId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -474,7 +475,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int $status
      * @param int $itemType
      */
-    public function deleteItems($collectionId, $status, $itemType = null)
+    public function deleteItems($collectionId, int $status, int $itemType = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -502,7 +503,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollectionItems($collectionId, $status = null)
+    public function deleteCollectionItems($collectionId, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -526,7 +527,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function createQuery(Query $query)
+    public function createQuery(Query $query): Query
     {
         $dbQuery = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query')
@@ -561,7 +562,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param string $locale
      */
-    public function createQueryTranslation(Query $query, $locale)
+    public function createQueryTranslation(Query $query, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query_translation')
@@ -587,7 +588,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param string $locale
      */
-    public function updateQueryTranslation(Query $query, $locale)
+    public function updateQueryTranslation(Query $query, string $locale): void
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
@@ -614,7 +615,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param array $queryIds
      * @param int $status
      */
-    public function deleteQuery($queryIds, $status = null)
+    public function deleteQuery($queryIds, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -638,7 +639,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int $status
      * @param string $locale
      */
-    public function deleteQueryTranslations($queryIds, $status = null, $locale = null)
+    public function deleteQueryTranslations($queryIds, int $status = null, string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -666,7 +667,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getCollectionSelectQuery()
+    private function getCollectionSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT c.*, ct.*')
@@ -689,7 +690,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getItemSelectQuery()
+    private function getItemSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_collection_item.*')
@@ -703,7 +704,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    private function getQuerySelectQuery()
+    private function getQuerySelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT q.*, qt.*')

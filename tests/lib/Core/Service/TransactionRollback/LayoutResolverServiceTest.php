@@ -125,7 +125,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->copyRule(new Rule());
+        $this->layoutResolverService->copyRule(new Rule(['status' => Rule::STATUS_DRAFT]));
     }
 
     /**
@@ -255,7 +255,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteRule(new Rule());
+        $this->layoutResolverService->deleteRule(new Rule(['status' => Rule::STATUS_DRAFT]));
     }
 
     /**

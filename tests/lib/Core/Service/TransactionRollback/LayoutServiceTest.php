@@ -61,8 +61,8 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            new Zone(['status' => Value::STATUS_DRAFT]),
-            new Zone(['status' => Value::STATUS_PUBLISHED])
+            new Zone(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]),
+            new Zone(['identifier' => 'left', 'status' => Value::STATUS_PUBLISHED])
         );
     }
 
@@ -87,7 +87,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(new Zone(['status' => Value::STATUS_DRAFT]));
+        $this->layoutService->unlinkZone(new Zone(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -113,7 +113,10 @@ final class LayoutServiceTest extends ServiceTestCase
 
         $this->layoutService->createLayout(
             new LayoutCreateStruct(
-                ['layoutType' => new LayoutType(['identifier' => 'layout_type'])]
+                [
+                    'name' => 'Name',
+                    'layoutType' => new LayoutType(['identifier' => 'layout_type']),
+                ]
             )
         );
     }
@@ -242,7 +245,10 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->copyLayout(new Layout(), new LayoutCopyStruct());
+        $this->layoutService->copyLayout(
+            new Layout(['id' => 42, 'status' => Layout::STATUS_DRAFT]),
+            new LayoutCopyStruct(['name' => 'Name'])
+        );
     }
 
     /**
@@ -406,6 +412,6 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->deleteLayout(new Layout());
+        $this->layoutService->deleteLayout(new Layout(['id' => 42, 'status' => Layout::STATUS_DRAFT]));
     }
 }

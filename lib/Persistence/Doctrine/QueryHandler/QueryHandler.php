@@ -31,11 +31,11 @@ abstract class QueryHandler
      * Applies status condition to the query.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param int $status
+     * @param int|null $status
      * @param string $statusColumn
      * @param string $paramName
      */
-    public function applyStatusCondition(QueryBuilder $query, $status, $statusColumn = 'status', $paramName = 'status')
+    public function applyStatusCondition(QueryBuilder $query, ?int $status, string $statusColumn = 'status', string $paramName = 'status'): void
     {
         $query->andWhere($query->expr()->eq($statusColumn, ':' . $paramName))
             ->setParameter($paramName, $status, Type::INTEGER);
@@ -48,7 +48,7 @@ abstract class QueryHandler
      * @param int|null $offset
      * @param int|null $limit
      */
-    public function applyOffsetAndLimit(QueryBuilder $query, $offset, $limit)
+    public function applyOffsetAndLimit(QueryBuilder $query, ?int $offset, ?int $limit): void
     {
         $offset = is_int($offset) ? $offset : 0;
         $limit = is_int($limit) && $limit > 0 ? $limit : null;

@@ -46,7 +46,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $this->layoutMapper = $layoutMapper;
     }
 
-    public function loadLayout($layoutId, $status)
+    public function loadLayout($layoutId, int $status): Layout
     {
         $data = $this->queryHandler->loadLayoutData($layoutId, $status);
 
@@ -59,7 +59,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return reset($data);
     }
 
-    public function loadZone($layoutId, $status, $identifier)
+    public function loadZone($layoutId, int $status, string $identifier): Zone
     {
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
 
@@ -72,55 +72,55 @@ final class LayoutHandler implements LayoutHandlerInterface
         return reset($data);
     }
 
-    public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
     {
         $data = $this->queryHandler->loadLayoutsData($includeDrafts, false, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
     {
         $data = $this->queryHandler->loadLayoutsData($includeDrafts, true, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array
     {
         $data = $this->queryHandler->loadRelatedLayoutsData($sharedLayout, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    public function getRelatedLayoutsCount(Layout $sharedLayout)
+    public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
         return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
     }
 
-    public function layoutExists($layoutId, $status)
+    public function layoutExists($layoutId, int $status): bool
     {
         return $this->queryHandler->layoutExists($layoutId, $status);
     }
 
-    public function zoneExists($layoutId, $status, $identifier)
+    public function zoneExists($layoutId, int $status, string $identifier): bool
     {
         return $this->queryHandler->zoneExists($layoutId, $status, $identifier);
     }
 
-    public function loadLayoutZones(Layout $layout)
+    public function loadLayoutZones(Layout $layout): array
     {
         return $this->layoutMapper->mapZones(
             $this->queryHandler->loadLayoutZonesData($layout)
         );
     }
 
-    public function layoutNameExists($name, $excludedLayoutId = null)
+    public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {
         return $this->queryHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct): Layout
     {
         $currentTimeStamp = time();
 
@@ -148,7 +148,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function createLayoutTranslation(Layout $layout, $locale, $sourceLocale)
+    public function createLayoutTranslation(Layout $layout, string $locale, string $sourceLocale): Layout
     {
         if (in_array($locale, $layout->availableLocales, true)) {
             throw new BadStateException('locale', 'Layout already has the provided locale.');
@@ -173,7 +173,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $updatedLayout;
     }
 
-    public function setMainTranslation(Layout $layout, $mainLocale)
+    public function setMainTranslation(Layout $layout, string $mainLocale): Layout
     {
         if (!in_array($mainLocale, $layout->availableLocales, true)) {
             throw new BadStateException('mainLocale', 'Layout does not have the provided locale.');
@@ -201,7 +201,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $updatedLayout;
     }
 
-    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct)
+    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct): Zone
     {
         $rootBlock = $this->blockHandler->createBlock(
             new BlockCreateStruct(
@@ -237,7 +237,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newZone;
     }
 
-    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
+    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct): Layout
     {
         $updatedLayout = clone $layout;
         $updatedLayout->modified = time();
@@ -259,7 +259,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $updatedLayout;
     }
 
-    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
+    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct): Zone
     {
         $updatedZone = clone $zone;
 
@@ -277,7 +277,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $updatedZone;
     }
 
-    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct)
+    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct): Layout
     {
         $copiedLayout = clone $layout;
         $copiedLayout->id = null;
@@ -328,7 +328,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $copiedLayout;
     }
 
-    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = [])
+    public function changeLayoutType(Layout $layout, string $targetLayoutType, array $zoneMappings = []): Layout
     {
         $newRootBlocks = [];
         $oldRootBlocks = [];
@@ -399,7 +399,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function createLayoutStatus(Layout $layout, $newStatus)
+    public function createLayoutStatus(Layout $layout, int $newStatus): Layout
     {
         $newLayout = clone $layout;
         $newLayout->status = $newStatus;
@@ -426,7 +426,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function deleteLayout($layoutId, $status = null)
+    public function deleteLayout($layoutId, int $status = null): void
     {
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);
@@ -434,7 +434,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $this->queryHandler->deleteLayout($layoutId, $status);
     }
 
-    public function deleteLayoutTranslation(Layout $layout, $locale)
+    public function deleteLayoutTranslation(Layout $layout, string $locale): Layout
     {
         if (!in_array($locale, $layout->availableLocales, true)) {
             throw new BadStateException('locale', 'Layout does not have the provided locale.');
@@ -471,7 +471,7 @@ final class LayoutHandler implements LayoutHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      */
-    private function updateLayoutModifiedDate(Layout $layout)
+    private function updateLayoutModifiedDate(Layout $layout): void
     {
         $updatedLayout = clone $layout;
         $updatedLayout->modified = time();

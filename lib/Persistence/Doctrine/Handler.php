@@ -52,37 +52,37 @@ final class Handler implements HandlerInterface
         $this->layoutResolverHandler = $layoutResolverHandler;
     }
 
-    public function getLayoutHandler()
+    public function getLayoutHandler(): LayoutHandlerInterface
     {
         return $this->layoutHandler;
     }
 
-    public function getBlockHandler()
+    public function getBlockHandler(): BlockHandlerInterface
     {
         return $this->blockHandler;
     }
 
-    public function getCollectionHandler()
+    public function getCollectionHandler(): CollectionHandlerInterface
     {
         return $this->collectionHandler;
     }
 
-    public function getLayoutResolverHandler()
+    public function getLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return $this->layoutResolverHandler;
     }
 
-    public function beginTransaction()
+    public function beginTransaction(): void
     {
         $this->connection->beginTransaction();
     }
 
-    public function commitTransaction()
+    public function commitTransaction(): void
     {
         $this->connection->commit();
     }
 
-    public function rollbackTransaction()
+    public function rollbackTransaction(): void
     {
         $this->connection->rollBack();
     }
