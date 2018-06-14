@@ -41,7 +41,7 @@ final class LayoutNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);
@@ -78,7 +78,7 @@ final class LayoutNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZones
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
      */
-    public function testNormalizeLayout()
+    public function testNormalizeLayout(): void
     {
         $date1 = new DateTimeImmutable();
         $date1 = $date1->setTimestamp(123);
@@ -208,7 +208,7 @@ final class LayoutNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
      */
-    public function testNormalizeLayoutWithArchivedLayout()
+    public function testNormalizeLayoutWithArchivedLayout(): void
     {
         $date1 = new DateTimeImmutable();
         $date1 = $date1->setTimestamp(123);
@@ -258,17 +258,12 @@ final class LayoutNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

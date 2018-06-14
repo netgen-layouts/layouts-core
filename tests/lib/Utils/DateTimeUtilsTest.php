@@ -15,7 +15,7 @@ final class DateTimeUtilsTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
      */
-    public function testCreateFromTimestamp()
+    public function testCreateFromTimestamp(): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1521800000);
@@ -32,7 +32,7 @@ final class DateTimeUtilsTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
      */
-    public function testCreateFromTimestampWithTimestamp()
+    public function testCreateFromTimestampWithTimestamp(): void
     {
         $dateTime = DateTimeUtils::createFromTimestamp(123);
 
@@ -44,7 +44,7 @@ final class DateTimeUtilsTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
      */
-    public function testCreateFromTimestampWithTimestampAndTimeZone()
+    public function testCreateFromTimestampWithTimestampAndTimeZone(): void
     {
         $dateTime = DateTimeUtils::createFromTimestamp(123, 'Antarctica/Casey');
 
@@ -54,19 +54,15 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @param \DateTimeInterface $from
-     * @param \DateTimeInterface $to
-     * @param bool $result
-     *
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::isBetweenDates
      * @dataProvider isBetweenDatesProvider
      */
-    public function testIsBetweenDates(DateTimeInterface $from = null, DateTimeInterface $to = null, $result = false)
+    public function testIsBetweenDates(DateTimeInterface $from = null, DateTimeInterface $to = null, bool $result = false): void
     {
         $this->assertEquals($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
 
-    public function isBetweenDatesProvider()
+    public function isBetweenDatesProvider(): array
     {
         return [
             [new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
@@ -90,13 +86,10 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @param array $input
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromArray
      * @dataProvider createFromArrayProvider
      */
-    public function testCreateFromArray(array $input, $isValid)
+    public function testCreateFromArray(array $input, bool $isValid): void
     {
         $dateTime = DateTimeUtils::createFromArray($input);
 
@@ -110,7 +103,7 @@ final class DateTimeUtilsTest extends TestCase
         $this->assertEquals($input['timezone'], $dateTime->getTimezone()->getName());
     }
 
-    public function createFromArrayProvider()
+    public function createFromArrayProvider(): array
     {
         return [
             [['datetime' => '2018-03-31 11:00:00', 'timezone' => 'Antarctica/Casey'], true],
@@ -129,7 +122,7 @@ final class DateTimeUtilsTest extends TestCase
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::getTimeZoneList
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::parseTimeZone
      */
-    public function testGetTimeZoneList()
+    public function testGetTimeZoneList(): void
     {
         $timeZones = DateTimeUtils::getTimeZoneList();
 

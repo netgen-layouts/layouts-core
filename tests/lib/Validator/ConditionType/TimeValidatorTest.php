@@ -9,32 +9,27 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\ConditionType\TimeValidator;
 use Netgen\BlockManager\Validator\Constraint\ConditionType\Time;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class TimeValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new Time();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         return new TimeValidator();
     }
 
     /**
-     * @param string $value
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\ConditionType\TimeValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $isValid)
+    public function testValidate(?array $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
@@ -44,7 +39,7 @@ final class TimeValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\ConditionType\Time", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, new DateTimeImmutable());
@@ -55,12 +50,12 @@ final class TimeValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "array", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             [['from' => [], 'to' => []], false],

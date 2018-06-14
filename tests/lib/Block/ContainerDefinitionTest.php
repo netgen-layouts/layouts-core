@@ -20,7 +20,7 @@ final class ContainerDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->handler = new ContainerDefinitionHandler();
 
@@ -35,7 +35,7 @@ final class ContainerDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\ContainerDefinition::getPlaceholders
      */
-    public function testGetPlaceholders()
+    public function testGetPlaceholders(): void
     {
         $this->assertEquals(['left', 'right'], $this->blockDefinition->getPlaceholders());
     }

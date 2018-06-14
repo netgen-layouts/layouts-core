@@ -20,7 +20,7 @@ final class ConfigDefinitionTest extends TestCase
      */
     private $configDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->handler = new ConfigDefinitionHandler();
 
@@ -35,7 +35,7 @@ final class ConfigDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Config\ConfigDefinition::getConfigKey
      */
-    public function testGetConfigKey()
+    public function testGetConfigKey(): void
     {
         $this->assertEquals('config_definition', $this->configDefinition->getConfigKey());
     }

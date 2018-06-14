@@ -14,7 +14,7 @@ final class CacheableViewTraitTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->view = new CacheableView();
     }
@@ -23,7 +23,7 @@ final class CacheableViewTraitTest extends TestCase
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::getSharedMaxAge
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::isCacheable
      */
-    public function testDefaultValues()
+    public function testDefaultValues(): void
     {
         $this->assertTrue($this->view->isCacheable());
         $this->assertEquals(0, $this->view->getSharedMaxAge());
@@ -33,7 +33,7 @@ final class CacheableViewTraitTest extends TestCase
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::isCacheable
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::setIsCacheable
      */
-    public function testGetSetIsCacheable()
+    public function testGetSetIsCacheable(): void
     {
         $this->view->setIsCacheable(false);
         $this->assertFalse($this->view->isCacheable());
@@ -43,7 +43,7 @@ final class CacheableViewTraitTest extends TestCase
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::getSharedMaxAge
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::setSharedMaxAge
      */
-    public function testGetSetSharedMaxAge()
+    public function testGetSetSharedMaxAge(): void
     {
         $this->view->setSharedMaxAge(42);
         $this->assertEquals(42, $this->view->getSharedMaxAge());

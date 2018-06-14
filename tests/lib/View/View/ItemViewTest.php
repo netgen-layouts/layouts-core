@@ -20,7 +20,7 @@ final class ItemViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->item = new Item(
             [
@@ -44,7 +44,7 @@ final class ItemViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\ItemView::__construct
      * @covers \Netgen\BlockManager\View\View\ItemView::getItem
      */
-    public function testGetItem()
+    public function testGetItem(): void
     {
         $this->assertEquals($this->item, $this->view->getItem());
         $this->assertEquals(
@@ -60,7 +60,7 @@ final class ItemViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\ItemView::getViewType
      */
-    public function testGetViewType()
+    public function testGetViewType(): void
     {
         $this->assertEquals('view_type', $this->view->getViewType());
     }
@@ -68,7 +68,7 @@ final class ItemViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\ItemView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('item_view', $this->view->getIdentifier());
     }

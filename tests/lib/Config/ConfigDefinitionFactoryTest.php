@@ -28,7 +28,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
         $this->parameterBuilderFactoryMock
@@ -47,7 +47,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Config\ConfigDefinitionFactory::__construct
      * @covers \Netgen\BlockManager\Config\ConfigDefinitionFactory::buildConfigDefinition
      */
-    public function testBuildConfigDefinition()
+    public function testBuildConfigDefinition(): void
     {
         $this->handlerMock = $this->createMock(ConfigDefinitionHandlerInterface::class);
 

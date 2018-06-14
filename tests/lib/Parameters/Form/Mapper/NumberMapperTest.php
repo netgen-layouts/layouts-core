@@ -17,7 +17,7 @@ final class NumberMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new NumberMapper();
     }
@@ -25,7 +25,7 @@ final class NumberMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(NumberType::class, $this->mapper->getFormType());
     }
@@ -33,7 +33,7 @@ final class NumberMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper::mapOptions
      */
-    public function testMapOptions()
+    public function testMapOptions(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [

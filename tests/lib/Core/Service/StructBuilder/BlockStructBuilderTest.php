@@ -18,7 +18,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
      */
     private $structBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder::__construct
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder::newBlockCreateStruct
      */
-    public function testNewBlockCreateStruct()
+    public function testNewBlockCreateStruct(): void
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
 
@@ -58,7 +58,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
      */
-    public function testNewBlockUpdateStruct()
+    public function testNewBlockUpdateStruct(): void
     {
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->locale = 'en';
@@ -72,7 +72,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
      */
-    public function testNewBlockUpdateStructFromBlock()
+    public function testNewBlockUpdateStructFromBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(36);
 

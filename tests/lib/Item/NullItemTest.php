@@ -18,7 +18,7 @@ final class NullItemTest extends TestCase
      * @covers \Netgen\BlockManager\Item\NullItem::getValueType
      * @covers \Netgen\BlockManager\Item\NullItem::isVisible
      */
-    public function testObject()
+    public function testObject(): void
     {
         $value = new NullItem('value');
 

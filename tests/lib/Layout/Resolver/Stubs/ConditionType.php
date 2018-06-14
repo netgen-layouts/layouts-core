@@ -20,23 +20,23 @@ final class ConditionType implements ConditionTypeInterface
      */
     private $matches = true;
 
-    public function __construct($type, $matches = true)
+    public function __construct(string $type, bool $matches = true)
     {
         $this->type = $type;
         $this->matches = $matches;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [new Constraints\NotBlank()];
     }
 
-    public function matches(Request $request, $value)
+    public function matches(Request $request, $value): bool
     {
         return $this->matches;
     }

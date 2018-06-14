@@ -14,7 +14,7 @@ final class FormTest extends TestCase
      */
     private $form;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->form = new Form(['identifier' => 'content', 'type' => 'form_type']);
     }
@@ -23,7 +23,7 @@ final class FormTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('content', $this->form->getIdentifier());
     }
@@ -31,7 +31,7 @@ final class FormTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('form_type', $this->form->getType());
     }

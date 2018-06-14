@@ -29,7 +29,7 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
@@ -41,7 +41,7 @@ final class CollectionResultNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $collectionItem = new CollectionItem(
             [
@@ -98,7 +98,7 @@ final class CollectionResultNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
-    public function testNormalizeWithoutCollectionItem()
+    public function testNormalizeWithoutCollectionItem(): void
     {
         $item = new Item(
             [
@@ -137,7 +137,7 @@ final class CollectionResultNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
-    public function testNormalizeWithSlot()
+    public function testNormalizeWithSlot(): void
     {
         $item = new Slot();
 
@@ -169,7 +169,7 @@ final class CollectionResultNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
-    public function testNormalizeWithSubItem()
+    public function testNormalizeWithSubItem(): void
     {
         $collectionItem = new CollectionItem(
             [
@@ -248,17 +248,12 @@ final class CollectionResultNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

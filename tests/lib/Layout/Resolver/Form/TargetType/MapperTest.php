@@ -14,7 +14,7 @@ final class MapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = $this->getMockForAbstractClass(Mapper::class);
     }
@@ -22,7 +22,7 @@ final class MapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
      */
-    public function testGetFormOptions()
+    public function testGetFormOptions(): void
     {
         $this->assertEquals(
             [],

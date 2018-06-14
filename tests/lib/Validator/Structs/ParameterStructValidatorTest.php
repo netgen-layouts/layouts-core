@@ -14,12 +14,14 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ParameterStructValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $compoundParameter = new CompoundParameterDefinition(
             [
@@ -58,10 +60,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         $parameterFilterRegistry = new ParameterFilterRegistry();
         $parameterFilterRegistry->addParameterFilter('text_line', new ParameterFilter());
@@ -70,10 +69,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
-     * @param bool $required
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
@@ -83,7 +78,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $required, $isValid)
+    public function testValidate(array $value, bool $required, bool $isValid): void
     {
         $this->constraint->allowMissingFields = !$required;
 
@@ -94,10 +89,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
-     * @param bool $required
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
@@ -107,7 +98,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProviderWithRuntimeConstraints
      */
-    public function testValidateWithRuntimeConstraints($value, $required, $isValid)
+    public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void
     {
         $compoundParameter = new CompoundParameterDefinition(
             [
@@ -136,7 +127,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'isRequired' => true,
                                 'constraints' => [
                                     new Length(['max' => 6]),
-                                    function () {
+                                    function (): Constraint {
                                         return new Length(['min' => 3]);
                                     },
                                 ],
@@ -162,7 +153,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockCreateStruct());
@@ -173,12 +164,12 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\ParameterStruct", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             [['css_id' => 'ID', 'checkbox' => true, 'param' => 'value'], true, true],
@@ -232,7 +223,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    public function validateDataProviderWithRuntimeConstraints()
+    public function validateDataProviderWithRuntimeConstraints(): array
     {
         return [
             [['css_id' => 'fo'], true, false],

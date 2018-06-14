@@ -8,12 +8,12 @@ use Netgen\BlockManager\Item\ValueConverterInterface;
 
 final class ValueConverter implements ValueConverterInterface
 {
-    public function supports($object)
+    public function supports($object): bool
     {
         return $object instanceof Value;
     }
 
-    public function getValueType($object)
+    public function getValueType($object): string
     {
         return 'value';
     }
@@ -28,12 +28,12 @@ final class ValueConverter implements ValueConverterInterface
         return $object->getRemoteId();
     }
 
-    public function getName($object)
+    public function getName($object): string
     {
         return 'Some value';
     }
 
-    public function getIsVisible($object)
+    public function getIsVisible($object): bool
     {
         return $object->isVisible();
     }

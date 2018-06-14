@@ -21,7 +21,7 @@ final class DebugErrorHandlerTest extends TestCase
      */
     private $errorHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
@@ -33,7 +33,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
      */
-    public function testHandleError()
+    public function testHandleError(): void
     {
         $exception = new Exception('Test message');
 
@@ -52,7 +52,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
      */
-    public function testHandleErrorWithCustomMessage()
+    public function testHandleErrorWithCustomMessage(): void
     {
         $exception = new Exception('Test message');
 
@@ -71,7 +71,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
      */
-    public function testHandleErrorWithEmptyMessage()
+    public function testHandleErrorWithEmptyMessage(): void
     {
         $exception = new Exception('Test message');
 
@@ -90,7 +90,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
      */
-    public function testHandleErrorWithContext()
+    public function testHandleErrorWithContext(): void
     {
         $exception = new Exception('Test message');
 
@@ -111,7 +111,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test message
      */
-    public function testHandleErrorThrowsError()
+    public function testHandleErrorThrowsError(): void
     {
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
@@ -134,7 +134,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test message
      */
-    public function testHandleErrorThrowsErrorWithCustomMessage()
+    public function testHandleErrorThrowsErrorWithCustomMessage(): void
     {
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
@@ -157,7 +157,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test message
      */
-    public function testHandleErrorThrowsErrorWithEmptyMessage()
+    public function testHandleErrorThrowsErrorWithEmptyMessage(): void
     {
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
@@ -181,7 +181,7 @@ final class DebugErrorHandlerTest extends TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test message
      */
-    public function testHandleErrorThrowsErrorWithContext()
+    public function testHandleErrorThrowsErrorWithContext(): void
     {
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 

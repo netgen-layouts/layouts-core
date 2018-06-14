@@ -21,7 +21,7 @@ final class FormMapperRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new FormMapperRegistry();
 
@@ -34,7 +34,7 @@ final class FormMapperRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::addFormMapper
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::getFormMappers
      */
-    public function testAddFormMapper()
+    public function testAddFormMapper(): void
     {
         $this->assertEquals(['mapper' => $this->formMapper], $this->registry->getFormMappers());
     }
@@ -42,7 +42,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::hasFormMapper
      */
-    public function testHasFormMapper()
+    public function testHasFormMapper(): void
     {
         $this->assertTrue($this->registry->hasFormMapper('mapper'));
     }
@@ -50,7 +50,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::hasFormMapper
      */
-    public function testHasFormMapperWithNoFormMapper()
+    public function testHasFormMapperWithNoFormMapper(): void
     {
         $this->assertFalse($this->registry->hasFormMapper('other_mapper'));
     }
@@ -58,7 +58,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::getFormMapper
      */
-    public function testGetFormMapper()
+    public function testGetFormMapper(): void
     {
         $this->assertEquals($this->formMapper, $this->registry->getFormMapper('mapper'));
     }
@@ -68,7 +68,7 @@ final class FormMapperRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Form mapper for "other_mapper" parameter type does not exist.
      */
-    public function testGetFormMapperThrowsParameterTypeException()
+    public function testGetFormMapperThrowsParameterTypeException(): void
     {
         $this->registry->getFormMapper('other_mapper');
     }
@@ -76,7 +76,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -91,7 +91,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -99,7 +99,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('mapper', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -108,7 +108,7 @@ final class FormMapperRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->formMapper, $this->registry['mapper']);
     }
@@ -118,7 +118,7 @@ final class FormMapperRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['mapper'] = $this->formMapper;
     }
@@ -128,7 +128,7 @@ final class FormMapperRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['mapper']);
     }

@@ -19,7 +19,7 @@ final class ContextProvider implements ContextProviderInterface
         $this->variables = $variables;
     }
 
-    public function provideContext(ContextInterface $context)
+    public function provideContext(ContextInterface $context): void
     {
         $context->add($this->variables);
     }

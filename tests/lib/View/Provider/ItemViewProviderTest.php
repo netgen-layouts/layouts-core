@@ -18,7 +18,7 @@ final class ItemViewProviderTest extends TestCase
      */
     private $itemViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemViewProvider = new ItemViewProvider();
     }
@@ -26,7 +26,7 @@ final class ItemViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $item = new Item();
 
@@ -51,7 +51,7 @@ final class ItemViewProviderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be provided.
      */
-    public function testProvideViewThrowsViewProviderExceptionOnMissingViewType()
+    public function testProvideViewThrowsViewProviderExceptionOnMissingViewType(): void
     {
         $this->itemViewProvider->provideView(new Item());
     }
@@ -61,29 +61,24 @@ final class ItemViewProviderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be of "string" type.
      */
-    public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType()
+    public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType(): void
     {
         $this->itemViewProvider->provideView(new Item(), ['view_type' => 42]);
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->itemViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

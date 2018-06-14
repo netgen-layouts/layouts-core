@@ -16,7 +16,7 @@ final class RouteParameterTest extends TestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->conditionType = new RouteParameter();
     }
@@ -24,7 +24,7 @@ final class RouteParameterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('route_parameter', $this->conditionType->getType());
     }
@@ -36,7 +36,7 @@ final class RouteParameterTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -52,7 +52,7 @@ final class RouteParameterTest extends TestCase
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches($value, $matches)
+    public function testMatches($value, bool $matches): void
     {
         $request = Request::create('/');
         $request->attributes->set(
@@ -65,12 +65,7 @@ final class RouteParameterTest extends TestCase
         $this->assertEquals($matches, $this->conditionType->matches($request, $value));
     }
 
-    /**
-     * Provider for testing condition type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [['parameter_name' => 'name', 'parameter_values' => ['one', 'two']], true],
@@ -95,12 +90,7 @@ final class RouteParameterTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for {@link self::testMatches}.
-     *
-     * @return array
-     */
-    public function matchesProvider()
+    public function matchesProvider(): array
     {
         return [
             ['not_array', false],

@@ -15,7 +15,7 @@ final class NullTargetTypeTest extends TestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->targetType = new NullTargetType('type');
     }
@@ -24,7 +24,7 @@ final class NullTargetTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('type', $this->targetType->getType());
     }
@@ -32,7 +32,7 @@ final class NullTargetTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::getConstraints
      */
-    public function testGetConstraints()
+    public function testGetConstraints(): void
     {
         $this->assertEquals([], $this->targetType->getConstraints());
     }
@@ -40,7 +40,7 @@ final class NullTargetTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::provideValue
      */
-    public function testProvideValue()
+    public function testProvideValue(): void
     {
         $this->assertNull($this->targetType->provideValue(Request::create('')));
     }

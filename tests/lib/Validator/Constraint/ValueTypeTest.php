@@ -12,7 +12,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\ValueType::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new ValueType();
         $this->assertEquals('ngbm_value_type', $constraint->validatedBy());

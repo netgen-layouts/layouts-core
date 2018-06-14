@@ -15,20 +15,16 @@ final class VisitorTest extends TestCase
      */
     private $visitor;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->visitor = new ValueVisitor();
     }
 
     /**
-     * @param int $status
-     * @param array $visitedValue
-     *
      * @covers \Netgen\BlockManager\Transfer\Output\Visitor::getStatusString
-     *
      * @dataProvider visitProvider
      */
-    public function testVisit($status, array $visitedValue)
+    public function testVisit(int $status, array $visitedValue): void
     {
         $this->assertEquals($visitedValue, $this->visitor->visit(new Value(['status' => $status])));
     }
@@ -38,12 +34,12 @@ final class VisitorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Unknown status '9999'
      */
-    public function testVisitThrowsRuntimeExceptionWithInvalidStatus()
+    public function testVisitThrowsRuntimeExceptionWithInvalidStatus(): void
     {
         $this->visitor->visit(new Value(['status' => 9999]));
     }
 
-    public function visitProvider()
+    public function visitProvider(): array
     {
         return [
             [Value::STATUS_DRAFT, ['status' => 'DRAFT']],

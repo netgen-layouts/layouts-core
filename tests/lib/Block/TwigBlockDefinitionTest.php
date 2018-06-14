@@ -21,7 +21,7 @@ final class TwigBlockDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->handler = new TwigBlockDefinitionHandler();
 
@@ -36,7 +36,7 @@ final class TwigBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\TwigBlockDefinition::getTwigBlockName
      */
-    public function testGetTwigBlockName()
+    public function testGetTwigBlockName(): void
     {
         $this->assertEquals('twig_block', $this->blockDefinition->getTwigBlockName(new Block()));
     }

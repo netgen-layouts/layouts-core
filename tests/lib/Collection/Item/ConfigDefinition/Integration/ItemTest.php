@@ -8,7 +8,9 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
+use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
@@ -16,10 +18,11 @@ use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class ItemTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -32,11 +35,9 @@ abstract class ItemTest extends ServiceTestCase
     }
 
     /**
-     * @param array $config
-     * @param array $expectedConfig
      * @dataProvider configDataProvider
      */
-    public function testCreateItem(array $config, array $expectedConfig)
+    public function testCreateItem(array $config, array $expectedConfig): void
     {
         $configDefinition = $this->createConfigDefinition();
 
@@ -65,11 +66,10 @@ abstract class ItemTest extends ServiceTestCase
     }
 
     /**
-     * @param array $config
      * @dataProvider invalidConfigDataProvider
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public function testCreateItemWithInvalidConfig(array $config)
+    public function testCreateItemWithInvalidConfig(array $config): void
     {
         if (empty($config)) {
             throw ValidationException::validationFailed('config', 'Invalid config');
@@ -88,37 +88,20 @@ abstract class ItemTest extends ServiceTestCase
         $this->collectionService->addItem($collection, $itemCreateStruct);
     }
 
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
-     */
-    abstract public function createConfigDefinitionHandler();
+    abstract public function createConfigDefinitionHandler(): ConfigDefinitionHandlerInterface;
 
-    /**
-     * @return array
-     */
-    abstract public function configDataProvider();
+    abstract public function configDataProvider(): array;
 
-    /**
-     * @return array
-     */
-    abstract public function invalidConfigDataProvider();
+    abstract public function invalidConfigDataProvider(): array;
 
-    /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    public function getValidator()
+    public function getValidator(): ValidatorInterface
     {
         return Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
     }
 
-    /**
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface $configDefinition
-     *
-     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
-     */
-    private function createItemDefinition(ConfigDefinitionInterface $configDefinition)
+    private function createItemDefinition(ConfigDefinitionInterface $configDefinition): ItemDefinitionInterface
     {
         $itemDefinition = new ItemDefinition(
             [
@@ -132,10 +115,7 @@ abstract class ItemTest extends ServiceTestCase
         return $itemDefinition;
     }
 
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
-     */
-    private function createConfigDefinition()
+    private function createConfigDefinition(): ConfigDefinitionInterface
     {
         $handler = $this->createConfigDefinitionHandler();
 

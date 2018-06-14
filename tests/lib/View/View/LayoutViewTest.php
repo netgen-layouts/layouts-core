@@ -20,7 +20,7 @@ final class LayoutViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layout = new Layout(['id' => 42]);
 
@@ -38,7 +38,7 @@ final class LayoutViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\LayoutView::__construct
      * @covers \Netgen\BlockManager\View\View\LayoutView::getLayout
      */
-    public function testGetLayout()
+    public function testGetLayout(): void
     {
         $this->assertEquals($this->layout, $this->view->getLayout());
         $this->assertEquals(
@@ -53,7 +53,7 @@ final class LayoutViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\LayoutView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('layout_view', $this->view->getIdentifier());
     }

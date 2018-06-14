@@ -12,7 +12,7 @@ final class TemplateResolverExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $exception = new TemplateResolverException();
 
@@ -25,7 +25,7 @@ final class TemplateResolverExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::noTemplateMatcher
      */
-    public function testNoTemplateMatcher()
+    public function testNoTemplateMatcher(): void
     {
         $exception = TemplateResolverException::noTemplateMatcher('matcher');
 
@@ -38,7 +38,7 @@ final class TemplateResolverExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::noTemplateMatch
      */
-    public function testNoTemplateMatch()
+    public function testNoTemplateMatch(): void
     {
         $exception = TemplateResolverException::noTemplateMatch('block_view', 'default');
 

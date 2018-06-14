@@ -15,7 +15,7 @@ final class ContextualQueryRunnerTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::runQuery
      */
-    public function testRunner()
+    public function testRunner(): void
     {
         $queryRunner = new ContextualQueryRunner();
 

@@ -12,7 +12,7 @@ final class TranslationExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Core\TranslationException::noTranslation
      */
-    public function testNoTranslation()
+    public function testNoTranslation(): void
     {
         $exception = TranslationException::noTranslation('en');
 

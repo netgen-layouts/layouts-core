@@ -21,7 +21,7 @@ final class ContextBuilderTest extends TestCase
      */
     private $contextBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->contextBuilder = new ContextBuilder();
 
@@ -32,7 +32,7 @@ final class ContextBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Context\ContextBuilder::buildContext
      * @covers \Netgen\BlockManager\Context\ContextBuilder::registerProvider
      */
-    public function testBuildContext()
+    public function testBuildContext(): void
     {
         $this->contextBuilder->registerProvider(new ContextProvider(['var1' => 'value1']));
         $this->contextBuilder->registerProvider(new ContextProvider(['var2' => 'value2']));

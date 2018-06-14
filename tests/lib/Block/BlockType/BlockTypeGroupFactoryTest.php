@@ -14,7 +14,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory::buildBlockTypeGroup
      */
-    public function testBuildBlockTypeGroup()
+    public function testBuildBlockTypeGroup(): void
     {
         $blockTypeGroup = BlockTypeGroupFactory::buildBlockTypeGroup(
             'simple_blocks',

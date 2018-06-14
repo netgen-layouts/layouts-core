@@ -36,7 +36,7 @@ final class CollectionValidatorTest extends TestCase
      */
     private $collectionValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -47,13 +47,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param array $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
      */
-    public function testValidateCollectionCreateStruct(array $params, $isValid)
+    public function testValidateCollectionCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -68,14 +65,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isDynamic
-     * @param array $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
      * @dataProvider validateCollectionUpdateStructProvider
      */
-    public function testValidateCollectionUpdateStruct(array $params, $isDynamic, $isValid)
+    public function testValidateCollectionUpdateStruct(array $params, bool $isDynamic, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -91,13 +84,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
      * @dataProvider validateItemCreateStructProvider
      */
-    public function testValidateItemCreateStruct(array $params, $isValid)
+    public function testValidateItemCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -110,13 +100,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemUpdateStruct
      * @dataProvider validateItemUpdateStructDataProvider
      */
-    public function testValidateItemUpdateStruct(array $params, $isValid)
+    public function testValidateItemUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -141,7 +128,7 @@ final class CollectionValidatorTest extends TestCase
         );
     }
 
-    public function validateItemUpdateStructDataProvider()
+    public function validateItemUpdateStructDataProvider(): array
     {
         return [
             [
@@ -174,13 +161,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param array $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
      * @dataProvider validateQueryCreateStructProvider
      */
-    public function testValidateQueryCreateStruct(array $params, $isValid)
+    public function testValidateQueryCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -193,13 +177,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param array $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
      * @dataProvider validateQueryUpdateStructProvider
      */
-    public function testValidateQueryUpdateStruct(array $params, $isValid)
+    public function testValidateQueryUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -214,7 +195,7 @@ final class CollectionValidatorTest extends TestCase
         );
     }
 
-    public function validateCollectionCreateStructProvider()
+    public function validateCollectionCreateStructProvider(): array
     {
         return [
             [
@@ -318,7 +299,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateCollectionUpdateStructProvider()
+    public function validateCollectionUpdateStructProvider(): array
     {
         return [
             [
@@ -464,7 +445,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateItemCreateStructProvider()
+    public function validateItemCreateStructProvider(): array
     {
         return [
             [
@@ -491,7 +472,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateQueryCreateStructProvider()
+    public function validateQueryCreateStructProvider(): array
     {
         return [
             [
@@ -549,7 +530,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateQueryUpdateStructProvider()
+    public function validateQueryUpdateStructProvider(): array
     {
         return [
             [

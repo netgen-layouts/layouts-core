@@ -18,19 +18,16 @@ final class ViewTypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new ViewType();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Item\ViewType::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $view = new ItemView(
             [
@@ -42,12 +39,7 @@ final class ViewTypeTest extends TestCase
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -61,7 +53,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Item\ViewType::match
      */
-    public function testMatchWithNoItemView()
+    public function testMatchWithNoItemView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

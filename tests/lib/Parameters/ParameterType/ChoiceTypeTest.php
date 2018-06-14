@@ -13,7 +13,7 @@ final class ChoiceTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->type = new ChoiceType();
     }
@@ -21,7 +21,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('choice', $this->type->getIdentifier());
     }
@@ -36,7 +36,7 @@ final class ChoiceTypeTest extends TestCase
      *
      * @dataProvider defaultValueProvider
      */
-    public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
+    public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         $this->assertEquals($expected, $parameter->getDefaultValue());
@@ -45,11 +45,8 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
      * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
      */
-    public function testValidOptions($options, $resolvedOptions)
+    public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
@@ -59,22 +56,18 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
      */
-    public function testInvalidOptions($options)
+    public function testInvalidOptions(array $options): void
     {
         $this->getParameterDefinition($options);
     }
 
     /**
      * Provider for testing default parameter values.
-     *
-     * @return array
      */
-    public function defaultValueProvider()
+    public function defaultValueProvider(): array
     {
-        $optionsClosure = function () {
+        $optionsClosure = function (): array {
             return ['Option' => 'option'];
         };
 
@@ -92,10 +85,8 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * Provider for testing valid parameter attributes.
-     *
-     * @return array
      */
-    public function validOptionsProvider()
+    public function validOptionsProvider(): array
     {
         return [
             [
@@ -184,13 +175,13 @@ final class ChoiceTypeTest extends TestCase
             ],
             [
                 [
-                    'options' => function () {
+                    'options' => function (): void {
                     },
                 ],
                 [
                     'multiple' => false,
                     'expanded' => false,
-                    'options' => function () {
+                    'options' => function (): void {
                     },
                 ],
             ],
@@ -199,10 +190,8 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * Provider for testing invalid parameter attributes.
-     *
-     * @return array
      */
-    public function invalidOptionsProvider()
+    public function invalidOptionsProvider(): array
     {
         return [
             [
@@ -251,7 +240,7 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['options' => ['One' => 1, 'Two' => 2]]);
         $validator = Validation::createValidator();
@@ -267,9 +256,9 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidationWithClosure($value, $isValid)
+    public function testValidationWithClosure($value, bool $isValid): void
     {
-        $closure = function () {
+        $closure = function (): array {
             return ['One' => 1, 'Two' => 2];
         };
 
@@ -282,10 +271,8 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * Provider for testing valid parameter values.
-     *
-     * @return array
      */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [1, true],
@@ -305,7 +292,7 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::fromHash
      * @dataProvider fromHashProvider
      */
-    public function testFromHash($value, $convertedValue, $multiple)
+    public function testFromHash($value, $convertedValue, bool $multiple): void
     {
         $this->assertEquals(
             $convertedValue,
@@ -321,7 +308,7 @@ final class ChoiceTypeTest extends TestCase
         );
     }
 
-    public function fromHashProvider()
+    public function fromHashProvider(): array
     {
         return [
             [
@@ -374,17 +361,12 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::isValueEmpty
      * @dataProvider emptyProvider
      */
-    public function testIsValueEmpty($value, $isEmpty)
+    public function testIsValueEmpty($value, bool $isEmpty): void
     {
         $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
-    /**
-     * Provider for testing if the value is empty.
-     *
-     * @return array
-     */
-    public function emptyProvider()
+    public function emptyProvider(): array
     {
         return [
             [null, true],

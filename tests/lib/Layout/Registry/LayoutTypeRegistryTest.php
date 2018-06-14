@@ -26,7 +26,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new LayoutTypeRegistry();
 
@@ -41,7 +41,7 @@ final class LayoutTypeRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::addLayoutType
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
-    public function testGetLayoutTypes()
+    public function testGetLayoutTypes(): void
     {
         $this->assertEquals(
             [
@@ -56,7 +56,7 @@ final class LayoutTypeRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::addLayoutType
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
-    public function testGetEnabledLayoutTypes()
+    public function testGetEnabledLayoutTypes(): void
     {
         $this->assertEquals(
             [
@@ -69,7 +69,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::hasLayoutType
      */
-    public function testHasLayoutType()
+    public function testHasLayoutType(): void
     {
         $this->assertTrue($this->registry->hasLayoutType('layout_type1'));
     }
@@ -77,7 +77,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::hasLayoutType
      */
-    public function testHasLayoutTypeWithNoLayoutType()
+    public function testHasLayoutTypeWithNoLayoutType(): void
     {
         $this->assertFalse($this->registry->hasLayoutType('other_layout_type'));
     }
@@ -85,7 +85,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutType
      */
-    public function testGetLayoutType()
+    public function testGetLayoutType(): void
     {
         $this->assertEquals($this->layoutType1, $this->registry->getLayoutType('layout_type1'));
     }
@@ -95,7 +95,7 @@ final class LayoutTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
      * @expectedExceptionMessage Layout type with "other_layout_type" identifier does not exist.
      */
-    public function testGetLayoutTypeThrowsLayoutTypeException()
+    public function testGetLayoutTypeThrowsLayoutTypeException(): void
     {
         $this->registry->getLayoutType('other_layout_type');
     }
@@ -103,7 +103,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -118,7 +118,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(2, $this->registry);
     }
@@ -126,7 +126,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('layout_type1', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -135,7 +135,7 @@ final class LayoutTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->layoutType1, $this->registry['layout_type1']);
     }
@@ -145,7 +145,7 @@ final class LayoutTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['layout_type1'] = $this->layoutType1;
     }
@@ -155,7 +155,7 @@ final class LayoutTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['layout_type1']);
     }

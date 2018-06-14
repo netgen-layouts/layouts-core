@@ -14,7 +14,7 @@ final class NullClientTest extends TestCase
      */
     private $client;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = new NullClient();
     }
@@ -22,7 +22,7 @@ final class NullClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateLayouts
      */
-    public function testInvalidateLayouts()
+    public function testInvalidateLayouts(): void
     {
         $this->assertNull($this->client->invalidateLayouts([24, 42]));
     }
@@ -30,7 +30,7 @@ final class NullClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateAllLayouts
      */
-    public function testInvalidateAllLayouts()
+    public function testInvalidateAllLayouts(): void
     {
         $this->assertNull($this->client->invalidateAllLayouts());
     }
@@ -38,7 +38,7 @@ final class NullClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateBlocks
      */
-    public function testInvalidateBlocks()
+    public function testInvalidateBlocks(): void
     {
         $this->assertNull($this->client->invalidateBlocks([24, 42]));
     }
@@ -46,7 +46,7 @@ final class NullClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateLayoutBlocks
      */
-    public function testInvalidateLayoutBlocks()
+    public function testInvalidateLayoutBlocks(): void
     {
         $this->assertNull($this->client->invalidateLayoutBlocks([24, 42]));
     }
@@ -54,7 +54,7 @@ final class NullClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateAllBlocks
      */
-    public function testInvalidateAllBlocks()
+    public function testInvalidateAllBlocks(): void
     {
         $this->assertNull($this->client->invalidateAllBlocks());
     }
@@ -62,7 +62,7 @@ final class NullClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\NullClient::commit
      */
-    public function testCommit()
+    public function testCommit(): void
     {
         $this->assertTrue($this->client->commit());
     }

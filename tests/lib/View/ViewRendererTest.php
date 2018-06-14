@@ -28,7 +28,7 @@ final class ViewRendererTest extends TestCase
      */
     private $viewRenderer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->eventDispatcherMock = $this
             ->createMock(EventDispatcherInterface::class);
@@ -46,7 +46,7 @@ final class ViewRendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\ViewRenderer::__construct
      * @covers \Netgen\BlockManager\View\ViewRenderer::renderView
      */
-    public function testRenderView()
+    public function testRenderView(): void
     {
         $view = new View(['value' => new Value()]);
         $view->setTemplate('some_template.html.twig');

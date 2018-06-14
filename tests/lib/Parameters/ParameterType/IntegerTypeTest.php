@@ -12,7 +12,7 @@ final class IntegerTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->type = new IntegerType();
     }
@@ -20,7 +20,7 @@ final class IntegerTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('integer', $this->type->getIdentifier());
     }
@@ -35,7 +35,7 @@ final class IntegerTypeTest extends TestCase
      *
      * @dataProvider defaultValueProvider
      */
-    public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
+    public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         $this->assertEquals($expected, $parameter->getDefaultValue());
@@ -44,11 +44,8 @@ final class IntegerTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
      * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
      */
-    public function testValidOptions($options, $resolvedOptions)
+    public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
@@ -58,20 +55,13 @@ final class IntegerTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
      */
-    public function testInvalidOptions($options)
+    public function testInvalidOptions(array $options): void
     {
         $this->getParameterDefinition($options);
     }
 
-    /**
-     * Provider for testing default parameter values.
-     *
-     * @return array
-     */
-    public function defaultValueProvider()
+    public function defaultValueProvider(): array
     {
         return [
             [[], true, null, null],
@@ -85,12 +75,7 @@ final class IntegerTypeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for testing valid parameter attributes.
-     *
-     * @return array
-     */
-    public function validOptionsProvider()
+    public function validOptionsProvider(): array
     {
         return [
             [
@@ -160,12 +145,7 @@ final class IntegerTypeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for testing invalid parameter attributes.
-     *
-     * @return array
-     */
-    public function invalidOptionsProvider()
+    public function invalidOptionsProvider(): array
     {
         return [
             [
@@ -202,7 +182,7 @@ final class IntegerTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $required, $isValid)
+    public function testValidation($value, bool $required, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['min' => 5, 'max' => 10], $required);
         $validator = Validation::createValidator();
@@ -211,12 +191,7 @@ final class IntegerTypeTest extends TestCase
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
-    /**
-     * Provider for testing valid parameter values.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             ['12', false, false],
@@ -244,17 +219,12 @@ final class IntegerTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::isValueEmpty
      * @dataProvider emptyProvider
      */
-    public function testIsValueEmpty($value, $isEmpty)
+    public function testIsValueEmpty($value, bool $isEmpty): void
     {
         $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    /**
-     * Provider for testing if the value is empty.
-     *
-     * @return array
-     */
-    public function emptyProvider()
+    public function emptyProvider(): array
     {
         return [
             [null, true],

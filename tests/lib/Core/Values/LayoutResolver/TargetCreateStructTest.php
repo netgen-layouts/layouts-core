@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetCreateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $targetCreateStruct = new TargetCreateStruct(
             [

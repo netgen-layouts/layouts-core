@@ -40,7 +40,7 @@ final class ItemLinkMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
@@ -58,7 +58,7 @@ final class ItemLinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(ContentBrowserDynamicType::class, $this->mapper->getFormType());
     }
@@ -66,7 +66,7 @@ final class ItemLinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper::mapOptions
      */
-    public function testMapOptions()
+    public function testMapOptions(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -88,7 +88,7 @@ final class ItemLinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper::mapOptions
      */
-    public function testMapOptionsWithEmptyValueTypes()
+    public function testMapOptionsWithEmptyValueTypes(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -110,7 +110,7 @@ final class ItemLinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper::handleForm
      */
-    public function testHandleForm()
+    public function testHandleForm(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [

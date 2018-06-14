@@ -12,7 +12,7 @@ final class QueryTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Collection\QueryTypeException::noQueryType
      */
-    public function testNoQueryType()
+    public function testNoQueryType(): void
     {
         $exception = QueryTypeException::noQueryType('type');
 
@@ -25,7 +25,7 @@ final class QueryTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Collection\QueryTypeException::noForm
      */
-    public function testNoForm()
+    public function testNoForm(): void
     {
         $exception = QueryTypeException::noForm('type', 'form');
 

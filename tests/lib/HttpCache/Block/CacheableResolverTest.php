@@ -14,12 +14,9 @@ final class CacheableResolverTest extends TestCase
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::isCacheable
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::setVoters
      *
-     * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[] $voters
-     * @param bool $result
-     *
      * @dataProvider isCacheableProvider
      */
-    public function testIsCacheable(array $voters, $result)
+    public function testIsCacheable(array $voters, bool $result): void
     {
         $cacheableResolver = new CacheableResolver();
         $cacheableResolver->setVoters($voters);
@@ -27,7 +24,7 @@ final class CacheableResolverTest extends TestCase
         $this->assertEquals($result, $cacheableResolver->isCacheable(new Block()));
     }
 
-    public function isCacheableProvider()
+    public function isCacheableProvider(): array
     {
         return [
             [

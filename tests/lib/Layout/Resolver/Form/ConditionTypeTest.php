@@ -9,6 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ConditionTypeTest extends FormTestCase
@@ -18,17 +19,14 @@ final class ConditionTypeTest extends FormTestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->conditionType = new ConditionType('type');
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ConditionTypeForm(['other_type' => new ConditionTypeMapper()]);
     }
@@ -39,7 +37,7 @@ final class ConditionTypeTest extends FormTestCase
      * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      * @expectedExceptionMessage Form mapper for "type" condition type does not exist.
      */
-    public function testBuildFormThrowsConditionTypeException()
+    public function testBuildFormThrowsConditionTypeException(): void
     {
         $this->factory->create(
             ConditionTypeForm::class,
@@ -51,7 +49,7 @@ final class ConditionTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -74,7 +72,7 @@ final class ConditionTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "condition_type" is missing.
      */
-    public function testConfigureOptionsWithMissingConditionType()
+    public function testConfigureOptionsWithMissingConditionType(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -89,7 +87,7 @@ final class ConditionTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "condition_type" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidConditionType()
+    public function testConfigureOptionsWithInvalidConditionType(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -108,7 +106,7 @@ final class ConditionTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

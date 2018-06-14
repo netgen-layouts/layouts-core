@@ -21,6 +21,11 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 
 trait TestCaseTrait
 {
@@ -28,12 +33,8 @@ trait TestCaseTrait
 
     /**
      * Returns the persistence handler under test.
-     *
-     * @param \Doctrine\DBAL\Connection|null $connection
-     *
-     * @return \Netgen\BlockManager\Persistence\HandlerInterface
      */
-    private function createPersistenceHandler(Connection $connection = null)
+    private function createPersistenceHandler(Connection $connection = null): HandlerInterface
     {
         $this->databaseConnection = $connection ?? $this->createDatabaseConnection();
 
@@ -52,10 +53,8 @@ trait TestCaseTrait
 
     /**
      * Returns the layout handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
-    private function createLayoutHandler()
+    private function createLayoutHandler(): LayoutHandlerInterface
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
@@ -71,10 +70,8 @@ trait TestCaseTrait
 
     /**
      * Returns the block handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
-    private function createBlockHandler()
+    private function createBlockHandler(): BlockHandlerInterface
     {
         return new BlockHandler(
             new BlockQueryHandler(
@@ -89,10 +86,8 @@ trait TestCaseTrait
 
     /**
      * Returns the collection handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
-    private function createCollectionHandler()
+    private function createCollectionHandler(): CollectionHandlerInterface
     {
         return new CollectionHandler(
             new CollectionQueryHandler(
@@ -106,10 +101,8 @@ trait TestCaseTrait
 
     /**
      * Returns the layout resolver handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
-    private function createLayoutResolverHandler()
+    private function createLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return new LayoutResolverHandler(
             new LayoutResolverQueryHandler(

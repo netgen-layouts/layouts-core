@@ -16,7 +16,7 @@ final class RequestUriTest extends TestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->targetType = new RequestUri();
     }
@@ -24,7 +24,7 @@ final class RequestUriTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('request_uri', $this->targetType->getType());
     }
@@ -36,7 +36,7 @@ final class RequestUriTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -47,7 +47,7 @@ final class RequestUriTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::provideValue
      */
-    public function testProvideValue()
+    public function testProvideValue(): void
     {
         $request = Request::create('/the/answer', Request::METHOD_GET, ['a' => 42]);
 
@@ -57,12 +57,7 @@ final class RequestUriTest extends TestCase
         );
     }
 
-    /**
-     * Provider for testing target type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             ['/some/route?id=42', true],

@@ -14,7 +14,7 @@ final class CollectionTest extends TestCase
      */
     private $collection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->collection = new Collection(
             [
@@ -28,7 +28,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('collection', $this->collection->getIdentifier());
     }
@@ -36,7 +36,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::getValidQueryTypes
      */
-    public function testGetValidQueryTypes()
+    public function testGetValidQueryTypes(): void
     {
         $this->assertEquals(['query'], $this->collection->getValidQueryTypes());
     }
@@ -44,7 +44,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidQueryType
      */
-    public function testIsValidQueryType()
+    public function testIsValidQueryType(): void
     {
         $this->assertTrue($this->collection->isValidQueryType('query'));
         $this->assertFalse($this->collection->isValidQueryType('query2'));
@@ -53,7 +53,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidQueryType
      */
-    public function testIsValidQueryTypeWithAllValidTypes()
+    public function testIsValidQueryTypeWithAllValidTypes(): void
     {
         $this->collection = new Collection(
             [
@@ -68,7 +68,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidQueryType
      */
-    public function testIsValidQueryTypeWithNoValidTypes()
+    public function testIsValidQueryTypeWithNoValidTypes(): void
     {
         $this->collection = new Collection(
             [
@@ -83,7 +83,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::getValidItemTypes
      */
-    public function testGetValidItemTypes()
+    public function testGetValidItemTypes(): void
     {
         $this->assertEquals(['item'], $this->collection->getValidItemTypes());
     }
@@ -91,7 +91,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidItemType
      */
-    public function testIsValidItemType()
+    public function testIsValidItemType(): void
     {
         $this->assertTrue($this->collection->isValidItemType('item'));
         $this->assertFalse($this->collection->isValidItemType('item2'));
@@ -100,7 +100,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidItemType
      */
-    public function testIsValidItemTypeWithAllValidTypes()
+    public function testIsValidItemTypeWithAllValidTypes(): void
     {
         $this->collection = new Collection(
             [
@@ -115,7 +115,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidItemType
      */
-    public function testIsValidItemTypeWithNoValidTypes()
+    public function testIsValidItemTypeWithNoValidTypes(): void
     {
         $this->collection = new Collection(
             [

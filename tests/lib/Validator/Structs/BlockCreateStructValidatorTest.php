@@ -8,39 +8,36 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinition;
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class BlockCreateStructValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new BlockCreateStructConstraint();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         return new BlockCreateStructValidator();
     }
 
     /**
-     * @param array $value
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $isValid)
+    public function testValidate(array $value, bool $isValid): void
     {
         $this->assertValid($isValid, new BlockCreateStruct($value));
     }
@@ -50,7 +47,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockCreateStruct());
@@ -61,7 +58,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Block\BlockCreateStruct", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
@@ -71,12 +68,12 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Block\BlockDefinitionInterface", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
     {
         $this->assertValid(true, new BlockCreateStruct(['definition' => 42]));
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             [
@@ -437,7 +434,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    private function getBlockDefinition()
+    private function getBlockDefinition(): BlockDefinitionInterface
     {
         $handler = new BlockDefinitionHandlerWithRequiredParameter();
 
@@ -457,10 +454,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function getContainerDefinition()
+    private function getContainerDefinition(): ContainerDefinitionInterface
     {
         return new ContainerDefinition(
             [

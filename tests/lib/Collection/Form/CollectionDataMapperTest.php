@@ -16,7 +16,7 @@ final class CollectionDataMapperTest extends DataMapperTest
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +26,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapDataToForms
      */
-    public function testMapDataToForms()
+    public function testMapDataToForms(): void
     {
         $data = new CollectionUpdateStruct();
         $data->offset = 10;
@@ -48,7 +48,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapDataToForms
      */
-    public function testMapDataToFormsWithNoLimit()
+    public function testMapDataToFormsWithNoLimit(): void
     {
         $data = new CollectionUpdateStruct();
         $data->offset = 10;
@@ -70,7 +70,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapFormsToData
      */
-    public function testMapFormsToData()
+    public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
             [
@@ -97,7 +97,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataWithNoLimit()
+    public function testMapFormsToDataWithNoLimit(): void
     {
         $forms = new ArrayIterator(
             [

@@ -12,7 +12,7 @@ final class ParameterExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameterDefinition
      */
-    public function testNoParameterDefinition()
+    public function testNoParameterDefinition(): void
     {
         $exception = ParameterException::noParameterDefinition('param');
 
@@ -25,7 +25,7 @@ final class ParameterExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noOption
      */
-    public function testNoOption()
+    public function testNoOption(): void
     {
         $exception = ParameterException::noOption('opt');
 

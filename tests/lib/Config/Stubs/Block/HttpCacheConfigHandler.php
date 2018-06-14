@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 {
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'use_http_cache' => new ParameterDefinition(
@@ -29,7 +29,7 @@ final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
         ];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
     }
 }

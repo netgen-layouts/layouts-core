@@ -8,15 +8,13 @@ use Netgen\BlockManager\Form\KeyValuesType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 final class KeyValuesTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new KeyValuesType();
     }
@@ -25,7 +23,7 @@ final class KeyValuesTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Form\KeyValuesType::buildForm
      * @covers \Netgen\BlockManager\Form\KeyValuesType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'some_key' => 'key_value',
@@ -75,7 +73,7 @@ final class KeyValuesTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\KeyValuesType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -103,7 +101,7 @@ final class KeyValuesTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\KeyValuesType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ngbm_key_values', $this->formType->getBlockPrefix());
     }

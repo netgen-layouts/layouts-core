@@ -21,7 +21,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ItemDefinitionRegistry();
 
@@ -34,7 +34,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::addItemDefinition
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinitions
      */
-    public function testAddItemDefinition()
+    public function testAddItemDefinition(): void
     {
         $this->assertEquals(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
     }
@@ -42,7 +42,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinition
      */
-    public function testGetItemDefinition()
+    public function testGetItemDefinition(): void
     {
         $this->assertEquals($this->itemDefinition, $this->registry->getItemDefinition('item_definition'));
     }
@@ -52,7 +52,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Collection\ItemDefinitionException
      * @expectedExceptionMessage Item definition for "other_item_definition" value type does not exist.
      */
-    public function testGetItemDefinitionThrowsItemDefinitionException()
+    public function testGetItemDefinitionThrowsItemDefinitionException(): void
     {
         $this->registry->getItemDefinition('other_item_definition');
     }
@@ -60,7 +60,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::hasItemDefinition
      */
-    public function testHasItemDefinition()
+    public function testHasItemDefinition(): void
     {
         $this->assertTrue($this->registry->hasItemDefinition('item_definition'));
     }
@@ -68,7 +68,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::hasItemDefinition
      */
-    public function testHasItemDefinitionWithNoItemDefinition()
+    public function testHasItemDefinitionWithNoItemDefinition(): void
     {
         $this->assertFalse($this->registry->hasItemDefinition('other_item_definition'));
     }
@@ -76,7 +76,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -91,7 +91,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -99,7 +99,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('item_definition', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -108,7 +108,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->itemDefinition, $this->registry['item_definition']);
     }
@@ -118,7 +118,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['item_definition'] = $this->itemDefinition;
     }
@@ -128,7 +128,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['item_definition']);
     }

@@ -8,32 +8,27 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\BlockManager\Validator\LocaleValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class LocaleValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new LocaleConstraint();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         return new LocaleValidator();
     }
 
     /**
-     * @param string $value
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $isValid)
+    public function testValidate(?string $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
@@ -43,7 +38,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Locale", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'hr_HR');
@@ -54,12 +49,12 @@ final class LocaleValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             [null, true],

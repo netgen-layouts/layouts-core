@@ -14,7 +14,7 @@ final class ItemViewTypeTest extends TestCase
      */
     private $itemViewType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemViewType = new ItemViewType(['identifier' => 'standard', 'name' => 'Standard']);
     }
@@ -23,7 +23,7 @@ final class ItemViewTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('standard', $this->itemViewType->getIdentifier());
     }
@@ -31,7 +31,7 @@ final class ItemViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Standard', $this->itemViewType->getName());
     }

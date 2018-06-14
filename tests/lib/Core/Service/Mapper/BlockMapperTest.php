@@ -15,7 +15,7 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class BlockMapperTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
      */
-    public function testMapBlock()
+    public function testMapBlock(): void
     {
         $persistenceBlock = new Block(
             [
@@ -101,7 +101,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
      */
-    public function testMapBlockWithLocale()
+    public function testMapBlockWithLocale(): void
     {
         $persistenceBlock = new Block(
             [
@@ -125,7 +125,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
      */
-    public function testMapBlockWithLocales()
+    public function testMapBlockWithLocales(): void
     {
         $persistenceBlock = new Block(
             [
@@ -149,7 +149,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
      */
-    public function testMapBlockWithLocalesAndAlwaysAvailable()
+    public function testMapBlockWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceBlock = new Block(
             [
@@ -176,7 +176,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find block with identifier "42"
      */
-    public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale()
+    public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $persistenceBlock = new Block(
             [
@@ -200,7 +200,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find block with identifier "42"
      */
-    public function testMapBlockWithLocalesAndNotAlwaysAvailable()
+    public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
         $persistenceBlock = new Block(
             [
@@ -220,7 +220,7 @@ abstract class BlockMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      */
-    public function testMapBlockWithInvalidDefinition()
+    public function testMapBlockWithInvalidDefinition(): void
     {
         $persistenceBlock = new Block(
             [
@@ -282,7 +282,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
      */
-    public function testMapContainerBlock()
+    public function testMapContainerBlock(): void
     {
         $persistenceBlock = new Block(
             [
@@ -330,7 +330,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapCollectionReferences
      */
-    public function testMapBlockWithCollectionReferences()
+    public function testMapBlockWithCollectionReferences(): void
     {
         $persistenceBlock = new Block(
             [

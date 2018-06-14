@@ -20,18 +20,18 @@ final class TargetType implements TargetTypeInterface
      */
     private $value;
 
-    public function __construct($type, $value = null)
+    public function __construct(string $type, $value = null)
     {
         $this->type = $type;
         $this->value = $value;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [new Constraints\NotBlank()];
     }

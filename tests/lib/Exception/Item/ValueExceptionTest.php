@@ -12,7 +12,7 @@ final class ValueExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueLoader
      */
-    public function testNoValueLoader()
+    public function testNoValueLoader(): void
     {
         $exception = ValueException::noValueLoader('type');
 
@@ -25,7 +25,7 @@ final class ValueExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueConverter
      */
-    public function testNoValueConverter()
+    public function testNoValueConverter(): void
     {
         $exception = ValueException::noValueConverter('type');
 

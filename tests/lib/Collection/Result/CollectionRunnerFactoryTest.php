@@ -25,7 +25,7 @@ final class CollectionRunnerFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
 
@@ -37,7 +37,7 @@ final class CollectionRunnerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
      * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
      */
-    public function testGetCollectionRunnerWithManualCollection()
+    public function testGetCollectionRunnerWithManualCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(new Collection());
 
@@ -49,7 +49,7 @@ final class CollectionRunnerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
      * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
      */
-    public function testGetCollectionRunnerWithDynamicCollection()
+    public function testGetCollectionRunnerWithDynamicCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(
             new Collection(
@@ -71,7 +71,7 @@ final class CollectionRunnerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
      * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
      */
-    public function testGetCollectionRunnerWithDynamicContextualCollection()
+    public function testGetCollectionRunnerWithDynamicContextualCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(
             new Collection(

@@ -15,7 +15,7 @@ final class IntegerMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new IntegerMapper();
     }
@@ -23,7 +23,7 @@ final class IntegerMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(IntegerType::class, $this->mapper->getFormType());
     }

@@ -22,7 +22,7 @@ final class ParameterViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parameter = new Parameter(
             [
@@ -49,7 +49,7 @@ final class ParameterViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\ParameterView::__construct
      * @covers \Netgen\BlockManager\View\View\ParameterView::getParameterValue
      */
-    public function testGetParameter()
+    public function testGetParameter(): void
     {
         $this->assertEquals($this->parameter, $this->view->getParameterValue());
     }
@@ -57,7 +57,7 @@ final class ParameterViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\ParameterView::getParameters
      */
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $this->assertEquals(
             [
@@ -71,7 +71,7 @@ final class ParameterViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\ParameterView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('parameter_view', $this->view->getIdentifier());
     }

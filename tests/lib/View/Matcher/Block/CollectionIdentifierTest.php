@@ -18,19 +18,16 @@ final class CollectionIdentifierTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new CollectionIdentifier();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Block\CollectionIdentifier::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $view = new BlockView(
             [
@@ -42,12 +39,7 @@ final class CollectionIdentifierTest extends TestCase
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -61,7 +53,7 @@ final class CollectionIdentifierTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Block\CollectionIdentifier::match
      */
-    public function testMatchWithNoBlockView()
+    public function testMatchWithNoBlockView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
@@ -69,7 +61,7 @@ final class CollectionIdentifierTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Block\CollectionIdentifier::match
      */
-    public function testMatchWithNoCollectionIdentifier()
+    public function testMatchWithNoCollectionIdentifier(): void
     {
         $this->assertFalse($this->matcher->match(new BlockView(['block' => new Block()]), []));
     }

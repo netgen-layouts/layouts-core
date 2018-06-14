@@ -25,7 +25,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     private $structBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -38,7 +38,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::__construct
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
      */
-    public function testNewCollectionCreateStruct()
+    public function testNewCollectionCreateStruct(): void
     {
         $this->assertEquals(
             new CollectionCreateStruct(
@@ -55,7 +55,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
      */
-    public function testNewCollectionUpdateStruct()
+    public function testNewCollectionUpdateStruct(): void
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
@@ -71,7 +71,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
      */
-    public function testNewCollectionUpdateStructWithCollection()
+    public function testNewCollectionUpdateStructWithCollection(): void
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
@@ -89,7 +89,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
      */
-    public function testNewCollectionUpdateStructWithUnlimitedCollection()
+    public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $this->assertEquals(
             new CollectionUpdateStruct(
@@ -107,7 +107,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newItemCreateStruct
      */
-    public function testNewItemCreateStruct()
+    public function testNewItemCreateStruct(): void
     {
         $this->assertEquals(
             new ItemCreateStruct(
@@ -124,7 +124,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
      */
-    public function testNewItemUpdateStruct()
+    public function testNewItemUpdateStruct(): void
     {
         $itemUpdateStruct = new ItemUpdateStruct();
 
@@ -137,7 +137,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
      */
-    public function testNewItemUpdateStructFromItem()
+    public function testNewItemUpdateStructFromItem(): void
     {
         $item = $this->collectionService->loadItemDraft(1);
 
@@ -164,7 +164,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newQueryCreateStruct
      */
-    public function testNewQueryCreateStruct()
+    public function testNewQueryCreateStruct(): void
     {
         $queryCreateStruct = $this->structBuilder->newQueryCreateStruct(
             new QueryType('my_query_type')
@@ -187,7 +187,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
      */
-    public function testNewQueryUpdateStruct()
+    public function testNewQueryUpdateStruct(): void
     {
         $this->assertEquals(
             new QueryUpdateStruct(
@@ -202,7 +202,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
      */
-    public function testNewQueryUpdateStructFromQuery()
+    public function testNewQueryUpdateStructFromQuery(): void
     {
         $query = $this->collectionService->loadQueryDraft(4);
 

@@ -17,7 +17,7 @@ final class BooleanMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new BooleanMapper();
     }
@@ -25,7 +25,7 @@ final class BooleanMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(CompoundBooleanType::class, $this->mapper->getFormType());
     }
@@ -33,7 +33,7 @@ final class BooleanMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper::mapOptions
      */
-    public function testMapOptions()
+    public function testMapOptions(): void
     {
         $this->assertEquals(
             [

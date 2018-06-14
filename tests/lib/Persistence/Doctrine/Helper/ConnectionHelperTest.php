@@ -26,7 +26,7 @@ final class ConnectionHelperTest extends TestCase
      */
     private $connectionHelper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->databasePlatformMock = $this->createMock(AbstractPlatform::class);
         $this->databaseConnectionMock = $this->createMock(Connection::class);
@@ -43,7 +43,7 @@ final class ConnectionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
      */
-    public function testGetAutoIncrementValue()
+    public function testGetAutoIncrementValue(): void
     {
         $this->databasePlatformMock
             ->expects($this->any())
@@ -58,7 +58,7 @@ final class ConnectionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::getAutoIncrementValue
      */
-    public function testGetAutoIncrementValueForPostgres()
+    public function testGetAutoIncrementValueForPostgres(): void
     {
         $this->databasePlatformMock
             ->expects($this->any())
@@ -78,7 +78,7 @@ final class ConnectionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
      */
-    public function testLastInsertId()
+    public function testLastInsertId(): void
     {
         $this->databasePlatformMock
             ->expects($this->any())
@@ -99,7 +99,7 @@ final class ConnectionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::lastInsertId
      */
-    public function testLastInsertIdForPostgres()
+    public function testLastInsertIdForPostgres(): void
     {
         $this->databasePlatformMock
             ->expects($this->any())

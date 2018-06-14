@@ -12,7 +12,7 @@ final class ViewProviderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\ViewProviderException::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $exception = new ViewProviderException();
 
@@ -25,7 +25,7 @@ final class ViewProviderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\ViewProviderException::noViewProvider
      */
-    public function testNoViewProvider()
+    public function testNoViewProvider(): void
     {
         $exception = ViewProviderException::noViewProvider('some_class');
 
@@ -38,7 +38,7 @@ final class ViewProviderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\ViewProviderException::noParameter
      */
-    public function testNoParameter()
+    public function testNoParameter(): void
     {
         $exception = ViewProviderException::noParameter('block', 'param');
 
@@ -51,7 +51,7 @@ final class ViewProviderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\ViewProviderException::invalidParameter
      */
-    public function testInvalidParameter()
+    public function testInvalidParameter(): void
     {
         $exception = ViewProviderException::invalidParameter('block', 'param', 'string');
 

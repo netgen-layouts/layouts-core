@@ -12,7 +12,7 @@ final class LocaleExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Locale\LocaleException::noLocale
      */
-    public function testNoLocale()
+    public function testNoLocale(): void
     {
         $exception = LocaleException::noLocale();
 

@@ -18,7 +18,7 @@ final class CollectionMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new CollectionMapper();
     }
@@ -26,7 +26,7 @@ final class CollectionMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
      */
-    public function testMapCollections()
+    public function testMapCollections(): void
     {
         $data = [
             [
@@ -92,7 +92,7 @@ final class CollectionMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapItems
      */
-    public function testMapItems()
+    public function testMapItems(): void
     {
         $data = [
             [
@@ -155,7 +155,7 @@ final class CollectionMapperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQuery()
+    public function testMapQuery(): void
     {
         $data = [
             [

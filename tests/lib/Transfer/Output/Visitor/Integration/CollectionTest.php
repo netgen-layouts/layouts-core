@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
+use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Collection\Collection as CollectionValue;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Transfer\Output\Visitor\Collection;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class CollectionTest extends VisitorTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -22,17 +24,17 @@ abstract class CollectionTest extends VisitorTest
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Implementation requires sub-visitor
      */
-    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor()
+    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->getVisitor()->visit(new CollectionValue());
     }
 
-    public function getVisitor()
+    public function getVisitor(): VisitorInterface
     {
         return new Collection();
     }
 
-    public function acceptProvider()
+    public function acceptProvider(): array
     {
         return [
             [new CollectionValue(), true],
@@ -41,12 +43,12 @@ abstract class CollectionTest extends VisitorTest
         ];
     }
 
-    public function visitProvider()
+    public function visitProvider(): array
     {
         return [
-            [function () { return $this->collectionService->loadCollection(2); }, 'collection/collection_2.json'],
-            [function () { return $this->collectionService->loadCollection(3); }, 'collection/collection_3.json'],
-            [function () { return $this->collectionService->loadCollection(6); }, 'collection/collection_6.json'],
+            [function (): APICollection { return $this->collectionService->loadCollection(2); }, 'collection/collection_2.json'],
+            [function (): APICollection { return $this->collectionService->loadCollection(3); }, 'collection/collection_3.json'],
+            [function (): APICollection { return $this->collectionService->loadCollection(6); }, 'collection/collection_6.json'],
         ];
     }
 }

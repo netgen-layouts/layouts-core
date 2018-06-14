@@ -22,7 +22,7 @@ final class RemoteIdConverterTest extends TestCase
      */
     private $remoteIdConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
@@ -33,7 +33,7 @@ final class RemoteIdConverterTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
-    public function testCovertToRemoteId()
+    public function testCovertToRemoteId(): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -56,7 +56,7 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
-    public function testCovertToRemoteIdWithInvalidLink()
+    public function testCovertToRemoteIdWithInvalidLink(): void
     {
         $this->assertEquals('null://0', $this->remoteIdConverter->convertToRemoteId('invalid'));
     }
@@ -64,7 +64,7 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
-    public function testConvertToRemoteIdWithNullItem()
+    public function testConvertToRemoteIdWithNullItem(): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -78,7 +78,7 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
-    public function testConvertFromRemoteId()
+    public function testConvertFromRemoteId(): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -101,7 +101,7 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
-    public function testConvertFromRemoteIdWithInvalidLink()
+    public function testConvertFromRemoteIdWithInvalidLink(): void
     {
         $this->assertEquals('null://0', $this->remoteIdConverter->convertFromRemoteId('invalid'));
     }
@@ -109,7 +109,7 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
-    public function testConvertFromRemoteIdWithNullItem()
+    public function testConvertFromRemoteIdWithNullItem(): void
     {
         $this->itemLoaderMock
             ->expects($this->any())

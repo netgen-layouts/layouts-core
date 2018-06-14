@@ -12,7 +12,7 @@ final class ParameterStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new ParameterStruct();
         $this->assertEquals('ngbm_parameter_struct', $constraint->validatedBy());

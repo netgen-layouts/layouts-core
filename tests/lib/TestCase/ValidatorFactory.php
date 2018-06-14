@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 {
@@ -26,19 +27,13 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
      */
     private $baseValidatorFactory;
 
-    /**
-     * @param \PHPUnit\Framework\TestCase $testCase
-     */
     public function __construct(TestCase $testCase)
     {
         $this->testCase = $testCase;
         $this->baseValidatorFactory = new ConstraintValidatorFactory();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getInstance(Constraint $constraint)
+    public function getInstance(Constraint $constraint): ConstraintValidatorInterface
     {
         $name = $constraint->validatedBy();
 

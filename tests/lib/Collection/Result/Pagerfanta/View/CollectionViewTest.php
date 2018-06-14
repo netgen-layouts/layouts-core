@@ -22,7 +22,7 @@ final class CollectionViewTest extends TestCase
      */
     private $collectionView;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 
@@ -33,7 +33,7 @@ final class CollectionViewTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('ngbm_collection', $this->collectionView->getName());
     }
@@ -41,7 +41,7 @@ final class CollectionViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
      */
-    public function testRender()
+    public function testRender(): void
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -74,7 +74,7 @@ final class CollectionViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
      */
-    public function testRenderWithOverridenTemplate()
+    public function testRenderWithOverridenTemplate(): void
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -110,7 +110,7 @@ final class CollectionViewTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage To render the collection view, "block" option must be an instance of Netgen\BlockManager\API\Values\Block\Block
      */
-    public function testRenderThrowsInvalidArgumentExceptionWithNoBlock()
+    public function testRenderThrowsInvalidArgumentExceptionWithNoBlock(): void
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -131,7 +131,7 @@ final class CollectionViewTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage To render the collection view, "block" option must be an instance of Netgen\BlockManager\API\Values\Block\Block
      */
-    public function testRenderThrowsInvalidArgumentExceptionWithInvalidBlock()
+    public function testRenderThrowsInvalidArgumentExceptionWithInvalidBlock(): void
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -153,7 +153,7 @@ final class CollectionViewTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage To render the collection view, "collection_identifier" option must be a string
      */
-    public function testRenderThrowsInvalidArgumentExceptionWithNoCollectionIdentifier()
+    public function testRenderThrowsInvalidArgumentExceptionWithNoCollectionIdentifier(): void
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -174,7 +174,7 @@ final class CollectionViewTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage To render the collection view, "collection_identifier" option must be a string
      */
-    public function testRenderThrowsInvalidArgumentExceptionWithInvalidCollectionIdentifier()
+    public function testRenderThrowsInvalidArgumentExceptionWithInvalidCollectionIdentifier(): void
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -191,9 +191,9 @@ final class CollectionViewTest extends TestCase
         );
     }
 
-    private function getRouteGenerator()
+    private function getRouteGenerator(): callable
     {
-        return function (Block $block, $collectionIdentifier, $page) {
+        return function (Block $block, string $collectionIdentifier, int $page): string {
             return '/route/' . $page;
         };
     }

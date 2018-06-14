@@ -22,7 +22,7 @@ final class ValidatorTest extends TestCase
      */
     private $validator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->baseValidator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -39,7 +39,7 @@ final class ValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateId
      * @dataProvider validateIdDataProvider
      */
-    public function testValidateId($id, $isValid)
+    public function testValidateId($id, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -52,13 +52,13 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @param string $identifier
+     * @param mixed $identifier
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
      * @dataProvider validateIdentifierDataProvider
      */
-    public function testValidateIdentifier($identifier, $isValid)
+    public function testValidateIdentifier($identifier, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -71,14 +71,14 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @param int $position
+     * @param mixed $position
      * @param bool $isRequired
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
      * @dataProvider validatePositionDataProvider
      */
-    public function testValidatePosition($position, $isRequired, $isValid)
+    public function testValidatePosition($position, bool $isRequired, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -91,14 +91,14 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @param int $offset
-     * @param int $limit
+     * @param mixed $offset
+     * @param mixed $limit
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateOffsetAndLimit
      * @dataProvider validateOffsetAndLimitDataProvider
      */
-    public function testValidateOffsetAndLimit($offset, $limit, $isValid)
+    public function testValidateOffsetAndLimit($offset, $limit, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -111,13 +111,10 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @param string $locale
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateLocale
      * @dataProvider validateLocaleDataProvider
      */
-    public function testValidateLocale($locale, $isValid)
+    public function testValidateLocale(string $locale, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -129,7 +126,7 @@ final class ValidatorTest extends TestCase
         $this->validator->validateLocale($locale);
     }
 
-    public function validateIdDataProvider()
+    public function validateIdDataProvider(): array
     {
         return [
             [24, true],
@@ -140,7 +137,7 @@ final class ValidatorTest extends TestCase
         ];
     }
 
-    public function validateIdentifierDataProvider()
+    public function validateIdentifierDataProvider(): array
     {
         return [
             [24, false],
@@ -158,7 +155,7 @@ final class ValidatorTest extends TestCase
         ];
     }
 
-    public function validatePositionDataProvider()
+    public function validatePositionDataProvider(): array
     {
         return [
             [-5, false, false],
@@ -174,7 +171,7 @@ final class ValidatorTest extends TestCase
         ];
     }
 
-    public function validateOffsetAndLimitDataProvider()
+    public function validateOffsetAndLimitDataProvider(): array
     {
         return [
             [0, null, true],
@@ -189,7 +186,7 @@ final class ValidatorTest extends TestCase
         ];
     }
 
-    public function validateLocaleDataProvider()
+    public function validateLocaleDataProvider(): array
     {
         return [
             ['en', true],

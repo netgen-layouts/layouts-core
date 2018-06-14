@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Collection());
     }
@@ -23,7 +23,7 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $collection = new Collection();
 
@@ -55,7 +55,7 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $items = [
             new Item(['type' => Item::TYPE_MANUAL, 'position' => 3]),
@@ -121,7 +121,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
      */
-    public function testGetOffsetForManualCollection()
+    public function testGetOffsetForManualCollection(): void
     {
         $collection = new Collection(
             [

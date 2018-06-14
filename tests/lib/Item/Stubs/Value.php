@@ -32,7 +32,7 @@ final class Value
         return $this->remoteId;
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return $this->id < 100;
     }

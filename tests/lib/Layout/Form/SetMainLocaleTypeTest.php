@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Layout\Form;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\SetMainLocaleType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class SetMainLocaleTypeTest extends FormTestCase
@@ -16,17 +17,14 @@ final class SetMainLocaleTypeTest extends FormTestCase
      */
     private $layout;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layout = new Layout(['availableLocales' => ['en_GB', 'hr_HR', 'fr_FR'], 'mainLocale' => 'en_GB']);
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new SetMainLocaleType();
     }
@@ -35,7 +33,7 @@ final class SetMainLocaleTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Form\SetMainLocaleType::buildForm
      * @covers \Netgen\BlockManager\Layout\Form\SetMainLocaleType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'mainLocale' => 'hr_HR',
@@ -65,7 +63,7 @@ final class SetMainLocaleTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\SetMainLocaleType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -83,7 +81,7 @@ final class SetMainLocaleTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "layout" with value 42 is expected to be of type "Netgen\BlockManager\API\Values\Layout\Layout", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidLayout()
+    public function testConfigureOptionsWithInvalidLayout(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);
@@ -95,7 +93,7 @@ final class SetMainLocaleTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "layout" is missing.
      */
-    public function testConfigureOptionsWithMissingLayout()
+    public function testConfigureOptionsWithMissingLayout(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);

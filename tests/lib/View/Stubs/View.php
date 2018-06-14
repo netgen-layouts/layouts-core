@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\View as BaseView;
 
 class View extends BaseView
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'view';
     }

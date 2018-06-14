@@ -19,7 +19,7 @@ final class ParametersTypeExtensionTest extends TestCase
      */
     private $formTypeExtension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->formTypeExtension = new ParametersTypeExtension();
     }
@@ -27,7 +27,7 @@ final class ParametersTypeExtensionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::getExtendedType
      */
-    public function testGetExtendedType()
+    public function testGetExtendedType(): void
     {
         $this->assertEquals(FormType::class, $this->formTypeExtension->getExtendedType());
     }
@@ -35,7 +35,7 @@ final class ParametersTypeExtensionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
-    public function testBuildView()
+    public function testBuildView(): void
     {
         $view = new FormView();
 
@@ -52,7 +52,7 @@ final class ParametersTypeExtensionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
-    public function testBuildViewWithEmptyOptions()
+    public function testBuildViewWithEmptyOptions(): void
     {
         $view = new FormView();
 
@@ -68,7 +68,7 @@ final class ParametersTypeExtensionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);
@@ -90,7 +90,7 @@ final class ParametersTypeExtensionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
-    public function testConfigureOptionsWithEmptyParameters()
+    public function testConfigureOptionsWithEmptyParameters(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);
@@ -104,7 +104,7 @@ final class ParametersTypeExtensionTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\BlockManager\Parameters\ParameterDefinition", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidParameters()
+    public function testConfigureOptionsWithInvalidParameters(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);

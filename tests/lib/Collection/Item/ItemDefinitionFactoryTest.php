@@ -25,7 +25,7 @@ final class ItemDefinitionFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configDefinitionFactory = new ConfigDefinitionFactory(
             new ParameterBuilderFactory(
@@ -42,7 +42,7 @@ final class ItemDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Item\ItemDefinitionFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Item\ItemDefinitionFactory::buildItemDefinition
      */
-    public function testBuildItemDefinition()
+    public function testBuildItemDefinition(): void
     {
         $itemDefinition = $this->factory->buildItemDefinition(
             'value_type',

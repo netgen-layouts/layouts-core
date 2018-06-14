@@ -12,7 +12,7 @@ final class TargetTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\TargetTypeException::noTargetType
      */
-    public function testNoTargetType()
+    public function testNoTargetType(): void
     {
         $exception = TargetTypeException::noTargetType('type');
 
@@ -25,7 +25,7 @@ final class TargetTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\TargetTypeException::noFormMapper
      */
-    public function testNoFormMapper()
+    public function testNoFormMapper(): void
     {
         $exception = TargetTypeException::noFormMapper('type');
 

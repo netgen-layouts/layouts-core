@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 final class ParameterType extends BaseParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'type';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [new NotNull()];
     }

@@ -12,7 +12,7 @@ final class ItemExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ItemException::noValueType
      */
-    public function testNoValueLoader()
+    public function testNoValueLoader(): void
     {
         $exception = ItemException::noValueType('type');
 
@@ -25,7 +25,7 @@ final class ItemExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ItemException::noValue
      */
-    public function testNoValue()
+    public function testNoValue(): void
     {
         $exception = ItemException::noValue(42);
 
@@ -38,7 +38,7 @@ final class ItemExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ItemException::invalidValue
      */
-    public function testInvalidValue()
+    public function testInvalidValue(): void
     {
         $exception = ItemException::invalidValue('type');
 
@@ -51,7 +51,7 @@ final class ItemExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ItemException::canNotLoadItem
      */
-    public function testCanNotLoadItem()
+    public function testCanNotLoadItem(): void
     {
         $exception = ItemException::canNotLoadItem();
 

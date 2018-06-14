@@ -15,7 +15,7 @@ final class ParameterTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
      * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
      */
-    public function testSetDefaultProperties()
+    public function testSetDefaultProperties(): void
     {
         $parameter = new Parameter();
 
@@ -31,7 +31,7 @@ final class ParameterTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
      * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $parameter = new Parameter(
             [

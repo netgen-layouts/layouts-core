@@ -18,19 +18,16 @@ final class LocaleTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new Locale();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Block\Locale::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $block = new Block(
             [
@@ -47,12 +44,7 @@ final class LocaleTest extends TestCase
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -66,7 +58,7 @@ final class LocaleTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Block\Locale::match
      */
-    public function testMatchWithNoBlockView()
+    public function testMatchWithNoBlockView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

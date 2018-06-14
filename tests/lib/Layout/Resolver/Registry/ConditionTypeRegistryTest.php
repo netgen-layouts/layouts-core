@@ -21,7 +21,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ConditionTypeRegistry();
 
@@ -33,7 +33,7 @@ final class ConditionTypeRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::addConditionType
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionTypes
      */
-    public function testGetConditionTypes()
+    public function testGetConditionTypes(): void
     {
         $this->assertEquals(['type' => $this->conditionType], $this->registry->getConditionTypes());
     }
@@ -41,7 +41,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
      */
-    public function testGetConditionType()
+    public function testGetConditionType(): void
     {
         $this->assertEquals($this->conditionType, $this->registry->getConditionType('type'));
     }
@@ -51,7 +51,7 @@ final class ConditionTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      * @expectedExceptionMessage Condition type "other_type" does not exist.
      */
-    public function testGetConditionTypeThrowsConditionTypeException()
+    public function testGetConditionTypeThrowsConditionTypeException(): void
     {
         $this->registry->getConditionType('other_type');
     }
@@ -59,7 +59,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::hasConditionType
      */
-    public function testHasConditionType()
+    public function testHasConditionType(): void
     {
         $this->assertTrue($this->registry->hasConditionType('type'));
     }
@@ -67,7 +67,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::hasConditionType
      */
-    public function testHasConditionTypeWithNoConditionType()
+    public function testHasConditionTypeWithNoConditionType(): void
     {
         $this->assertFalse($this->registry->hasConditionType('other_type'));
     }
@@ -75,7 +75,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -90,7 +90,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -98,7 +98,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('type', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -107,7 +107,7 @@ final class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->conditionType, $this->registry['type']);
     }
@@ -117,7 +117,7 @@ final class ConditionTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['type'] = $this->conditionType;
     }
@@ -127,7 +127,7 @@ final class ConditionTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['type']);
     }

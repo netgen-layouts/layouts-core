@@ -15,7 +15,7 @@ final class BlockTypeGroupTest extends TestCase
      */
     private $blockTypeGroup;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->blockTypeGroup = new BlockTypeGroup(
             [
@@ -34,7 +34,7 @@ final class BlockTypeGroupTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::__construct
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('simple_blocks', $this->blockTypeGroup->getIdentifier());
     }
@@ -42,7 +42,7 @@ final class BlockTypeGroupTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertFalse($this->blockTypeGroup->isEnabled());
     }
@@ -50,7 +50,7 @@ final class BlockTypeGroupTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Simple blocks', $this->blockTypeGroup->getName());
     }
@@ -58,7 +58,7 @@ final class BlockTypeGroupTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getBlockTypes
      */
-    public function testGetBlockTypes()
+    public function testGetBlockTypes(): void
     {
         $this->assertEquals(
             [
@@ -72,7 +72,7 @@ final class BlockTypeGroupTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getBlockTypes
      */
-    public function testGetEnabledBlockTypes()
+    public function testGetEnabledBlockTypes(): void
     {
         $this->assertEquals(
             [

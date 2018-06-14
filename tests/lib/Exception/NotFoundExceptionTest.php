@@ -12,7 +12,7 @@ final class NotFoundExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\NotFoundException::__construct
      */
-    public function testExceptionMessage()
+    public function testExceptionMessage(): void
     {
         $exception = new NotFoundException('test');
 
@@ -22,7 +22,7 @@ final class NotFoundExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\NotFoundException::__construct
      */
-    public function testExceptionMessageWithIdentifier()
+    public function testExceptionMessageWithIdentifier(): void
     {
         $exception = new NotFoundException('test', 1);
 

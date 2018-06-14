@@ -12,7 +12,7 @@ final class BlockViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\BlockViewType::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new BlockViewType();
         $this->assertEquals('ngbm_block_view_type', $constraint->validatedBy());

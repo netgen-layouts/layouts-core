@@ -15,7 +15,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::__construct
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
-    public function testRenderBlock()
+    public function testRenderBlock(): void
     {
         $templateMock = $this->createMock(Template::class);
 
@@ -31,7 +31,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->with($this->equalTo('block_name'))
             ->will(
                 $this->returnCallback(
-                    function ($blockName) {
+                    function (string $blockName): void {
                         echo 'rendered';
                     }
                 )
@@ -46,7 +46,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::__construct
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
-    public function testRenderBlockNonExistingBlock()
+    public function testRenderBlockNonExistingBlock(): void
     {
         $templateMock = $this->createMock(Template::class);
 
@@ -70,7 +70,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testRenderBlockWithException()
+    public function testRenderBlockWithException(): void
     {
         $templateMock = $this->createMock(Template::class);
 

@@ -12,7 +12,7 @@ final class BadStateExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\BadStateException::__construct
      */
-    public function testExceptionMessage()
+    public function testExceptionMessage(): void
     {
         $exception = new BadStateException('test', 'Value must be an integer.');
 

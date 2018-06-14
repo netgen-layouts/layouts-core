@@ -15,7 +15,7 @@ final class TimeTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new Time();
     }
@@ -23,7 +23,7 @@ final class TimeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(TimeType::class, $this->mapper->getFormType());
     }
@@ -31,7 +31,7 @@ final class TimeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormOptions
      */
-    public function testGetFormOptions()
+    public function testGetFormOptions(): void
     {
         $this->assertEquals(['label' => false], $this->mapper->getFormOptions());
     }

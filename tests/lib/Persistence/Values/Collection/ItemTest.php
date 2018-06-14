@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $item = new Item(
             [

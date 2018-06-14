@@ -11,12 +11,12 @@ final class ErrorHandler implements ErrorHandlerInterface
 {
     private $throw = false;
 
-    public function setThrow($throw = false)
+    public function setThrow(bool $throw = false): void
     {
         $this->throw = $throw;
     }
 
-    public function handleError(Throwable $throwable, $message = null, array $context = [])
+    public function handleError(Throwable $throwable, $message = null, array $context = []): void
     {
         if ($this->throw) {
             throw $throwable;

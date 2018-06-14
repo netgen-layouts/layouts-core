@@ -36,7 +36,7 @@ final class SerializerTest extends TestCase
      */
     private $serializer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
@@ -55,7 +55,7 @@ final class SerializerTest extends TestCase
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadLayouts
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeLayouts
      */
-    public function testSerializeLayouts()
+    public function testSerializeLayouts(): void
     {
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -98,7 +98,7 @@ final class SerializerTest extends TestCase
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadLayouts
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeLayouts
      */
-    public function testSerializeLayoutsWithNonExistentLayout()
+    public function testSerializeLayoutsWithNonExistentLayout(): void
     {
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -134,7 +134,7 @@ final class SerializerTest extends TestCase
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadRules
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeRules
      */
-    public function testSerializeRules()
+    public function testSerializeRules(): void
     {
         $this->layoutResolverServiceMock
             ->expects($this->at(0))
@@ -177,7 +177,7 @@ final class SerializerTest extends TestCase
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadRules
      * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeRules
      */
-    public function testSerializeRulesWithNonExistentRule()
+    public function testSerializeRulesWithNonExistentRule(): void
     {
         $this->layoutResolverServiceMock
             ->expects($this->at(0))

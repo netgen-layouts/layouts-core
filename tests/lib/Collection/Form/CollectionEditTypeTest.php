@@ -9,6 +9,7 @@ use Netgen\BlockManager\Collection\Form\CollectionEditType;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CollectionEditTypeTest extends FormTestCase
@@ -18,17 +19,14 @@ final class CollectionEditTypeTest extends FormTestCase
      */
     private $collection;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->collection = new Collection();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new CollectionEditType();
     }
@@ -37,7 +35,7 @@ final class CollectionEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'offset' => 10,
@@ -73,7 +71,7 @@ final class CollectionEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
      */
-    public function testSubmitValidDataWithDynamicCollection()
+    public function testSubmitValidDataWithDynamicCollection(): void
     {
         $this->collection = new Collection(['query' => new Query()]);
 
@@ -111,7 +109,7 @@ final class CollectionEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -135,7 +133,7 @@ final class CollectionEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "collection" is missing.
      */
-    public function testConfigureOptionsWithMissingQuery()
+    public function testConfigureOptionsWithMissingQuery(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -150,7 +148,7 @@ final class CollectionEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "collection" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\Collection", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidQueryType()
+    public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -169,7 +167,7 @@ final class CollectionEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

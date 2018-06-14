@@ -15,7 +15,7 @@ final class CollectionReferenceTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getCollection
      * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getIdentifier
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $collectionReference = new CollectionReference(
             [

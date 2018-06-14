@@ -10,7 +10,9 @@ use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinition;
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -34,7 +36,7 @@ final class BlockValidatorTest extends TestCase
      */
     private $blockValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -48,14 +50,11 @@ final class BlockValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
      */
-    public function testValidateBlockCreateStruct(array $params, $isValid)
+    public function testValidateBlockCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -68,13 +67,10 @@ final class BlockValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockUpdateStruct
      * @dataProvider validateBlockUpdateStructDataProvider
      */
-    public function testValidateBlockUpdateStruct(array $params, $isValid)
+    public function testValidateBlockUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -95,7 +91,7 @@ final class BlockValidatorTest extends TestCase
         );
     }
 
-    public function validateBlockCreateStructDataProvider()
+    public function validateBlockCreateStructDataProvider(): array
     {
         return [
             [
@@ -502,7 +498,7 @@ final class BlockValidatorTest extends TestCase
         ];
     }
 
-    public function validateBlockUpdateStructDataProvider()
+    public function validateBlockUpdateStructDataProvider(): array
     {
         return [
             [
@@ -844,12 +840,7 @@ final class BlockValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * @param bool $hasRequiredParam
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition
-     */
-    private function getBlockDefinition($hasRequiredParam = true)
+    private function getBlockDefinition(bool $hasRequiredParam = true): BlockDefinitionInterface
     {
         $handler = $hasRequiredParam ?
             new BlockDefinitionHandlerWithRequiredParameter() :
@@ -871,10 +862,7 @@ final class BlockValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function getContainerDefinition()
+    private function getContainerDefinition(): ContainerDefinitionInterface
     {
         return new ContainerDefinition(
             [

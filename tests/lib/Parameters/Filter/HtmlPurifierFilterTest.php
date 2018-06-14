@@ -14,7 +14,7 @@ final class HtmlPurifierFilterTest extends TestCase
      */
     private $filter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->filter = new HtmlPurifierFilter();
     }
@@ -23,7 +23,7 @@ final class HtmlPurifierFilterTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter::__construct
      * @covers \Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter::filter
      */
-    public function testConvertOptions()
+    public function testConvertOptions(): void
     {
         $unsafeHtml = <<<'HTML'
 <h1>Title</h1>

@@ -20,19 +20,16 @@ final class TypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new Type();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $target = new Target(
             [
@@ -48,7 +45,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
      */
-    public function testMatchWithNullTargetType()
+    public function testMatchWithNullTargetType(): void
     {
         $target = new Target(
             [
@@ -64,7 +61,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
      */
-    public function testMatchWithNullTargetTypeReturnsFalse()
+    public function testMatchWithNullTargetTypeReturnsFalse(): void
     {
         $target = new Target(
             [
@@ -77,12 +74,7 @@ final class TypeTest extends TestCase
         $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -96,7 +88,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
      */
-    public function testMatchWithNoRuleTargetView()
+    public function testMatchWithNoRuleTargetView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

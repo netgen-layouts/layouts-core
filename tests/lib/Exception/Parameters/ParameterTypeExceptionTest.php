@@ -12,7 +12,7 @@ final class ParameterTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::noParameterType
      */
-    public function testNoParameterType()
+    public function testNoParameterType(): void
     {
         $exception = ParameterTypeException::noParameterType('type');
 
@@ -25,7 +25,7 @@ final class ParameterTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::noParameterTypeClass
      */
-    public function testNoParameterTypeClass()
+    public function testNoParameterTypeClass(): void
     {
         $exception = ParameterTypeException::noParameterTypeClass('class');
 
@@ -38,7 +38,7 @@ final class ParameterTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::noFormMapper
      */
-    public function testNoFormMapper()
+    public function testNoFormMapper(): void
     {
         $exception = ParameterTypeException::noFormMapper('type');
 
@@ -51,7 +51,7 @@ final class ParameterTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::unsupportedParameterType
      */
-    public function testUnsupportedParameterType()
+    public function testUnsupportedParameterType(): void
     {
         $exception = ParameterTypeException::unsupportedParameterType('type');
 

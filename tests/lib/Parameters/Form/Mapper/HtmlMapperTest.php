@@ -15,7 +15,7 @@ final class HtmlMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new HtmlMapper();
     }
@@ -23,7 +23,7 @@ final class HtmlMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\HtmlMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(TextareaType::class, $this->mapper->getFormType());
     }

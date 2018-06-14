@@ -28,7 +28,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->serializerMock = $this->createMock(Serializer::class);
 
@@ -40,7 +40,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::getOverflowItems
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::normalize
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $result = new ResultSet(
             [
@@ -105,17 +105,12 @@ final class CollectionResultSetNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

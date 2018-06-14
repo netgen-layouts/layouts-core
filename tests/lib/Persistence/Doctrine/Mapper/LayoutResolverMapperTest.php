@@ -18,7 +18,7 @@ final class LayoutResolverMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new LayoutResolverMapper();
     }
@@ -26,7 +26,7 @@ final class LayoutResolverMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRules
      */
-    public function testMapRules()
+    public function testMapRules(): void
     {
         $data = [
             [
@@ -76,7 +76,7 @@ final class LayoutResolverMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapTargets
      */
-    public function testMapTargets()
+    public function testMapTargets(): void
     {
         $data = [
             [
@@ -122,7 +122,7 @@ final class LayoutResolverMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapConditions
      */
-    public function testMapConditions()
+    public function testMapConditions(): void
     {
         $data = [
             [

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Zone());
     }
@@ -22,7 +22,7 @@ final class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $zone = new Zone(
             [

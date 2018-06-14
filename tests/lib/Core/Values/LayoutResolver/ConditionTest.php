@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Condition());
     }
@@ -23,7 +23,7 @@ final class ConditionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $condition = new Condition(
             [

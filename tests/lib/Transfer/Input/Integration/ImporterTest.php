@@ -18,6 +18,7 @@ use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver;
 use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
@@ -51,7 +52,7 @@ abstract class ImporterTest extends ServiceTestCase
      */
     private $matcherFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -67,7 +68,7 @@ abstract class ImporterTest extends ServiceTestCase
             ->method('loadByRemoteId')
             ->will(
                 $this->returnCallback(
-                    function ($remoteId) {
+                    function ($remoteId): ItemInterface {
                         return new CmsItem(
                             [
                                 'value' => $remoteId,
@@ -83,7 +84,7 @@ abstract class ImporterTest extends ServiceTestCase
             ->method('load')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    function ($value): ItemInterface {
                         return new CmsItem(
                             [
                                 'value' => $value,
@@ -134,7 +135,7 @@ abstract class ImporterTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::__construct
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportData()
+    public function testImportData(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
         $decodedData = json_decode($importData, true);
@@ -181,7 +182,7 @@ abstract class ImporterTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingQueryTranslationThrowsRuntimeException()
+    public function testImportDataWithMissingQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
@@ -198,7 +199,7 @@ abstract class ImporterTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingMainQueryTranslationThrowsRuntimeException()
+    public function testImportDataWithMissingMainQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
@@ -215,7 +216,7 @@ abstract class ImporterTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingBlockTranslationThrowsRuntimeException()
+    public function testImportDataWithMissingBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
@@ -232,7 +233,7 @@ abstract class ImporterTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingMainBlockTranslationThrowsRuntimeException()
+    public function testImportDataWithMissingMainBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
@@ -249,7 +250,7 @@ abstract class ImporterTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingZoneThrowsRuntimeException()
+    public function testImportDataWithMissingZoneThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'
@@ -262,7 +263,7 @@ abstract class ImporterTest extends ServiceTestCase
         $this->assertEquals('Missing data for zone "right"', $result[0]->getError()->getMessage());
     }
 
-    private function prepareBlockDefinitionRegistry()
+    private function prepareBlockDefinitionRegistry(): void
     {
         $data = ['translatable' => true, 'view_types' => ['view_type' => ['enabled' => true]]];
         $configHandlers = ['http_cache' => new HttpCacheConfigHandler()];

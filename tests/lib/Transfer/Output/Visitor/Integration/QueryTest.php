@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
+use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Collection\Query as QueryValue;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Transfer\Output\Visitor\Query;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class QueryTest extends VisitorTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -22,17 +24,17 @@ abstract class QueryTest extends VisitorTest
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Implementation requires sub-visitor
      */
-    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor()
+    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->getVisitor()->visit(new QueryValue());
     }
 
-    public function getVisitor()
+    public function getVisitor(): VisitorInterface
     {
         return new Query($this->collectionService);
     }
 
-    public function acceptProvider()
+    public function acceptProvider(): array
     {
         return [
             [new QueryValue(), true],
@@ -41,12 +43,12 @@ abstract class QueryTest extends VisitorTest
         ];
     }
 
-    public function visitProvider()
+    public function visitProvider(): array
     {
         return [
-            [function () { return $this->collectionService->loadQuery(1); }, 'query/query_1.json'],
-            [function () { return $this->collectionService->loadQuery(2); }, 'query/query_2.json'],
-            [function () { return $this->collectionService->loadQuery(4); }, 'query/query_4.json'],
+            [function (): APIQuery { return $this->collectionService->loadQuery(1); }, 'query/query_1.json'],
+            [function (): APIQuery { return $this->collectionService->loadQuery(2); }, 'query/query_2.json'],
+            [function (): APIQuery { return $this->collectionService->loadQuery(4); }, 'query/query_4.json'],
         ];
     }
 }

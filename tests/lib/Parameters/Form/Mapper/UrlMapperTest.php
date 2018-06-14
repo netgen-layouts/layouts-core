@@ -15,7 +15,7 @@ final class UrlMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new UrlMapper();
     }
@@ -23,7 +23,7 @@ final class UrlMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\UrlMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(UrlType::class, $this->mapper->getFormType());
     }

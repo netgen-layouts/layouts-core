@@ -21,7 +21,7 @@ final class LinkDataMapperTest extends DataMapperTest
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -41,7 +41,7 @@ final class LinkDataMapperTest extends DataMapperTest
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::__construct
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
      */
-    public function testMapDataToForms()
+    public function testMapDataToForms(): void
     {
         $linkValue = new LinkValue(
             [
@@ -72,7 +72,7 @@ final class LinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
      */
-    public function testMapDataToFormsWithInvalidData()
+    public function testMapDataToFormsWithInvalidData(): void
     {
         $linkValue = 42;
 
@@ -94,7 +94,7 @@ final class LinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
      */
-    public function testMapFormsToData()
+    public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
             [
@@ -123,7 +123,7 @@ final class LinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataWithInvalidFormData()
+    public function testMapFormsToDataWithInvalidFormData(): void
     {
         $forms = new ArrayIterator(
             [

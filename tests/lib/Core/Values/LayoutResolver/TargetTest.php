@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Target());
     }
@@ -23,7 +23,7 @@ final class TargetTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $target = new Target(
             [

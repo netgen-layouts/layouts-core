@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix as
 use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfoPrefix;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class PathInfoPrefixTest extends FormTestCase
 {
@@ -18,17 +19,14 @@ final class PathInfoPrefixTest extends FormTestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->targetType = new PathInfoPrefix();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new TargetType(
             [
@@ -45,7 +43,7 @@ final class PathInfoPrefixTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix::getFormType
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'value' => '/some/route',

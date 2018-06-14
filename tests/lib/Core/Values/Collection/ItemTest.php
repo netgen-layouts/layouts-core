@@ -11,13 +11,14 @@ use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Parameters\Parameter;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Item());
     }
@@ -32,7 +33,7 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $item = new Item(
             [
@@ -42,7 +43,7 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
-                'cmsItem' => function () {
+                'cmsItem' => function (): ItemInterface {
                     return new CmsItem();
                 },
             ]
@@ -58,21 +59,15 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @param string $visibilityStatus
-     * @param \DateTimeInterface $visibleFrom
-     * @param \DateTimeInterface $visibleTo
-     * @param bool $itemVisible
-     *
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isVisible
-     *
      * @dataProvider visibilityProvider
      */
     public function testVisibility(
-        $visibilityStatus,
+        string $visibilityStatus,
         DateTimeInterface $visibleFrom = null,
         DateTimeInterface $visibleTo = null,
-        $itemVisible = true
-    ) {
+        bool $itemVisible = true
+    ): void {
         $item = new Item(
             [
                 'configs' => [
@@ -105,17 +100,13 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @param string $visibilityStatus
-     * @param bool $itemScheduled
-     *
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isScheduled
-     *
      * @dataProvider scheduledProvider
      */
     public function testIsScheduled(
-        $visibilityStatus,
-        $itemScheduled = true
-    ) {
+        string $visibilityStatus,
+        bool $itemScheduled = true
+    ): void {
         $item = new Item(
             [
                 'configs' => [
@@ -140,7 +131,7 @@ final class ItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isScheduled
      */
-    public function testIsScheduledWithoutConfig()
+    public function testIsScheduledWithoutConfig(): void
     {
         $item = new Item();
 
@@ -150,7 +141,7 @@ final class ItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isVisible
      */
-    public function testIsVisibleWithoutConfig()
+    public function testIsVisibleWithoutConfig(): void
     {
         $item = new Item();
 
@@ -158,14 +149,10 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @param bool $itemVisible
-     * @param bool $cmsItemVisible
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isValid
      * @dataProvider isValidProvider
      */
-    public function testIsValid($itemVisible, $cmsItemVisible, $isValid)
+    public function testIsValid(bool $itemVisible, bool $cmsItemVisible, bool $isValid): void
     {
         $item = new Item(
             [
@@ -191,12 +178,10 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @param bool $itemVisible
-     *
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isValid
      * @dataProvider isValidProvider
      */
-    public function testIsValidWithNullItem($itemVisible)
+    public function testIsValidWithNullItem(bool $itemVisible): void
     {
         $item = new Item(
             [
@@ -220,7 +205,7 @@ final class ItemTest extends TestCase
         $this->assertFalse($item->isValid());
     }
 
-    public function isValidProvider()
+    public function isValidProvider(): array
     {
         return [
             [true, true, true],
@@ -230,7 +215,7 @@ final class ItemTest extends TestCase
         ];
     }
 
-    public function visibilityProvider()
+    public function visibilityProvider(): array
     {
         return [
             [Item::VISIBILITY_VISIBLE, new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
@@ -287,7 +272,7 @@ final class ItemTest extends TestCase
         ];
     }
 
-    public function scheduledProvider()
+    public function scheduledProvider(): array
     {
         return [
             [Item::VISIBILITY_VISIBLE, false],

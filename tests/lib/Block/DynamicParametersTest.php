@@ -14,12 +14,12 @@ final class DynamicParametersTest extends TestCase
      */
     private $dynamicParams;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->dynamicParams = new DynamicParameters();
 
         $this->dynamicParams['test'] = 'some_value';
-        $this->dynamicParams['closure'] = function () {
+        $this->dynamicParams['closure'] = function (): string {
             return 'closure_value';
         };
     }
@@ -27,7 +27,7 @@ final class DynamicParametersTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\DynamicParameters::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(2, $this->dynamicParams);
     }
@@ -35,7 +35,7 @@ final class DynamicParametersTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('test', $this->dynamicParams);
         $this->assertArrayHasKey('closure', $this->dynamicParams);
@@ -45,7 +45,7 @@ final class DynamicParametersTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals('some_value', $this->dynamicParams['test']);
         $this->assertEquals('closure_value', $this->dynamicParams['closure']);
@@ -55,11 +55,11 @@ final class DynamicParametersTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetSet
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->dynamicParams['new'] = 'new_value';
         $this->dynamicParams['test'] = 'value2';
-        $this->dynamicParams['closure'] = function () {
+        $this->dynamicParams['closure'] = function (): string {
             return 'closure_value2';
         };
 
@@ -71,7 +71,7 @@ final class DynamicParametersTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetUnset()
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->dynamicParams['test'], $this->dynamicParams['closure'], $this->dynamicParams['unknown']);
 

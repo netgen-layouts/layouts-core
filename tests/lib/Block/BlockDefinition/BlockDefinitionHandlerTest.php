@@ -29,7 +29,7 @@ final class BlockDefinitionHandlerTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
 
@@ -45,7 +45,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildParameters
      */
-    public function testBuildParameters()
+    public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->handler->buildParameters($builder);
@@ -56,7 +56,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
      */
-    public function testGetDynamicParameters()
+    public function testGetDynamicParameters(): void
     {
         $dynamicParameters = new DynamicParameters();
         $this->handler->getDynamicParameters($dynamicParameters, new Block());
@@ -67,7 +67,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $this->assertFalse($this->handler->isContextual(new Block()));
     }

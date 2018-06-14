@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class RouteParameterTest extends FormTestCase
 {
@@ -18,17 +19,14 @@ final class RouteParameterTest extends FormTestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->conditionType = new RouteParameter();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ConditionType(
             [
@@ -45,7 +43,7 @@ final class RouteParameterTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'value' => [

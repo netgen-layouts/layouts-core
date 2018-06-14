@@ -27,18 +27,18 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
      */
     private $isContextual;
 
-    public function __construct(array $values = [], $count = null, $isContextual = false)
+    public function __construct(array $values = [], int $count = null, bool $isContextual = false)
     {
         $this->values = $values;
         $this->count = $count;
         $this->isContextual = $isContextual;
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
     }
 
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'param' => new ParameterDefinition(
@@ -68,12 +68,12 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
         return array_slice($this->values, $offset, $limit);
     }
 
-    public function getCount(Query $query)
+    public function getCount(Query $query): int
     {
         return $this->count ?? count($this->values);
     }
 
-    public function isContextual(Query $query)
+    public function isContextual(Query $query): bool
     {
         return $this->isContextual;
     }

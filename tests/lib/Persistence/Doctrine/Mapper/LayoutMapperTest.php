@@ -17,7 +17,7 @@ final class LayoutMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new LayoutMapper();
     }
@@ -25,7 +25,7 @@ final class LayoutMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
      */
-    public function testMapLayouts()
+    public function testMapLayouts(): void
     {
         $data = [
             [
@@ -91,7 +91,7 @@ final class LayoutMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
      */
-    public function testMapZones()
+    public function testMapZones(): void
     {
         $data = [
             [

@@ -20,7 +20,7 @@ final class ChoiceMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new ChoiceMapper();
     }
@@ -28,7 +28,7 @@ final class ChoiceMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(ChoiceType::class, $this->mapper->getFormType());
     }
@@ -36,7 +36,7 @@ final class ChoiceMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper::mapOptions
      */
-    public function testMapOptions()
+    public function testMapOptions(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -69,7 +69,7 @@ final class ChoiceMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper::mapOptions
      */
-    public function testMapOptionsWithClosure()
+    public function testMapOptionsWithClosure(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -78,7 +78,7 @@ final class ChoiceMapperTest extends TestCase
                 'options' => [
                     'multiple' => true,
                     'expanded' => true,
-                    'options' => function () {
+                    'options' => function (): array {
                         return [
                             'Option 1' => 'option1',
                             'Option 2' => 'option2',

@@ -31,7 +31,7 @@ final class BlockViewRendererTest extends TestCase
      */
     private $blockViewRenderer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->contextMock = $this->createMock(ContextInterface::class);
         $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
@@ -48,7 +48,7 @@ final class BlockViewRendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::__construct
      * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::supportsView
      */
-    public function testSupportsView()
+    public function testSupportsView(): void
     {
         $view = new BlockView(['block' => new Block()]);
         $view->setContext('default');
@@ -65,7 +65,7 @@ final class BlockViewRendererTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::supportsView
      */
-    public function testSupportsViewWithNoBlockView()
+    public function testSupportsViewWithNoBlockView(): void
     {
         $view = new LayoutView();
 
@@ -79,7 +79,7 @@ final class BlockViewRendererTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::supportsView
      */
-    public function testSupportsViewWithNonSupportedContext()
+    public function testSupportsViewWithNonSupportedContext(): void
     {
         $view = new BlockView();
         $view->setContext('unsupported');
@@ -94,7 +94,7 @@ final class BlockViewRendererTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::getController
      */
-    public function testGetController()
+    public function testGetController(): void
     {
         $this->contextMock->expects($this->once())
             ->method('all')
@@ -131,7 +131,7 @@ final class BlockViewRendererTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Fragment\BlockViewRenderer::getController
      */
-    public function testGetControllerWithInvalidView()
+    public function testGetControllerWithInvalidView(): void
     {
         $this->assertNull($this->blockViewRenderer->getController(new View()));
     }

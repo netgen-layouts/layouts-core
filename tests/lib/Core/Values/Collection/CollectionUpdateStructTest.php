@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionUpdateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $collectionUpdateStruct = new CollectionUpdateStruct(
             [

@@ -10,11 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class ValueTest extends TestCase
 {
     /**
-     * @param int $status
-     * @param bool $isDraft
-     * @param bool $isPublished
-     * @param bool $isArchived
-     *
      * @covers \Netgen\BlockManager\Core\Values\Value::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Value::isArchived
      * @covers \Netgen\BlockManager\Core\Values\Value::isDraft
@@ -22,7 +17,7 @@ final class ValueTest extends TestCase
      *
      * @dataProvider statusProvider
      */
-    public function testStatus($status, $isDraft, $isPublished, $isArchived)
+    public function testStatus(int $status, bool $isDraft, bool $isPublished, bool $isArchived): void
     {
         $value = new Value(['status' => $status]);
 
@@ -32,7 +27,7 @@ final class ValueTest extends TestCase
         $this->assertEquals($isArchived, $value->isArchived());
     }
 
-    public function statusProvider()
+    public function statusProvider(): array
     {
         return [
             [Value::STATUS_DRAFT, true, false, false],

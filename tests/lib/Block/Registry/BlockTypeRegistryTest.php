@@ -26,7 +26,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new BlockTypeRegistry();
 
@@ -40,7 +40,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::addBlockType
      */
-    public function testAddBlockType()
+    public function testAddBlockType(): void
     {
         $this->registry->addBlockType('test', $this->blockType);
 
@@ -51,7 +51,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypes
      */
-    public function testGetBlockTypes()
+    public function testGetBlockTypes(): void
     {
         $this->assertEquals(
             [
@@ -65,7 +65,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypes
      */
-    public function testGetEnabledBlockTypes()
+    public function testGetEnabledBlockTypes(): void
     {
         $this->assertEquals(
             [
@@ -78,7 +78,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockType
      */
-    public function testHasBlockType()
+    public function testHasBlockType(): void
     {
         $this->assertTrue($this->registry->hasBlockType('block_type'));
     }
@@ -86,7 +86,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockType
      */
-    public function testHasBlockTypeWithNoBlockType()
+    public function testHasBlockTypeWithNoBlockType(): void
     {
         $this->assertFalse($this->registry->hasBlockType('other_block_type'));
     }
@@ -94,7 +94,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockType
      */
-    public function testGetBlockType()
+    public function testGetBlockType(): void
     {
         $this->assertEquals($this->blockType, $this->registry->getBlockType('block_type'));
     }
@@ -104,7 +104,7 @@ final class BlockTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Block\BlockTypeException
      * @expectedExceptionMessage Block type with "other_block_type" identifier does not exist.
      */
-    public function testGetBlockTypeThrowsBlockTypeException()
+    public function testGetBlockTypeThrowsBlockTypeException(): void
     {
         $this->registry->getBlockType('other_block_type');
     }
@@ -112,7 +112,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -127,7 +127,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(2, $this->registry);
     }
@@ -135,7 +135,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('block_type', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -144,7 +144,7 @@ final class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->blockType, $this->registry['block_type']);
     }
@@ -154,7 +154,7 @@ final class BlockTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['block_type'] = $this->blockType;
     }
@@ -164,7 +164,7 @@ final class BlockTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['block_type']);
     }

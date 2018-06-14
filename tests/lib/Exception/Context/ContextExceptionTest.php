@@ -12,7 +12,7 @@ final class ContextExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Context\ContextException::noVariable
      */
-    public function testNoVariable()
+    public function testNoVariable(): void
     {
         $exception = ContextException::noVariable('var');
 

@@ -9,34 +9,27 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
 use Netgen\BlockManager\Validator\Parameters\LinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class LinkValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new Link();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         return new LinkValidator();
     }
 
     /**
-     * @param string $value
-     * @param bool $required
-     * @param array $valueTypes
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $required, $valueTypes, $isValid)
+    public function testValidate(?LinkValue $value, bool $required, ?array $valueTypes, bool $isValid): void
     {
         $this->constraint->required = $required;
         $this->constraint->valueTypes = $valueTypes;
@@ -49,7 +42,7 @@ final class LinkValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Parameters\Link", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, new LinkValue());
@@ -60,12 +53,12 @@ final class LinkValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Parameters\Value\LinkValue", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             [null, true, null, true],

@@ -16,7 +16,7 @@ final class VersionedValueTest extends TestCase
      */
     private $value;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->value = new VersionedValue(new Value(), 42, Response::HTTP_ACCEPTED);
     }
@@ -25,7 +25,7 @@ final class VersionedValueTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Values\VersionedValue::__construct
      * @covers \Netgen\BlockManager\Serializer\Values\VersionedValue::getVersion
      */
-    public function testGetVersion()
+    public function testGetVersion(): void
     {
         $this->assertEquals(42, $this->value->getVersion());
     }

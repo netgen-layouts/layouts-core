@@ -18,7 +18,7 @@ class AggregateTest extends TestCase
      */
     private $visitor;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->visitor = new Aggregate([new VisitorStub()]);
     }
@@ -32,7 +32,7 @@ class AggregateTest extends TestCase
      *
      * @dataProvider acceptProvider
      */
-    public function testAccept($value, $accepted)
+    public function testAccept($value, bool $accepted): void
     {
         $this->assertEquals($accepted, $this->visitor->accept($value));
     }
@@ -40,7 +40,7 @@ class AggregateTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Transfer\Output\Visitor\Aggregate::visit
      */
-    public function testVisit()
+    public function testVisit(): void
     {
         $this->assertEquals('visited_value', $this->visitor->visit(42));
     }
@@ -50,7 +50,7 @@ class AggregateTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage No visitor available for value of type 'Netgen\BlockManager\Core\Values\Block\Block'
      */
-    public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException()
+    public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException(): void
     {
         $this->visitor = new Aggregate();
 
@@ -62,14 +62,14 @@ class AggregateTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage No visitor available for value of type 'integer'
      */
-    public function testVisitWithNoAcceptedVisitorAndScalarValueThrowsRuntimeException()
+    public function testVisitWithNoAcceptedVisitorAndScalarValueThrowsRuntimeException(): void
     {
         $this->visitor = new Aggregate();
 
         $this->visitor->visit(42);
     }
 
-    public function acceptProvider()
+    public function acceptProvider(): array
     {
         return [
             [new Zone(), true],

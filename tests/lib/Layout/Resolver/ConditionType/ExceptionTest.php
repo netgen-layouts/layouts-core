@@ -18,7 +18,7 @@ final class ExceptionTest extends TestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->conditionType = new ExceptionConditionType();
     }
@@ -26,7 +26,7 @@ final class ExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('exception', $this->conditionType->getType());
     }
@@ -38,7 +38,7 @@ final class ExceptionTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -54,7 +54,7 @@ final class ExceptionTest extends TestCase
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches($value, $matches)
+    public function testMatches($value, bool $matches): void
     {
         $request = Request::create('/');
 
@@ -66,7 +66,7 @@ final class ExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::matches
      */
-    public function testMatchesWithNoException()
+    public function testMatchesWithNoException(): void
     {
         $request = Request::create('/');
 
@@ -76,7 +76,7 @@ final class ExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::matches
      */
-    public function testMatchesWithInvalidException()
+    public function testMatchesWithInvalidException(): void
     {
         $request = Request::create('/');
 
@@ -85,12 +85,7 @@ final class ExceptionTest extends TestCase
         $this->assertFalse($this->conditionType->matches($request, [404]));
     }
 
-    /**
-     * Provider for testing condition type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [[404], true],
@@ -104,12 +99,7 @@ final class ExceptionTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for {@link self::testMatches}.
-     *
-     * @return array
-     */
-    public function matchesProvider()
+    public function matchesProvider(): array
     {
         return [
             ['not_array', false],

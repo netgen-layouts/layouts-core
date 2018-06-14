@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -20,7 +21,7 @@ final class BlockUpdateStructTest extends TestCase
      */
     private $struct;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->struct = new BlockUpdateStruct();
     }
@@ -28,7 +29,7 @@ final class BlockUpdateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParameters
      */
-    public function testFillParameters()
+    public function testFillParameters(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -55,7 +56,7 @@ final class BlockUpdateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParameters
      */
-    public function testFillParametersWithMissingValues()
+    public function testFillParametersWithMissingValues(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -80,7 +81,7 @@ final class BlockUpdateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParametersFromBlock
      */
-    public function testFillParametersFromBlock()
+    public function testFillParametersFromBlock(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -123,7 +124,7 @@ final class BlockUpdateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHash()
+    public function testFillParametersFromHash(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -150,7 +151,7 @@ final class BlockUpdateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHashWithMissingValues()
+    public function testFillParametersFromHashWithMissingValues(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -172,10 +173,7 @@ final class BlockUpdateStructTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function buildBlockDefinition()
+    private function buildBlockDefinition(): BlockDefinitionInterface
     {
         $compoundParameter = new CompoundParameterDefinition(
             [

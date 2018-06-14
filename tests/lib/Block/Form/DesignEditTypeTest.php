@@ -17,6 +17,7 @@ use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DesignEditTypeTest extends FormTestCase
@@ -31,7 +32,7 @@ final class DesignEditTypeTest extends FormTestCase
      */
     private $block;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -92,26 +93,17 @@ final class DesignEditTypeTest extends FormTestCase
         $this->block = new Block(['definition' => $this->definition]);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new DesignEditType();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
-     */
-    public function getTypeExtensions()
+    public function getTypeExtensions(): array
     {
         return [new ParametersTypeExtension()];
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface[]
-     */
-    public function getTypes()
+    public function getTypes(): array
     {
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
@@ -126,7 +118,7 @@ final class DesignEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'parameters' => [
@@ -172,7 +164,7 @@ final class DesignEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
-    public function testDisableUntranslatableFormsOnNonMainLocale()
+    public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
         $form = $this->factory->create(
             DesignEditType::class,
@@ -203,7 +195,7 @@ final class DesignEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      */
-    public function testDisableUntranslatableFormsOnMainLocale()
+    public function testDisableUntranslatableFormsOnMainLocale(): void
     {
         $form = $this->factory->create(
             DesignEditType::class,
@@ -229,7 +221,7 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -252,7 +244,7 @@ final class DesignEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "block" is missing.
      */
-    public function testConfigureOptionsWithMissingBlock()
+    public function testConfigureOptionsWithMissingBlock(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -267,7 +259,7 @@ final class DesignEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "block" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Block\Block", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidBlock()
+    public function testConfigureOptionsWithInvalidBlock(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -286,7 +278,7 @@ final class DesignEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Block\BlockUpdateStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

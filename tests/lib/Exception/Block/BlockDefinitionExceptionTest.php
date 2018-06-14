@@ -12,7 +12,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noForm
      */
-    public function testNoForm()
+    public function testNoForm(): void
     {
         $exception = BlockDefinitionException::noForm('def', 'form');
 
@@ -25,7 +25,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noViewType
      */
-    public function testNoViewType()
+    public function testNoViewType(): void
     {
         $exception = BlockDefinitionException::noViewType('def', 'view_type');
 
@@ -38,7 +38,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noItemViewType
      */
-    public function testNoItemViewType()
+    public function testNoItemViewType(): void
     {
         $exception = BlockDefinitionException::noItemViewType('view_type', 'item_view_type');
 
@@ -51,7 +51,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noCollection
      */
-    public function testNoCollection()
+    public function testNoCollection(): void
     {
         $exception = BlockDefinitionException::noCollection('def', 'coll');
 
@@ -64,7 +64,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noBlockDefinition
      */
-    public function testNoBlockDefinition()
+    public function testNoBlockDefinition(): void
     {
         $exception = BlockDefinitionException::noBlockDefinition('def');
 

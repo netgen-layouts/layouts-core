@@ -27,7 +27,7 @@ final class TypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->formFactory = Forms::createFormFactoryBuilder()
             ->getFormFactory();
@@ -36,13 +36,10 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -62,7 +59,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithNullQueryType()
+    public function testMatchWithNullQueryType(): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -82,7 +79,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithNullQueryTypeReturnsFalse()
+    public function testMatchWithNullQueryTypeReturnsFalse(): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -99,12 +96,7 @@ final class TypeTest extends TestCase
         $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -118,7 +110,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithNoFormView()
+    public function testMatchWithNoFormView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
@@ -126,7 +118,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithNoQuery()
+    public function testMatchWithNoQuery(): void
     {
         $form = $this->formFactory->create(Form::class);
 
@@ -136,7 +128,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithInvalidQuery()
+    public function testMatchWithInvalidQuery(): void
     {
         $form = $this->formFactory->create(Form::class, null, ['query' => 'type']);
 

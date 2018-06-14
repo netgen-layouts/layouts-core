@@ -12,7 +12,7 @@ final class UrlTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->type = new UrlType();
     }
@@ -20,7 +20,7 @@ final class UrlTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('url', $this->type->getIdentifier());
     }
@@ -28,11 +28,8 @@ final class UrlTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::configureOptions
      * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
      */
-    public function testValidOptions($options, $resolvedOptions)
+    public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
@@ -42,20 +39,16 @@ final class UrlTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
      */
-    public function testInvalidOptions($options)
+    public function testInvalidOptions(array $options): void
     {
         $this->getParameterDefinition($options);
     }
 
     /**
      * Provider for testing valid parameter attributes.
-     *
-     * @return array
      */
-    public function validOptionsProvider()
+    public function validOptionsProvider(): array
     {
         return [
             [
@@ -67,10 +60,8 @@ final class UrlTypeTest extends TestCase
 
     /**
      * Provider for testing invalid parameter attributes.
-     *
-     * @return array
      */
-    public function invalidOptionsProvider()
+    public function invalidOptionsProvider(): array
     {
         return [
             [
@@ -89,7 +80,7 @@ final class UrlTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidator();
@@ -98,12 +89,7 @@ final class UrlTypeTest extends TestCase
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
-    /**
-     * Provider for testing valid parameter values.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [null, true],

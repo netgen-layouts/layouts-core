@@ -12,7 +12,7 @@ final class ConfigDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Config\ConfigDefinitionException::noConfigDefinition
      */
-    public function testNoConfigDefinition()
+    public function testNoConfigDefinition(): void
     {
         $exception = ConfigDefinitionException::noConfigDefinition('type', 'def');
 

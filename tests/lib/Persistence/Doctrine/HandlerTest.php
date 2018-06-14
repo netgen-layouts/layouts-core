@@ -25,7 +25,7 @@ final class HandlerTest extends TestCase
      */
     private $handler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->connectionMock = $this->createMock(Connection::class);
 
@@ -36,7 +36,7 @@ final class HandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getLayoutHandler
      */
-    public function testGetLayoutHandler()
+    public function testGetLayoutHandler(): void
     {
         $this->assertInstanceOf(
             LayoutHandler::class,
@@ -47,7 +47,7 @@ final class HandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getBlockHandler
      */
-    public function testGetBlockHandler()
+    public function testGetBlockHandler(): void
     {
         $this->assertInstanceOf(
             BlockHandler::class,
@@ -58,7 +58,7 @@ final class HandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getCollectionHandler
      */
-    public function testGetCollectionHandler()
+    public function testGetCollectionHandler(): void
     {
         $this->assertInstanceOf(
             CollectionHandler::class,
@@ -69,7 +69,7 @@ final class HandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getLayoutResolverHandler
      */
-    public function testGetLayoutResolverHandler()
+    public function testGetLayoutResolverHandler(): void
     {
         $this->assertInstanceOf(
             LayoutResolverHandler::class,
@@ -80,7 +80,7 @@ final class HandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::beginTransaction
      */
-    public function testBeginTransaction()
+    public function testBeginTransaction(): void
     {
         $this->connectionMock
             ->expects($this->once())
@@ -92,7 +92,7 @@ final class HandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::commitTransaction
      */
-    public function testCommitTransaction()
+    public function testCommitTransaction(): void
     {
         $this->connectionMock
             ->expects($this->once())
@@ -104,7 +104,7 @@ final class HandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::rollbackTransaction
      */
-    public function testRollbackTransaction()
+    public function testRollbackTransaction(): void
     {
         $this->connectionMock
             ->expects($this->once())

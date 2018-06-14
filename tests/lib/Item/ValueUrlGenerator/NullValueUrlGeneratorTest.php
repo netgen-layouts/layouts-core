@@ -15,7 +15,7 @@ final class NullValueUrlGeneratorTest extends TestCase
      */
     private $urlGenerator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->urlGenerator = new NullValueUrlGenerator();
     }
@@ -23,7 +23,7 @@ final class NullValueUrlGeneratorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ValueUrlGenerator\NullValueUrlGenerator::generate
      */
-    public function testGenerate()
+    public function testGenerate(): void
     {
         $this->assertNull($this->urlGenerator->generate(new stdClass()));
     }

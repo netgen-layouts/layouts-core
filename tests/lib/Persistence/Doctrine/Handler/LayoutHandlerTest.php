@@ -36,7 +36,7 @@ final class LayoutHandlerTest extends TestCase
      */
     private $collectionHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->createDatabase();
 
@@ -48,7 +48,7 @@ final class LayoutHandlerTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
@@ -60,7 +60,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
      */
-    public function testLoadLayout()
+    public function testLoadLayout(): void
     {
         $this->assertEquals(
             new Layout(
@@ -87,7 +87,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
-    public function testLoadLayoutThrowsNotFoundException()
+    public function testLoadLayoutThrowsNotFoundException(): void
     {
         $this->layoutHandler->loadLayout(999999, Value::STATUS_PUBLISHED);
     }
@@ -97,7 +97,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getZoneSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
      */
-    public function testLoadZone()
+    public function testLoadZone(): void
     {
         $this->assertEquals(
             new Zone(
@@ -120,7 +120,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
-    public function testLoadZoneThrowsNotFoundException()
+    public function testLoadZoneThrowsNotFoundException(): void
     {
         $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'non_existing');
     }
@@ -130,7 +130,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
-    public function testLoadLayouts()
+    public function testLoadLayouts(): void
     {
         $this->assertEquals(
             [
@@ -186,7 +186,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
-    public function testLoadLayoutsWithUnpublishedLayouts()
+    public function testLoadLayoutsWithUnpublishedLayouts(): void
     {
         $this->assertEquals(
             [
@@ -270,7 +270,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
-    public function testLoadSharedLayouts()
+    public function testLoadSharedLayouts(): void
     {
         $this->assertEquals(
             [
@@ -312,7 +312,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadRelatedLayoutsData
      */
-    public function testLoadRelatedLayouts()
+    public function testLoadRelatedLayouts(): void
     {
         $this->assertEquals(
             [
@@ -341,7 +341,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getRelatedLayoutsCount
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getRelatedLayoutsCount
      */
-    public function testGetRelatedLayoutsCount()
+    public function testGetRelatedLayoutsCount(): void
     {
         $count = $this->layoutHandler->getRelatedLayoutsCount(
             $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
@@ -354,7 +354,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
-    public function testLayoutExists()
+    public function testLayoutExists(): void
     {
         $this->assertTrue($this->layoutHandler->layoutExists(1, Value::STATUS_PUBLISHED));
     }
@@ -363,7 +363,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
-    public function testLayoutNotExists()
+    public function testLayoutNotExists(): void
     {
         $this->assertFalse($this->layoutHandler->layoutExists(999999, Value::STATUS_PUBLISHED));
     }
@@ -372,7 +372,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
-    public function testLayoutNotExistsInStatus()
+    public function testLayoutNotExistsInStatus(): void
     {
         $this->assertFalse($this->layoutHandler->layoutExists(1, Value::STATUS_ARCHIVED));
     }
@@ -381,7 +381,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
      */
-    public function testZoneExists()
+    public function testZoneExists(): void
     {
         $this->assertTrue(
             $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'left')
@@ -392,7 +392,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
      */
-    public function testZoneNotExists()
+    public function testZoneNotExists(): void
     {
         $this->assertFalse(
             $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'non_existing')
@@ -403,7 +403,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
-    public function testLayoutNameExists()
+    public function testLayoutNameExists(): void
     {
         $this->assertTrue($this->layoutHandler->layoutNameExists('My layout'));
     }
@@ -412,7 +412,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
-    public function testLayoutNameNotExists()
+    public function testLayoutNameNotExists(): void
     {
         $this->assertFalse($this->layoutHandler->layoutNameExists('Non existent'));
     }
@@ -421,7 +421,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
-    public function testLayoutNameNotExistsWithExcludedId()
+    public function testLayoutNameNotExistsWithExcludedId(): void
     {
         $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', 1));
     }
@@ -430,7 +430,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
      */
-    public function testLoadLayoutZones()
+    public function testLoadLayoutZones(): void
     {
         $this->assertEquals(
             [
@@ -485,7 +485,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
      */
-    public function testUpdateZone()
+    public function testUpdateZone(): void
     {
         $zone = $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'top');
         $linkedZone = $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'top');
@@ -518,7 +518,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
      */
-    public function testUpdateZoneWithResettingLinkedZone()
+    public function testUpdateZoneWithResettingLinkedZone(): void
     {
         $zone = $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'left');
 
@@ -551,7 +551,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
-    public function testCreateLayout()
+    public function testCreateLayout(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->type = 'new_layout';
@@ -584,7 +584,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
-    public function testCreateLayoutTranslation()
+    public function testCreateLayoutTranslation(): void
     {
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $layout = $this->layoutHandler->createLayoutTranslation($originalLayout, 'de', 'en');
@@ -610,7 +610,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "locale" has an invalid state. Layout already has the provided locale.
      */
-    public function testCreateLayoutTranslationThrowsBadStateExceptionWithExistingLocale()
+    public function testCreateLayoutTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
         $this->layoutHandler->createLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
@@ -625,7 +625,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "sourceLocale" has an invalid state. Layout does not have the provided source locale.
      */
-    public function testCreateLayoutTranslationThrowsBadStateExceptionWithNonExistingSourceLocale()
+    public function testCreateLayoutTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
         $this->layoutHandler->createLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
@@ -637,7 +637,7 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
      */
-    public function testSetMainTranslation()
+    public function testSetMainTranslation(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->setMainTranslation($layout, 'hr');
@@ -657,7 +657,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Layout does not have the provided locale.
      */
-    public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $this->layoutHandler->setMainTranslation($layout, 'de');
@@ -667,7 +667,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
      */
-    public function testCreateZone()
+    public function testCreateZone(): void
     {
         $zoneCreateStruct = new ZoneCreateStruct();
         $zoneCreateStruct->identifier = 'new_zone';
@@ -719,7 +719,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
      */
-    public function testUpdateLayout()
+    public function testUpdateLayout(): void
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
@@ -743,7 +743,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
      */
-    public function testUpdateLayoutWithDefaultValues()
+    public function testUpdateLayoutWithDefaultValues(): void
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
 
@@ -766,7 +766,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
-    public function testCopyLayout()
+    public function testCopyLayout(): void
     {
         // Link the zone before copying, to make sure those are copied too
         $this->layoutHandler->updateZone(
@@ -985,7 +985,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteZone
      */
-    public function testChangeLayoutType()
+    public function testChangeLayoutType(): void
     {
         // Link the zone before copying, to make sure those are removed
         $this->layoutHandler->updateZone(
@@ -1189,7 +1189,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
      */
-    public function testCreateLayoutStatus()
+    public function testCreateLayoutStatus(): void
     {
         // Link the zone before copying, to make sure those are copied too
         $this->layoutHandler->updateZone(
@@ -1399,7 +1399,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find layout with identifier "1"
      */
-    public function testDeleteLayout()
+    public function testDeleteLayout(): void
     {
         $this->layoutHandler->deleteLayout(1);
 
@@ -1422,7 +1422,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
      */
-    public function testDeleteLayoutInOneStatus()
+    public function testDeleteLayoutInOneStatus(): void
     {
         $this->layoutHandler->deleteLayout(1, Value::STATUS_DRAFT);
 
@@ -1473,7 +1473,7 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      */
-    public function testDeleteLayoutTranslation()
+    public function testDeleteLayoutTranslation(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
@@ -1498,7 +1498,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find block with identifier "31"
      */
-    public function testDeleteLayoutTranslationWithInconsistentBlock()
+    public function testDeleteLayoutTranslationWithInconsistentBlock(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
 
@@ -1525,7 +1525,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "locale" has an invalid state. Layout does not have the provided locale.
      */
-    public function testDeleteLayoutTranslationWithNonExistingLocale()
+    public function testDeleteLayoutTranslationWithNonExistingLocale(): void
     {
         $this->layoutHandler->deleteLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
@@ -1539,7 +1539,7 @@ final class LayoutHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the layout.
      */
-    public function testDeleteLayoutTranslationWithMainLocale()
+    public function testDeleteLayoutTranslationWithMainLocale(): void
     {
         $this->layoutHandler->deleteLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),

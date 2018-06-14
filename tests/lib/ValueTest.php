@@ -12,7 +12,7 @@ final class ValueTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Value::__construct
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $value = new Value(
             [
@@ -30,7 +30,7 @@ final class ValueTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Property "someNonExistingProperty" does not exist in "Netgen\BlockManager\Tests\Stubs\Value" class.
      */
-    public function testSetNonExistingProperties()
+    public function testSetNonExistingProperties(): void
     {
         new Value(
             [

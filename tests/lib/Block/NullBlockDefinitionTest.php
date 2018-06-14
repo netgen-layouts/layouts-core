@@ -17,7 +17,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->blockDefinition = new NullBlockDefinition('definition');
     }
@@ -26,7 +26,7 @@ final class NullBlockDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::__construct
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('definition', $this->blockDefinition->getIdentifier());
     }
@@ -34,7 +34,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Invalid block definition', $this->blockDefinition->getName());
     }
@@ -42,7 +42,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getIcon
      */
-    public function testGetIcon()
+    public function testGetIcon(): void
     {
         $this->assertEquals('', $this->blockDefinition->getIcon());
     }
@@ -50,7 +50,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::isTranslatable
      */
-    public function testIsTranslatable()
+    public function testIsTranslatable(): void
     {
         $this->assertFalse($this->blockDefinition->isTranslatable());
     }
@@ -58,7 +58,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getForms
      */
-    public function testGetForms()
+    public function testGetForms(): void
     {
         $this->assertEquals([], $this->blockDefinition->getForms());
     }
@@ -66,7 +66,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasForm
      */
-    public function testHasForm()
+    public function testHasForm(): void
     {
         $this->assertFalse($this->blockDefinition->hasForm('content'));
     }
@@ -74,7 +74,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getForm
      */
-    public function testGetForm()
+    public function testGetForm(): void
     {
         $this->assertNull($this->blockDefinition->getForm('content'));
     }
@@ -82,7 +82,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getCollections
      */
-    public function testGetCollections()
+    public function testGetCollections(): void
     {
         $this->assertEquals([], $this->blockDefinition->getCollections());
     }
@@ -90,7 +90,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasCollection
      */
-    public function testHasCollection()
+    public function testHasCollection(): void
     {
         $this->assertFalse($this->blockDefinition->hasCollection('collection'));
     }
@@ -98,7 +98,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getCollection
      */
-    public function testGetCollection()
+    public function testGetCollection(): void
     {
         $this->assertNull($this->blockDefinition->getCollection('collection'));
     }
@@ -106,7 +106,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewTypes
      */
-    public function testGetViewTypes()
+    public function testGetViewTypes(): void
     {
         $this->assertEquals([], $this->blockDefinition->getViewTypes());
     }
@@ -114,7 +114,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewTypeIdentifiers
      */
-    public function testGetViewTypeIdentifiers()
+    public function testGetViewTypeIdentifiers(): void
     {
         $this->assertEquals([], $this->blockDefinition->getViewTypeIdentifiers());
     }
@@ -122,7 +122,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasViewType
      */
-    public function testHasViewType()
+    public function testHasViewType(): void
     {
         $this->assertFalse($this->blockDefinition->hasViewType('large'));
     }
@@ -130,7 +130,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewType
      */
-    public function testGetViewType()
+    public function testGetViewType(): void
     {
         $this->assertNull($this->blockDefinition->getViewType('large'));
     }
@@ -138,7 +138,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getDynamicParameters
      */
-    public function testGetDynamicParameters()
+    public function testGetDynamicParameters(): void
     {
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
 
@@ -148,7 +148,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $this->assertFalse($this->blockDefinition->isContextual(new Block()));
     }
@@ -156,7 +156,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::isCacheable
      */
-    public function testIsCacheable()
+    public function testIsCacheable(): void
     {
         $this->assertFalse($this->blockDefinition->isCacheable(new Block()));
     }
@@ -164,7 +164,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getConfigDefinitions
      */
-    public function testGetConfigDefinitions()
+    public function testGetConfigDefinitions(): void
     {
         $this->assertEquals([], $this->blockDefinition->getConfigDefinitions());
     }
@@ -172,7 +172,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasPlugin
      */
-    public function testHasPlugin()
+    public function testHasPlugin(): void
     {
         $this->assertFalse($this->blockDefinition->hasPlugin(HandlerPlugin::class));
     }
@@ -180,7 +180,7 @@ final class NullBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasPlugin
      */
-    public function testHasPluginWithUnknownPlugin()
+    public function testHasPluginWithUnknownPlugin(): void
     {
         $this->assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
     }

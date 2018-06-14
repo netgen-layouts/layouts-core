@@ -29,7 +29,7 @@ final class PluginTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->plugin = $this->getMockForAbstractClass(Plugin::class);
 
@@ -45,7 +45,7 @@ final class PluginTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin::buildParameters
      */
-    public function testBuildParameters()
+    public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->plugin->buildParameters($builder);
@@ -56,7 +56,7 @@ final class PluginTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin::getDynamicParameters
      */
-    public function testGetDynamicParameters()
+    public function testGetDynamicParameters(): void
     {
         $dynamicParameters = new DynamicParameters();
         $this->plugin->getDynamicParameters($dynamicParameters, new Block());

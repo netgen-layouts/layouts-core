@@ -17,7 +17,7 @@ final class TaggerTest extends TestCase
      */
     private $tagger;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->tagger = new Tagger();
     }
@@ -25,7 +25,7 @@ final class TaggerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Tagger::tagLayout
      */
-    public function testTagLayout()
+    public function testTagLayout(): void
     {
         $response = new Response();
         $response->setVary('Cookie');
@@ -43,7 +43,7 @@ final class TaggerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Tagger::tagBlock
      */
-    public function testTagBlock()
+    public function testTagBlock(): void
     {
         $response = new Response();
         $block = new Block(['id' => 42, 'layoutId' => 24]);

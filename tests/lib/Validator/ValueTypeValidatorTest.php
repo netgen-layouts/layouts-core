@@ -10,20 +10,18 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\ValueType as ValueTypeConstraint;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ValueTypeValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new ValueTypeConstraint();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         $valueTypeRegistry = new ValueTypeRegistry();
         $valueTypeRegistry->addValueType('value', new ValueType(['isEnabled' => true]));
@@ -32,14 +30,11 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::__construct
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $isValid)
+    public function testValidate(string $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
@@ -49,7 +44,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\ValueType", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'value');
@@ -60,12 +55,12 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             ['value', true],

@@ -14,7 +14,7 @@ final class NullValueLoaderTest extends TestCase
      */
     private $valueLoader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->valueLoader = new NullValueLoader();
     }
@@ -24,7 +24,7 @@ final class NullValueLoaderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Item with ID "42" could not be loaded.
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $this->valueLoader->load(42);
     }
@@ -34,7 +34,7 @@ final class NullValueLoaderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Item with remote ID "abc" could not be loaded.
      */
-    public function testLoadByRemoteId()
+    public function testLoadByRemoteId(): void
     {
         $this->valueLoader->loadByRemoteId('abc');
     }

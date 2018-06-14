@@ -11,14 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
 
         $this->assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
     }
 
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $itemCreateStruct = new ItemCreateStruct(
             [

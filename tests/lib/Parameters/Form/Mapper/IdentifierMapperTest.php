@@ -15,7 +15,7 @@ final class IdentifierMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new IdentifierMapper();
     }
@@ -23,7 +23,7 @@ final class IdentifierMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(TextType::class, $this->mapper->getFormType());
     }

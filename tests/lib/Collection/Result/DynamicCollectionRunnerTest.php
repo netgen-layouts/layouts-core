@@ -8,6 +8,7 @@ use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +21,7 @@ final class DynamicCollectionRunnerTest extends TestCase
      */
     private $itemBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
 
@@ -29,7 +30,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             ->method('build')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    function ($value): ItemInterface {
                         return new Item(['value' => $value, 'isVisible' => true]);
                     }
                 )
@@ -37,15 +38,6 @@ final class DynamicCollectionRunnerTest extends TestCase
     }
 
     /**
-     * @param array $manualItems
-     * @param array $overrideItems
-     * @param array $queryItems
-     * @param int $queryCount
-     * @param array $values
-     * @param int $totalCount
-     * @param int $offset
-     * @param int $limit
-     *
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__construct
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildManualResult
      * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildOverrideResult
@@ -61,12 +53,12 @@ final class DynamicCollectionRunnerTest extends TestCase
         array $manualItems,
         array $overrideItems,
         array $queryItems,
-        $queryCount,
+        int $queryCount,
         array $values,
-        $totalCount,
-        $offset = 0,
-        $limit = 200
-    ) {
+        int $totalCount,
+        int $offset = 0,
+        int $limit = 200
+    ): void {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
         $factory = new CollectionRunnerFactory($this->itemBuilderMock);
         $collectionRunner = $factory->getCollectionRunner($collection);
@@ -82,10 +74,8 @@ final class DynamicCollectionRunnerTest extends TestCase
 
     /**
      * Builds data providers for building result from dynamic collection.
-     *
-     * @return array
      */
-    public function dynamicCollectionProvider()
+    public function dynamicCollectionProvider(): array
     {
         return [
             [
@@ -378,7 +368,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         ];
     }
 
-    private function buildExpectedValues(array $values)
+    private function buildExpectedValues(array $values): array
     {
         $results = [];
         foreach ($values as $key => $value) {

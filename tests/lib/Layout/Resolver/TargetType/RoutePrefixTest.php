@@ -16,7 +16,7 @@ final class RoutePrefixTest extends TestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->targetType = new RoutePrefix();
     }
@@ -24,7 +24,7 @@ final class RoutePrefixTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('route_prefix', $this->targetType->getType());
     }
@@ -36,7 +36,7 @@ final class RoutePrefixTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -47,7 +47,7 @@ final class RoutePrefixTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::provideValue
      */
-    public function testProvideValue()
+    public function testProvideValue(): void
     {
         $request = Request::create('/');
         $request->attributes->set('_route', 'my_cool_route');
@@ -58,12 +58,7 @@ final class RoutePrefixTest extends TestCase
         );
     }
 
-    /**
-     * Provider for testing target type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             ['route_name', true],

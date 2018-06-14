@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\API\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -20,7 +21,7 @@ final class ConfigStructTest extends TestCase
      */
     private $struct;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->struct = new ConfigStruct();
     }
@@ -28,7 +29,7 @@ final class ConfigStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParameters
      */
-    public function testFillParameters()
+    public function testFillParameters(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
@@ -55,7 +56,7 @@ final class ConfigStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParameters
      */
-    public function testFillParametersWithMissingValues()
+    public function testFillParametersWithMissingValues(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
@@ -80,7 +81,7 @@ final class ConfigStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromConfig
      */
-    public function testFillParametersFromConfig()
+    public function testFillParametersFromConfig(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
@@ -123,7 +124,7 @@ final class ConfigStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHash()
+    public function testFillParametersFromHash(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
@@ -150,7 +151,7 @@ final class ConfigStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHashWithMissingValues()
+    public function testFillParametersFromHashWithMissingValues(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
@@ -172,10 +173,7 @@ final class ConfigStructTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
-     */
-    private function buildConfigDefinition()
+    private function buildConfigDefinition(): ConfigDefinitionInterface
     {
         $compoundParameter = new CompoundParameterDefinition(
             [

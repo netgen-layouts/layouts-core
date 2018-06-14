@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $collection = new Collection(
             [

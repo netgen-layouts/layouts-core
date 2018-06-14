@@ -11,7 +11,7 @@ final class ValueLoader implements ValueLoaderInterface
 {
     private $throwException = false;
 
-    public function __construct($throwException = false)
+    public function __construct(bool $throwException = false)
     {
         $this->throwException = $throwException;
     }

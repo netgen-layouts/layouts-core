@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Query());
     }
@@ -22,7 +22,7 @@ final class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $query = new Query();
 
@@ -44,7 +44,7 @@ final class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $query = new Query(
             [
@@ -92,7 +92,7 @@ final class QueryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $query = new Query(
             [

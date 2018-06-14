@@ -20,7 +20,7 @@ final class ParameterFilterRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ParameterFilterRegistry();
 
@@ -32,7 +32,7 @@ final class ParameterFilterRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilter
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::getParameterFilters
      */
-    public function testGetParameterFilters()
+    public function testGetParameterFilters(): void
     {
         $this->assertEquals([$this->filter], $this->registry->getParameterFilters('html'));
     }

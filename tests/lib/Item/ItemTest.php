@@ -18,7 +18,7 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Item\Item::getValueType
      * @covers \Netgen\BlockManager\Item\Item::isVisible
      */
-    public function testObject()
+    public function testObject(): void
     {
         $value = new Item(
             [

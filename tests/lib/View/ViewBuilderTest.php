@@ -29,7 +29,7 @@ final class ViewBuilderTest extends TestCase
      */
     private $eventDispatcherMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->viewProviderMock = $this->createMock(ViewProviderInterface::class);
         $this->templateResolverMock = $this->createMock(TemplateResolverInterface::class);
@@ -41,7 +41,7 @@ final class ViewBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      */
-    public function testBuildView()
+    public function testBuildView(): void
     {
         $value = new Value();
         $view = new View(['value' => $value]);
@@ -93,7 +93,7 @@ final class ViewBuilderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value.
      */
-    public function testBuildViewWithNoViewProviders()
+    public function testBuildViewWithNoViewProviders(): void
     {
         $value = new Value();
 
@@ -115,7 +115,7 @@ final class ViewBuilderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value.
      */
-    public function testBuildViewWithNoViewProvidersThatSupportValue()
+    public function testBuildViewWithNoViewProvidersThatSupportValue(): void
     {
         $value = new Value();
 

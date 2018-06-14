@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception as ExceptionMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class ExceptionTest extends FormTestCase
 {
@@ -18,17 +19,14 @@ final class ExceptionTest extends FormTestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->conditionType = new Exception();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ConditionType(
             [
@@ -45,7 +43,7 @@ final class ExceptionTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormType
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = ['value' => [404]];
 

@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final class SerializerAwareTraitTest extends TestCase
 {
-    public function testDefaultSerializerValue()
+    public function testDefaultSerializerValue(): void
     {
         $value = new SerializerAwareValue();
         $this->assertNull($value->getSerializer());
@@ -19,7 +19,7 @@ final class SerializerAwareTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\SerializerAwareTrait::setSerializer
      */
-    public function testSetSerializer()
+    public function testSetSerializer(): void
     {
         $serializer = $this->createMock(SerializerInterface::class);
 

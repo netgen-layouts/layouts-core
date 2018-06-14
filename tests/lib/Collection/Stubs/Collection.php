@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
+use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\Item as CmsItem;
@@ -30,7 +31,7 @@ final class Collection implements APICollection
         array $manualItems = [],
         array $overrideItems = [],
         array $queryValues = null,
-        $queryCount = 0
+        int $queryCount = 0
     ) {
         foreach ($manualItems as $position => $value) {
             $this->manualItems[$position] = new Item(
@@ -73,40 +74,40 @@ final class Collection implements APICollection
     {
     }
 
-    public function getStatus()
+    public function getStatus(): int
     {
     }
 
-    public function getType()
+    public function getType(): string
     {
     }
 
-    public function isDraft()
+    public function isDraft(): bool
     {
     }
 
-    public function isPublished()
+    public function isPublished(): bool
     {
     }
 
-    public function isArchived()
+    public function isArchived(): bool
     {
     }
 
-    public function getOffset()
+    public function getOffset(): int
     {
     }
 
-    public function getLimit()
+    public function getLimit(): ?int
     {
     }
 
-    public function hasItem($position, $type = null)
+    public function hasItem($position, $type = null): bool
     {
         return $this->hasManualItem($position) || $this->hasOverrideItem($position);
     }
 
-    public function getItem($position, $type = null)
+    public function getItem($position, $type = null): ?APIItem
     {
         $item = $this->getManualItem($position);
         if ($item !== null) {
@@ -116,7 +117,7 @@ final class Collection implements APICollection
         return $this->getOverrideItem($position);
     }
 
-    public function getItems()
+    public function getItems(): array
     {
         $items = $this->manualItems + $this->overrideItems;
 
@@ -125,63 +126,63 @@ final class Collection implements APICollection
         return $items;
     }
 
-    public function hasManualItem($position)
+    public function hasManualItem($position): bool
     {
         return isset($this->manualItems[$position]);
     }
 
-    public function getManualItem($position)
+    public function getManualItem($position): ?APIItem
     {
         return $this->manualItems[$position] ?? null;
     }
 
-    public function getManualItems()
+    public function getManualItems(): array
     {
         return $this->manualItems;
     }
 
-    public function hasOverrideItem($position)
+    public function hasOverrideItem($position): bool
     {
         return isset($this->overrideItems[$position]);
     }
 
-    public function getOverrideItem($position)
+    public function getOverrideItem($position): ?APIItem
     {
         return $this->overrideItems[$position] ?? null;
     }
 
-    public function getOverrideItems()
+    public function getOverrideItems(): array
     {
         return $this->overrideItems;
     }
 
-    public function getQuery()
+    public function getQuery(): APIQuery
     {
         return $this->query;
     }
 
-    public function hasQuery()
+    public function hasQuery(): bool
     {
         return $this->query instanceof APIQuery;
     }
 
-    public function getAvailableLocales()
+    public function getAvailableLocales(): array
     {
     }
 
-    public function getMainLocale()
+    public function getMainLocale(): string
     {
     }
 
-    public function isTranslatable()
+    public function isTranslatable(): bool
     {
     }
 
-    public function isAlwaysAvailable()
+    public function isAlwaysAvailable(): bool
     {
     }
 
-    public function getLocale()
+    public function getLocale(): string
     {
     }
 }

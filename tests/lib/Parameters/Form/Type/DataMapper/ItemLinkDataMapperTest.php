@@ -15,7 +15,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +25,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
      */
-    public function testMapDataToForms()
+    public function testMapDataToForms(): void
     {
         $data = 'value://42';
 
@@ -45,7 +45,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
      */
-    public function testMapDataToFormsWithInvalidData()
+    public function testMapDataToFormsWithInvalidData(): void
     {
         $data = 'value';
 
@@ -65,7 +65,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
      */
-    public function testMapDataToFormsWithNonStringData()
+    public function testMapDataToFormsWithNonStringData(): void
     {
         $data = 42;
 
@@ -85,7 +85,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
-    public function testMapFormsToData()
+    public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
             [
@@ -102,7 +102,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataWithInvalidFormData()
+    public function testMapFormsToDataWithInvalidFormData(): void
     {
         $forms = new ArrayIterator(
             [

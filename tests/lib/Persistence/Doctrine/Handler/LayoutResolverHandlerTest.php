@@ -33,7 +33,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     private $layoutHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->createDatabase();
 
@@ -44,7 +44,7 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
@@ -56,7 +56,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      */
-    public function testLoadRule()
+    public function testLoadRule(): void
     {
         $this->assertEquals(
             new Rule(
@@ -79,7 +79,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
-    public function testLoadRuleThrowsNotFoundException()
+    public function testLoadRuleThrowsNotFoundException(): void
     {
         $this->handler->loadRule(999999, Value::STATUS_PUBLISHED);
     }
@@ -88,7 +88,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
      */
-    public function testLoadRules()
+    public function testLoadRules(): void
     {
         $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
 
@@ -110,7 +110,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
      */
-    public function testLoadRulesWithLayout()
+    public function testLoadRulesWithLayout(): void
     {
         $rules = $this->handler->loadRules(
             Value::STATUS_PUBLISHED,
@@ -135,7 +135,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
      */
-    public function testGetRuleCount()
+    public function testGetRuleCount(): void
     {
         $rules = $this->handler->getRuleCount();
 
@@ -146,7 +146,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
      */
-    public function testGetRuleCountWithLayout()
+    public function testGetRuleCountWithLayout(): void
     {
         $rules = $this->handler->getRuleCount(
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
@@ -160,7 +160,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
      */
-    public function testLoadTarget()
+    public function testLoadTarget(): void
     {
         $this->assertEquals(
             new Target(
@@ -182,7 +182,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find target with identifier "999999"
      */
-    public function testLoadTargetThrowsNotFoundException()
+    public function testLoadTargetThrowsNotFoundException(): void
     {
         $this->handler->loadTarget(999999, Value::STATUS_PUBLISHED);
     }
@@ -191,7 +191,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleTargets
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
      */
-    public function testLoadRuleTargets()
+    public function testLoadRuleTargets(): void
     {
         $targets = $this->handler->loadRuleTargets(
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
@@ -208,7 +208,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getTargetCount
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetCount
      */
-    public function testGetTargetCount()
+    public function testGetTargetCount(): void
     {
         $targets = $this->handler->getTargetCount(
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
@@ -222,7 +222,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getConditionSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
      */
-    public function testLoadCondition()
+    public function testLoadCondition(): void
     {
         $this->assertEquals(
             new Condition(
@@ -247,7 +247,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
-    public function testLoadConditionThrowsNotFoundException()
+    public function testLoadConditionThrowsNotFoundException(): void
     {
         $this->handler->loadCondition(999999, Value::STATUS_PUBLISHED);
     }
@@ -256,7 +256,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
      */
-    public function testLoadRuleConditions()
+    public function testLoadRuleConditions(): void
     {
         $conditions = $this->handler->loadRuleConditions(
             $this->handler->loadRule(2, Value::STATUS_PUBLISHED)
@@ -273,7 +273,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
      */
-    public function testRuleExists()
+    public function testRuleExists(): void
     {
         $this->assertTrue($this->handler->ruleExists(1, Value::STATUS_PUBLISHED));
     }
@@ -282,7 +282,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
      */
-    public function testRuleNotExists()
+    public function testRuleNotExists(): void
     {
         $this->assertFalse($this->handler->ruleExists(999999, Value::STATUS_PUBLISHED));
     }
@@ -291,7 +291,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
      */
-    public function testRuleNotExistsInStatus()
+    public function testRuleNotExistsInStatus(): void
     {
         $this->assertFalse($this->handler->ruleExists(1, Value::STATUS_ARCHIVED));
     }
@@ -302,7 +302,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
-    public function testCreateRule()
+    public function testCreateRule(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
         $ruleCreateStruct->layoutId = 3;
@@ -329,7 +329,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
-    public function testCreateRuleWithNoPriority()
+    public function testCreateRuleWithNoPriority(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
         $ruleCreateStruct->status = Value::STATUS_DRAFT;
@@ -352,7 +352,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
-    public function testCreateRuleWithNoPriorityAndNoRules()
+    public function testCreateRuleWithNoPriorityAndNoRules(): void
     {
         // First delete all rules
         $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
@@ -380,7 +380,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
-    public function testUpdateRule()
+    public function testUpdateRule(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 15;
@@ -403,7 +403,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
-    public function testUpdateRuleWithRemovalOfLinkedLayout()
+    public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 0;
@@ -424,7 +424,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
-    public function testUpdateRuleWithDefaultValues()
+    public function testUpdateRuleWithDefaultValues(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
 
@@ -445,7 +445,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
      */
-    public function testUpdateRuleMetadata()
+    public function testUpdateRuleMetadata(): void
     {
         $updatedRule = $this->handler->updateRuleMetadata(
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
@@ -467,7 +467,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
      */
-    public function testUpdateRuleMetadataWithDefaultValues()
+    public function testUpdateRuleMetadataWithDefaultValues(): void
     {
         $updatedRule = $this->handler->updateRuleMetadata(
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
@@ -489,7 +489,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
      */
-    public function testCopyRule()
+    public function testCopyRule(): void
     {
         $copiedRule = $this->handler->copyRule(
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED)
@@ -552,7 +552,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
      */
-    public function testCreateRuleStatus()
+    public function testCreateRuleStatus(): void
     {
         $copiedRule = $this->handler->createRuleStatus(
             $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
@@ -631,7 +631,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find rule with identifier "3"
      */
-    public function testDeleteRule()
+    public function testDeleteRule(): void
     {
         $this->handler->deleteRule(3);
 
@@ -646,7 +646,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find rule with identifier "5"
      */
-    public function testDeleteRuleInOneStatus()
+    public function testDeleteRuleInOneStatus(): void
     {
         $this->handler->deleteRule(5, Value::STATUS_DRAFT);
 
@@ -664,7 +664,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::addTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
      */
-    public function testAddTarget()
+    public function testAddTarget(): void
     {
         $targetCreateStruct = new TargetCreateStruct();
         $targetCreateStruct->type = 'target';
@@ -691,7 +691,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateTarget
      */
-    public function testUpdateTarget()
+    public function testUpdateTarget(): void
     {
         $targetUpdateStruct = new TargetUpdateStruct();
         $targetUpdateStruct->value = 'my_new_route';
@@ -719,7 +719,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find target with identifier "2"
      */
-    public function testDeleteTarget()
+    public function testDeleteTarget(): void
     {
         $target = $this->handler->loadTarget(2, Value::STATUS_PUBLISHED);
 
@@ -732,7 +732,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::addCondition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
      */
-    public function testAddCondition()
+    public function testAddCondition(): void
     {
         $conditionCreateStruct = new ConditionCreateStruct();
         $conditionCreateStruct->type = 'condition';
@@ -759,7 +759,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateCondition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateCondition
      */
-    public function testUpdateCondition()
+    public function testUpdateCondition(): void
     {
         $conditionUpdateStruct = new ConditionUpdateStruct();
         $conditionUpdateStruct->value = ['new_param' => 'new_value'];
@@ -787,7 +787,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find condition with identifier "2"
      */
-    public function testDeleteCondition()
+    public function testDeleteCondition(): void
     {
         $this->handler->deleteCondition(
             $this->handler->loadCondition(2, Value::STATUS_PUBLISHED)

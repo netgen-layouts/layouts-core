@@ -18,12 +18,12 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
      */
     private $parameterGroups = [];
 
-    public function __construct($parameterGroups = [])
+    public function __construct(array $parameterGroups = [])
     {
         $this->parameterGroups = $parameterGroups;
     }
 
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         $compoundParam = new CompoundParameterDefinition(
             [
@@ -84,7 +84,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
         ];
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['definition_param'] = 'definition_value';
     }

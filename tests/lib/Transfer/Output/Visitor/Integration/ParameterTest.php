@@ -10,22 +10,23 @@ use Netgen\BlockManager\Parameters\Parameter as ParameterValue;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterTypeWithExportImport;
 use Netgen\BlockManager\Transfer\Output\Visitor\Parameter;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class ParameterTest extends VisitorTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->blockService = $this->createBlockService();
     }
 
-    public function getVisitor()
+    public function getVisitor(): VisitorInterface
     {
         return new Parameter();
     }
 
-    public function acceptProvider()
+    public function acceptProvider(): array
     {
         return [
             [new ParameterValue(), true],
@@ -34,7 +35,7 @@ abstract class ParameterTest extends VisitorTest
         ];
     }
 
-    public function visitProvider()
+    public function visitProvider(): array
     {
         return [
             [new ParameterValue(['parameterDefinition' => new ParameterDefinition(['type' => new ParameterTypeWithExportImport()])]), 'parameter/parameter.json'],

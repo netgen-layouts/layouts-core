@@ -21,25 +21,18 @@ final class ManualCollectionRunnerTest extends TestCase
      */
     private $itemBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
     }
 
     /**
-     * @param array $collectionItems
-     * @param array $values
-     * @param int $totalCount
-     * @param int $offset
-     * @param int $limit
-     * @param int $flags
-     *
      * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::runCollection
      *
      * @dataProvider manualCollectionProvider
      */
-    public function testCollectionResult(array $collectionItems, array $values, $totalCount, $offset = 0, $limit = 200, $flags = 0)
+    public function testCollectionResult(array $collectionItems, array $values, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
         $collection = new Collection($collectionItems);
         $factory = new CollectionRunnerFactory($this->itemBuilderMock);
@@ -57,10 +50,8 @@ final class ManualCollectionRunnerTest extends TestCase
      * Builds data providers for building result from manual collection.
      *
      * IDs are identifiers of 3rd party values (for example eZ content)
-     *
-     * @return array
      */
-    public function manualCollectionProvider()
+    public function manualCollectionProvider(): array
     {
         return [
             [
@@ -218,7 +209,7 @@ final class ManualCollectionRunnerTest extends TestCase
         ];
     }
 
-    private function buildExpectedValues(array $values)
+    private function buildExpectedValues(array $values): array
     {
         $results = [];
         foreach ($values as $key => $value) {

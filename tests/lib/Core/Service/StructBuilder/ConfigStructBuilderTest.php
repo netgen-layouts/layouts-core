@@ -20,7 +20,7 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
      */
     private $structBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -30,7 +30,7 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder::buildConfigUpdateStructs
      */
-    public function testBuildConfigUpdateStructs()
+    public function testBuildConfigUpdateStructs(): void
     {
         $handler = new ConfigDefinitionHandler();
 

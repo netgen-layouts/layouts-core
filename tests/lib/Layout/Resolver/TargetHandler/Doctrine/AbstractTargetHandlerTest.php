@@ -8,6 +8,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +21,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
      */
     protected $handler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->createDatabase();
 
@@ -37,22 +38,18 @@ abstract class AbstractTargetHandlerTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
 
     /**
      * Returns the target identifier under test.
-     *
-     * @return string
      */
-    abstract protected function getTargetIdentifier();
+    abstract protected function getTargetIdentifier(): string;
 
     /**
      * Creates the handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface
      */
-    abstract protected function getTargetHandler();
+    abstract protected function getTargetHandler(): TargetHandlerInterface;
 }

@@ -15,7 +15,7 @@ final class DateTimeTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->type = new DateTimeType();
     }
@@ -23,7 +23,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('datetime', $this->type->getIdentifier());
     }
@@ -35,17 +35,12 @@ final class DateTimeTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::isValueEmpty
      * @dataProvider emptyProvider
      */
-    public function testIsValueEmpty($value, $isEmpty)
+    public function testIsValueEmpty($value, bool $isEmpty): void
     {
         $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    /**
-     * Provider for testing if the value is empty.
-     *
-     * @return array
-     */
-    public function emptyProvider()
+    public function emptyProvider(): array
     {
         return [
             [null, true],
@@ -58,17 +53,17 @@ final class DateTimeTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
+     * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::toHash
      * @dataProvider toHashProvider
      */
-    public function testToHash($value, $convertedValue)
+    public function testToHash($value, $convertedValue): void
     {
         $this->assertEquals($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
-    public function toHashProvider()
+    public function toHashProvider(): array
     {
         return [
             [42, null],
@@ -87,17 +82,17 @@ final class DateTimeTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
+     * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::fromHash
      * @dataProvider fromHashProvider
      */
-    public function testFromHash($value, $convertedValue)
+    public function testFromHash($value, $convertedValue): void
     {
         $this->assertEquals($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
-    public function fromHashProvider()
+    public function fromHashProvider(): array
     {
         return [
             [null, null],
@@ -119,7 +114,7 @@ final class DateTimeTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
@@ -130,12 +125,7 @@ final class DateTimeTypeTest extends TestCase
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
-    /**
-     * Provider for testing valid parameter values.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [null, true],

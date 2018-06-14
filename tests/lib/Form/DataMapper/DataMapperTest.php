@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigBuilder;
+use Symfony\Component\Form\FormInterface;
 
 abstract class DataMapperTest extends TestCase
 {
@@ -16,7 +17,7 @@ abstract class DataMapperTest extends TestCase
      */
     protected $dispatcherMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->dispatcherMock = $this->createMock(EventDispatcherInterface::class);
     }
@@ -27,7 +28,7 @@ abstract class DataMapperTest extends TestCase
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    protected function getForm($formName, $formData = null)
+    protected function getForm(string $formName, $formData = null): FormInterface
     {
         $config = new FormConfigBuilder($formName, null, $this->dispatcherMock);
 

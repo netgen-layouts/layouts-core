@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Integration;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -16,10 +18,11 @@ use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BlockTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -39,11 +42,9 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
-     * @param array $parameters
-     * @param array $expectedParameters
      * @dataProvider parametersDataProvider
      */
-    public function testCreateBlock(array $parameters, array $expectedParameters)
+    public function testCreateBlock(array $parameters, array $expectedParameters): void
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
@@ -63,12 +64,10 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
-     * @param array $parameters
-     * @param array $testedParams
      * @dataProvider invalidParametersDataProvider
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = null)
+    public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = null): void
     {
         if (empty($parameters)) {
             throw ValidationException::validationFailed('parameters', 'Invalid parameters');
@@ -87,45 +86,25 @@ abstract class BlockTest extends ServiceTestCase
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
-     */
-    abstract public function createBlockDefinitionHandler();
+    abstract public function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 
-    /**
-     * @return bool
-     */
-    public function hasCollection()
+    public function hasCollection(): bool
     {
         return false;
     }
 
-    /**
-     * @return array
-     */
-    abstract public function parametersDataProvider();
+    abstract public function parametersDataProvider(): array;
 
-    /**
-     * @return array
-     */
-    abstract public function invalidParametersDataProvider();
+    abstract public function invalidParametersDataProvider(): array;
 
-    /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    public function getValidator()
+    public function getValidator(): ValidatorInterface
     {
         return Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
     }
 
-    /**
-     * @param array $parameterNames
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function createBlockDefinition(array $parameterNames = [])
+    private function createBlockDefinition(array $parameterNames = []): BlockDefinitionInterface
     {
         $handler = $this->createBlockDefinitionHandler();
 

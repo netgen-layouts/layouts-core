@@ -18,7 +18,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->normalizer = new BlockTypeGroupNormalizer();
     }
@@ -26,7 +26,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer::normalize
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $blockTypeGroup = new BlockTypeGroup(
             [
@@ -58,17 +58,12 @@ final class BlockTypeGroupNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

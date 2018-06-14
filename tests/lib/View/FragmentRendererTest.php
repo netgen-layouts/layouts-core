@@ -43,7 +43,7 @@ final class FragmentRendererTest extends TestCase
      */
     private $renderer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->viewBuilderMock = $this
             ->createMock(ViewBuilderInterface::class);
@@ -72,7 +72,7 @@ final class FragmentRendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValue()
+    public function testRenderValue(): void
     {
         $view = new BlockView();
 
@@ -107,7 +107,7 @@ final class FragmentRendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueWithNoControllerReference()
+    public function testRenderValueWithNoControllerReference(): void
     {
         $view = new BlockView();
 
@@ -145,7 +145,7 @@ final class FragmentRendererTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueWithNonCacheableView()
+    public function testRenderValueWithNonCacheableView(): void
     {
         $view = new LayoutView();
 
@@ -169,7 +169,7 @@ final class FragmentRendererTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueWithCacheableViewAndDisabledCache()
+    public function testRenderValueWithCacheableViewAndDisabledCache(): void
     {
         $view = new BlockView();
         $view->setIsCacheable(false);
@@ -195,7 +195,7 @@ final class FragmentRendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueWithNoSupportedFragmentRenderer()
+    public function testRenderValueWithNoSupportedFragmentRenderer(): void
     {
         $view = new BlockView();
 
@@ -225,7 +225,7 @@ final class FragmentRendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueWithNoFragmentRenderers()
+    public function testRenderValueWithNoFragmentRenderers(): void
     {
         $view = new BlockView();
 

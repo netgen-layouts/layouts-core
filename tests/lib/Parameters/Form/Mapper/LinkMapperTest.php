@@ -40,7 +40,7 @@ final class LinkMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
@@ -58,7 +58,7 @@ final class LinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(LinkType::class, $this->mapper->getFormType());
     }
@@ -66,7 +66,7 @@ final class LinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::mapOptions
      */
-    public function testMapOptions()
+    public function testMapOptions(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -89,7 +89,7 @@ final class LinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::mapOptions
      */
-    public function testMapOptionsWithEmptyValueTypes()
+    public function testMapOptionsWithEmptyValueTypes(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -112,7 +112,7 @@ final class LinkMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::handleForm
      */
-    public function testHandleForm()
+    public function testHandleForm(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [

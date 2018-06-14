@@ -22,7 +22,7 @@ final class ManualItemTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValueType
      * @covers \Netgen\BlockManager\Collection\Result\ManualItem::isVisible
      */
-    public function testObject()
+    public function testObject(): void
     {
         $collectionItem = new Item(
             [

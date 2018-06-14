@@ -22,7 +22,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry();
         $this->registry->addParameterType(new ParameterType\TextType());
@@ -35,7 +35,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::resolveOptions
      */
-    public function testCreateParameterBuilder()
+    public function testCreateParameterBuilder(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder();
 
@@ -46,7 +46,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::resolveOptions
      */
-    public function testCreateParameterBuilderWithNoOptions()
+    public function testCreateParameterBuilderWithNoOptions(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
             [
@@ -72,7 +72,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::resolveOptions
      */
-    public function testCreateParameterBuilderWithConfig()
+    public function testCreateParameterBuilderWithConfig(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
             [

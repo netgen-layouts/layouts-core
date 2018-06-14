@@ -26,7 +26,7 @@ final class ContainerVoterTest extends TestCase
      */
     private $cacheableResolverMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
 
@@ -36,7 +36,7 @@ final class ContainerVoterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
      */
-    public function testVote()
+    public function testVote(): void
     {
         $twigBlock = new Block(
             [
@@ -94,7 +94,7 @@ final class ContainerVoterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
      */
-    public function testVoteWithContainerWithoutTwigBlock()
+    public function testVoteWithContainerWithoutTwigBlock(): void
     {
         $regularBlock = new Block(
             [
@@ -135,7 +135,7 @@ final class ContainerVoterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
      */
-    public function testVoteWithNonContainerBlock()
+    public function testVoteWithNonContainerBlock(): void
     {
         $block = new Block(
             [

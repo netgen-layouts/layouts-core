@@ -13,7 +13,7 @@ final class JsonValidationExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::parseError
      */
-    public function testParseError()
+    public function testParseError(): void
     {
         $exception = JsonValidationException::parseError('Error message', 42);
 
@@ -26,7 +26,7 @@ final class JsonValidationExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::notAcceptable
      */
-    public function testNotAcceptable()
+    public function testNotAcceptable(): void
     {
         $exception = JsonValidationException::notAcceptable('A reason');
 
@@ -39,7 +39,7 @@ final class JsonValidationExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::validationFailed
      */
-    public function testValidationFailed()
+    public function testValidationFailed(): void
     {
         $exception = JsonValidationException::validationFailed('Error message', new Exception());
 

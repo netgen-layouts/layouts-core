@@ -23,7 +23,7 @@ trait ParameterTypeTestTrait
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
-    public function getParameterDefinition(array $options = [], $required = false, $defaultValue = null)
+    public function getParameterDefinition(array $options = [], bool $required = false, $defaultValue = null): ParameterDefinition
     {
         $optionsResolver = new OptionsResolver();
 

@@ -14,7 +14,7 @@ final class ConfigTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Config\Config::getConfigKey
      * @covers \Netgen\BlockManager\Core\Values\Config\Config::getDefinition
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $definition = new ConfigDefinition();
 

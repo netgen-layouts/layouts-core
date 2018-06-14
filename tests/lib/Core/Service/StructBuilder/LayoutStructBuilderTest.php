@@ -18,7 +18,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
      */
     private $structBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -30,7 +30,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder::newLayoutCreateStruct
      */
-    public function testNewLayoutCreateStruct()
+    public function testNewLayoutCreateStruct(): void
     {
         $this->assertEquals(
             new LayoutCreateStruct(
@@ -51,7 +51,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
      */
-    public function testNewLayoutUpdateStruct()
+    public function testNewLayoutUpdateStruct(): void
     {
         $this->assertEquals(
             new LayoutUpdateStruct(
@@ -69,7 +69,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
      */
-    public function testNewLayoutUpdateStructWithNoLayout()
+    public function testNewLayoutUpdateStructWithNoLayout(): void
     {
         $this->assertEquals(
             new LayoutUpdateStruct(),
@@ -80,7 +80,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
      */
-    public function testNewLayoutCopyStruct()
+    public function testNewLayoutCopyStruct(): void
     {
         $this->assertEquals(
             new LayoutCopyStruct(
@@ -98,7 +98,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
      */
-    public function testNewLayoutCopyStructWithNoLayout()
+    public function testNewLayoutCopyStructWithNoLayout(): void
     {
         $this->assertEquals(
             new LayoutCopyStruct(),

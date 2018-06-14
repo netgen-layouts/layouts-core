@@ -9,14 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
 
         $this->assertFalse($ruleCreateStruct->enabled);
     }
 
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $ruleCreateStruct = new RuleCreateStruct(
             [

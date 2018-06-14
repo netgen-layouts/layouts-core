@@ -24,7 +24,7 @@ final class ItemLoaderTest extends TestCase
      */
     private $itemLoader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
     }
@@ -33,7 +33,7 @@ final class ItemLoaderTest extends TestCase
      * @covers \Netgen\BlockManager\Item\ItemLoader::__construct
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $item = new Item(
             [
@@ -62,7 +62,7 @@ final class ItemLoaderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
      */
-    public function testLoadItemWithNoItem()
+    public function testLoadItemWithNoItem(): void
     {
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,
@@ -77,7 +77,7 @@ final class ItemLoaderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "value" does not exist.
      */
-    public function testLoadItemThrowsItemException()
+    public function testLoadItemThrowsItemException(): void
     {
         $this->itemLoader = new ItemLoader($this->itemBuilderMock);
 
@@ -87,7 +87,7 @@ final class ItemLoaderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
      */
-    public function testLoadByRemoteId()
+    public function testLoadByRemoteId(): void
     {
         $item = new Item(
             [
@@ -116,7 +116,7 @@ final class ItemLoaderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
      */
-    public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem()
+    public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem(): void
     {
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,
@@ -131,7 +131,7 @@ final class ItemLoaderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "value" does not exist.
      */
-    public function testLoadByRemoteIdItemThrowsItemException()
+    public function testLoadByRemoteIdItemThrowsItemException(): void
     {
         $this->itemLoader = new ItemLoader($this->itemBuilderMock);
 

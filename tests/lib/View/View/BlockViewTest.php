@@ -20,7 +20,7 @@ final class BlockViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->block = new Block(['id' => 42]);
 
@@ -38,7 +38,7 @@ final class BlockViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\BlockView::__construct
      * @covers \Netgen\BlockManager\View\View\BlockView::getBlock
      */
-    public function testGetBlock()
+    public function testGetBlock(): void
     {
         $this->assertEquals($this->block, $this->view->getBlock());
     }
@@ -46,7 +46,7 @@ final class BlockViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\BlockView::getParameters
      */
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $this->assertEquals(
             [
@@ -60,7 +60,7 @@ final class BlockViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\BlockView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('block_view', $this->view->getIdentifier());
     }

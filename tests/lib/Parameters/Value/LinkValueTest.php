@@ -15,7 +15,7 @@ final class LinkValueTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getNewWindow
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $linkValue = new LinkValue(
             [

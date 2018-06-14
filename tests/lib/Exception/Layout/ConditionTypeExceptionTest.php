@@ -12,7 +12,7 @@ final class ConditionTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\ConditionTypeException::noConditionType
      */
-    public function testNoConditionType()
+    public function testNoConditionType(): void
     {
         $exception = ConditionTypeException::noConditionType('type');
 
@@ -25,7 +25,7 @@ final class ConditionTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\ConditionTypeException::noFormMapper
      */
-    public function testNoFormMapper()
+    public function testNoFormMapper(): void
     {
         $exception = ConditionTypeException::noFormMapper('type');
 

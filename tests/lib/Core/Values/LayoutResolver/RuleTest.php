@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Rule());
     }
@@ -24,7 +24,7 @@ final class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
      */
-    public function testSetDefaultProperties()
+    public function testSetDefaultProperties(): void
     {
         $rule = new Rule();
 
@@ -42,7 +42,7 @@ final class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $rule = new Rule(
             [
@@ -68,7 +68,7 @@ final class RuleTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
      */
-    public function testCanBeEnabled()
+    public function testCanBeEnabled(): void
     {
         $rule = new Rule(
             [
@@ -84,7 +84,7 @@ final class RuleTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
      */
-    public function testCanBeEnabledWhenNotPublished()
+    public function testCanBeEnabledWhenNotPublished(): void
     {
         $rule = new Rule(
             [
@@ -100,7 +100,7 @@ final class RuleTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
      */
-    public function testCanBeEnabledWithNoLayout()
+    public function testCanBeEnabledWithNoLayout(): void
     {
         $rule = new Rule(
             [
@@ -116,7 +116,7 @@ final class RuleTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
      */
-    public function testCanBeEnabledWithNoTargets()
+    public function testCanBeEnabledWithNoTargets(): void
     {
         $rule = new Rule(
             [

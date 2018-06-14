@@ -14,7 +14,7 @@ final class LocaleProviderTest extends TestCase
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::getAvailableLocales
      */
-    public function testGetAvailableLocales()
+    public function testGetAvailableLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
@@ -31,7 +31,7 @@ final class LocaleProviderTest extends TestCase
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::getAvailableLocales
      */
-    public function testGetAvailableLocalesWithNonExistingLocales()
+    public function testGetAvailableLocalesWithNonExistingLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr_NON_EXISTING']);
 
@@ -47,7 +47,7 @@ final class LocaleProviderTest extends TestCase
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::getAvailableLocales
      */
-    public function testGetAvailableLocalesWithDefaultLocales()
+    public function testGetAvailableLocalesWithDefaultLocales(): void
     {
         $localeProvider = new LocaleProvider();
 
@@ -57,7 +57,7 @@ final class LocaleProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
      */
-    public function testGetRequestLocales()
+    public function testGetRequestLocales(): void
     {
         $localeProvider = new LocaleProvider();
 
@@ -72,7 +72,7 @@ final class LocaleProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
      */
-    public function testGetRequestLocalesWithEnabledLocales()
+    public function testGetRequestLocalesWithEnabledLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
@@ -87,7 +87,7 @@ final class LocaleProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
      */
-    public function testGetRequestLocalesWithNonEnabledLocale()
+    public function testGetRequestLocalesWithNonEnabledLocale(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 

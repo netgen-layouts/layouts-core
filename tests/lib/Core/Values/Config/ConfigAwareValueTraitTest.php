@@ -14,7 +14,7 @@ final class ConfigAwareValueTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::getConfigs
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $value = new ConfigAwareValue();
 
@@ -26,7 +26,7 @@ final class ConfigAwareValueTraitTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::getConfigs
      * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::hasConfig
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $value = new ConfigAwareValue(
             [

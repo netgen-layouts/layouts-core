@@ -17,7 +17,7 @@ final class SqliteTest extends TestCase
      */
     private $helper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->createDatabase(__DIR__ . '/../../../../../_fixtures');
 
@@ -27,7 +27,7 @@ final class SqliteTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
@@ -36,7 +36,7 @@ final class SqliteTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::getAutoIncrementValue
      */
-    public function testGetAutoIncrementValue()
+    public function testGetAutoIncrementValue(): void
     {
         $this->assertEquals(39, $this->helper->getAutoIncrementValue('ngbm_block'));
     }
@@ -45,7 +45,7 @@ final class SqliteTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::lastInsertId
      */
-    public function testLastInsertId()
+    public function testLastInsertId(): void
     {
         $this->assertEquals(38, $this->helper->lastInsertId('ngbm_block'));
     }

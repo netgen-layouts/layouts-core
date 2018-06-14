@@ -21,7 +21,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new TargetTypeRegistry();
 
@@ -33,7 +33,7 @@ final class TargetTypeRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::addTargetType
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetTypes
      */
-    public function testGetTargetTypes()
+    public function testGetTargetTypes(): void
     {
         $this->assertEquals(['type' => $this->targetType], $this->registry->getTargetTypes());
     }
@@ -41,7 +41,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
      */
-    public function testGetTargetType()
+    public function testGetTargetType(): void
     {
         $this->assertEquals($this->targetType, $this->registry->getTargetType('type'));
     }
@@ -51,7 +51,7 @@ final class TargetTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
      * @expectedExceptionMessage Target type "other_type" does not exist.
      */
-    public function testGetTargetTypeThrowsTargetTypeException()
+    public function testGetTargetTypeThrowsTargetTypeException(): void
     {
         $this->registry->getTargetType('other_type');
     }
@@ -59,7 +59,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::hasTargetType
      */
-    public function testHasTargetType()
+    public function testHasTargetType(): void
     {
         $this->assertTrue($this->registry->hasTargetType('type'));
     }
@@ -67,7 +67,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::hasTargetType
      */
-    public function testHasTargetTypeWithNoTargetType()
+    public function testHasTargetTypeWithNoTargetType(): void
     {
         $this->assertFalse($this->registry->hasTargetType('other_type'));
     }
@@ -75,7 +75,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -90,7 +90,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -98,7 +98,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('type', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -107,7 +107,7 @@ final class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->targetType, $this->registry['type']);
     }
@@ -117,7 +117,7 @@ final class TargetTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['type'] = $this->targetType;
     }
@@ -127,7 +127,7 @@ final class TargetTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['type']);
     }

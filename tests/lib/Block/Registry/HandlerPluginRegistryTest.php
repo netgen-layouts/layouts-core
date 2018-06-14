@@ -18,7 +18,7 @@ final class HandlerPluginRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new HandlerPluginRegistry();
     }
@@ -27,7 +27,7 @@ final class HandlerPluginRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
      */
-    public function testRegistry()
+    public function testRegistry(): void
     {
         $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandler::class]);
 
@@ -48,7 +48,7 @@ final class HandlerPluginRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
      */
-    public function testRegistryWithInterface()
+    public function testRegistryWithInterface(): void
     {
         $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]);
 

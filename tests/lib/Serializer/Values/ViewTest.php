@@ -16,7 +16,7 @@ final class ViewTest extends TestCase
      */
     private $value;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->value = new View(new Value(), 42, Response::HTTP_ACCEPTED);
     }
@@ -25,7 +25,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Values\View::__construct
      * @covers \Netgen\BlockManager\Serializer\Values\View::getVersion
      */
-    public function testGetVersion()
+    public function testGetVersion(): void
     {
         $this->assertEquals(42, $this->value->getVersion());
     }

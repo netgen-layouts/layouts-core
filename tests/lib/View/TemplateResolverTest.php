@@ -17,7 +17,7 @@ final class TemplateResolverTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->view = new View(['value' => new Value()]);
         $this->view->setContext('context');
@@ -29,7 +29,7 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
-    public function testResolveTemplate()
+    public function testResolveTemplate(): void
     {
         $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
@@ -78,7 +78,7 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
-    public function testResolveTemplateWithEmptyMatchConfig()
+    public function testResolveTemplateWithEmptyMatchConfig(): void
     {
         $viewConfiguration = [
             'view' => [
@@ -111,7 +111,7 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
-    public function testResolveTemplateWithMultipleMatches()
+    public function testResolveTemplateWithMultipleMatches(): void
     {
         $viewConfiguration = [
             'view' => [
@@ -145,7 +145,7 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      */
-    public function testResolveTemplateWithFallbackContext()
+    public function testResolveTemplateWithFallbackContext(): void
     {
         $this->view->setContext('context');
         $this->view->setFallbackContext('fallback');
@@ -177,7 +177,7 @@ final class TemplateResolverTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
      * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
-    public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext()
+    public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext(): void
     {
         $templateResolver = new TemplateResolver([], ['view' => []]);
         $templateResolver->resolveTemplate($this->view);
@@ -188,7 +188,7 @@ final class TemplateResolverTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
      * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
-    public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext()
+    public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext(): void
     {
         $templateResolver = new TemplateResolver(
             [],
@@ -204,7 +204,7 @@ final class TemplateResolverTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
      * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
-    public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatch()
+    public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatch(): void
     {
         $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
@@ -242,7 +242,7 @@ final class TemplateResolverTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
      * @expectedExceptionMessage No template matcher could be found with identifier "definition_identifier".
      */
-    public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher()
+    public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher(): void
     {
         $viewConfiguration = [
             'view' => [

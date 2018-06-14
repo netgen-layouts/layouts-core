@@ -12,7 +12,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHandler
 {
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'css_class' => new ParameterDefinition(
@@ -37,7 +37,7 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
         ];
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['definition_param'] = 'definition_value';
     }

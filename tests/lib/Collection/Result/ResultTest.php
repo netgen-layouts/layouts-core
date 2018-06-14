@@ -16,7 +16,7 @@ final class ResultTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
      * @covers \Netgen\BlockManager\Collection\Result\Result::getSubItem
      */
-    public function testObject()
+    public function testObject(): void
     {
         $result = new Result(0, new Item(['value' => 42]), new Item(['value' => 43]));
 

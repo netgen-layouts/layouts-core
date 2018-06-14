@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $zone = new Zone(
             [

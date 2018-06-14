@@ -25,7 +25,7 @@ final class ConfigMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $handler = new ConfigDefinitionHandler();
 
@@ -42,7 +42,7 @@ final class ConfigMapperTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper::mapConfig
      */
-    public function testMapConfig()
+    public function testMapConfig(): void
     {
         $mappedConfig = $this->mapper->mapConfig(
             [
@@ -74,7 +74,7 @@ final class ConfigMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper::serializeValues
      */
-    public function testSerializeValues()
+    public function testSerializeValues(): void
     {
         $configStruct = new ConfigStruct();
         $configStruct->setParameterValue('param', 'new_value');

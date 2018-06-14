@@ -21,7 +21,7 @@ final class BlockViewProviderTest extends TestCase
      */
     private $blockViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->blockViewProvider = new BlockViewProvider();
     }
@@ -29,7 +29,7 @@ final class BlockViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $block = new Block(
             [
@@ -67,23 +67,18 @@ final class BlockViewProviderTest extends TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->blockViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

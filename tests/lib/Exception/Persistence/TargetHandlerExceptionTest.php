@@ -12,7 +12,7 @@ final class TargetHandlerExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Persistence\TargetHandlerException::noTargetHandler
      */
-    public function testNoTargetHandler()
+    public function testNoTargetHandler(): void
     {
         $exception = TargetHandlerException::noTargetHandler('Doctrine', 'target_type');
 

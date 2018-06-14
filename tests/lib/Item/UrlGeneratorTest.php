@@ -17,7 +17,7 @@ final class UrlGeneratorTest extends TestCase
      */
     private $urlGenerator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->urlGenerator = new UrlGenerator(
             ['value' => new ValueUrlGenerator()]
@@ -28,7 +28,7 @@ final class UrlGeneratorTest extends TestCase
      * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
      * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
      */
-    public function testGenerate()
+    public function testGenerate(): void
     {
         $this->assertEquals(
             '/item-url',
@@ -42,7 +42,7 @@ final class UrlGeneratorTest extends TestCase
      * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
      * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
      */
-    public function testGenerateWithNullItem()
+    public function testGenerateWithNullItem(): void
     {
         $this->assertNull(
             $this->urlGenerator->generate(
@@ -56,7 +56,7 @@ final class UrlGeneratorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "unknown" does not exist.
      */
-    public function testGenerateWithNoUrlGenerator()
+    public function testGenerateWithNoUrlGenerator(): void
     {
         $this->urlGenerator->generate(
             new Item(['valueType' => 'unknown'])

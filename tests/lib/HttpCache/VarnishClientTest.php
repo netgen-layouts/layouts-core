@@ -27,7 +27,7 @@ final class VarnishClientTest extends TestCase
      */
     private $client;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
         $this->idProviderMock = $this->createMock(IdProviderInterface::class);
@@ -42,7 +42,7 @@ final class VarnishClientTest extends TestCase
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::__construct
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayouts
      */
-    public function testInvalidateLayouts()
+    public function testInvalidateLayouts(): void
     {
         $this->idProviderMock
             ->expects($this->at(0))
@@ -73,7 +73,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayouts
      */
-    public function testInvalidateLayoutsWithEmptyLayoutIds()
+    public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
         $this->idProviderMock
             ->expects($this->never())
@@ -89,7 +89,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateAllLayouts
      */
-    public function testInvalidateAllLayouts()
+    public function testInvalidateAllLayouts(): void
     {
         $this->idProviderMock
             ->expects($this->never())
@@ -112,7 +112,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateBlocks
      */
-    public function testInvalidateBlocks()
+    public function testInvalidateBlocks(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->once())
@@ -131,7 +131,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateBlocks
      */
-    public function testInvalidateBlocksWithEmptyBlockIds()
+    public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->never())
@@ -143,7 +143,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayoutBlocks
      */
-    public function testInvalidateLayoutBlocks()
+    public function testInvalidateLayoutBlocks(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->once())
@@ -162,7 +162,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayoutBlocks
      */
-    public function testInvalidateLayoutBlocksWithEmptyLayoutIds()
+    public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->never())
@@ -174,7 +174,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateAllBlocks
      */
-    public function testInvalidateAllBlocks()
+    public function testInvalidateAllBlocks(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->once())
@@ -193,7 +193,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::commit
      */
-    public function testCommit()
+    public function testCommit(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->once())
@@ -205,7 +205,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\VarnishClient::commit
      */
-    public function testCommitReturnsFalse()
+    public function testCommitReturnsFalse(): void
     {
         $this->fosInvalidatorMock
             ->expects($this->once())

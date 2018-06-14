@@ -21,7 +21,7 @@ final class ServiceTest extends TestCase
      */
     private $service;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->persistenceHandlerMock = $this->createMock(HandlerInterface::class);
 
@@ -35,7 +35,7 @@ final class ServiceTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Service::__construct
      * @covers \Netgen\BlockManager\Core\Service\Service::transaction
      */
-    public function testTransaction()
+    public function testTransaction(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
@@ -50,7 +50,7 @@ final class ServiceTest extends TestCase
             ->method('commitTransaction');
 
         $return = $this->service->transaction(
-            function () {
+            function (): int {
                 return 42;
             }
         );
@@ -63,7 +63,7 @@ final class ServiceTest extends TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception
      */
-    public function testTransactionWithException()
+    public function testTransactionWithException(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
@@ -78,7 +78,7 @@ final class ServiceTest extends TestCase
             ->method('commitTransaction');
 
         $this->service->transaction(
-            function () {
+            function (): void {
                 throw new Exception('Test exception');
             }
         );
@@ -87,7 +87,7 @@ final class ServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::beginTransaction
      */
-    public function testBeginTransaction()
+    public function testBeginTransaction(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
@@ -99,7 +99,7 @@ final class ServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::commitTransaction
      */
-    public function testCommitTransaction()
+    public function testCommitTransaction(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
@@ -113,7 +113,7 @@ final class ServiceTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Test exception text
      */
-    public function testCommitTransactionThrowsRuntimeException()
+    public function testCommitTransactionThrowsRuntimeException(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
@@ -126,7 +126,7 @@ final class ServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::rollbackTransaction
      */
-    public function testRollbackTransaction()
+    public function testRollbackTransaction(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
@@ -140,7 +140,7 @@ final class ServiceTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Test exception text
      */
-    public function testRollbackTransactionThrowsRuntimeException()
+    public function testRollbackTransactionThrowsRuntimeException(): void
     {
         $this->persistenceHandlerMock
             ->expects($this->once())

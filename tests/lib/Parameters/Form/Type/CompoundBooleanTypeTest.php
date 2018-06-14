@@ -9,14 +9,12 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CompoundBooleanTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new CompoundBooleanType();
     }
@@ -25,7 +23,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'main_checkbox' => [
@@ -88,7 +86,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
-    public function testSubmitValidDataWithUncheckedCheckbox()
+    public function testSubmitValidDataWithUncheckedCheckbox(): void
     {
         $submittedData = [
             'main_checkbox' => [
@@ -148,7 +146,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
-    public function testSubmitValidDataWithUncheckedCheckboxAndEmptyData()
+    public function testSubmitValidDataWithUncheckedCheckboxAndEmptyData(): void
     {
         $submittedData = [
             'main_checkbox' => [],
@@ -205,7 +203,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
-    public function testSubmitValidDataWithReverseMode()
+    public function testSubmitValidDataWithReverseMode(): void
     {
         $submittedData = [
             'main_checkbox' => [
@@ -267,7 +265,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
-    public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode()
+    public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode(): void
     {
         $submittedData = [
             'main_checkbox' => [
@@ -329,7 +327,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -348,7 +346,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ngbm_compound_boolean', $this->formType->getBlockPrefix());
     }

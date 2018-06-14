@@ -12,7 +12,7 @@ final class LinkTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Parameters\Link::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new Link();
         $this->assertEquals('ngbm_link', $constraint->validatedBy());

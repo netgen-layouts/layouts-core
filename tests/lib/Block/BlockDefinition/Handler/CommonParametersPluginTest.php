@@ -28,7 +28,7 @@ final class CommonParametersPluginTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->plugin = new CommonParametersPlugin(['group']);
 
@@ -45,7 +45,7 @@ final class CommonParametersPluginTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::getExtendedHandler
      */
-    public function testGetExtendedHandler()
+    public function testGetExtendedHandler(): void
     {
         $plugin = $this->plugin;
 
@@ -55,7 +55,7 @@ final class CommonParametersPluginTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::buildParameters
      */
-    public function testBuildParameters()
+    public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->plugin->buildParameters($builder);

@@ -12,7 +12,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
 {
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'visibility_status' => new ParameterDefinition(
@@ -44,7 +44,7 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
         ];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
     }
 }

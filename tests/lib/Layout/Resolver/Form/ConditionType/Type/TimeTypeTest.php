@@ -6,13 +6,11 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Type;
 
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class TimeTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new TimeType();
     }
@@ -20,7 +18,7 @@ final class TimeTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType::buildForm
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'from' => [
@@ -62,7 +60,7 @@ final class TimeTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ngbm_condition_type_time', $this->formType->getBlockPrefix());
     }

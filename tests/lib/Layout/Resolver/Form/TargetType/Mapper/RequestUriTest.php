@@ -15,7 +15,7 @@ final class RequestUriTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new RequestUri();
     }
@@ -23,7 +23,7 @@ final class RequestUriTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUri::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(TextType::class, $this->mapper->getFormType());
     }

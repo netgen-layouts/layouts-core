@@ -9,6 +9,7 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Netgen\BlockManager\Validator\LayoutNameValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class LayoutNameValidatorTest extends ValidatorTestCase
 {
@@ -17,17 +18,14 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
      */
     private $layoutServiceMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new LayoutName();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
@@ -35,14 +33,11 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string|null $value
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::__construct
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $isValid)
+    public function testValidate(?string $value, bool $isValid): void
     {
         if ($value !== null) {
             $this->layoutServiceMock
@@ -60,7 +55,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\LayoutName", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'My layout');
@@ -71,12 +66,12 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             ['My layout', true],

@@ -16,7 +16,7 @@ final class PathInfoTest extends TestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->targetType = new PathInfo();
     }
@@ -24,7 +24,7 @@ final class PathInfoTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('path_info', $this->targetType->getType());
     }
@@ -36,7 +36,7 @@ final class PathInfoTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -47,7 +47,7 @@ final class PathInfoTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::provideValue
      */
-    public function testProvideValue()
+    public function testProvideValue(): void
     {
         $request = Request::create('/the/answer');
 
@@ -57,12 +57,7 @@ final class PathInfoTest extends TestCase
         );
     }
 
-    /**
-     * Provider for testing target type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             ['/some/route', true],

@@ -22,13 +22,13 @@ final class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
      */
     private $placeholderIdentifiers = [];
 
-    public function __construct($parameterGroups = [], $placeholderIdentifiers = ['left', 'right'])
+    public function __construct(array $parameterGroups = [], array $placeholderIdentifiers = ['left', 'right'])
     {
         $this->parameterGroups = $parameterGroups;
         $this->placeholderIdentifiers = $placeholderIdentifiers;
     }
 
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'css_class' => new ParameterDefinition(
@@ -55,17 +55,17 @@ final class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
         ];
     }
 
-    public function isContainer()
+    public function isContainer(): bool
     {
         return true;
     }
 
-    public function getPlaceholderIdentifiers()
+    public function getPlaceholderIdentifiers(): array
     {
         return $this->placeholderIdentifiers;
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['definition_param'] = 'definition_value';
     }

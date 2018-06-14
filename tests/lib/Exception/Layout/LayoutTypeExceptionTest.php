@@ -12,7 +12,7 @@ final class LayoutTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\LayoutTypeException::noLayoutType
      */
-    public function testNoLayoutType()
+    public function testNoLayoutType(): void
     {
         $exception = LayoutTypeException::noLayoutType('type');
 
@@ -25,7 +25,7 @@ final class LayoutTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\LayoutTypeException::noZone
      */
-    public function testNoZone()
+    public function testNoZone(): void
     {
         $exception = LayoutTypeException::noZone('type', 'zone');
 

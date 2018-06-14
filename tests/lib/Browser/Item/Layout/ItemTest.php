@@ -20,7 +20,7 @@ final class ItemTest extends TestCase
      */
     private $item;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layout = new Layout(['id' => 42, 'name' => 'My layout']);
 
@@ -31,7 +31,7 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::__construct
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $this->assertEquals(42, $this->item->getValue());
     }
@@ -39,7 +39,7 @@ final class ItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('My layout', $this->item->getName());
     }
@@ -47,7 +47,7 @@ final class ItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::isVisible
      */
-    public function testIsVisible()
+    public function testIsVisible(): void
     {
         $this->assertTrue($this->item->isVisible());
     }
@@ -55,7 +55,7 @@ final class ItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::isSelectable
      */
-    public function testIsSelectable()
+    public function testIsSelectable(): void
     {
         $this->assertTrue($this->item->isSelectable());
     }
@@ -63,7 +63,7 @@ final class ItemTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getLayout
      */
-    public function testGetLayout()
+    public function testGetLayout(): void
     {
         $this->assertEquals($this->layout, $this->item->getLayout());
     }

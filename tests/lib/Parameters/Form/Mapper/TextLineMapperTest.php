@@ -15,7 +15,7 @@ final class TextLineMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new TextLineMapper();
     }
@@ -23,7 +23,7 @@ final class TextLineMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(TextType::class, $this->mapper->getFormType());
     }

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleMetadataUpdateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $ruleUpdateStruct = new RuleMetadataUpdateStruct(
             [

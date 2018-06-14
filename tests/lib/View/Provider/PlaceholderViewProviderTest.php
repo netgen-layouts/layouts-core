@@ -18,7 +18,7 @@ final class PlaceholderViewProviderTest extends TestCase
      */
     private $placeholderViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->placeholderViewProvider = new PlaceholderViewProvider();
     }
@@ -26,7 +26,7 @@ final class PlaceholderViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $placeholder = new Placeholder();
 
@@ -57,7 +57,7 @@ final class PlaceholderViewProviderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be provided.
      */
-    public function testProvideViewThrowsRuntimeExceptionOnMissingBlock()
+    public function testProvideViewThrowsRuntimeExceptionOnMissingBlock(): void
     {
         $this->placeholderViewProvider->provideView(new Placeholder());
     }
@@ -67,29 +67,24 @@ final class PlaceholderViewProviderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be of "Netgen\BlockManager\API\Values\Block\Block" type.
      */
-    public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock()
+    public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock(): void
     {
         $this->placeholderViewProvider->provideView(new Placeholder(), ['block' => 42]);
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->placeholderViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

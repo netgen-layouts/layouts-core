@@ -10,14 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutCreateStructTest extends TestCase
 {
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();
 
         $this->assertFalse($layoutCreateStruct->shared);
     }
 
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct(
             [

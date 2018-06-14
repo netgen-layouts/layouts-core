@@ -16,7 +16,7 @@ final class CompoundParameterDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::hasParameterDefinition
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $parameterDefinition = new CompoundParameterDefinition();
 
@@ -28,7 +28,7 @@ final class CompoundParameterDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::hasParameterDefinition
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $parameterDefinition = new CompoundParameterDefinition(
             [

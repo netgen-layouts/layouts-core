@@ -14,7 +14,7 @@ final class BlockTypeFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeFactory::buildBlockType
      */
-    public function testBuildBlockType()
+    public function testBuildBlockType(): void
     {
         $blockDefinition = new BlockDefinition();
 

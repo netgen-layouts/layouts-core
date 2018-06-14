@@ -14,10 +14,7 @@ final class VoterStub implements VoterInterface
      */
     private $vote;
 
-    /**
-     * @param bool|null $vote
-     */
-    public function __construct($vote)
+    public function __construct(?bool $vote)
     {
         $this->vote = $vote;
     }
@@ -25,12 +22,8 @@ final class VoterStub implements VoterInterface
     /**
      * Returns if the block is cacheable. One of self::YES, self::NO or self::ABSTAIN constants
      * must be returned to indicate the result.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool|null
      */
-    public function vote(Block $block)
+    public function vote(Block $block): ?bool
     {
         return $this->vote;
     }

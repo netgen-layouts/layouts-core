@@ -58,7 +58,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $parameterTypeRegistry = new ParameterTypeRegistry();
         $parameterTypeRegistry->addParameterType(new TextLineType());
@@ -98,7 +98,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      */
-    public function testBuildBlockDefinition()
+    public function testBuildBlockDefinition(): void
     {
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 
@@ -236,7 +236,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      */
-    public function testBuildTwigBlockDefinition()
+    public function testBuildTwigBlockDefinition(): void
     {
         $this->handlerMock = $this->createMock(TwigBlockDefinitionHandlerInterface::class);
 
@@ -276,7 +276,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      */
-    public function testBuildContainerDefinition()
+    public function testBuildContainerDefinition(): void
     {
         $this->handlerMock = $this->createMock(ContainerDefinitionHandlerInterface::class);
 
@@ -325,7 +325,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage You need to specify at least one enabled view type for "definition" block definition.
      */
-    public function testBuildConfigWithNoViewTypes()
+    public function testBuildConfigWithNoViewTypes(): void
     {
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 
@@ -351,7 +351,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage You need to specify at least one enabled item view type for "large" view type and "definition" block definition.
      */
-    public function testBuildConfigWithNoItemViewTypes()
+    public function testBuildConfigWithNoItemViewTypes(): void
     {
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 

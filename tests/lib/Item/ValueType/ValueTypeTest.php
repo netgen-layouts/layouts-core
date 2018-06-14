@@ -14,7 +14,7 @@ final class ValueTypeTest extends TestCase
      */
     private $valueType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->valueType = new ValueType(
             [
@@ -29,7 +29,7 @@ final class ValueTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Item\ValueType\ValueType::__construct
      * @covers \Netgen\BlockManager\Item\ValueType\ValueType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('value', $this->valueType->getIdentifier());
     }
@@ -37,7 +37,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ValueType\ValueType::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertFalse($this->valueType->isEnabled());
     }
@@ -45,7 +45,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ValueType\ValueType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Value type', $this->valueType->getName());
     }

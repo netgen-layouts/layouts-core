@@ -19,7 +19,7 @@ final class LayoutViewProviderTest extends TestCase
      */
     private $layoutViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutViewProvider = new LayoutViewProvider();
     }
@@ -27,7 +27,7 @@ final class LayoutViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $layout = new Layout(['id' => 42]);
 
@@ -47,23 +47,18 @@ final class LayoutViewProviderTest extends TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->layoutViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

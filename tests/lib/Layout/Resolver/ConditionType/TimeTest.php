@@ -18,7 +18,7 @@ final class TimeTest extends TestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->conditionType = new Time();
     }
@@ -26,7 +26,7 @@ final class TimeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Time::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('time', $this->conditionType->getType());
     }
@@ -38,7 +38,7 @@ final class TimeTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Time::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -56,7 +56,7 @@ final class TimeTest extends TestCase
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches($value, $matches)
+    public function testMatches($value, bool $matches): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1521800000);
@@ -66,12 +66,7 @@ final class TimeTest extends TestCase
         ClockMock::withClockMock(false);
     }
 
-    /**
-     * Provider for testing condition type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [['from' => [], 'to' => []], false],
@@ -100,12 +95,7 @@ final class TimeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for {@link self::testMatches}.
-     *
-     * @return array
-     */
-    public function matchesProvider()
+    public function matchesProvider(): array
     {
         return [
             [['from' => [], 'to' => []], true],

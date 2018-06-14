@@ -12,7 +12,7 @@ final class ConfigExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Core\ConfigException::noConfig
      */
-    public function testNoConfig()
+    public function testNoConfig(): void
     {
         $exception = ConfigException::noConfig('config');
 
@@ -25,7 +25,7 @@ final class ConfigExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Core\ConfigException::noConfigStruct
      */
-    public function testNoConfigStruct()
+    public function testNoConfigStruct(): void
     {
         $exception = ConfigException::noConfigStruct('config');
 

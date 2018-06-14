@@ -15,10 +15,11 @@ use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as Config
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator;
 use stdClass;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ConfigAwareStructValidatorTest extends ValidatorTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new ConfigAwareStructConstraint();
 
@@ -39,22 +40,16 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         return new ConfigAwareStructValidator();
     }
 
     /**
-     * @param array $value
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $isValid)
+    public function testValidate(array $value, bool $isValid): void
     {
         $this->assertValid($isValid, new BlockUpdateStruct($value));
     }
@@ -64,7 +59,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct", "Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new ParameterStruct();
         $this->assertValid(true, new BlockUpdateStruct());
@@ -75,7 +70,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Config\ConfigDefinitionAwareInterface or array", "stdClass" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidPayload()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidPayload(): void
     {
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new BlockUpdateStruct());
@@ -86,13 +81,13 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Config\ConfigAwareStruct", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->constraint->payload = new BlockDefinition();
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             [

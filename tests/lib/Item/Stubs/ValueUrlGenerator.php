@@ -8,7 +8,7 @@ use Netgen\BlockManager\Item\ValueUrlGeneratorInterface;
 
 final class ValueUrlGenerator implements ValueUrlGeneratorInterface
 {
-    public function generate($object)
+    public function generate($object): ?string
     {
         return '/item-url';
     }

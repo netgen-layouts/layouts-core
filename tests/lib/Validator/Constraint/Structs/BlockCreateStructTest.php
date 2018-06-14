@@ -12,7 +12,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new BlockCreateStruct();
         $this->assertEquals('ngbm_block_create_struct', $constraint->validatedBy());

@@ -15,7 +15,7 @@ final class ViewTypeTest extends TestCase
      */
     private $viewType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->viewType = new ViewType(
             [
@@ -34,7 +34,7 @@ final class ViewTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('large', $this->viewType->getIdentifier());
     }
@@ -42,7 +42,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Large', $this->viewType->getName());
     }
@@ -50,7 +50,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewTypes
      */
-    public function testGetItemViewTypes()
+    public function testGetItemViewTypes(): void
     {
         $this->assertEquals(
             [
@@ -64,7 +64,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewTypeIdentifiers
      */
-    public function testGetItemViewTypeIdentifiers()
+    public function testGetItemViewTypeIdentifiers(): void
     {
         $this->assertEquals(
             ['standard', 'standard_with_intro'],
@@ -75,7 +75,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::hasItemViewType
      */
-    public function testHasItemViewType()
+    public function testHasItemViewType(): void
     {
         $this->assertTrue($this->viewType->hasItemViewType('standard'));
         $this->assertFalse($this->viewType->hasItemViewType('unknown'));
@@ -84,7 +84,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
      */
-    public function testGetItemViewType()
+    public function testGetItemViewType(): void
     {
         $this->assertEquals(
             new ItemViewType(['identifier' => 'standard']),
@@ -97,7 +97,7 @@ final class ViewTypeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      * @expectedExceptionMessage Item view type "unknown" does not exist in "large" view type.
      */
-    public function testGetItemViewTypeThrowsBlockDefinitionException()
+    public function testGetItemViewTypeThrowsBlockDefinitionException(): void
     {
         $this->viewType->getItemViewType('unknown');
     }
@@ -105,7 +105,7 @@ final class ViewTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getValidParameters
      */
-    public function testGetValidParameters()
+    public function testGetValidParameters(): void
     {
         $this->assertEquals(
             ['param1', 'param2'],

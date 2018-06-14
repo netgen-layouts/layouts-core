@@ -16,7 +16,7 @@ final class ValueTest extends TestCase
      */
     private $value;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->value = new Value(new StubValue(), Response::HTTP_ACCEPTED);
     }
@@ -25,7 +25,7 @@ final class ValueTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Values\Value::__construct
      * @covers \Netgen\BlockManager\Serializer\Values\Value::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $this->assertEquals(new StubValue(), $this->value->getValue());
     }
@@ -34,7 +34,7 @@ final class ValueTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Values\Value::__construct
      * @covers \Netgen\BlockManager\Serializer\Values\Value::getStatusCode
      */
-    public function testGetStatusCode()
+    public function testGetStatusCode(): void
     {
         $this->assertEquals(Response::HTTP_ACCEPTED, $this->value->getStatusCode());
     }

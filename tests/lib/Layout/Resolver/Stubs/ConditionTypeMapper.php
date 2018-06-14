@@ -10,17 +10,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class ConditionTypeMapper implements MapperInterface
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return FormType::class;
     }
 
-    public function getFormOptions()
+    public function getFormOptions(): array
     {
         return [];
     }
 
-    public function handleForm(FormBuilderInterface $builder)
+    public function handleForm(FormBuilderInterface $builder): void
     {
     }
 }

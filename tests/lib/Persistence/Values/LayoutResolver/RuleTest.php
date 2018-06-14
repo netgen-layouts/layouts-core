@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $rule = new Rule(
             [

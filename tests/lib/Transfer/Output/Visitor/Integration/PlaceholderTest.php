@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
+use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Core\Values\Block\Placeholder as PlaceholderValue;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Transfer\Output\Visitor\Placeholder;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class PlaceholderTest extends VisitorTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -22,17 +24,17 @@ abstract class PlaceholderTest extends VisitorTest
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Implementation requires sub-visitor
      */
-    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor()
+    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->getVisitor()->visit(new PlaceholderValue());
     }
 
-    public function getVisitor()
+    public function getVisitor(): VisitorInterface
     {
         return new Placeholder();
     }
 
-    public function acceptProvider()
+    public function acceptProvider(): array
     {
         return [
             [new PlaceholderValue(), true],
@@ -41,11 +43,11 @@ abstract class PlaceholderTest extends VisitorTest
         ];
     }
 
-    public function visitProvider()
+    public function visitProvider(): array
     {
         return [
-            [function () { return $this->blockService->loadBlock(33)->getPlaceholder('left'); }, 'placeholder/block_33_left.json'],
-            [function () { return $this->blockService->loadBlock(33)->getPlaceholder('right'); }, 'placeholder/block_33_right.json'],
+            [function (): APIPlaceholder { return $this->blockService->loadBlock(33)->getPlaceholder('left'); }, 'placeholder/block_33_left.json'],
+            [function (): APIPlaceholder { return $this->blockService->loadBlock(33)->getPlaceholder('right'); }, 'placeholder/block_33_right.json'],
         ];
     }
 }

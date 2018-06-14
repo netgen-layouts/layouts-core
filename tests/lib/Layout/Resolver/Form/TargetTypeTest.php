@@ -9,6 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType as TargetTypeForm;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetTypeMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TargetTypeTest extends FormTestCase
@@ -18,17 +19,14 @@ final class TargetTypeTest extends FormTestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->targetType = new TargetType('type', 42);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new TargetTypeForm(['other_type' => new TargetTypeMapper()]);
     }
@@ -39,7 +37,7 @@ final class TargetTypeTest extends FormTestCase
      * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
      * @expectedExceptionMessage Form mapper for "type" target type does not exist.
      */
-    public function testBuildFormThrowsTargetTypeException()
+    public function testBuildFormThrowsTargetTypeException(): void
     {
         $this->factory->create(
             TargetTypeForm::class,
@@ -51,7 +49,7 @@ final class TargetTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -74,7 +72,7 @@ final class TargetTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "target_type" is missing.
      */
-    public function testConfigureOptionsWithMissingTargetType()
+    public function testConfigureOptionsWithMissingTargetType(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -89,7 +87,7 @@ final class TargetTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "target_type" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\TargetTypeInterface", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidTargetType()
+    public function testConfigureOptionsWithInvalidTargetType(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -108,7 +106,7 @@ final class TargetTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

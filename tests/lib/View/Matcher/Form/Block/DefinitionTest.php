@@ -27,7 +27,7 @@ final class DefinitionTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->formFactory = Forms::createFormFactoryBuilder()
             ->getFormFactory();
@@ -36,13 +36,10 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -63,7 +60,7 @@ final class DefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithNullBlockDefinition()
+    public function testMatchWithNullBlockDefinition(): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -84,7 +81,7 @@ final class DefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithNullBlockDefinitionReturnsFalse()
+    public function testMatchWithNullBlockDefinitionReturnsFalse(): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -101,12 +98,7 @@ final class DefinitionTest extends TestCase
         $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -120,7 +112,7 @@ final class DefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithNoFormView()
+    public function testMatchWithNoFormView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
@@ -128,7 +120,7 @@ final class DefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithNoBlock()
+    public function testMatchWithNoBlock(): void
     {
         $form = $this->formFactory->create(Form::class);
 
@@ -138,7 +130,7 @@ final class DefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithInvalidBlock()
+    public function testMatchWithInvalidBlock(): void
     {
         $form = $this->formFactory->create(Form::class, null, ['block' => 'block']);
 

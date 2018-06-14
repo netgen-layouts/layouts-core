@@ -14,7 +14,7 @@ final class JsonValidatorTest extends TestCase
      */
     private $validator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validator = new JsonValidator();
     }
@@ -23,7 +23,7 @@ final class JsonValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::parseJson
      * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::validateJson
      */
-    public function testValidateJson()
+    public function testValidateJson(): void
     {
         $this->assertNull($this->validator->validateJson('{}', '{}'));
     }
@@ -34,7 +34,7 @@ final class JsonValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      * @expectedExceptionMessage JSON data failed to validate the schema
      */
-    public function testValidateJsonThrowsJsonValidationExceptionWithInvalidJson()
+    public function testValidateJsonThrowsJsonValidationExceptionWithInvalidJson(): void
     {
         $this->validator->validateJson('{}', '{ "type": "array" }');
     }
@@ -45,7 +45,7 @@ final class JsonValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      * @expectedExceptionMessage Provided data is not an acceptable JSON string: Expected a JSON object, got string
      */
-    public function testValidateJsonThrowsJsonValidationExceptionWithNotAcceptableJson()
+    public function testValidateJsonThrowsJsonValidationExceptionWithNotAcceptableJson(): void
     {
         $this->validator->validateJson('"abc"', '{ "type": "array" }');
     }
@@ -56,7 +56,7 @@ final class JsonValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      * @expectedExceptionMessage Provided data is not a valid JSON string: Syntax error (error code 4)
      */
-    public function testValidateJsonThrowsJsonValidationExceptionWithParseError()
+    public function testValidateJsonThrowsJsonValidationExceptionWithParseError(): void
     {
         $this->validator->validateJson('INVALID', '{ "type": "array" }');
     }

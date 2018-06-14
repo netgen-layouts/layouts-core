@@ -20,7 +20,7 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 final class CollectionServiceTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testChangeCollectionType()
+    public function testChangeCollectionType(): void
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -63,7 +63,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testAddItem()
+    public function testAddItem(): void
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -94,7 +94,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateItem()
+    public function testUpdateItem(): void
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -125,7 +125,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testMoveItem()
+    public function testMoveItem(): void
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -149,7 +149,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteItem()
+    public function testDeleteItem(): void
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -173,7 +173,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteItems()
+    public function testDeleteItems(): void
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -197,7 +197,7 @@ final class CollectionServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateQuery()
+    public function testUpdateQuery(): void
     {
         $persistenceQuery = new PersistenceQuery(
             [

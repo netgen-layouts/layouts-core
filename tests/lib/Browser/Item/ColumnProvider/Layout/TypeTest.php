@@ -18,7 +18,7 @@ final class TypeTest extends TestCase
      */
     private $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->provider = new Type();
     }
@@ -26,7 +26,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $item = new Item(
             new Layout(
@@ -49,7 +49,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type::getValue
      */
-    public function testGetValueWithInvalidItem()
+    public function testGetValueWithInvalidItem(): void
     {
         $this->assertNull($this->provider->getValue(new StubItem()));
     }

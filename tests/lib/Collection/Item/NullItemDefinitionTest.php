@@ -14,7 +14,7 @@ final class NullItemDefinitionTest extends TestCase
      */
     private $itemDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemDefinition = new NullItemDefinition('value');
     }
@@ -23,7 +23,7 @@ final class NullItemDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::__construct
      * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::getValueType
      */
-    public function testGetValueType()
+    public function testGetValueType(): void
     {
         $this->assertEquals('value', $this->itemDefinition->getValueType());
     }
@@ -31,7 +31,7 @@ final class NullItemDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::getConfigDefinitions
      */
-    public function testGetConfigDefinitions()
+    public function testGetConfigDefinitions(): void
     {
         $this->assertEquals([], $this->itemDefinition->getConfigDefinitions());
     }

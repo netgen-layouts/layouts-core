@@ -12,7 +12,7 @@ final class BlockExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Core\BlockException::noPlaceholder
      */
-    public function testNoPlaceholder()
+    public function testNoPlaceholder(): void
     {
         $exception = BlockException::noPlaceholder('placeholder');
 
@@ -25,7 +25,7 @@ final class BlockExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Core\BlockException::noCollection
      */
-    public function testNoCollection()
+    public function testNoCollection(): void
     {
         $exception = BlockException::noCollection('collection');
 

@@ -24,7 +24,7 @@ final class LayoutBackendTest extends TestCase
      */
     private $backend;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
@@ -35,7 +35,7 @@ final class LayoutBackendTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::__construct
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getDefaultSections
      */
-    public function testGetDefaultSections()
+    public function testGetDefaultSections(): void
     {
         $this->layoutServiceMock
             ->expects($this->never())
@@ -50,7 +50,7 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadLocation
      */
-    public function testLoadLocation()
+    public function testLoadLocation(): void
     {
         $this->layoutServiceMock
             ->expects($this->never())
@@ -65,18 +65,18 @@ final class LayoutBackendTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
      */
-    public function testLoadItem()
+    public function testLoadItem(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
             ->with($this->equalTo(1))
-            ->will($this->returnValue($this->getLayout(1)));
+            ->will($this->returnValue(new Layout()));
 
         $item = $this->backend->loadItem(1);
 
         $this->assertInstanceOf(ItemInterface::class, $item);
-        $this->assertEquals(1, $item->getValue());
+        $this->assertEquals(new Layout(), $item->getLayout());
     }
 
     /**
@@ -84,7 +84,7 @@ final class LayoutBackendTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\NotFoundException
      * @expectedExceptionMessage Item with ID 1 not found.
      */
-    public function testLoadItemThrowsNotFoundException()
+    public function testLoadItemThrowsNotFoundException(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
@@ -98,7 +98,7 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubLocations
      */
-    public function testGetSubLocations()
+    public function testGetSubLocations(): void
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
@@ -108,7 +108,7 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubLocationsCount
      */
-    public function testGetSubLocationsCount()
+    public function testGetSubLocationsCount(): void
     {
         $count = $this->backend->getSubLocationsCount(new RootLocation());
 
@@ -120,7 +120,7 @@ final class LayoutBackendTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
      */
-    public function testGetSubItems()
+    public function testGetSubItems(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
@@ -130,7 +130,7 @@ final class LayoutBackendTest extends TestCase
                 $this->equalTo(0),
                 $this->equalTo(25)
             )
-            ->will($this->returnValue([$this->getLayout(), $this->getLayout()]));
+            ->will($this->returnValue([new Layout(), new Layout()]));
 
         $items = $this->backend->getSubItems(new RootLocation());
 
@@ -145,7 +145,7 @@ final class LayoutBackendTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
      */
-    public function testGetSubItemsWithOffsetAndLimit()
+    public function testGetSubItemsWithOffsetAndLimit(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
@@ -155,7 +155,7 @@ final class LayoutBackendTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(10)
             )
-            ->will($this->returnValue([$this->getLayout(), $this->getLayout()]));
+            ->will($this->returnValue([new Layout(), new Layout()]));
 
         $items = $this->backend->getSubItems(
             new RootLocation(),
@@ -172,12 +172,12 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItemsCount
      */
-    public function testGetSubItemsCount()
+    public function testGetSubItemsCount(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayouts')
-            ->will($this->returnValue([$this->getLayout(), $this->getLayout()]));
+            ->will($this->returnValue([new Layout(), new Layout()]));
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 
@@ -187,7 +187,7 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::search
      */
-    public function testSearch()
+    public function testSearch(): void
     {
         $items = $this->backend->search('test');
 
@@ -197,7 +197,7 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::search
      */
-    public function testSearchWithOffsetAndLimit()
+    public function testSearchWithOffsetAndLimit(): void
     {
         $items = $this->backend->search('test', 5, 10);
 
@@ -207,26 +207,10 @@ final class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::searchCount
      */
-    public function testSearchCount()
+    public function testSearchCount(): void
     {
         $count = $this->backend->searchCount('test');
 
         $this->assertEquals(0, $count);
-    }
-
-    /**
-     * Returns the layout object used in tests.
-     *
-     * @param int $id
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
-     */
-    private function getLayout($id = null)
-    {
-        return new Layout(
-            [
-                'id' => $id,
-            ]
-        );
     }
 }

@@ -29,12 +29,12 @@ final class HandlerPlugin extends Plugin
         return self::$extendedHandlers;
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add('test_param', ParameterType\TextLineType::class);
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['dynamic_param'] = 'dynamic_value';
     }

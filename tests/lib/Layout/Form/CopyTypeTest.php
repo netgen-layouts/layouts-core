@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CopyTypeTest extends FormTestCase
@@ -17,17 +18,14 @@ final class CopyTypeTest extends FormTestCase
      */
     private $layout;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->layout = new Layout();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new CopyType();
     }
@@ -35,7 +33,7 @@ final class CopyTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CopyType::buildForm
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'name' => 'New name',
@@ -70,7 +68,7 @@ final class CopyTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -93,7 +91,7 @@ final class CopyTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "layout" is missing.
      */
-    public function testConfigureOptionsWithMissingLayout()
+    public function testConfigureOptionsWithMissingLayout(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -108,7 +106,7 @@ final class CopyTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "layout" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\Layout", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidLayout()
+    public function testConfigureOptionsWithInvalidLayout(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -127,7 +125,7 @@ final class CopyTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CreateTypeTest extends FormTestCase
@@ -24,7 +25,7 @@ final class CreateTypeTest extends FormTestCase
      */
     private $localeProviderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
 
@@ -59,10 +60,7 @@ final class CreateTypeTest extends FormTestCase
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new CreateType($this->layoutTypeRegistry, $this->localeProviderMock);
     }
@@ -72,7 +70,7 @@ final class CreateTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildForm
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::finishView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'name' => 'My layout',
@@ -126,7 +124,7 @@ final class CreateTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -147,7 +145,7 @@ final class CreateTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

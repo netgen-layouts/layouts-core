@@ -45,7 +45,7 @@ final class LayoutResolverValidatorTest extends TestCase
      */
     private $layoutResolverValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -66,14 +66,11 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleCreateStruct
      * @dataProvider validateRuleCreateStructProvider
      */
-    public function testValidateRuleCreateStruct(array $params, $isValid)
+    public function testValidateRuleCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -86,13 +83,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleUpdateStruct
      * @dataProvider validateRuleUpdateStructProvider
      */
-    public function testValidateRuleUpdateStruct(array $params, $isValid)
+    public function testValidateRuleUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -105,13 +99,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
      * @dataProvider validateRuleMetadataUpdateStructProvider
      */
-    public function testValidateRuleMetadataUpdateStruct(array $params, $isValid)
+    public function testValidateRuleMetadataUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -126,13 +117,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetCreateStruct
      * @dataProvider validateTargetCreateStructProvider
      */
-    public function testValidateTargetCreateStruct(array $params, $isValid)
+    public function testValidateTargetCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -145,13 +133,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetUpdateStruct
      * @dataProvider validateTargetUpdateStructProvider
      */
-    public function testValidateTargetUpdateStruct(array $params, $isValid)
+    public function testValidateTargetUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -167,13 +152,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionCreateStruct
      * @dataProvider validateConditionCreateStructProvider
      */
-    public function testValidateConditionCreateStruct(array $params, $isValid)
+    public function testValidateConditionCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -186,13 +168,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionUpdateStruct
      * @dataProvider validateConditionUpdateStructProvider
      */
-    public function testValidateConditionUpdateStruct(array $params, $isValid)
+    public function testValidateConditionUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -207,7 +186,7 @@ final class LayoutResolverValidatorTest extends TestCase
         );
     }
 
-    public function validateRuleCreateStructProvider()
+    public function validateRuleCreateStructProvider(): array
     {
         return [
             [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
@@ -227,7 +206,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateRuleUpdateStructProvider()
+    public function validateRuleUpdateStructProvider(): array
     {
         return [
             [['layoutId' => 12, 'comment' => 'Comment'], true],
@@ -240,7 +219,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateRuleMetadataUpdateStructProvider()
+    public function validateRuleMetadataUpdateStructProvider(): array
     {
         return [
             [['priority' => -12], true],
@@ -252,7 +231,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateTargetCreateStructProvider()
+    public function validateTargetCreateStructProvider(): array
     {
         return [
             [['type' => 'target', 'value' => 42], true],
@@ -267,7 +246,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateTargetUpdateStructProvider()
+    public function validateTargetUpdateStructProvider(): array
     {
         return [
             [['value' => 42], true],
@@ -279,7 +258,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateConditionCreateStructProvider()
+    public function validateConditionCreateStructProvider(): array
     {
         return [
             [['type' => 'condition', 'value' => 42], true],
@@ -294,7 +273,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateConditionUpdateStructProvider()
+    public function validateConditionUpdateStructProvider(): array
     {
         return [
             [['value' => 42], true],

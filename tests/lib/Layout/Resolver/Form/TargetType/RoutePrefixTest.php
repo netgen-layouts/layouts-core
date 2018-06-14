@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix as Ro
 use Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class RoutePrefixTest extends FormTestCase
 {
@@ -18,17 +19,14 @@ final class RoutePrefixTest extends FormTestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->targetType = new RoutePrefix();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new TargetType(
             [
@@ -45,7 +43,7 @@ final class RoutePrefixTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix::getFormType
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'value' => 'route_prefix_',

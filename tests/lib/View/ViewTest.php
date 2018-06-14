@@ -16,7 +16,7 @@ final class ViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->view = new View(['value' => new Value()]);
     }
@@ -25,7 +25,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::getContext
      * @covers \Netgen\BlockManager\View\View::setContext
      */
-    public function testSetContext()
+    public function testSetContext(): void
     {
         $this->view->setContext('context');
 
@@ -36,7 +36,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::getTemplate
      * @covers \Netgen\BlockManager\View\View::setTemplate
      */
-    public function testSetTemplate()
+    public function testSetTemplate(): void
     {
         $this->view->setTemplate('template.html.twig');
 
@@ -46,7 +46,7 @@ final class ViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View::getFallbackContext
      */
-    public function testGetFallbackContext()
+    public function testGetFallbackContext(): void
     {
         $this->assertNull($this->view->getFallbackContext());
     }
@@ -54,7 +54,7 @@ final class ViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View::setFallbackContext
      */
-    public function testSetFallbackContext()
+    public function testSetFallbackContext(): void
     {
         $this->view->setFallbackContext('fallback');
 
@@ -64,7 +64,7 @@ final class ViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View::getResponse
      */
-    public function testGetDefaultResponse()
+    public function testGetDefaultResponse(): void
     {
         $this->assertNull($this->view->getResponse());
     }
@@ -73,7 +73,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::getResponse
      * @covers \Netgen\BlockManager\View\View::setResponse
      */
-    public function testSetResponse()
+    public function testSetResponse(): void
     {
         $response = new Response('response');
 
@@ -86,7 +86,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::hasParameter
      */
-    public function testHasParameter()
+    public function testHasParameter(): void
     {
         $this->view->addParameter('param', 'value');
 
@@ -97,7 +97,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::hasParameter
      */
-    public function testHasParameterWithNoParam()
+    public function testHasParameterWithNoParam(): void
     {
         $this->view->addParameter('param', 'value');
 
@@ -108,7 +108,7 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::getParameter
      */
-    public function testGetParameter()
+    public function testGetParameter(): void
     {
         $this->view->addParameter('param', 'value');
 
@@ -121,7 +121,7 @@ final class ViewTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\View\ViewException
      * @expectedExceptionMessage Parameter with "other_param" name was not found in "Netgen\BlockManager\Tests\View\Stubs\View" view.
      */
-    public function testGetParameterThrowsViewException()
+    public function testGetParameterThrowsViewException(): void
     {
         $this->view->addParameter('param', 'value');
 
@@ -131,7 +131,7 @@ final class ViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View::addParameters
      */
-    public function testAddParameters()
+    public function testAddParameters(): void
     {
         $this->view->addParameters(
             [

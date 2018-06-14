@@ -19,7 +19,7 @@ final class FormViewProviderTest extends TestCase
      */
     private $formViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->formViewProvider = new FormViewProvider();
     }
@@ -27,7 +27,7 @@ final class FormViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\FormViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $formView = new FormView();
         $form = $this->createMock(FormInterface::class);
@@ -52,23 +52,18 @@ final class FormViewProviderTest extends TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\FormViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->formViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

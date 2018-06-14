@@ -16,7 +16,7 @@ final class LayoutTypeTest extends TestCase
      */
     private $layoutType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutType = new LayoutType(
             [
@@ -48,7 +48,7 @@ final class LayoutTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::__construct
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('4_zones_a', $this->layoutType->getIdentifier());
     }
@@ -56,7 +56,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertFalse($this->layoutType->isEnabled());
     }
@@ -64,7 +64,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('4 zones A', $this->layoutType->getName());
     }
@@ -72,7 +72,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIcon
      */
-    public function testGetIcon()
+    public function testGetIcon(): void
     {
         $this->assertEquals('/icon.svg', $this->layoutType->getIcon());
     }
@@ -80,7 +80,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZones
      */
-    public function testGetZones()
+    public function testGetZones(): void
     {
         $this->assertEquals(
             [
@@ -106,7 +106,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZoneIdentifiers
      */
-    public function testGetZoneIdentifiers()
+    public function testGetZoneIdentifiers(): void
     {
         $this->assertEquals(['left', 'right'], $this->layoutType->getZoneIdentifiers());
     }
@@ -114,7 +114,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::hasZone
      */
-    public function testHasZone()
+    public function testHasZone(): void
     {
         $this->assertTrue($this->layoutType->hasZone('left'));
     }
@@ -122,7 +122,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::hasZone
      */
-    public function testHasZoneReturnsFalse()
+    public function testHasZoneReturnsFalse(): void
     {
         $this->assertFalse($this->layoutType->hasZone('unknown'));
     }
@@ -130,7 +130,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
      */
-    public function testGetZone()
+    public function testGetZone(): void
     {
         $this->assertEquals(
             new Zone(
@@ -149,7 +149,7 @@ final class LayoutTypeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
      * @expectedExceptionMessage Zone "unknown" does not exist in "4_zones_a" layout type.
      */
-    public function testGetZoneThrowsLayoutTypeException()
+    public function testGetZoneThrowsLayoutTypeException(): void
     {
         $this->layoutType->getZone('unknown');
     }
@@ -157,7 +157,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
      */
-    public function testIsBlockAllowedInZone()
+    public function testIsBlockAllowedInZone(): void
     {
         $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'left'));
     }
@@ -165,7 +165,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
      */
-    public function testIsBlockAllowedInZoneReturnsFalse()
+    public function testIsBlockAllowedInZoneReturnsFalse(): void
     {
         $this->assertFalse($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'other']), 'left'));
     }
@@ -173,7 +173,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
      */
-    public function testIsBlockAllowedInZoneWithNonExistentZone()
+    public function testIsBlockAllowedInZoneWithNonExistentZone(): void
     {
         $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'unknown'));
     }
@@ -181,7 +181,7 @@ final class LayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
      */
-    public function testIsBlockAllowedInZoneWithAllBlocksAllowed()
+    public function testIsBlockAllowedInZoneWithAllBlocksAllowed(): void
     {
         $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'right'));
     }

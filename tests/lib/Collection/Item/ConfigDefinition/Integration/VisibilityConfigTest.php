@@ -8,21 +8,16 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler\VisibilityConfigHandler;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 
 abstract class VisibilityConfigTest extends ItemTest
 {
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
-     */
-    public function createConfigDefinitionHandler()
+    public function createConfigDefinitionHandler(): ConfigDefinitionHandlerInterface
     {
         return new VisibilityConfigHandler();
     }
 
-    /**
-     * @return array
-     */
-    public function configDataProvider()
+    public function configDataProvider(): array
     {
         $dateFrom = new DateTimeImmutable('2018-01-02 15:00:00', new DateTimeZone('Antarctica/Casey'));
         $dateTo = new DateTimeImmutable('2018-01-02 16:00:00', new DateTimeZone('Antarctica/Casey'));
@@ -150,10 +145,7 @@ abstract class VisibilityConfigTest extends ItemTest
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function invalidConfigDataProvider()
+    public function invalidConfigDataProvider(): array
     {
         $dateFrom = new DateTimeImmutable('2018-01-02 16:00:00', new DateTimeZone('Antarctica/Casey'));
         $dateTo = new DateTimeImmutable('2018-01-02 15:00:00', new DateTimeZone('Antarctica/Casey'));

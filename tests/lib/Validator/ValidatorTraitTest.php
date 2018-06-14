@@ -24,7 +24,7 @@ final class ValidatorTraitTest extends TestCase
      */
     private $validator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validatorMock = $this->createMock(ValidatorInterface::class);
         $this->validator = new ValidatorValue();
@@ -35,7 +35,7 @@ final class ValidatorTraitTest extends TestCase
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::setValidator
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
      */
-    public function testValidate()
+    public function testValidate(): void
     {
         $this->validatorMock
             ->expects($this->once())
@@ -54,7 +54,7 @@ final class ValidatorTraitTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage There was an error validating "value": Value should not be blank
      */
-    public function testValidateThrowsValidationException()
+    public function testValidateThrowsValidationException(): void
     {
         $this->validatorMock
             ->expects($this->once())
@@ -83,7 +83,7 @@ final class ValidatorTraitTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Test exception text
      */
-    public function testValidateThrowsValidationExceptionOnOtherException()
+    public function testValidateThrowsValidationExceptionOnOtherException(): void
     {
         $this->validatorMock
             ->expects($this->once())

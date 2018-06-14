@@ -15,20 +15,21 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatab
 use Netgen\BlockManager\Tests\Form\Stubs\TranslatableTypeStub;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class TranslatableTypeTest extends FormTestCase
 {
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new TranslatableTypeStub();
     }
 
-    public function getTypeExtensions()
+    public function getTypeExtensions(): array
     {
         return [new ParametersTypeExtension()];
     }
 
-    public function getTypes()
+    public function getTypes(): array
     {
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new FormMapper());
@@ -40,7 +41,7 @@ final class TranslatableTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\TranslatableType::disableFormsOnNonMainLocale
      */
-    public function testDisableUntranslatableFormsWithTranslatableCompoundParameter()
+    public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void
     {
         $handler = new BlockDefinitionHandlerWithTranslatableCompoundParameter();
         $block = new Block(
@@ -74,7 +75,7 @@ final class TranslatableTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\TranslatableType::disableFormsOnNonMainLocale
      */
-    public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter()
+    public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter(): void
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
         $block = new Block(

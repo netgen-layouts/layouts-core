@@ -19,7 +19,7 @@ final class ParameterViewProviderTest extends TestCase
      */
     private $parameterViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parameterViewProvider = new ParameterViewProvider();
     }
@@ -27,7 +27,7 @@ final class ParameterViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\ParameterViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $parameter = new Parameter(['value' => 42]);
 
@@ -48,23 +48,18 @@ final class ParameterViewProviderTest extends TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\ParameterViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->parameterViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

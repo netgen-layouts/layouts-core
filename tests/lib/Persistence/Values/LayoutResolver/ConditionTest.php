@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $condition = new Condition(
             [

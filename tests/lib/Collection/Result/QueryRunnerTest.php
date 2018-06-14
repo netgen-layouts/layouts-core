@@ -8,6 +8,7 @@ use Netgen\BlockManager\Collection\Result\QueryRunner;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,7 @@ final class QueryRunnerTest extends TestCase
      */
     private $itemBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
 
@@ -27,7 +28,7 @@ final class QueryRunnerTest extends TestCase
             ->method('build')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    function ($value): ItemInterface {
                         return new Item(['value' => $value, 'isVisible' => true]);
                     }
                 )
@@ -39,7 +40,7 @@ final class QueryRunnerTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::runQuery
      */
-    public function testRunner()
+    public function testRunner(): void
     {
         $expectedItems = [
             new Item(['value' => 40, 'isVisible' => true]),

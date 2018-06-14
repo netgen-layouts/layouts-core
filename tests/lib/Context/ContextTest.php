@@ -15,7 +15,7 @@ final class ContextTest extends TestCase
      */
     private $context;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->context = new Context();
         $this->context->set('var', 'value');
@@ -26,7 +26,7 @@ final class ContextTest extends TestCase
      * @covers \Netgen\BlockManager\Context\Context::has
      * @covers \Netgen\BlockManager\Context\Context::set
      */
-    public function testSet()
+    public function testSet(): void
     {
         $this->context->set('var2', 'value2');
 
@@ -39,7 +39,7 @@ final class ContextTest extends TestCase
      * @covers \Netgen\BlockManager\Context\Context::get
      * @covers \Netgen\BlockManager\Context\Context::has
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         $this->context->add(['var2' => 'value2', 'var3' => 'value3']);
 
@@ -53,7 +53,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::get
      */
-    public function testGet()
+    public function testGet(): void
     {
         $this->assertEquals('value', $this->context->get('var'));
     }
@@ -63,7 +63,7 @@ final class ContextTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Context\ContextException
      * @expectedExceptionMessage Variable "unknown" does not exist in the context.
      */
-    public function testGetThrowsContextException()
+    public function testGetThrowsContextException(): void
     {
         $this->context->get('unknown');
     }
@@ -71,7 +71,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::has
      */
-    public function testHas()
+    public function testHas(): void
     {
         $this->assertTrue($this->context->has('var'));
     }
@@ -79,7 +79,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::has
      */
-    public function testHasWithUnknownVariable()
+    public function testHasWithUnknownVariable(): void
     {
         $this->assertFalse($this->context->has('unknown'));
     }
@@ -87,7 +87,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::all
      */
-    public function testAll()
+    public function testAll(): void
     {
         $this->assertEquals(['var' => 'value'], $this->context->all());
     }
@@ -95,7 +95,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->context->getIterator());
 
@@ -110,7 +110,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->context);
     }
@@ -118,7 +118,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('var', $this->context);
         $this->assertArrayNotHasKey('var2', $this->context);
@@ -127,7 +127,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals('value', $this->context['var']);
     }
@@ -135,7 +135,7 @@ final class ContextTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Context\Context::offsetSet
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->context['var'] = 'value2';
 
@@ -147,7 +147,7 @@ final class ContextTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->context['var']);
     }

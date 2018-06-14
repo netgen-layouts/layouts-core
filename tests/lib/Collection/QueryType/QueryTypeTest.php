@@ -16,7 +16,7 @@ final class QueryTypeTest extends TestCase
      */
     private $queryType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->queryType = new QueryType(
             [
@@ -32,7 +32,7 @@ final class QueryTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('query_type', $this->queryType->getType());
     }
@@ -40,7 +40,7 @@ final class QueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertFalse($this->queryType->isEnabled());
     }
@@ -48,7 +48,7 @@ final class QueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Query type', $this->queryType->getName());
     }
@@ -56,7 +56,7 @@ final class QueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getValues
      */
-    public function testGetValues()
+    public function testGetValues(): void
     {
         $this->assertEquals(['val1', 'val2'], $this->queryType->getValues(new Query()));
     }
@@ -64,7 +64,7 @@ final class QueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getCount
      */
-    public function testGetCount()
+    public function testGetCount(): void
     {
         $this->assertEquals(2, $this->queryType->getCount(new Query()));
     }
@@ -72,7 +72,7 @@ final class QueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $this->assertFalse($this->queryType->isContextual(new Query()));
     }

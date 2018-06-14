@@ -21,7 +21,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry();
 
@@ -34,7 +34,7 @@ final class ParameterTypeRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::addParameterType
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypes
      */
-    public function testAddParameterType()
+    public function testAddParameterType(): void
     {
         $this->assertEquals(['type' => $this->parameterType], $this->registry->getParameterTypes());
     }
@@ -42,7 +42,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::hasParameterType
      */
-    public function testHasParameterType()
+    public function testHasParameterType(): void
     {
         $this->assertTrue($this->registry->hasParameterType('type'));
     }
@@ -50,7 +50,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::hasParameterType
      */
-    public function testHasParameterTypeWithNoParameterType()
+    public function testHasParameterTypeWithNoParameterType(): void
     {
         $this->assertFalse($this->registry->hasParameterType('other_type'));
     }
@@ -58,7 +58,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterType
      */
-    public function testGetParameterType()
+    public function testGetParameterType(): void
     {
         $this->assertEquals($this->parameterType, $this->registry->getParameterType('type'));
     }
@@ -68,7 +68,7 @@ final class ParameterTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter type with "other_type" identifier does not exist.
      */
-    public function testGetParameterTypeThrowsParameterTypeException()
+    public function testGetParameterTypeThrowsParameterTypeException(): void
     {
         $this->registry->getParameterType('other_type');
     }
@@ -76,7 +76,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
      */
-    public function testGetParameterTypeByClass()
+    public function testGetParameterTypeByClass(): void
     {
         $this->assertEquals($this->parameterType, $this->registry->getParameterTypeByClass(ParameterType::class));
     }
@@ -86,7 +86,7 @@ final class ParameterTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter type with class "SomeClass" does not exist.
      */
-    public function testGetParameterTypeByClassThrowsParameterTypeException()
+    public function testGetParameterTypeByClassThrowsParameterTypeException(): void
     {
         $this->registry->getParameterTypeByClass('SomeClass');
     }
@@ -94,7 +94,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -109,7 +109,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -117,7 +117,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('type', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -126,7 +126,7 @@ final class ParameterTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->parameterType, $this->registry['type']);
     }
@@ -136,7 +136,7 @@ final class ParameterTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['type'] = $this->parameterType;
     }
@@ -146,7 +146,7 @@ final class ParameterTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['type']);
     }

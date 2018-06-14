@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilder;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -35,7 +37,7 @@ final class ResultBuilderTest extends TestCase
      */
     private $resultBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemBuilder = new ItemBuilder(
             [new ValueConverter()]
@@ -48,7 +50,7 @@ final class ResultBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testBuildForManualCollection()
+    public function testBuildForManualCollection(): void
     {
         $collection = $this->buildCollection(
             [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
@@ -72,7 +74,7 @@ final class ResultBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testBuildWithLimitLargerThanMaxLimit()
+    public function testBuildWithLimitLargerThanMaxLimit(): void
     {
         $resultBuilder = $this->buildResultBuilder(3);
 
@@ -97,7 +99,7 @@ final class ResultBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testBuildForDynamicCollection()
+    public function testBuildForDynamicCollection(): void
     {
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
@@ -123,7 +125,7 @@ final class ResultBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testBuildForDynamicAndContextualCollection()
+    public function testBuildForDynamicAndContextualCollection(): void
     {
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
@@ -150,7 +152,7 @@ final class ResultBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testBuildForDynamicAndContextualCollectionAndLimitLowerThanContextualLimit()
+    public function testBuildForDynamicAndContextualCollectionAndLimitLowerThanContextualLimit(): void
     {
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
@@ -174,7 +176,7 @@ final class ResultBuilderTest extends TestCase
         }
     }
 
-    private function buildResultBuilder($maxLimit)
+    private function buildResultBuilder(int $maxLimit): ResultBuilderInterface
     {
         return new ResultBuilder(
             new CollectionRunnerFactory($this->itemBuilder),
@@ -185,22 +187,14 @@ final class ResultBuilderTest extends TestCase
 
     /**
      * Builds the dynamic collection for provided type and list of values.
-     *
-     * @param array $manualIds
-     * @param array $overrideIds
-     * @param array $queryValues
-     * @param int $queryCount
-     * @param bool $contextual
-     *
-     * @return \Netgen\BlockManager\Core\Values\Collection\Collection
      */
     private function buildCollection(
         array $manualIds = [],
         array $overrideIds = [],
         array $queryValues = [],
-        $queryCount = 0,
-        $contextual = false
-    ) {
+        int $queryCount = 0,
+        bool $contextual = false
+    ): APICollection {
         $items = [];
 
         foreach ($manualIds as $position => $id) {
@@ -279,10 +273,10 @@ final class ResultBuilderTest extends TestCase
      *
      * @return \Netgen\BlockManager\Tests\Item\Stubs\Value[]
      */
-    private function buildQueryValues(array $ids = [])
+    private function buildQueryValues(array $ids = []): array
     {
         return array_map(
-            function ($id) {
+            function ($id): Value {
                 return new Value($id, '');
             },
             $ids

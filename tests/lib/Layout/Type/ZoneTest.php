@@ -14,7 +14,7 @@ final class ZoneTest extends TestCase
      */
     private $zone;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->zone = new Zone(
             [
@@ -29,7 +29,7 @@ final class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Type\Zone::__construct
      * @covers \Netgen\BlockManager\Layout\Type\Zone::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('left', $this->zone->getIdentifier());
     }
@@ -37,7 +37,7 @@ final class ZoneTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\Zone::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Left', $this->zone->getName());
     }
@@ -45,7 +45,7 @@ final class ZoneTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\Zone::getAllowedBlockDefinitions
      */
-    public function testGetAllowedBlockDefinitions()
+    public function testGetAllowedBlockDefinitions(): void
     {
         $this->assertEquals(['title'], $this->zone->getAllowedBlockDefinitions());
     }

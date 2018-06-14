@@ -14,15 +14,15 @@ final class LazyPropertyTraitTest extends TestCase
      */
     private $value;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->value = new ValueWithLazyProperty(function () { return 42; });
+        $this->value = new ValueWithLazyProperty(function (): int { return 42; });
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\LazyPropertyTrait::getLazyProperty
      */
-    public function testGetLazyProperty()
+    public function testGetLazyProperty(): void
     {
         $this->assertInternalType('callable', $this->value->value);
 

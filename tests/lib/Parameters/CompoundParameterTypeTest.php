@@ -20,7 +20,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     private $parameterType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parameterType = new CompoundParameterType();
     }
@@ -28,7 +28,7 @@ final class CompoundParameterTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::buildParameters
      */
-    public function testBuildParameters()
+    public function testBuildParameters(): void
     {
         $parameterBuilderFactory = new ParameterBuilderFactory(new ParameterTypeRegistry());
 
@@ -43,7 +43,7 @@ final class CompoundParameterTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getRequiredConstraints
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getValueConstraints
      */
-    public function testGetConstraints()
+    public function testGetConstraints(): void
     {
         $this->assertEquals(
             [new Constraints\NotNull()],
@@ -63,7 +63,7 @@ final class CompoundParameterTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getRequiredConstraints
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getValueConstraints
      */
-    public function testGetConstraintsWithRequiredParameter()
+    public function testGetConstraintsWithRequiredParameter(): void
     {
         $this->assertEquals(
             [new Constraints\NotBlank(), new Constraints\NotNull()],
@@ -84,7 +84,7 @@ final class CompoundParameterTypeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter with "compound_boolean" type is not supported
      */
-    public function testGetConstraintsThrowsParameterTypeException()
+    public function testGetConstraintsThrowsParameterTypeException(): void
     {
         $this->parameterType->getConstraints(
             new CompoundParameterDefinition(['type' => new BooleanType()]),
@@ -95,7 +95,7 @@ final class CompoundParameterTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::toHash
      */
-    public function testToHash()
+    public function testToHash(): void
     {
         $this->assertEquals(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
@@ -103,7 +103,7 @@ final class CompoundParameterTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::fromHash
      */
-    public function testFromHash()
+    public function testFromHash(): void
     {
         $this->assertEquals(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
@@ -111,7 +111,7 @@ final class CompoundParameterTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::isValueEmpty
      */
-    public function testIsValueEmpty()
+    public function testIsValueEmpty(): void
     {
         $this->assertTrue($this->parameterType->isValueEmpty(new ParameterDefinition(), null));
     }
@@ -119,7 +119,7 @@ final class CompoundParameterTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::isValueEmpty
      */
-    public function testIsValueEmptyReturnsFalse()
+    public function testIsValueEmptyReturnsFalse(): void
     {
         $this->assertFalse($this->parameterType->isValueEmpty(new ParameterDefinition(), 42));
     }

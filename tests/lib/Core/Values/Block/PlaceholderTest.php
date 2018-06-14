@@ -17,7 +17,7 @@ final class PlaceholderTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $placeholder = new Placeholder();
 
@@ -35,7 +35,7 @@ final class PlaceholderTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetSet
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetUnset
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $placeholder = new Placeholder(
             [

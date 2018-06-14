@@ -26,7 +26,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      */
     private $builder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry();
         $this->registry->addParameterType(new ParameterType\TextType());
@@ -40,7 +40,7 @@ final class TranslatableParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
      */
-    public function testSetTranslatableOption()
+    public function testSetTranslatableOption(): void
     {
         $this->builder->add(
             'test',
@@ -59,7 +59,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         $this->builder->add(
             'test',
@@ -79,7 +79,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
      */
-    public function testAddUntranslatable()
+    public function testAddUntranslatable(): void
     {
         $this->builder->add(
             'test',
@@ -100,7 +100,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
      */
-    public function testAddCompound()
+    public function testAddCompound(): void
     {
         $this->builder->add(
             'test',
@@ -123,7 +123,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
      */
-    public function testAddCompoundUntranslatable()
+    public function testAddCompoundUntranslatable(): void
     {
         $this->builder->add(
             'test',
@@ -154,7 +154,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage Parameter "test2" cannot be translatable, since its parent parameter "test" is not translatable
      */
-    public function testAddThrowsInvalidOptionsExceptionOnAddingTranslatableParameterToNonTranslatableCompoundParameter()
+    public function testAddThrowsInvalidOptionsExceptionOnAddingTranslatableParameterToNonTranslatableCompoundParameter(): void
     {
         $this->builder->add(
             'test',
@@ -176,7 +176,7 @@ final class TranslatableParameterBuilderTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage Parameter "test2" needs to be translatable, since its parent parameter "test" is translatable
      */
-    public function testAddThrowsInvalidOptionsExceptionOnAddingNonTranslatableParameterToTranslatableCompoundParameter()
+    public function testAddThrowsInvalidOptionsExceptionOnAddingNonTranslatableParameterToTranslatableCompoundParameter(): void
     {
         $this->builder->add(
             'test',

@@ -18,14 +18,12 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
@@ -34,10 +32,7 @@ final class ParametersTypeTest extends FormTestCase
         return new ParametersType($formMapperRegistry);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
-     */
-    public function getTypeExtensions()
+    public function getTypeExtensions(): array
     {
         return [new ParametersTypeExtension()];
     }
@@ -48,7 +43,7 @@ final class ParametersTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::includeParameter
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'parameter_values' => [
@@ -159,7 +154,7 @@ final class ParametersTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::includeParameter
      */
-    public function testSubmitValidDataWithGroups()
+    public function testSubmitValidDataWithGroups(): void
     {
         $submittedData = [
             'parameter_values' => [
@@ -219,7 +214,7 @@ final class ParametersTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -249,7 +244,7 @@ final class ParametersTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required options "label_prefix", "parameter_definitions" are missing.
      */
-    public function testConfigureOptionsWithMissingParameters()
+    public function testConfigureOptionsWithMissingParameters(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -264,7 +259,7 @@ final class ParametersTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "parameter_definitions" with value null is expected to be of type "Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface", but is of type "NULL".
      */
-    public function testConfigureOptionsWithInvalidParameters()
+    public function testConfigureOptionsWithInvalidParameters(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

@@ -16,7 +16,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::__construct
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
-    public function testMapDataToForms()
+    public function testMapDataToForms(): void
     {
         $value = new DateTimeImmutable('2018-02-01 15:00:00.000000', new DateTimeZone('Antarctica/Casey'));
 
@@ -45,14 +45,10 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @param array $input
-     * @param string $dateTime
-     * @param string $timeZone
-     *
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      * @dataProvider mapDataToFormsWithArrayProvider
      */
-    public function testMapDataToFormsWithArray(array $input, $dateTime, $timeZone)
+    public function testMapDataToFormsWithArray(array $input, ?string $dateTime, string $timeZone): void
     {
         $forms = new ArrayIterator(
             [
@@ -67,7 +63,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
         $this->assertEquals($timeZone, $forms['timezone']->getData());
     }
 
-    public function mapDataToFormsWithArrayProvider()
+    public function mapDataToFormsWithArrayProvider(): array
     {
         return [
             [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], '2018-02-01 15:00:00', 'Antarctica/Casey'],
@@ -81,7 +77,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
-    public function testMapDataToFormsWithNoDateTime()
+    public function testMapDataToFormsWithNoDateTime(): void
     {
         $forms = new ArrayIterator(
             [
@@ -99,7 +95,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
-    public function testMapFormsToData()
+    public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
             [
@@ -122,7 +118,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataByUsingArray()
+    public function testMapFormsToDataByUsingArray(): void
     {
         $this->mapper = new DateTimeDataMapper(false);
 
@@ -147,7 +143,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataWithEmptyFormData()
+    public function testMapFormsToDataWithEmptyFormData(): void
     {
         $forms = new ArrayIterator(
             [

@@ -16,7 +16,7 @@ use Traversable;
 
 final class LayoutTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Layout());
     }
@@ -26,7 +26,7 @@ final class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $layout = new Layout();
 
@@ -56,7 +56,7 @@ final class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetSet
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetUnset
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $createdDate = new DateTimeImmutable();
         $createdDate->setTimestamp(123);

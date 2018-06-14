@@ -25,7 +25,7 @@ final class BlockTypeNormalizerTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->blockDefinition = new BlockDefinition(['identifier' => 'title']);
 
@@ -35,7 +35,7 @@ final class BlockTypeNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $blockType = new BlockType(
             [
@@ -69,7 +69,7 @@ final class BlockTypeNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
      */
-    public function testNormalizeWithContainerBlock()
+    public function testNormalizeWithContainerBlock(): void
     {
         $blockType = new BlockType(
             [
@@ -93,17 +93,12 @@ final class BlockTypeNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

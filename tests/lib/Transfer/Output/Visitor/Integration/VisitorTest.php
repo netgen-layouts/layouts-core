@@ -24,7 +24,7 @@ abstract class VisitorTest extends ServiceTestCase
      */
     private $matcherFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -44,7 +44,7 @@ abstract class VisitorTest extends ServiceTestCase
      *
      * @dataProvider acceptProvider
      */
-    public function testAccept($value, $accepted)
+    public function testAccept($value, bool $accepted): void
     {
         $this->assertEquals($accepted, $this->getVisitor()->accept($value));
     }
@@ -55,7 +55,7 @@ abstract class VisitorTest extends ServiceTestCase
      *
      * @dataProvider visitProvider
      */
-    public function testVisit($value, $fixturePath)
+    public function testVisit($value, string $fixturePath): void
     {
         $fixturePath = __DIR__ . '/../../../_fixtures/output/' . $fixturePath;
 
@@ -90,22 +90,16 @@ abstract class VisitorTest extends ServiceTestCase
 
     /**
      * Returns the visitor under test.
-     *
-     * @return \Netgen\BlockManager\Transfer\Output\VisitorInterface
      */
-    abstract public function getVisitor();
+    abstract public function getVisitor(): VisitorInterface;
 
     /**
      * Provides data for testing VisitorInterface::accept method.
-     *
-     * @return array
      */
-    abstract public function acceptProvider();
+    abstract public function acceptProvider(): array;
 
     /**
      * Provides data for testing VisitorInterface::visit method.
-     *
-     * @return array
      */
-    abstract public function visitProvider();
+    abstract public function visitProvider(): array;
 }

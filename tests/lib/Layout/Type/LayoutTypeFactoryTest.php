@@ -14,7 +14,7 @@ final class LayoutTypeFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutTypeFactory::buildLayoutType
      */
-    public function testBuildLayoutType()
+    public function testBuildLayoutType(): void
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',

@@ -39,7 +39,7 @@ final class LayoutResolverTest extends TestCase
      */
     private $layoutResolver;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
@@ -60,7 +60,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      */
-    public function testResolveRules()
+    public function testResolveRules(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', 84));
@@ -131,7 +131,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      */
-    public function testResolveRulesWithInvalidRule()
+    public function testResolveRulesWithInvalidRule(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
 
@@ -168,7 +168,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      */
-    public function testResolveRulesWithNoValidRules()
+    public function testResolveRulesWithNoValidRules(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
 
@@ -205,7 +205,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      */
-    public function testResolveRulesWithNoTargetValue()
+    public function testResolveRulesWithNoTargetValue(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', 84));
@@ -243,7 +243,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      */
-    public function testResolveRulesWithNoTargetValues()
+    public function testResolveRulesWithNoTargetValues(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', null));
@@ -259,7 +259,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      */
-    public function testResolveRulesWithNoRequest()
+    public function testResolveRulesWithNoRequest(): void
     {
         $this->requestStack->pop();
 
@@ -275,12 +275,9 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      *
-     * @param array $matches
-     * @param int|null $layoutId
-     *
      * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
-    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $matches, $layoutId)
+    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $matches, ?int $layoutId): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
 
@@ -315,12 +312,9 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
      *
-     * @param array $matches
-     * @param int|null $layoutId
-     *
      * @dataProvider resolveRulesWithRuleConditionsProvider
      */
-    public function testResolveRulesWithConditions(array $matches, $layoutId)
+    public function testResolveRulesWithConditions(array $matches, ?int $layoutId): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
 
@@ -354,7 +348,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testResolveRule()
+    public function testResolveRule(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', 84));
@@ -418,7 +412,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testResolveRuleWithInvalidRule()
+    public function testResolveRuleWithInvalidRule(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
 
@@ -455,7 +449,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testResolveRuleWithNoValidRules()
+    public function testResolveRuleWithNoValidRules(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
 
@@ -492,7 +486,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testResolveRuleWithNoTargetValue()
+    public function testResolveRuleWithNoTargetValue(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', 84));
@@ -530,7 +524,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testResolveRuleWithNoTargetValues()
+    public function testResolveRuleWithNoTargetValues(): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
         $this->targetTypeRegistry->addTargetType(new TargetType('target2', null));
@@ -546,7 +540,7 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testResolveRuleWithNoRequest()
+    public function testResolveRuleWithNoRequest(): void
     {
         $this->requestStack->pop();
 
@@ -562,12 +556,9 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      *
-     * @param array $matches
-     * @param int|null $layoutId
-     *
      * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
-    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $matches, $layoutId)
+    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $matches, ?int $layoutId): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
 
@@ -599,12 +590,9 @@ final class LayoutResolverTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      *
-     * @param array $matches
-     * @param int|null $layoutId
-     *
      * @dataProvider resolveRulesWithRuleConditionsProvider
      */
-    public function testResolveRuleWithConditions(array $matches, $layoutId)
+    public function testResolveRuleWithConditions(array $matches, ?int $layoutId): void
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
 
@@ -634,12 +622,9 @@ final class LayoutResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
-     * @param array $matches
-     * @param bool $isMatch
-     *
      * @dataProvider matchesProvider
      */
-    public function testMatches(array $matches, $isMatch)
+    public function testMatches(array $matches, bool $isMatch): void
     {
         $conditions = [];
         foreach ($matches as $conditionType => $match) {
@@ -658,7 +643,7 @@ final class LayoutResolverTest extends TestCase
         $this->assertEquals($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
     }
 
-    public function resolveRulesWithRuleConditionsProvider()
+    public function resolveRulesWithRuleConditionsProvider(): array
     {
         return [
             [[], 42],
@@ -671,7 +656,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public function resolveRulesWithPartialRuleConditionsProvider()
+    public function resolveRulesWithPartialRuleConditionsProvider(): array
     {
         return [
             [[], 42],
@@ -684,7 +669,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public function matchesProvider()
+    public function matchesProvider(): array
     {
         return [
             [[], true],

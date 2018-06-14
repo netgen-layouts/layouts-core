@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 final class ParameterTypeWithExportImport extends BaseParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'type';
     }
@@ -25,7 +25,7 @@ final class ParameterTypeWithExportImport extends BaseParameterType
         return 'export_value';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [new NotNull()];
     }

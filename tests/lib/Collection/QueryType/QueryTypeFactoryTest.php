@@ -23,7 +23,7 @@ final class QueryTypeFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
         $this->parameterBuilderFactoryMock
@@ -42,7 +42,7 @@ final class QueryTypeFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::buildQueryType
      */
-    public function testBuildQueryType()
+    public function testBuildQueryType(): void
     {
         $queryType = $this->factory->buildQueryType(
             'type',
@@ -64,7 +64,7 @@ final class QueryTypeFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::buildQueryType
      */
-    public function testBuildQueryTypeWithEmptyName()
+    public function testBuildQueryTypeWithEmptyName(): void
     {
         $queryType = $this->factory->buildQueryType(
             'type',

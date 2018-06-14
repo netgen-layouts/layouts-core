@@ -8,7 +8,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 final class VisitorStub implements VisitorInterface
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return true;
     }

@@ -22,13 +22,13 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
      */
     private $isContextual;
 
-    public function __construct($parameterGroups = [], $isContextual = false)
+    public function __construct(array $parameterGroups = [], bool $isContextual = false)
     {
         $this->parameterGroups = $parameterGroups;
         $this->isContextual = $isContextual;
     }
 
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'css_class' => new ParameterDefinition(
@@ -55,15 +55,15 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
         ];
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['definition_param'] = 'definition_value';
-        $params['closure_param'] = function () {
+        $params['closure_param'] = function (): string {
             return 'closure_value';
         };
     }
 
-    public function isContextual(Block $block)
+    public function isContextual(Block $block): bool
     {
         return $this->isContextual;
     }

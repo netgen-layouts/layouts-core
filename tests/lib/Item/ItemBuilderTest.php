@@ -17,7 +17,7 @@ final class ItemBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build
      */
-    public function testBuild()
+    public function testBuild(): void
     {
         $value = new Value(42, 'abc');
 
@@ -42,7 +42,7 @@ final class ItemBuilderTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ValueException
      * @expectedExceptionMessage Value converter for "Netgen\BlockManager\Tests\Item\Stubs\Value" type does not exist.
      */
-    public function testBuildThrowsValueException()
+    public function testBuildThrowsValueException(): void
     {
         $builder = new ItemBuilder([new UnsupportedValueConverter()]);
 

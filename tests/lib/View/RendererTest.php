@@ -29,7 +29,7 @@ final class RendererTest extends TestCase
      */
     private $renderer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->viewBuilderMock = $this
             ->createMock(ViewBuilderInterface::class);
@@ -47,7 +47,7 @@ final class RendererTest extends TestCase
      * @covers \Netgen\BlockManager\View\Renderer::__construct
      * @covers \Netgen\BlockManager\View\Renderer::renderValue
      */
-    public function testRenderValue()
+    public function testRenderValue(): void
     {
         $view = new View(['value' => new Value()]);
         $view->setContext(ViewInterface::CONTEXT_API);

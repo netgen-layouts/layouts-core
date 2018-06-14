@@ -18,7 +18,7 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class LayoutResolverMapperTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -29,7 +29,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapRule
      */
-    public function testMapRule()
+    public function testMapRule(): void
     {
         $persistenceRule = new Rule(
             [
@@ -69,7 +69,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapRule
      */
-    public function testMapRuleWithNonExistingLayout()
+    public function testMapRuleWithNonExistingLayout(): void
     {
         $persistenceRule = new Rule(
             [
@@ -86,7 +86,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapTarget
      */
-    public function testMapTarget()
+    public function testMapTarget(): void
     {
         $persistenceTarget = new Target(
             [
@@ -115,7 +115,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapTarget
      */
-    public function testMapTargetWithInvalidTargetType()
+    public function testMapTargetWithInvalidTargetType(): void
     {
         $persistenceTarget = new Target(
             [
@@ -141,7 +141,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapCondition
      */
-    public function testMapCondition()
+    public function testMapCondition(): void
     {
         $persistenceCondition = new Condition(
             [
@@ -170,7 +170,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapCondition
      */
-    public function testMapConditionWithInvalidConditionType()
+    public function testMapConditionWithInvalidConditionType(): void
     {
         $persistenceCondition = new Condition(
             [

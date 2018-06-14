@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $block = new Block(
             [

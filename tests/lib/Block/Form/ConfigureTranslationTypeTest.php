@@ -7,14 +7,12 @@ namespace Netgen\BlockManager\Tests\Block\Form;
 use Netgen\BlockManager\Block\Form\ConfigureTranslationType;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ConfigureTranslationTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ConfigureTranslationType();
     }
@@ -23,7 +21,7 @@ final class ConfigureTranslationTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Block\Form\ConfigureTranslationType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\ConfigureTranslationType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $block = new Block(['isTranslatable' => false]);
 
@@ -53,7 +51,7 @@ final class ConfigureTranslationTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\ConfigureTranslationType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -72,7 +70,7 @@ final class ConfigureTranslationTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "block" with value 42 is expected to be of type "Netgen\BlockManager\API\Values\Block\Block", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidBlock()
+    public function testConfigureOptionsWithInvalidBlock(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);
@@ -84,7 +82,7 @@ final class ConfigureTranslationTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "block" is missing.
      */
-    public function testConfigureOptionsWithMissingBlock()
+    public function testConfigureOptionsWithMissingBlock(): void
     {
         $optionsResolver = new OptionsResolver();
         $this->formType->configureOptions($optionsResolver);

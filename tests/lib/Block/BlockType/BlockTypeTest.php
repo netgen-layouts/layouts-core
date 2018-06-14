@@ -20,7 +20,7 @@ final class BlockTypeTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->blockDefinition = new BlockDefinition(['identifier' => 'title']);
 
@@ -45,7 +45,7 @@ final class BlockTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::__construct
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('title', $this->blockType->getIdentifier());
     }
@@ -53,7 +53,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertFalse($this->blockType->isEnabled());
     }
@@ -61,7 +61,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Title', $this->blockType->getName());
     }
@@ -69,7 +69,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIcon
      */
-    public function testGetIcon()
+    public function testGetIcon(): void
     {
         $this->assertEquals('/icon.svg', $this->blockType->getIcon());
     }
@@ -77,7 +77,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefinition
      */
-    public function testGetDefinition()
+    public function testGetDefinition(): void
     {
         $this->assertEquals($this->blockDefinition, $this->blockType->getDefinition());
     }
@@ -85,7 +85,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaults
      */
-    public function testGetDefaults()
+    public function testGetDefaults(): void
     {
         $this->assertEquals(
             [
@@ -101,7 +101,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultName
      */
-    public function testGetDefaultName()
+    public function testGetDefaultName(): void
     {
         $this->assertEquals('Name', $this->blockType->getDefaultName());
     }
@@ -109,7 +109,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
      */
-    public function testGetDefaultViewType()
+    public function testGetDefaultViewType(): void
     {
         $this->assertEquals('default', $this->blockType->getDefaultViewType());
     }
@@ -117,7 +117,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultItemViewType
      */
-    public function testGetDefaultItemViewType()
+    public function testGetDefaultItemViewType(): void
     {
         $this->assertEquals('standard', $this->blockType->getDefaultItemViewType());
     }
@@ -125,7 +125,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultParameters
      */
-    public function testGetDefaultParameters()
+    public function testGetDefaultParameters(): void
     {
         $this->assertEquals(['tag' => 'h3'], $this->blockType->getDefaultParameters());
     }
@@ -133,7 +133,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultName
      */
-    public function testGetDefaultEmptyName()
+    public function testGetDefaultEmptyName(): void
     {
         $this->blockType = new BlockType();
 
@@ -143,7 +143,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
      */
-    public function testGetDefaultEmptyViewType()
+    public function testGetDefaultEmptyViewType(): void
     {
         $this->blockType = new BlockType();
 
@@ -153,7 +153,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
      */
-    public function testGetDefaultEmptyItemViewType()
+    public function testGetDefaultEmptyItemViewType(): void
     {
         $this->blockType = new BlockType();
 
@@ -163,7 +163,7 @@ final class BlockTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultParameters
      */
-    public function testGetDefaultEmptyParameters()
+    public function testGetDefaultEmptyParameters(): void
     {
         $this->blockType = new BlockType();
 

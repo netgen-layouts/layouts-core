@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
 {
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'param' => new ParameterDefinition(
@@ -29,7 +29,7 @@ final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
         ];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
     }
 }

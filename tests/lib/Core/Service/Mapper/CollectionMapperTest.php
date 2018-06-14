@@ -22,7 +22,7 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class CollectionMapperTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
      */
-    public function testMapCollection()
+    public function testMapCollection(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -85,7 +85,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
      */
-    public function testMapCollectionWithLocale()
+    public function testMapCollectionWithLocale(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -105,7 +105,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
      */
-    public function testMapCollectionWithLocales()
+    public function testMapCollectionWithLocales(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -125,7 +125,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
      */
-    public function testMapCollectionWithLocalesAndAlwaysAvailable()
+    public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -148,7 +148,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find collection with identifier "42"
      */
-    public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale()
+    public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -168,7 +168,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find collection with identifier "42"
      */
-    public function testMapCollectionWithLocalesAndNotAlwaysAvailable()
+    public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -185,7 +185,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
      */
-    public function testMapCollectionWithNoQuery()
+    public function testMapCollectionWithNoQuery(): void
     {
         $persistenceCollection = new Collection(
             [
@@ -236,7 +236,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapItem
      */
-    public function testMapItem()
+    public function testMapItem(): void
     {
         $persistenceItem = new Item(
             [
@@ -294,7 +294,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapItem
      */
-    public function testMapItemWithInvalidItemDefinition()
+    public function testMapItemWithInvalidItemDefinition(): void
     {
         $persistenceItem = new Item(
             [
@@ -342,7 +342,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQuery()
+    public function testMapQuery(): void
     {
         $persistenceQuery = new Query(
             [
@@ -391,7 +391,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQueryWithLocale()
+    public function testMapQueryWithLocale(): void
     {
         $persistenceQuery = new Query(
             [
@@ -413,7 +413,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQueryWithLocales()
+    public function testMapQueryWithLocales(): void
     {
         $persistenceQuery = new Query(
             [
@@ -435,7 +435,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQueryWithLocalesAndAlwaysAvailable()
+    public function testMapQueryWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceQuery = new Query(
             [
@@ -460,7 +460,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find query with identifier "42"
      */
-    public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale()
+    public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $persistenceQuery = new Query(
             [
@@ -482,7 +482,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find query with identifier "42"
      */
-    public function testMapQueryWithLocalesAndNotAlwaysAvailable()
+    public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
         $persistenceQuery = new Query(
             [
@@ -501,7 +501,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQueryWithInvalidType()
+    public function testMapQueryWithInvalidType(): void
     {
         $persistenceQuery = new Query(
             [

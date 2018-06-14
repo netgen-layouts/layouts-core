@@ -18,7 +18,7 @@ final class CreatedTest extends TestCase
      */
     private $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->provider = new Created('d.m.Y H:i:s');
     }
@@ -27,7 +27,7 @@ final class CreatedTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::__construct
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $date = new DateTimeImmutable();
         $date = $date->setDate(2016, 7, 17);
@@ -50,7 +50,7 @@ final class CreatedTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::getValue
      */
-    public function testGetValueWithInvalidItem()
+    public function testGetValueWithInvalidItem(): void
     {
         $this->assertNull($this->provider->getValue(new StubItem()));
     }

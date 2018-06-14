@@ -26,7 +26,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ValueTypeRegistry();
 
@@ -40,7 +40,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::addValueType
      */
-    public function testAddValueType()
+    public function testAddValueType(): void
     {
         $this->registry->addValueType('test', $this->valueType1);
 
@@ -51,7 +51,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueTypes
      */
-    public function testGetValueTypes()
+    public function testGetValueTypes(): void
     {
         $this->assertEquals(
             [
@@ -65,7 +65,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueTypes
      */
-    public function testGetEnabledValueTypes()
+    public function testGetEnabledValueTypes(): void
     {
         $this->assertEquals(
             [
@@ -78,7 +78,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueType
      */
-    public function testGetValueType()
+    public function testGetValueType(): void
     {
         $this->assertEquals($this->valueType1, $this->registry->getValueType('value1'));
     }
@@ -88,7 +88,7 @@ final class ValueTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "other_value" does not exist.
      */
-    public function testGetValueTypeThrowsInvalidArgumentException()
+    public function testGetValueTypeThrowsInvalidArgumentException(): void
     {
         $this->registry->getValueType('other_value');
     }
@@ -96,7 +96,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::hasValueType
      */
-    public function testHasValueType()
+    public function testHasValueType(): void
     {
         $this->assertTrue($this->registry->hasValueType('value1'));
     }
@@ -104,7 +104,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::hasValueType
      */
-    public function testHasValueTypeWithNoValueType()
+    public function testHasValueTypeWithNoValueType(): void
     {
         $this->assertFalse($this->registry->hasValueType('other_value'));
     }
@@ -112,7 +112,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -127,7 +127,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(2, $this->registry);
     }
@@ -135,7 +135,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('value1', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -144,7 +144,7 @@ final class ValueTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->valueType1, $this->registry['value1']);
     }
@@ -154,7 +154,7 @@ final class ValueTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['value1'] = $this->valueType1;
     }
@@ -164,7 +164,7 @@ final class ValueTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['value1']);
     }

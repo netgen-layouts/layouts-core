@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
 use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\Route;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 
 final class RouteTest extends AbstractTargetHandlerTest
 {
@@ -13,7 +14,7 @@ final class RouteTest extends AbstractTargetHandlerTest
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
      */
-    public function testMatchRules()
+    public function testMatchRules(): void
     {
         $rules = $this->handler->matchRules($this->getTargetIdentifier(), 'my_cool_route');
 
@@ -23,20 +24,16 @@ final class RouteTest extends AbstractTargetHandlerTest
 
     /**
      * Returns the target handler identifier under test.
-     *
-     * @return string
      */
-    protected function getTargetIdentifier()
+    protected function getTargetIdentifier(): string
     {
         return 'route';
     }
 
     /**
      * Creates the handler under test.
-     *
-     * \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface
      */
-    protected function getTargetHandler()
+    protected function getTargetHandler(): TargetHandlerInterface
     {
         return new Route();
     }

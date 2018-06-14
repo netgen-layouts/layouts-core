@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
@@ -13,6 +14,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +32,7 @@ final class LayoutValidatorTest extends TestCase
      */
     private $layoutValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -41,13 +43,10 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCreateStruct
      * @dataProvider validateLayoutCreateStructDataProvider
      */
-    public function testValidateLayoutCreateStruct(array $params, $isValid)
+    public function testValidateLayoutCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -60,13 +59,10 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutUpdateStruct
      * @dataProvider validateLayoutUpdateStructDataProvider
      */
-    public function testValidateLayoutUpdateStruct(array $params, $isValid)
+    public function testValidateLayoutUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -81,13 +77,10 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @param array $params
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCopyStruct
      * @dataProvider validateLayoutCopyStructDataProvider
      */
-    public function testValidateLayoutCopyStruct(array $params, $isValid)
+    public function testValidateLayoutCopyStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -102,12 +95,10 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @param array $zoneMapping
-     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @dataProvider validateChangeLayoutTypeDataProvider
      */
-    public function testValidateChangeLayoutType(array $zoneMapping)
+    public function testValidateChangeLayoutType(array $zoneMapping): void
     {
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
@@ -122,7 +113,7 @@ final class LayoutValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      */
-    public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones()
+    public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones(): void
     {
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
@@ -140,7 +131,7 @@ final class LayoutValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "unknown" does not exist in "type" layout type.
      */
-    public function testValidateChangeLayoutTypeWithNonExistingZoneInLayoutType()
+    public function testValidateChangeLayoutTypeWithNonExistingZoneInLayoutType(): void
     {
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -154,7 +145,7 @@ final class LayoutValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage The list of mapped zones for "left" zone must be an array.
      */
-    public function testValidateChangeLayoutTypeWithInvalidMappedZones()
+    public function testValidateChangeLayoutTypeWithInvalidMappedZones(): void
     {
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -168,7 +159,7 @@ final class LayoutValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "top" is specified more than once.
      */
-    public function testValidateChangeLayoutTypeWithDuplicateZones()
+    public function testValidateChangeLayoutTypeWithDuplicateZones(): void
     {
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -182,7 +173,7 @@ final class LayoutValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "unknown" does not exist in specified layout.
      */
-    public function testValidateChangeLayoutTypeWithNonExistingLayoutZone()
+    public function testValidateChangeLayoutTypeWithNonExistingLayoutZone(): void
     {
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -196,7 +187,7 @@ final class LayoutValidatorTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage When preserving shared layout zones, mapping for zone "left" needs to be 1:1.
      */
-    public function testValidateChangeLayoutTypeWithNonOneOnOneSharedZoneMapping()
+    public function testValidateChangeLayoutTypeWithNonOneOnOneSharedZoneMapping(): void
     {
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -205,7 +196,7 @@ final class LayoutValidatorTest extends TestCase
         );
     }
 
-    public function validateLayoutCreateStructDataProvider()
+    public function validateLayoutCreateStructDataProvider(): array
     {
         return [
             [
@@ -391,7 +382,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function validateLayoutUpdateStructDataProvider()
+    public function validateLayoutUpdateStructDataProvider(): array
     {
         return [
             [
@@ -457,7 +448,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function validateLayoutCopyStructDataProvider()
+    public function validateLayoutCopyStructDataProvider(): array
     {
         return [
             [['name' => 'New name', 'description' => 'New description'], true],
@@ -470,7 +461,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function validateChangeLayoutTypeDataProvider()
+    public function validateChangeLayoutTypeDataProvider(): array
     {
         return [
             [
@@ -511,7 +502,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function getLayout()
+    private function getLayout(): APILayout
     {
         return new Layout(
             [
@@ -526,7 +517,7 @@ final class LayoutValidatorTest extends TestCase
         );
     }
 
-    public function getLayoutType()
+    private function getLayoutType(): LayoutTypeInterface
     {
         return new LayoutType(
             [

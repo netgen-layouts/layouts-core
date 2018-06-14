@@ -8,14 +8,12 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\Form\DateTimeType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new DateTimeType();
     }
@@ -24,7 +22,7 @@ final class DateTimeTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Form\DateTimeType::buildForm
      * @covers \Netgen\BlockManager\Form\DateTimeType::getTimeZoneList
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'datetime' => '2018-03-31T01:00',
@@ -55,7 +53,7 @@ final class DateTimeTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Form\DateTimeType::buildForm
      * @covers \Netgen\BlockManager\Form\DateTimeType::getTimeZoneList
      */
-    public function testSubmitValidDataWithArrayData()
+    public function testSubmitValidDataWithArrayData(): void
     {
         $submittedData = [
             'datetime' => '2018-03-31T01:00',
@@ -85,7 +83,7 @@ final class DateTimeTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\DateTimeTYpe::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -104,7 +102,7 @@ final class DateTimeTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\DateTimeTYpe::configureOptions
      */
-    public function testConfigureOptionsWithDefaultValues()
+    public function testConfigureOptionsWithDefaultValues(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -121,7 +119,7 @@ final class DateTimeTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "use_datetime" with value 42 is expected to be of type "bool", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidUseDateTime()
+    public function testConfigureOptionsWithInvalidUseDateTime(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -133,7 +131,7 @@ final class DateTimeTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\DateTimeType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ngbm_datetime', $this->formType->getBlockPrefix());
     }

@@ -18,7 +18,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     private $ruleConditionViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->ruleConditionViewProvider = new RuleConditionViewProvider();
     }
@@ -26,7 +26,7 @@ final class RuleConditionProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\RuleConditionViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $condition = new Condition(['id' => 42]);
 
@@ -46,23 +46,18 @@ final class RuleConditionProviderTest extends TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\RuleConditionViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->ruleConditionViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Condition(), true],

@@ -12,7 +12,7 @@ final class ViewExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\View\ViewException::parameterNotFound
      */
-    public function testParameterNotFound()
+    public function testParameterNotFound(): void
     {
         $exception = ViewException::parameterNotFound('param', 'view');
 

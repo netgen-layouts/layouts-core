@@ -17,12 +17,12 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
      */
     private $parameterGroups = [];
 
-    public function __construct($parameterGroups = [])
+    public function __construct(array $parameterGroups = [])
     {
         $this->parameterGroups = $parameterGroups;
     }
 
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return [
             'css_class' => new ParameterDefinition(
@@ -49,7 +49,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
         ];
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['definition_param'] = 'definition_value';
     }

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockCreateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $blockCreateStruct = new BlockCreateStruct(
             [

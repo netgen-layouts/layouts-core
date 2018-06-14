@@ -6,14 +6,12 @@ namespace Netgen\BlockManager\Tests\Form;
 
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class AbstractTypeTest extends FormTestCase
 {
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return $this->getMockForAbstractClass(AbstractType::class);
     }
@@ -21,7 +19,7 @@ final class AbstractTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Form\AbstractType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 

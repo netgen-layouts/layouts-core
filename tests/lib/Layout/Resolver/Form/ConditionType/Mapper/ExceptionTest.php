@@ -15,7 +15,7 @@ final class ExceptionTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new Exception();
     }
@@ -23,7 +23,7 @@ final class ExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(ChoiceType::class, $this->mapper->getFormType());
     }
@@ -32,7 +32,7 @@ final class ExceptionTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::buildErrorCodes
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormOptions
      */
-    public function testGetFormOptions()
+    public function testGetFormOptions(): void
     {
         $options = $this->mapper->getFormOptions();
 

@@ -22,7 +22,7 @@ final class ParameterBuilderFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry();
         $this->registry->addParameterType(new ParameterType\TextType());
@@ -36,7 +36,7 @@ final class ParameterBuilderFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::createParameterBuilder
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::resolveOptions
      */
-    public function testCreateParameterBuilder()
+    public function testCreateParameterBuilder(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder();
 
@@ -47,7 +47,7 @@ final class ParameterBuilderFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::createParameterBuilder
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::resolveOptions
      */
-    public function testCreateParameterBuilderWithConfig()
+    public function testCreateParameterBuilderWithConfig(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
             [

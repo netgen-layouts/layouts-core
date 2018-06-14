@@ -15,7 +15,7 @@ final class ErrorResultTest extends TestCase
      */
     private $result;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->result = new ErrorResult('type', ['data'], new Exception());
     }
@@ -24,7 +24,7 @@ final class ErrorResultTest extends TestCase
      * @covers \Netgen\BlockManager\Transfer\Input\Result\ErrorResult::__construct
      * @covers \Netgen\BlockManager\Transfer\Input\Result\ErrorResult::getEntityType
      */
-    public function testGetEntityType()
+    public function testGetEntityType(): void
     {
         $this->assertEquals('type', $this->result->getEntityType());
     }
@@ -32,7 +32,7 @@ final class ErrorResultTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Transfer\Input\Result\ErrorResult::getData
      */
-    public function testGetData()
+    public function testGetData(): void
     {
         $this->assertEquals(['data'], $this->result->getData());
     }
@@ -40,7 +40,7 @@ final class ErrorResultTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Transfer\Input\Result\ErrorResult::getError
      */
-    public function testGetError()
+    public function testGetError(): void
     {
         $this->assertEquals(new Exception(), $this->result->getError());
     }

@@ -27,7 +27,7 @@ final class ResultSetTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetSet
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetUnset
      */
-    public function testObject()
+    public function testObject(): void
     {
         $result = new ResultSet(
             [
@@ -72,7 +72,7 @@ final class ResultSetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isDynamic
      */
-    public function testIsDynamic()
+    public function testIsDynamic(): void
     {
         $result = new ResultSet(
             [
@@ -90,7 +90,7 @@ final class ResultSetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isDynamic
      */
-    public function testIsDynamicWithManualCollection()
+    public function testIsDynamicWithManualCollection(): void
     {
         $result = new ResultSet(
             [
@@ -104,7 +104,7 @@ final class ResultSetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $result = new ResultSet(
             [
@@ -126,7 +126,7 @@ final class ResultSetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
      */
-    public function testIsContextualWithManualCollection()
+    public function testIsContextualWithManualCollection(): void
     {
         $result = new ResultSet(
             [
@@ -140,7 +140,7 @@ final class ResultSetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
      */
-    public function testIsContextualWithContextualQuery()
+    public function testIsContextualWithContextualQuery(): void
     {
         $result = new ResultSet(
             [

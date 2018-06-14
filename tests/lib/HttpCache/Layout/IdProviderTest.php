@@ -22,7 +22,7 @@ final class IdProviderTest extends TestCase
      */
     private $idProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
@@ -33,7 +33,7 @@ final class IdProviderTest extends TestCase
      * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::__construct
      * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
      */
-    public function testProvideIds()
+    public function testProvideIds(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
@@ -58,7 +58,7 @@ final class IdProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
      */
-    public function testProvideIdsWithNonExistingLayout()
+    public function testProvideIdsWithNonExistingLayout(): void
     {
         $this->layoutServiceMock
             ->expects($this->once())
@@ -78,7 +78,7 @@ final class IdProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
      */
-    public function testProvideIdsWithSharedLayout()
+    public function testProvideIdsWithSharedLayout(): void
     {
         $sharedLayout = new Layout(
             [

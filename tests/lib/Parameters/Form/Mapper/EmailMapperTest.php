@@ -15,7 +15,7 @@ final class EmailMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new EmailMapper();
     }
@@ -23,7 +23,7 @@ final class EmailMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(EmailType::class, $this->mapper->getFormType());
     }

@@ -12,7 +12,7 @@ final class InvalidArgumentExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\InvalidArgumentException::__construct
      */
-    public function testExceptionMessage()
+    public function testExceptionMessage(): void
     {
         $exception = new InvalidArgumentException('test', 'Value must be an integer.');
 

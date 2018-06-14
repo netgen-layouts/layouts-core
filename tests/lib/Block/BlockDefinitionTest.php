@@ -34,7 +34,7 @@ final class BlockDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
         $this->cacheableResolverMock
@@ -72,7 +72,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
     }
@@ -80,7 +80,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Block definition', $this->blockDefinition->getName());
     }
@@ -88,7 +88,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getIcon
      */
-    public function testGetIcon()
+    public function testGetIcon(): void
     {
         $this->assertEquals('/icon.svg', $this->blockDefinition->getIcon());
     }
@@ -96,7 +96,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::isTranslatable
      */
-    public function testIsTranslatable()
+    public function testIsTranslatable(): void
     {
         $this->assertTrue($this->blockDefinition->isTranslatable());
     }
@@ -104,7 +104,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getForms
      */
-    public function testGetForms()
+    public function testGetForms(): void
     {
         $this->assertEquals(
             [
@@ -117,7 +117,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::hasForm
      */
-    public function testHasForm()
+    public function testHasForm(): void
     {
         $this->assertTrue($this->blockDefinition->hasForm('content'));
         $this->assertFalse($this->blockDefinition->hasForm('unknown'));
@@ -126,7 +126,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getForm
      */
-    public function testGetForm()
+    public function testGetForm(): void
     {
         $this->assertEquals(
             new Form(['identifier' => 'content']),
@@ -139,7 +139,7 @@ final class BlockDefinitionTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      * @expectedExceptionMessage Form "unknown" does not exist in "block_definition" block definition.
      */
-    public function testGetFormThrowsBlockDefinitionException()
+    public function testGetFormThrowsBlockDefinitionException(): void
     {
         $this->blockDefinition->getForm('unknown');
     }
@@ -147,7 +147,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getCollections
      */
-    public function testGetCollections()
+    public function testGetCollections(): void
     {
         $this->assertEquals(
             [
@@ -160,7 +160,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::hasCollection
      */
-    public function testHasCollection()
+    public function testHasCollection(): void
     {
         $this->assertTrue($this->blockDefinition->hasCollection('collection'));
         $this->assertFalse($this->blockDefinition->hasCollection('unknown'));
@@ -169,7 +169,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getCollection
      */
-    public function testGetCollection()
+    public function testGetCollection(): void
     {
         $this->assertEquals(
             new Collection(['identifier' => 'collection']),
@@ -182,7 +182,7 @@ final class BlockDefinitionTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      * @expectedExceptionMessage Collection "unknown" does not exist in "block_definition" block definition.
      */
-    public function testGetCollectionThrowsBlockDefinitionException()
+    public function testGetCollectionThrowsBlockDefinitionException(): void
     {
         $this->blockDefinition->getCollection('unknown');
     }
@@ -190,7 +190,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewTypes
      */
-    public function testGetViewTypes()
+    public function testGetViewTypes(): void
     {
         $this->assertEquals(
             [
@@ -204,7 +204,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewTypeIdentifiers
      */
-    public function testGetViewTypeIdentifiers()
+    public function testGetViewTypeIdentifiers(): void
     {
         $this->assertEquals(
             ['large', 'small'],
@@ -215,7 +215,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::hasViewType
      */
-    public function testHasViewType()
+    public function testHasViewType(): void
     {
         $this->assertTrue($this->blockDefinition->hasViewType('large'));
         $this->assertFalse($this->blockDefinition->hasViewType('unknown'));
@@ -224,7 +224,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewType
      */
-    public function testGetViewType()
+    public function testGetViewType(): void
     {
         $this->assertEquals(
             new ViewType(['identifier' => 'large']),
@@ -237,7 +237,7 @@ final class BlockDefinitionTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      * @expectedExceptionMessage View type "unknown" does not exist in "block_definition" block definition.
      */
-    public function testGetViewTypeThrowsBlockDefinitionException()
+    public function testGetViewTypeThrowsBlockDefinitionException(): void
     {
         $this->blockDefinition->getViewType('unknown');
     }
@@ -245,11 +245,11 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
      */
-    public function testGetDynamicParameters()
+    public function testGetDynamicParameters(): void
     {
         $dynamicParameters = new DynamicParameters();
         $dynamicParameters['definition_param'] = 'definition_value';
-        $dynamicParameters['closure_param'] = function () {
+        $dynamicParameters['closure_param'] = function (): string {
             return 'closure_value';
         };
 
@@ -269,7 +269,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $this->assertTrue($this->blockDefinition->isContextual(new Block()));
     }
@@ -277,7 +277,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::isCacheable
      */
-    public function testIsCacheable()
+    public function testIsCacheable(): void
     {
         $this->assertFalse($this->blockDefinition->isCacheable(new Block()));
     }
@@ -285,7 +285,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinitions
      */
-    public function testGetConfigDefinitions()
+    public function testGetConfigDefinitions(): void
     {
         $this->assertEquals(
             ['config' => new ConfigDefinition()],
@@ -296,7 +296,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlugin
      */
-    public function testHasPlugin()
+    public function testHasPlugin(): void
     {
         $this->assertTrue($this->blockDefinition->hasPlugin(HandlerPlugin::class));
     }
@@ -304,7 +304,7 @@ final class BlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlugin
      */
-    public function testHasPluginWithUnknownPlugin()
+    public function testHasPluginWithUnknownPlugin(): void
     {
         $this->assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
     }

@@ -12,7 +12,7 @@ final class ValidationExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Validation\ValidationException::validationFailed
      */
-    public function testValidationFailed()
+    public function testValidationFailed(): void
     {
         $exception = ValidationException::validationFailed('param', 'Some error');
 

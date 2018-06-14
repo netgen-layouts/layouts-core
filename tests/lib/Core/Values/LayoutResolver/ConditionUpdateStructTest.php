@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionUpdateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $conditionUpdateStruct = new ConditionUpdateStruct(
             [

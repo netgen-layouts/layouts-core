@@ -28,7 +28,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     private $itemLoaderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
@@ -71,7 +71,7 @@ final class ItemLinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('item_link', $this->type->getIdentifier());
     }
@@ -79,11 +79,8 @@ final class ItemLinkTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::configureOptions
      * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
      */
-    public function testValidOptions($options, $resolvedOptions)
+    public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
@@ -93,20 +90,13 @@ final class ItemLinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
      */
-    public function testInvalidOptions($options)
+    public function testInvalidOptions(array $options): void
     {
         $this->getParameterDefinition($options);
     }
 
-    /**
-     * Provider for testing valid parameter attributes.
-     *
-     * @return array
-     */
-    public function validOptionsProvider()
+    public function validOptionsProvider(): array
     {
         return [
             [
@@ -128,12 +118,7 @@ final class ItemLinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for testing invalid parameter attributes.
-     *
-     * @return array
-     */
-    public function invalidOptionsProvider()
+    public function invalidOptionsProvider(): array
     {
         return [
             [
@@ -161,7 +146,7 @@ final class ItemLinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
@@ -172,12 +157,7 @@ final class ItemLinkTypeTest extends TestCase
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
-    /**
-     * Provider for testing valid parameter values.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [null, true],
@@ -190,7 +170,7 @@ final class ItemLinkTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
      */
-    public function testExport()
+    public function testExport(): void
     {
         $this->assertEquals('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
     }
@@ -198,7 +178,7 @@ final class ItemLinkTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
      */
-    public function testImport()
+    public function testImport(): void
     {
         $this->assertEquals('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
     }
@@ -210,17 +190,12 @@ final class ItemLinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::isValueEmpty
      * @dataProvider emptyProvider
      */
-    public function testIsValueEmpty($value, $isEmpty)
+    public function testIsValueEmpty($value, bool $isEmpty): void
     {
         $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    /**
-     * Provider for testing if the value is empty.
-     *
-     * @return array
-     */
-    public function emptyProvider()
+    public function emptyProvider(): array
     {
         return [
             [null, true],

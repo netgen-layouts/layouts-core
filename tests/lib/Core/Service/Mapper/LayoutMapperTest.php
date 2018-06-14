@@ -15,7 +15,7 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class LayoutMapperTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +26,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
      */
-    public function testMapZone()
+    public function testMapZone(): void
     {
         $persistenceZone = new Zone(
             [
@@ -54,7 +54,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
      */
-    public function testMapZoneWithNoLinkedZone()
+    public function testMapZoneWithNoLinkedZone(): void
     {
         $persistenceZone = new Zone(
             [
@@ -79,7 +79,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
      */
-    public function testMapZoneWithNonExistingLinkedZone()
+    public function testMapZoneWithNonExistingLinkedZone(): void
     {
         $persistenceZone = new Zone(
             [
@@ -104,7 +104,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayout
      */
-    public function testMapLayout()
+    public function testMapLayout(): void
     {
         $persistenceLayout = new Layout(
             [
@@ -147,7 +147,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayout
      */
-    public function testMapLayoutWithInvalidLayoutType()
+    public function testMapLayoutWithInvalidLayoutType(): void
     {
         $persistenceLayout = new Layout(
             [

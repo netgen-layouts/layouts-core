@@ -19,7 +19,7 @@ final class LayoutTypeNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->normalizer = new LayoutTypeNormalizer();
     }
@@ -28,7 +28,7 @@ final class LayoutTypeNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::getZones
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::normalize
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
@@ -55,7 +55,7 @@ final class LayoutTypeNormalizerTest extends TestCase
                 'name' => $layoutType->getName(),
                 'icon' => $layoutType->getIcon(),
                 'zones' => array_map(
-                    function (Zone $zone) {
+                    function (Zone $zone): array {
                         return [
                             'identifier' => $zone->getIdentifier(),
                             'name' => $zone->getName(),
@@ -78,17 +78,12 @@ final class LayoutTypeNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

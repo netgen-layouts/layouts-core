@@ -20,7 +20,7 @@ final class RuleTargetViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->target = new Target(['id' => 42]);
 
@@ -38,7 +38,7 @@ final class RuleTargetViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\RuleTargetView::__construct
      * @covers \Netgen\BlockManager\View\View\RuleTargetView::getTarget
      */
-    public function testGetTarget()
+    public function testGetTarget(): void
     {
         $this->assertEquals($this->target, $this->view->getTarget());
         $this->assertEquals(
@@ -53,7 +53,7 @@ final class RuleTargetViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\RuleTargetView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('rule_target_view', $this->view->getIdentifier());
     }

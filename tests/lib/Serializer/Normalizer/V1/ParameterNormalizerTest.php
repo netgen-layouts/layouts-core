@@ -19,7 +19,7 @@ final class ParameterNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->normalizer = new ParameterNormalizer();
     }
@@ -27,7 +27,7 @@ final class ParameterNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer::normalize
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $parameter = new Parameter(
             [
@@ -53,17 +53,12 @@ final class ParameterNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    /**
-     * Provider for {@link self::testSupportsNormalization}.
-     *
-     * @return array
-     */
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

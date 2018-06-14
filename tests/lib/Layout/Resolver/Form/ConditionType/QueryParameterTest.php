@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter as QueryParameterMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 
 final class QueryParameterTest extends FormTestCase
 {
@@ -18,17 +19,14 @@ final class QueryParameterTest extends FormTestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->conditionType = new QueryParameter();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ConditionType(
             [
@@ -45,7 +43,7 @@ final class QueryParameterTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormType
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'value' => [

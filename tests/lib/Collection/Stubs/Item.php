@@ -6,8 +6,10 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Item\ItemInterface;
 
 final class Item extends Value implements APIItem
 {
@@ -63,17 +65,17 @@ final class Item extends Value implements APIItem
         return $this->collectionId;
     }
 
-    public function getDefinition()
+    public function getDefinition(): ItemDefinitionInterface
     {
         return $this->definition;
     }
 
-    public function getPosition()
+    public function getPosition(): int
     {
         return $this->position;
     }
 
-    public function getType()
+    public function getType(): int
     {
         return $this->type;
     }
@@ -83,22 +85,22 @@ final class Item extends Value implements APIItem
         return $this->value;
     }
 
-    public function getCmsItem()
+    public function getCmsItem(): ItemInterface
     {
         return $this->cmsItem;
     }
 
-    public function isScheduled()
+    public function isScheduled(): bool
     {
         return false;
     }
 
-    public function isVisible(DateTimeInterface $reference = null)
+    public function isVisible(DateTimeInterface $reference = null): bool
     {
         return true;
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->isValid;
     }

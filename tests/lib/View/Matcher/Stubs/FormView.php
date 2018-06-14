@@ -6,23 +6,25 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Stubs;
 
 use Netgen\BlockManager\View\View;
 use Netgen\BlockManager\View\View\FormViewInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView as SymfonyFormView;
 
 final class FormView extends View implements FormViewInterface
 {
-    public function getForm()
+    public function getForm(): FormInterface
     {
     }
 
-    public function getFormType()
+    public function getFormType(): string
     {
         return 'form_type';
     }
 
-    public function getFormView()
+    public function getFormView(): SymfonyFormView
     {
     }
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'form_view';
     }

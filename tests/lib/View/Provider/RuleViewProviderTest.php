@@ -18,7 +18,7 @@ final class RuleViewProviderTest extends TestCase
      */
     private $ruleViewProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->ruleViewProvider = new RuleViewProvider();
     }
@@ -26,7 +26,7 @@ final class RuleViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\RuleViewProvider::provideView
      */
-    public function testProvideView()
+    public function testProvideView(): void
     {
         $rule = new Rule(['id' => 42]);
 
@@ -46,23 +46,18 @@ final class RuleViewProviderTest extends TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\RuleViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports($value, $supports)
+    public function testSupports($value, bool $supports): void
     {
         $this->assertEquals($supports, $this->ruleViewProvider->supports($value));
     }
 
-    /**
-     * Provider for {@link self::testSupports}.
-     *
-     * @return array
-     */
-    public function supportsProvider()
+    public function supportsProvider(): array
     {
         return [
             [new Value(), false],

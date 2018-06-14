@@ -18,7 +18,7 @@ final class ExceptionNormalizerTest extends TestCase
      */
     private $exceptionNormalizer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->exceptionNormalizer = new ExceptionNormalizer();
     }
@@ -27,7 +27,7 @@ final class ExceptionNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $exception = new Exception('Exception message', 123);
 
@@ -43,7 +43,7 @@ final class ExceptionNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
-    public function testNormalizeWithDebugOutput()
+    public function testNormalizeWithDebugOutput(): void
     {
         $this->exceptionNormalizer = new ExceptionNormalizer(true);
 
@@ -69,7 +69,7 @@ final class ExceptionNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
-    public function testNormalizeHttpException()
+    public function testNormalizeHttpException(): void
     {
         $exception = new NotFoundHttpException('Exception message', null, 123);
 
@@ -91,12 +91,12 @@ final class ExceptionNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
-    public function testSupportsNormalization($data, $expected)
+    public function testSupportsNormalization($data, bool $expected): void
     {
         $this->assertEquals($expected, $this->exceptionNormalizer->supportsNormalization($data));
     }
 
-    public function supportsNormalizationProvider()
+    public function supportsNormalizationProvider(): array
     {
         return [
             [null, false],

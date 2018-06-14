@@ -28,7 +28,7 @@ final class BlockServiceTest extends ServiceTestCase
      */
     private $layoutServiceMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -41,7 +41,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCreateBlock()
+    public function testCreateBlock(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -88,7 +88,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCreateBlockInZone()
+    public function testCreateBlockInZone(): void
     {
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -143,7 +143,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateBlock()
+    public function testUpdateBlock(): void
     {
         $persistenceBlock = new PersistenceBlock(
             [
@@ -185,7 +185,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCopyBlock()
+    public function testCopyBlock(): void
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -227,7 +227,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCopyBlockToZone()
+    public function testCopyBlockToZone(): void
     {
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -270,7 +270,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testMoveBlock()
+    public function testMoveBlock(): void
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -314,7 +314,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testMoveBlockToZone()
+    public function testMoveBlockToZone(): void
     {
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -357,7 +357,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testRestoreBlock()
+    public function testRestoreBlock(): void
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -381,7 +381,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testEnableTranslations()
+    public function testEnableTranslations(): void
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -410,7 +410,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDisableTranslations()
+    public function testDisableTranslations(): void
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -434,7 +434,7 @@ final class BlockServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteBlock()
+    public function testDeleteBlock(): void
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -455,12 +455,8 @@ final class BlockServiceTest extends ServiceTestCase
 
     /**
      * Creates a layout service under test.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject
      */
-    protected function createLayoutService(LayoutValidator $validator = null)
+    protected function createLayoutService(LayoutValidator $validator = null): LayoutService
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 

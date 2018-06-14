@@ -21,19 +21,16 @@ final class TypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new Type();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $layout = new Layout(
             [
@@ -49,7 +46,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
      */
-    public function testMatchWithNullLayoutType()
+    public function testMatchWithNullLayoutType(): void
     {
         $layout = new Layout(
             [
@@ -65,7 +62,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
      */
-    public function testMatchWithNullLayoutTypeReturnsFalse()
+    public function testMatchWithNullLayoutTypeReturnsFalse(): void
     {
         $layout = new Layout(
             [
@@ -79,25 +76,17 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
      * @dataProvider matchLayoutTypeProvider
      */
-    public function testMatchLayoutType(array $config, $expected)
+    public function testMatchLayoutType(array $config, bool $expected): void
     {
         $view = new LayoutTypeView(['layoutType' => new LayoutType(['identifier' => '4_zones_a'])]);
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -108,12 +97,7 @@ final class TypeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchLayoutTypeProvider()
+    public function matchLayoutTypeProvider(): array
     {
         return [
             [[], false],
@@ -127,7 +111,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
      */
-    public function testMatchWithNoLayoutOrLayoutTypeView()
+    public function testMatchWithNoLayoutOrLayoutTypeView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

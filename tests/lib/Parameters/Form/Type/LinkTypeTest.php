@@ -17,6 +17,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class LinkTypeTest extends FormTestCase
@@ -26,7 +27,7 @@ final class LinkTypeTest extends FormTestCase
      */
     private $parameterType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parameterType = new LinkParameterType(
             new ValueTypeRegistry(),
@@ -36,18 +37,12 @@ final class LinkTypeTest extends FormTestCase
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new LinkType();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface[]
-     */
-    public function getTypes()
+    public function getTypes(): array
     {
         $backendRegistry = new BackendRegistry();
         $backendRegistry->addBackend('value', $this->createMock(BackendInterface::class));
@@ -63,7 +58,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildForm
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'link_type' => 'url',
@@ -109,7 +104,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildForm
      */
-    public function testSubmitInvalidData()
+    public function testSubmitInvalidData(): void
     {
         $submittedData = [
             'link_type' => 'unknown',
@@ -148,7 +143,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildView
      */
-    public function testBuildView()
+    public function testBuildView(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -181,7 +176,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildView
      */
-    public function testBuildViewWithInvalidData()
+    public function testBuildViewWithInvalidData(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [
@@ -211,7 +206,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -235,7 +230,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
      */
-    public function testConfigureOptionsWithEmptyValueTypes()
+    public function testConfigureOptionsWithEmptyValueTypes(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -257,7 +252,7 @@ final class LinkTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "value_types" with value 42 is expected to be of type "array", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidParameters()
+    public function testConfigureOptionsWithInvalidParameters(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -273,7 +268,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ngbm_link', $this->formType->getBlockPrefix());
     }

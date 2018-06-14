@@ -17,7 +17,7 @@ final class BlockMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new BlockMapper();
     }
@@ -26,7 +26,7 @@ final class BlockMapperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
      */
-    public function testMapBlocks()
+    public function testMapBlocks(): void
     {
         $data = [
             [
@@ -136,7 +136,7 @@ final class BlockMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapCollectionReferences
      */
-    public function testMapCollectionReferences()
+    public function testMapCollectionReferences(): void
     {
         $data = [
             [

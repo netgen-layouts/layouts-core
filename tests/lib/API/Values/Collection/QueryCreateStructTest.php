@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Collection\QueryType\QueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -20,7 +21,7 @@ final class QueryCreateStructTest extends TestCase
      */
     private $struct;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->struct = new QueryCreateStruct();
     }
@@ -28,7 +29,7 @@ final class QueryCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParameters
      */
-    public function testFillParameters()
+    public function testFillParameters(): void
     {
         $queryType = $this->buildQueryType();
 
@@ -55,7 +56,7 @@ final class QueryCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParameters
      */
-    public function testFillParametersWithMissingValues()
+    public function testFillParametersWithMissingValues(): void
     {
         $queryType = $this->buildQueryType();
 
@@ -80,7 +81,7 @@ final class QueryCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParametersFromQuery
      */
-    public function testFillParametersFromQuery()
+    public function testFillParametersFromQuery(): void
     {
         $queryType = $this->buildQueryType();
 
@@ -123,7 +124,7 @@ final class QueryCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHash()
+    public function testFillParametersFromHash(): void
     {
         $queryType = $this->buildQueryType();
 
@@ -150,7 +151,7 @@ final class QueryCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHashWithMissingValues()
+    public function testFillParametersFromHashWithMissingValues(): void
     {
         $queryType = $this->buildQueryType();
 
@@ -172,10 +173,7 @@ final class QueryCreateStructTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
-     */
-    private function buildQueryType()
+    private function buildQueryType(): QueryTypeInterface
     {
         $compoundParameter = new CompoundParameterDefinition(
             [

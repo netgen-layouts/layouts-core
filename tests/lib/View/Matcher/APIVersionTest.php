@@ -16,19 +16,16 @@ final class APIVersionTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new APIVersion();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\APIVersion::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $view = new View(['value' => new Value()]);
         $view->addParameter('api_version', 42);
@@ -36,12 +33,7 @@ final class APIVersionTest extends TestCase
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -55,7 +47,7 @@ final class APIVersionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\APIVersion::match
      */
-    public function testMatchWithNoAPIVersion()
+    public function testMatchWithNoAPIVersion(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

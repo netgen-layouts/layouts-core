@@ -21,7 +21,7 @@ final class PlaceholderViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->placeholder = new Placeholder(['identifier' => 'main']);
 
@@ -41,7 +41,7 @@ final class PlaceholderViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\PlaceholderView::__construct
      * @covers \Netgen\BlockManager\View\View\PlaceholderView::getPlaceholder
      */
-    public function testGetPlaceholder()
+    public function testGetPlaceholder(): void
     {
         $this->assertEquals($this->placeholder, $this->view->getPlaceholder());
     }
@@ -49,7 +49,7 @@ final class PlaceholderViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\PlaceholderView::getBlock
      */
-    public function testGetBlock()
+    public function testGetBlock(): void
     {
         $this->assertEquals(new Block(['id' => 42]), $this->view->getBlock());
     }
@@ -57,7 +57,7 @@ final class PlaceholderViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\PlaceholderView::getParameters
      */
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $this->assertEquals(
             [
@@ -72,7 +72,7 @@ final class PlaceholderViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\PlaceholderView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('placeholder_view', $this->view->getIdentifier());
     }

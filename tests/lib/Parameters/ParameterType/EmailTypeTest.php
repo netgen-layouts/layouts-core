@@ -12,7 +12,7 @@ final class EmailTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->type = new EmailType();
     }
@@ -20,7 +20,7 @@ final class EmailTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('email', $this->type->getIdentifier());
     }
@@ -28,11 +28,8 @@ final class EmailTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::configureOptions
      * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
      */
-    public function testValidOptions($options, $resolvedOptions)
+    public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
@@ -42,20 +39,13 @@ final class EmailTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
      */
-    public function testInvalidOptions($options)
+    public function testInvalidOptions(array $options): void
     {
         $this->getParameterDefinition($options);
     }
 
-    /**
-     * Provider for testing valid parameter attributes.
-     *
-     * @return array
-     */
-    public function validOptionsProvider()
+    public function validOptionsProvider(): array
     {
         return [
             [
@@ -65,12 +55,7 @@ final class EmailTypeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for testing invalid parameter attributes.
-     *
-     * @return array
-     */
-    public function invalidOptionsProvider()
+    public function invalidOptionsProvider(): array
     {
         return [
             [
@@ -89,7 +74,7 @@ final class EmailTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidator();
@@ -98,12 +83,7 @@ final class EmailTypeTest extends TestCase
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
-    /**
-     * Provider for testing valid parameter values.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [null, true],

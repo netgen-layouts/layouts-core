@@ -15,7 +15,7 @@ final class ConfigStructTest extends TestCase
      */
     private $struct;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->struct = new ConfigAwareStruct();
     }
@@ -24,7 +24,7 @@ final class ConfigStructTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
-    public function testGetConfigStruct()
+    public function testGetConfigStruct(): void
     {
         $this->struct->setConfigStruct('test', new ConfigStruct());
 
@@ -37,7 +37,7 @@ final class ConfigStructTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Core\ConfigException
      * @expectedExceptionMessage Config struct with config key "unknown" does not exist.
      */
-    public function testGetConfigStructThrowsConfigException()
+    public function testGetConfigStructThrowsConfigException(): void
     {
         $this->struct->setConfigStruct('test', new ConfigStruct());
 
@@ -48,7 +48,7 @@ final class ConfigStructTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::hasConfigStruct
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
-    public function testHasConfigStruct()
+    public function testHasConfigStruct(): void
     {
         $this->struct->setConfigStruct('test', new ConfigStruct());
 
@@ -60,7 +60,7 @@ final class ConfigStructTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStructs
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
-    public function testGetConfigStructs()
+    public function testGetConfigStructs(): void
     {
         $this->struct->setConfigStruct('test', new ConfigStruct());
 

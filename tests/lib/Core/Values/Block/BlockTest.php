@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf(Value::class, new Block());
     }
@@ -30,7 +30,7 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $block = new Block();
 
@@ -64,7 +64,7 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $block = new Block(
             [
@@ -161,7 +161,7 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDynamicParameter
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasDynamicParameter
      */
-    public function testGetDynamicParameter()
+    public function testGetDynamicParameter(): void
     {
         $block = new Block(
             [
@@ -186,7 +186,7 @@ final class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $query = new Block(
             [
@@ -204,7 +204,7 @@ final class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isCacheable
      */
-    public function testIsCacheable()
+    public function testIsCacheable(): void
     {
         $cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
 

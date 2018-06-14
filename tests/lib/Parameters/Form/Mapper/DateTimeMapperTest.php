@@ -15,7 +15,7 @@ final class DateTimeMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new DateTimeMapper();
     }
@@ -23,7 +23,7 @@ final class DateTimeMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\DateTimeMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(DateTimeType::class, $this->mapper->getFormType());
     }

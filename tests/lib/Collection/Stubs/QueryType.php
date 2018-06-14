@@ -27,7 +27,7 @@ final class QueryType implements QueryTypeInterface
      */
     private $handler;
 
-    public function __construct($type, array $values = [], $count = null, $isContextual = false, $enabled = true)
+    public function __construct(string $type, array $values = [], int $count = null, bool $isContextual = false, bool $enabled = true)
     {
         $this->type = $type;
         $this->enabled = $enabled;
@@ -41,27 +41,27 @@ final class QueryType implements QueryTypeInterface
         return $this->handler->getValues($query, $offset, $limit);
     }
 
-    public function getCount(Query $query)
+    public function getCount(Query $query): int
     {
         return $this->handler->getCount($query);
     }
 
-    public function isContextual(Query $query)
+    public function isContextual(Query $query): bool
     {
         return $this->handler->isContextual($query);
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->type;
     }

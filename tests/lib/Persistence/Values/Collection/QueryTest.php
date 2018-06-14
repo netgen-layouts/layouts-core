@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $query = new Query(
             [

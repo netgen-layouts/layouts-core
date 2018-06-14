@@ -12,7 +12,7 @@ final class DateTimeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\DateTime::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new DateTime();
         $this->assertEquals('ngbm_datetime', $constraint->validatedBy());

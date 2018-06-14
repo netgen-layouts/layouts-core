@@ -16,7 +16,7 @@ final class CollectViewParametersEventTest extends TestCase
      */
     private $event;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->event = new CollectViewParametersEvent(new View(['value' => new Value()]));
     }
@@ -25,7 +25,7 @@ final class CollectViewParametersEventTest extends TestCase
      * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::__construct
      * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getParameters
      */
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $this->assertEquals([], $this->event->getParameters());
     }
@@ -34,7 +34,7 @@ final class CollectViewParametersEventTest extends TestCase
      * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::addParameter
      * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getParameters
      */
-    public function testAddParameter()
+    public function testAddParameter(): void
     {
         $this->event->addParameter('param', 'value');
         $this->assertEquals(['param' => 'value'], $this->event->getParameters());
@@ -43,7 +43,7 @@ final class CollectViewParametersEventTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getView
      */
-    public function testGetView()
+    public function testGetView(): void
     {
         $this->assertEquals(new View(['value' => new Value()]), $this->event->getView());
     }

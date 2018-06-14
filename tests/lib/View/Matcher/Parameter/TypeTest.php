@@ -20,19 +20,16 @@ final class TypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new Type();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Parameter\Type::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $parameter = new Parameter(
             [
@@ -49,12 +46,7 @@ final class TypeTest extends TestCase
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -68,7 +60,7 @@ final class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Parameter\Type::match
      */
-    public function testMatchWithNoParameterView()
+    public function testMatchWithNoParameterView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

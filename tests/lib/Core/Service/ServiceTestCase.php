@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Service\BlockService as APIBlockService;
+use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
+use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -142,7 +146,7 @@ abstract class ServiceTestCase extends TestCase
      */
     protected $itemLoaderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
@@ -153,12 +157,12 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Prepares the persistence handler used in tests.
      */
-    abstract public function preparePersistence();
+    abstract public function preparePersistence(): void;
 
     /**
      * Prepares the registries used in tests.
      */
-    protected function prepareRegistries()
+    protected function prepareRegistries(): void
     {
         $layoutType1 = new LayoutType(
             [
@@ -354,12 +358,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a layout service under test.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
-     *
-     * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(LayoutValidator $layoutValidator = null)
+    protected function createLayoutService(LayoutValidator $layoutValidator = null): APILayoutService
     {
         if ($layoutValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -382,12 +382,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a block service under test.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
-     *
-     * @return \Netgen\BlockManager\API\Service\BlockService
      */
-    protected function createBlockService(BlockValidator $blockValidator = null)
+    protected function createBlockService(BlockValidator $blockValidator = null): APIBlockService
     {
         if ($blockValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -418,12 +414,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a collection service under test.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
-     *
-     * @return \Netgen\BlockManager\API\Service\CollectionService
      */
-    protected function createCollectionService(CollectionValidator $collectionValidator = null)
+    protected function createCollectionService(CollectionValidator $collectionValidator = null): APICollectionService
     {
         if ($collectionValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -450,12 +442,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a layout resolver service under test.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $layoutResolverValidator
-     *
-     * @return \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected function createLayoutResolverService(LayoutResolverValidator $layoutResolverValidator = null)
+    protected function createLayoutResolverService(LayoutResolverValidator $layoutResolverValidator = null): APILayoutResolverService
     {
         if ($layoutResolverValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -482,10 +470,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a layout mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
-    protected function createLayoutMapper()
+    protected function createLayoutMapper(): LayoutMapper
     {
         return new LayoutMapper(
             $this->persistenceHandler->getLayoutHandler(),
@@ -495,10 +481,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a block mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
-    protected function createBlockMapper()
+    protected function createBlockMapper(): BlockMapper
     {
         return new BlockMapper(
             $this->persistenceHandler->getBlockHandler(),
@@ -512,10 +496,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a collection mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
-    protected function createCollectionMapper()
+    protected function createCollectionMapper(): CollectionMapper
     {
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
@@ -529,10 +511,8 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates a layout resolver mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
      */
-    protected function createLayoutResolverMapper()
+    protected function createLayoutResolverMapper(): LayoutResolverMapper
     {
         return new LayoutResolverMapper(
             $this->persistenceHandler->getLayoutResolverHandler(),
@@ -544,25 +524,21 @@ abstract class ServiceTestCase extends TestCase
 
     /**
      * Creates the parameter mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected function createParameterMapper()
+    protected function createParameterMapper(): ParameterMapper
     {
         return new ParameterMapper();
     }
 
     /**
      * Creates the config mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
      */
-    protected function createConfigMapper()
+    protected function createConfigMapper(): ConfigMapper
     {
         return new ConfigMapper($this->createParameterMapper());
     }
 
-    protected function prepareParameterTypeRegistry()
+    protected function prepareParameterTypeRegistry(): void
     {
         $remoteIdConverter = new RemoteIdConverter($this->itemLoaderMock);
 

@@ -12,7 +12,7 @@ final class LocaleTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Locale::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new Locale();
         $this->assertEquals('ngbm_locale', $constraint->validatedBy());

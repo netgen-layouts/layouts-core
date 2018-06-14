@@ -9,7 +9,9 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
@@ -20,10 +22,11 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BlockTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -43,11 +46,9 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
-     * @param array $config
-     * @param array $expectedConfig
      * @dataProvider configDataProvider
      */
-    public function testCreateBlock(array $config, array $expectedConfig)
+    public function testCreateBlock(array $config, array $expectedConfig): void
     {
         $configDefinition = $this->createConfigDefinition();
 
@@ -78,11 +79,10 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
-     * @param array $config
      * @dataProvider invalidConfigDataProvider
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public function testCreateBlockWithInvalidConfig(array $config)
+    public function testCreateBlockWithInvalidConfig(array $config): void
     {
         if (empty($config)) {
             throw ValidationException::validationFailed('config', 'Invalid config');
@@ -103,37 +103,20 @@ abstract class BlockTest extends ServiceTestCase
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
-     */
-    abstract public function createConfigDefinitionHandler();
+    abstract public function createConfigDefinitionHandler(): ConfigDefinitionHandlerInterface;
 
-    /**
-     * @return array
-     */
-    abstract public function configDataProvider();
+    abstract public function configDataProvider(): array;
 
-    /**
-     * @return array
-     */
-    abstract public function invalidConfigDataProvider();
+    abstract public function invalidConfigDataProvider(): array;
 
-    /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    public function getValidator()
+    public function getValidator(): ValidatorInterface
     {
         return Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
     }
 
-    /**
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface $configDefinition
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function createBlockDefinition(ConfigDefinitionInterface $configDefinition)
+    private function createBlockDefinition(ConfigDefinitionInterface $configDefinition): BlockDefinitionInterface
     {
         $handler = new BlockDefinitionHandler();
 
@@ -160,10 +143,7 @@ abstract class BlockTest extends ServiceTestCase
         return $blockDefinition;
     }
 
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
-     */
-    private function createConfigDefinition()
+    private function createConfigDefinition(): ConfigDefinitionInterface
     {
         $handler = $this->createConfigDefinitionHandler();
 

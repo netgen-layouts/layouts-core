@@ -20,7 +20,7 @@ final class RuleConditionViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->condition = new Condition(['id' => 42]);
 
@@ -38,7 +38,7 @@ final class RuleConditionViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\RuleConditionView::__construct
      * @covers \Netgen\BlockManager\View\View\RuleConditionView::getCondition
      */
-    public function testGetCondition()
+    public function testGetCondition(): void
     {
         $this->assertEquals($this->condition, $this->view->getCondition());
         $this->assertEquals(
@@ -53,7 +53,7 @@ final class RuleConditionViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\RuleConditionView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('rule_condition_view', $this->view->getIdentifier());
     }

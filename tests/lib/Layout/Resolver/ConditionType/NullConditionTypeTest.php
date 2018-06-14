@@ -15,7 +15,7 @@ final class NullConditionTypeTest extends TestCase
      */
     private $conditionType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->conditionType = new NullConditionType('type');
     }
@@ -24,7 +24,7 @@ final class NullConditionTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('type', $this->conditionType->getType());
     }
@@ -32,7 +32,7 @@ final class NullConditionTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::getConstraints
      */
-    public function testGetConstraints()
+    public function testGetConstraints(): void
     {
         $this->assertEquals([], $this->conditionType->getConstraints());
     }
@@ -40,7 +40,7 @@ final class NullConditionTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::matches
      */
-    public function testMatches()
+    public function testMatches(): void
     {
         $this->assertTrue($this->conditionType->matches(Request::create(''), ''));
     }

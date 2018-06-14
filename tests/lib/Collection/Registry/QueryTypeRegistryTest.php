@@ -26,7 +26,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new QueryTypeRegistry();
 
@@ -40,7 +40,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
      */
-    public function testGetQueryTypes()
+    public function testGetQueryTypes(): void
     {
         $this->assertEquals(
             [
@@ -54,7 +54,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
      */
-    public function testGetEnabledQueryTypes()
+    public function testGetEnabledQueryTypes(): void
     {
         $this->assertEquals(
             [
@@ -68,7 +68,7 @@ final class QueryTypeRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::addQueryType
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
      */
-    public function testAddQueryType()
+    public function testAddQueryType(): void
     {
         $this->assertEquals(['query_type1' => $this->queryType1, 'query_type2' => $this->queryType2], $this->registry->getQueryTypes());
     }
@@ -76,7 +76,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
      */
-    public function testGetQueryType()
+    public function testGetQueryType(): void
     {
         $this->assertEquals($this->queryType1, $this->registry->getQueryType('query_type1'));
     }
@@ -86,7 +86,7 @@ final class QueryTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Collection\QueryTypeException
      * @expectedExceptionMessage Query type with "other_query_type" identifier does not exist.
      */
-    public function testGetQueryTypeThrowsQueryTypeException()
+    public function testGetQueryTypeThrowsQueryTypeException(): void
     {
         $this->registry->getQueryType('other_query_type');
     }
@@ -94,7 +94,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::hasQueryType
      */
-    public function testHasQueryType()
+    public function testHasQueryType(): void
     {
         $this->assertTrue($this->registry->hasQueryType('query_type1'));
     }
@@ -102,7 +102,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::hasQueryType
      */
-    public function testHasQueryTypeWithNoQueryType()
+    public function testHasQueryTypeWithNoQueryType(): void
     {
         $this->assertFalse($this->registry->hasQueryType('other_query_type'));
     }
@@ -110,7 +110,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -125,7 +125,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(2, $this->registry);
     }
@@ -133,7 +133,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('query_type1', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -142,7 +142,7 @@ final class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->queryType1, $this->registry['query_type1']);
     }
@@ -152,7 +152,7 @@ final class QueryTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['query_type1'] = $this->queryType1;
     }
@@ -162,7 +162,7 @@ final class QueryTypeRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['query_type1']);
     }

@@ -15,7 +15,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     private $layoutType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutType = new NullLayoutType('type');
     }
@@ -24,7 +24,7 @@ final class NullLayoutTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::__construct
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('type', $this->layoutType->getIdentifier());
     }
@@ -32,7 +32,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertTrue($this->layoutType->isEnabled());
     }
@@ -40,7 +40,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Invalid layout type', $this->layoutType->getName());
     }
@@ -48,7 +48,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getIcon
      */
-    public function testGetIcon()
+    public function testGetIcon(): void
     {
         $this->assertEquals('', $this->layoutType->getIcon());
     }
@@ -56,7 +56,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZones
      */
-    public function testGetZones()
+    public function testGetZones(): void
     {
         $this->assertEquals([], $this->layoutType->getZones());
     }
@@ -64,7 +64,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZoneIdentifiers
      */
-    public function testGetZoneIdentifiers()
+    public function testGetZoneIdentifiers(): void
     {
         $this->assertEquals([], $this->layoutType->getZoneIdentifiers());
     }
@@ -72,7 +72,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::hasZone
      */
-    public function testHasZone()
+    public function testHasZone(): void
     {
         $this->assertFalse($this->layoutType->hasZone('left'));
     }
@@ -80,7 +80,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZone
      */
-    public function testGetZone()
+    public function testGetZone(): void
     {
         $this->assertNull($this->layoutType->getZone('left'));
     }
@@ -88,7 +88,7 @@ final class NullLayoutTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::isBlockAllowedInZone
      */
-    public function testIsBlockAllowedInZone()
+    public function testIsBlockAllowedInZone(): void
     {
         $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'left'));
     }

@@ -12,7 +12,7 @@ final class ItemDefinitionExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Collection\ItemDefinitionException::noItemDefinition
      */
-    public function testNoItemDefinition()
+    public function testNoItemDefinition(): void
     {
         $exception = ItemDefinitionException::noItemDefinition('type');
 

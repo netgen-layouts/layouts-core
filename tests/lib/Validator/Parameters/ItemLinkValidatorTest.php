@@ -11,6 +11,7 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Parameters\ItemLinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ItemLinkValidatorTest extends ValidatorTestCase
 {
@@ -19,17 +20,14 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      */
     private $itemLoaderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->constraint = new ItemLink();
 
         parent::setUp();
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidator
-     */
-    public function getValidator()
+    public function getValidator(): ConstraintValidatorInterface
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
@@ -37,15 +35,11 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string|null $value
-     * @param array $valueTypes
-     * @param bool $isValid
-     *
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, $valueTypes, $isValid)
+    public function testValidate(?string $value, ?array $valueTypes, bool $isValid): void
     {
         $this->constraint->valueTypes = $valueTypes;
 
@@ -62,7 +56,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
      */
-    public function testValidateWithInvalidItem()
+    public function testValidateWithInvalidItem(): void
     {
         $this->itemLoaderMock
             ->expects($this->once())
@@ -77,7 +71,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'value://42');
@@ -88,12 +82,12 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider()
+    public function validateDataProvider(): array
     {
         return [
             ['value://42', null, true],

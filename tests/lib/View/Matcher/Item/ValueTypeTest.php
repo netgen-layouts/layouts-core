@@ -19,19 +19,16 @@ final class ValueTypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->matcher = new ValueType();
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $view = new ItemView(['item' => new Item(['valueType' => 'value'])]);
 
@@ -41,7 +38,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
      */
-    public function testMatchWithNullItem()
+    public function testMatchWithNullItem(): void
     {
         $view = new ItemView(['item' => new NullItem('value')]);
 
@@ -51,19 +48,14 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
      */
-    public function testMatchWithNullItemReturnsFalse()
+    public function testMatchWithNullItemReturnsFalse(): void
     {
         $view = new ItemView(['item' => new NullItem('value')]);
 
         $this->assertFalse($this->matcher->match($view, ['test']));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -77,7 +69,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
      */
-    public function testMatchWithNoItemView()
+    public function testMatchWithNoItemView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }

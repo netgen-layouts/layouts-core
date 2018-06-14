@@ -23,7 +23,7 @@ final class PagerFactoryTest extends TestCase
      */
     private $pagerFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
@@ -40,7 +40,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      */
-    public function testGetPager()
+    public function testGetPager(): void
     {
         $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2);
 
@@ -57,7 +57,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      */
-    public function testGetPagerWithMaxPages()
+    public function testGetPagerWithMaxPages(): void
     {
         $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2, 5);
 
@@ -74,7 +74,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      */
-    public function testGetPagerWithMaxPagesLargerThanTotalCount()
+    public function testGetPagerWithMaxPagesLargerThanTotalCount(): void
     {
         $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2, 250);
 
@@ -91,7 +91,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      */
-    public function testGetPagerWithLimitLargerThanMaxLimit()
+    public function testGetPagerWithLimitLargerThanMaxLimit(): void
     {
         $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 500]), 2);
 
@@ -108,7 +108,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      */
-    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPages()
+    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPages(): void
     {
         $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 500]), 2, 3);
 
@@ -125,7 +125,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      */
-    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPagesLargerThanTotalCount()
+    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPagesLargerThanTotalCount(): void
     {
         $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 500]), 2, 10);
 

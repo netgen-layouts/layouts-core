@@ -12,7 +12,7 @@ final class ItemLinkTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink::validatedBy
      */
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new ItemLink();
         $this->assertEquals('ngbm_item_link', $constraint->validatedBy());

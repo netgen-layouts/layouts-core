@@ -15,17 +15,17 @@ final class FormMapper extends BaseMapper
      */
     private $compound;
 
-    public function __construct($compound = false)
+    public function __construct(bool $compound = false)
     {
         $this->compound = $compound;
     }
 
-    public function getFormType()
+    public function getFormType(): string
     {
         return FormType::class;
     }
 
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         return [
             'compound' => $this->compound,

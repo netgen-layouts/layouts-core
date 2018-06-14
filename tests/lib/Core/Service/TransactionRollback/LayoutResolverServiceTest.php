@@ -24,7 +24,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceT
 
 final class LayoutResolverServiceTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -36,7 +36,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCreateRule()
+    public function testCreateRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -55,7 +55,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateRule()
+    public function testUpdateRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -82,7 +82,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateRuleMetadata()
+    public function testUpdateRuleMetadata(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -109,7 +109,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCopyRule()
+    public function testCopyRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -133,7 +133,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCreateDraft()
+    public function testCreateDraft(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -162,7 +162,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDiscardDraft()
+    public function testDiscardDraft(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -186,7 +186,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testPublishRule()
+    public function testPublishRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -210,7 +210,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testRestoreFromArchive()
+    public function testRestoreFromArchive(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -239,7 +239,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteRule()
+    public function testDeleteRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -263,7 +263,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testEnableRule()
+    public function testEnableRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -301,7 +301,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDisableRule()
+    public function testDisableRule(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -333,7 +333,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testAddTarget()
+    public function testAddTarget(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -365,7 +365,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateTarget()
+    public function testUpdateTarget(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -392,7 +392,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteTarget()
+    public function testDeleteTarget(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -416,7 +416,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testAddCondition()
+    public function testAddCondition(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -443,7 +443,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateCondition()
+    public function testUpdateCondition(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
@@ -470,7 +470,7 @@ final class LayoutResolverServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteCondition()
+    public function testDeleteCondition(): void
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))

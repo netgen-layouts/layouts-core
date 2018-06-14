@@ -30,7 +30,7 @@ final class LinkTypeTest extends TestCase
      */
     private $itemLoaderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
@@ -44,7 +44,7 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('link', $this->type->getIdentifier());
     }
@@ -52,11 +52,8 @@ final class LinkTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::configureOptions
      * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
      */
-    public function testValidOptions($options, $resolvedOptions)
+    public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
@@ -66,20 +63,13 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
      */
-    public function testInvalidOptions($options)
+    public function testInvalidOptions(array $options): void
     {
         $this->getParameterDefinition($options);
     }
 
-    /**
-     * Provider for testing valid parameter attributes.
-     *
-     * @return array
-     */
-    public function validOptionsProvider()
+    public function validOptionsProvider(): array
     {
         return [
             [
@@ -101,12 +91,7 @@ final class LinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * Provider for testing invalid parameter attributes.
-     *
-     * @return array
-     */
-    public function invalidOptionsProvider()
+    public function invalidOptionsProvider(): array
     {
         return [
             [
@@ -136,7 +121,7 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getValueConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isRequired, $valueTypes, $isValid)
+    public function testValidation($value, bool $isRequired, array $valueTypes, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
         $validator = Validation::createValidatorBuilder()
@@ -147,12 +132,7 @@ final class LinkTypeTest extends TestCase
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
-    /**
-     * Provider for testing valid parameter values.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             [null, true, [], true],
@@ -208,17 +188,17 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
+     * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::toHash
      * @dataProvider toHashProvider
      */
-    public function testToHash($value, $convertedValue)
+    public function testToHash($value, $convertedValue): void
     {
         $this->assertEquals($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
-    public function toHashProvider()
+    public function toHashProvider(): array
     {
         return [
             [
@@ -246,17 +226,17 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
+     * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromHash
      * @dataProvider fromHashProvider
      */
-    public function testFromHash($value, $convertedValue)
+    public function testFromHash($value, $convertedValue): void
     {
         $this->assertEquals($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
-    public function fromHashProvider()
+    public function fromHashProvider(): array
     {
         return [
             [
@@ -300,14 +280,14 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
+     * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      * @dataProvider exportProvider
      */
-    public function testExport($value, $convertedValue)
+    public function testExport($value, $convertedValue): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -331,7 +311,7 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      */
-    public function testExportWithNullItem()
+    public function testExportWithNullItem(): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -360,7 +340,7 @@ final class LinkTypeTest extends TestCase
         );
     }
 
-    public function exportProvider()
+    public function exportProvider(): array
     {
         return [
             [
@@ -420,14 +400,14 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
+     * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      * @dataProvider importProvider
      */
-    public function testImport($value, $convertedValue)
+    public function testImport($value, $convertedValue): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -451,7 +431,7 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      */
-    public function testImportWithNullItem()
+    public function testImportWithNullItem(): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -480,7 +460,7 @@ final class LinkTypeTest extends TestCase
         );
     }
 
-    public function importProvider()
+    public function importProvider(): array
     {
         return [
             [
@@ -576,17 +556,12 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::isValueEmpty
      * @dataProvider emptyProvider
      */
-    public function testIsValueEmpty($value, $isEmpty)
+    public function testIsValueEmpty($value, bool $isEmpty): void
     {
         $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    /**
-     * Provider for testing if the value is empty.
-     *
-     * @return array
-     */
-    public function emptyProvider()
+    public function emptyProvider(): array
     {
         return [
             [null, true],

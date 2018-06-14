@@ -15,7 +15,7 @@ final class NullQueryTypeTest extends TestCase
      */
     private $queryType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->queryType = new NullQueryType('type');
     }
@@ -24,7 +24,7 @@ final class NullQueryTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('type', $this->queryType->getType());
     }
@@ -32,7 +32,7 @@ final class NullQueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::isEnabled
      */
-    public function testIsEnabled()
+    public function testIsEnabled(): void
     {
         $this->assertTrue($this->queryType->isEnabled());
     }
@@ -40,7 +40,7 @@ final class NullQueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Invalid query type', $this->queryType->getName());
     }
@@ -48,7 +48,7 @@ final class NullQueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getValues
      */
-    public function testGetValues()
+    public function testGetValues(): void
     {
         $this->assertEquals([], $this->queryType->getValues(new Query()));
     }
@@ -56,7 +56,7 @@ final class NullQueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::getCount
      */
-    public function testGetCount()
+    public function testGetCount(): void
     {
         $this->assertEquals(0, $this->queryType->getCount(new Query()));
     }
@@ -64,7 +64,7 @@ final class NullQueryTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\NullQueryType::isContextual
      */
-    public function testIsContextual()
+    public function testIsContextual(): void
     {
         $this->assertFalse($this->queryType->isContextual(new Query()));
     }

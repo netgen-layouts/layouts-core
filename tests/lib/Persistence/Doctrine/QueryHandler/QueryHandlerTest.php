@@ -20,7 +20,7 @@ final class QueryHandlerTest extends TestCase
      */
     private $queryHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->databaseConnection = DriverManager::getConnection(
             [
@@ -37,7 +37,7 @@ final class QueryHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::applyStatusCondition
      */
-    public function testApplyStatusCondition()
+    public function testApplyStatusCondition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
         $this->queryHandler->applyStatusCondition($query, 1);
@@ -48,7 +48,7 @@ final class QueryHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::applyOffsetAndLimit
      */
-    public function testApplyOffsetAndLimit()
+    public function testApplyOffsetAndLimit(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
         $this->queryHandler->applyOffsetAndLimit($query, 10, 15);

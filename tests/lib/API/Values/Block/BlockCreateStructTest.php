@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\API\Values\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -21,7 +22,7 @@ final class BlockCreateStructTest extends TestCase
      */
     private $struct;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->struct = new BlockCreateStruct(
             [
@@ -35,7 +36,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
      */
-    public function testGetCollectionCreateStructs()
+    public function testGetCollectionCreateStructs(): void
     {
         $this->assertEquals(
             ['default' => new CollectionCreateStruct(['offset' => 0])],
@@ -47,7 +48,7 @@ final class BlockCreateStructTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::addCollectionCreateStruct
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
      */
-    public function testAddCollectionCreateStruct()
+    public function testAddCollectionCreateStruct(): void
     {
         $this->struct->addCollectionCreateStruct('default', new CollectionCreateStruct(['offset' => 5]));
         $this->struct->addCollectionCreateStruct('featured', new CollectionCreateStruct(['offset' => 10]));
@@ -64,7 +65,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParameters
      */
-    public function testFillParameters()
+    public function testFillParameters(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -91,7 +92,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParameters
      */
-    public function testFillParametersWithMissingValues()
+    public function testFillParametersWithMissingValues(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -116,7 +117,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromBlock
      */
-    public function testFillParametersFromBlock()
+    public function testFillParametersFromBlock(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -159,7 +160,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHash()
+    public function testFillParametersFromHash(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -186,7 +187,7 @@ final class BlockCreateStructTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromHash
      */
-    public function testFillParametersFromHashWithMissingValues()
+    public function testFillParametersFromHashWithMissingValues(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
@@ -208,10 +209,7 @@ final class BlockCreateStructTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function buildBlockDefinition()
+    private function buildBlockDefinition(): BlockDefinitionInterface
     {
         $compoundParameter = new CompoundParameterDefinition(
             [

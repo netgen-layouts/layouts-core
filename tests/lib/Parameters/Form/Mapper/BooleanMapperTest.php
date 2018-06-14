@@ -15,7 +15,7 @@ final class BooleanMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new BooleanMapper();
     }
@@ -23,7 +23,7 @@ final class BooleanMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(CheckboxType::class, $this->mapper->getFormType());
     }

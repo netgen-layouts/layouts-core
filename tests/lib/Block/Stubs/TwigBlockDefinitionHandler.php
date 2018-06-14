@@ -9,12 +9,12 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 
 final class TwigBlockDefinitionHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
-    public function getTwigBlockName(Block $block)
+    public function getTwigBlockName(Block $block): string
     {
         return 'twig_block';
     }
 
-    public function isContextual(Block $block)
+    public function isContextual(Block $block): bool
     {
         return true;
     }

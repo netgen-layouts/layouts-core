@@ -27,7 +27,7 @@ final class ValueTypeTest extends TestCase
      */
     private $matcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->formFactory = Forms::createFormFactoryBuilder()
             ->getFormFactory();
@@ -36,13 +36,10 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @param array $config
-     * @param bool $expected
-     *
      * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
      * @dataProvider matchProvider
      */
-    public function testMatch(array $config, $expected)
+    public function testMatch(array $config, bool $expected): void
     {
         $form = $this->formFactory->create(
             Form::class,
@@ -55,12 +52,7 @@ final class ValueTypeTest extends TestCase
         $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
-    /**
-     * Provider for {@link self::testMatch}.
-     *
-     * @return array
-     */
-    public function matchProvider()
+    public function matchProvider(): array
     {
         return [
             [[], false],
@@ -74,7 +66,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
      */
-    public function testMatchWithNoFormView()
+    public function testMatchWithNoFormView(): void
     {
         $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
     }
@@ -82,7 +74,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
      */
-    public function testMatchWithNoConfigurable()
+    public function testMatchWithNoConfigurable(): void
     {
         $form = $this->formFactory->create(Form::class);
 
@@ -92,7 +84,7 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
      */
-    public function testMatchWithInvalidConfigurable()
+    public function testMatchWithInvalidConfigurable(): void
     {
         $form = $this->formFactory->create(Form::class, null, ['configurable' => 'type']);
 

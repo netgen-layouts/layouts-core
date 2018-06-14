@@ -15,7 +15,7 @@ final class ItemDefinitionTest extends TestCase
      */
     private $itemDefinition;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemDefinition = new ItemDefinition(
             [
@@ -28,7 +28,7 @@ final class ItemDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getValueType
      */
-    public function testGetValueType()
+    public function testGetValueType(): void
     {
         $this->assertEquals('value_type', $this->itemDefinition->getValueType());
     }
@@ -36,7 +36,7 @@ final class ItemDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinitions
      */
-    public function testGetConfigDefinitions()
+    public function testGetConfigDefinitions(): void
     {
         $this->assertEquals(
             ['config' => new ConfigDefinition()],

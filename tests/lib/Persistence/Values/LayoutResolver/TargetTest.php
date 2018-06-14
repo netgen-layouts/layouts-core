@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $target = new Target(
             [

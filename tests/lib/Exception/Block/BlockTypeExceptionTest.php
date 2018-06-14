@@ -12,7 +12,7 @@ final class BlockTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockTypeException::noBlockType
      */
-    public function testNoBlockType()
+    public function testNoBlockType(): void
     {
         $exception = BlockTypeException::noBlockType('type');
 
@@ -25,7 +25,7 @@ final class BlockTypeExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockTypeException::noBlockTypeGroup
      */
-    public function testNoBlockTypeGroup()
+    public function testNoBlockTypeGroup(): void
     {
         $exception = BlockTypeException::noBlockTypeGroup('type');
 

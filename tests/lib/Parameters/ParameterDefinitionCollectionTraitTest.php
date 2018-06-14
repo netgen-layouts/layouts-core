@@ -13,7 +13,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
      */
-    public function testGetParameterDefinition()
+    public function testGetParameterDefinition(): void
     {
         $parameterDefinitions = new ParameterDefinitionCollection(
             ['name' => new ParameterDefinition()]
@@ -30,7 +30,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterException
      * @expectedExceptionMessage Parameter definition with "test" name does not exist in the object.
      */
-    public function testGetParameterDefinitionWithNonExistingDefinition()
+    public function testGetParameterDefinitionWithNonExistingDefinition(): void
     {
         $parameterDefinitions = new ParameterDefinitionCollection(
             ['name' => new ParameterDefinition()]
@@ -42,7 +42,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinitions
      */
-    public function testGetParameterDefinitions()
+    public function testGetParameterDefinitions(): void
     {
         $parameterDefinitions = new ParameterDefinitionCollection(
             ['name' => new ParameterDefinition()]
@@ -57,7 +57,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::hasParameterDefinition
      */
-    public function testHasParameterDefinition()
+    public function testHasParameterDefinition(): void
     {
         $parameterDefinitions = new ParameterDefinitionCollection(
             ['name' => new ParameterDefinition()]

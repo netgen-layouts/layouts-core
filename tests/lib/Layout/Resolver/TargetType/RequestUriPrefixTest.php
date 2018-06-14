@@ -16,7 +16,7 @@ final class RequestUriPrefixTest extends TestCase
      */
     private $targetType;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->targetType = new RequestUriPrefix();
     }
@@ -24,7 +24,7 @@ final class RequestUriPrefixTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $this->assertEquals('request_uri_prefix', $this->targetType->getType());
     }
@@ -36,7 +36,7 @@ final class RequestUriPrefixTest extends TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::getConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -47,7 +47,7 @@ final class RequestUriPrefixTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::provideValue
      */
-    public function testProvideValue()
+    public function testProvideValue(): void
     {
         $request = Request::create('/the/answer', Request::METHOD_GET, ['a' => 42]);
 
@@ -57,12 +57,7 @@ final class RequestUriPrefixTest extends TestCase
         );
     }
 
-    /**
-     * Provider for testing target type validation.
-     *
-     * @return array
-     */
-    public function validationProvider()
+    public function validationProvider(): array
     {
         return [
             ['/some/route?id=42', true],

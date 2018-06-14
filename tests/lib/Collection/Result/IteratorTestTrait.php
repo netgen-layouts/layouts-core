@@ -10,11 +10,8 @@ trait IteratorTestTrait
 {
     /**
      * Asserts that iterator returns the expected values.
-     *
-     * @param array $expected
-     * @param \Iterator $resultIterator
      */
-    private function assertIteratorValues(array $expected, Iterator $resultIterator)
+    private function assertIteratorValues(array $expected, Iterator $resultIterator): void
     {
         $i = 0;
 

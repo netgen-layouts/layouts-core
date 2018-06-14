@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryCreateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $queryCreateStruct = new QueryCreateStruct(
             [

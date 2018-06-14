@@ -18,7 +18,7 @@ final class ParameterMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new ParameterMapper();
     }
@@ -26,7 +26,7 @@ final class ParameterMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper::mapParameters
      */
-    public function testMapParameters()
+    public function testMapParameters(): void
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
         $blockDefinition = new BlockDefinition(
@@ -77,7 +77,7 @@ final class ParameterMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper::serializeValues
      */
-    public function testSerializeValues()
+    public function testSerializeValues(): void
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
         $blockDefinition = new BlockDefinition(
@@ -108,7 +108,7 @@ final class ParameterMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper::extractUntranslatableParameters
      */
-    public function testExtractUntranslatableParameters()
+    public function testExtractUntranslatableParameters(): void
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
         $blockDefinition = new BlockDefinition(

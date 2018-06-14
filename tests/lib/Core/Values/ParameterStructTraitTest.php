@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterStruct;
@@ -20,7 +21,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     private $struct;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->struct = new ParameterStruct();
     }
@@ -28,7 +29,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
      */
-    public function testDefaultProperties()
+    public function testDefaultProperties(): void
     {
         $this->assertEquals([], $this->struct->getParameterValues());
     }
@@ -37,7 +38,7 @@ final class ParameterStructTraitTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValues
      */
-    public function testSetParameterValues()
+    public function testSetParameterValues(): void
     {
         $this->struct->setParameterValues(
             [
@@ -58,7 +59,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValue
      */
-    public function testSetParameterValue()
+    public function testSetParameterValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_other_param', 'some_other_value');
@@ -75,7 +76,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValue
      */
-    public function testOverwriteParameterValues()
+    public function testOverwriteParameterValues(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_param', 'new_value');
@@ -86,7 +87,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
      */
-    public function testGetParameterValue()
+    public function testGetParameterValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 
@@ -96,7 +97,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
      */
-    public function testGetParameterValueWithNonExistingParameter()
+    public function testGetParameterValueWithNonExistingParameter(): void
     {
         $this->assertNull($this->struct->getParameterValue('some_other_param'));
     }
@@ -104,7 +105,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::hasParameterValue
      */
-    public function testHasParameterValue()
+    public function testHasParameterValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 
@@ -114,7 +115,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::hasParameterValue
      */
-    public function testHasParameterValueWithNoValue()
+    public function testHasParameterValueWithNoValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 
@@ -124,7 +125,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fill
      */
-    public function testFill()
+    public function testFill(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
@@ -151,7 +152,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fill
      */
-    public function testFillWithMissingValues()
+    public function testFillWithMissingValues(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
@@ -176,7 +177,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromValue
      */
-    public function testFillFromValue()
+    public function testFillFromValue(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
@@ -218,7 +219,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
      */
-    public function testFillFromHash()
+    public function testFillFromHash(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
@@ -245,7 +246,7 @@ final class ParameterStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
      */
-    public function testFillFromHashWithMissingValues()
+    public function testFillFromHashWithMissingValues(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
@@ -267,10 +268,7 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection
-     */
-    private function buildParameterDefinitionCollection()
+    private function buildParameterDefinitionCollection(): ParameterDefinitionCollectionInterface
     {
         $compoundParameter = new CompoundParameterDefinition(
             [

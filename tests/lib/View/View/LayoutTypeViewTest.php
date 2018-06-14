@@ -20,7 +20,7 @@ final class LayoutTypeViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutType = new LayoutType(['identifier' => 'layout']);
 
@@ -38,7 +38,7 @@ final class LayoutTypeViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\LayoutTypeView::__construct
      * @covers \Netgen\BlockManager\View\View\LayoutTypeView::getLayoutType
      */
-    public function testGetLayoutType()
+    public function testGetLayoutType(): void
     {
         $this->assertEquals($this->layoutType, $this->view->getLayoutType());
         $this->assertEquals(
@@ -53,7 +53,7 @@ final class LayoutTypeViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\LayoutTypeView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('layout_view', $this->view->getIdentifier());
     }

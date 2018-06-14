@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $blockUpdateStruct = new BlockUpdateStruct(
             [

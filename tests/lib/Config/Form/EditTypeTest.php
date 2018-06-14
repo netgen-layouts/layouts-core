@@ -16,6 +16,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditTypeTest extends FormTestCase
@@ -25,7 +26,7 @@ final class EditTypeTest extends FormTestCase
      */
     private $configurable;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -48,26 +49,17 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new EditType();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
-     */
-    public function getTypeExtensions()
+    public function getTypeExtensions(): array
     {
         return [new ParametersTypeExtension()];
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface[]
-     */
-    public function getTypes()
+    public function getTypes(): array
     {
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new FormMapper());
@@ -79,7 +71,7 @@ final class EditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'test' => [
@@ -125,7 +117,7 @@ final class EditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
      */
-    public function testSubmitValidDataWithConfigKey()
+    public function testSubmitValidDataWithConfigKey(): void
     {
         $submittedData = [
             'test' => [
@@ -172,7 +164,7 @@ final class EditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
      */
-    public function testSubmitDataWithInvalidConfigKey()
+    public function testSubmitDataWithInvalidConfigKey(): void
     {
         $submittedData = [
             'test' => [
@@ -216,7 +208,7 @@ final class EditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -240,7 +232,7 @@ final class EditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "configurable" is missing.
      */
-    public function testConfigureOptionsWithMissingValue()
+    public function testConfigureOptionsWithMissingValue(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -259,7 +251,7 @@ final class EditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "configurable" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Config\ConfigAwareValue", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidValue()
+    public function testConfigureOptionsWithInvalidValue(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -279,7 +271,7 @@ final class EditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "label_prefix" is missing.
      */
-    public function testConfigureOptionsWithMissingLabelPrefix()
+    public function testConfigureOptionsWithMissingLabelPrefix(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -298,7 +290,7 @@ final class EditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "label_prefix" with value 42 is expected to be of type "string", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidLabelPrefix()
+    public function testConfigureOptionsWithInvalidLabelPrefix(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -318,7 +310,7 @@ final class EditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Config\ConfigAwareStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

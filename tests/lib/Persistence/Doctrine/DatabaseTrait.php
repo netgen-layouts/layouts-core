@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
 use Doctrine\DBAL\Migrations\Migration;
@@ -34,10 +35,8 @@ trait DatabaseTrait
 
     /**
      * Sets up the database connection.
-     *
-     * @return \Doctrine\DBAL\Connection
      */
-    protected function createDatabaseConnection()
+    protected function createDatabaseConnection(): Connection
     {
         $this->databaseUri = $this->inMemoryDsn;
 
@@ -60,10 +59,8 @@ trait DatabaseTrait
 
     /**
      * Sets up the database connection.
-     *
-     * @param string $fixturesPath
      */
-    protected function createDatabase($fixturesPath = __DIR__ . '/../../../_fixtures')
+    protected function createDatabase(string $fixturesPath = __DIR__ . '/../../../_fixtures'): void
     {
         if ($this->databaseConnection === null) {
             $this->createDatabaseConnection();
@@ -87,7 +84,7 @@ trait DatabaseTrait
     /**
      * Closes the database connection.
      */
-    protected function closeDatabase()
+    protected function closeDatabase(): void
     {
         if ($this->databaseUri !== $this->inMemoryDsn) {
             $this->databaseConnection->close();
@@ -96,11 +93,8 @@ trait DatabaseTrait
 
     /**
      * Creates the database schema.
-     *
-     * @param string $schemaPath
-     * @param string $fileName
      */
-    protected function executeStatements($schemaPath, $fileName = 'schema')
+    protected function executeStatements(string $schemaPath, string $fileName = 'schema'): void
     {
         $fullPath = $schemaPath . '/' . $fileName . '.' . $this->databaseServer . '.sql';
         if (!file_exists($fullPath)) {
@@ -125,7 +119,7 @@ trait DatabaseTrait
     /**
      * Creates the database schema from all available Doctrine migrations.
      */
-    protected function executeMigrations()
+    protected function executeMigrations(): void
     {
         $configuration = new YamlConfiguration($this->databaseConnection);
         $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');

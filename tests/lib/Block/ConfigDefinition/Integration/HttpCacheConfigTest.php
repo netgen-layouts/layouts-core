@@ -5,21 +5,16 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration;
 
 use Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 
 abstract class HttpCacheConfigTest extends BlockTest
 {
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
-     */
-    public function createConfigDefinitionHandler()
+    public function createConfigDefinitionHandler(): ConfigDefinitionHandlerInterface
     {
         return new HttpCacheConfigHandler();
     }
 
-    /**
-     * @return array
-     */
-    public function configDataProvider()
+    public function configDataProvider(): array
     {
         return [
             [
@@ -90,10 +85,7 @@ abstract class HttpCacheConfigTest extends BlockTest
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function invalidConfigDataProvider()
+    public function invalidConfigDataProvider(): array
     {
         return [
             [

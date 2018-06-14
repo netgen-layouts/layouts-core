@@ -13,6 +13,7 @@ use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class QueryEditTypeTest extends FormTestCase
@@ -27,7 +28,7 @@ final class QueryEditTypeTest extends FormTestCase
      */
     private $query;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -36,26 +37,17 @@ final class QueryEditTypeTest extends FormTestCase
         $this->query = new Query(['queryType' => $this->queryType]);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new QueryEditType();
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
-     */
-    public function getTypeExtensions()
+    public function getTypeExtensions(): array
     {
         return [new ParametersTypeExtension()];
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface[]
-     */
-    public function getTypes()
+    public function getTypes(): array
     {
         $formMapperRegistry = new FormMapperRegistry();
         $formMapperRegistry->addFormMapper('text_line', new Mapper\TextLineMapper());
@@ -68,7 +60,7 @@ final class QueryEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'parameters' => [
@@ -109,7 +101,7 @@ final class QueryEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
      */
-    public function testDisableUntranslatableFormsOnNonMainLocale()
+    public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
         $form = $this->factory->create(
             QueryEditType::class,
@@ -133,7 +125,7 @@ final class QueryEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
      */
-    public function testDisableUntranslatableFormsOnMainLocale()
+    public function testDisableUntranslatableFormsOnMainLocale(): void
     {
         $form = $this->factory->create(
             QueryEditType::class,
@@ -156,7 +148,7 @@ final class QueryEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -179,7 +171,7 @@ final class QueryEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "query" is missing.
      */
-    public function testConfigureOptionsWithMissingQuery()
+    public function testConfigureOptionsWithMissingQuery(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -194,7 +186,7 @@ final class QueryEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "query" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\Query", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidQueryType()
+    public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -213,7 +205,7 @@ final class QueryEditTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidData()
+    public function testConfigureOptionsWithInvalidData(): void
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

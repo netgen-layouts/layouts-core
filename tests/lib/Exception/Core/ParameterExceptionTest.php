@@ -12,7 +12,7 @@ final class ParameterExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Core\ParameterException::noParameter
      */
-    public function testNoParameter()
+    public function testNoParameter(): void
     {
         $exception = ParameterException::noParameter('param');
 

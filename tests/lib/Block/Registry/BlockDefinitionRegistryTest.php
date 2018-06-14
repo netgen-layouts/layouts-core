@@ -21,7 +21,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new BlockDefinitionRegistry();
 
@@ -34,7 +34,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::addBlockDefinition
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinitions
      */
-    public function testAddBlockDefinition()
+    public function testAddBlockDefinition(): void
     {
         $this->assertEquals(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
     }
@@ -42,7 +42,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
      */
-    public function testGetBlockDefinition()
+    public function testGetBlockDefinition(): void
     {
         $this->assertEquals($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
     }
@@ -52,7 +52,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      * @expectedExceptionMessage Block definition with "title" identifier does not exist.
      */
-    public function testGetBlockDefinitionThrowsBlockDefinitionException()
+    public function testGetBlockDefinitionThrowsBlockDefinitionException(): void
     {
         $this->registry->getBlockDefinition('title');
     }
@@ -60,7 +60,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::hasBlockDefinition
      */
-    public function testHasBlockDefinition()
+    public function testHasBlockDefinition(): void
     {
         $this->assertTrue($this->registry->hasBlockDefinition('block_definition'));
     }
@@ -68,7 +68,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::hasBlockDefinition
      */
-    public function testHasBlockDefinitionWithNoBlockDefinition()
+    public function testHasBlockDefinitionWithNoBlockDefinition(): void
     {
         $this->assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
     }
@@ -76,7 +76,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -91,7 +91,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -99,7 +99,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('block_definition', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -108,7 +108,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->blockDefinition, $this->registry['block_definition']);
     }
@@ -118,7 +118,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['block_definition'] = $this->blockDefinition;
     }
@@ -128,7 +128,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['block_definition']);
     }

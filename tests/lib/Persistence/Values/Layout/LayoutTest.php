@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase
 {
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $layout = new Layout(
             [

@@ -17,7 +17,7 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     private $resultBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
     }
@@ -27,7 +27,7 @@ final class ResultBuilderAdapterTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -49,7 +49,7 @@ final class ResultBuilderAdapterTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
-    public function testGetNbResultsWithMaxTotalCount()
+    public function testGetNbResultsWithMaxTotalCount(): void
     {
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -70,7 +70,7 @@ final class ResultBuilderAdapterTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
-    public function testGetNbResultsWithStartingOffset()
+    public function testGetNbResultsWithStartingOffset(): void
     {
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -91,7 +91,7 @@ final class ResultBuilderAdapterTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
-    public function testGetNbResultsWithStartingOffsetAndMaxTotalCount()
+    public function testGetNbResultsWithStartingOffsetAndMaxTotalCount(): void
     {
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -112,7 +112,7 @@ final class ResultBuilderAdapterTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $resultSet = new ResultSet(['results' => [1, 2, 3]]);
 
@@ -135,7 +135,7 @@ final class ResultBuilderAdapterTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
-    public function testGetSliceWithStartingOffset()
+    public function testGetSliceWithStartingOffset(): void
     {
         $resultSet = new ResultSet(['results' => [1, 2, 3]]);
 

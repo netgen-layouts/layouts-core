@@ -14,7 +14,7 @@ final class BlockTest extends BaseBlockTest
 {
     use TestCaseTrait;
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
@@ -22,7 +22,7 @@ final class BlockTest extends BaseBlockTest
     /**
      * Prepares the persistence handler used in tests.
      */
-    public function preparePersistence()
+    public function preparePersistence(): void
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
     }

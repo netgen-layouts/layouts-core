@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validation;
 
@@ -23,7 +24,7 @@ abstract class ValidatorTestCase extends TestCase
 
     protected $constraint;
 
-    public function setUp()
+    public function setUp(): void
     {
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -43,7 +44,7 @@ abstract class ValidatorTestCase extends TestCase
      * @param bool $isValid
      * @param mixed $value
      */
-    public function assertValid($isValid, $value)
+    public function assertValid(bool $isValid, $value): void
     {
         $this->executionContext->setConstraint($this->constraint);
         $this->validator->validate($value, $this->constraint);
@@ -57,8 +58,5 @@ abstract class ValidatorTestCase extends TestCase
         }
     }
 
-    /**
-     * @return \Symfony\Component\Validator\ConstraintValidatorInterface
-     */
-    abstract public function getValidator();
+    abstract public function getValidator(): ConstraintValidatorInterface;
 }

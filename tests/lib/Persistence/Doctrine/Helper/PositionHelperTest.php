@@ -24,7 +24,7 @@ final class PositionHelperTest extends TestCase
      */
     private $collectionHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->createDatabase();
 
@@ -35,7 +35,7 @@ final class PositionHelperTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
@@ -45,7 +45,7 @@ final class PositionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
      */
-    public function testCreatePosition()
+    public function testCreatePosition(): void
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1);
 
@@ -62,7 +62,7 @@ final class PositionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
      */
-    public function testCreatePositionAtLastPlace()
+    public function testCreatePositionAtLastPlace(): void
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions());
 
@@ -79,7 +79,7 @@ final class PositionHelperTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Position is out of range.
      */
-    public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition()
+    public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition(): void
     {
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), 9999);
     }
@@ -89,7 +89,7 @@ final class PositionHelperTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Position cannot be negative.
      */
-    public function testCreatePositionThrowsBadStateExceptionOnNegativePosition()
+    public function testCreatePositionThrowsBadStateExceptionOnNegativePosition(): void
     {
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), -1);
     }
@@ -99,7 +99,7 @@ final class PositionHelperTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage When creating a position, end position needs to be greater or equal than start position.
      */
-    public function testCreatePositionThrowsBadStateExceptionOnInvalidEndPosition()
+    public function testCreatePositionThrowsBadStateExceptionOnInvalidEndPosition(): void
     {
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1, 0);
     }
@@ -108,7 +108,7 @@ final class PositionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
-    public function testMoveToPosition()
+    public function testMoveToPosition(): void
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 0, 2);
 
@@ -122,7 +122,7 @@ final class PositionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
-    public function testMoveToLowerPosition()
+    public function testMoveToLowerPosition(): void
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 2, 0);
 
@@ -137,7 +137,7 @@ final class PositionHelperTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Position is out of range.
      */
-    public function testMoveToPositionBadStateExceptionOnTooLargePosition()
+    public function testMoveToPositionBadStateExceptionOnTooLargePosition(): void
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 1, 9999);
     }
@@ -147,7 +147,7 @@ final class PositionHelperTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Position cannot be negative.
      */
-    public function testMoveToPositionBadStateExceptionOnNegativePosition()
+    public function testMoveToPositionBadStateExceptionOnNegativePosition(): void
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 1, -1);
     }
@@ -156,7 +156,7 @@ final class PositionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::removePosition
      */
-    public function testRemovePosition()
+    public function testRemovePosition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
 
@@ -184,17 +184,15 @@ final class PositionHelperTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::applyConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::getNextPosition
      */
-    public function testGetNextPosition()
+    public function testGetNextPosition(): void
     {
         $this->assertEquals(3, $this->positionHelper->getNextPosition($this->getPositionHelperConditions()));
     }
 
     /**
      * Builds the condition array that will be used with position helper.
-     *
-     * @return array
      */
-    private function getPositionHelperConditions()
+    private function getPositionHelperConditions(): array
     {
         return [
             'table' => 'ngbm_collection_item',
@@ -208,10 +206,8 @@ final class PositionHelperTest extends TestCase
 
     /**
      * Returns the position data from the table under test.
-     *
-     * @return array
      */
-    private function getPositionData()
+    private function getPositionData(): array
     {
         $query = $this->databaseConnection->createQueryBuilder();
         $query->select('position')
@@ -227,8 +223,8 @@ final class PositionHelperTest extends TestCase
             ->orderBy('position', 'ASC');
 
         return array_map(
-            function (array $dataRow) {
-                return $dataRow['position'];
+            function (array $dataRow): int {
+                return (int) $dataRow['position'];
             },
             $query->execute()->fetchAll()
         );

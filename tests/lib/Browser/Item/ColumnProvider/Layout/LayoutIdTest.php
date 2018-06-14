@@ -17,7 +17,7 @@ final class LayoutIdTest extends TestCase
      */
     private $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->provider = new LayoutId();
     }
@@ -25,7 +25,7 @@ final class LayoutIdTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $item = new Item(
             new Layout(
@@ -44,7 +44,7 @@ final class LayoutIdTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId::getValue
      */
-    public function testGetValueWithInvalidItem()
+    public function testGetValueWithInvalidItem(): void
     {
         $this->assertNull($this->provider->getValue(new StubItem()));
     }

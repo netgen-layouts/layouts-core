@@ -22,7 +22,7 @@ final class FormViewTest extends TestCase
      */
     private $view;
 
-    public function setUp()
+    public function setUp(): void
     {
         $formFactory = Forms::createFormFactoryBuilder()
             ->getFormFactory();
@@ -46,7 +46,7 @@ final class FormViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\FormView::getFormType
      * @covers \Netgen\BlockManager\View\View\FormView::getFormView
      */
-    public function testGetForm()
+    public function testGetForm(): void
     {
         $this->assertEquals($this->form, $this->view->getForm());
         $this->assertEquals(FormType::class, $this->view->getFormType());
@@ -59,7 +59,7 @@ final class FormViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\FormView::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $this->assertEquals('form_view', $this->view->getIdentifier());
     }

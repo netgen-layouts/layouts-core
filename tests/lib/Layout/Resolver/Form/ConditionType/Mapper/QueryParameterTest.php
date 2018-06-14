@@ -16,7 +16,7 @@ final class QueryParameterTest extends TestCase
      */
     private $mapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mapper = new QueryParameter();
     }
@@ -24,7 +24,7 @@ final class QueryParameterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormType
      */
-    public function testGetFormType()
+    public function testGetFormType(): void
     {
         $this->assertEquals(KeyValuesType::class, $this->mapper->getFormType());
     }
@@ -32,7 +32,7 @@ final class QueryParameterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormOptions
      */
-    public function testGetFormOptions()
+    public function testGetFormOptions(): void
     {
         $this->assertEquals(
             [

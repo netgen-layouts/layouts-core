@@ -21,7 +21,7 @@ final class ParameterDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      */
-    public function testSetDefaultProperties()
+    public function testSetDefaultProperties(): void
     {
         $parameterDefinition = new ParameterDefinition();
 
@@ -44,7 +44,7 @@ final class ParameterDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::hasOption
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      */
-    public function testSetProperties()
+    public function testSetProperties(): void
     {
         $parameterDefinition = new ParameterDefinition(
             [

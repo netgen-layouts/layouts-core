@@ -14,7 +14,7 @@ final class RootLocationTest extends TestCase
      */
     private $location;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->location = new RootLocation();
     }
@@ -22,7 +22,7 @@ final class RootLocationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getLocationId
      */
-    public function testGetLocationId()
+    public function testGetLocationId(): void
     {
         $this->assertEquals(0, $this->location->getLocationId());
     }
@@ -30,7 +30,7 @@ final class RootLocationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('All layouts', $this->location->getName());
     }
@@ -38,7 +38,7 @@ final class RootLocationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getParentId
      */
-    public function testGetParentId()
+    public function testGetParentId(): void
     {
         $this->assertNull($this->location->getParentId());
     }

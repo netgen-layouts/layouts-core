@@ -12,7 +12,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::noParameter
      */
-    public function testNoParameter()
+    public function testNoParameter(): void
     {
         $exception = ParameterBuilderException::noParameter('param');
 
@@ -25,7 +25,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::noOption
      */
-    public function testNoOption()
+    public function testNoOption(): void
     {
         $exception = ParameterBuilderException::noOption('opt', 'param');
 
@@ -38,7 +38,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::subCompound
      */
-    public function testSubCompound()
+    public function testSubCompound(): void
     {
         $exception = ParameterBuilderException::subCompound();
 
@@ -51,7 +51,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::nonCompound
      */
-    public function testNonCompound()
+    public function testNonCompound(): void
     {
         $exception = ParameterBuilderException::nonCompound();
 
@@ -64,7 +64,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::invalidConstraints
      */
-    public function testInvalidConstraints()
+    public function testInvalidConstraints(): void
     {
         $exception = ParameterBuilderException::invalidConstraints();
 

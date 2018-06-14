@@ -17,7 +17,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 
 final class LayoutServiceTest extends ServiceTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -29,7 +29,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testLinkZone()
+    public function testLinkZone(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -71,7 +71,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUnlinkZone()
+    public function testUnlinkZone(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -95,7 +95,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCreateLayout()
+    public function testCreateLayout(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -123,7 +123,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testAddTranslation()
+    public function testAddTranslation(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -156,7 +156,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testRemoveTranslation()
+    public function testRemoveTranslation(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -189,7 +189,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testUpdateLayout()
+    public function testUpdateLayout(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -221,7 +221,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCopyLayout()
+    public function testCopyLayout(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -250,7 +250,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testChangeLayoutType()
+    public function testChangeLayoutType(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -279,7 +279,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testCreateDraft()
+    public function testCreateDraft(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -308,7 +308,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDiscardDraft()
+    public function testDiscardDraft(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -332,7 +332,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testPublishLayout()
+    public function testPublishLayout(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -356,7 +356,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testRestoreFromArchive()
+    public function testRestoreFromArchive(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -390,7 +390,7 @@ final class LayoutServiceTest extends ServiceTestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testDeleteLayout()
+    public function testDeleteLayout(): void
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))

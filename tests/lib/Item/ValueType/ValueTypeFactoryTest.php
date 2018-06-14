@@ -13,7 +13,7 @@ final class ValueTypeFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ValueType\ValueTypeFactory::buildValueType
      */
-    public function testBuildValueType()
+    public function testBuildValueType(): void
     {
         $valueType = ValueTypeFactory::buildValueType(
             'value',

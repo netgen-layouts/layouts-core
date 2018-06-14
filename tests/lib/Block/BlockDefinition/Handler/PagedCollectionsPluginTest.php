@@ -28,7 +28,7 @@ final class PagedCollectionsPluginTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->plugin = new PagedCollectionsPlugin(['load_more' => 'Load more'], ['group']);
 
@@ -47,7 +47,7 @@ final class PagedCollectionsPluginTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::getExtendedHandler
      */
-    public function testGetExtendedHandler()
+    public function testGetExtendedHandler(): void
     {
         $plugin = $this->plugin;
 
@@ -57,7 +57,7 @@ final class PagedCollectionsPluginTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::buildParameters
      */
-    public function testBuildParameters()
+    public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->plugin->buildParameters($builder);

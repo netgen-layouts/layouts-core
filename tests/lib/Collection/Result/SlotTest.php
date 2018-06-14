@@ -17,7 +17,7 @@ final class SlotTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueType
      * @covers \Netgen\BlockManager\Collection\Result\Slot::isVisible
      */
-    public function testObject()
+    public function testObject(): void
     {
         $value = new Slot();
 
