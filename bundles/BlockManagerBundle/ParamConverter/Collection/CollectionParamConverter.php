@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 final class CollectionParamConverter extends ParamConverter
@@ -20,22 +21,22 @@ final class CollectionParamConverter extends ParamConverter
         $this->collectionService = $collectionService;
     }
 
-    public function getSourceAttributeNames()
+    public function getSourceAttributeNames(): array
     {
         return ['collectionId'];
     }
 
-    public function getDestinationAttributeName()
+    public function getDestinationAttributeName(): string
     {
         return 'collection';
     }
 
-    public function getSupportedClass()
+    public function getSupportedClass(): string
     {
         return Collection::class;
     }
 
-    public function loadValue(array $values)
+    public function loadValue(array $values): Value
     {
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 

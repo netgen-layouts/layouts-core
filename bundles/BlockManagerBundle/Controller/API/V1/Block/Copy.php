@@ -26,13 +26,8 @@ final class Copy extends Controller
 
     /**
      * Copies the block draft to specified block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Block $block, Request $request)
+    public function __invoke(Block $block, Request $request): View
     {
         $requestData = $request->attributes->get('data');
 

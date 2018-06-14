@@ -47,7 +47,7 @@ final class ClearBlocksCache extends Controller
         $cacheableBlocks = array_values(
             array_filter(
                 $this->blockService->loadLayoutBlocks($layout),
-                function (Block $block) {
+                function (Block $block): bool {
                     if ($block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
                         if ($block->getParameter('paged_collections:enabled')->getValue() === true) {
                             return true;
@@ -60,7 +60,7 @@ final class ClearBlocksCache extends Controller
 
                     $blockConfig = $block->getConfig('http_cache');
 
-                    return $blockConfig->getParameter('use_http_cache')->getValue();
+                    return $blockConfig->getParameter('use_http_cache')->getValue() === true;
                 }
             )
         );

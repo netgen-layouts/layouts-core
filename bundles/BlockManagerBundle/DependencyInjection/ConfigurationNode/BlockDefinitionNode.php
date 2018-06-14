@@ -8,12 +8,13 @@ use Netgen\BlockManager\Block\Form\ContentEditType;
 use Netgen\BlockManager\Block\Form\DesignEditType;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 final class BlockDefinitionNode implements ConfigurationNodeInterface
 {
-    public function getConfigurationNode()
+    public function getConfigurationNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root('block_definitions');
@@ -34,7 +35,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                     ->scalarNode('icon')
                         ->defaultValue(null)
                         ->validate()
-                            ->ifTrue(function ($v) {
+                            ->ifTrue(function ($v): bool {
                                 if ($v === null || (is_string($v) && !empty($v))) {
                                     return false;
                                 }
@@ -52,7 +53,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                             ->arrayNode('default')
                                 ->addDefaultsIfNotSet()
                                 ->validate()
-                                    ->ifTrue(function (array $v) {
+                                    ->ifTrue(function (array $v): bool {
                                         if (!isset($v['valid_item_types']) || !isset($v['valid_query_types'])) {
                                             return false;
                                         }
@@ -65,7 +66,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->variableNode('valid_item_types')
                                         ->defaultNull()
                                         ->validate()
-                                            ->ifTrue(function ($v) {
+                                            ->ifTrue(function ($v): bool {
                                                 return $v !== null && !is_array($v);
                                             })
                                             ->thenInvalid('The value should be null or an array')
@@ -83,7 +84,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->variableNode('valid_query_types')
                                         ->defaultNull()
                                         ->validate()
-                                            ->ifTrue(function ($v) {
+                                            ->ifTrue(function ($v): bool {
                                                 return $v !== null && !is_array($v);
                                             })
                                             ->thenInvalid('The value should be null or an array')
@@ -105,7 +106,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                     ->arrayNode('forms')
                         ->addDefaultsIfNotSet()
                         ->validate()
-                            ->always(function (array $v) {
+                            ->always(function (array $v): array {
                                 $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
 
                                 if ($v['full']['enabled'] && ($v['design']['enabled'] || $v['content']['enabled'])) {
@@ -168,10 +169,10 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->prototype('array')
                             ->canBeDisabled()
                             ->validate()
-                                ->ifTrue(function (array $v) {
+                                ->ifTrue(function (array $v): bool {
                                     return $v['enabled'] !== true;
                                 })
-                                ->then(function (array $v) {
+                                ->then(function (array $v): array {
                                     return [
                                         'name' => 'Disabled',
                                         'enabled' => false,
@@ -192,16 +193,16 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->prototype('array')
                                         ->canBeDisabled()
                                         ->validate()
-                                            ->ifTrue(function (array $v) {
+                                            ->ifTrue(function (array $v): bool {
                                                 return $v['enabled'] === true && !isset($v['name']);
                                             })
                                             ->thenInvalid('Item view type name must be specified')
                                         ->end()
                                         ->validate()
-                                            ->ifTrue(function (array $v) {
+                                            ->ifTrue(function (array $v): bool {
                                                 return $v['enabled'] !== true;
                                             })
-                                            ->then(function (array $v) {
+                                            ->then(function (array $v): array {
                                                 return [
                                                     'name' => 'Disabled',
                                                     'enabled' => false,
@@ -218,7 +219,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                 ->variableNode('valid_parameters')
                                     ->defaultNull()
                                     ->validate()
-                                        ->ifTrue(function ($v) {
+                                        ->ifTrue(function ($v): bool {
                                             return $v !== null && !is_array($v);
                                         })
                                         ->thenInvalid('The value should be null or an array')

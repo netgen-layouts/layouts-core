@@ -20,11 +20,7 @@ final class LoadConfig extends Controller
      */
     private $csrfTokenId;
 
-    /**
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param string $csrfTokenId
-     */
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, $csrfTokenId)
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, string $csrfTokenId)
     {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->csrfTokenId = $csrfTokenId;
@@ -32,10 +28,8 @@ final class LoadConfig extends Controller
 
     /**
      * Returns the general config.
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke()
+    public function __invoke(): Value
     {
         return new Value(['csrf_token' => $this->csrfTokenManager->getToken($this->csrfTokenId)->getValue()]);
     }

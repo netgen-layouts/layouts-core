@@ -14,17 +14,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class GetTwigBlockContentListener implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerEvents::RENDER_VIEW => 'onRenderView'];
     }
 
     /**
      * Adds a parameter to the view with the Twig block content.
-     *
-     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onRenderView(CollectViewParametersEvent $event)
+    public function onRenderView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
         if (!$view instanceof BlockViewInterface) {
@@ -49,18 +47,12 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
 
     /**
      * Returns the Twig block content from the provided block.
-     *
-     * @param \Netgen\BlockManager\Block\TwigBlockDefinitionInterface $blockDefinition
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $parameters
-     *
-     * @return string
      */
     private function getTwigBlockContent(
         TwigBlockDefinitionInterface $blockDefinition,
         Block $block,
         array $parameters = []
-    ) {
+    ): string {
         if (!isset($parameters['twig_template'])) {
             return '';
         }

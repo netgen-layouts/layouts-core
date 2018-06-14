@@ -20,7 +20,7 @@ final class AddItemsValidator
      * @param string $collectionIdentifier
      * @param array $items
      */
-    public function validateAddItems(Block $block, $collectionIdentifier, $items)
+    public function validateAddItems(Block $block, string $collectionIdentifier, $items): void
     {
         $this->validate(
             $items,

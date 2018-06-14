@@ -9,7 +9,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 final class ExtensionPlugin extends BaseExtensionPlugin
 {
-    public function addConfiguration(ArrayNodeDefinition $rootNode)
+    public function addConfiguration(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -18,7 +18,7 @@ final class ExtensionPlugin extends BaseExtensionPlugin
                     ->cannotBeEmpty();
     }
 
-    public function appendConfigurationFiles()
+    public function appendConfigurationFiles(): array
     {
         return [
             __DIR__ . '/block_types.yml',

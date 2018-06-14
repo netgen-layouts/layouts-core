@@ -32,17 +32,15 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
         $this->enabledContexts = $enabledContexts;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerEvents::RENDER_VIEW => 'onRenderView'];
     }
 
     /**
      * Adds a parameter to the view with results built from all block collections.
-     *
-     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onRenderView(CollectViewParametersEvent $event)
+    public function onRenderView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
         if (!$view instanceof BlockViewInterface) {
@@ -83,12 +81,8 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
     /**
      * Returns the maximum number of the pages for the provided block,
      * if paging is enabled and maximum number of pages is set for a block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return int|null
      */
-    private function getMaxPages(Block $block)
+    private function getMaxPages(Block $block): ?int
     {
         if (!$block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
             return null;

@@ -24,13 +24,8 @@ final class LinkZone extends Controller
 
     /**
      * Links the provided zone to zone from shared layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Zone $zone, Request $request)
+    public function __invoke(Zone $zone, Request $request): Response
     {
         $requestData = $request->attributes->get('data');
 

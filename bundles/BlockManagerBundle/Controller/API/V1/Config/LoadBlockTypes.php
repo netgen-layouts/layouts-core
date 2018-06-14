@@ -33,10 +33,8 @@ final class LoadBlockTypes extends Controller
 
     /**
      * Serializes the block types.
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke()
+    public function __invoke(): Value
     {
         $blockTypeGroups = [];
         foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {

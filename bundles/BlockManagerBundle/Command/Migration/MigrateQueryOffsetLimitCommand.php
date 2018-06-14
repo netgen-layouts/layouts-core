@@ -73,7 +73,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ngbm:migration:query_offset_limit')
@@ -81,7 +81,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             ->setHidden(true);
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->input = $input;
         $this->output = $output;
@@ -89,7 +89,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $this->io = new SymfonyStyle($this->input, $this->output);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->io->title('Netgen Layouts 0.10 migration script');
 
@@ -172,12 +172,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
      *
      * Each of those can be `null` to indicate that the query type does not have an offset
      * or a limit parameter.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     *
-     * @return array
      */
-    private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType)
+    private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): array
     {
         $mapping = [];
 
@@ -205,12 +201,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * Returns the list of all parameter names from the query type.
      *
      * Considers if the parameter is a compound and includes it's sub-parameters too.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     *
-     * @return array
      */
-    private function getQueryTypeParameters(QueryTypeInterface $queryType)
+    private function getQueryTypeParameters(QueryTypeInterface $queryType): array
     {
         $parameters = [];
 
@@ -229,13 +221,13 @@ final class MigrateQueryOffsetLimitCommand extends Command
         return $parameters;
     }
 
-    private function migrateOffsetAndLimit(array $queryTypeParameters)
+    private function migrateOffsetAndLimit(array $queryTypeParameters): void
     {
         $queryData = $this->getQueryData();
 
         $this->io->progressStart(count($queryData));
 
-        $this->connection->transactional(function () use ($queryTypeParameters, $queryData) {
+        $this->connection->transactional(function () use ($queryTypeParameters, $queryData): void {
             foreach ($queryData as $queryDataItem) {
                 $offset = 0;
                 $limit = null;
@@ -262,10 +254,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
     /**
      * Returns all query data required to migrate offset and limit to the collections.
-     *
-     * @return array
      */
-    private function getQueryData()
+    private function getQueryData(): array
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 
@@ -300,9 +290,9 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * @param int|string $id
      * @param int $status
      * @param int $offset
-     * @param int $limit
+     * @param int|null $limit
      */
-    private function updateCollection($id, $status, $offset, $limit)
+    private function updateCollection($id, int $status, int $offset, int $limit = null)
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder

@@ -14,12 +14,8 @@ final class CreateStructValidator
 
     /**
      * Validates block create parameters from the provided parameter bag.
-     *
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $data
-     *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
-    public function validateCreateBlock(ParameterBag $data)
+    public function validateCreateBlock(ParameterBag $data): void
     {
         $this->validate(
             $data->get('block_type'),

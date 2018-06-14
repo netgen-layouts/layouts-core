@@ -6,12 +6,13 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
 use Twig\Error\SyntaxError;
+use Twig\Node\Node;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
 final class RenderZone extends AbstractTokenParser
 {
-    public function parse(Token $token)
+    public function parse(Token $token): Node
     {
         $stream = $this->parser->getStream();
 
@@ -44,7 +45,7 @@ final class RenderZone extends AbstractTokenParser
         return new RenderZoneNode($zone, $context, $token->getLine(), $this->getTag());
     }
 
-    public function getTag()
+    public function getTag(): string
     {
         return 'ngbm_render_zone';
     }

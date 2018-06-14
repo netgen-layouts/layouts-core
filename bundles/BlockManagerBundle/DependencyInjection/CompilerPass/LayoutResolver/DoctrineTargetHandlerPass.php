@@ -14,7 +14,7 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler';
     private static $tagName = 'netgen_block_manager.layout.resolver.target_handler.doctrine';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

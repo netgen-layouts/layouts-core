@@ -45,13 +45,9 @@ final class Create extends Controller
     /**
      * Creates the layout.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout type does not exist
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         $requestData = $request->attributes->get('data');
 

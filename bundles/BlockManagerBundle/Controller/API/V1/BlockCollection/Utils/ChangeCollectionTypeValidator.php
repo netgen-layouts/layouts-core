@@ -17,14 +17,9 @@ final class ChangeCollectionTypeValidator
     /**
      * Validates block creation parameters from the request.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param int $newType
-     * @param string $queryType
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
-    public function validateChangeCollectionType(Block $block, $collectionIdentifier, $newType, $queryType)
+    public function validateChangeCollectionType(Block $block, string $collectionIdentifier, int $newType, string $queryType): void
     {
         $this->validate(
             $newType,

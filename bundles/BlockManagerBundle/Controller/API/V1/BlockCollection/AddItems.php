@@ -41,14 +41,8 @@ final class AddItems extends Controller
 
     /**
      * Adds an item inside the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, $collectionIdentifier, Request $request)
+    public function __invoke(Block $block, string $collectionIdentifier, Request $request): Response
     {
         $requestData = $request->attributes->get('data');
 
@@ -57,7 +51,7 @@ final class AddItems extends Controller
         $this->validator->validateAddItems($block, $collectionIdentifier, $items);
 
         $this->collectionService->transaction(
-            function () use ($block, $collectionIdentifier, $items) {
+            function () use ($block, $collectionIdentifier, $items): void {
                 foreach ($items as $item) {
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                         $this->itemDefinitionRegistry->getItemDefinition($item['value_type']),

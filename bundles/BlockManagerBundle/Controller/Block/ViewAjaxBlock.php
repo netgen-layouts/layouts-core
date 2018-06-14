@@ -40,7 +40,7 @@ final class ViewAjaxBlock extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, $collectionIdentifier, $viewContext = ViewInterface::CONTEXT_AJAX)
+    public function __invoke(Block $block, string $collectionIdentifier, string $viewContext = ViewInterface::CONTEXT_AJAX)
     {
         try {
             return $this->buildView(
@@ -63,7 +63,7 @@ final class ViewAjaxBlock extends Controller
         return new Response();
     }
 
-    protected function checkPermissions()
+    protected function checkPermissions(): void
     {
     }
 }

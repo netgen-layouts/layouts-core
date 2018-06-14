@@ -14,7 +14,7 @@ final class TemplateResolverPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.view.template_resolver';
     private static $tagName = 'netgen_block_manager.view.template_matcher';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

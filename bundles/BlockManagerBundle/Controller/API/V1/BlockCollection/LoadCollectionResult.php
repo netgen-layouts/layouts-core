@@ -25,13 +25,8 @@ final class LoadCollectionResult extends Controller
 
     /**
      * Returns the collection result.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function __invoke(Block $block, $collectionIdentifier)
+    public function __invoke(Block $block, string $collectionIdentifier): VersionedValue
     {
         $collection = $block->getCollection($collectionIdentifier);
 

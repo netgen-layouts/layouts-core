@@ -14,7 +14,7 @@ final class UrlGeneratorPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.item.url_generator';
     private static $tagName = 'netgen_block_manager.item.value_url_generator';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

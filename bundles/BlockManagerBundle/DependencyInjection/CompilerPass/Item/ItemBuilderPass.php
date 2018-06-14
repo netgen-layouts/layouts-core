@@ -13,7 +13,7 @@ final class ItemBuilderPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.item.item_builder';
     private static $tagName = 'netgen_block_manager.item.value_converter';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

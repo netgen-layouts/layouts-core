@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -16,9 +17,10 @@ abstract class ParamConverter implements ParamConverterInterface
     protected static $statusDraft = 'draft';
 
     protected static $statusArchived = 'archived';
+
     private static $routeStatusParam = '_ngbm_status';
 
-    public function apply(Request $request, ParamConverterConfiguration $configuration)
+    public function apply(Request $request, ParamConverterConfiguration $configuration): bool
     {
         $sourceAttributeNames = $this->getSourceAttributeNames();
         foreach ($sourceAttributeNames as $sourceAttributeName) {
@@ -65,38 +67,28 @@ abstract class ParamConverter implements ParamConverterInterface
         return true;
     }
 
-    public function supports(ParamConverterConfiguration $configuration)
+    public function supports(ParamConverterConfiguration $configuration): bool
     {
         return is_a($configuration->getClass(), $this->getSupportedClass(), true);
     }
 
     /**
      * Returns source attribute name.
-     *
-     * @return array
      */
-    abstract public function getSourceAttributeNames();
+    abstract public function getSourceAttributeNames(): array;
 
     /**
      * Returns destination attribute name.
-     *
-     * @return string
      */
-    abstract public function getDestinationAttributeName();
+    abstract public function getDestinationAttributeName(): string;
 
     /**
      * Returns the supported class.
-     *
-     * @return string
      */
-    abstract public function getSupportedClass();
+    abstract public function getSupportedClass(): string;
 
     /**
      * Returns the value.
-     *
-     * @param array $values
-     *
-     * @return \Netgen\BlockManager\API\Values\Value
      */
-    abstract public function loadValue(array $values);
+    abstract public function loadValue(array $values): Value;
 }

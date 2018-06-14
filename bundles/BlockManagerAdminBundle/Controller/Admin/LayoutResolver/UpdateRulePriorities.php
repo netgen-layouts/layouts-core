@@ -44,7 +44,7 @@ final class UpdateRulePriorities extends Controller
 
         try {
             $this->layoutResolverService->transaction(
-                function () use ($request) {
+                function () use ($request): void {
                     // Rules are ordered by descending priority
                     // in the request variable, we reverse the list here
                     // as it is way easier to increment priorities

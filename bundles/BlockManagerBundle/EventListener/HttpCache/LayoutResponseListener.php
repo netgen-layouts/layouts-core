@@ -28,7 +28,7 @@ final class LayoutResponseListener implements EventSubscriberInterface
         $this->tagger = $tagger;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::RESPONSE => 'onKernelResponse',
@@ -38,10 +38,8 @@ final class LayoutResponseListener implements EventSubscriberInterface
 
     /**
      * Tags the response with the data for layout provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
      */
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -62,10 +60,8 @@ final class LayoutResponseListener implements EventSubscriberInterface
 
     /**
      * Tags the exception response with the data for layout provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

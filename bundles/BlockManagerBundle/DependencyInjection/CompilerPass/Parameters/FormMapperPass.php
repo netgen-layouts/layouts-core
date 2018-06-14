@@ -14,7 +14,7 @@ final class FormMapperPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.parameters.registry.form_mapper';
     private static $tagName = 'netgen_block_manager.parameters.form.mapper';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

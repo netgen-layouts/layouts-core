@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DefaultViewTemplatesPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasParameter('netgen_block_manager.view')) {
             return;
@@ -23,14 +23,11 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
 
     /**
      * Updates all view rules to add the default template match.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $allRules
-     *
-     * @return array
      */
-    protected function updateRules(ContainerBuilder $container, $allRules)
+    protected function updateRules(ContainerBuilder $container, ?array $allRules): array
     {
+        $allRules = is_array($allRules) ? $allRules : [];
+
         $defaultTemplates = $container->getParameter('netgen_block_manager.default_view_templates');
 
         foreach ($defaultTemplates as $viewName => $viewTemplates) {
@@ -52,15 +49,8 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
 
     /**
      * Adds the default view template as a fallback to specified view rules.
-     *
-     * @param string $viewName
-     * @param string $context
-     * @param array $rules
-     * @param string $defaultTemplate
-     *
-     * @return array
      */
-    protected function addDefaultRule($viewName, $context, array $rules, $defaultTemplate)
+    protected function addDefaultRule(string $viewName, string $context, array $rules, string $defaultTemplate): array
     {
         $rules += [
             "___{$viewName}_{$context}_default___" => [

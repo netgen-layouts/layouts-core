@@ -21,10 +21,6 @@ final class CollectionPagerRuntime
      */
     private $pagerfantaView;
 
-    /**
-     * @param callable $routeGenerator
-     * @param \Pagerfanta\View\ViewInterface $pagerfantaView
-     */
     public function __construct(callable $routeGenerator, ViewInterface $pagerfantaView)
     {
         $this->routeGenerator = $routeGenerator;
@@ -33,15 +29,8 @@ final class CollectionPagerRuntime
 
     /**
      * Renders the provided Pagerfanta view.
-     *
-     * @param \Pagerfanta\Pagerfanta $pagerfanta
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param array $options
-     *
-     * @return string
      */
-    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, array $options = [])
+    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, string $collectionIdentifier, array $options = []): string
     {
         $options['block'] = $block;
         $options['collection_identifier'] = $collectionIdentifier;
@@ -51,15 +40,8 @@ final class CollectionPagerRuntime
 
     /**
      * Returns the URL of the provided pager and page number.
-     *
-     * @param \Pagerfanta\Pagerfanta $pagerfanta
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param int $page
-     *
-     * @return string
      */
-    public function getCollectionPageUrl(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $page = 1)
+    public function getCollectionPageUrl(Pagerfanta $pagerfanta, Block $block, string $collectionIdentifier, int $page = 1): string
     {
         if ($page < 1 || $page > $pagerfanta->getNbPages()) {
             throw new InvalidArgumentException(

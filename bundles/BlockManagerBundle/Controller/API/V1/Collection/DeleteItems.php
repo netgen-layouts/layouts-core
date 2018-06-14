@@ -23,12 +23,8 @@ final class DeleteItems extends Controller
 
     /**
      * Deletes all items from provided collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Collection $collection)
+    public function __invoke(Collection $collection): Response
     {
         $this->collectionService->deleteItems($collection);
 

@@ -18,12 +18,8 @@ interface ConfigurationInterface
 
     /**
      * Returns if parameter exists in configuration.
-     *
-     * @param string $parameterName
-     *
-     * @return bool
      */
-    public function hasParameter($parameterName);
+    public function hasParameter(string $parameterName): bool;
 
     /**
      * Returns the parameter from configuration.
@@ -34,5 +30,5 @@ interface ConfigurationInterface
      *
      * @return mixed
      */
-    public function getParameter($parameterName);
+    public function getParameter(string $parameterName);
 }

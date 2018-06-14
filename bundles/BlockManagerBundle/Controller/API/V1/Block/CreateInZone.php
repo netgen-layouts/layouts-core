@@ -61,13 +61,9 @@ final class CreateInZone extends Controller
     /**
      * Creates the block in specified zone.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         $requestData = $request->attributes->get('data');
 

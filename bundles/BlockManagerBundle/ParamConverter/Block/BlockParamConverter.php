@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 final class BlockParamConverter extends ParamConverter
@@ -20,22 +21,22 @@ final class BlockParamConverter extends ParamConverter
         $this->blockService = $blockService;
     }
 
-    public function getSourceAttributeNames()
+    public function getSourceAttributeNames(): array
     {
         return ['blockId'];
     }
 
-    public function getDestinationAttributeName()
+    public function getDestinationAttributeName(): string
     {
         return 'block';
     }
 
-    public function getSupportedClass()
+    public function getSupportedClass(): string
     {
         return Block::class;
     }
 
-    public function loadValue(array $values)
+    public function loadValue(array $values): Value
     {
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 

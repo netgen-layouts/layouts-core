@@ -37,7 +37,7 @@ final class ImportCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ngbm:import')
@@ -46,7 +46,7 @@ final class ImportCommand extends Command
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $this->io = new SymfonyStyle($input, $output);
 
@@ -62,13 +62,9 @@ final class ImportCommand extends Command
     }
 
     /**
-     * Import new entities from the given data.
-     *
-     * @param string $data
-     *
-     * @return int The count of errors
+     * Import new entities from the given data and returns the error count.
      */
-    private function importData($data)
+    private function importData(string $data): int
     {
         $errorCount = 0;
 
@@ -103,11 +99,8 @@ final class ImportCommand extends Command
 
     /**
      * Renders all stacked exception messages for the given $throwable.
-     *
-     * @param \Throwable $throwable
-     * @param int $number
      */
-    private function renderThrowableStack(Throwable $throwable, $number = 0)
+    private function renderThrowableStack(Throwable $throwable, int $number = 0): void
     {
         $this->io->writeln(sprintf(' #%d:', $number));
         $throwableClass = get_class($throwable);

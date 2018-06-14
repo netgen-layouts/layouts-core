@@ -23,12 +23,8 @@ final class Delete extends Controller
 
     /**
      * Deletes the block draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block)
+    public function __invoke(Block $block): Response
     {
         $this->blockService->deleteBlock($block);
 

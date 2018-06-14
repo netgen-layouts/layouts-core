@@ -13,12 +13,8 @@ final class LoadCollection extends Controller
 {
     /**
      * Loads the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function __invoke(Collection $collection)
+    public function __invoke(Collection $collection): VersionedValue
     {
         return new VersionedValue($collection, Version::API_V1);
     }

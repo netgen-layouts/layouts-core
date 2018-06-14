@@ -14,7 +14,7 @@ final class ParameterFilterPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.parameters.registry.parameter_filter';
     private static $tagName = 'netgen_block_manager.parameters.parameter_filter';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;
@@ -25,7 +25,7 @@ final class ParameterFilterPass implements CompilerPassInterface
 
         uasort(
             $parameterFilters,
-            function (array $a, array $b) {
+            function (array $a, array $b): int {
                 return ($b[0]['priority'] ?? 0) <=> ($a[0]['priority'] ?? 0);
             }
         );

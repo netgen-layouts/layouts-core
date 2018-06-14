@@ -24,12 +24,8 @@ final class Restore extends Controller
 
     /**
      * Restores the block draft to the published state.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Block $block)
+    public function __invoke(Block $block): View
     {
         $restoredBlock = $this->blockService->restoreBlock($block);
 

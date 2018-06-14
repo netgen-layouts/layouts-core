@@ -39,7 +39,7 @@ final class ContextListener implements EventSubscriberInterface
         $this->uriSigner = $uriSigner;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
@@ -49,10 +49,8 @@ final class ContextListener implements EventSubscriberInterface
      *
      * If the context is available in query parameters and the URI signature is valid,
      * it will be used, otherwise, provided builder will be used.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -79,12 +77,8 @@ final class ContextListener implements EventSubscriberInterface
 
     /**
      * Validates and returns the array with context information filled from the URI.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
      */
-    private function getUriContext(Request $request)
+    private function getUriContext(Request $request): array
     {
         $context = $request->query->get('ngbmContext');
         $context = is_array($context) ? $context : [];
@@ -101,12 +95,8 @@ final class ContextListener implements EventSubscriberInterface
      * overriding the URI with a value stored in request attributes if,
      * for example, there's need to pre-process the URI before checking
      * the signature.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return string
      */
-    private function getUri(Request $request)
+    private function getUri(Request $request): string
     {
         if ($request->attributes->has('ngbmContextUri')) {
             return $request->attributes->get('ngbmContextUri');

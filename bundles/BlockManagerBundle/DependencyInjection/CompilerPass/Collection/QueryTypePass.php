@@ -16,7 +16,7 @@ final class QueryTypePass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.collection.registry.query_type';
     private static $tagName = 'netgen_block_manager.collection.query_type_handler';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

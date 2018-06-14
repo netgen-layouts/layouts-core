@@ -8,12 +8,12 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 abstract class ExtensionPlugin implements ExtensionPluginInterface
 {
-    public function preProcessConfiguration(array $configs)
+    public function preProcessConfiguration(array $configs): array
     {
         return $configs;
     }
 
-    public function addConfiguration(ArrayNodeDefinition $rootNode)
+    public function addConfiguration(ArrayNodeDefinition $rootNode): void
     {
         $children = $rootNode->children();
 
@@ -22,17 +22,17 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
         }
     }
 
-    public function getConfigurationNodes()
+    public function getConfigurationNodes(): array
     {
         return [];
     }
 
-    public function postProcessConfiguration(array $config)
+    public function postProcessConfiguration(array $config): array
     {
         return $config;
     }
 
-    public function appendConfigurationFiles()
+    public function appendConfigurationFiles(): array
     {
         return [];
     }

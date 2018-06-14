@@ -23,12 +23,8 @@ final class RestoreFromArchive extends Controller
 
     /**
      * Restores the layout from archive to a draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Layout $layout)
+    public function __invoke(Layout $layout): Response
     {
         $this->layoutService->restoreFromArchive($layout);
 

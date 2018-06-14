@@ -31,13 +31,8 @@ final class MoveToZone extends Controller
 
     /**
      * Moves the block draft to specified zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, Request $request)
+    public function __invoke(Block $block, Request $request): Response
     {
         $requestData = $request->attributes->get('data');
 

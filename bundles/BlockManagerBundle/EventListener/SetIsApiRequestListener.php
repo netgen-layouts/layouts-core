@@ -13,17 +13,15 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
     const API_FLAG_NAME = 'ngbm_is_api_request';
     private static $apiRoutePrefix = 'ngbm_api_';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => ['onKernelRequest', 30]];
     }
 
     /**
-     * Sets the {@link self::API_FLAG_NAME} flag if this is a REST API request.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * Sets the self::API_FLAG_NAME flag if this is a REST API request.
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

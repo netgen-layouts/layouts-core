@@ -34,7 +34,7 @@ final class ClearBlocksCacheType extends AbstractType
             [
                 'choices' => $options['blocks'],
                 'choice_value' => 'id',
-                'choice_label' => function (Block $block) {
+                'choice_label' => function (Block $block): string {
                     $blockName = $block->getName();
 
                     return !empty($blockName) ? $blockName : ' ';

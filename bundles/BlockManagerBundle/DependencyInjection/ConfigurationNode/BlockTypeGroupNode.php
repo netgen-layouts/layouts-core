@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 final class BlockTypeGroupNode implements ConfigurationNodeInterface
 {
-    public function getConfigurationNode()
+    public function getConfigurationNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root('block_type_groups');
@@ -26,7 +27,7 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
                     ->end()
                     ->arrayNode('block_types')
                         ->validate()
-                            ->always(function (array $v) {
+                            ->always(function (array $v): array {
                                 return array_values(array_unique($v));
                             })
                         ->end()

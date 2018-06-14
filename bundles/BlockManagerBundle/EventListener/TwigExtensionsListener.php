@@ -26,17 +26,15 @@ class TwigExtensionsListener implements EventSubscriberInterface
         $this->twig = $twig;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
     /**
-     * Adds the Twig "intl" extension to the environment if it doesn't already exist.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * Adds the Twig extensions to the environment if they don't already exist.
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$this->twig->hasExtension(IntlExtension::class)) {
             $this->twig->addExtension(new IntlExtension());

@@ -29,7 +29,7 @@ final class ContainerRuntimeLoader implements RuntimeLoaderInterface
         $this->container = $container;
     }
 
-    public function addRuntime($class, $serviceId)
+    public function addRuntime(string $class, string $serviceId): void
     {
         $this->runtimeMap[$class] = $serviceId;
     }

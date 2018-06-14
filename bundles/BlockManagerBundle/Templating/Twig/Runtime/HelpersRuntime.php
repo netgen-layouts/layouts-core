@@ -22,13 +22,8 @@ final class HelpersRuntime
      * Returns the locale name in specified locale.
      *
      * If $displayLocale is specified, name translated in that locale will be returned.
-     *
-     * @param string $locale
-     * @param string $displayLocale
-     *
-     * @return string|null
      */
-    public function getLocaleName($locale, $displayLocale = null)
+    public function getLocaleName(string $locale, string $displayLocale = null): ?string
     {
         $localeBundle = Intl::getLocaleBundle();
 

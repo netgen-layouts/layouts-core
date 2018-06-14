@@ -10,40 +10,28 @@ interface ExtensionPluginInterface
 {
     /**
      * Pre-processes the configuration before it is resolved.
-     *
-     * @param array $configs
-     *
-     * @return array
      */
-    public function preProcessConfiguration(array $configs);
+    public function preProcessConfiguration(array $configs): array;
 
     /**
      * Processes the configuration for the bundle.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $rootNode
      */
-    public function addConfiguration(ArrayNodeDefinition $rootNode);
+    public function addConfiguration(ArrayNodeDefinition $rootNode): void;
 
     /**
      * Returns available configuration nodes for the bundle.
      *
      * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
      */
-    public function getConfigurationNodes();
+    public function getConfigurationNodes(): array;
 
     /**
      * Post-processes the resolved configuration.
-     *
-     * @param array $config
-     *
-     * @return array
      */
-    public function postProcessConfiguration(array $config);
+    public function postProcessConfiguration(array $config): array;
 
     /**
      * Returns the array of files to be appended to main bundle configuration.
-     *
-     * @return array
      */
-    public function appendConfigurationFiles();
+    public function appendConfigurationFiles(): array;
 }

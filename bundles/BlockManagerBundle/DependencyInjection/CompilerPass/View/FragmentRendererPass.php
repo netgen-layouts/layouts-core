@@ -13,7 +13,7 @@ final class FragmentRendererPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.view.renderer.fragment';
     private static $tagName = 'netgen_block_manager.view.fragment_view_renderer';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

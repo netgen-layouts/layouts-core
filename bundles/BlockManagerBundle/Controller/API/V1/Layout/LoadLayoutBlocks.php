@@ -34,14 +34,9 @@ final class LoadLayoutBlocks extends Controller
     /**
      * Loads all layout blocks.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $locale
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout does not exist in provided locale
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke(Layout $layout, $locale)
+    public function __invoke(Layout $layout, string $locale): Value
     {
         if (!$layout->hasLocale($locale)) {
             throw new NotFoundException('layout', $layout->getId());

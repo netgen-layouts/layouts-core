@@ -34,7 +34,7 @@ final class ViewBlock extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, $viewContext = ViewInterface::CONTEXT_DEFAULT)
+    public function __invoke(Block $block, string $viewContext = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             return $this->buildView($block, $viewContext);
@@ -47,7 +47,7 @@ final class ViewBlock extends Controller
         return new Response();
     }
 
-    protected function checkPermissions()
+    protected function checkPermissions(): void
     {
     }
 }

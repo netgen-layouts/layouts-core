@@ -15,7 +15,7 @@ final class BlockTypePass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.block.registry.block_type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;
@@ -42,13 +42,8 @@ final class BlockTypePass implements CompilerPassInterface
 
     /**
      * Generates the block type configuration from provided block definitions.
-     *
-     * @param array $blockTypes
-     * @param array $blockDefinitions
-     *
-     * @return array
      */
-    private function generateBlockTypeConfig(array $blockTypes, array $blockDefinitions)
+    private function generateBlockTypeConfig(array $blockTypes, array $blockDefinitions): array
     {
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
             if (
@@ -102,13 +97,8 @@ final class BlockTypePass implements CompilerPassInterface
 
     /**
      * Builds the block type objects from provided configuration.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $blockTypes
-     *
-     * @return array
      */
-    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes)
+    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): array
     {
         $blockTypeServices = [];
 
@@ -141,12 +131,9 @@ final class BlockTypePass implements CompilerPassInterface
     /**
      * Validates block type config.
      *
-     * @param array $blockTypes
-     * @param array $blockDefinitions
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
-    private function validateBlockTypes(array $blockTypes, array $blockDefinitions)
+    private function validateBlockTypes(array $blockTypes, array $blockDefinitions): void
     {
         foreach ($blockTypes as $identifier => $blockType) {
             if (!isset($blockDefinitions[$blockType['definition_identifier']])) {

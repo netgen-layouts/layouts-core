@@ -24,13 +24,8 @@ final class MoveItem extends Controller
 
     /**
      * Moves the item inside the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Item $item, Request $request)
+    public function __invoke(Item $item, Request $request): Response
     {
         $this->collectionService->moveItem(
             $item,

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 final class LayoutTypeNode implements ConfigurationNodeInterface
 {
-    public function getConfigurationNode()
+    public function getConfigurationNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root('layout_types');
@@ -27,7 +28,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                     ->scalarNode('icon')
                         ->defaultValue(null)
                         ->validate()
-                            ->ifTrue(function ($v) {
+                            ->ifTrue(function ($v): bool {
                                 if ($v === null || (is_string($v) && !empty($v))) {
                                     return false;
                                 }
@@ -49,7 +50,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                                 ->end()
                                 ->arrayNode('allowed_block_definitions')
                                     ->validate()
-                                        ->always(function (array $v) {
+                                        ->always(function (array $v): array {
                                             return array_values(array_unique($v));
                                         })
                                     ->end()

@@ -23,12 +23,8 @@ final class DiscardDraft extends Controller
 
     /**
      * Discards a layout draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Layout $layout)
+    public function __invoke(Layout $layout): Response
     {
         $this->layoutService->discardDraft($layout);
 

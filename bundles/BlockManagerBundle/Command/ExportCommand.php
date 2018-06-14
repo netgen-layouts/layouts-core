@@ -36,7 +36,7 @@ final class ExportCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ngbm:export')
@@ -47,7 +47,7 @@ final class ExportCommand extends Command
             ->setHelp('The command <info>%command.name%</info> exports Netgen Layouts entities.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $type = $input->getArgument('type');
         $ids = explode(',', $input->getArgument('ids'));

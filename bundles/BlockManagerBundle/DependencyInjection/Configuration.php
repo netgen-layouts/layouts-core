@@ -19,7 +19,7 @@ final class Configuration implements ConfigurationInterface
         $this->extension = $extension;
     }
 
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
 
@@ -44,7 +44,7 @@ final class Configuration implements ConfigurationInterface
      *
      * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
      */
-    private function getNodes()
+    private function getNodes(): array
     {
         return [
             new ConfigurationNode\ViewNode(),

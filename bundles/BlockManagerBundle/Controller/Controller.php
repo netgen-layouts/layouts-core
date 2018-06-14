@@ -13,10 +13,8 @@ abstract class Controller extends BaseController
 {
     /**
      * Initializes the controller by setting the container and performing basic access checks.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
-    public function initialize(ContainerInterface $container)
+    public function initialize(ContainerInterface $container): void
     {
         $this->setContainer($container);
         $this->checkPermissions();
@@ -25,7 +23,7 @@ abstract class Controller extends BaseController
     /**
      * Performs access checks on the controller.
      */
-    protected function checkPermissions()
+    protected function checkPermissions(): void
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
     }
@@ -42,10 +40,10 @@ abstract class Controller extends BaseController
      */
     protected function buildView(
         $value,
-        $context = ViewInterface::CONTEXT_DEFAULT,
+        string $context = ViewInterface::CONTEXT_DEFAULT,
         array $parameters = [],
         Response $response = null
-    ) {
+    ): ViewInterface {
         /** @var \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder */
         $viewBuilder = $this->get('netgen_block_manager.view.view_builder');
         $view = $viewBuilder->buildView($value, $context, $parameters);

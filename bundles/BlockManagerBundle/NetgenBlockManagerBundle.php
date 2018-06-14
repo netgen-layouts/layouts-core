@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class NetgenBlockManagerBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new CompilerPass\Block\HandlerPluginPass());
         $container->addCompilerPass(new CompilerPass\Block\BlockDefinitionPass());

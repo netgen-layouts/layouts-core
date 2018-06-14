@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Design\Twig;
 
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Twig\Loader\LoaderInterface;
+use Twig\Source;
 
 final class FilesystemLoader implements LoaderInterface
 {
@@ -30,7 +31,7 @@ final class FilesystemLoader implements LoaderInterface
         $this->configuration = $configuration;
     }
 
-    public function getSourceContext($name)
+    public function getSourceContext($name): Source
     {
         return $this->innerLoader->getSourceContext($this->getRealName($name));
     }
@@ -39,23 +40,25 @@ final class FilesystemLoader implements LoaderInterface
      * @deprecated Used for compatibility with Twig 1.x
      *
      * @param string $name
+     *
+     * @return string
      */
-    public function getSource($name)
+    public function getSource($name): string
     {
         return $this->innerLoader->getSourceContext($this->getRealName($name))->getCode();
     }
 
-    public function getCacheKey($name)
+    public function getCacheKey($name): string
     {
         return $this->innerLoader->getCacheKey($this->getRealName($name));
     }
 
-    public function isFresh($name, $time)
+    public function isFresh($name, $time): bool
     {
         return $this->innerLoader->isFresh($this->getRealName($name), $time);
     }
 
-    public function exists($name)
+    public function exists($name): bool
     {
         return $this->innerLoader->exists($this->getRealName($name));
     }
@@ -63,12 +66,8 @@ final class FilesystemLoader implements LoaderInterface
     /**
      * Returns the name of the template converted from the virtual Twig namespace ("@ngbm")
      * to the real currently defined design name.
-     *
-     * @param string $name
-     *
-     * @return string
      */
-    private function getRealName($name)
+    private function getRealName(string $name): string
     {
         if (mb_strpos($name, '@ngbm/') !== 0) {
             return $name;

@@ -18,7 +18,7 @@ final class RuntimeLoaderPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.templating.twig.runtime.container_loader';
     private static $tagName = 'netgen_block_manager.twig.runtime';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

@@ -14,7 +14,7 @@ final class ItemLoaderPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.item.item_loader';
     private static $tagName = 'netgen_block_manager.item.value_loader';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

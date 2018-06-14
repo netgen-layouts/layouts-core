@@ -23,12 +23,8 @@ final class Delete extends Controller
 
     /**
      * Deletes a layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Layout $layout)
+    public function __invoke(Layout $layout): Response
     {
         $this->layoutService->deleteLayout($layout);
 

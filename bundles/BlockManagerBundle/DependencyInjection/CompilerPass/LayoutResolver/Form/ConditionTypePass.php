@@ -14,7 +14,7 @@ final class ConditionTypePass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.layout.resolver.form.condition_type';
     private static $tagName = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

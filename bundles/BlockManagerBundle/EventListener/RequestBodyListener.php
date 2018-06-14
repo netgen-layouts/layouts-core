@@ -25,17 +25,15 @@ final class RequestBodyListener implements EventSubscriberInterface
         $this->decoder = $decoder;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
     /**
      * Decodes the request data into request parameter bag.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -66,12 +64,8 @@ final class RequestBodyListener implements EventSubscriberInterface
 
     /**
      * Check if we should try to decode the body.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
      */
-    private function isDecodeable(Request $request)
+    private function isDecodeable(Request $request): bool
     {
         if (
             !in_array(

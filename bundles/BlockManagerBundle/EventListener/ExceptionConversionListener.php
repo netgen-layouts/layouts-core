@@ -34,17 +34,15 @@ final class ExceptionConversionListener implements EventSubscriberInterface
         BaseInvalidArgumentException::class => BadRequestHttpException::class,
     ];
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::EXCEPTION => ['onException', 10]];
     }
 
     /**
      * Converts exceptions to Symfony HTTP exceptions.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(GetResponseForExceptionEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

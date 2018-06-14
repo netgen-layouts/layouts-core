@@ -26,17 +26,13 @@ class CsrfValidationListener implements EventSubscriberInterface
      */
     private $csrfTokenId;
 
-    /**
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param string $csrfTokenId
-     */
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, $csrfTokenId)
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, string $csrfTokenId)
     {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->csrfTokenId = $csrfTokenId;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
@@ -44,11 +40,9 @@ class CsrfValidationListener implements EventSubscriberInterface
     /**
      * This method validates CSRF token if CSRF protection is enabled.
      *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException If token is invalid
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -72,12 +66,8 @@ class CsrfValidationListener implements EventSubscriberInterface
 
     /**
      * Validates the CSRF token.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
      */
-    private function validateCsrfToken(Request $request)
+    private function validateCsrfToken(Request $request): bool
     {
         if (!$request->headers->has(self::$csrfTokenHeader)) {
             return false;

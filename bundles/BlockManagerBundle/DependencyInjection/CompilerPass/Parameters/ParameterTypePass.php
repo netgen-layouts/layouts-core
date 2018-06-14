@@ -13,7 +13,7 @@ final class ParameterTypePass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.parameters.registry.parameter_type';
     private static $tagName = 'netgen_block_manager.parameters.parameter_type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

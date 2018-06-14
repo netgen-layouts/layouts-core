@@ -24,10 +24,8 @@ final class LoadSharedLayouts extends Controller
 
     /**
      * Loads all shared layouts.
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke()
+    public function __invoke(): Value
     {
         $layouts = [];
         foreach ($this->layoutService->loadSharedLayouts() as $layout) {

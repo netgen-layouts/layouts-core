@@ -20,7 +20,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.block.registry.block_definition';
     private static $tagName = 'netgen_block_manager.block.block_definition_handler';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 final class RuleParamConverter extends ParamConverter
@@ -20,22 +21,22 @@ final class RuleParamConverter extends ParamConverter
         $this->layoutResolverService = $layoutResolverService;
     }
 
-    public function getSourceAttributeNames()
+    public function getSourceAttributeNames(): array
     {
         return ['ruleId'];
     }
 
-    public function getDestinationAttributeName()
+    public function getDestinationAttributeName(): string
     {
         return 'rule';
     }
 
-    public function getSupportedClass()
+    public function getSupportedClass(): string
     {
         return Rule::class;
     }
 
-    public function loadValue(array $values)
+    public function loadValue(array $values): Value
     {
         if ($values['status'] === self::$statusPublished) {
             return $this->layoutResolverService->loadRule($values['ruleId']);

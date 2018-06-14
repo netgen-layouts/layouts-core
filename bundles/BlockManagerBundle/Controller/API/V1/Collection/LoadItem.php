@@ -13,12 +13,8 @@ final class LoadItem extends Controller
 {
     /**
      * Loads the item.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function __invoke(Item $item)
+    public function __invoke(Item $item): VersionedValue
     {
         return new VersionedValue($item, Version::API_V1);
     }

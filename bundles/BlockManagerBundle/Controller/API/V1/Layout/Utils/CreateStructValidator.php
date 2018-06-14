@@ -16,11 +16,9 @@ final class CreateStructValidator
     /**
      * Validates layout creation parameters from the request.
      *
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $data
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
-    public function validateCreateLayout(ParameterBag $data)
+    public function validateCreateLayout(ParameterBag $data): void
     {
         $this->validate(
             $data->get('layout_type'),

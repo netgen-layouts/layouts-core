@@ -14,15 +14,12 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class CacheableViewListener implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::RESPONSE => ['onKernelResponse', -255]];
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
-     */
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -36,11 +33,7 @@ final class CacheableViewListener implements EventSubscriberInterface
         $this->setUpCachingHeaders($view, $event->getResponse());
     }
 
-    /**
-     * @param \Netgen\BlockManager\View\CacheableViewInterface $cacheableView
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
-    private function setUpCachingHeaders(CacheableViewInterface $cacheableView, Response $response)
+    private function setUpCachingHeaders(CacheableViewInterface $cacheableView, Response $response): void
     {
         if (!$response->headers->hasCacheControlDirective('s-maxage')) {
             $sharedMaxAge = (int) $cacheableView->getSharedMaxAge();

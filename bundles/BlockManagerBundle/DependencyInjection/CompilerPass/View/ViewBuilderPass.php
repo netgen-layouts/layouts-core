@@ -13,7 +13,7 @@ final class ViewBuilderPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.view.view_builder';
     private static $tagName = 'netgen_block_manager.view.provider';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

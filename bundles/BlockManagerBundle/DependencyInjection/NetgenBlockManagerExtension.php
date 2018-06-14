@@ -25,22 +25,16 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
 
     /**
      * Adds a plugin to the extension.
-     *
-     * @param \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface $plugin
      */
-    public function addPlugin(ExtensionPluginInterface $plugin)
+    public function addPlugin(ExtensionPluginInterface $plugin): void
     {
         $this->plugins[get_class($plugin)] = $plugin;
     }
 
     /**
      * Returns if the plugin exists. Name of the plugin is its fully qualified class name.
-     *
-     * @param string $pluginName
-     *
-     * @return bool
      */
-    public function hasPlugin($pluginName)
+    public function hasPlugin(string $pluginName): bool
     {
         return isset($this->plugins[$pluginName]);
     }
@@ -48,13 +42,9 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
     /**
      * Returns the plugin by name. Name of the plugin is its fully qualified class name.
      *
-     * @param string $pluginName
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If the specified plugin does not exist
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface
      */
-    public function getPlugin($pluginName)
+    public function getPlugin(string $pluginName): ExtensionPluginInterface
     {
         if (!isset($this->plugins[$pluginName])) {
             throw new RuntimeException(
@@ -73,12 +63,12 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
      *
      * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface[]
      */
-    public function getPlugins()
+    public function getPlugins(): array
     {
         return $this->plugins;
     }
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $extensionAlias = $this->getAlias();
 
@@ -105,7 +95,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         }
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         $container->setParameter(
             'ngbm.asset.version',
@@ -152,10 +142,8 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
 
     /**
      * Loads configuration from various YAML files.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    private function loadConfigFiles(ContainerBuilder $container)
+    private function loadConfigFiles(ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader(
             $container,
@@ -210,11 +198,8 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
 
     /**
      * Processes configuration for HTTP cache.
-     *
-     * @param array $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    private function processHttpCacheConfiguration(array $config, ContainerBuilder $container)
+    private function processHttpCacheConfiguration(array $config, ContainerBuilder $container): void
     {
         $container->setParameter(
             'netgen_block_manager.http_cache.ttl.default.block',
@@ -230,12 +215,9 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
     /**
      * Validates that the design specified in configuration exists in the system.
      *
-     * @param string $currentDesign
-     * @param array $designList
-     *
      * @throws \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException If design does not exist
      */
-    private function validateCurrentDesign($currentDesign, array $designList)
+    private function validateCurrentDesign(string $currentDesign, array $designList): void
     {
         if ($currentDesign !== 'standard' && !in_array($currentDesign, $designList, true)) {
             throw new InvalidConfigurationException(

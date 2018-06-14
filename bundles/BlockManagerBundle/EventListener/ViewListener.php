@@ -11,17 +11,15 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewListener implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::VIEW => 'onView'];
     }
 
     /**
      * Adds the caching headers for the view provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event)
+    public function onView(GetResponseForControllerResultEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

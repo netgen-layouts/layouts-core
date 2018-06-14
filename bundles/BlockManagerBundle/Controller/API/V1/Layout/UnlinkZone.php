@@ -23,12 +23,8 @@ final class UnlinkZone extends Controller
 
     /**
      * Removes the zone link, if any exists.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Zone $zone)
+    public function __invoke(Zone $zone): Response
     {
         $this->layoutService->unlinkZone($zone);
 

@@ -24,10 +24,8 @@ final class LoadLayoutTypes extends Controller
 
     /**
      * Serializes the layout types.
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke()
+    public function __invoke(): Value
     {
         $layoutTypes = [];
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {

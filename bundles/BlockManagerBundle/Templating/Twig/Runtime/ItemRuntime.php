@@ -37,12 +37,12 @@ final class ItemRuntime
     public function __construct(
         ItemLoaderInterface $itemLoader,
         UrlGeneratorInterface $urlGenerator,
-        $debug = false,
+        bool $debug = false,
         LoggerInterface $logger = null
     ) {
         $this->itemLoader = $itemLoader;
         $this->urlGenerator = $urlGenerator;
-        $this->debug = (bool) $debug;
+        $this->debug = $debug;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -62,7 +62,7 @@ final class ItemRuntime
      *
      * @return string
      */
-    public function getItemPath($value, $valueType = null)
+    public function getItemPath($value, string $valueType = null): string
     {
         try {
             $item = null;

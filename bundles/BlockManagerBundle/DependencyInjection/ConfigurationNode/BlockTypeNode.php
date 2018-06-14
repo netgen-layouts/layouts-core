@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 final class BlockTypeNode implements ConfigurationNodeInterface
 {
-    public function getConfigurationNode()
+    public function getConfigurationNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root('block_types');
@@ -21,7 +22,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
             ->prototype('array')
                 ->canBeDisabled()
                 ->validate()
-                    ->always(function (array $v) {
+                    ->always(function (array $v): array {
                         if (isset($v['enabled']) && !$v['enabled']) {
                             return $v;
                         }
@@ -42,7 +43,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                     ->scalarNode('icon')
                         ->defaultValue(null)
                         ->validate()
-                            ->ifTrue(function ($v) {
+                            ->ifTrue(function ($v): bool {
                                 if ($v === null || (is_string($v) && !empty($v))) {
                                     return false;
                                 }

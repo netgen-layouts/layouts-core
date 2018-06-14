@@ -13,7 +13,7 @@ final class HandlerPluginPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.block.registry.handler_plugin';
     private static $tagName = 'netgen_block_manager.block.block_definition_handler.plugin';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

@@ -14,13 +14,7 @@ use Twig\Node\Node;
 
 final class RenderZone extends Node
 {
-    /**
-     * @param \Twig\Node\Expression\AbstractExpression $zone
-     * @param \Twig\Node\Expression\AbstractExpression $context
-     * @param int $line
-     * @param string $tag
-     */
-    public function __construct(AbstractExpression $zone, AbstractExpression $context = null, $line = 0, $tag = null)
+    public function __construct(AbstractExpression $zone, AbstractExpression $context = null, int $line = 0, string $tag = null)
     {
         $nodes = ['zone' => $zone];
         if ($context instanceof AbstractExpression) {
@@ -30,7 +24,7 @@ final class RenderZone extends Node
         parent::__construct($nodes, [], $line, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->addDebugInfo($this)
@@ -53,10 +47,8 @@ final class RenderZone extends Node
 
     /**
      * Compiles the context node.
-     *
-     * @param \Twig\Compiler $compiler
      */
-    private function compileContextNode(Compiler $compiler)
+    private function compileContextNode(Compiler $compiler): void
     {
         $contextNode = null;
         if ($this->hasNode('context')) {

@@ -15,7 +15,7 @@ final class LayoutTypePass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.layout.registry.layout_type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;
@@ -39,13 +39,8 @@ final class LayoutTypePass implements CompilerPassInterface
 
     /**
      * Builds the layout type objects from provided configuration.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $layoutTypes
-     *
-     * @return array
      */
-    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
+    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes): array
     {
         $layoutTypeServices = [];
 
@@ -67,12 +62,9 @@ final class LayoutTypePass implements CompilerPassInterface
     /**
      * Validates layout type config.
      *
-     * @param array $layoutTypes
-     * @param array $blockDefinitions
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
-    private function validateLayoutTypes(array $layoutTypes, array $blockDefinitions)
+    private function validateLayoutTypes(array $layoutTypes, array $blockDefinitions): void
     {
         foreach ($layoutTypes as $layoutType => $layoutTypeConfig) {
             foreach ($layoutTypeConfig['zones'] as $zoneConfig) {

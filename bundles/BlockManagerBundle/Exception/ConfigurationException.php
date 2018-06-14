@@ -9,12 +9,7 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ConfigurationException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $parameterName
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException
-     */
-    public static function noParameter($parameterName)
+    public static function noParameter(string $parameterName): self
     {
         return new self(
             sprintf(

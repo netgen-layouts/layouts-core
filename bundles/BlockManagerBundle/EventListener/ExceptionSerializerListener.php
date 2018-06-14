@@ -31,19 +31,17 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         // Must happen BEFORE Symfony Security component ExceptionListener
         return [KernelEvents::EXCEPTION => ['onException', 5]];
     }
 
     /**
-     * Serializes the exception if {@link SetIsApiRequestListener::API_FLAG_NAME}
+     * Serializes the exception if SetIsApiRequestListener::API_FLAG_NAME
      * is set to true.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(GetResponseForExceptionEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

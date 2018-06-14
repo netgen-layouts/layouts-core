@@ -43,21 +43,15 @@ final class ChangeCollectionType extends Controller
     /**
      * Changes the collection type within the block.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid
      *                                                                 If query type does not exist
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, $collectionIdentifier, Request $request)
+    public function __invoke(Block $block, string $collectionIdentifier, Request $request): Response
     {
         $requestData = $request->attributes->get('data');
 
         $newType = $requestData->getInt('new_type');
-        $queryType = $requestData->get('query_type');
+        $queryType = $requestData->get('query_type', '');
 
         $this->validator->validateChangeCollectionType($block, $collectionIdentifier, $newType, $queryType);
 

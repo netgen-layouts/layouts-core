@@ -30,17 +30,17 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
         $this->innerListener = $innerListener;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return SessionListener::getSubscribedEvents();
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
-        return $this->innerListener->onKernelRequest($event);
+        $this->innerListener->onKernelRequest($event);
     }
 
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

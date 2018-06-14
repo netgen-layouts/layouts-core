@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 final class ItemParamConverter extends ParamConverter
@@ -20,22 +21,22 @@ final class ItemParamConverter extends ParamConverter
         $this->collectionService = $collectionService;
     }
 
-    public function getSourceAttributeNames()
+    public function getSourceAttributeNames(): array
     {
         return ['itemId'];
     }
 
-    public function getDestinationAttributeName()
+    public function getDestinationAttributeName(): string
     {
         return 'item';
     }
 
-    public function getSupportedClass()
+    public function getSupportedClass(): string
     {
         return Item::class;
     }
 
-    public function loadValue(array $values)
+    public function loadValue(array $values): Value
     {
         if ($values['status'] === self::$statusPublished) {
             return $this->collectionService->loadItem($values['itemId']);

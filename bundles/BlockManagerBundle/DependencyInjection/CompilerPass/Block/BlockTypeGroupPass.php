@@ -14,7 +14,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.block.registry.block_type_group';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;
@@ -40,13 +40,8 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
     /**
      * Generates the block type group configuration from provided block types.
-     *
-     * @param array $blockTypeGroups
-     * @param array $blockTypes
-     *
-     * @return array
      */
-    private function generateBlockTypeGroupConfig(array $blockTypeGroups, array $blockTypes)
+    private function generateBlockTypeGroupConfig(array $blockTypeGroups, array $blockTypes): array
     {
         $missingBlockTypes = [];
 
@@ -74,14 +69,8 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
     /**
      * Builds the block type group objects from provided configuration.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $blockTypeGroups
-     * @param array $blockTypes
-     *
-     * @return array
      */
-    private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes)
+    private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes): array
     {
         $blockTypeGroupServices = [];
 

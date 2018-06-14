@@ -13,7 +13,7 @@ final class ConditionTypePass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.layout.resolver.registry.condition_type';
     private static $tagName = 'netgen_block_manager.layout.resolver.condition_type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

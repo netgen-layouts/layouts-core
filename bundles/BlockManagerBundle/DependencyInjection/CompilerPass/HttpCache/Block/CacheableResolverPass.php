@@ -13,7 +13,7 @@ final class CacheableResolverPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.http_cache.block.cacheable_resolver';
     private static $tagName = 'netgen_block_manager.http_cache.block.cacheable_resolver.voter';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

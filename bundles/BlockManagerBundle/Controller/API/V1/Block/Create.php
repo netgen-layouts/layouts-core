@@ -54,14 +54,9 @@ final class Create extends Controller
     /**
      * Creates the block in specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Block $block, Request $request)
+    public function __invoke(Block $block, Request $request): View
     {
         $requestData = $request->attributes->get('data');
 

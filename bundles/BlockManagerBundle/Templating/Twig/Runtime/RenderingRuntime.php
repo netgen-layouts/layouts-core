@@ -60,16 +60,8 @@ final class RenderingRuntime
 
     /**
      * Renders the provided item.
-     *
-     * @param array $context
-     * @param \Netgen\BlockManager\Item\ItemInterface $item
-     * @param string $viewType
-     * @param array $parameters
-     * @param string $viewContext
-     *
-     * @return string
      */
-    public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = [], $viewContext = null)
+    public function renderItem(array $context, ItemInterface $item, string $viewType, array $parameters = [], string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -100,7 +92,7 @@ final class RenderingRuntime
      *
      * @return string
      */
-    public function renderValue(array $context, $value, array $parameters = [], $viewContext = null)
+    public function renderValue(array $context, $value, array $parameters = [], string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -123,13 +115,9 @@ final class RenderingRuntime
     /**
      * Displays the provided zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param string $viewContext
-     * @param \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate $twigTemplate
-     *
      * @throws \Exception If an error occurred
      */
-    public function displayZone(Zone $zone, $viewContext, ContextualizedTwigTemplate $twigTemplate)
+    public function displayZone(Zone $zone, string $viewContext, ContextualizedTwigTemplate $twigTemplate): void
     {
         $locales = null;
 
@@ -151,15 +139,8 @@ final class RenderingRuntime
 
     /**
      * Renders the provided block.
-     *
-     * @param array $context
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $parameters
-     * @param string $viewContext
-     *
-     * @return string
      */
-    public function renderBlock(array $context, Block $block, array $parameters = [], $viewContext = null)
+    public function renderBlock(array $context, Block $block, array $parameters = [], string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -180,16 +161,8 @@ final class RenderingRuntime
 
     /**
      * Renders the provided placeholder.
-     *
-     * @param array $context
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $placeholder
-     * @param array $parameters
-     * @param string $viewContext
-     *
-     * @return string
      */
-    public function renderPlaceholder(array $context, Block $block, $placeholder, array $parameters = [], $viewContext = null)
+    public function renderPlaceholder(array $context, Block $block, string $placeholder, array $parameters = [], string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -216,13 +189,8 @@ final class RenderingRuntime
     /**
      * Returns the correct view context based on provided Twig context and view context
      * provided through function call.
-     *
-     * @param array $context
-     * @param string $viewContext
-     *
-     * @return string
      */
-    private function getViewContext(array $context, $viewContext = null)
+    private function getViewContext(array $context, string $viewContext = null): string
     {
         if ($viewContext !== null) {
             return $viewContext;

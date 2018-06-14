@@ -22,17 +22,15 @@ final class BlockResponseListener implements EventSubscriberInterface
         $this->tagger = $tagger;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::RESPONSE => ['onKernelResponse', -255]];
     }
 
     /**
      * Tags the response with the data for block provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
      */
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

@@ -25,12 +25,8 @@ final class CreateDraft extends Controller
 
     /**
      * Creates a new layout draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Layout $layout)
+    public function __invoke(Layout $layout): View
     {
         $createdDraft = $this->layoutService->createDraft($layout, true);
 

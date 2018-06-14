@@ -23,17 +23,15 @@ final class SerializerListener implements EventSubscriberInterface
         $this->serializer = $serializer;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::VIEW => 'onView'];
     }
 
     /**
      * Serializes the value provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event)
+    public function onView(GetResponseForControllerResultEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

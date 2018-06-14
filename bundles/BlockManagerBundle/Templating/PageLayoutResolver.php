@@ -15,15 +15,12 @@ final class PageLayoutResolver implements PageLayoutResolverInterface
      */
     private $pageLayout;
 
-    /**
-     * @param string $pageLayout
-     */
-    public function __construct($pageLayout)
+    public function __construct(string $pageLayout)
     {
         $this->pageLayout = $pageLayout;
     }
 
-    public function resolvePageLayout()
+    public function resolvePageLayout(): string
     {
         return $this->pageLayout;
     }

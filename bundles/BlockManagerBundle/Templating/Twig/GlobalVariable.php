@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
@@ -80,14 +81,14 @@ final class GlobalVariable
         PageLayoutResolverInterface $pageLayoutResolver,
         ViewBuilderInterface $viewBuilder,
         RequestStack $requestStack,
-        $debug
+        bool $debug
     ) {
         $this->configuration = $configuration;
         $this->layoutResolver = $layoutResolver;
         $this->pageLayoutResolver = $pageLayoutResolver;
         $this->viewBuilder = $viewBuilder;
         $this->requestStack = $requestStack;
-        $this->debug = (bool) $debug;
+        $this->debug = $debug;
     }
 
     /**
@@ -129,10 +130,8 @@ final class GlobalVariable
 
     /**
      * Returns the currently resolved layout or null if no layout was resolved.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout|null
      */
-    public function getLayout()
+    public function getLayout(): ?Layout
     {
         $layoutView = $this->getLayoutView();
         if (!$layoutView instanceof LayoutViewInterface) {
@@ -144,10 +143,8 @@ final class GlobalVariable
 
     /**
      * Returns the rule used to resolve the current layout or null if no layout was resolved.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
      */
-    public function getRule()
+    public function getRule(): ?Rule
     {
         $layoutView = $this->getLayoutView();
         if (!$layoutView instanceof LayoutViewInterface) {
@@ -159,20 +156,16 @@ final class GlobalVariable
 
     /**
      * Returns the configuration object.
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface
      */
-    public function getConfig()
+    public function getConfig(): ConfigurationInterface
     {
         return $this->configuration;
     }
 
     /**
      * Returns the pagelayout template.
-     *
-     * @return string
      */
-    public function getPageLayoutTemplate()
+    public function getPageLayoutTemplate(): string
     {
         $this->pageLayoutTemplate = $this->pageLayoutTemplate ?? $this->pageLayoutResolver->resolvePageLayout();
 
@@ -182,12 +175,8 @@ final class GlobalVariable
     /**
      * Returns the currently valid layout template, or base pagelayout if
      * no layout was resolved.
-     *
-     * @param string $context
-     *
-     * @return string
      */
-    public function getLayoutTemplate($context = ViewInterface::CONTEXT_DEFAULT)
+    public function getLayoutTemplate(string $context = ViewInterface::CONTEXT_DEFAULT): ?string
     {
         $layoutView = $this->buildLayoutView($context);
         if (!$layoutView instanceof LayoutViewInterface) {
@@ -199,10 +188,8 @@ final class GlobalVariable
 
     /**
      * Returns if debug mode is activated in Netgen Layouts.
-     *
-     * @return bool
      */
-    public function getDebug()
+    public function getDebug(): bool
     {
         return $this->debug;
     }
@@ -219,7 +206,7 @@ final class GlobalVariable
      *
      * @return \Netgen\BlockManager\View\ViewInterface|false|null
      */
-    private function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
+    private function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $masterRequest = $this->requestStack->getMasterRequest();

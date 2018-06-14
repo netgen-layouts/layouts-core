@@ -14,7 +14,7 @@ final class ValueTypePass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.item.registry.value_type';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;
@@ -40,13 +40,8 @@ final class ValueTypePass implements CompilerPassInterface
 
     /**
      * Builds the value type objects from provided configuration.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $valueTypes
-     *
-     * @return array
      */
-    private function buildValueTypes(ContainerBuilder $container, array $valueTypes)
+    private function buildValueTypes(ContainerBuilder $container, array $valueTypes): array
     {
         $valueTypeServices = [];
 

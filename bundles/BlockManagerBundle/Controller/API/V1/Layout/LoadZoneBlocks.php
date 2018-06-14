@@ -34,14 +34,9 @@ final class LoadZoneBlocks extends Controller
     /**
      * Loads all zone blocks.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param string $locale
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout does not exist in provided locale
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke(Zone $zone, $locale)
+    public function __invoke(Zone $zone, string $locale): Value
     {
         $layout = $zone->isPublished() ?
             $this->layoutService->loadLayout($zone->getLayoutId()) :

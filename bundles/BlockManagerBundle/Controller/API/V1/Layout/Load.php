@@ -16,12 +16,8 @@ final class Load extends Controller
      *
      * If a query param "published" with value of "true" is provided, published
      * state will be loaded directly, without first loading the draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Layout $layout)
+    public function __invoke(Layout $layout): View
     {
         return new View($layout, Version::API_V1);
     }

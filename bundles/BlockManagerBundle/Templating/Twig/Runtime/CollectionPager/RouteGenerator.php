@@ -38,14 +38,8 @@ final class RouteGenerator
 
     /**
      * Generates and signs the URI for provided block, collection and page number.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param int $page
-     *
-     * @return string
      */
-    public function __invoke(Block $block, $collectionIdentifier, $page)
+    public function __invoke(Block $block, string $collectionIdentifier, int $page): string
     {
         $routeParams = [
             'blockId' => $block->getId(),

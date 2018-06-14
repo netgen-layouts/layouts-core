@@ -13,7 +13,7 @@ final class ContextBuilderPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.context.builder';
     private static $tagName = 'netgen_block_manager.context.provider';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

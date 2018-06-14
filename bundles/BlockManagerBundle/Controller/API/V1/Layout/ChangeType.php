@@ -32,13 +32,8 @@ final class ChangeType extends Controller
 
     /**
      * Changes the type of the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function __invoke(Layout $layout, Request $request)
+    public function __invoke(Layout $layout, Request $request): View
     {
         $requestData = $request->attributes->get('data');
 

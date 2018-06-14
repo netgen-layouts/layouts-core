@@ -24,7 +24,7 @@ final class InvalidationListener implements EventSubscriberInterface
         $this->httpCacheClient = $httpCacheClient;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::TERMINATE => 'onKernelTerminate',
@@ -40,30 +40,24 @@ final class InvalidationListener implements EventSubscriberInterface
 
     /**
      * Commits all the collected invalidation requests.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\PostResponseEvent $event
      */
-    public function onKernelTerminate(PostResponseEvent $event)
+    public function onKernelTerminate(PostResponseEvent $event): void
     {
         $this->httpCacheClient->commit();
     }
 
     /**
      * Commits all the collected invalidation requests.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event): void
     {
         $this->httpCacheClient->commit();
     }
 
     /**
      * Commits all the collected invalidation requests.
-     *
-     * @param \Symfony\Component\Console\Event\ConsoleEvent $event
      */
-    public function onConsoleTerminate(ConsoleEvent $event)
+    public function onConsoleTerminate(ConsoleEvent $event): void
     {
         $this->httpCacheClient->commit();
     }

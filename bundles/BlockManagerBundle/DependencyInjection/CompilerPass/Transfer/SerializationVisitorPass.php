@@ -16,7 +16,7 @@ final class SerializationVisitorPass implements CompilerPassInterface
     private static $serviceName = 'netgen_block_manager.transfer.serializer.visitor.aggregate';
     private static $tagName = 'netgen_block_manager.transfer.serializer.visitor';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

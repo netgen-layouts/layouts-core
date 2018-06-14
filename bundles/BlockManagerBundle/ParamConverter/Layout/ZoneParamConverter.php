@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 final class ZoneParamConverter extends ParamConverter
@@ -20,22 +21,22 @@ final class ZoneParamConverter extends ParamConverter
         $this->layoutService = $layoutService;
     }
 
-    public function getSourceAttributeNames()
+    public function getSourceAttributeNames(): array
     {
         return ['layoutId', 'zoneIdentifier'];
     }
 
-    public function getDestinationAttributeName()
+    public function getDestinationAttributeName(): string
     {
         return 'zone';
     }
 
-    public function getSupportedClass()
+    public function getSupportedClass(): string
     {
         return Zone::class;
     }
 
-    public function loadValue(array $values)
+    public function loadValue(array $values): Value
     {
         if ($values['status'] === self::$statusPublished) {
             return $this->layoutService->loadZone($values['layoutId'], $values['zoneIdentifier']);

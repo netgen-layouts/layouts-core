@@ -31,17 +31,15 @@ final class ViewRendererListener implements EventSubscriberInterface
         $this->errorHandler = $errorHandler;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::VIEW => ['onView', -255]];
     }
 
     /**
      * Renders the view provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event)
+    public function onView(GetResponseForControllerResultEvent $event): void
     {
         $view = $event->getControllerResult();
         if (!$view instanceof ViewInterface) {

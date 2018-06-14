@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class ThemePass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has('twig.loader.native_filesystem')) {
             return;
@@ -41,16 +41,11 @@ final class ThemePass implements CompilerPassInterface
 
     /**
      * Returns an array with all found paths for provided theme list.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $themeList
-     *
-     * @return array
      */
-    private function getThemeDirs(ContainerBuilder $container, array $themeList)
+    private function getThemeDirs(ContainerBuilder $container, array $themeList): array
     {
         $paths = array_map(
-            function (array $bundleMetadata) {
+            function (array $bundleMetadata): string {
                 return $bundleMetadata['path'] . '/Resources/views/ngbm/themes';
             },
             // Reversing the list of bundles so bundles added at end have higher priority
@@ -85,17 +80,13 @@ final class ThemePass implements CompilerPassInterface
     /**
      * Returns the current app dir, abstracting Symfony 3.3+, where kernel.project_dir is available,
      * and Symfony 2.8 support, where only kernel.root_dir exists.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
-     * @return string
      */
-    private function getAppDir(ContainerBuilder $container)
+    private function getAppDir(ContainerBuilder $container): string
     {
         if ($container->hasParameter('kernel.project_dir')) {
-            return $container->getParameter('kernel.project_dir') . '/' . $container->getParameter('kernel.name');
+            return (string) $container->getParameter('kernel.project_dir') . '/' . (string) $container->getParameter('kernel.name');
         }
 
-        return $container->getParameter('kernel.root_dir');
+        return (string) $container->getParameter('kernel.root_dir');
     }
 }

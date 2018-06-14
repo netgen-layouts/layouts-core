@@ -11,7 +11,7 @@ use Twig\TwigFunction;
 
 final class RenderingExtension extends AbstractExtension
 {
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(
@@ -89,7 +89,7 @@ final class RenderingExtension extends AbstractExtension
         ];
     }
 
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [new RenderZone()];
     }

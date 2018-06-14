@@ -14,12 +14,8 @@ final class LoadItems extends Controller
 {
     /**
      * Loads all collection items.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function __invoke(Collection $collection)
+    public function __invoke(Collection $collection): Value
     {
         $items = [];
         foreach ($collection->getItems() as $item) {
