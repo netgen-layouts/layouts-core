@@ -37,7 +37,7 @@ final class ManagingLayoutsContext extends AdminContext
     /**
      * @When /^I create a new layout$/
      */
-    public function iCreateANewLayout()
+    public function iCreateANewLayout(): void
     {
         $this->indexPage->open();
 
@@ -46,10 +46,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @When /^I edit a (layout called "[^"]+")$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iEditALayout(Layout $layout)
+    public function iEditALayout(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -58,10 +56,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @When /^I click on a (layout called "[^"]+")$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iClickOnALayout(Layout $layout)
+    public function iClickOnALayout(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -70,11 +66,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @When /^I duplicate a (layout called "[^"]+") with name "([^"]+)"$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $copiedLayoutName
      */
-    public function iDuplicateALayoutAndAccept(Layout $layout, $copiedLayoutName)
+    public function iDuplicateALayoutAndAccept(Layout $layout, string $copiedLayoutName): void
     {
         $this->indexPage->open();
 
@@ -88,10 +81,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @When /^I duplicate a (layout called "[^"]+") and cancel copying$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iDuplicateALayoutAndCancel(Layout $layout)
+    public function iDuplicateALayoutAndCancel(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -101,10 +92,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @When /^I delete a (layout called "[^"]+") and confirm deletion$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iDeleteALayoutAndAccept(Layout $layout)
+    public function iDeleteALayoutAndAccept(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -114,10 +103,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @When /^I delete a (layout called "[^"]+") and cancel deletion$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iDeleteALayoutAndCancel(Layout $layout)
+    public function iDeleteALayoutAndCancel(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -127,10 +114,8 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @Then /^edit interface for (layout called "[^"]+") should open$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function editInterfaceShouldOpen(Layout $layout)
+    public function editInterfaceShouldOpen(Layout $layout): void
     {
         $this->appPage->verifyRoute();
         $this->appPage->verifyFragment('layout/' . $layout->getId());
@@ -140,7 +125,7 @@ final class ManagingLayoutsContext extends AdminContext
     /**
      * @Then /^interface for creating a new layout should open$/
      */
-    public function editInterfaceForNewLayoutShouldOpen()
+    public function editInterfaceForNewLayoutShouldOpen(): void
     {
         $this->appPage->verifyRoute();
         $this->appPage->verifyCreateForm();
@@ -148,26 +133,22 @@ final class ManagingLayoutsContext extends AdminContext
 
     /**
      * @Then /^a (layout called "[^"]+") should exist$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function layoutShouldExist(Layout $layout)
+    public function layoutShouldExist(Layout $layout): void
     {
         Assert::true($this->indexPage->layoutExists($layout->getName()));
     }
 
     /**
      * @Then /^a layout called "([^"]+)" should not exist$/
-     *
-     * @param string $layoutName
      */
-    public function layoutShouldNotExist($layoutName)
+    public function layoutShouldNotExist(string $layoutName): void
     {
         Assert::false($this->layoutContext->hasLayoutWithName($layoutName));
         Assert::false($this->indexPage->layoutExists($layoutName));
     }
 
-    public function iShouldGetAnError($errorMessage)
+    public function iShouldGetAnError(string $errorMessage): void
     {
         Assert::true($this->indexPage->modalErrorExists($errorMessage));
     }

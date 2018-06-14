@@ -37,7 +37,7 @@ final class ManagingSharedLayoutsContext extends AdminContext
     /**
      * @When /^I create a new shared layout$/
      */
-    public function iCreateANewSharedLayout()
+    public function iCreateANewSharedLayout(): void
     {
         $this->indexPage->open();
 
@@ -46,10 +46,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @When /^I edit a (shared layout called "[^"]+")$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iEditASharedLayout(Layout $layout)
+    public function iEditASharedLayout(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -58,10 +56,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @When /^I click on a (shared layout called "[^"]+")$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iClickOnASharedLayout(Layout $layout)
+    public function iClickOnASharedLayout(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -70,11 +66,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @When /^I duplicate a (shared layout called "[^"]+") with name "([^"]+)"$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $copiedLayoutName
      */
-    public function iDuplicateASharedLayoutAndAccept(Layout $layout, $copiedLayoutName)
+    public function iDuplicateASharedLayoutAndAccept(Layout $layout, string $copiedLayoutName): void
     {
         $this->indexPage->open();
 
@@ -88,10 +81,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @When /^I duplicate a (shared layout called "[^"]+") and cancel copying$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iDuplicateASharedLayoutAndCancel(Layout $layout)
+    public function iDuplicateASharedLayoutAndCancel(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -101,10 +92,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @When /^I delete a (shared layout called "[^"]+") and confirm deletion$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iDeleteASharedLayoutAndAccept(Layout $layout)
+    public function iDeleteASharedLayoutAndAccept(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -114,10 +103,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @When /^I delete a (shared layout called "[^"]+") and cancel deletion$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function iDeleteASharedLayoutAndCancel(Layout $layout)
+    public function iDeleteASharedLayoutAndCancel(Layout $layout): void
     {
         $this->indexPage->open();
 
@@ -127,10 +114,8 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @Then /^edit interface for (shared layout called "[^"]+") should open$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function editInterfaceShouldOpen(Layout $layout)
+    public function editInterfaceShouldOpen(Layout $layout): void
     {
         $this->appPage->verifyRoute();
         $this->appPage->verifyFragment('layout/' . $layout->getId());
@@ -140,7 +125,7 @@ final class ManagingSharedLayoutsContext extends AdminContext
     /**
      * @Then /^interface for creating a new shared layout should open$/
      */
-    public function editInterfaceForNewLayoutShouldOpen()
+    public function editInterfaceForNewLayoutShouldOpen(): void
     {
         $this->appPage->verifyRoute();
         $this->appPage->verifyCreateForm(true);
@@ -148,26 +133,22 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     /**
      * @Then /^a (shared layout called "[^"]+") should exist$/
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
-    public function sharedLayoutShouldExist(Layout $layout)
+    public function sharedLayoutShouldExist(Layout $layout): void
     {
         Assert::true($this->indexPage->layoutExists($layout->getName()));
     }
 
     /**
      * @Then /^a shared layout called "([^"]+)" should not exist$/
-     *
-     * @param string $layoutName
      */
-    public function sharedLayoutShouldNotExist($layoutName)
+    public function sharedLayoutShouldNotExist(string $layoutName): void
     {
         Assert::false($this->layoutContext->hasLayoutWithName($layoutName));
         Assert::false($this->indexPage->layoutExists($layoutName));
     }
 
-    public function iShouldGetAnError($errorMessage)
+    public function iShouldGetAnError(string $errorMessage): void
     {
         Assert::true($this->indexPage->modalErrorExists($errorMessage));
     }

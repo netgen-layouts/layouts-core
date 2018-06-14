@@ -14,7 +14,7 @@ final class DoctrineDatabaseContext implements Context
     /**
      * @BeforeScenario
      */
-    public function resetDatabase()
+    public function resetDatabase(): void
     {
         $this->createDatabase();
     }

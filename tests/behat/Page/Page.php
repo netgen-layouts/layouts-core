@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Behat\Page;
 
+use Behat\Mink\Driver\DriverInterface;
 use Behat\Mink\Element\DocumentElement;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\DriverException;
@@ -37,18 +38,13 @@ abstract class Page
         $this->parameters = $parameters;
     }
 
-    public function open(array $urlParameters = [])
+    public function open(array $urlParameters = []): void
     {
         $this->tryToOpen($urlParameters);
         $this->verify($urlParameters);
     }
 
-    /**
-     * @param array $urlParameters
-     *
-     * @return bool
-     */
-    public function isOpen(array $urlParameters = [])
+    public function isOpen(array $urlParameters = []): bool
     {
         try {
             $this->verify($urlParameters);
@@ -59,18 +55,18 @@ abstract class Page
         return true;
     }
 
-    public function tryToOpen(array $urlParameters = [])
+    public function tryToOpen(array $urlParameters = []): void
     {
         $this->getSession()->visit($this->getUrl($urlParameters));
     }
 
-    public function verify(array $urlParameters = [])
+    public function verify(array $urlParameters = []): void
     {
         $this->verifyStatusCode();
         $this->verifyUrl($urlParameters);
     }
 
-    public function verifyFragment($fragment)
+    public function verifyFragment(string $fragment): void
     {
         $url = $this->getDriver()->getCurrentUrl();
         $urlFragment = parse_url($url)['fragment'];
@@ -82,21 +78,14 @@ abstract class Page
         throw new PageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $urlFragment));
     }
 
-    /**
-     * @param array $urlParameters
-     *
-     * @return string
-     */
-    abstract protected function getUrl(array $urlParameters = []);
+    abstract protected function getUrl(array $urlParameters = []): string;
 
     /**
      * Overload to verify if the current url matches the expected one. Throw an exception otherwise.
      *
-     * @param array $urlParameters
-     *
      * @throws \Netgen\BlockManager\Behat\Exception\PageException
      */
-    protected function verifyUrl(array $urlParameters = [])
+    protected function verifyUrl(array $urlParameters = []): void
     {
         if ($this->getSession()->getCurrentUrl() !== $this->getUrl($urlParameters)) {
             throw new PageException(sprintf('Expected to be on "%s" but found "%s" instead', $this->getUrl($urlParameters), $this->getSession()->getCurrentUrl()));
@@ -106,7 +95,7 @@ abstract class Page
     /**
      * @throws \Netgen\BlockManager\Behat\Exception\PageException
      */
-    protected function verifyStatusCode()
+    protected function verifyStatusCode(): void
     {
         try {
             $statusCode = $this->getSession()->getStatusCode();
@@ -129,7 +118,7 @@ abstract class Page
      *
      * @return mixed
      */
-    protected function getParameter($name)
+    protected function getParameter(string $name)
     {
         return $this->parameters[$name] ?? null;
     }
@@ -138,23 +127,16 @@ abstract class Page
      * Defines elements by returning an array with items being:
      *  - :elementName => :cssLocator
      *  - :elementName => [:selectorType => :locator].
-     *
-     * @return array
      */
-    protected function getDefinedElements()
+    protected function getDefinedElements(): array
     {
         return [];
     }
 
     /**
-     * @param string $name
-     * @param array $parameters
-     *
      * @throws \Behat\Mink\Exception\ElementNotFoundException
-     *
-     * @return \Behat\Mink\Element\NodeElement
      */
-    protected function getElement($name, array $parameters = [])
+    protected function getElement(string $name, array $parameters = []): NodeElement
     {
         $element = $this->createElement($name, $parameters);
 
@@ -170,28 +152,16 @@ abstract class Page
         return $element;
     }
 
-    /**
-     * @param string $name
-     * @param array $parameters
-     *
-     * @return bool
-     */
-    protected function hasElement($name, array $parameters = [])
+    protected function hasElement(string $name, array $parameters = []): bool
     {
         return $this->getDocument()->has('xpath', $this->createElement($name, $parameters)->getXpath());
     }
 
-    /**
-     * @param int $timeout
-     * @param string $elementName
-     * @param array $parameters
-     * @param bool $waitForRemoval
-     */
-    protected function waitForElement($timeout, $elementName, $parameters = [], $waitForRemoval = false)
+    protected function waitForElement(int $timeout, string $elementName, array $parameters = [], bool $waitForRemoval = false): void
     {
         $this->getDocument()->waitFor(
             $timeout,
-            function () use ($elementName, $parameters, $waitForRemoval) {
+            function () use ($elementName, $parameters, $waitForRemoval): bool {
                 $hasElement = $this->hasElement($elementName, $parameters);
 
                 return $waitForRemoval ? !$hasElement : $hasElement;
@@ -199,26 +169,17 @@ abstract class Page
         );
     }
 
-    /**
-     * @return \Behat\Mink\Session
-     */
-    protected function getSession()
+    protected function getSession(): Session
     {
         return $this->session;
     }
 
-    /**
-     * @return \Behat\Mink\Driver\DriverInterface
-     */
-    protected function getDriver()
+    protected function getDriver(): DriverInterface
     {
         return $this->session->getDriver();
     }
 
-    /**
-     * @return \Behat\Mink\Element\DocumentElement
-     */
-    protected function getDocument()
+    protected function getDocument(): DocumentElement
     {
         if (null === $this->document) {
             $this->document = new DocumentElement($this->session);
@@ -227,13 +188,7 @@ abstract class Page
         return $this->document;
     }
 
-    /**
-     * @param string $name
-     * @param array $parameters
-     *
-     * @return \Behat\Mink\Element\NodeElement
-     */
-    private function createElement($name, array $parameters = [])
+    private function createElement(string $name, array $parameters = []): NodeElement
     {
         $definedElements = $this->getDefinedElements();
 
@@ -259,7 +214,7 @@ abstract class Page
      *
      * @return string
      */
-    private function getSelectorAsXpath($selector, SelectorsHandler $selectorsHandler)
+    private function getSelectorAsXpath($selector, SelectorsHandler $selectorsHandler): string
     {
         $selectorType = is_array($selector) ? (string) key($selector) : 'css';
         $locator = is_array($selector) ? $selector[$selectorType] : $selector;
@@ -274,14 +229,14 @@ abstract class Page
      *
      * @return string|array
      */
-    private function resolveParameters($name, array $parameters, array $definedElements)
+    private function resolveParameters(string $name, array $parameters, array $definedElements)
     {
         if (!is_array($definedElements[$name])) {
             return strtr($definedElements[$name], $parameters);
         }
 
         array_map(
-            function ($definedElement) use ($parameters) {
+            function (string $definedElement) use ($parameters): string {
                 return strtr($definedElement, $parameters);
             }, $definedElements[$name]
         );

@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 
 final class LayoutContext implements Context
@@ -24,13 +25,9 @@ final class LayoutContext implements Context
      * @Transform /^layout called "([^"]+)"$/
      * @Transform :layout
      *
-     * @param string $layoutName
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function getLayoutByName($layoutName)
+    public function getLayoutByName(string $layoutName): Layout
     {
         $layouts = $this->layoutService->loadLayouts();
 
@@ -47,13 +44,9 @@ final class LayoutContext implements Context
      * @Transform /^shared layout called "([^"]+)"$/
      * @Transform :sharedLayout
      *
-     * @param string $layoutName
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function getSharedLayoutByName($layoutName)
+    public function getSharedLayoutByName(string $layoutName): Layout
     {
         $layouts = $this->layoutService->loadSharedLayouts();
 
@@ -66,12 +59,7 @@ final class LayoutContext implements Context
         throw new NotFoundException('layout', $layoutName);
     }
 
-    /**
-     * @param string $layoutName
-     *
-     * @return bool
-     */
-    public function hasLayoutWithName($layoutName)
+    public function hasLayoutWithName(string $layoutName): bool
     {
         return $this->layoutService->layoutNameExists($layoutName);
     }

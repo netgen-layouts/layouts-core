@@ -10,8 +10,6 @@ abstract class AdminContext implements Context
 {
     /**
      * @Then /^I should get an error saying "([^"]+)"$/
-     *
-     * @param string $errorMessage
      */
-    abstract public function iShouldGetAnError($errorMessage);
+    abstract public function iShouldGetAnError(string $errorMessage): void;
 }

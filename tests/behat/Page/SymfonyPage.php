@@ -15,11 +15,6 @@ abstract class SymfonyPage extends Page
      */
     protected $router;
 
-    /**
-     * @param \Behat\Mink\Session $session
-     * @param array $parameters
-     * @param \Symfony\Component\Routing\RouterInterface $router
-     */
     public function __construct(Session $session, array $parameters, RouterInterface $router)
     {
         parent::__construct($session, $parameters);
@@ -27,12 +22,9 @@ abstract class SymfonyPage extends Page
         $this->router = $router;
     }
 
-    /**
-     * @return string
-     */
-    abstract public function getRouteName();
+    abstract public function getRouteName(): string;
 
-    public function verifyRoute(array $requiredUrlParameters = [])
+    public function verifyRoute(array $requiredUrlParameters = []): void
     {
         $url = $this->getDriver()->getCurrentUrl();
         $matchedRoute = $this->router->match(parse_url($url)['path']);
@@ -42,19 +34,14 @@ abstract class SymfonyPage extends Page
         $this->verifyRouteParameters($requiredUrlParameters, $matchedRoute);
     }
 
-    protected function getUrl(array $urlParameters = [])
+    protected function getUrl(array $urlParameters = []): string
     {
         $path = $this->router->generate($this->getRouteName(), $urlParameters);
 
         return $this->makePathAbsolute($path);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
-    private function makePathAbsolute($path)
+    private function makePathAbsolute(string $path): string
     {
         $baseUrl = rtrim($this->getParameter('base_url'), '/') . '/';
 
@@ -62,12 +49,9 @@ abstract class SymfonyPage extends Page
     }
 
     /**
-     * @param array $matchedRoute
-     * @param string $url
-     *
      * @throws \Netgen\BlockManager\Behat\Exception\PageException
      */
-    private function verifyRouteName(array $matchedRoute, $url)
+    private function verifyRouteName(array $matchedRoute, string $url): void
     {
         if ($matchedRoute['_route'] !== $this->getRouteName()) {
             throw new PageException(
@@ -82,12 +66,9 @@ abstract class SymfonyPage extends Page
     }
 
     /**
-     * @param array $requiredUrlParameters
-     * @param array $matchedRoute
-     *
      * @throws \Netgen\BlockManager\Behat\Exception\PageException
      */
-    private function verifyRouteParameters(array $requiredUrlParameters, array $matchedRoute)
+    private function verifyRouteParameters(array $requiredUrlParameters, array $matchedRoute): void
     {
         foreach ($requiredUrlParameters as $key => $value) {
             if (!isset($matchedRoute[$key]) || $matchedRoute[$key] !== $value) {

@@ -10,12 +10,12 @@ use Netgen\BlockManager\Behat\Page\SymfonyPage;
 
 final class IndexPage extends SymfonyPage
 {
-    public function getRouteName()
+    public function getRouteName(): string
     {
         return 'ngbm_app';
     }
 
-    public function verifyLayout($layoutName)
+    public function verifyLayout($layoutName): void
     {
         $this->waitForElement(10, 'layout_name', ['%layout-name%' => $layoutName]);
 
@@ -26,7 +26,7 @@ final class IndexPage extends SymfonyPage
         throw new PageException(sprintf('Expected to have an element with "%s" layout name but none found', $layoutName));
     }
 
-    public function verifyCreateForm($shared = false)
+    public function verifyCreateForm(bool $shared = false): void
     {
         $this->waitForElement(10, 'create_layout_form');
 
@@ -54,7 +54,7 @@ final class IndexPage extends SymfonyPage
         }
     }
 
-    protected function getDefinedElements()
+    protected function getDefinedElements(): array
     {
         return [
             'create_layout_form' => '.modal-dialog form[name="create"]',

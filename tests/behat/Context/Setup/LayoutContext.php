@@ -29,31 +29,21 @@ final class LayoutContext implements Context
 
     /**
      * @Given /^there is a layout called "([^"]+)"$/
-     *
-     * @param string $layoutName
      */
-    public function thereIsALayoutCalled($layoutName)
+    public function thereIsALayoutCalled(string $layoutName): void
     {
         $this->createLayout($layoutName);
     }
 
     /**
      * @Given /^there is a shared layout called "([^"]+)"$/
-     *
-     * @param string $layoutName
      */
-    public function thereIsASharedLayoutCalled($layoutName)
+    public function thereIsASharedLayoutCalled(string $layoutName): void
     {
         $this->createLayout($layoutName, null, 'en', true);
     }
 
-    /**
-     * @param string $layoutName
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface|null $layoutType
-     * @param string $mainLocale
-     * @param bool $shared
-     */
-    private function createLayout($layoutName, LayoutTypeInterface $layoutType = null, $mainLocale = 'en', $shared = false)
+    private function createLayout(string $layoutName, LayoutTypeInterface $layoutType = null, string $mainLocale = 'en', bool $shared = false): void
     {
         $layoutType = $layoutType ?? $this->getFirstLayoutType();
 
@@ -65,10 +55,7 @@ final class LayoutContext implements Context
         $this->layoutService->publishLayout($layoutDraft);
     }
 
-    /**
-     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
-     */
-    private function getFirstLayoutType()
+    private function getFirstLayoutType(): LayoutTypeInterface
     {
         $layoutTypes = array_values($this->layoutTypeRegistry->getLayoutTypes(true));
 
