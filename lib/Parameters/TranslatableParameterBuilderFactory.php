@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Parameters;
 
 final class TranslatableParameterBuilderFactory extends ParameterBuilderFactory
 {
-    public function createParameterBuilder(array $config = [])
+    public function createParameterBuilder(array $config = []): ParameterBuilderInterface
     {
         $config = $this->resolveOptions($config);
 

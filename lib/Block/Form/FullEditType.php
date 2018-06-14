@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class FullEditType extends EditType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $locale = $options['data']->locale;
         $mainLocale = $options['block']->getMainLocale();

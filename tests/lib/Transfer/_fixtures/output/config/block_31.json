@@ -1,4 +1,4 @@
 {
-    "use_http_cache": "sub_visit_value",
-    "shared_max_age": "sub_visit_value"
+    "use_http_cache": ["sub_visit_value"],
+    "shared_max_age": ["sub_visit_value"]
 }

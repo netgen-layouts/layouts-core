@@ -27,7 +27,7 @@ final class ViewRenderer implements ViewRendererInterface
         $this->twig = $twig;
     }
 
-    public function renderView(ViewInterface $view)
+    public function renderView(ViewInterface $view): string
     {
         $event = new CollectViewParametersEvent($view);
         $this->eventDispatcher->dispatch(BlockManagerEvents::RENDER_VIEW, $event);

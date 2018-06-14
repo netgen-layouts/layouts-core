@@ -16,17 +16,17 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
      */
     private $layoutTypes = [];
 
-    public function addLayoutType($identifier, LayoutTypeInterface $layoutType)
+    public function addLayoutType(string $identifier, LayoutTypeInterface $layoutType): void
     {
         $this->layoutTypes[$identifier] = $layoutType;
     }
 
-    public function hasLayoutType($identifier)
+    public function hasLayoutType(string $identifier): bool
     {
         return isset($this->layoutTypes[$identifier]);
     }
 
-    public function getLayoutType($identifier)
+    public function getLayoutType(string $identifier): LayoutTypeInterface
     {
         if (!$this->hasLayoutType($identifier)) {
             throw LayoutTypeException::noLayoutType($identifier);
@@ -35,7 +35,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
         return $this->layoutTypes[$identifier];
     }
 
-    public function getLayoutTypes($onlyEnabled = false)
+    public function getLayoutTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {
             return $this->layoutTypes;
@@ -43,7 +43,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 
         return array_filter(
             $this->layoutTypes,
-            function (LayoutTypeInterface $layoutType) {
+            function (LayoutTypeInterface $layoutType): bool {
                 return $layoutType->isEnabled();
             }
         );

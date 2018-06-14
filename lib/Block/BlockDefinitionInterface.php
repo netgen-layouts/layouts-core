@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
@@ -20,35 +23,33 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getIdentifier(): string;
 
     /**
      * Returns the block definition human readable name.
      *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the block definition icon.
-     *
-     * @return string
      */
-    public function getIcon();
+    public function getIcon(): ?string;
 
     /**
      * Returns if the block will be translatable when created.
      *
      * @return bool
      */
-    public function isTranslatable();
+    public function isTranslatable(): bool;
 
     /**
      * Returns all collections.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
      */
-    public function getCollections();
+    public function getCollections(): array;
 
     /**
      * Returns if the block definition has a collection with provided identifier.
@@ -57,7 +58,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return bool
      */
-    public function hasCollection($identifier);
+    public function hasCollection(string $identifier): bool;
 
     /**
      * Returns the collection for provided collection identifier.
@@ -68,14 +69,14 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
      */
-    public function getCollection($identifier);
+    public function getCollection(string $identifier): Collection;
 
     /**
      * Returns all forms.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
      */
-    public function getForms();
+    public function getForms(): array;
 
     /**
      * Returns if the block definition has a form with provided name.
@@ -84,7 +85,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return bool
      */
-    public function hasForm($formName);
+    public function hasForm(string $formName): bool;
 
     /**
      * Returns the form for provided form name.
@@ -95,21 +96,21 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
      */
-    public function getForm($formName);
+    public function getForm(string $formName): Form;
 
     /**
      * Returns the block definition view types.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
-    public function getViewTypes();
+    public function getViewTypes(): array;
 
     /**
      * Returns the block definition view type identifiers.
      *
      * @return string[]
      */
-    public function getViewTypeIdentifiers();
+    public function getViewTypeIdentifiers(): array;
 
     /**
      * Returns if the block definition has a view type with provided identifier.
@@ -118,7 +119,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return bool
      */
-    public function hasViewType($viewType);
+    public function hasViewType(string $viewType): bool;
 
     /**
      * Returns the view type with provided identifier.
@@ -129,7 +130,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
      */
-    public function getViewType($viewType);
+    public function getViewType(string $viewType): ViewType;
 
     /**
      * Returns the array of dynamic parameters provided by this block definition.
@@ -138,7 +139,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return \Netgen\BlockManager\Block\DynamicParameters
      */
-    public function getDynamicParameters(Block $block);
+    public function getDynamicParameters(Block $block): DynamicParameters;
 
     /**
      * Returns if the provided block is dependent on a context, i.e. currently displayed page.
@@ -147,7 +148,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return bool
      */
-    public function isContextual(Block $block);
+    public function isContextual(Block $block): bool;
 
     /**
      * Returns if the block definition has a plugin with provided FQCN.
@@ -156,7 +157,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return bool
      */
-    public function hasPlugin($className);
+    public function hasPlugin(string $className): bool;
 
     /**
      * Returns if the provided block is cacheable.
@@ -165,5 +166,5 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return bool
      */
-    public function isCacheable(Block $block);
+    public function isCacheable(Block $block): bool;
 }

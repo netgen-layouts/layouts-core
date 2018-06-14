@@ -27,7 +27,7 @@ final class Zone extends Visitor
         $this->blockService = $blockService;
     }
 
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof ZoneValue;
     }
@@ -49,12 +49,8 @@ final class Zone extends Visitor
 
     /**
      * Visit the given $zone linked zone into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     *
-     * @return array|null
      */
-    private function visitLinkedZone(ZoneValue $zone)
+    private function visitLinkedZone(ZoneValue $zone): ?array
     {
         if (!$zone->hasLinkedZone()) {
             return null;
@@ -70,13 +66,8 @@ final class Zone extends Visitor
      * Visit the given $zone blocks into hash representation.
      *
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitBlocks(ZoneValue $zone, VisitorInterface $subVisitor)
+    private function visitBlocks(ZoneValue $zone, VisitorInterface $subVisitor): array
     {
         $hash = [];
         $blocks = $this->blockService->loadZoneBlocks($zone);

@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class Route extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return TextType::class;
     }

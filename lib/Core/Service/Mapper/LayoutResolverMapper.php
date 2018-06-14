@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
@@ -67,7 +70,7 @@ final class LayoutResolverMapper
         $ruleData = [
             'id' => $rule->id,
             'status' => $rule->status,
-            'layout' => function () use ($rule) {
+            'layout' => function () use ($rule): ?Layout {
                 try {
                     // Layouts used by rule are always in published status
                     return $rule->layoutId !== null ? $this->layoutService->loadLayout($rule->layoutId) : null;
@@ -79,9 +82,9 @@ final class LayoutResolverMapper
             'priority' => $rule->priority,
             'comment' => $rule->comment,
             'targets' => new LazyCollection(
-                function () use ($rule) {
+                function () use ($rule): array {
                     return array_map(
-                        function (PersistenceTarget $target) {
+                        function (PersistenceTarget $target): APITarget {
                             return $this->mapTarget($target);
                         },
                         $this->layoutResolverHandler->loadRuleTargets($rule)
@@ -89,9 +92,9 @@ final class LayoutResolverMapper
                 }
             ),
             'conditions' => new LazyCollection(
-                function () use ($rule) {
+                function () use ($rule): array {
                     return array_map(
-                        function (PersistenceCondition $condition) {
+                        function (PersistenceCondition $condition): APICondition {
                             return $this->mapCondition($condition);
                         },
                         $this->layoutResolverHandler->loadRuleConditions($rule)

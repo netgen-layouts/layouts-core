@@ -13,31 +13,20 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
 {
     /**
      * Adds a query type to registry.
-     *
-     * @param string $type
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
      */
-    public function addQueryType($type, QueryTypeInterface $queryType);
+    public function addQueryType(string $type, QueryTypeInterface $queryType): void;
 
     /**
      * Returns if registry has a query type.
-     *
-     * @param string $type
-     *
-     * @return bool
      */
-    public function hasQueryType($type);
+    public function hasQueryType(string $type): bool;
 
     /**
      * Returns a query type with provided identifier.
      *
-     * @param string $type
-     *
      * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not exist
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
-    public function getQueryType($type);
+    public function getQueryType(string $type): QueryTypeInterface;
 
     /**
      * Returns all query types.
@@ -46,5 +35,5 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[]
      */
-    public function getQueryTypes($onlyEnabled = false);
+    public function getQueryTypes(bool $onlyEnabled = false): array;
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\NullBlockDefinition;
@@ -151,7 +153,7 @@ final class BlockMapper
         foreach ($collectionReferences as $collectionReference) {
             $mappedReferences[$collectionReference->identifier] = new CollectionReference(
                 [
-                    'collection' => function () use ($collectionReference, $locales) {
+                    'collection' => function () use ($collectionReference, $locales): Collection {
                         $collection = $this->collectionHandler->loadCollection(
                             $collectionReference->collectionId,
                             $collectionReference->collectionStatus
@@ -188,9 +190,9 @@ final class BlockMapper
                 [
                     'identifier' => $placeholderIdentifier,
                     'blocks' => new LazyCollection(
-                        function () use ($block, $placeholderIdentifier, $locales) {
+                        function () use ($block, $placeholderIdentifier, $locales): array {
                             return array_map(
-                                function (PersistenceBlock $childBlock) use ($locales) {
+                                function (PersistenceBlock $childBlock) use ($locales): APIBlock {
                                     return $this->mapBlock($childBlock, $locales, false);
                                 },
                                 $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier)

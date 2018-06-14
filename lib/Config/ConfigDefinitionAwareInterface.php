@@ -11,5 +11,5 @@ interface ConfigDefinitionAwareInterface
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
      */
-    public function getConfigDefinitions();
+    public function getConfigDefinitions(): array;
 }

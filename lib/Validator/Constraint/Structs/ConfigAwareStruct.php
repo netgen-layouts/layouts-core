@@ -17,7 +17,7 @@ final class ConfigAwareStruct extends Constraint
      */
     public $allowMissingFields = false;
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_config_aware_struct';
     }

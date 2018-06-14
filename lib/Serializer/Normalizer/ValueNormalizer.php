@@ -25,7 +25,7 @@ final class ValueNormalizer implements NormalizerInterface, SerializerAwareInter
         return $this->serializer->normalize($object->getValue(), $format, $context);
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof Value;
     }

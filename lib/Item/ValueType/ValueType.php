@@ -34,30 +34,24 @@ class ValueType extends Value
 
     /**
      * Returns the value type identifier.
-     *
-     * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
     /**
      * Returns if the value type is enabled or not.
-     *
-     * @return bool
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->isEnabled;
     }
 
     /**
      * Returns the value type name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

@@ -14,7 +14,7 @@ final class ContextException extends InvalidArgumentException implements Excepti
      *
      * @return \Netgen\BlockManager\Exception\Context\ContextException
      */
-    public static function noVariable($variableName)
+    public static function noVariable(string $variableName): self
     {
         return new self(
             sprintf(

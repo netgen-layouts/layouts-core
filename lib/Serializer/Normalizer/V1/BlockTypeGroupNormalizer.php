@@ -22,7 +22,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
             'enabled' => $blockTypeGroup->isEnabled(),
             'name' => $blockTypeGroup->getName(),
             'block_types' => array_map(
-                function (BlockType $blockType) {
+                function (BlockType $blockType): string {
                     return $blockType->getIdentifier();
                 },
                 $blockTypeGroup->getBlockTypes(true)
@@ -30,7 +30,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
         ];
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;

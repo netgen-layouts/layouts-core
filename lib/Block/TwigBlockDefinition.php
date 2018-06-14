@@ -16,7 +16,7 @@ class TwigBlockDefinition extends BlockDefinition implements TwigBlockDefinition
      */
     protected $handler;
 
-    public function getTwigBlockName(Block $block)
+    public function getTwigBlockName(Block $block): string
     {
         return $this->handler->getTwigBlockName($block);
     }

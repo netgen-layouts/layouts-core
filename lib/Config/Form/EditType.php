@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Config\Form;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
+use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
@@ -18,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -30,12 +31,12 @@ final class EditType extends AbstractType
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
         $resolver->setDefault('config_key', null);
-        $resolver->setDefault('constraints', function (Options $options) {
+        $resolver->setDefault('constraints', function (Options $options): array {
             return [
                 new ConfigAwareStructConstraint(
                     [
                         'payload' => array_map(
-                            function (Config $config) {
+                            function (Config $config): ConfigDefinitionInterface {
                                 return $config->getDefinition();
                             },
                             $options['configurable']->getConfigs()
@@ -46,7 +47,7 @@ final class EditType extends AbstractType
         });
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $value */
         $value = $options['configurable'];
@@ -77,7 +78,7 @@ final class EditType extends AbstractType
         }
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configurable'] = $options['configurable'];
     }

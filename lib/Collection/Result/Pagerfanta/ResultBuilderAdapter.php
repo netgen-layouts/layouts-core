@@ -44,9 +44,9 @@ final class ResultBuilderAdapter implements AdapterInterface
     public function __construct(
         ResultBuilderInterface $resultBuilder,
         Collection $collection,
-        $startingOffset = 0,
-        $maxTotalCount = null,
-        $flags = 0
+        int $startingOffset = 0,
+        int $maxTotalCount = null,
+        int $flags = 0
     ) {
         $this->resultBuilder = $resultBuilder;
         $this->collection = $collection;
@@ -55,7 +55,7 @@ final class ResultBuilderAdapter implements AdapterInterface
         $this->flags = $flags;
     }
 
-    public function getNbResults()
+    public function getNbResults(): int
     {
         if ($this->totalCount === null) {
             $result = $this->resultBuilder->build($this->collection, 0, 0, $this->flags);
@@ -84,10 +84,8 @@ final class ResultBuilderAdapter implements AdapterInterface
     /**
      * Sets the total count of the results to the adapter, while taking into account
      * the injected maximum number of pages to use.
-     *
-     * @param \Netgen\BlockManager\Collection\Result\ResultSet $result
      */
-    private function setTotalCount(ResultSet $result)
+    private function setTotalCount(ResultSet $result): void
     {
         $this->totalCount = $result->getTotalCount() - $this->startingOffset;
         $this->totalCount = $this->totalCount > 0 ? $this->totalCount : 0;

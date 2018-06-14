@@ -16,17 +16,17 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
      */
     private $valueTypes = [];
 
-    public function addValueType($identifier, ValueType $valueType)
+    public function addValueType(string $identifier, ValueType $valueType): void
     {
         $this->valueTypes[$identifier] = $valueType;
     }
 
-    public function hasValueType($identifier)
+    public function hasValueType(string $identifier): bool
     {
         return isset($this->valueTypes[$identifier]);
     }
 
-    public function getValueType($identifier)
+    public function getValueType(string $identifier): ValueType
     {
         if (!$this->hasValueType($identifier)) {
             throw ItemException::noValueType($identifier);
@@ -35,7 +35,7 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
         return $this->valueTypes[$identifier];
     }
 
-    public function getValueTypes($onlyEnabled = false)
+    public function getValueTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {
             return $this->valueTypes;
@@ -43,7 +43,7 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
 
         return array_filter(
             $this->valueTypes,
-            function (ValueType $valueType) {
+            function (ValueType $valueType): bool {
                 return $valueType->isEnabled();
             }
         );

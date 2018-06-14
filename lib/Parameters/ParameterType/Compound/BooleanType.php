@@ -47,7 +47,7 @@ final class BooleanType extends CompoundParameterType
         return $value === null;
     }
 
-    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         if ($parameterDefinition->isRequired()) {
             return [
@@ -58,7 +58,7 @@ final class BooleanType extends CompoundParameterType
         return [];
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(

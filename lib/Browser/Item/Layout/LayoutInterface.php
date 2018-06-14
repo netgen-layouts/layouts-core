@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Browser\Item\Layout;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
+
 interface LayoutInterface
 {
     /**
      * Returns the layout.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function getLayout();
+    public function getLayout(): Layout;
 }

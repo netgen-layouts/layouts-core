@@ -19,5 +19,5 @@ interface ConfigDefinitionHandlerInterface
      *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function buildParameters(ParameterBuilderInterface $builder);
+    public function buildParameters(ParameterBuilderInterface $builder): void;
 }

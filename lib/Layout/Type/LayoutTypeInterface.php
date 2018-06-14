@@ -15,73 +15,54 @@ interface LayoutTypeInterface
 {
     /**
      * Returns the layout type identifier.
-     *
-     * @return string
      */
-    public function getIdentifier();
+    public function getIdentifier(): string;
 
     /**
      * Returns if the layout type is enabled or not.
-     *
-     * @return bool
      */
-    public function isEnabled();
+    public function isEnabled(): bool;
 
     /**
      * Returns the layout type name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the layout type icon.
      *
-     * @return string
+     * @return string|null
      */
-    public function getIcon();
+    public function getIcon(): ?string;
 
     /**
      * Returns the layout type zones.
      *
      * @return \Netgen\BlockManager\Layout\Type\Zone[]
      */
-    public function getZones();
+    public function getZones(): array;
 
     /**
      * Returns the layout type zone identifiers.
      *
      * @return string[]
      */
-    public function getZoneIdentifiers();
+    public function getZoneIdentifiers(): array;
 
     /**
      * Returns if the layout type has a zone with provided identifier.
-     *
-     * @param string $zoneIdentifier
-     *
-     * @return bool
      */
-    public function hasZone($zoneIdentifier);
+    public function hasZone(string $zoneIdentifier): bool;
 
     /**
      * Returns the zone with provided identifier.
      *
-     * @param string $zoneIdentifier
-     *
      * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If zone does not exist
-     *
-     * @return \Netgen\BlockManager\Layout\Type\Zone
      */
-    public function getZone($zoneIdentifier);
+    public function getZone(string $zoneIdentifier): Zone;
 
     /**
      * Returns if the block is allowed within the provided zone.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $definition
-     * @param string $zoneIdentifier
-     *
-     * @return bool
      */
-    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, $zoneIdentifier);
+    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, string $zoneIdentifier): bool;
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
@@ -15,6 +17,7 @@ use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
@@ -106,16 +109,16 @@ final class CollectionMapper
             'offset' => $collection->offset,
             'limit' => $collection->limit,
             'items' => new LazyCollection(
-                function () use ($collection) {
+                function () use ($collection): array {
                     return array_map(
-                        function (PersistenceItem $item) {
+                        function (PersistenceItem $item): APIItem {
                             return $this->mapItem($item);
                         },
                         $this->collectionHandler->loadCollectionItems($collection)
                     );
                 }
             ),
-            'query' => function () use ($collection, $locales) {
+            'query' => function () use ($collection, $locales): ?APIQuery {
                 try {
                     $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
                 } catch (NotFoundException $e) {
@@ -158,7 +161,7 @@ final class CollectionMapper
             'type' => $item->type,
             'value' => $item->value,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
-            'cmsItem' => function () use ($item, $itemDefinition) {
+            'cmsItem' => function () use ($item, $itemDefinition): ItemInterface {
                 $valueType = $itemDefinition instanceof NullItemDefinition ? 'null' : $itemDefinition->getValueType();
 
                 return $this->itemLoader->load($item->value, $valueType);

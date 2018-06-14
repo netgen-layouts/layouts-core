@@ -36,7 +36,7 @@ final class LayoutTypeTest extends TestCase
                         [
                             'identifier' => 'right',
                             'name' => 'Right',
-                            'allowedBlockDefinitions' => null,
+                            'allowedBlockDefinitions' => [],
                         ]
                     ),
                 ],
@@ -95,7 +95,7 @@ final class LayoutTypeTest extends TestCase
                     [
                         'identifier' => 'right',
                         'name' => 'Right',
-                        'allowedBlockDefinitions' => null,
+                        'allowedBlockDefinitions' => [],
                     ]
                 ),
             ],

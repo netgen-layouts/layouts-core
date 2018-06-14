@@ -19,7 +19,7 @@ interface ItemLoaderInterface
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function load($value, $valueType);
+    public function load($value, string $valueType): ItemInterface;
 
     /**
      * Loads the item from provided value remote ID and value type.
@@ -31,5 +31,5 @@ interface ItemLoaderInterface
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function loadByRemoteId($remoteId, $valueType);
+    public function loadByRemoteId($remoteId, string $valueType): ItemInterface;
 }

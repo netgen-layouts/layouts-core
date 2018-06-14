@@ -33,7 +33,7 @@ abstract class VisitorTest extends ServiceTestCase
         $this->subVisitorMock
             ->expects($this->any())
             ->method('visit')
-            ->will($this->returnValue('sub_visit_value'));
+            ->will($this->returnValue(['sub_visit_value']));
 
         $this->matcherFactory = new SimpleFactory();
     }

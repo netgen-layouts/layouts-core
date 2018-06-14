@@ -12,7 +12,7 @@ use Netgen\BlockManager\Block\ContainerDefinitionInterface;
  */
 final class ContainerVoter implements VoterInterface
 {
-    public function vote(Block $block)
+    public function vote(Block $block): ?bool
     {
         if (!$block->getDefinition() instanceof ContainerDefinitionInterface) {
             return self::ABSTAIN;

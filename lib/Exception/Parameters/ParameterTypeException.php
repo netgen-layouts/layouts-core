@@ -14,7 +14,7 @@ final class ParameterTypeException extends InvalidArgumentException implements E
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      */
-    public static function noParameterType($parameterType)
+    public static function noParameterType(string $parameterType): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class ParameterTypeException extends InvalidArgumentException implements E
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      */
-    public static function noParameterTypeClass($class)
+    public static function noParameterTypeClass(string $class): self
     {
         return new self(
             sprintf(
@@ -44,7 +44,7 @@ final class ParameterTypeException extends InvalidArgumentException implements E
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      */
-    public static function noFormMapper($parameterType)
+    public static function noFormMapper(string $parameterType): self
     {
         return new self(
             sprintf(
@@ -59,7 +59,7 @@ final class ParameterTypeException extends InvalidArgumentException implements E
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      */
-    public static function unsupportedParameterType($parameterType)
+    public static function unsupportedParameterType(string $parameterType): self
     {
         return new self(
             sprintf(

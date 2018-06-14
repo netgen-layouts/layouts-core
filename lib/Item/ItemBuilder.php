@@ -20,13 +20,13 @@ final class ItemBuilder implements ItemBuilderInterface
     {
         $this->valueConverters = array_filter(
             $valueConverters,
-            function (ValueConverterInterface $valueConverter) {
+            function (ValueConverterInterface $valueConverter): bool {
                 return true;
             }
         );
     }
 
-    public function build($object)
+    public function build($object): ItemInterface
     {
         foreach ($this->valueConverters as $valueConverter) {
             if (!$valueConverter->supports($object)) {

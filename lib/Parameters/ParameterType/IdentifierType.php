@@ -21,7 +21,7 @@ final class IdentifierType extends ParameterType
         return 'identifier';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(['type' => 'string']),

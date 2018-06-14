@@ -18,12 +18,12 @@ final class Exception extends Mapper
      */
     private $statusCodes = [];
 
-    public function getFormType()
+    public function getFormType(): string
     {
         return ChoiceType::class;
     }
 
-    public function getFormOptions()
+    public function getFormOptions(): array
     {
         return [
             'multiple' => true,
@@ -34,10 +34,8 @@ final class Exception extends Mapper
 
     /**
      * Builds the formatted list of all available error codes (those which are in 4xx and 5xx range).
-     *
-     * @return array
      */
-    private function buildErrorCodes()
+    private function buildErrorCodes(): array
     {
         if (empty($this->statusCodes)) {
             foreach (Response::$statusTexts as $statusCode => $statusText) {

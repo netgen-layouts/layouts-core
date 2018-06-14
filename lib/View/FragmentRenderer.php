@@ -52,13 +52,13 @@ final class FragmentRenderer implements RendererInterface
 
         $this->fragmentViewRenderers = array_filter(
             $fragmentViewRenderers,
-            function (FragmentViewRendererInterface $fragmentViewRenderer) {
+            function (FragmentViewRendererInterface $fragmentViewRenderer): bool {
                 return true;
             }
         );
     }
 
-    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = [])
+    public function renderValue($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string
     {
         $view = $this->viewBuilder->buildView($value, $context, $parameters);
         if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {
@@ -85,7 +85,7 @@ final class FragmentRenderer implements RendererInterface
      *
      * @return \Netgen\BlockManager\View\Fragment\ViewRendererInterface|null
      */
-    private function getFragmentViewRenderer(ViewInterface $view)
+    private function getFragmentViewRenderer(ViewInterface $view): ?FragmentViewRendererInterface
     {
         foreach ($this->fragmentViewRenderers as $fragmentViewRenderer) {
             if (!$fragmentViewRenderer->supportsView($view)) {
@@ -94,5 +94,7 @@ final class FragmentRenderer implements RendererInterface
 
             return $fragmentViewRenderer;
         }
+
+        return null;
     }
 }

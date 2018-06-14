@@ -17,7 +17,7 @@ final class BlockTypeFactory
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
-    public static function buildBlockType($identifier, array $config, BlockDefinitionInterface $blockDefinition)
+    public static function buildBlockType(string $identifier, array $config, BlockDefinitionInterface $blockDefinition): BlockType
     {
         return new BlockType(
             [

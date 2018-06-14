@@ -26,7 +26,7 @@ final class VarnishClient implements ClientInterface
         $this->layoutIdProvider = $layoutIdProvider;
     }
 
-    public function invalidateLayouts(array $layoutIds)
+    public function invalidateLayouts(array $layoutIds): void
     {
         if (empty($layoutIds)) {
             return;
@@ -47,7 +47,7 @@ final class VarnishClient implements ClientInterface
         );
     }
 
-    public function invalidateAllLayouts()
+    public function invalidateAllLayouts(): void
     {
         $this->fosInvalidator->invalidate(
             [
@@ -56,7 +56,7 @@ final class VarnishClient implements ClientInterface
         );
     }
 
-    public function invalidateBlocks(array $blockIds)
+    public function invalidateBlocks(array $blockIds): void
     {
         if (empty($blockIds)) {
             return;
@@ -69,7 +69,7 @@ final class VarnishClient implements ClientInterface
         );
     }
 
-    public function invalidateLayoutBlocks(array $layoutIds)
+    public function invalidateLayoutBlocks(array $layoutIds): void
     {
         if (empty($layoutIds)) {
             return;
@@ -82,7 +82,7 @@ final class VarnishClient implements ClientInterface
         );
     }
 
-    public function invalidateAllBlocks()
+    public function invalidateAllBlocks(): void
     {
         $this->fosInvalidator->invalidate(
             [
@@ -91,7 +91,7 @@ final class VarnishClient implements ClientInterface
         );
     }
 
-    public function commit()
+    public function commit(): bool
     {
         try {
             $this->fosInvalidator->flush();

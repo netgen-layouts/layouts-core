@@ -14,7 +14,7 @@ final class BlockTypeException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockTypeException
      */
-    public static function noBlockType($identifier)
+    public static function noBlockType(string $identifier): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class BlockTypeException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockTypeException
      */
-    public static function noBlockTypeGroup($identifier)
+    public static function noBlockTypeGroup(string $identifier): self
     {
         return new self(
             sprintf(

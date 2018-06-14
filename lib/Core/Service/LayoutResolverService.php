@@ -23,12 +23,14 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 
@@ -224,7 +226,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);
 
         $createdRule = $this->transaction(
-            function () use ($ruleCreateStruct) {
+            function () use ($ruleCreateStruct): PersistenceRule {
                 return $this->handler->createRule(
                     new RuleCreateStruct(
                         [
@@ -253,7 +255,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateRuleUpdateStruct($ruleUpdateStruct);
 
         $updatedRule = $this->transaction(
-            function () use ($persistenceRule, $ruleUpdateStruct) {
+            function () use ($persistenceRule, $ruleUpdateStruct): PersistenceRule {
                 return $this->handler->updateRule(
                     $persistenceRule,
                     new RuleUpdateStruct(
@@ -280,7 +282,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateRuleMetadataUpdateStruct($ruleUpdateStruct);
 
         $updatedRule = $this->transaction(
-            function () use ($persistenceRule, $ruleUpdateStruct) {
+            function () use ($persistenceRule, $ruleUpdateStruct): PersistenceRule {
                 return $this->handler->updateRuleMetadata(
                     $persistenceRule,
                     new RuleMetadataUpdateStruct(
@@ -300,7 +302,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
         $copiedRule = $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): PersistenceRule {
                 return $this->handler->copyRule($persistenceRule);
             }
         );
@@ -323,7 +325,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         }
 
         $ruleDraft = $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): PersistenceRule {
                 $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
                 return $this->handler->createRuleStatus($persistenceRule, Value::STATUS_DRAFT);
@@ -342,7 +344,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): void {
                 $this->handler->deleteRule(
                     $persistenceRule->id,
                     Value::STATUS_DRAFT
@@ -360,7 +362,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $publishedRule = $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): PersistenceRule {
                 $this->handler->deleteRule($persistenceRule->id, Value::STATUS_ARCHIVED);
 
                 if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_PUBLISHED)) {
@@ -412,7 +414,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         }
 
         $draftRule = $this->transaction(
-            function () use ($draftRule, $archivedRule) {
+            function () use ($draftRule, $archivedRule): PersistenceRule {
                 if ($draftRule instanceof PersistenceRule) {
                     $this->handler->deleteRule($draftRule->id, $draftRule->status);
                 }
@@ -429,7 +431,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
         $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): void {
                 $this->handler->deleteRule(
                     $persistenceRule->id
                 );
@@ -458,7 +460,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         }
 
         $updatedRule = $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): PersistenceRule {
                 return $this->handler->updateRuleMetadata(
                     $persistenceRule,
                     new RuleMetadataUpdateStruct(
@@ -486,7 +488,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         }
 
         $updatedRule = $this->transaction(
-            function () use ($persistenceRule) {
+            function () use ($persistenceRule): PersistenceRule {
                 return $this->handler->updateRuleMetadata(
                     $persistenceRule,
                     new RuleMetadataUpdateStruct(
@@ -524,7 +526,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateTargetCreateStruct($targetCreateStruct);
 
         $createdTarget = $this->transaction(
-            function () use ($persistenceRule, $targetCreateStruct) {
+            function () use ($persistenceRule, $targetCreateStruct): PersistenceTarget {
                 return $this->handler->addTarget(
                     $persistenceRule,
                     new TargetCreateStruct(
@@ -551,7 +553,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateTargetUpdateStruct($target, $targetUpdateStruct);
 
         $updatedTarget = $this->transaction(
-            function () use ($persistenceTarget, $targetUpdateStruct) {
+            function () use ($persistenceTarget, $targetUpdateStruct): PersistenceTarget {
                 return $this->handler->updateTarget(
                     $persistenceTarget,
                     new TargetUpdateStruct(
@@ -575,7 +577,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceTarget = $this->handler->loadTarget($target->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
-            function () use ($persistenceTarget) {
+            function () use ($persistenceTarget): void {
                 $this->handler->deleteTarget($persistenceTarget);
             }
         );
@@ -592,7 +594,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
         $createdCondition = $this->transaction(
-            function () use ($persistenceRule, $conditionCreateStruct) {
+            function () use ($persistenceRule, $conditionCreateStruct): PersistenceCondition {
                 return $this->handler->addCondition(
                     $persistenceRule,
                     new ConditionCreateStruct(
@@ -619,7 +621,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
         $updatedCondition = $this->transaction(
-            function () use ($persistenceCondition, $conditionUpdateStruct) {
+            function () use ($persistenceCondition, $conditionUpdateStruct): PersistenceCondition {
                 return $this->handler->updateCondition(
                     $persistenceCondition,
                     new ConditionUpdateStruct(
@@ -643,7 +645,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceCondition = $this->handler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
-            function () use ($persistenceCondition) {
+            function () use ($persistenceCondition): void {
                 $this->handler->deleteCondition($persistenceCondition);
             }
         );

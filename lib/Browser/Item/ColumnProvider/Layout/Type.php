@@ -10,7 +10,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class Type implements ColumnValueProviderInterface
 {
-    public function getValue(ItemInterface $item)
+    public function getValue(ItemInterface $item): ?string
     {
         if (!$item instanceof LayoutInterface) {
             return null;

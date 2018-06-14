@@ -17,14 +17,14 @@ final class HandlerPlugin extends Plugin
      */
     private static $extendedHandlers = [];
 
-    public static function instance(array $extendedHandlers = [])
+    public static function instance(array $extendedHandlers = []): self
     {
         self::$extendedHandlers = $extendedHandlers;
 
         return new self();
     }
 
-    public static function getExtendedHandler()
+    public static function getExtendedHandler(): array
     {
         return self::$extendedHandlers;
     }

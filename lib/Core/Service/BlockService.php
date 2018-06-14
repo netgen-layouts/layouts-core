@@ -166,7 +166,7 @@ final class BlockService extends Service implements BlockServiceInterface
         // We filter out all root blocks, since we do not allow loading those
         $persistenceBlocks = array_filter(
             $this->blockHandler->loadLayoutBlocks($persistenceLayout),
-            function (PersistenceBlock $persistenceBlock) {
+            function (PersistenceBlock $persistenceBlock): bool {
                 return !empty($persistenceBlock->parentId);
             }
         );
@@ -268,7 +268,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $blockDefinition = $block->getDefinition();
 
         $updatedBlock = $this->transaction(
-            function () use ($blockDefinition, $persistenceBlock, $blockUpdateStruct) {
+            function () use ($blockDefinition, $persistenceBlock, $blockUpdateStruct): PersistenceBlock {
                 $persistenceBlock = $this->updateBlockTranslations(
                     $blockDefinition,
                     $persistenceBlock,
@@ -332,7 +332,7 @@ final class BlockService extends Service implements BlockServiceInterface
         }
 
         $copiedBlock = $this->transaction(
-            function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder, $position) {
+            function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder, $position): PersistenceBlock {
                 return $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
             }
         );
@@ -368,7 +368,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
         $copiedBlock = $this->transaction(
-            function () use ($persistenceBlock, $rootBlock, $position) {
+            function () use ($persistenceBlock, $rootBlock, $position): PersistenceBlock {
                 return $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root', $position);
             }
         );
@@ -457,7 +457,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $draftLayout = $this->layoutHandler->loadLayout($draftBlock->layoutId, Value::STATUS_DRAFT);
 
         $draftBlock = $this->transaction(
-            function () use ($draftBlock, $draftLayout) {
+            function () use ($draftBlock, $draftLayout): PersistenceBlock {
                 $draftBlock = $this->blockHandler->restoreBlock($draftBlock, Value::STATUS_PUBLISHED);
 
                 foreach ($draftLayout->availableLocales as $locale) {
@@ -505,7 +505,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($persistenceBlock->layoutId, Value::STATUS_DRAFT);
 
         $updatedBlock = $this->transaction(
-            function () use ($persistenceBlock, $persistenceLayout) {
+            function () use ($persistenceBlock, $persistenceLayout): PersistenceBlock {
                 $updatedBlock = $this->blockHandler->updateBlock(
                     $persistenceBlock,
                     new BlockUpdateStruct(
@@ -545,7 +545,7 @@ final class BlockService extends Service implements BlockServiceInterface
         }
 
         $updatedBlock = $this->transaction(
-            function () use ($persistenceBlock) {
+            function () use ($persistenceBlock): PersistenceBlock {
                 return $this->internalDisableTranslations($persistenceBlock);
             }
         );
@@ -562,7 +562,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
-            function () use ($persistenceBlock) {
+            function () use ($persistenceBlock): void {
                 $this->blockHandler->deleteBlock($persistenceBlock);
             }
         );
@@ -595,13 +595,13 @@ final class BlockService extends Service implements BlockServiceInterface
     private function internalCreateBlock(
         APIBlockCreateStruct $blockCreateStruct,
         PersistenceBlock $targetBlock,
-        $placeholder,
-        $position = null
-    ) {
+        string $placeholder,
+        int $position = null
+    ): Block {
         $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->layoutId, Value::STATUS_DRAFT);
 
         $createdBlock = $this->transaction(
-            function () use ($blockCreateStruct, $persistenceLayout, $targetBlock, $placeholder, $position) {
+            function () use ($blockCreateStruct, $persistenceLayout, $targetBlock, $placeholder, $position): PersistenceBlock {
                 $createdBlock = $this->blockHandler->createBlock(
                     new BlockCreateStruct(
                         [
@@ -706,7 +706,7 @@ final class BlockService extends Service implements BlockServiceInterface
     private function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, $placeholder, $position)
     {
         return $this->transaction(
-            function () use ($block, $targetBlock, $placeholder, $position) {
+            function () use ($block, $targetBlock, $placeholder, $position): PersistenceBlock {
                 if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
                     return $this->blockHandler->moveBlockToPosition($block, $position);
                 }
@@ -775,7 +775,7 @@ final class BlockService extends Service implements BlockServiceInterface
         BlockDefinitionInterface $blockDefinition,
         PersistenceBlock $persistenceBlock,
         APIBlockUpdateStruct $blockUpdateStruct
-    ) {
+    ): PersistenceBlock {
         if ($blockUpdateStruct->locale === $persistenceBlock->mainLocale) {
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
                 $persistenceBlock,

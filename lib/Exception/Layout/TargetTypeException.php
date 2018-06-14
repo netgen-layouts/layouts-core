@@ -14,7 +14,7 @@ final class TargetTypeException extends InvalidArgumentException implements Exce
      *
      * @return \Netgen\BlockManager\Exception\Layout\TargetTypeException
      */
-    public static function noTargetType($targetType)
+    public static function noTargetType(string $targetType): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class TargetTypeException extends InvalidArgumentException implements Exce
      *
      * @return \Netgen\BlockManager\Exception\Layout\TargetTypeException
      */
-    public static function noFormMapper($targetType)
+    public static function noFormMapper(string $targetType): self
     {
         return new self(
             sprintf(

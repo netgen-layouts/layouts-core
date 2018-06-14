@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class CopyType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -25,7 +25,7 @@ final class CopyType extends AbstractType
         $resolver->setAllowedTypes('data', LayoutCopyStruct::class);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'name',

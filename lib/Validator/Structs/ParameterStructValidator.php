@@ -32,7 +32,7 @@ final class ParameterStructValidator extends ConstraintValidator
         $this->parameterFilterRegistry = $parameterFilterRegistry;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ParameterStructConstraint) {
             throw new UnexpectedTypeException($constraint, ParameterStructConstraint::class);
@@ -74,14 +74,11 @@ final class ParameterStructValidator extends ConstraintValidator
 
     /**
      * Filters the parameter values.
-     *
-     * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      */
     private function filterParameters(
         ParameterStruct $parameterStruct,
         ParameterDefinitionCollectionInterface $parameterDefinitions
-    ) {
+    ): void {
         foreach ($parameterStruct->getParameterValues() as $parameterName => $parameterValue) {
             if (!$parameterDefinitions->hasParameterDefinition($parameterName)) {
                 continue;
@@ -102,16 +99,11 @@ final class ParameterStructValidator extends ConstraintValidator
     /**
      * Builds the "fields" array of the Collection constraint from provided parameters
      * and parameter values.
-     *
-     * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     * @param \Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct $constraint
-     *
-     * @return array
      */
     private function buildConstraintFields(
         ParameterStruct $parameterStruct,
         ParameterStructConstraint $constraint
-    ) {
+    ): array {
         $fields = [];
 
         foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
@@ -142,18 +134,12 @@ final class ParameterStructValidator extends ConstraintValidator
      *
      * If $validateEmptyValue is false, values equal to null will not be validated
      * and will simply return an empty array of constraints.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
-     * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     * @param bool $validateEmptyValue
-     *
-     * @return array
      */
     private function getParameterConstraints(
         ParameterDefinition $parameterDefinition,
         ParameterStruct $parameterStruct,
-        $validateEmptyValue = true
-    ) {
+        bool $validateEmptyValue = true
+    ): array {
         $parameterValue = $parameterStruct->getParameterValue(
             $parameterDefinition->getName()
         );
@@ -170,18 +156,12 @@ final class ParameterStructValidator extends ConstraintValidator
 
     /**
      * Returns all constraints applied on a parameter coming from the parameter definition.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
-     * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     *
-     * @return array
      */
     private function getRuntimeParameterConstraints(
         ParameterDefinitionCollectionInterface $parameterDefinitions,
         ParameterDefinition $parameterDefinition,
         ParameterStruct $parameterStruct
-    ) {
+    ): array {
         $constraints = [];
 
         foreach ($parameterDefinition->getConstraints() as $constraint) {
@@ -204,7 +184,7 @@ final class ParameterStructValidator extends ConstraintValidator
     private function getParameterValues(
         ParameterDefinitionCollectionInterface $parameterDefinitions,
         ParameterStruct $parameterStruct
-    ) {
+    ): array {
         $emptyValues = [];
 
         foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {

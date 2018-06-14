@@ -39,13 +39,13 @@ final class ViewBuilder implements ViewBuilderInterface
 
         $this->viewProviders = array_filter(
             $viewProviders,
-            function (ViewProviderInterface $viewProvider) {
+            function (ViewProviderInterface $viewProvider): bool {
                 return true;
             }
         );
     }
 
-    public function buildView($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = [])
+    public function buildView($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface
     {
         $viewProvider = $this->getViewProvider($value);
 
@@ -70,7 +70,7 @@ final class ViewBuilder implements ViewBuilderInterface
      *
      * @return \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    private function getViewProvider($value)
+    private function getViewProvider($value): ViewProviderInterface
     {
         foreach ($this->viewProviders as $viewProvider) {
             if ($viewProvider->supports($value)) {

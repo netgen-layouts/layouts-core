@@ -49,7 +49,7 @@ final class ItemLinkType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'value_types',
-            function (Options $options, $value) {
+            function (Options $options, array $value): array {
                 if (!empty($value)) {
                     return $value;
                 }
@@ -82,7 +82,7 @@ final class ItemLinkType extends ParameterType
         return empty($parsedValue['scheme']) || (empty($parsedValue['host'] && $parsedValue['host'] !== '0'));
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         $options = $parameterDefinition->getOptions();
 

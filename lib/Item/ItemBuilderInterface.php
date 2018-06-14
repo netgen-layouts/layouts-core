@@ -19,5 +19,5 @@ interface ItemBuilderInterface
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function build($object);
+    public function build($object): ItemInterface;
 }

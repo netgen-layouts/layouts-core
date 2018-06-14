@@ -13,7 +13,7 @@ use Netgen\BlockManager\Block\NullBlockDefinition;
  */
 trait DefinitionTrait
 {
-    public function doMatch(Block $block, array $config)
+    public function doMatch(Block $block, array $config): bool
     {
         $blockDefinition = $block->getDefinition();
         if ($blockDefinition instanceof NullBlockDefinition) {

@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraints;
 
 final class QueryParameter implements ConditionTypeInterface
 {
-    public function getType()
+    public function getType(): string
     {
         return 'query_parameter';
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [
             new Constraints\NotBlank(),
@@ -46,7 +46,7 @@ final class QueryParameter implements ConditionTypeInterface
         ];
     }
 
-    public function matches(Request $request, $value)
+    public function matches(Request $request, $value): bool
     {
         if (!is_array($value)) {
             return false;

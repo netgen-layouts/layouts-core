@@ -28,10 +28,10 @@ final class QueryTypeFactory
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     public function buildQueryType(
-        $type,
+        string $type,
         QueryTypeHandlerInterface $handler,
         array $config
-    ) {
+    ): QueryTypeInterface {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();

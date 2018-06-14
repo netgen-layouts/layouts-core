@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 final class EmailMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return EmailType::class;
     }

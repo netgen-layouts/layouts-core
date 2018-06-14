@@ -44,14 +44,14 @@ final class CreateType extends AbstractType
         $this->localeProvider = $localeProvider;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         $resolver->setAllowedTypes('data', LayoutCreateStruct::class);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'layoutType',
@@ -61,7 +61,7 @@ final class CreateType extends AbstractType
                 'required' => true,
                 'choices' => $this->layoutTypeRegistry->getLayoutTypes(true),
                 'choice_value' => 'identifier',
-                'choice_label' => function (LayoutTypeInterface $layoutType) {
+                'choice_label' => function (LayoutTypeInterface $layoutType): string {
                     return $layoutType->getName();
                 },
                 'choice_translation_domain' => false,
@@ -129,7 +129,7 @@ final class CreateType extends AbstractType
         );
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         $layoutTypeFormConfig = $form['layoutType']->getConfig();
 

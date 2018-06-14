@@ -17,7 +17,7 @@ final class ValidationException extends BaseInvalidArgumentException implements 
      *
      * @return \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public static function validationFailed($propertyPath, $message, BaseException $previous = null)
+    public static function validationFailed(string $propertyPath, string $message, BaseException $previous = null): self
     {
         return new self(
             sprintf(

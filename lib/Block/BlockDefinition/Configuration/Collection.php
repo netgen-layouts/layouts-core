@@ -28,7 +28,7 @@ final class Collection extends Value
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -40,7 +40,7 @@ final class Collection extends Value
      *
      * @return array|null
      */
-    public function getValidQueryTypes()
+    public function getValidQueryTypes(): ?array
     {
         return $this->validQueryTypes;
     }
@@ -52,7 +52,7 @@ final class Collection extends Value
      *
      * @return bool
      */
-    public function isValidQueryType($queryType)
+    public function isValidQueryType(string $queryType): bool
     {
         if (!is_array($this->validQueryTypes)) {
             return true;
@@ -68,7 +68,7 @@ final class Collection extends Value
      *
      * @return array|null
      */
-    public function getValidItemTypes()
+    public function getValidItemTypes(): ?array
     {
         return $this->validItemTypes;
     }
@@ -80,7 +80,7 @@ final class Collection extends Value
      *
      * @return bool
      */
-    public function isValidItemType($itemType)
+    public function isValidItemType(string $itemType): bool
     {
         if (!is_array($this->validItemTypes)) {
             return true;

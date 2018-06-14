@@ -29,7 +29,7 @@ class LayoutType extends Value implements LayoutTypeInterface
     protected $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $icon;
 
@@ -38,42 +38,42 @@ class LayoutType extends Value implements LayoutTypeInterface
      */
     protected $zones = [];
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->isEnabled;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getIcon()
+    public function getIcon(): ?string
     {
         return $this->icon;
     }
 
-    public function getZones()
+    public function getZones(): array
     {
         return $this->zones;
     }
 
-    public function getZoneIdentifiers()
+    public function getZoneIdentifiers(): array
     {
         return array_keys($this->zones);
     }
 
-    public function hasZone($zoneIdentifier)
+    public function hasZone(string $zoneIdentifier): bool
     {
         return array_key_exists($zoneIdentifier, $this->zones);
     }
 
-    public function getZone($zoneIdentifier)
+    public function getZone(string $zoneIdentifier): Zone
     {
         if (!$this->hasZone($zoneIdentifier)) {
             throw LayoutTypeException::noZone($this->identifier, $zoneIdentifier);
@@ -82,7 +82,7 @@ class LayoutType extends Value implements LayoutTypeInterface
         return $this->zones[$zoneIdentifier];
     }
 
-    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, $zoneIdentifier)
+    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, string $zoneIdentifier): bool
     {
         if (!$this->hasZone($zoneIdentifier)) {
             return true;

@@ -15,19 +15,11 @@ interface SerializerInterface
 {
     /**
      * Serializes the layouts with provided IDs.
-     *
-     * @param array $layoutIds
-     *
-     * @return array
      */
-    public function serializeLayouts(array $layoutIds);
+    public function serializeLayouts(array $layoutIds): array;
 
     /**
      * Serializes the rules with provided IDs.
-     *
-     * @param array $ruleIds
-     *
-     * @return array
      */
-    public function serializeRules(array $ruleIds);
+    public function serializeRules(array $ruleIds): array;
 }

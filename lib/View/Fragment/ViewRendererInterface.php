@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\View\Fragment;
 
 use Netgen\BlockManager\View\ViewInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 interface ViewRendererInterface
 {
@@ -15,7 +16,7 @@ interface ViewRendererInterface
      *
      * @return bool
      */
-    public function supportsView(ViewInterface $view);
+    public function supportsView(ViewInterface $view): bool;
 
     /**
      * Returns the controller that will be used to render the fragment.
@@ -24,5 +25,5 @@ interface ViewRendererInterface
      *
      * @return \Symfony\Component\HttpKernel\Controller\ControllerReference|null
      */
-    public function getController(ViewInterface $view);
+    public function getController(ViewInterface $view): ?ControllerReference;
 }

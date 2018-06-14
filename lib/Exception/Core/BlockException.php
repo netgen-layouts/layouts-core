@@ -14,7 +14,7 @@ final class BlockException extends InvalidArgumentException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Core\BlockException
      */
-    public static function noPlaceholder($placeholder)
+    public static function noPlaceholder(string $placeholder): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class BlockException extends InvalidArgumentException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Core\BlockException
      */
-    public static function noCollection($collection)
+    public static function noCollection(string $collection): self
     {
         return new self(
             sprintf(

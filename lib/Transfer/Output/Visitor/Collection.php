@@ -16,7 +16,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Collection extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof CollectionValue;
     }
@@ -44,13 +44,8 @@ final class Collection extends Visitor
 
     /**
      * Visit the given collection $items into hash representation.
-     *
-     * @param array $items
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitItems(array $items, VisitorInterface $subVisitor)
+    private function visitItems(array $items, VisitorInterface $subVisitor): array
     {
         $hash = [];
 
@@ -65,13 +60,8 @@ final class Collection extends Visitor
 
     /**
      * Visit the given $collection query into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array|null
      */
-    private function visitQuery(CollectionValue $collection, VisitorInterface $subVisitor)
+    private function visitQuery(CollectionValue $collection, VisitorInterface $subVisitor): ?array
     {
         if (!$collection->hasQuery()) {
             return null;

@@ -14,12 +14,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class KeyValuesType extends AbstractType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -47,13 +42,7 @@ final class KeyValuesType extends AbstractType
         $resolver->setDefault('values_constraints', []);
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             $options['key_name'],
@@ -91,28 +80,13 @@ final class KeyValuesType extends AbstractType
         );
     }
 
-    /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['key_name'] = $options['key_name'];
         $view->vars['values_name'] = $options['values_name'];
     }
 
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefixes default to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ngbm_key_values';
     }

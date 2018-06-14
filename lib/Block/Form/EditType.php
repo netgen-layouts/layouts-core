@@ -43,7 +43,7 @@ abstract class EditType extends TranslatableType
      */
     private $viewTypesByParameters = [];
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -51,7 +51,7 @@ abstract class EditType extends TranslatableType
         $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
 
-        $resolver->setDefault('constraints', function (Options $options) {
+        $resolver->setDefault('constraints', function (Options $options): array {
             return [
                 new BlockUpdateStructConstraint(
                     [
@@ -62,7 +62,7 @@ abstract class EditType extends TranslatableType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['block'] = $options['block'];
         $view->vars['parameter_view_types'] = $this->viewTypesByParameters;
@@ -70,11 +70,8 @@ abstract class EditType extends TranslatableType
 
     /**
      * Adds view type and item view type forms to the provided form builder.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
      */
-    protected function addViewTypeForm(FormBuilderInterface $builder, array $options)
+    protected function addViewTypeForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->getDefinition();
@@ -97,7 +94,7 @@ abstract class EditType extends TranslatableType
             [
                 'label' => 'block.item_view_type',
                 'choices' => array_flip(call_user_func_array('array_merge', $this->itemViewTypes)),
-                'choice_attr' => function ($value) {
+                'choice_attr' => function ($value): array {
                     return [
                         'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
                     ];
@@ -109,11 +106,8 @@ abstract class EditType extends TranslatableType
 
     /**
      * Adds a name form to the provided form builders.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
      */
-    protected function addBlockNameForm(FormBuilderInterface $builder, array $options)
+    protected function addBlockNameForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'name',
@@ -132,12 +126,8 @@ abstract class EditType extends TranslatableType
 
     /**
      * Adds the parameters form to the provided builder.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     * @param array $groups
      */
-    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = [])
+    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = []): void
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->getDefinition();
@@ -167,7 +157,7 @@ abstract class EditType extends TranslatableType
      *
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      */
-    private function processViewTypeConfig(BlockDefinitionInterface $blockDefinition)
+    private function processViewTypeConfig(BlockDefinitionInterface $blockDefinition): void
     {
         $blockDefinitionParameters = array_keys($blockDefinition->getParameterDefinitions());
 

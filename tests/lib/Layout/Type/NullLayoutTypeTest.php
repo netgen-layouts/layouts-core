@@ -79,10 +79,12 @@ final class NullLayoutTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZone
+     * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
+     * @expectedExceptionMessage Zone "left" does not exist in "type" layout type.
      */
     public function testGetZone(): void
     {
-        $this->assertNull($this->layoutType->getZone('left'));
+        $this->layoutType->getZone('left');
     }
 
     /**

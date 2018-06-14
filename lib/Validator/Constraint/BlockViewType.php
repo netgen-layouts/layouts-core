@@ -20,7 +20,7 @@ final class BlockViewType extends Constraint
      */
     public $definition;
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_block_view_type';
     }

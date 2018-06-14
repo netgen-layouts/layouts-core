@@ -26,18 +26,18 @@ final class CollectionView implements ViewInterface
      * @param \Twig\Environment $twig
      * @param string $template
      */
-    public function __construct(Environment $twig, $template)
+    public function __construct(Environment $twig, string $template)
     {
         $this->twig = $twig;
         $this->template = $template;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'ngbm_collection';
     }
 
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
+    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []): string
     {
         $pagerTemplate = $this->template;
         if (array_key_exists('template', $options)) {

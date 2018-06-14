@@ -16,5 +16,5 @@ interface MatcherInterface
      *
      * @return bool
      */
-    public function match(ViewInterface $view, array $config);
+    public function match(ViewInterface $view, array $config): bool;
 }

@@ -34,7 +34,7 @@ final class ViewType extends Value
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -44,7 +44,7 @@ final class ViewType extends Value
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -54,7 +54,7 @@ final class ViewType extends Value
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[]
      */
-    public function getItemViewTypes()
+    public function getItemViewTypes(): array
     {
         return $this->itemViewTypes;
     }
@@ -64,7 +64,7 @@ final class ViewType extends Value
      *
      * @return string[]
      */
-    public function getItemViewTypeIdentifiers()
+    public function getItemViewTypeIdentifiers(): array
     {
         return array_keys($this->itemViewTypes);
     }
@@ -76,7 +76,7 @@ final class ViewType extends Value
      *
      * @return array|null
      */
-    public function getValidParameters()
+    public function getValidParameters(): ?array
     {
         return $this->validParameters;
     }
@@ -88,7 +88,7 @@ final class ViewType extends Value
      *
      * @return bool
      */
-    public function hasItemViewType($itemViewType)
+    public function hasItemViewType(string $itemViewType): bool
     {
         return isset($this->itemViewTypes[$itemViewType]);
     }
@@ -102,7 +102,7 @@ final class ViewType extends Value
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
      */
-    public function getItemViewType($itemViewType)
+    public function getItemViewType(string $itemViewType): ItemViewType
     {
         if (!$this->hasItemViewType($itemViewType)) {
             throw BlockDefinitionException::noItemViewType($this->identifier, $itemViewType);

@@ -13,31 +13,20 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
 {
     /**
      * Adds a layout type to registry.
-     *
-     * @param string $identifier
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      */
-    public function addLayoutType($identifier, LayoutTypeInterface $layoutType);
+    public function addLayoutType(string $identifier, LayoutTypeInterface $layoutType): void;
 
     /**
      * Returns if registry has a layout type.
-     *
-     * @param string $identifier
-     *
-     * @return bool
      */
-    public function hasLayoutType($identifier);
+    public function hasLayoutType(string $identifier): bool;
 
     /**
      * Returns the layout type with provided identifier.
      *
-     * @param string $identifier
-     *
      * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If layout type with provided identifier does not exist
-     *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
-    public function getLayoutType($identifier);
+    public function getLayoutType(string $identifier): LayoutTypeInterface;
 
     /**
      * Returns all layout types.
@@ -46,5 +35,5 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
      *
      * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[]
      */
-    public function getLayoutTypes($onlyEnabled = false);
+    public function getLayoutTypes(bool $onlyEnabled = false): array;
 }

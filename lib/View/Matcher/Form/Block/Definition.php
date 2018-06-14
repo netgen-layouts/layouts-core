@@ -19,7 +19,7 @@ final class Definition implements MatcherInterface
 {
     use DefinitionTrait;
 
-    public function match(ViewInterface $view, array $config)
+    public function match(ViewInterface $view, array $config): bool
     {
         if (!$view instanceof FormViewInterface) {
             return false;

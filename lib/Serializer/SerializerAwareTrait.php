@@ -18,10 +18,8 @@ trait SerializerAwareTrait
 
     /**
      * Sets the serializer.
-     *
-     * @param \Symfony\Component\Serializer\SerializerInterface $serializer
      */
-    public function setSerializer(SerializerInterface $serializer)
+    public function setSerializer(SerializerInterface $serializer): void
     {
         $this->serializer = $serializer;
     }

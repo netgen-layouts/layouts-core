@@ -31,7 +31,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $this->targetHandlers = array_filter(
             $targetHandlers,
-            function (TargetHandlerInterface $targetHandler) {
+            function (TargetHandlerInterface $targetHandler): bool {
                 return true;
             }
         );

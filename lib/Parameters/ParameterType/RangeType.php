@@ -30,7 +30,7 @@ final class RangeType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'max',
-            function (Options $options, $value) {
+            function (Options $options, int $value): int {
                 if ($value < $options['min']) {
                     return $options['min'];
                 }
@@ -56,7 +56,7 @@ final class RangeType extends ParameterType
         return $value === null;
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         $options = $parameterDefinition->getOptions();
 

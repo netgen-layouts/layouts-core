@@ -11,12 +11,12 @@ final class ContextBuilder implements ContextBuilderInterface
      */
     private $providers = [];
 
-    public function registerProvider(ContextProviderInterface $contextProvider)
+    public function registerProvider(ContextProviderInterface $contextProvider): void
     {
         $this->providers[] = $contextProvider;
     }
 
-    public function buildContext(ContextInterface $context)
+    public function buildContext(ContextInterface $context): void
     {
         foreach ($this->providers as $provider) {
             $provider->provideContext($context);

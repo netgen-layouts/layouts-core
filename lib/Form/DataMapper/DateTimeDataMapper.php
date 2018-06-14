@@ -18,12 +18,12 @@ final class DateTimeDataMapper implements DataMapperInterface
      */
     private $useDateTime;
 
-    public function __construct($useDateTime = true)
+    public function __construct(bool $useDateTime = true)
     {
         $this->useDateTime = $useDateTime;
     }
 
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, $forms): void
     {
         $forms = iterator_to_array($forms);
 
@@ -42,7 +42,7 @@ final class DateTimeDataMapper implements DataMapperInterface
         $forms['timezone']->setData($timeZone);
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData($forms, &$data): void
     {
         $forms = iterator_to_array($forms);
         $dateTime = $forms['datetime']->getData();

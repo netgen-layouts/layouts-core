@@ -14,13 +14,8 @@ final class DateTimeUtils
      * Creates a new \DateTimeImmutable instance from provided timestamp and timezone identifiers.
      *
      * Current timestamp and timezones are used if not provided.
-     *
-     * @param int $timestamp
-     * @param string $timeZone
-     *
-     * @return \DateTimeImmutable
      */
-    public static function createFromTimestamp($timestamp = null, $timeZone = null)
+    public static function createFromTimestamp(int $timestamp = null, string $timeZone = null): DateTimeInterface
     {
         $timeZone = is_string($timeZone) ? new DateTimeZone($timeZone) : null;
         $timestamp = is_int($timestamp) ? $timestamp : time();
@@ -38,12 +33,8 @@ final class DateTimeUtils
      * 2) "timezone" - a valid timezone identifier
      *
      * Returns null if provided array is not of valid format.
-     *
-     * @param array $datetime
-     *
-     * @return \DateTimeImmutable|null
      */
-    public static function createFromArray(array $datetime)
+    public static function createFromArray(array $datetime): ?DateTimeInterface
     {
         if (empty($datetime['datetime']) || !is_string($datetime['datetime'])) {
             return null;
@@ -58,14 +49,8 @@ final class DateTimeUtils
 
     /**
      * Returns if the provided DateTime instance is between the provided dates.
-     *
-     * @param \DateTimeInterface $date
-     * @param \DateTimeInterface $from
-     * @param \DateTimeInterface $to
-     *
-     * @return bool
      */
-    public static function isBetweenDates(DateTimeInterface $date = null, DateTimeInterface $from = null, DateTimeInterface $to = null)
+    public static function isBetweenDates(DateTimeInterface $date = null, DateTimeInterface $from = null, DateTimeInterface $to = null): bool
     {
         $date = $date ?: self::createFromTimestamp();
 
@@ -82,10 +67,8 @@ final class DateTimeUtils
 
     /**
      * Returns the formatted list of all timezones, separated by regions.
-     *
-     * @return array
      */
-    public static function getTimeZoneList()
+    public static function getTimeZoneList(): array
     {
         $timeZoneList = [];
         foreach (DateTimeZone::listIdentifiers() as $timeZone) {
@@ -103,12 +86,8 @@ final class DateTimeUtils
     /**
      * Returns the array with human readable region and timezone name for the provided
      * timezone identifier.
-     *
-     * @param string $timeZone
-     *
-     * @return array
      */
-    private static function parseTimeZone($timeZone)
+    private static function parseTimeZone(string $timeZone): array
     {
         $parts = explode('/', $timeZone);
 
@@ -126,12 +105,8 @@ final class DateTimeUtils
     /**
      * Returns the formatted UTC offset for the provided timezone identifier
      * in the form of (+/-)HH:mm.
-     *
-     * @param string $timeZone
-     *
-     * @return string
      */
-    private static function buildOffsetString($timeZone)
+    private static function buildOffsetString(string $timeZone): string
     {
         $offset = self::createFromTimestamp(null, $timeZone)->getOffset();
 

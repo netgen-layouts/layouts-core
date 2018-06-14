@@ -17,7 +17,7 @@ interface BlockDefinitionRegistryInterface extends IteratorAggregate, Countable,
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      */
-    public function addBlockDefinition($identifier, BlockDefinitionInterface $blockDefinition);
+    public function addBlockDefinition(string $identifier, BlockDefinitionInterface $blockDefinition): void;
 
     /**
      * Returns if registry has a block definition.
@@ -26,7 +26,7 @@ interface BlockDefinitionRegistryInterface extends IteratorAggregate, Countable,
      *
      * @return bool
      */
-    public function hasBlockDefinition($identifier);
+    public function hasBlockDefinition(string $identifier): bool;
 
     /**
      * Returns a block definition with provided identifier.
@@ -37,12 +37,12 @@ interface BlockDefinitionRegistryInterface extends IteratorAggregate, Countable,
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getBlockDefinition($identifier);
+    public function getBlockDefinition(string $identifier): BlockDefinitionInterface;
 
     /**
      * Returns all block definitions.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface[]
      */
-    public function getBlockDefinitions();
+    public function getBlockDefinitions(): array;
 }

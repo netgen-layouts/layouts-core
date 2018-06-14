@@ -35,15 +35,15 @@ final class ResultBuilder implements ResultBuilderInterface
      */
     public function __construct(
         CollectionRunnerFactory $runnerFactory,
-        $contextualLimit,
-        $maxLimit
+        int $contextualLimit,
+        int $maxLimit
     ) {
         $this->runnerFactory = $runnerFactory;
         $this->contextualLimit = $contextualLimit;
         $this->maxLimit = $maxLimit;
     }
 
-    public function build(Collection $collection, $offset = 0, $limit = null, $flags = 0)
+    public function build(Collection $collection, int $offset = 0, int $limit = null, int $flags = 0): ResultSet
     {
         $offset = $offset >= 0 ? $offset : 0;
         if ($limit === null || $limit < 0 || $limit > $this->maxLimit) {

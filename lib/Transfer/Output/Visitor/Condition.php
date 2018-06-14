@@ -15,7 +15,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Condition extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof ConditionValue;
     }

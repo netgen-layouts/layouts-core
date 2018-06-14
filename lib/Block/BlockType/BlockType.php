@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Block\BlockType;
 
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Value;
 
 /**
@@ -48,100 +49,80 @@ class BlockType extends Value
 
     /**
      * Returns the block type identifier.
-     *
-     * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
     /**
      * Returns if the block type is enabled or not.
-     *
-     * @return bool
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->isEnabled;
     }
 
     /**
      * Returns the block type name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * Returns the block type icon.
-     *
-     * @return string
      */
-    public function getIcon()
+    public function getIcon(): ?string
     {
         return $this->icon;
     }
 
     /**
      * Returns the block definition.
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getDefinition()
+    public function getDefinition(): BlockDefinitionInterface
     {
         return $this->definition;
     }
 
     /**
      * Returns the default block values.
-     *
-     * @return array
      */
-    public function getDefaults()
+    public function getDefaults(): array
     {
         return $this->defaults;
     }
 
     /**
      * Returns the default block name.
-     *
-     * @return string
      */
-    public function getDefaultName()
+    public function getDefaultName(): string
     {
         return $this->defaults['name'] ?? '';
     }
 
     /**
      * Returns the default block view type.
-     *
-     * @return string
      */
-    public function getDefaultViewType()
+    public function getDefaultViewType(): string
     {
         return $this->defaults['view_type'] ?? '';
     }
 
     /**
      * Returns the default block item view type.
-     *
-     * @return string
      */
-    public function getDefaultItemViewType()
+    public function getDefaultItemViewType(): string
     {
         return $this->defaults['item_view_type'] ?? '';
     }
 
     /**
      * Returns the default block parameters.
-     *
-     * @return array
      */
-    public function getDefaultParameters()
+    public function getDefaultParameters(): array
     {
         return $this->defaults['parameters'] ?? [];
     }

@@ -9,13 +9,7 @@ use RuntimeException;
 
 final class ViewException extends RuntimeException implements Exception
 {
-    /**
-     * @param string $parameterName
-     * @param string $viewType
-     *
-     * @return \Netgen\BlockManager\Exception\View\ViewException
-     */
-    public static function parameterNotFound($parameterName, $viewType)
+    public static function parameterNotFound(string $parameterName, string $viewType): self
     {
         return new self(
             sprintf(

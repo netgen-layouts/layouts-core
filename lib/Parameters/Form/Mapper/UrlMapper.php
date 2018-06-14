@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 final class UrlMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return UrlType::class;
     }

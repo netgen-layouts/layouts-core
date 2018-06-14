@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 final class BooleanMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return CheckboxType::class;
     }

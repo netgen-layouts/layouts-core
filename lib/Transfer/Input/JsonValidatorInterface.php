@@ -9,10 +9,7 @@ interface JsonValidatorInterface
     /**
      * Validates the provided JSON against the schema.
      *
-     * @param string $data
-     * @param string $schema
-     *
      * @throws \Netgen\BlockManager\Exception\Transfer\JsonValidationException If the JSON validation failed
      */
-    public function validateJson($data, $schema);
+    public function validateJson(string $data, string $schema): void;
 }

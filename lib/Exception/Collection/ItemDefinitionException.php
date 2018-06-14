@@ -14,7 +14,7 @@ final class ItemDefinitionException extends InvalidArgumentException implements 
      *
      * @return \Netgen\BlockManager\Exception\Collection\ItemDefinitionException
      */
-    public static function noItemDefinition($valueType)
+    public static function noItemDefinition(string $valueType): self
     {
         return new self(
             sprintf(

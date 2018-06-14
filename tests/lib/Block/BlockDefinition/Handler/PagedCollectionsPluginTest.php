@@ -51,7 +51,7 @@ final class PagedCollectionsPluginTest extends TestCase
     {
         $plugin = $this->plugin;
 
-        $this->assertEquals(PagedCollectionsBlockInterface::class, $plugin::getExtendedHandler());
+        $this->assertEquals([PagedCollectionsBlockInterface::class], $plugin::getExtendedHandler());
     }
 
     /**

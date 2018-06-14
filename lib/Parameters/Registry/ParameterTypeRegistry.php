@@ -21,18 +21,18 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
      */
     private $parameterTypesByClass = [];
 
-    public function addParameterType(ParameterTypeInterface $parameterType)
+    public function addParameterType(ParameterTypeInterface $parameterType): void
     {
         $this->parameterTypes[$parameterType->getIdentifier()] = $parameterType;
         $this->parameterTypesByClass[get_class($parameterType)] = $parameterType;
     }
 
-    public function hasParameterType($identifier)
+    public function hasParameterType(string $identifier): bool
     {
         return isset($this->parameterTypes[$identifier]);
     }
 
-    public function getParameterType($identifier)
+    public function getParameterType(string $identifier): ParameterTypeInterface
     {
         if (!$this->hasParameterType($identifier)) {
             throw ParameterTypeException::noParameterType($identifier);
@@ -41,7 +41,7 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
         return $this->parameterTypes[$identifier];
     }
 
-    public function getParameterTypeByClass($class)
+    public function getParameterTypeByClass(string $class): ParameterTypeInterface
     {
         if (!isset($this->parameterTypesByClass[$class])) {
             throw ParameterTypeException::noParameterTypeClass($class);
@@ -50,7 +50,7 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
         return $this->parameterTypesByClass[$class];
     }
 
-    public function getParameterTypes()
+    public function getParameterTypes(): array
     {
         return $this->parameterTypes;
     }

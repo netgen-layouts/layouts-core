@@ -14,19 +14,19 @@
     "placeholders": [],
     "parameters": {
         "en": {
-            "css_class": "sub_visit_value",
-            "css_id": "sub_visit_value"
+            "css_class": ["sub_visit_value"],
+            "css_id": ["sub_visit_value"]
         },
         "hr": {
-            "css_class": "sub_visit_value",
-            "css_id": "sub_visit_value"
+            "css_class": ["sub_visit_value"],
+            "css_id": ["sub_visit_value"]
         }
     },
     "configuration": {
-        "http_cache": "sub_visit_value"
+        "http_cache": ["sub_visit_value"]
     },
     "collections": {
-        "default": "sub_visit_value",
-        "featured": "sub_visit_value"
+        "default": ["sub_visit_value"],
+        "featured": ["sub_visit_value"]
     }
 }

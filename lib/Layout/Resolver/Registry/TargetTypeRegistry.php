@@ -16,17 +16,17 @@ final class TargetTypeRegistry implements TargetTypeRegistryInterface
      */
     private $targetTypes = [];
 
-    public function addTargetType(TargetTypeInterface $targetType)
+    public function addTargetType(TargetTypeInterface $targetType): void
     {
         $this->targetTypes[$targetType->getType()] = $targetType;
     }
 
-    public function hasTargetType($type)
+    public function hasTargetType(string $type): bool
     {
         return isset($this->targetTypes[$type]);
     }
 
-    public function getTargetType($type)
+    public function getTargetType(string $type): TargetTypeInterface
     {
         if (!$this->hasTargetType($type)) {
             throw TargetTypeException::noTargetType($type);
@@ -35,7 +35,7 @@ final class TargetTypeRegistry implements TargetTypeRegistryInterface
         return $this->targetTypes[$type];
     }
 
-    public function getTargetTypes()
+    public function getTargetTypes(): array
     {
         return $this->targetTypes;
     }

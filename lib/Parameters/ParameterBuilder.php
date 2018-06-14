@@ -44,7 +44,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $defaultValue;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $label;
 
@@ -87,7 +87,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function __construct(
         ParameterBuilderFactoryInterface $builderFactory,
-        $name = null,
+        string $name = null,
         ParameterTypeInterface $type = null,
         array $options = [],
         ParameterBuilderInterface $parentBuilder = null
@@ -101,22 +101,22 @@ class ParameterBuilder implements ParameterBuilderInterface
         $this->options = $this->resolveOptions($options);
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getType()
+    public function getType(): ?ParameterTypeInterface
     {
         return $this->type;
     }
 
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
 
-    public function getOption($name)
+    public function getOption(string $name)
     {
         if (!array_key_exists($name, $this->options)) {
             throw ParameterBuilderException::noOption($name, $this->name);
@@ -125,12 +125,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->options[$name];
     }
 
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return array_key_exists($name, $this->options);
     }
 
-    public function setOption($name, $value)
+    public function setOption(string $name, $value): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the options is not possible after parameters have been built.');
@@ -151,18 +151,18 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function isRequired()
+    public function isRequired(): bool
     {
         return $this->isRequired;
     }
 
-    public function setRequired($isRequired)
+    public function setRequired(bool $isRequired): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the required flag is not possible after parameters have been built.');
         }
 
-        $this->isRequired = (bool) $isRequired;
+        $this->isRequired = $isRequired;
 
         return $this;
     }
@@ -172,7 +172,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->defaultValue;
     }
 
-    public function setDefaultValue($defaultValue)
+    public function setDefaultValue($defaultValue): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the default value is not possible after parameters have been built.');
@@ -188,7 +188,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->label;
     }
 
-    public function setLabel($label)
+    public function setLabel($label): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the label is not possible after parameters have been built.');
@@ -199,12 +199,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function getGroups()
+    public function getGroups(): array
     {
         return $this->groups;
     }
 
-    public function setGroups(array $groups)
+    public function setGroups(array $groups): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the groups is not possible after parameters have been built.');
@@ -215,12 +215,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return $this->constraints;
     }
 
-    public function setConstraints(array $constraints)
+    public function setConstraints(array $constraints): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the constraints is not possible after parameters have been built.');
@@ -235,7 +235,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function add($name, $type, array $options = [])
+    public function add(string $name, string $type, array $options = []): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Parameters cannot be added after they have been built.');
@@ -264,7 +264,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function get($name)
+    public function get(string $name): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Accessing parameter builders is not possible after parameters have been built.');
@@ -277,7 +277,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->unresolvedChildren[$name];
     }
 
-    public function all($group = null)
+    public function all(string $group = null): array
     {
         if ($this->locked) {
             throw new BadMethodCallException('Accessing parameter builders is not possible after parameters have been built.');
@@ -285,7 +285,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         return array_filter(
             $this->unresolvedChildren,
-            function (ParameterBuilderInterface $builder) use ($group) {
+            function (ParameterBuilderInterface $builder) use ($group): bool {
                 if ($group === null) {
                     return true;
                 }
@@ -295,12 +295,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         );
     }
 
-    public function has($name)
+    public function has(string $name): bool
     {
         return isset($this->unresolvedChildren[$name]);
     }
 
-    public function remove($name)
+    public function remove(string $name): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Removing parameters is not possible after parameters have been built.');
@@ -311,12 +311,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->unresolvedChildren);
     }
 
-    public function buildParameterDefinitions()
+    public function buildParameterDefinitions(): array
     {
         if ($this->locked) {
             return $this->resolvedChildren;
@@ -337,12 +337,8 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     /**
      * Builds the parameter definition.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
-    protected function buildParameterDefinition(ParameterBuilderInterface $builder)
+    protected function buildParameterDefinition(ParameterBuilderInterface $builder): ParameterDefinition
     {
         $data = [
             'name' => $builder->getName(),
@@ -369,12 +365,8 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     /**
      * Resolves the parameter options.
-     *
-     * @param array $options
-     *
-     * @return array
      */
-    protected function resolveOptions(array $options)
+    protected function resolveOptions(array $options): array
     {
         $optionsResolver = new OptionsResolver();
 
@@ -399,14 +391,14 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setAllowedValues(
             'constraints',
-            function (array $constraints) {
+            function (array $constraints): bool {
                 return $this->validateConstraints($constraints);
             }
         );
 
         $optionsResolver->setNormalizer(
             'groups',
-            function (Options $options, $value) {
+            function (Options $options, array $value): array {
                 if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
                     return $value;
                 }
@@ -421,7 +413,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setAllowedValues(
             'label',
-            function ($value) {
+            function ($value): bool {
                 if (!is_bool($value)) {
                     return true;
                 }
@@ -451,10 +443,8 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     /**
      * Configures the parameter options.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
-    protected function configureOptions(OptionsResolver $optionsResolver)
+    protected function configureOptions(OptionsResolver $optionsResolver): void
     {
     }
 
@@ -465,7 +455,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      *
      * @return bool
      */
-    private function validateConstraints(array $constraints)
+    private function validateConstraints(array $constraints): bool
     {
         foreach ($constraints as $constraint) {
             if (!$constraint instanceof Closure && !$constraint instanceof Constraint) {

@@ -11,23 +11,23 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Returns the parameter name.
      *
-     * @return string
+     * @return string|null
      */
-    public function getName();
+    public function getName(): ?string;
 
     /**
      * Returns the parameter type.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface|null
      */
-    public function getType();
+    public function getType(): ?ParameterTypeInterface;
 
     /**
      * Returns the parameter options.
      *
      * @return array
      */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * Returns the parameter option with provided name.
@@ -38,7 +38,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return mixed
      */
-    public function getOption($name);
+    public function getOption(string $name);
 
     /**
      * Returns if the parameter option with provided name exists.
@@ -47,7 +47,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return bool
      */
-    public function hasOption($name);
+    public function hasOption(string $name): bool;
 
     /**
      * Sets the option to the provided value.
@@ -63,14 +63,14 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function setOption($name, $value);
+    public function setOption(string $name, $value): self;
 
     /**
      * Returns if the parameter is required.
      *
      * @return bool
      */
-    public function isRequired();
+    public function isRequired(): bool;
 
     /**
      * Sets if the parameter is required.
@@ -79,7 +79,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function setRequired($isRequired);
+    public function setRequired(bool $isRequired): self;
 
     /**
      * Returns the default value of the parameter.
@@ -95,30 +95,30 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function setDefaultValue($defaultValue);
+    public function setDefaultValue($defaultValue): self;
 
     /**
      * Returns the parameter label.
      *
-     * @return string
+     * @return string|bool|null
      */
     public function getLabel();
 
     /**
      * Sets the parameter label.
      *
-     * @param string $label
+     * @param string|bool|null $label
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function setLabel($label);
+    public function setLabel($label): self;
 
     /**
      * Returns the parameter groups.
      *
      * @return array
      */
-    public function getGroups();
+    public function getGroups(): array;
 
     /**
      * Sets the parameter groups.
@@ -127,14 +127,14 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function setGroups(array $groups);
+    public function setGroups(array $groups): self;
 
     /**
      * Returns the runtime constraints for this parameter.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints();
+    public function getConstraints(): array;
 
     /**
      * Sets the parameter constraints.
@@ -143,7 +143,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function setConstraints(array $constraints);
+    public function setConstraints(array $constraints): self;
 
     /**
      * Adds the parameter to the builder.
@@ -154,7 +154,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function add($name, $type, array $options = []);
+    public function add(string $name, string $type, array $options = []): self;
 
     /**
      * Returns the builder for parameter with provided name.
@@ -163,7 +163,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function get($name);
+    public function get(string $name): self;
 
     /**
      * Returns the builders for all parameters, optionally filtered by the group.
@@ -172,7 +172,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface[]
      */
-    public function all($group = null);
+    public function all(string $group = null): array;
 
     /**
      * Returns if the builder has the parameter with provided name.
@@ -181,7 +181,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return bool
      */
-    public function has($name);
+    public function has(string $name): bool;
 
     /**
      * Removes the parameter from the builder.
@@ -190,19 +190,19 @@ interface ParameterBuilderInterface extends Countable
      *
      * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function remove($name);
+    public function remove(string $name): self;
 
     /**
      * Returns the count of the parameters.
      *
      * @return int
      */
-    public function count();
+    public function count(): int;
 
     /**
      * Builds the parameter definitions.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
-    public function buildParameterDefinitions();
+    public function buildParameterDefinitions(): array;
 }

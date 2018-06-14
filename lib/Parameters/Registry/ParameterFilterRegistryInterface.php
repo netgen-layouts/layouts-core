@@ -14,7 +14,7 @@ interface ParameterFilterRegistryInterface
      * @param string $parameterType
      * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
      */
-    public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter);
+    public function addParameterFilter(string $parameterType, ParameterFilterInterface $parameterFilter): void;
 
     /**
      * Returns all parameter filters for provided parameter type.
@@ -23,5 +23,5 @@ interface ParameterFilterRegistryInterface
      *
      * @return \Netgen\BlockManager\Parameters\ParameterFilterInterface[]
      */
-    public function getParameterFilters($parameterType);
+    public function getParameterFilters(string $parameterType): array;
 }

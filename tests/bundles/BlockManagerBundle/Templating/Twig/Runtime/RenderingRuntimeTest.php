@@ -599,7 +599,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item()),
+                $this->equalTo(new Item(['valueType' => 'value_type'])),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -609,7 +609,7 @@ final class RenderingRuntimeTest extends TestCase
             '',
             $this->runtime->renderItem(
                 [],
-                new Item(),
+                new Item(['valueType' => 'value_type']),
                 'view_type',
                 ['param' => 'value']
             )
@@ -629,7 +629,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item()),
+                $this->equalTo(new Item(['valueType' => 'value_type'])),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -637,7 +637,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->runtime->renderItem(
             [],
-            new Item(),
+            new Item(['valueType' => 'value_type']),
             'view_type',
             ['param' => 'value']
         );

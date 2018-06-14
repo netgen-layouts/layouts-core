@@ -17,7 +17,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Rule extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof RuleValue;
     }
@@ -45,13 +45,8 @@ final class Rule extends Visitor
 
     /**
      * Visit the given $rule targets into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitTargets(RuleValue $rule, VisitorInterface $subVisitor)
+    private function visitTargets(RuleValue $rule, VisitorInterface $subVisitor): array
     {
         $hash = [];
 
@@ -64,13 +59,8 @@ final class Rule extends Visitor
 
     /**
      * Visit the given $rule conditions into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitConditions(RuleValue $rule, VisitorInterface $subVisitor)
+    private function visitConditions(RuleValue $rule, VisitorInterface $subVisitor): array
     {
         $hash = [];
 

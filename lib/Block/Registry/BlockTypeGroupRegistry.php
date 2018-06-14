@@ -16,17 +16,17 @@ final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
      */
     private $blockTypeGroups = [];
 
-    public function addBlockTypeGroup($identifier, BlockTypeGroup $blockTypeGroup)
+    public function addBlockTypeGroup(string $identifier, BlockTypeGroup $blockTypeGroup): void
     {
         $this->blockTypeGroups[$identifier] = $blockTypeGroup;
     }
 
-    public function hasBlockTypeGroup($identifier)
+    public function hasBlockTypeGroup(string $identifier): bool
     {
         return isset($this->blockTypeGroups[$identifier]);
     }
 
-    public function getBlockTypeGroup($identifier)
+    public function getBlockTypeGroup(string $identifier): BlockTypeGroup
     {
         if (!$this->hasBlockTypeGroup($identifier)) {
             throw BlockTypeException::noBlockTypeGroup($identifier);
@@ -35,7 +35,7 @@ final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
         return $this->blockTypeGroups[$identifier];
     }
 
-    public function getBlockTypeGroups($onlyEnabled = false)
+    public function getBlockTypeGroups(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {
             return $this->blockTypeGroups;
@@ -43,7 +43,7 @@ final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
 
         return array_filter(
             $this->blockTypeGroups,
-            function (BlockTypeGroup $blockTypeGroup) {
+            function (BlockTypeGroup $blockTypeGroup): bool {
                 return $blockTypeGroup->isEnabled();
             }
         );

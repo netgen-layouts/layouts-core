@@ -38,20 +38,7 @@ final class LayoutResolver implements LayoutResolverInterface
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * Resolves the rules based on the provided request and returns the first resolved rule
-     * or null if no rules were resolved.
-     *
-     * If no request is provided, current request is used.
-     *
-     * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param array $enabledConditions
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
-     */
-    public function resolveRule(Request $request = null, array $enabledConditions = null)
+    public function resolveRule(Request $request = null, array $enabledConditions = null): ?Rule
     {
         $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
 
@@ -60,23 +47,25 @@ final class LayoutResolver implements LayoutResolverInterface
                 return $resolvedRule;
             }
         }
+
+        return null;
     }
 
-    public function resolveRules(Request $request = null, array $enabledConditions = null)
+    public function resolveRules(Request $request = null, array $enabledConditions = null): array
     {
         $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
 
         return array_values(
             array_filter(
                 $resolvedRules,
-                function (Rule $rule) {
+                function (Rule $rule): bool {
                     return $rule->getLayout() instanceof Layout;
                 }
             )
         );
     }
 
-    public function matches(Rule $rule, Request $request, array $enabledConditions = null)
+    public function matches(Rule $rule, Request $request, array $enabledConditions = null): bool
     {
         foreach ($rule->getConditions() as $condition) {
             $conditionType = $condition->getConditionType();
@@ -93,7 +82,7 @@ final class LayoutResolver implements LayoutResolverInterface
         return true;
     }
 
-    private function innerResolveRules(Request $request = null, array $enabledConditions = null)
+    private function innerResolveRules(Request $request = null, array $enabledConditions = null): array
     {
         if (!$request instanceof Request) {
             $request = $this->requestStack->getCurrentRequest();
@@ -124,7 +113,7 @@ final class LayoutResolver implements LayoutResolverInterface
 
         usort(
             $resolvedRules,
-            function (Rule $a, Rule $b) {
+            function (Rule $a, Rule $b): int {
                 return $b->getPriority() <=> $a->getPriority();
             }
         );

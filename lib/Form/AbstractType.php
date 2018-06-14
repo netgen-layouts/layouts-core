@@ -13,12 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class AbstractType extends BaseAbstractType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }

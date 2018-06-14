@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Values\LazyCollection;
@@ -48,7 +49,7 @@ final class LayoutMapper
             'identifier' => $zone->identifier,
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
-            'linkedZone' => function () use ($zone) {
+            'linkedZone' => function () use ($zone): ?APIZone {
                 if ($zone->linkedLayoutId === null || $zone->linkedZoneIdentifier === null) {
                     return null;
                 }
@@ -98,9 +99,9 @@ final class LayoutMapper
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
             'zones' => new LazyCollection(
-                function () use ($layout) {
+                function () use ($layout): array {
                     return array_map(
-                        function (PersistenceZone $zone) {
+                        function (PersistenceZone $zone): APIZone {
                             return $this->mapZone($zone);
                         },
                         $this->layoutHandler->loadLayoutZones($layout)

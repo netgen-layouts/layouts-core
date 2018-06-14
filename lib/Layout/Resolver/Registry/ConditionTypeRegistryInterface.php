@@ -13,35 +13,25 @@ interface ConditionTypeRegistryInterface extends IteratorAggregate, Countable, A
 {
     /**
      * Adds a condition type to registry.
-     *
-     * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
      */
-    public function addConditionType(ConditionTypeInterface $conditionType);
+    public function addConditionType(ConditionTypeInterface $conditionType): void;
 
     /**
      * Returns if registry has a condition type.
-     *
-     * @param string $type
-     *
-     * @return bool
      */
-    public function hasConditionType($type);
+    public function hasConditionType(string $type): bool;
 
     /**
      * Returns a condition type with provided type.
      *
-     * @param string $type
-     *
      * @throws \Netgen\BlockManager\Exception\Layout\ConditionTypeException If condition type does not exist
-     *
-     * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    public function getConditionType($type);
+    public function getConditionType(string $type): ConditionTypeInterface;
 
     /**
      * Returns all condition types.
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface[]
      */
-    public function getConditionTypes();
+    public function getConditionTypes(): array;
 }

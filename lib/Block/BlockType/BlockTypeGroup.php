@@ -39,7 +39,7 @@ class BlockTypeGroup extends Value
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -49,7 +49,7 @@ class BlockTypeGroup extends Value
      *
      * @return bool
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->isEnabled;
     }
@@ -59,7 +59,7 @@ class BlockTypeGroup extends Value
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -71,7 +71,7 @@ class BlockTypeGroup extends Value
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
-    public function getBlockTypes($onlyEnabled = false)
+    public function getBlockTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {
             return $this->blockTypes;
@@ -80,7 +80,7 @@ class BlockTypeGroup extends Value
         return array_values(
             array_filter(
                 $this->blockTypes,
-                function (BlockType $blockType) {
+                function (BlockType $blockType): bool {
                     return $blockType->isEnabled();
                 }
             )

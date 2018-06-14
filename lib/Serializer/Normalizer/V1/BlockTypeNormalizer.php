@@ -35,7 +35,7 @@ final class BlockTypeNormalizer implements NormalizerInterface
         return $data;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;

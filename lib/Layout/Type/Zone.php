@@ -28,7 +28,7 @@ final class Zone extends Value
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -38,7 +38,7 @@ final class Zone extends Value
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -48,7 +48,7 @@ final class Zone extends Value
      *
      * @return array
      */
-    public function getAllowedBlockDefinitions()
+    public function getAllowedBlockDefinitions(): array
     {
         return $this->allowedBlockDefinitions;
     }

@@ -13,5 +13,5 @@ interface ViewRendererInterface
      *
      * @return string
      */
-    public function renderView(ViewInterface $view);
+    public function renderView(ViewInterface $view): string;
 }

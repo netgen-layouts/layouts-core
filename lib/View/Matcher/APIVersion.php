@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\ViewInterface;
  */
 final class APIVersion implements MatcherInterface
 {
-    public function match(ViewInterface $view, array $config)
+    public function match(ViewInterface $view, array $config): bool
     {
         if (!$view->hasParameter('api_version')) {
             return false;

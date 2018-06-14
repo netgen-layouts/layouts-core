@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class CompoundParameterDefinitionTest extends TestCase
@@ -32,11 +33,11 @@ final class CompoundParameterDefinitionTest extends TestCase
     {
         $parameterDefinition = new CompoundParameterDefinition(
             [
-                'parameterDefinitions' => ['name' => 'value'],
+                'parameterDefinitions' => ['name' => new ParameterDefinition()],
             ]
         );
 
-        $this->assertEquals(['name' => 'value'], $parameterDefinition->getParameterDefinitions());
+        $this->assertEquals(['name' => new ParameterDefinition()], $parameterDefinition->getParameterDefinitions());
 
         $this->assertFalse($parameterDefinition->hasParameterDefinition('test'));
         $this->assertTrue($parameterDefinition->hasParameterDefinition('name'));
@@ -48,6 +49,6 @@ final class CompoundParameterDefinitionTest extends TestCase
             // Do nothing
         }
 
-        $this->assertEquals('value', $parameterDefinition->getParameterDefinition('name'));
+        $this->assertEquals(new ParameterDefinition(), $parameterDefinition->getParameterDefinition('name'));
     }
 }

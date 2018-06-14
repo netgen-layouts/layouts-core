@@ -23,7 +23,9 @@ use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
@@ -120,7 +122,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->validator->validateCollectionUpdateStruct($collection, $collectionUpdateStruct);
 
         $updatedCollection = $this->transaction(
-            function () use ($persistenceCollection, $collectionUpdateStruct) {
+            function () use ($persistenceCollection, $collectionUpdateStruct): PersistenceCollection {
                 return $this->handler->updateCollection(
                     $persistenceCollection,
                     new CollectionUpdateStruct(
@@ -205,7 +207,7 @@ final class CollectionService extends Service implements APICollectionService
         }
 
         $this->transaction(
-            function () use ($persistenceCollection, $newType, $queryCreateStruct) {
+            function () use ($persistenceCollection, $newType, $queryCreateStruct): void {
                 $this->handler->deleteCollectionQuery($persistenceCollection);
 
                 if ($newType === Collection::TYPE_MANUAL) {
@@ -260,7 +262,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->validator->validateItemCreateStruct($itemCreateStruct);
 
         $createdItem = $this->transaction(
-            function () use ($persistenceCollection, $position, $itemCreateStruct) {
+            function () use ($persistenceCollection, $position, $itemCreateStruct): PersistenceItem {
                 return $this->handler->addItem(
                     $persistenceCollection,
                     new ItemCreateStruct(
@@ -295,7 +297,7 @@ final class CollectionService extends Service implements APICollectionService
         $itemDefinition = $item->getDefinition();
 
         $updatedItem = $this->transaction(
-            function () use ($itemDefinition, $persistenceItem, $itemUpdateStruct) {
+            function () use ($itemDefinition, $persistenceItem, $itemUpdateStruct): PersistenceItem {
                 return $this->handler->updateItem(
                     $persistenceItem,
                     new ItemUpdateStruct(
@@ -325,7 +327,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->validator->validatePosition($position, 'position', true);
 
         $movedItem = $this->transaction(
-            function () use ($persistenceItem, $position) {
+            function () use ($persistenceItem, $position): PersistenceItem {
                 return $this->handler->moveItem(
                     $persistenceItem,
                     $position
@@ -345,7 +347,7 @@ final class CollectionService extends Service implements APICollectionService
         $persistenceItem = $this->handler->loadItem($item->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
-            function () use ($persistenceItem) {
+            function () use ($persistenceItem): void {
                 $this->handler->deleteItem($persistenceItem);
             }
         );
@@ -366,7 +368,7 @@ final class CollectionService extends Service implements APICollectionService
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $updatedCollection = $this->transaction(
-            function () use ($persistenceCollection, $itemType) {
+            function () use ($persistenceCollection, $itemType): PersistenceCollection {
                 return $this->handler->deleteItems($persistenceCollection, $itemType);
             }
         );
@@ -391,7 +393,7 @@ final class CollectionService extends Service implements APICollectionService
         $queryType = $query->getQueryType();
 
         $updatedQuery = $this->transaction(
-            function () use ($queryType, $persistenceQuery, $queryUpdateStruct) {
+            function () use ($queryType, $persistenceQuery, $queryUpdateStruct): PersistenceQuery {
                 return $this->updateQueryTranslations(
                     $queryType,
                     $persistenceQuery,

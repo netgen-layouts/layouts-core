@@ -11,7 +11,7 @@ use Swaggest\JsonSchema\Schema;
 
 class JsonValidator implements JsonValidatorInterface
 {
-    public function validateJson($data, $schema)
+    public function validateJson(string $data, string $schema): void
     {
         $schema = $this->parseJson($schema);
         $data = $this->parseJson($data);
@@ -27,13 +27,9 @@ class JsonValidator implements JsonValidatorInterface
     /**
      * Parses JSON data.
      *
-     * @param string $data
-     *
      * @throws \Netgen\BlockManager\Exception\Transfer\JsonValidationException
-     *
-     * @return \stdClass
      */
-    private function parseJson($data)
+    private function parseJson(string $data): stdClass
     {
         $data = json_decode($data);
 

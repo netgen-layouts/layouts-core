@@ -10,12 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class RouteParameter extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return KeyValuesType::class;
     }
 
-    public function getFormOptions()
+    public function getFormOptions(): array
     {
         return [
             'label' => false,

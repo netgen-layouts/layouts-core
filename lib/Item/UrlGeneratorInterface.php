@@ -12,11 +12,7 @@ interface UrlGeneratorInterface
     /**
      * Returns the item path.
      *
-     * @param \Netgen\BlockManager\Item\ItemInterface $item
-     *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException if URL could not be generated
-     *
-     * @return string|null
      */
-    public function generate(ItemInterface $item);
+    public function generate(ItemInterface $item): ?string;
 }

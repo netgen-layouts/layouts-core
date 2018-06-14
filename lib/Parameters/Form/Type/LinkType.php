@@ -24,7 +24,7 @@ final class LinkType extends AbstractType
 {
     use ChoicesAsValuesTrait;
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -33,7 +33,7 @@ final class LinkType extends AbstractType
         $resolver->setDefault('value_types', []);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'link_type',
@@ -124,7 +124,7 @@ final class LinkType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $linkType = $form->get('link_type')->getData();
         if (!$form->has($linkType)) {
@@ -139,7 +139,7 @@ final class LinkType extends AbstractType
         }
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ngbm_link';
     }

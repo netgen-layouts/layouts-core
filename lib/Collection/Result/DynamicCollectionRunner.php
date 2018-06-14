@@ -21,7 +21,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $this->queryRunner = $queryRunner;
     }
 
-    public function runCollection(Collection $collection, $offset, $limit, $flags = 0)
+    public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator
     {
         $queryIterator = $this->runQuery($collection, $offset, $limit);
 
@@ -44,7 +44,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         }
     }
 
-    public function count(Collection $collection)
+    public function count(Collection $collection): int
     {
         $totalCount = $this->queryRunner->count($collection->getQuery());
 
@@ -79,7 +79,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * @return \Netgen\BlockManager\Collection\Result\Result|null
      */
-    private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator)
+    private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
         $queryValue = $this->getQueryValue($queryIterator);
 
@@ -105,7 +105,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * @return \Netgen\BlockManager\Collection\Result\Result|null
      */
-    private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator)
+    private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
         if (!$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
@@ -147,7 +147,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * @return \Iterator
      */
-    private function runQuery(Collection $collection, $offset, $limit)
+    private function runQuery(Collection $collection, int $offset, int $limit): Iterator
     {
         $queryOffset = $offset - $this->getManualItemsCount($collection, 0, $offset);
         $queryLimit = $limit - $this->getManualItemsCount($collection, $offset, $offset + $limit);
@@ -164,7 +164,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * @return int
      */
-    private function getManualItemsCount(Collection $collection, $startOffset, $endOffset)
+    private function getManualItemsCount(Collection $collection, int $startOffset, int $endOffset): int
     {
         $manualItemsCount = 0;
 

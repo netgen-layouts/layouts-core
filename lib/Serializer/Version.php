@@ -9,5 +9,5 @@ namespace Netgen\BlockManager\Serializer;
  */
 final class Version
 {
-    const API_V1 = 1;
+    public const API_V1 = 1;
 }

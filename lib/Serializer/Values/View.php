@@ -21,7 +21,7 @@ final class View extends AbstractValue
      * @param int $version
      * @param int $statusCode
      */
-    public function __construct($value, $version, $statusCode = Response::HTTP_OK)
+    public function __construct($value, int $version, int $statusCode = Response::HTTP_OK)
     {
         parent::__construct($value, $statusCode);
 
@@ -30,10 +30,8 @@ final class View extends AbstractValue
 
     /**
      * Returns the API version.
-     *
-     * @return int
      */
-    public function getVersion()
+    public function getVersion(): int
     {
         return $this->version;
     }

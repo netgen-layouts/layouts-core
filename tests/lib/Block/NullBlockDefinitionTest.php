@@ -73,10 +73,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getForm
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
+     * @expectedExceptionMessage Form "content" does not exist in "definition" block definition.
      */
     public function testGetForm(): void
     {
-        $this->assertNull($this->blockDefinition->getForm('content'));
+        $this->blockDefinition->getForm('content');
     }
 
     /**
@@ -97,10 +99,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getCollection
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
+     * @expectedExceptionMessage Collection "collection" does not exist in "definition" block definition.
      */
     public function testGetCollection(): void
     {
-        $this->assertNull($this->blockDefinition->getCollection('collection'));
+        $this->blockDefinition->getCollection('collection');
     }
 
     /**
@@ -129,10 +133,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewType
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
+     * @expectedExceptionMessage View type "large" does not exist in "definition" block definition.
      */
     public function testGetViewType(): void
     {
-        $this->assertNull($this->blockDefinition->getViewType('large'));
+        $this->blockDefinition->getViewType('large');
     }
 
     /**

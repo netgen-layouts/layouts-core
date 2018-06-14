@@ -62,11 +62,11 @@ final class BlockDefinitionFactory
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     public function buildBlockDefinition(
-        $identifier,
+        string $identifier,
         BlockDefinitionHandlerInterface $handler,
         array $config,
         array $configDefinitionHandlers
-    ) {
+    ): BlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
@@ -88,11 +88,11 @@ final class BlockDefinitionFactory
      * @return \Netgen\BlockManager\Block\TwigBlockDefinitionInterface
      */
     public function buildTwigBlockDefinition(
-        $identifier,
+        string $identifier,
         TwigBlockDefinitionHandlerInterface $handler,
         array $config,
         array $configDefinitionHandlers
-    ) {
+    ): BlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
@@ -114,11 +114,11 @@ final class BlockDefinitionFactory
      * @return \Netgen\BlockManager\Block\ContainerDefinitionInterface
      */
     public function buildContainerDefinition(
-        $identifier,
+        string $identifier,
         ContainerDefinitionHandlerInterface $handler,
         array $config,
         array $configDefinitionHandlers
-    ) {
+    ): BlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
@@ -140,11 +140,11 @@ final class BlockDefinitionFactory
      * @return array
      */
     private function getCommonBlockDefinitionData(
-        $identifier,
+        string $identifier,
         BlockDefinitionHandlerInterface $handler,
         array $config,
         array $configDefinitionHandlers
-    ) {
+    ): array {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
 
@@ -181,7 +181,7 @@ final class BlockDefinitionFactory
      *
      * @return array
      */
-    private function processConfig($identifier, array $config)
+    private function processConfig(string $identifier, array $config): array
     {
         $collections = [];
         $forms = [];

@@ -100,7 +100,7 @@ final class Collection extends Value implements APICollection
     public function hasItem($position, $type = null)
     {
         return $this->items->exists(
-            function ($key, APIItem $item) use ($position, $type) {
+            function ($key, APIItem $item) use ($position, $type): bool {
                 if ($item->getPosition() === $position) {
                     return $type === null || $item->getType() === $type;
                 }
@@ -203,7 +203,7 @@ final class Collection extends Value implements APICollection
     private function filterItems($type)
     {
         return $this->items->filter(
-            function (APIItem $item) use ($type) {
+            function (APIItem $item) use ($type): bool {
                 return $item->getType() === $type;
             }
         )->toArray();

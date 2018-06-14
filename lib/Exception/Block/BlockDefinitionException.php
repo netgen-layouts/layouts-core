@@ -14,7 +14,7 @@ final class BlockDefinitionException extends InvalidArgumentException implements
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      */
-    public static function noBlockDefinition($identifier)
+    public static function noBlockDefinition(string $identifier): self
     {
         return new self(
             sprintf(
@@ -30,7 +30,7 @@ final class BlockDefinitionException extends InvalidArgumentException implements
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      */
-    public static function noCollection($blockDefinition, $collection)
+    public static function noCollection(string $blockDefinition, string $collection): self
     {
         return new self(
             sprintf(
@@ -47,7 +47,7 @@ final class BlockDefinitionException extends InvalidArgumentException implements
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      */
-    public static function noViewType($blockDefinition, $viewType)
+    public static function noViewType(string $blockDefinition, string $viewType): self
     {
         return new self(
             sprintf(
@@ -64,7 +64,7 @@ final class BlockDefinitionException extends InvalidArgumentException implements
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      */
-    public static function noItemViewType($viewType, $itemViewType)
+    public static function noItemViewType(string $viewType, string $itemViewType): self
     {
         return new self(
             sprintf(
@@ -81,7 +81,7 @@ final class BlockDefinitionException extends InvalidArgumentException implements
      *
      * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      */
-    public static function noForm($blockDefinition, $form)
+    public static function noForm(string $blockDefinition, string $form): self
     {
         return new self(
             sprintf(

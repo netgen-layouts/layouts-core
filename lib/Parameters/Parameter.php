@@ -33,7 +33,7 @@ final class Parameter extends Value
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->value;
     }
@@ -43,7 +43,7 @@ final class Parameter extends Value
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -53,7 +53,7 @@ final class Parameter extends Value
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
-    public function getParameterDefinition()
+    public function getParameterDefinition(): ParameterDefinition
     {
         return $this->parameterDefinition;
     }
@@ -73,7 +73,7 @@ final class Parameter extends Value
      *
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return $this->isEmpty;
     }

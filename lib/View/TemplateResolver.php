@@ -31,7 +31,7 @@ class TemplateResolver implements TemplateResolverInterface
     {
         $this->matchers = array_filter(
             $matchers,
-            function (MatcherInterface $matcher) {
+            function (MatcherInterface $matcher): bool {
                 return true;
             }
         );
@@ -39,7 +39,7 @@ class TemplateResolver implements TemplateResolverInterface
         $this->viewConfig = $viewConfig;
     }
 
-    public function resolveTemplate(ViewInterface $view)
+    public function resolveTemplate(ViewInterface $view): void
     {
         $viewContext = $view->getContext();
         $fallbackViewContext = $view->getFallbackContext();
@@ -78,7 +78,7 @@ class TemplateResolver implements TemplateResolverInterface
      *
      * @return bool
      */
-    private function matches(ViewInterface $view, array $matchConfig)
+    private function matches(ViewInterface $view, array $matchConfig): bool
     {
         foreach ($matchConfig as $matcher => $matcherConfig) {
             if (!isset($this->matchers[$matcher])) {
@@ -103,7 +103,7 @@ class TemplateResolver implements TemplateResolverInterface
      *
      * @return array
      */
-    private function evaluateParameters(ViewInterface $view, array $parameters)
+    private function evaluateParameters(ViewInterface $view, array $parameters): array
     {
         $evaluatedParameters = [];
 

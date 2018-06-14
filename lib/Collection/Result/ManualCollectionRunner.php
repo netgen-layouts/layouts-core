@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
 /**
@@ -14,7 +15,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
  */
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
-    public function runCollection(Collection $collection, $offset, $limit, $flags = 0)
+    public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator
     {
         $itemCount = 0;
         $skippedCount = 0;
@@ -53,7 +54,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         }
     }
 
-    public function count(Collection $collection)
+    public function count(Collection $collection): int
     {
         $totalCount = 0;
 

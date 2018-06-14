@@ -8,10 +8,11 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\View\PlaceholderView;
+use Netgen\BlockManager\View\ViewInterface;
 
 final class PlaceholderViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = [])
+    public function provideView($value, array $parameters = []): ViewInterface
     {
         if (!isset($parameters['block'])) {
             throw ViewProviderException::noParameter('placeholder', 'block');
@@ -29,7 +30,7 @@ final class PlaceholderViewProvider implements ViewProviderInterface
         );
     }
 
-    public function supports($value)
+    public function supports($value): bool
     {
         return $value instanceof Placeholder;
     }

@@ -15,7 +15,7 @@ final class ConfigDefinitionException extends InvalidArgumentException implement
      *
      * @return \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
      */
-    public static function noConfigDefinition($type, $identifier)
+    public static function noConfigDefinition(string $type, string $identifier): self
     {
         return new self(
             sprintf(

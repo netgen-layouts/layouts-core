@@ -32,7 +32,7 @@ final class IntegerType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'max',
-            function (Options $options, $value) {
+            function (Options $options, ?int $value): ?int {
                 if ($value === null || $options['min'] === null) {
                     return $value;
                 }
@@ -62,7 +62,7 @@ final class IntegerType extends ParameterType
         return $value === null;
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         $options = $parameterDefinition->getOptions();
 

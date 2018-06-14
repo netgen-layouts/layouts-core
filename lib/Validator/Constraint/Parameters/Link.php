@@ -30,7 +30,7 @@ final class Link extends Constraint
      */
     public $allowInvalidInternal = false;
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_link';
     }

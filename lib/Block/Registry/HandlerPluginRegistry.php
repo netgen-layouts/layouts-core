@@ -13,17 +13,17 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
      */
     private $handlerPlugins = [];
 
-    public function addPlugin(PluginInterface $plugin)
+    public function addPlugin(PluginInterface $plugin): void
     {
         $this->handlerPlugins[] = $plugin;
     }
 
-    public function getPlugins($handlerClass)
+    public function getPlugins(string $handlerClass): array
     {
         return array_values(
             array_filter(
                 $this->handlerPlugins,
-                function (PluginInterface $plugin) use ($handlerClass) {
+                function (PluginInterface $plugin) use ($handlerClass): bool {
                     $extendedHandlers = (array) $plugin::getExtendedHandler();
                     foreach ($extendedHandlers as $extendedHandler) {
                         if (is_a($handlerClass, $extendedHandler, true)) {

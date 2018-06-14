@@ -29,13 +29,13 @@ final class Aggregate extends Visitor
     {
         $this->visitors = array_filter(
             $visitors,
-            function (VisitorInterface $visitor) {
+            function (VisitorInterface $visitor): bool {
                 return true;
             }
         );
     }
 
-    public function accept($value)
+    public function accept($value): bool
     {
         return true;
     }

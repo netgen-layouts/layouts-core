@@ -38,6 +38,7 @@ final class FullEditTypeTest extends FormTestCase
         $handler = new BlockDefinitionHandler();
         $this->definition = new BlockDefinition(
             [
+                'identifier' => 'definition',
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
                 'viewTypes' => [
                     'large' => new ViewType(

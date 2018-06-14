@@ -15,22 +15,22 @@ final class Context implements ContextInterface
      */
     private $contextVariables = [];
 
-    public function set($variableName, $value)
+    public function set(string $variableName, $value): void
     {
         $this->contextVariables[$variableName] = $value;
     }
 
-    public function add(array $context)
+    public function add(array $context): void
     {
         $this->contextVariables = $context + $this->contextVariables;
     }
 
-    public function has($variableName)
+    public function has(string $variableName): bool
     {
         return array_key_exists($variableName, $this->contextVariables);
     }
 
-    public function get($variableName)
+    public function get(string $variableName)
     {
         if (!$this->has($variableName)) {
             throw ContextException::noVariable($variableName);
@@ -39,7 +39,7 @@ final class Context implements ContextInterface
         return $this->contextVariables[$variableName];
     }
 
-    public function all()
+    public function all(): array
     {
         return $this->contextVariables;
     }

@@ -15,24 +15,18 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
 {
     /**
      * Returns the query type.
-     *
-     * @return string
      */
-    public function getType();
+    public function getType(): string;
 
     /**
      * Returns if the query type is enabled or not.
-     *
-     * @return bool
      */
-    public function isEnabled();
+    public function isEnabled(): bool;
 
     /**
      * Returns the query type name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the values from the query.
@@ -55,19 +49,11 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
      *
      * Due to that, this method takes the inner query limit (as used in parameters)
      * and returns it instead if returned count is larger.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
      */
-    public function getCount(Query $query);
+    public function getCount(Query $query): int;
 
     /**
      * Returns if the provided query is dependent on a context, i.e. currently displayed page.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return bool
      */
-    public function isContextual(Query $query);
+    public function isContextual(Query $query): bool;
 }

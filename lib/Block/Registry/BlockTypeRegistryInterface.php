@@ -17,7 +17,7 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockType\BlockType $blockType
      */
-    public function addBlockType($identifier, BlockType $blockType);
+    public function addBlockType(string $identifier, BlockType $blockType): void;
 
     /**
      * Returns if registry has a block type.
@@ -26,7 +26,7 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @return bool
      */
-    public function hasBlockType($identifier);
+    public function hasBlockType(string $identifier): bool;
 
     /**
      * Returns the block type with provided identifier.
@@ -37,7 +37,7 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
-    public function getBlockType($identifier);
+    public function getBlockType(string $identifier): BlockType;
 
     /**
      * Returns all block types.
@@ -46,5 +46,5 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
-    public function getBlockTypes($onlyEnabled = false);
+    public function getBlockTypes(bool $onlyEnabled = false): array;
 }

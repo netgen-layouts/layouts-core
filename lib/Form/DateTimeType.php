@@ -22,7 +22,7 @@ final class DateTimeType extends AbstractType
      */
     private $timeZoneList = [];
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(['use_datetime']);
         $resolver->setAllowedTypes('use_datetime', 'bool');
@@ -31,7 +31,7 @@ final class DateTimeType extends AbstractType
         $resolver->setDefault('error_bubbling', false);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->setDataMapper(new DateTimeDataMapper($options['use_datetime']));
 
@@ -61,17 +61,15 @@ final class DateTimeType extends AbstractType
         );
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ngbm_datetime';
     }
 
     /**
      * Returns the formatted list of all timezones, separated by regions.
-     *
-     * @return array
      */
-    private function getTimeZoneList()
+    private function getTimeZoneList(): array
     {
         if (empty($this->timeZoneList)) {
             $this->timeZoneList = DateTimeUtils::getTimeZoneList();

@@ -11,5 +11,5 @@ interface CompoundParameterTypeInterface extends ParameterTypeInterface
      *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function buildParameters(ParameterBuilderInterface $builder);
+    public function buildParameters(ParameterBuilderInterface $builder): void;
 }

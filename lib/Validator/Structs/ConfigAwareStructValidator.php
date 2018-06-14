@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class ConfigAwareStructValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ConfigAwareStructConstraint) {
             throw new UnexpectedTypeException($constraint, ConfigAwareStructConstraint::class);

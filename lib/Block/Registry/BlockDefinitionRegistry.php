@@ -16,17 +16,17 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
      */
     private $blockDefinitions = [];
 
-    public function addBlockDefinition($identifier, BlockDefinitionInterface $blockDefinition)
+    public function addBlockDefinition(string $identifier, BlockDefinitionInterface $blockDefinition): void
     {
         $this->blockDefinitions[$identifier] = $blockDefinition;
     }
 
-    public function hasBlockDefinition($identifier)
+    public function hasBlockDefinition(string $identifier): bool
     {
         return isset($this->blockDefinitions[$identifier]);
     }
 
-    public function getBlockDefinition($identifier)
+    public function getBlockDefinition(string $identifier): BlockDefinitionInterface
     {
         if (!$this->hasBlockDefinition($identifier)) {
             throw BlockDefinitionException::noBlockDefinition($identifier);
@@ -35,7 +35,7 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
         return $this->blockDefinitions[$identifier];
     }
 
-    public function getBlockDefinitions()
+    public function getBlockDefinitions(): array
     {
         return $this->blockDefinitions;
     }

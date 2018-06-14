@@ -47,7 +47,7 @@ final class DateTimeType extends ParameterType
         return is_array($value) ? DateTimeUtils::createFromArray($value) : null;
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new DateTimeConstraint(),

@@ -13,9 +13,9 @@
     "modification_date": "@integer@",
     "is_shared": false,
     "zones": {
-        "bottom": "sub_visit_value",
-        "left": "sub_visit_value",
-        "right": "sub_visit_value",
-        "top": "sub_visit_value"
+        "bottom": ["sub_visit_value"],
+        "left": ["sub_visit_value"],
+        "right": ["sub_visit_value"],
+        "top": ["sub_visit_value"]
     }
 }

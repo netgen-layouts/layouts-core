@@ -22,7 +22,7 @@ abstract class AbstractValue
      * @param mixed $value
      * @param int $statusCode
      */
-    public function __construct($value, $statusCode = Response::HTTP_OK)
+    public function __construct($value, int $statusCode = Response::HTTP_OK)
     {
         $this->value = $value;
         $this->statusCode = $statusCode;
@@ -40,10 +40,8 @@ abstract class AbstractValue
 
     /**
      * Returns the status code of the response that should be used.
-     *
-     * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }

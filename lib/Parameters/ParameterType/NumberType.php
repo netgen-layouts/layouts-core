@@ -64,7 +64,7 @@ final class NumberType extends ParameterType
         return $value === null;
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         $options = $parameterDefinition->getOptions();
 

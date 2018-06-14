@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -17,7 +18,7 @@ use Symfony\Component\Validator\Constraints;
  */
 final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
 {
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add(
             'visibility_status',
@@ -43,7 +44,7 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
             ParameterType\DateTimeType::class,
             [
                 'constraints' => [
-                    function ($visibleTo, array $parameters) {
+                    function ($visibleTo, array $parameters): ?Constraint {
                         $visibleFrom = $parameters['visible_from'];
 
                         if (

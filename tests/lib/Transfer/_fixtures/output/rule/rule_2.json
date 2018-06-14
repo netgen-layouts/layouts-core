@@ -6,10 +6,10 @@
     "priority": 8,
     "comment": "My other comment",
     "targets": {
-        "3": "sub_visit_value",
-        "4": "sub_visit_value"
+        "3": ["sub_visit_value"],
+        "4": ["sub_visit_value"]
     },
     "conditions": {
-        "1": "sub_visit_value"
+        "1": ["sub_visit_value"]
     }
 }

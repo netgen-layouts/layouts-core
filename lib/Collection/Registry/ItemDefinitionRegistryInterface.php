@@ -13,36 +13,25 @@ interface ItemDefinitionRegistryInterface extends IteratorAggregate, Countable, 
 {
     /**
      * Adds a item definition to registry.
-     *
-     * @param string $valueType
-     * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface $itemDefinition
      */
-    public function addItemDefinition($valueType, ItemDefinitionInterface $itemDefinition);
+    public function addItemDefinition(string $valueType, ItemDefinitionInterface $itemDefinition): void;
 
     /**
      * Returns if registry has a item definition.
-     *
-     * @param string $valueType
-     *
-     * @return bool
      */
-    public function hasItemDefinition($valueType);
+    public function hasItemDefinition(string $valueType): bool;
 
     /**
      * Returns a item definition with provided value type.
      *
-     * @param string $valueType
-     *
      * @throws \Netgen\BlockManager\Exception\Collection\ItemDefinitionException If item definition does not exist
-     *
-     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
-    public function getItemDefinition($valueType);
+    public function getItemDefinition(string $valueType): ItemDefinitionInterface;
 
     /**
      * Returns all item definitions.
      *
      * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[]
      */
-    public function getItemDefinitions();
+    public function getItemDefinitions(): array;
 }

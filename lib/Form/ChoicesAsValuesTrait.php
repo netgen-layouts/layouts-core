@@ -14,10 +14,8 @@ trait ChoicesAsValuesTrait
     /**
      * Returns the array filled with choices_as_values form option for ChoiceType Symfony form
      * on versions of Symfony lower than 3.1.
-     *
-     * @return array
      */
-    public function getChoicesAsValuesOption()
+    public function getChoicesAsValuesOption(): array
     {
         if (Kernel::VERSION_ID < 30100) {
             return [

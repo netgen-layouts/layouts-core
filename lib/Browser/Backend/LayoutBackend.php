@@ -11,6 +11,7 @@ use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
+use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class LayoutBackend implements BackendInterface
@@ -30,12 +31,12 @@ final class LayoutBackend implements BackendInterface
         return [new RootLocation()];
     }
 
-    public function loadLocation($id)
+    public function loadLocation($id): LocationInterface
     {
         return new RootLocation();
     }
 
-    public function loadItem($id)
+    public function loadItem($id): ItemInterface
     {
         try {
             $layout = $this->layoutService->loadLayout($id);
@@ -55,7 +56,7 @@ final class LayoutBackend implements BackendInterface
         return [];
     }
 
-    public function getSubLocationsCount(LocationInterface $location)
+    public function getSubLocationsCount(LocationInterface $location): int
     {
         return 0;
     }
@@ -67,7 +68,7 @@ final class LayoutBackend implements BackendInterface
         return $this->buildItems($layouts);
     }
 
-    public function getSubItemsCount(LocationInterface $location)
+    public function getSubItemsCount(LocationInterface $location): int
     {
         $layouts = $this->layoutService->loadLayouts();
 
@@ -79,19 +80,15 @@ final class LayoutBackend implements BackendInterface
         return [];
     }
 
-    public function searchCount($searchText)
+    public function searchCount($searchText): int
     {
         return 0;
     }
 
     /**
      * Builds the item from provided layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\Browser\Item\Layout\Item
      */
-    private function buildItem(Layout $layout)
+    private function buildItem(Layout $layout): Item
     {
         return new Item($layout);
     }
@@ -103,10 +100,10 @@ final class LayoutBackend implements BackendInterface
      *
      * @return \Netgen\BlockManager\Browser\Item\Layout\Item[]
      */
-    private function buildItems(array $layouts)
+    private function buildItems(array $layouts): array
     {
         return array_map(
-            function (Layout $layout) {
+            function (Layout $layout): Item {
                 return $this->buildItem($layout);
             },
             $layouts

@@ -18,7 +18,7 @@ final class DateTime extends Constraint
 
     public $invalidTimeZoneMessage = 'netgen_block_manager.datetime.invalid_timezone';
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_datetime';
     }

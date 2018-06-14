@@ -15,7 +15,7 @@ final class TargetHandlerException extends RuntimeException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Persistence\TargetHandlerException
      */
-    public static function noTargetHandler($persistenceType, $targetType)
+    public static function noTargetHandler(string $persistenceType, string $targetType): self
     {
         return new self(
             sprintf(

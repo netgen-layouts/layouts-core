@@ -21,5 +21,5 @@ interface TwigBlockDefinitionInterface extends BlockDefinitionInterface
      *
      * @return string
      */
-    public function getTwigBlockName(Block $block);
+    public function getTwigBlockName(Block $block): string;
 }

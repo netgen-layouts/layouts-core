@@ -27,7 +27,7 @@ final class Block extends Visitor
         $this->blockService = $blockService;
     }
 
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof BlockValue;
     }
@@ -59,13 +59,8 @@ final class Block extends Visitor
 
     /**
      * Visit the given $block placeholders into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitPlaceholders(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitPlaceholders(BlockValue $block, VisitorInterface $subVisitor): array
     {
         $hash = [];
 
@@ -78,13 +73,8 @@ final class Block extends Visitor
 
     /**
      * Visit the given $block parameters into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitParameters(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitParameters(BlockValue $block, VisitorInterface $subVisitor): array
     {
         $parametersByLanguage = [
             $block->getLocale() => $this->visitTranslationParameters($block, $subVisitor),
@@ -114,13 +104,8 @@ final class Block extends Visitor
 
     /**
      * Return parameters for the given $block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitTranslationParameters(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitTranslationParameters(BlockValue $block, VisitorInterface $subVisitor): array
     {
         $hash = [];
 
@@ -133,13 +118,8 @@ final class Block extends Visitor
 
     /**
      * Visit the given $block configuration into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitConfiguration(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitConfiguration(BlockValue $block, VisitorInterface $subVisitor): array
     {
         $hash = [];
 
@@ -152,13 +132,8 @@ final class Block extends Visitor
 
     /**
      * Visit the given $block collections into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitCollections(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitCollections(BlockValue $block, VisitorInterface $subVisitor): array
     {
         $hash = [];
 

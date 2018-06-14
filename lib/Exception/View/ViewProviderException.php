@@ -10,7 +10,7 @@ use RuntimeException;
 
 final class ViewProviderException extends RuntimeException implements Exception
 {
-    public function __construct($message = '', $code = 0, BaseException $previous = null)
+    public function __construct(string $message = '', int $code = 0, BaseException $previous = null)
     {
         if (empty($message)) {
             $message = 'An error occurred while building the view.';
@@ -19,12 +19,7 @@ final class ViewProviderException extends RuntimeException implements Exception
         parent::__construct($message, $code, $previous);
     }
 
-    /**
-     * @param string $class
-     *
-     * @return \Netgen\BlockManager\Exception\View\ViewProviderException
-     */
-    public static function noViewProvider($class)
+    public static function noViewProvider(string $class): self
     {
         return new self(
             sprintf(
@@ -34,13 +29,7 @@ final class ViewProviderException extends RuntimeException implements Exception
         );
     }
 
-    /**
-     * @param string $viewType
-     * @param string $parameterName
-     *
-     * @return \Netgen\BlockManager\Exception\View\ViewProviderException
-     */
-    public static function noParameter($viewType, $parameterName)
+    public static function noParameter(string $viewType, string $parameterName): self
     {
         return new self(
             sprintf(
@@ -51,14 +40,7 @@ final class ViewProviderException extends RuntimeException implements Exception
         );
     }
 
-    /**
-     * @param string $viewType
-     * @param string $parameterName
-     * @param string $expectedType
-     *
-     * @return \Netgen\BlockManager\Exception\View\ViewProviderException
-     */
-    public static function invalidParameter($viewType, $parameterName, $expectedType)
+    public static function invalidParameter(string $viewType, string $parameterName, string $expectedType): self
     {
         return new self(
             sprintf(

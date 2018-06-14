@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 
 final class BlockCreateStruct extends Constraint
 {
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_block_create_struct';
     }

@@ -23,7 +23,7 @@ final class DateTimeValidator extends ConstraintValidator
 {
     private static $dateFormat = 'Y-m-d H:i:s';
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if ($value === null) {
             return;
@@ -70,7 +70,7 @@ final class DateTimeValidator extends ConstraintValidator
                 new Constraints\Type(['type' => 'string']),
                 new Constraints\Callback(
                     [
-                        'callback' => function ($timeZoneName, ExecutionContextInterface $context) use ($constraint) {
+                        'callback' => function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint): void {
                             if (in_array($timeZoneName, DateTimeZone::listIdentifiers(), true)) {
                                 return;
                             }

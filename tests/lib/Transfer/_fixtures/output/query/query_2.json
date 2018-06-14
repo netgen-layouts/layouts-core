@@ -9,12 +9,12 @@
     ],
     "parameters": {
         "en": {
-            "param": "sub_visit_value",
-            "param2": "sub_visit_value"
+            "param": ["sub_visit_value"],
+            "param2": ["sub_visit_value"]
         },
         "hr": {
-            "param": "sub_visit_value",
-            "param2": "sub_visit_value"
+            "param": ["sub_visit_value"],
+            "param2": ["sub_visit_value"]
         }
     },
     "query_type": "my_query_type"

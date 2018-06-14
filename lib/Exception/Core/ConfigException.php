@@ -14,7 +14,7 @@ final class ConfigException extends InvalidArgumentException implements Exceptio
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
-    public static function noConfig($configKey)
+    public static function noConfig(string $configKey): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class ConfigException extends InvalidArgumentException implements Exceptio
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
-    public static function noConfigStruct($configKey)
+    public static function noConfigStruct(string $configKey): self
     {
         return new self(
             sprintf(

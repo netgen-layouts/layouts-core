@@ -8,15 +8,11 @@ interface ContextBuilderInterface
 {
     /**
      * Register a context provider to the builder.
-     *
-     * @param \Netgen\BlockManager\Context\ContextProviderInterface $contextProvider
      */
-    public function registerProvider(ContextProviderInterface $contextProvider);
+    public function registerProvider(ContextProviderInterface $contextProvider): void;
 
     /**
      * Builds the provided context by using all registered context providers.
-     *
-     * @param \Netgen\BlockManager\Context\ContextInterface $context
      */
-    public function buildContext(ContextInterface $context);
+    public function buildContext(ContextInterface $context): void;
 }

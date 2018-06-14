@@ -20,7 +20,7 @@ final class ParameterNormalizer implements NormalizerInterface
         return $parameterDefinition->getType()->toHash($parameterDefinition, $parameter->getValue());
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;

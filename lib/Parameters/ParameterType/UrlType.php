@@ -18,7 +18,7 @@ final class UrlType extends ParameterType
         return 'url';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(['type' => 'string']),

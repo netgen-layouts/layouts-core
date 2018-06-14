@@ -113,7 +113,7 @@ final class LayoutServiceTest extends ServiceTestCase
 
         $this->layoutService->createLayout(
             new LayoutCreateStruct(
-                ['layoutType' => new LayoutType()]
+                ['layoutType' => new LayoutType(['identifier' => 'layout_type'])]
             )
         );
     }

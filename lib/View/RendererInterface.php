@@ -15,5 +15,5 @@ interface RendererInterface
      *
      * @return string
      */
-    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []);
+    public function renderValue($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string;
 }

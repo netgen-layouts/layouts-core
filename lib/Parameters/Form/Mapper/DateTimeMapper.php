@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper;
 
 final class DateTimeMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return DateTimeType::class;
     }

@@ -27,7 +27,7 @@ final class Query extends Visitor
         $this->collectionService = $collectionService;
     }
 
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof QueryValue;
     }
@@ -53,13 +53,8 @@ final class Query extends Visitor
 
     /**
      * Visit the given $query parameters into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitParameters(QueryValue $query, VisitorInterface $subVisitor)
+    private function visitParameters(QueryValue $query, VisitorInterface $subVisitor): array
     {
         $parametersByLanguage = [
             $query->getLocale() => $this->visitTranslationParameters($query, $subVisitor),
@@ -89,13 +84,8 @@ final class Query extends Visitor
 
     /**
      * Return parameters for the given $query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitTranslationParameters(QueryValue $query, VisitorInterface $subVisitor)
+    private function visitTranslationParameters(QueryValue $query, VisitorInterface $subVisitor): array
     {
         $hash = [];
 

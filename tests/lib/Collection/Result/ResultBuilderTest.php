@@ -204,7 +204,7 @@ final class ResultBuilderTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => $id,
                     'definition' => new ItemDefinition(['valueType' => 'value']),
-                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value']),
+                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
                     'configs' => [
                         'visibility' => new Config(
                             [
@@ -229,7 +229,7 @@ final class ResultBuilderTest extends TestCase
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
                     'definition' => new ItemDefinition(['valueType' => 'value']),
-                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value']),
+                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
                     'configs' => [
                         'visibility' => new Config(
                             [

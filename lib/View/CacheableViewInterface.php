@@ -11,26 +11,26 @@ interface CacheableViewInterface extends ViewInterface
      *
      * @return bool
      */
-    public function isCacheable();
+    public function isCacheable(): bool;
 
     /**
      * Sets if the view is cacheable or not.
      *
      * @param bool $isCacheable
      */
-    public function setIsCacheable($isCacheable);
+    public function setIsCacheable(bool $isCacheable): void;
 
     /**
      * Returns the shared max age.
      *
      * @return int
      */
-    public function getSharedMaxAge();
+    public function getSharedMaxAge(): ?int;
 
     /**
      * Sets the shared max age.
      *
      * @param int $sharedMaxAge
      */
-    public function setSharedMaxAge($sharedMaxAge);
+    public function setSharedMaxAge(int $sharedMaxAge): void;
 }

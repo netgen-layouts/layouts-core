@@ -22,6 +22,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 
@@ -248,7 +249,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         $updatedZone = $this->transaction(
-            function () use ($persistenceZone, $persistenceLinkedZone) {
+            function () use ($persistenceZone, $persistenceLinkedZone): PersistenceZone {
                 return $this->layoutHandler->updateZone(
                     $persistenceZone,
                     new ZoneUpdateStruct(
@@ -272,7 +273,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
         $updatedZone = $this->transaction(
-            function () use ($persistenceZone) {
+            function () use ($persistenceZone): PersistenceZone {
                 return $this->layoutHandler->updateZone(
                     $persistenceZone,
                     new ZoneUpdateStruct(
@@ -296,7 +297,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         $createdLayout = $this->transaction(
-            function () use ($layoutCreateStruct) {
+            function () use ($layoutCreateStruct): PersistenceLayout {
                 $createdLayout = $this->layoutHandler->createLayout(
                     new LayoutCreateStruct(
                         [
@@ -340,7 +341,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $locale, $sourceLocale) {
+            function () use ($persistenceLayout, $locale, $sourceLocale): PersistenceLayout {
                 return $this->layoutHandler->createLayoutTranslation($persistenceLayout, $locale, $sourceLocale);
             }
         );
@@ -359,7 +360,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $mainLocale) {
+            function () use ($persistenceLayout, $mainLocale): PersistenceLayout {
                 return $this->layoutHandler->setMainTranslation($persistenceLayout, $mainLocale);
             }
         );
@@ -378,7 +379,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $locale) {
+            function () use ($persistenceLayout, $locale): PersistenceLayout {
                 return $this->layoutHandler->deleteLayoutTranslation($persistenceLayout, $locale);
             }
         );
@@ -403,7 +404,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $layoutUpdateStruct) {
+            function () use ($persistenceLayout, $layoutUpdateStruct): PersistenceLayout {
                 return $this->layoutHandler->updateLayout(
                     $persistenceLayout,
                     new LayoutUpdateStruct(
@@ -430,7 +431,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
         $copiedLayout = $this->transaction(
-            function () use ($persistenceLayout, $layoutCopyStruct) {
+            function () use ($persistenceLayout, $layoutCopyStruct): PersistenceLayout {
                 return $this->layoutHandler->copyLayout(
                     $persistenceLayout,
                     new LayoutCopyStruct(
@@ -463,7 +464,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
 
         $newLayout = $this->transaction(
-            function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $zoneMappings, $preserveSharedZones) {
+            function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $zoneMappings, $preserveSharedZones): PersistenceLayout {
                 $updatedLayout = $this->layoutHandler->changeLayoutType(
                     $persistenceLayout,
                     $targetLayoutType->getIdentifier(),
@@ -511,7 +512,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         $layoutDraft = $this->transaction(
-            function () use ($persistenceLayout) {
+            function () use ($persistenceLayout): PersistenceLayout {
                 $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
 
                 return $this->layoutHandler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
@@ -530,7 +531,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
-            function () use ($persistenceLayout) {
+            function () use ($persistenceLayout): void {
                 $this->layoutHandler->deleteLayout(
                     $persistenceLayout->id,
                     Value::STATUS_DRAFT
@@ -548,7 +549,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $publishedLayout = $this->transaction(
-            function () use ($persistenceLayout) {
+            function () use ($persistenceLayout): PersistenceLayout {
                 $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
 
                 if ($this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
@@ -601,7 +602,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         $draftLayout = $this->transaction(
-            function () use ($draftLayout, $publishedLayout, $archivedLayout) {
+            function () use ($draftLayout, $publishedLayout, $archivedLayout): PersistenceLayout {
                 if ($draftLayout instanceof PersistenceLayout) {
                     $this->layoutHandler->deleteLayout($draftLayout->id, $draftLayout->status);
                 }
@@ -627,7 +628,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
         $this->transaction(
-            function () use ($persistenceLayout) {
+            function () use ($persistenceLayout): void {
                 $this->layoutHandler->deleteLayout(
                     $persistenceLayout->id
                 );

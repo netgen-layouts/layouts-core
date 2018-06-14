@@ -61,7 +61,7 @@ abstract class ItemTest extends VisitorTest
             new ItemValue(
                 [
                     'type' => ItemValue::TYPE_OVERRIDE,
-                    'definition' => new ItemDefinition(),
+                    'definition' => new ItemDefinition(['valueType' => 'value_type']),
                     'cmsItem' => new CmsItem(),
                 ]
             ),

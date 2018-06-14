@@ -17,17 +17,17 @@ final class NullTargetType implements TargetTypeInterface
     /**
      * @param string $targetType
      */
-    public function __construct($targetType)
+    public function __construct(string $targetType)
     {
         $this->targetType = $targetType;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->targetType;
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [];
     }

@@ -11,7 +11,7 @@ trait ConfigDefinitionAwareTrait
      */
     protected $configDefinitions = [];
 
-    public function getConfigDefinitions()
+    public function getConfigDefinitions(): array
     {
         return $this->configDefinitions;
     }

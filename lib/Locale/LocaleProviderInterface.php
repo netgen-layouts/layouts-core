@@ -15,7 +15,7 @@ interface LocaleProviderInterface
      *
      * @return string[]
      */
-    public function getAvailableLocales();
+    public function getAvailableLocales(): array;
 
     /**
      * Returns the list of locale codes available for the provided request.
@@ -24,5 +24,5 @@ interface LocaleProviderInterface
      *
      * @return string[]
      */
-    public function getRequestLocales(Request $request);
+    public function getRequestLocales(Request $request): array;
 }

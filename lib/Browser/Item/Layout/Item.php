@@ -24,22 +24,22 @@ final class Item implements ItemInterface, LayoutInterface
         return $this->layout->getId();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->layout->getName();
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return true;
     }
 
-    public function isSelectable()
+    public function isSelectable(): bool
     {
         return true;
     }
 
-    public function getLayout()
+    public function getLayout(): Layout
     {
         return $this->layout;
     }

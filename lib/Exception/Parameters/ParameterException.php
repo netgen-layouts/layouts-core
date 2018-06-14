@@ -14,7 +14,7 @@ final class ParameterException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterException
      */
-    public static function noParameterDefinition($parameter)
+    public static function noParameterDefinition(string $parameter): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class ParameterException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterException
      */
-    public static function noOption($option)
+    public static function noOption(string $option): self
     {
         return new self(
             sprintf(

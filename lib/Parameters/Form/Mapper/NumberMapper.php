@@ -10,12 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class NumberMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return NumberType::class;
     }
 
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         return [
             'scale' => $parameterDefinition->getOption('scale'),

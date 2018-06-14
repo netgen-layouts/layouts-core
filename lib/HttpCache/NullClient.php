@@ -6,27 +6,27 @@ namespace Netgen\BlockManager\HttpCache;
 
 final class NullClient implements ClientInterface
 {
-    public function invalidateLayouts(array $layoutIds)
+    public function invalidateLayouts(array $layoutIds): void
     {
     }
 
-    public function invalidateAllLayouts()
+    public function invalidateAllLayouts(): void
     {
     }
 
-    public function invalidateBlocks(array $blockIds)
+    public function invalidateBlocks(array $blockIds): void
     {
     }
 
-    public function invalidateLayoutBlocks(array $layoutIds)
+    public function invalidateLayoutBlocks(array $layoutIds): void
     {
     }
 
-    public function invalidateAllBlocks()
+    public function invalidateAllBlocks(): void
     {
     }
 
-    public function commit()
+    public function commit(): bool
     {
         return true;
     }

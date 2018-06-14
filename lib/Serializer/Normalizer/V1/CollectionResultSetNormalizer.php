@@ -37,7 +37,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
         ];
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;
@@ -55,7 +55,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
      *
      * @return \Netgen\BlockManager\Collection\Result\Result[]
      */
-    private function getOverflowItems(ResultSet $resultSet)
+    private function getOverflowItems(ResultSet $resultSet): array
     {
         $includedPositions = [];
         foreach ($resultSet->getResults() as $result) {

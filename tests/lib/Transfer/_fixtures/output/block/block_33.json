@@ -11,14 +11,14 @@
     "item_view_type": "standard",
     "name": "My third block",
     "placeholders": {
-        "left": "sub_visit_value",
-        "right": "sub_visit_value"
+        "left": ["sub_visit_value"],
+        "right": ["sub_visit_value"]
     },
     "parameters": {
         "en": []
     },
     "configuration": {
-        "http_cache": "sub_visit_value"
+        "http_cache": ["sub_visit_value"]
     },
     "collections": []
 }

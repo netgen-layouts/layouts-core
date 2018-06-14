@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output;
 
+use Generator;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -43,7 +44,7 @@ final class Serializer implements SerializerInterface
         $this->visitor = $visitor;
     }
 
-    public function serializeLayouts(array $layoutIds)
+    public function serializeLayouts(array $layoutIds): array
     {
         $data = $this->createBasicData();
 
@@ -54,7 +55,7 @@ final class Serializer implements SerializerInterface
         return $data;
     }
 
-    public function serializeRules(array $ruleIds)
+    public function serializeRules(array $ruleIds): array
     {
         $data = $this->createBasicData();
 
@@ -67,12 +68,8 @@ final class Serializer implements SerializerInterface
 
     /**
      * Loads the layouts for provided IDs.
-     *
-     * @param array $layoutIds
-     *
-     * @return \Generator
      */
-    private function loadLayouts(array $layoutIds)
+    private function loadLayouts(array $layoutIds): Generator
     {
         foreach ($layoutIds as $layoutId) {
             try {
@@ -85,12 +82,8 @@ final class Serializer implements SerializerInterface
 
     /**
      * Loads the rules for provided IDs.
-     *
-     * @param array $ruleIds
-     *
-     * @return \Generator
      */
-    private function loadRules(array $ruleIds)
+    private function loadRules(array $ruleIds): Generator
     {
         foreach ($ruleIds as $ruleId) {
             try {
@@ -103,10 +96,8 @@ final class Serializer implements SerializerInterface
 
     /**
      * Creates the array with basic serialized data from provided type and version.
-     *
-     * @return array
      */
-    private function createBasicData()
+    private function createBasicData(): array
     {
         return [
             '__version' => Descriptor::FORMAT_VERSION,

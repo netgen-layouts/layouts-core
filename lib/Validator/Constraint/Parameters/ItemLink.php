@@ -37,7 +37,7 @@ final class ItemLink extends Constraint
      */
     public $valueTypes = [];
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_item_link';
     }

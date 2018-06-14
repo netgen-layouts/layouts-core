@@ -16,17 +16,17 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
      */
     private $queryTypes = [];
 
-    public function addQueryType($type, QueryTypeInterface $queryType)
+    public function addQueryType(string $type, QueryTypeInterface $queryType): void
     {
         $this->queryTypes[$type] = $queryType;
     }
 
-    public function hasQueryType($type)
+    public function hasQueryType(string $type): bool
     {
         return isset($this->queryTypes[$type]);
     }
 
-    public function getQueryType($type)
+    public function getQueryType(string $type): QueryTypeInterface
     {
         if (!$this->hasQueryType($type)) {
             throw QueryTypeException::noQueryType($type);
@@ -35,7 +35,7 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
         return $this->queryTypes[$type];
     }
 
-    public function getQueryTypes($onlyEnabled = false)
+    public function getQueryTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {
             return $this->queryTypes;
@@ -43,7 +43,7 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
 
         return array_filter(
             $this->queryTypes,
-            function (QueryTypeInterface $queryType) {
+            function (QueryTypeInterface $queryType): bool {
                 return $queryType->isEnabled();
             }
         );

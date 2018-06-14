@@ -27,7 +27,7 @@ final class Result
      */
     private $subItem;
 
-    public function __construct($position, ItemInterface $item, ItemInterface $subItem = null)
+    public function __construct(int $position, ItemInterface $item, ItemInterface $subItem = null)
     {
         $this->position = $position;
         $this->item = $item;
@@ -36,33 +36,28 @@ final class Result
 
     /**
      * Returns the position of the result in the result set.
-     *
-     * @return int
      */
-    public function getPosition()
+    public function getPosition(): int
     {
         return $this->position;
     }
 
     /**
      * Returns the item that will be displayed.
-     *
-     * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function getItem()
+    public function getItem(): ItemInterface
     {
         return $this->item;
     }
 
     /**
-     * Returns the item that was overriden by item returned by self::getItem.
+     * Returns the item that was overriden by item returned by self::getItem or null
+     * if no item was overriden.
      *
      * E.g. This can be the manual item that is not visible or is invalid and thus
      * replaced by a dynamic item for display purposes.
-     *
-     * @return \Netgen\BlockManager\Item\ItemInterface|null
      */
-    public function getSubItem()
+    public function getSubItem(): ?ItemInterface
     {
         return $this->subItem;
     }

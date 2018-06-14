@@ -19,7 +19,7 @@ final class LazyCollection extends AbstractLazyCollection
         $this->callable = $callable;
     }
 
-    protected function doInitialize()
+    protected function doInitialize(): void
     {
         $this->collection = new ArrayCollection(call_user_func($this->callable));
     }

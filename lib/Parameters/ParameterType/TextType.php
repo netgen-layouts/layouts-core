@@ -18,7 +18,7 @@ final class TextType extends ParameterType
         return 'text';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(

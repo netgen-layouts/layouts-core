@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Email;
  */
 trait StrictEmailValidatorTrait
 {
-    public function getStrictEmailValidatorOption()
+    public function getStrictEmailValidatorOption(): array
     {
         if (Kernel::VERSION_ID < 30000) {
             // On Symfony 2.8, strict validation is supported only with

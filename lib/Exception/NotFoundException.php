@@ -15,7 +15,7 @@ final class NotFoundException extends BaseException implements Exception
      * @param int|string $identifier
      * @param \Exception $previousException
      */
-    public function __construct($what, $identifier = '', BaseException $previousException = null)
+    public function __construct(string $what, $identifier = '', BaseException $previousException = null)
     {
         $message = !empty($identifier) ?
             sprintf('Could not find %s with identifier "%s"', $what, $identifier) :

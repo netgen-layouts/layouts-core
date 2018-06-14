@@ -73,8 +73,12 @@ final class BlockTypeNormalizerTest extends TestCase
     {
         $blockType = new BlockType(
             [
+                'identifier' => 'definition',
+                'name' => 'Block type',
+                'isEnabled' => true,
                 'definition' => new ContainerDefinition(
                     [
+                        'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),
                     ]
                 ),

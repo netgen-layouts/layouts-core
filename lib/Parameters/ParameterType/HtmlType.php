@@ -20,7 +20,7 @@ final class HtmlType extends ParameterType
         return 'html';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(['type' => 'string']),

@@ -14,7 +14,7 @@ final class LayoutTypeException extends InvalidArgumentException implements Exce
      *
      * @return \Netgen\BlockManager\Exception\Layout\LayoutTypeException
      */
-    public static function noLayoutType($layoutType)
+    public static function noLayoutType(string $layoutType): self
     {
         return new self(
             sprintf(
@@ -30,7 +30,7 @@ final class LayoutTypeException extends InvalidArgumentException implements Exce
      *
      * @return \Netgen\BlockManager\Exception\Layout\LayoutTypeException
      */
-    public static function noZone($layoutType, $zoneIdentifier)
+    public static function noZone(string $layoutType, string $zoneIdentifier): self
     {
         return new self(
             sprintf(

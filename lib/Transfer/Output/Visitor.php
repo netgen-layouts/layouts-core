@@ -12,13 +12,9 @@ abstract class Visitor implements VisitorInterface
     /**
      * Return status string representation for the given $layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
-     *
-     * @return string
      */
-    protected function getStatusString(Value $value)
+    protected function getStatusString(Value $value): string
     {
         switch ($value->getStatus()) {
             case Value::STATUS_DRAFT:

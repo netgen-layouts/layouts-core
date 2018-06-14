@@ -8,6 +8,7 @@ use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
 use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
 use Throwable;
+use Traversable;
 
 /**
  * Importer creates Netgen Layouts entities from the serialized JSON data.
@@ -37,7 +38,7 @@ final class Importer implements ImporterInterface
         $this->layoutDataHandler = $layoutDataHandler;
     }
 
-    public function importData($data)
+    public function importData(string $data): Traversable
     {
         $schema = file_get_contents(self::$schemaFile);
         $this->jsonValidator->validateJson($data, $schema);

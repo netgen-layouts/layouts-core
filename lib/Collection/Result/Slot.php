@@ -22,17 +22,17 @@ final class Slot implements ItemInterface
         return 0;
     }
 
-    public function getValueType()
+    public function getValueType(): string
     {
         return 'slot';
     }
 
-    public function getName()
+    public function getName(): string
     {
         return '(UNKNOWN ITEM)';
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return true;
     }

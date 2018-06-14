@@ -10,9 +10,9 @@
         "hr"
     ],
     "items": [
-        "sub_visit_value",
-        "sub_visit_value",
-        "sub_visit_value"
+        ["sub_visit_value"],
+        ["sub_visit_value"],
+        ["sub_visit_value"]
     ],
-    "query": "sub_visit_value"
+    "query": ["sub_visit_value"]
 }

@@ -16,17 +16,17 @@ final class FormMapperRegistry implements FormMapperRegistryInterface
      */
     private $formMappers = [];
 
-    public function addFormMapper($parameterType, MapperInterface $formMapper)
+    public function addFormMapper(string $parameterType, MapperInterface $formMapper): void
     {
         $this->formMappers[$parameterType] = $formMapper;
     }
 
-    public function hasFormMapper($parameterType)
+    public function hasFormMapper(string $parameterType): bool
     {
         return isset($this->formMappers[$parameterType]);
     }
 
-    public function getFormMapper($parameterType)
+    public function getFormMapper(string $parameterType): MapperInterface
     {
         if (!$this->hasFormMapper($parameterType)) {
             throw ParameterTypeException::noFormMapper($parameterType);
@@ -35,7 +35,7 @@ final class FormMapperRegistry implements FormMapperRegistryInterface
         return $this->formMappers[$parameterType];
     }
 
-    public function getFormMappers()
+    public function getFormMappers(): array
     {
         return $this->formMappers;
     }

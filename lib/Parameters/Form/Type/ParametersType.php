@@ -25,7 +25,7 @@ final class ParametersType extends AbstractType
         $this->formMapperRegistry = $formMapperRegistry;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -46,7 +46,7 @@ final class ParametersType extends AbstractType
         $resolver->setDefault('groups', []);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions */
         $parameterDefinitions = $options['parameter_definitions'];
@@ -101,7 +101,7 @@ final class ParametersType extends AbstractType
      *
      * @return bool
      */
-    private function includeParameter(ParameterDefinition $parameterDefinition, array $groups = [])
+    private function includeParameter(ParameterDefinition $parameterDefinition, array $groups = []): bool
     {
         $parameterGroups = $parameterDefinition->getGroups();
 

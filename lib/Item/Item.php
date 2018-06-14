@@ -48,17 +48,17 @@ final class Item extends Value implements ItemInterface
         return $this->remoteId;
     }
 
-    public function getValueType()
+    public function getValueType(): string
     {
         return $this->valueType;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return $this->isVisible;
     }

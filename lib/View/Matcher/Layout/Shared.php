@@ -14,7 +14,7 @@ use Netgen\BlockManager\View\ViewInterface;
  */
 final class Shared implements MatcherInterface
 {
-    public function match(ViewInterface $view, array $config)
+    public function match(ViewInterface $view, array $config): bool
     {
         if (!$view instanceof LayoutViewInterface) {
             return false;

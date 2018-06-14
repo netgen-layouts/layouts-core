@@ -18,7 +18,7 @@ final class NullItem implements ItemInterface
     /**
      * @param string $valueType
      */
-    public function __construct($valueType)
+    public function __construct(string $valueType)
     {
         $this->valueType = $valueType;
     }
@@ -31,17 +31,17 @@ final class NullItem implements ItemInterface
     {
     }
 
-    public function getValueType()
+    public function getValueType(): string
     {
         return $this->valueType;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return '(INVALID ITEM)';
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return true;
     }

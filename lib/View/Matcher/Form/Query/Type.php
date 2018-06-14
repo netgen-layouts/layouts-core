@@ -17,7 +17,7 @@ use Netgen\BlockManager\View\ViewInterface;
  */
 final class Type implements MatcherInterface
 {
-    public function match(ViewInterface $view, array $config)
+    public function match(ViewInterface $view, array $config): bool
     {
         if (!$view instanceof FormViewInterface) {
             return false;

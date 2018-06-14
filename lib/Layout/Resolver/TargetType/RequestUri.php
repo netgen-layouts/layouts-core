@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraints;
 
 class RequestUri implements TargetTypeInterface
 {
-    public function getType()
+    public function getType(): string
     {
         return 'request_uri';
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [
             new Constraints\NotBlank(),

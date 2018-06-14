@@ -22,13 +22,8 @@ final class CollectionRunnerFactory
 
     /**
      * Builds and returns the collection runner for provided collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $flags
-     *
-     * @return \Netgen\BlockManager\Collection\Result\CollectionRunnerInterface
      */
-    public function getCollectionRunner(Collection $collection, $flags = 0)
+    public function getCollectionRunner(Collection $collection, int $flags = 0): CollectionRunnerInterface
     {
         if ($collection->hasQuery()) {
             $queryRunner = $this->getQueryRunner($collection->getQuery(), $flags);
@@ -41,13 +36,8 @@ final class CollectionRunnerFactory
 
     /**
      * Builds the query runner for the provided query based on provided flags.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $flags
-     *
-     * @return \Netgen\BlockManager\Collection\Result\QueryRunnerInterface
      */
-    private function getQueryRunner(Query $query, $flags = 0)
+    private function getQueryRunner(Query $query, int $flags = 0): QueryRunnerInterface
     {
         $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
 

@@ -14,7 +14,7 @@ final class QueryTypeException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Collection\QueryTypeException
      */
-    public static function noQueryType($identifier)
+    public static function noQueryType(string $identifier): self
     {
         return new self(
             sprintf(
@@ -30,7 +30,7 @@ final class QueryTypeException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Collection\QueryTypeException
      */
-    public static function noForm($queryType, $form)
+    public static function noForm(string $queryType, string $form): self
     {
         return new self(
             sprintf(

@@ -13,31 +13,20 @@ interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, Array
 {
     /**
      * Adds a value type to registry.
-     *
-     * @param string $identifier
-     * @param \Netgen\BlockManager\Item\ValueType\ValueType $valueType
      */
-    public function addValueType($identifier, ValueType $valueType);
+    public function addValueType(string $identifier, ValueType $valueType): void;
 
     /**
      * Returns if registry has a value type.
-     *
-     * @param string $identifier
-     *
-     * @return bool
      */
-    public function hasValueType($identifier);
+    public function hasValueType(string $identifier): bool;
 
     /**
      * Returns a value type for provided identifier.
      *
-     * @param string $identifier
-     *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If value type does not exist
-     *
-     * @return \Netgen\BlockManager\Item\ValueType\ValueType
      */
-    public function getValueType($identifier);
+    public function getValueType(string $identifier): ValueType;
 
     /**
      * Returns all value types.
@@ -46,5 +35,5 @@ interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @return \Netgen\BlockManager\Item\ValueType\ValueType[]
      */
-    public function getValueTypes($onlyEnabled = false);
+    public function getValueTypes(bool $onlyEnabled = false): array;
 }

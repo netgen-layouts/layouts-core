@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class QueryUpdateStructValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof QueryUpdateStructConstraint) {
             throw new UnexpectedTypeException($constraint, QueryUpdateStructConstraint::class);

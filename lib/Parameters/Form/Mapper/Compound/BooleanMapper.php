@@ -10,12 +10,12 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 
 final class BooleanMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return CompoundBooleanType::class;
     }
 
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         return [
             'mapped' => false,

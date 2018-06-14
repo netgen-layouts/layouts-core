@@ -22,7 +22,7 @@ final class LocaleProvider implements LocaleProviderInterface
         $this->enabledLocales = $enabledLocales;
     }
 
-    public function getAvailableLocales()
+    public function getAvailableLocales(): array
     {
         $availableLocales = Intl::getLocaleBundle()->getLocaleNames();
 
@@ -41,7 +41,7 @@ final class LocaleProvider implements LocaleProviderInterface
         return $availableLocales;
     }
 
-    public function getRequestLocales(Request $request)
+    public function getRequestLocales(Request $request): array
     {
         $requestLocale = $request->getLocale();
 

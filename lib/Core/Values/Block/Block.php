@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Core\Values\Value;
@@ -148,7 +149,7 @@ final class Block extends Value implements APIBlock
     public function getCollections()
     {
         return array_map(
-            function (APICollectionReference $collectionReference) {
+            function (APICollectionReference $collectionReference): Collection {
                 return $collectionReference->getCollection();
             },
             $this->collectionReferences

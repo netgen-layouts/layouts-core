@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CompoundBooleanType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -31,11 +31,11 @@ final class CompoundBooleanType extends AbstractType
         $resolver->setDefault('inherit_data', true);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) use ($options) {
+            function (FormEvent $event) use ($options): void {
                 $data = $event->getData();
 
                 if (empty($data)) {
@@ -70,12 +70,12 @@ final class CompoundBooleanType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['reverse'] = $options['reverse'];
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ngbm_compound_boolean';
     }

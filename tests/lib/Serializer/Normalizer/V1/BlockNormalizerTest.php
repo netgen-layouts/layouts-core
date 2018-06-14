@@ -72,7 +72,7 @@ final class BlockNormalizerTest extends TestCase
             [
                 'id' => 42,
                 'layoutId' => 24,
-                'definition' => new BlockDefinition(),
+                'definition' => new BlockDefinition(['identifier' => 'definition']),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
@@ -167,6 +167,7 @@ final class BlockNormalizerTest extends TestCase
             [
                 'definition' => new ContainerDefinition(
                     [
+                        'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),
                     ]
                 ),

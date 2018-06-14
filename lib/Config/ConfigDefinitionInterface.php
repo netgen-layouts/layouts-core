@@ -19,5 +19,5 @@ interface ConfigDefinitionInterface extends ParameterDefinitionCollectionInterfa
      *
      * @return string
      */
-    public function getConfigKey();
+    public function getConfigKey(): string;
 }

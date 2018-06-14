@@ -25,24 +25,18 @@ interface ItemInterface
 
     /**
      * Returns the type of the value from CMS from which this item is generated.
-     *
-     * @return string
      */
-    public function getValueType();
+    public function getValueType(): string;
 
     /**
      * Returns the name of the value from CMS from which this item is generated.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns if the value from CMS is visible.
-     *
-     * @return bool
      */
-    public function isVisible();
+    public function isVisible(): bool;
 
     /**
      * Returns the original value as supplied by the CMS.

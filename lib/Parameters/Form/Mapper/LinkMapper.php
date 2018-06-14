@@ -12,12 +12,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class LinkMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return LinkType::class;
     }
 
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         return [
             'label' => false,
@@ -25,7 +25,7 @@ final class LinkMapper extends Mapper
         ];
     }
 
-    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition)
+    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition): void
     {
         $form->setDataMapper(new LinkDataMapper($parameterDefinition));
     }

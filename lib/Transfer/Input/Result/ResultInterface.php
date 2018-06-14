@@ -8,15 +8,11 @@ interface ResultInterface
 {
     /**
      * Returns the entity type which was being imported.
-     *
-     * @return string
      */
-    public function getEntityType();
+    public function getEntityType(): string;
 
     /**
      * Returns the data which was being imported.
-     *
-     * @return array
      */
-    public function getData();
+    public function getData(): array;
 }

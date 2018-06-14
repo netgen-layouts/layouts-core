@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraints;
 
 class Route implements TargetTypeInterface
 {
-    public function getType()
+    public function getType(): string
     {
         return 'route';
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [
             new Constraints\NotBlank(),

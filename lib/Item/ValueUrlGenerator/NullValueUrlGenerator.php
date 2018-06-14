@@ -8,7 +8,8 @@ use Netgen\BlockManager\Item\ValueUrlGeneratorInterface;
 
 final class NullValueUrlGenerator implements ValueUrlGeneratorInterface
 {
-    public function generate($object)
+    public function generate($object): ?string
     {
+        return null;
     }
 }

@@ -13,12 +13,12 @@ final class ParameterFilterRegistry implements ParameterFilterRegistryInterface
      */
     private $parameterFilters = [];
 
-    public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter)
+    public function addParameterFilter(string $parameterType, ParameterFilterInterface $parameterFilter): void
     {
         $this->parameterFilters[$parameterType][] = $parameterFilter;
     }
 
-    public function getParameterFilters($parameterType)
+    public function getParameterFilters(string $parameterType): array
     {
         return $this->parameterFilters[$parameterType] ?? [];
     }

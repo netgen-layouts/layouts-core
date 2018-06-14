@@ -47,54 +47,54 @@ abstract class View implements ViewInterface
         $this->parameters = $parameters;
     }
 
-    public function getContext()
+    public function getContext(): ?string
     {
         return $this->context;
     }
 
-    public function setContext($context)
+    public function setContext(string $context): void
     {
         $this->context = $context;
     }
 
-    public function getFallbackContext()
+    public function getFallbackContext(): ?string
     {
         return $this->fallbackContext;
     }
 
-    public function setFallbackContext($fallbackContext)
+    public function setFallbackContext(string $fallbackContext): void
     {
         $this->fallbackContext = $fallbackContext;
     }
 
-    public function getTemplate()
+    public function getTemplate(): ?string
     {
         return $this->template;
     }
 
-    public function setTemplate($template)
+    public function setTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    public function getResponse()
+    public function getResponse(): ?Response
     {
         return $this->response;
     }
 
-    public function setResponse(Response $response)
+    public function setResponse(Response $response): void
     {
         $this->response = $response;
     }
 
-    public function hasParameter($identifier)
+    public function hasParameter(string $identifier): bool
     {
         $parameters = $this->getParameters();
 
         return isset($parameters[$identifier]);
     }
 
-    public function getParameter($identifier)
+    public function getParameter(string $identifier)
     {
         if (!$this->hasParameter($identifier)) {
             throw ViewException::parameterNotFound($identifier, get_class($this));
@@ -105,17 +105,17 @@ abstract class View implements ViewInterface
         return $parameters[$identifier];
     }
 
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters + $this->customParameters;
     }
 
-    public function addParameter($parameterName, $parameterValue)
+    public function addParameter(string $parameterName, $parameterValue): void
     {
         $this->customParameters[$parameterName] = $parameterValue;
     }
 
-    public function addParameters(array $parameters = [])
+    public function addParameters(array $parameters = []): void
     {
         $this->customParameters = $parameters + $this->customParameters;
     }

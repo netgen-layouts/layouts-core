@@ -16,7 +16,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Config extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof ConfigValue;
     }

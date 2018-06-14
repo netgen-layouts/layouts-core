@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
 interface CollectionRunnerInterface
@@ -11,22 +12,11 @@ interface CollectionRunnerInterface
     /**
      * Runs the provided collection with offset and limit and returns
      * the iterator which can be used to iterate over the results.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $offset
-     * @param int $limit
-     * @param int $flags
-     *
-     * @return \Iterator
      */
-    public function runCollection(Collection $collection, $offset, $limit, $flags = 0);
+    public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator;
 
     /**
      * Returns the count of items in the provided collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return int
      */
-    public function count(Collection $collection);
+    public function count(Collection $collection): int;
 }

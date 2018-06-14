@@ -17,25 +17,19 @@ interface ContextInterface extends IteratorAggregate, Countable, ArrayAccess
      * @param string $variableName
      * @param mixed $value
      */
-    public function set($variableName, $value);
+    public function set(string $variableName, $value): void;
 
     /**
      * Adds the provided hash array of values to the context.
      *
      * This replaces already existing variables.
-     *
-     * @param array $context
      */
-    public function add(array $context);
+    public function add(array $context): void;
 
     /**
      * Returns if the variable with provided name exists in the context.
-     *
-     * @param string $variableName
-     *
-     * @return bool
      */
-    public function has($variableName);
+    public function has(string $variableName): bool;
 
     /**
      * Returns the variable with provided name from the context.
@@ -46,12 +40,10 @@ interface ContextInterface extends IteratorAggregate, Countable, ArrayAccess
      *
      * @return mixed
      */
-    public function get($variableName);
+    public function get(string $variableName);
 
     /**
      * Returns all variables from the context.
-     *
-     * @return array
      */
-    public function all();
+    public function all(): array;
 }

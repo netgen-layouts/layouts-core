@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TranslatableParameterBuilder extends ParameterBuilder
 {
-    protected function configureOptions(OptionsResolver $optionsResolver)
+    protected function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefault('translatable', true);
         $optionsResolver->setRequired('translatable');
@@ -17,7 +17,7 @@ final class TranslatableParameterBuilder extends ParameterBuilder
 
         $optionsResolver->setAllowedValues(
             'translatable',
-            function ($value) {
+            function (bool $value): bool {
                 if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
                     return true;
                 }

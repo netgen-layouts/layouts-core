@@ -114,7 +114,7 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetSlice(): void
     {
-        $resultSet = new ResultSet(['results' => [1, 2, 3]]);
+        $resultSet = new ResultSet(['results' => [1, 2, 3], 'totalCount' => 3]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -137,7 +137,7 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetSliceWithStartingOffset(): void
     {
-        $resultSet = new ResultSet(['results' => [1, 2, 3]]);
+        $resultSet = new ResultSet(['results' => [1, 2, 3], 'totalCount' => 3]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')

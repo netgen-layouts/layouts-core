@@ -36,7 +36,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Serializer
         ];
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;

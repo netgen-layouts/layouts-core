@@ -13,7 +13,7 @@ final class ValueType extends Constraint
      */
     public $message = 'netgen_block_manager.value_type.no_value_type';
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_value_type';
     }

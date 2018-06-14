@@ -8,13 +8,8 @@ final class ValueTypeFactory
 {
     /**
      * Builds the value type.
-     *
-     * @param string $identifier
-     * @param array $config
-     *
-     * @return \Netgen\BlockManager\Item\ValueType\ValueType
      */
-    public static function buildValueType($identifier, array $config)
+    public static function buildValueType(string $identifier, array $config): ValueType
     {
         return new ValueType(
             [

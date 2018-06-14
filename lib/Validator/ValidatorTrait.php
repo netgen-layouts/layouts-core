@@ -15,7 +15,7 @@ trait ValidatorTrait
      */
     private $validator;
 
-    public function setValidator(ValidatorInterface $validator)
+    public function setValidator(ValidatorInterface $validator): void
     {
         $this->validator = $validator;
     }
@@ -29,7 +29,7 @@ trait ValidatorTrait
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validate($value, $constraints, $propertyPath = null)
+    public function validate($value, $constraints, string $propertyPath = null): void
     {
         try {
             $violations = $this->validator->validate($value, $constraints);

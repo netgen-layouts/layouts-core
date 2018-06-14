@@ -11,7 +11,7 @@ interface ParameterDefinitionCollectionInterface
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
-    public function getParameterDefinitions();
+    public function getParameterDefinitions(): array;
 
     /**
      * Returns the parameter definition with provided name.
@@ -22,7 +22,7 @@ interface ParameterDefinitionCollectionInterface
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
-    public function getParameterDefinition($parameterName);
+    public function getParameterDefinition(string $parameterName): ParameterDefinition;
 
     /**
      * Returns if the parameter definition with provided name exists in the collection.
@@ -31,5 +31,5 @@ interface ParameterDefinitionCollectionInterface
      *
      * @return bool
      */
-    public function hasParameterDefinition($parameterName);
+    public function hasParameterDefinition(string $parameterName): bool;
 }

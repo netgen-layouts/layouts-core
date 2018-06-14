@@ -13,12 +13,12 @@ final class ChoiceMapper extends Mapper
 {
     use ChoicesAsValuesTrait;
 
-    public function getFormType()
+    public function getFormType(): string
     {
         return ChoiceType::class;
     }
 
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         $options = $parameterDefinition->getOptions();
 

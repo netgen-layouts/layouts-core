@@ -27,9 +27,9 @@ final class ConfigDefinitionFactory
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
     public function buildConfigDefinition(
-        $configKey,
+        string $configKey,
         ConfigDefinitionHandlerInterface $handler
-    ) {
+    ): ConfigDefinitionInterface {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();

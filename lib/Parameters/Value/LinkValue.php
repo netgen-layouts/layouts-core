@@ -8,13 +8,13 @@ use Netgen\BlockManager\Value;
 
 final class LinkValue extends Value
 {
-    const LINK_TYPE_URL = 'url';
+    public const LINK_TYPE_URL = 'url';
 
-    const LINK_TYPE_EMAIL = 'email';
+    public const LINK_TYPE_EMAIL = 'email';
 
-    const LINK_TYPE_PHONE = 'phone';
+    public const LINK_TYPE_PHONE = 'phone';
 
-    const LINK_TYPE_INTERNAL = 'internal';
+    public const LINK_TYPE_INTERNAL = 'internal';
 
     /**
      * @var string
@@ -34,14 +34,14 @@ final class LinkValue extends Value
     /**
      * @var bool
      */
-    protected $newWindow;
+    protected $newWindow = false;
 
     /**
      * Returns the link type.
      *
      * @return string
      */
-    public function getLinkType()
+    public function getLinkType(): ?string
     {
         return $this->linkType;
     }
@@ -51,7 +51,7 @@ final class LinkValue extends Value
      *
      * @return string
      */
-    public function getLink()
+    public function getLink(): ?string
     {
         return $this->link;
     }
@@ -61,7 +61,7 @@ final class LinkValue extends Value
      *
      * @return string
      */
-    public function getLinkSuffix()
+    public function getLinkSuffix(): ?string
     {
         return $this->linkSuffix;
     }
@@ -71,7 +71,7 @@ final class LinkValue extends Value
      *
      * @return bool
      */
-    public function getNewWindow()
+    public function getNewWindow(): bool
     {
         return (bool) $this->newWindow;
     }

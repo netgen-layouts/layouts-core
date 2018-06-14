@@ -12,7 +12,7 @@ final class LocaleException extends RuntimeException implements Exception
     /**
      * @return \Netgen\BlockManager\Exception\Locale\LocaleException
      */
-    public static function noLocale()
+    public static function noLocale(): self
     {
         return new self('No locales available in the current context.');
     }

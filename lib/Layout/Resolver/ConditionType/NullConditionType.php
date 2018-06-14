@@ -17,22 +17,22 @@ final class NullConditionType implements ConditionTypeInterface
     /**
      * @param string $conditionType
      */
-    public function __construct($conditionType)
+    public function __construct(string $conditionType)
     {
         $this->conditionType = $conditionType;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->conditionType;
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [];
     }
 
-    public function matches(Request $request, $value)
+    public function matches(Request $request, $value): bool
     {
         return true;
     }

@@ -23,7 +23,7 @@ final class Form extends Value
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -33,7 +33,7 @@ final class Form extends Value
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

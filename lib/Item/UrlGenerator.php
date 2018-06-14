@@ -20,13 +20,13 @@ final class UrlGenerator implements UrlGeneratorInterface
     {
         $this->valueUrlGenerators = array_filter(
             $valueUrlGenerators,
-            function (ValueUrlGeneratorInterface $valueUrlGenerator) {
+            function (ValueUrlGeneratorInterface $valueUrlGenerator): bool {
                 return true;
             }
         );
     }
 
-    public function generate(ItemInterface $item)
+    public function generate(ItemInterface $item): ?string
     {
         if ($item instanceof NullItem) {
             return null;

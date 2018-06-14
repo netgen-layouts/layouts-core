@@ -51,7 +51,7 @@ final class BlockMapper
 
         return array_values(
             array_map(
-                function (array $blockData) {
+                function (array $blockData): Block {
                     ksort($blockData['parameters']);
                     sort($blockData['availableLocales']);
 

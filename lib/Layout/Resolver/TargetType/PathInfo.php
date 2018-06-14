@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraints;
 
 class PathInfo implements TargetTypeInterface
 {
-    public function getType()
+    public function getType(): string
     {
         return 'path_info';
     }
 
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return [
             new Constraints\NotBlank(),

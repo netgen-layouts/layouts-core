@@ -109,7 +109,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['collection' => $collection1])));
+            ->will($this->returnValue(new ResultSet(['collection' => $collection1, 'totalCount' => 0])));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
@@ -120,14 +120,14 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(10),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['collection' => $collection2])));
+            ->will($this->returnValue(new ResultSet(['collection' => $collection2, 'totalCount' => 0])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
             [
-                'collection1' => new ResultSet(['collection' => $collection1]),
-                'collection2' => new ResultSet(['collection' => $collection2]),
+                'collection1' => new ResultSet(['collection' => $collection1, 'totalCount' => 0]),
+                'collection2' => new ResultSet(['collection' => $collection2, 'totalCount' => 0]),
             ],
             $event->getParameters()['collections']
         );
@@ -358,13 +358,13 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
             )
-            ->will($this->returnValue(new ResultSet(['collection' => $collection1])));
+            ->will($this->returnValue(new ResultSet(['collection' => $collection1, 'totalCount' => 0])));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
             [
-                'collection1' => new ResultSet(['collection' => $collection1]),
+                'collection1' => new ResultSet(['collection' => $collection1, 'totalCount' => 0]),
             ],
             $event->getParameters()['collections']
         );

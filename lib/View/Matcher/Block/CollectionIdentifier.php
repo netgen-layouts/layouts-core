@@ -14,7 +14,7 @@ use Netgen\BlockManager\View\ViewInterface;
  */
 final class CollectionIdentifier implements MatcherInterface
 {
-    public function match(ViewInterface $view, array $config)
+    public function match(ViewInterface $view, array $config): bool
     {
         if (!$view instanceof BlockViewInterface) {
             return false;

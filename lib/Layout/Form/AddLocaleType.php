@@ -29,7 +29,7 @@ final class AddLocaleType extends AbstractType
         $this->localeProvider = $localeProvider;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -37,7 +37,7 @@ final class AddLocaleType extends AbstractType
         $resolver->setAllowedTypes('layout', Layout::class);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $newLocales = [];
         $layoutLocales = $options['layout']->getAvailableLocales();
@@ -72,7 +72,7 @@ final class AddLocaleType extends AbstractType
                 'label' => 'layout.add_locale.source_locale',
                 'required' => true,
                 'choices' => $layoutLocales,
-                'choice_label' => function ($value) use ($options, $localeBundle) {
+                'choice_label' => function (string $value) use ($options, $localeBundle): string {
                     $localeName = $localeBundle->getLocaleName($value) . ' (' . $value . ')';
                     if ($value === $options['layout']->getMainLocale()) {
                         return $localeName . ' - main';

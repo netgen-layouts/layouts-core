@@ -15,7 +15,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Parameter extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof ParameterValue;
     }

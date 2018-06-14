@@ -11,36 +11,34 @@ interface ClientInterface
      *
      * @param int[]|string[] $layoutIds
      */
-    public function invalidateLayouts(array $layoutIds);
+    public function invalidateLayouts(array $layoutIds): void;
 
     /**
      * Invalidates all layouts.
      */
-    public function invalidateAllLayouts();
+    public function invalidateAllLayouts(): void;
 
     /**
      * Invalidates all provided blocks.
      *
      * @param int[]|string[] $blockIds
      */
-    public function invalidateBlocks(array $blockIds);
+    public function invalidateBlocks(array $blockIds): void;
 
     /**
      * Invalidates all blocks from provided layouts.
      *
      * @param int[]|string[] $layoutIds
      */
-    public function invalidateLayoutBlocks(array $layoutIds);
+    public function invalidateLayoutBlocks(array $layoutIds): void;
 
     /**
      * Invalidates all blocks.
      */
-    public function invalidateAllBlocks();
+    public function invalidateAllBlocks(): void;
 
     /**
      * Commits the cache clear operations to the backend.
-     *
-     * @return bool
      */
-    public function commit();
+    public function commit(): bool;
 }

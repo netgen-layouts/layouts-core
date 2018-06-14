@@ -20,9 +20,9 @@ final class ExceptionNormalizer implements NormalizerInterface
     /**
      * @param bool $outputDebugInfo
      */
-    public function __construct($outputDebugInfo = false)
+    public function __construct(bool $outputDebugInfo = false)
     {
-        $this->outputDebugInfo = (bool) $outputDebugInfo;
+        $this->outputDebugInfo = $outputDebugInfo;
     }
 
     public function normalize($object, $format = null, array $context = [])
@@ -58,7 +58,7 @@ final class ExceptionNormalizer implements NormalizerInterface
         return $data;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof Exception;
     }

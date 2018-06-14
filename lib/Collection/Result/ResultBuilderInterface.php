@@ -21,5 +21,5 @@ interface ResultBuilderInterface
      *
      * @return \Netgen\BlockManager\Collection\Result\ResultSet
      */
-    public function build(Collection $collection, $offset = 0, $limit = null, $flags = 0);
+    public function build(Collection $collection, int $offset = 0, int $limit = null, int $flags = 0): ResultSet;
 }

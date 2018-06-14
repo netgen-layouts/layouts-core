@@ -85,7 +85,12 @@ final class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionService->addItem(
             new Collection(['status' => Value::STATUS_DRAFT]),
-            new ItemCreateStruct(['definition' => new ItemDefinition(), 'type' => Item::TYPE_MANUAL])
+            new ItemCreateStruct(
+                [
+                    'definition' => new ItemDefinition(['valueType' => 'value_type']),
+                    'type' => Item::TYPE_MANUAL,
+                ]
+            )
         );
     }
 

@@ -6,10 +6,11 @@ namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\View\View\BlockView;
+use Netgen\BlockManager\View\ViewInterface;
 
 final class BlockViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = [])
+    public function provideView($value, array $parameters = []): ViewInterface
     {
         $blockView = new BlockView(
             [
@@ -32,7 +33,7 @@ final class BlockViewProvider implements ViewProviderInterface
         return $blockView;
     }
 
-    public function supports($value)
+    public function supports($value): bool
     {
         return $value instanceof APIBlock;
     }

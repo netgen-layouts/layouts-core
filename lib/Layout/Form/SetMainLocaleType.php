@@ -18,7 +18,7 @@ final class SetMainLocaleType extends AbstractType
 {
     use ChoicesAsValuesTrait;
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -26,7 +26,7 @@ final class SetMainLocaleType extends AbstractType
         $resolver->setAllowedTypes('layout', Layout::class);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $localeBundle = Intl::getLocaleBundle();
 
@@ -37,7 +37,7 @@ final class SetMainLocaleType extends AbstractType
                 'data' => $options['layout']->getMainLocale(),
                 'required' => true,
                 'choices' => $options['layout']->getAvailableLocales(),
-                'choice_label' => function ($value) use ($options, $localeBundle) {
+                'choice_label' => function (string $value) use ($options, $localeBundle): string {
                     $localeName = $localeBundle->getLocaleName($value) . ' (' . $value . ')';
                     if ($value === $options['layout']->getMainLocale()) {
                         return $localeName . ' - main';

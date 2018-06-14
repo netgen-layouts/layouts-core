@@ -16,5 +16,5 @@ interface IdProviderInterface
      *
      * @return int[]|string[]
      */
-    public function provideIds($layoutId);
+    public function provideIds($layoutId): array;
 }

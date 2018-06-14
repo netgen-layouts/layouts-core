@@ -5,6 +5,6 @@
     "value": "abc",
     "value_type": "my_value_type",
     "configuration": {
-        "visibility": "sub_visit_value"
+        "visibility": ["sub_visit_value"]
     }
 }

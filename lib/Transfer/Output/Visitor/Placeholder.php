@@ -16,7 +16,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Placeholder extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof PlaceholderValue;
     }
@@ -37,13 +37,8 @@ final class Placeholder extends Visitor
 
     /**
      * Visit the given $placeholder blocks into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitBlocks(PlaceholderValue $placeholder, VisitorInterface $subVisitor)
+    private function visitBlocks(PlaceholderValue $placeholder, VisitorInterface $subVisitor): array
     {
         $hash = [];
 

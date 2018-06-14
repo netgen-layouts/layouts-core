@@ -12,7 +12,7 @@ use Symfony\Component\Form\DataMapperInterface;
  */
 final class ItemLinkDataMapper implements DataMapperInterface
 {
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, $forms): void
     {
         if (!is_string($data)) {
             return;
@@ -26,7 +26,7 @@ final class ItemLinkDataMapper implements DataMapperInterface
         }
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData($forms, &$data): void
     {
         $forms = iterator_to_array($forms);
 

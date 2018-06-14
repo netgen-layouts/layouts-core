@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\ItemInterface;
 
@@ -21,10 +22,8 @@ final class ManualItem implements ItemInterface
 
     /**
      * Returns the collection item that was used to generate this manual item.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function getCollectionItem()
+    public function getCollectionItem(): Item
     {
         return $this->collectionItem;
     }
@@ -39,17 +38,17 @@ final class ManualItem implements ItemInterface
         return $this->collectionItem->getCmsItem()->getRemoteId();
     }
 
-    public function getValueType()
+    public function getValueType(): string
     {
         return $this->collectionItem->getCmsItem()->getValueType();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->collectionItem->getCmsItem()->getName();
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return $this->collectionItem->getCmsItem()->isVisible();
     }

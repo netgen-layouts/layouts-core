@@ -78,7 +78,7 @@ final class LayoutNormalizer implements NormalizerInterface
         return $data;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;
@@ -89,13 +89,8 @@ final class LayoutNormalizer implements NormalizerInterface
 
     /**
      * Returns the array with layout zones.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
-     *
-     * @return array
      */
-    private function getZones(Layout $layout, LayoutTypeInterface $layoutType)
+    private function getZones(Layout $layout, LayoutTypeInterface $layoutType): array
     {
         $zones = [];
 
@@ -125,13 +120,8 @@ final class LayoutNormalizer implements NormalizerInterface
 
     /**
      * Returns provided zone name.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
-     *
-     * @return string
      */
-    private function getZoneName(Zone $zone, LayoutTypeInterface $layoutType)
+    private function getZoneName(Zone $zone, LayoutTypeInterface $layoutType): string
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             return $layoutType->getZone($zone->getIdentifier())->getName();

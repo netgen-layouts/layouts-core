@@ -14,7 +14,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
  */
 final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 {
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add(
             'use_http_cache',

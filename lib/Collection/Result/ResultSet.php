@@ -8,6 +8,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Value;
 
@@ -21,7 +22,7 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      * If specified, the result will include any invalid items,
      * i.e. those that don't exist in backend or are invisible.
      */
-    const INCLUDE_INVALID_ITEMS = 1;
+    public const INCLUDE_INVALID_ITEMS = 1;
 
     /**
      * If provided, any items not currently known will be shown as placeholder slots.
@@ -30,12 +31,12 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      * meaning that it cannot run when there's no real frontend request,
      * e.g. in Block Manager app.
      */
-    const INCLUDE_UNKNOWN_ITEMS = 2;
+    public const INCLUDE_UNKNOWN_ITEMS = 2;
 
     /**
      * If provided, will include all items, without any filters.
      */
-    const INCLUDE_ALL_ITEMS = PHP_INT_MAX;
+    public const INCLUDE_ALL_ITEMS = PHP_INT_MAX;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
@@ -64,10 +65,8 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
 
     /**
      * Returns the collection from which was this result generated.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function getCollection()
+    public function getCollection(): Collection
     {
         return $this->collection;
     }
@@ -77,27 +76,23 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      *
      * @return \Netgen\BlockManager\Collection\Result\Result[]
      */
-    public function getResults()
+    public function getResults(): array
     {
         return $this->results;
     }
 
     /**
      * Returns if the result set is dynamic (i.e. if generated from the dynamic collection).
-     *
-     * @return bool
      */
-    public function isDynamic()
+    public function isDynamic(): bool
     {
         return $this->collection->hasQuery();
     }
 
     /**
      * Returns if the result set is dependent on a context, i.e. current request.
-     *
-     * @return bool
      */
-    public function isContextual()
+    public function isContextual(): bool
     {
         if (!$this->collection->hasQuery()) {
             return false;
@@ -108,30 +103,24 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
 
     /**
      * Returns the total count of items in this result.
-     *
-     * @return int
      */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
 
     /**
      * Returns the offset with which was this result generated.
-     *
-     * @return int
      */
-    public function getOffset()
+    public function getOffset(): int
     {
         return $this->offset;
     }
 
     /**
      * Returns the limit with which was this result generated.
-     *
-     * @return int
      */
-    public function getLimit()
+    public function getLimit(): ?int
     {
         return $this->limit;
     }

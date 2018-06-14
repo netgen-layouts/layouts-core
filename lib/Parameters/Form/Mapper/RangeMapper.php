@@ -10,12 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 final class RangeMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return RangeType::class;
     }
 
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         $options = $parameterDefinition->getOptions();
 

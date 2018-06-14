@@ -28,13 +28,13 @@ final class ItemLoader implements ItemLoaderInterface
 
         $this->valueLoaders = array_filter(
             $valueLoaders,
-            function (ValueLoaderInterface $valueLoader) {
+            function (ValueLoaderInterface $valueLoader): bool {
                 return true;
             }
         );
     }
 
-    public function load($value, $valueType)
+    public function load($value, string $valueType): ItemInterface
     {
         if (!isset($this->valueLoaders[$valueType])) {
             throw ItemException::noValueType($valueType);
@@ -49,7 +49,7 @@ final class ItemLoader implements ItemLoaderInterface
         return $this->itemBuilder->build($loadedValue);
     }
 
-    public function loadByRemoteId($remoteId, $valueType)
+    public function loadByRemoteId($remoteId, string $valueType): ItemInterface
     {
         if (!isset($this->valueLoaders[$valueType])) {
             throw ItemException::noValueType($valueType);

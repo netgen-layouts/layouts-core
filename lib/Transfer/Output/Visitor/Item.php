@@ -16,7 +16,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Item extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof ItemValue;
     }
@@ -41,13 +41,8 @@ final class Item extends Visitor
 
     /**
      * Visit the given $item configuration into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitConfiguration(ItemValue $item, VisitorInterface $subVisitor)
+    private function visitConfiguration(ItemValue $item, VisitorInterface $subVisitor): array
     {
         $hash = [];
 
@@ -61,13 +56,9 @@ final class Item extends Visitor
     /**
      * Return type string representation for the given $item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
-     *
-     * @return string
      */
-    private function getTypeString(ItemValue $item)
+    private function getTypeString(ItemValue $item): string
     {
         switch ($item->getType()) {
             case ItemValue::TYPE_MANUAL:

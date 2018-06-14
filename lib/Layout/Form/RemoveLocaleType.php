@@ -20,7 +20,7 @@ final class RemoveLocaleType extends AbstractType
 {
     use ChoicesAsValuesTrait;
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -28,7 +28,7 @@ final class RemoveLocaleType extends AbstractType
         $resolver->setAllowedTypes('layout', Layout::class);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $localeBundle = Intl::getLocaleBundle();
 
@@ -63,7 +63,7 @@ final class RemoveLocaleType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['layout'] = $options['layout'];
     }

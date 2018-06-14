@@ -25,7 +25,7 @@ final class ValueTypeValidator extends ConstraintValidator
         $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ValueType) {
             throw new UnexpectedTypeException($constraint, ValueType::class);

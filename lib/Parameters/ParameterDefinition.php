@@ -59,7 +59,7 @@ class ParameterDefinition extends Value
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -69,7 +69,7 @@ class ParameterDefinition extends Value
      *
      * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
-    public function getType()
+    public function getType(): ParameterTypeInterface
     {
         return $this->type;
     }
@@ -79,7 +79,7 @@ class ParameterDefinition extends Value
      *
      * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
@@ -91,7 +91,7 @@ class ParameterDefinition extends Value
      *
      * @return bool
      */
-    public function hasOption($option)
+    public function hasOption(string $option): bool
     {
         return array_key_exists($option, $this->options);
     }
@@ -105,7 +105,7 @@ class ParameterDefinition extends Value
      *
      * @return mixed
      */
-    public function getOption($option)
+    public function getOption(string $option)
     {
         if (!$this->hasOption($option)) {
             throw ParameterException::noOption($option);
@@ -119,7 +119,7 @@ class ParameterDefinition extends Value
      *
      * @return bool
      */
-    public function isRequired()
+    public function isRequired(): bool
     {
         return $this->isRequired;
     }
@@ -137,7 +137,7 @@ class ParameterDefinition extends Value
     /**
      * Returns the parameter label.
      *
-     * @return string|null
+     * @return string|bool|null
      */
     public function getLabel()
     {
@@ -149,7 +149,7 @@ class ParameterDefinition extends Value
      *
      * @return array
      */
-    public function getGroups()
+    public function getGroups(): array
     {
         return $this->groups;
     }
@@ -162,7 +162,7 @@ class ParameterDefinition extends Value
      *
      * @return array
      */
-    public function getConstraints()
+    public function getConstraints(): array
     {
         return $this->constraints;
     }

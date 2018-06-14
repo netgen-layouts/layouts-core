@@ -13,35 +13,25 @@ interface TargetTypeRegistryInterface extends IteratorAggregate, Countable, Arra
 {
     /**
      * Adds a target type to registry.
-     *
-     * @param \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType
      */
-    public function addTargetType(TargetTypeInterface $targetType);
+    public function addTargetType(TargetTypeInterface $targetType): void;
 
     /**
      * Returns if registry has a target type.
-     *
-     * @param string $type
-     *
-     * @return bool
      */
-    public function hasTargetType($type);
+    public function hasTargetType(string $type): bool;
 
     /**
      * Returns a target type with provided type.
      *
-     * @param string $type
-     *
      * @throws \Netgen\BlockManager\Exception\Layout\TargetTypeException If target type does not exist
-     *
-     * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    public function getTargetType($type);
+    public function getTargetType(string $type): TargetTypeInterface;
 
     /**
      * Returns all target types.
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface[]
      */
-    public function getTargetTypes();
+    public function getTargetTypes(): array;
 }

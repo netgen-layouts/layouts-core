@@ -23,34 +23,27 @@ final class ErrorResult implements ResultInterface
      */
     private $error;
 
-    /**
-     * @param string $entityType
-     * @param array $data
-     * @param \Throwable $error
-     */
-    public function __construct($entityType, array $data, Throwable $error)
+    public function __construct(string $entityType, array $data, Throwable $error)
     {
         $this->entityType = $entityType;
         $this->data = $data;
         $this->error = $error;
     }
 
-    public function getEntityType()
+    public function getEntityType(): string
     {
         return $this->entityType;
     }
 
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
     /**
      * Returns the import error.
-     *
-     * @return \Throwable
      */
-    public function getError()
+    public function getError(): Throwable
     {
         return $this->error;
     }

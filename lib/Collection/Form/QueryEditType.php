@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class QueryEditType extends TranslatableType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -25,7 +25,7 @@ final class QueryEditType extends TranslatableType
         $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
 
-        $resolver->setDefault('constraints', function (Options $options) {
+        $resolver->setDefault('constraints', function (Options $options): array {
             return [
                 new QueryUpdateStructConstraint(
                     [
@@ -36,12 +36,12 @@ final class QueryEditType extends TranslatableType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['query'] = $options['query'];
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $locale = $options['data']->locale;
         $mainLocale = $options['query']->getMainLocale();

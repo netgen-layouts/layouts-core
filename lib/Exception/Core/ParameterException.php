@@ -14,7 +14,7 @@ final class ParameterException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Core\ParameterException
      */
-    public static function noParameter($parameter)
+    public static function noParameter(string $parameter): self
     {
         return new self(
             sprintf(

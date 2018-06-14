@@ -30,12 +30,12 @@ final class PagedCollectionsPlugin extends Plugin
         $this->defaultGroups = $defaultGroups;
     }
 
-    public static function getExtendedHandler()
+    public static function getExtendedHandler(): array
     {
-        return PagedCollectionsBlockInterface::class;
+        return [PagedCollectionsBlockInterface::class];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add(
             'paged_collections:enabled',

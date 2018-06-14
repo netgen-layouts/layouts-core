@@ -16,17 +16,17 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
      */
     private $itemDefinitions = [];
 
-    public function addItemDefinition($valueType, ItemDefinitionInterface $itemDefinition)
+    public function addItemDefinition(string $valueType, ItemDefinitionInterface $itemDefinition): void
     {
         $this->itemDefinitions[$valueType] = $itemDefinition;
     }
 
-    public function hasItemDefinition($valueType)
+    public function hasItemDefinition(string $valueType): bool
     {
         return isset($this->itemDefinitions[$valueType]);
     }
 
-    public function getItemDefinition($valueType)
+    public function getItemDefinition(string $valueType): ItemDefinitionInterface
     {
         if (!$this->hasItemDefinition($valueType)) {
             throw ItemDefinitionException::noItemDefinition($valueType);
@@ -35,7 +35,7 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
         return $this->itemDefinitions[$valueType];
     }
 
-    public function getItemDefinitions()
+    public function getItemDefinitions(): array
     {
         return $this->itemDefinitions;
     }

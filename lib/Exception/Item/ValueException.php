@@ -14,7 +14,7 @@ final class ValueException extends InvalidArgumentException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Item\ValueException
      */
-    public static function noValueLoader($valueType)
+    public static function noValueLoader(string $valueType): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class ValueException extends InvalidArgumentException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Item\ValueException
      */
-    public static function noValueConverter($type)
+    public static function noValueConverter(string $type): self
     {
         return new self(
             sprintf(

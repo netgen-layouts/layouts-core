@@ -24,7 +24,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface
         ];
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;
@@ -35,12 +35,8 @@ final class LayoutTypeNormalizer implements NormalizerInterface
 
     /**
      * Returns the array with layout type zones.
-     *
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
-     *
-     * @return array
      */
-    private function getZones(LayoutTypeInterface $layoutType)
+    private function getZones(LayoutTypeInterface $layoutType): array
     {
         $zones = [];
 

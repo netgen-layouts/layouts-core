@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 final class HtmlMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return TextareaType::class;
     }

@@ -27,7 +27,7 @@ final class ParameterStruct extends Constraint
      */
     public $allowMissingFields = false;
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_parameter_struct';
     }

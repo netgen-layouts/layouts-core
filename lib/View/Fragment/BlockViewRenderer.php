@@ -41,7 +41,7 @@ final class BlockViewRenderer implements ViewRendererInterface
     public function __construct(
         ContextInterface $context,
         CacheableResolverInterface $cacheableResolver,
-        $blockController,
+        string $blockController,
         array $supportedViewContexts = [ViewInterface::CONTEXT_DEFAULT]
     ) {
         $this->context = $context;
@@ -50,7 +50,7 @@ final class BlockViewRenderer implements ViewRendererInterface
         $this->supportedViewContexts = $supportedViewContexts;
     }
 
-    public function supportsView(ViewInterface $view)
+    public function supportsView(ViewInterface $view): bool
     {
         if (!$view instanceof BlockViewInterface) {
             return false;
@@ -63,7 +63,7 @@ final class BlockViewRenderer implements ViewRendererInterface
         return $this->cacheableResolver->isCacheable($view->getBlock());
     }
 
-    public function getController(ViewInterface $view)
+    public function getController(ViewInterface $view): ?ControllerReference
     {
         if (!$view instanceof BlockViewInterface) {
             return null;

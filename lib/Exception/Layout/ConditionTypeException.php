@@ -14,7 +14,7 @@ final class ConditionTypeException extends InvalidArgumentException implements E
      *
      * @return \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      */
-    public static function noConditionType($conditionType)
+    public static function noConditionType(string $conditionType): self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ final class ConditionTypeException extends InvalidArgumentException implements E
      *
      * @return \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      */
-    public static function noFormMapper($conditionType)
+    public static function noFormMapper(string $conditionType): self
     {
         return new self(
             sprintf(

@@ -10,7 +10,7 @@ use RuntimeException;
 
 final class TemplateResolverException extends RuntimeException implements Exception
 {
-    public function __construct($message = '', $code = 0, BaseException $previous = null)
+    public function __construct(string $message = '', int $code = 0, BaseException $previous = null)
     {
         if (empty($message)) {
             $message = 'An error occurred while resolving the view template.';
@@ -19,12 +19,7 @@ final class TemplateResolverException extends RuntimeException implements Except
         parent::__construct($message, $code, $previous);
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\Exception\View\TemplateResolverException
-     */
-    public static function noTemplateMatcher($identifier)
+    public static function noTemplateMatcher(string $identifier): self
     {
         return new self(
             sprintf(
@@ -34,13 +29,7 @@ final class TemplateResolverException extends RuntimeException implements Except
         );
     }
 
-    /**
-     * @param string $viewType
-     * @param string $context
-     *
-     * @return \Netgen\BlockManager\Exception\View\TemplateResolverException
-     */
-    public static function noTemplateMatch($viewType, $context)
+    public static function noTemplateMatch(string $viewType, string $context): self
     {
         return new self(
             sprintf(

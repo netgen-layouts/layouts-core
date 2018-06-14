@@ -20,7 +20,7 @@ final class LayoutName extends Constraint
      */
     public $excludedLayoutId;
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_layout_name';
     }

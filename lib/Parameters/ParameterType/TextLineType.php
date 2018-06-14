@@ -18,7 +18,7 @@ final class TextLineType extends ParameterType
         return 'text_line';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(

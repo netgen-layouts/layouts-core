@@ -8,13 +8,8 @@ final class LayoutTypeFactory
 {
     /**
      * Builds the layout type.
-     *
-     * @param string $identifier
-     * @param array $config
-     *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
-    public static function buildLayoutType($identifier, array $config)
+    public static function buildLayoutType(string $identifier, array $config): LayoutTypeInterface
     {
         $zones = [];
 

@@ -26,7 +26,7 @@ final class ItemDefinitionFactory
      *
      * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
-    public function buildItemDefinition($valueType, array $configDefinitionHandlers)
+    public function buildItemDefinition(string $valueType, array $configDefinitionHandlers): ItemDefinitionInterface
     {
         $configDefinitions = [];
         foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {

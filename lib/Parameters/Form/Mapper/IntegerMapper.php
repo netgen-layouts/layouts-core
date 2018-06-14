@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 final class IntegerMapper extends Mapper
 {
-    public function getFormType()
+    public function getFormType(): string
     {
         return IntegerType::class;
     }

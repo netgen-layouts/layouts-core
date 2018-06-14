@@ -16,5 +16,5 @@ interface ContainerDefinitionInterface extends BlockDefinitionInterface
      *
      * @return string[]
      */
-    public function getPlaceholders();
+    public function getPlaceholders(): array;
 }

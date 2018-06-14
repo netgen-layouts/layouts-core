@@ -21,7 +21,7 @@ interface VisitorInterface
      *
      * @return bool
      */
-    public function accept($value);
+    public function accept($value): bool;
 
     /**
      * Visit the given $value into hash representation.

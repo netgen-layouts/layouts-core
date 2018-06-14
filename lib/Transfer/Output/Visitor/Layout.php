@@ -16,7 +16,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  */
 final class Layout extends Visitor
 {
-    public function accept($value)
+    public function accept($value): bool
     {
         return $value instanceof LayoutValue;
     }
@@ -47,13 +47,8 @@ final class Layout extends Visitor
 
     /**
      * Visit the given $layout zones into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
-     *
-     * @return array
      */
-    private function visitZones(LayoutValue $layout, VisitorInterface $subVisitor)
+    private function visitZones(LayoutValue $layout, VisitorInterface $subVisitor): array
     {
         $hash = [];
 

@@ -96,7 +96,7 @@ final class LayoutDataHandler
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function createLayout(array $data)
+    public function createLayout(array $data): Layout
     {
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType($data['type_identifier']),
@@ -108,7 +108,7 @@ final class LayoutDataHandler
         $createStruct->shared = $data['is_shared'];
 
         return $this->layoutService->transaction(
-            function () use ($createStruct, $data) {
+            function () use ($createStruct, $data): Layout {
                 $layoutDraft = $this->layoutService->createLayout($createStruct);
                 $this->addTranslations($layoutDraft, $data);
                 $this->processZones($layoutDraft, $data);
@@ -121,12 +121,9 @@ final class LayoutDataHandler
     /**
      * Processes zones in the given $layout from the $layoutData.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param array $layoutData
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If data is not consistent
      */
-    private function processZones(Layout $layout, array $layoutData)
+    private function processZones(Layout $layout, array $layoutData): void
     {
         foreach ($layout->getZones() as $zone) {
             if (!array_key_exists($zone->getIdentifier(), $layoutData['zones'])) {
@@ -141,11 +138,8 @@ final class LayoutDataHandler
 
     /**
      * Add translations to the $layout from the given $layoutData.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param array $layoutData
      */
-    private function addTranslations(Layout $layout, array $layoutData)
+    private function addTranslations(Layout $layout, array $layoutData): void
     {
         $translationLocales = $this->extractTranslationLocales($layoutData);
 
@@ -161,7 +155,7 @@ final class LayoutDataHandler
      *
      * @return string[]
      */
-    private function extractTranslationLocales(array $layoutData)
+    private function extractTranslationLocales(array $layoutData): array
     {
         $availableLocalesSet = array_flip($layoutData['available_locales']);
         unset($availableLocalesSet[$layoutData['main_locale']]);
@@ -172,12 +166,11 @@ final class LayoutDataHandler
     /**
      * Update all translations of the given block with the $translationsData.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $translationsData Block parameters data by translation locale
+     * $translationsData is an array of parameters, indexed by translation locale.
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      */
-    private function updateBlockTranslations(Block $block, array $translationsData)
+    private function updateBlockTranslations(Block $block, array $translationsData): void
     {
         $mainLocale = $block->getMainLocale();
 
@@ -198,12 +191,8 @@ final class LayoutDataHandler
 
     /**
      * Update given $block with $parameterData for the $locale.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $parameterData
-     * @param string $locale
      */
-    private function updateBlockTranslation(Block $block, array $parameterData, $locale)
+    private function updateBlockTranslation(Block $block, array $parameterData, string $locale): void
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
         $updateStruct->fillParametersFromHash($block->getDefinition(), $parameterData, true);
@@ -214,12 +203,11 @@ final class LayoutDataHandler
     /**
      * Update all translations of the given query with $translationsData.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param array $translationsData Query parameters data by translation locale
+     * $translationsData is an array of query parameters indexed by translation locale.
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      */
-    private function updateQueryTranslations(Query $query, array $translationsData)
+    private function updateQueryTranslations(Query $query, array $translationsData): void
     {
         $mainLocale = $query->getMainLocale();
 
@@ -240,12 +228,8 @@ final class LayoutDataHandler
 
     /**
      * Update given $query with $parameterData for the $locale.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param array $parameterData
-     * @param string $locale
      */
-    private function updateQueryTranslation(Query $query, array $parameterData, $locale)
+    private function updateQueryTranslation(Query $query, array $parameterData, string $locale): void
     {
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
         $updateStruct->fillParametersFromHash($query->getQueryType(), $parameterData, true);
@@ -255,13 +239,8 @@ final class LayoutDataHandler
 
     /**
      * Creates blocks in the given $zone or links linked zone to it.
-     *
-     * @see createBlocks()
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param array $zoneData
      */
-    private function processZone(Zone $zone, array $zoneData)
+    private function processZone(Zone $zone, array $zoneData): void
     {
         $this->createBlocks($zone, $zoneData['blocks']);
         if (is_array($zoneData['linked_zone'])) {
@@ -271,11 +250,8 @@ final class LayoutDataHandler
 
     /**
      * Link given $zone with the zone given in $zoneData.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param array $zoneData
      */
-    private function linkZone(Zone $zone, array $zoneData)
+    private function linkZone(Zone $zone, array $zoneData): void
     {
         $linkedZoneLayout = $this->layoutService->loadLayout($zoneData['layout_id']);
         $linkedZone = $linkedZoneLayout->getZone($zoneData['identifier']);
@@ -285,11 +261,8 @@ final class LayoutDataHandler
 
     /**
      * Create blocks in the given $zone from the given $blocksData.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param array $blocksData
      */
-    private function createBlocks(Zone $zone, array $blocksData)
+    private function createBlocks(Zone $zone, array $blocksData): void
     {
         foreach ($blocksData as $blockData) {
             $this->createBlockInZone($zone, $blockData);
@@ -298,13 +271,8 @@ final class LayoutDataHandler
 
     /**
      * Create a block in the given $zone from the given $blockData.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param array $blockData
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    private function createBlockInZone(Zone $zone, array $blockData)
+    private function createBlockInZone(Zone $zone, array $blockData): Block
     {
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
@@ -318,14 +286,8 @@ final class LayoutDataHandler
 
     /**
      * Create a block in the given $targetBlock and $placeholder from the given $blockData.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     * @param array $blockData
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    private function createBlock(Block $targetBlock, $placeholder, array $blockData)
+    private function createBlock(Block $targetBlock, string $placeholder, array $blockData): Block
     {
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, $placeholder);
@@ -339,11 +301,8 @@ final class LayoutDataHandler
 
     /**
      * Creates sub-blocks in $targetBlock from provided placeholder $data.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
-     * @param array $data
      */
-    private function processPlaceholderBlocks(Block $targetBlock, array $data)
+    private function processPlaceholderBlocks(Block $targetBlock, array $data): void
     {
         foreach ($data as $placeholder => $placeholderData) {
             foreach ($placeholderData['blocks'] as $blockData) {
@@ -354,12 +313,8 @@ final class LayoutDataHandler
 
     /**
      * Builds the block create struct from provided $blockData.
-     *
-     * @param array $blockData
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
-    private function buildBlockCreateStruct(array $blockData)
+    private function buildBlockCreateStruct(array $blockData): BlockCreateStruct
     {
         if (!array_key_exists($blockData['main_locale'], $blockData['parameters'])) {
             throw new RuntimeException(
@@ -384,11 +339,8 @@ final class LayoutDataHandler
 
     /**
      * Set collection structs to the given $blockCreateStruct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param array $data
      */
-    private function setCollectionStructs(BlockCreateStruct $blockCreateStruct, array $data)
+    private function setCollectionStructs(BlockCreateStruct $blockCreateStruct, array $data): void
     {
         foreach ($data as $collectionIdentifier => $collectionData) {
             $queryCreateStruct = null;
@@ -416,16 +368,12 @@ final class LayoutDataHandler
 
     /**
      * Set configuration structs to the given $blockCreateStruct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionAwareInterface $configDefinitionAware
-     * @param array $configurationData
      */
     private function setConfigStructs(
         ConfigAwareStruct $configAwareStruct,
         ConfigDefinitionAwareInterface $configDefinitionAware,
         array $configurationData
-    ) {
+    ): void {
         $configDefinitions = $configDefinitionAware->getConfigDefinitions();
 
         foreach ($configurationData as $configKey => $hash) {
@@ -437,11 +385,8 @@ final class LayoutDataHandler
 
     /**
      * Process collections in the given $block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $collectionsData Collections data
      */
-    private function processCollections(Block $block, array $collectionsData)
+    private function processCollections(Block $block, array $collectionsData): void
     {
         foreach ($block->getCollections() as $identifier => $collection) {
             $collectionData = $collectionsData[$identifier];
@@ -456,11 +401,8 @@ final class LayoutDataHandler
 
     /**
      * Create items in the $collection from the given $collectionItemsData.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param array $collectionItemsData
      */
-    private function createItems(Collection $collection, array $collectionItemsData)
+    private function createItems(Collection $collection, array $collectionItemsData): void
     {
         foreach ($collectionItemsData as $collectionItemData) {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
@@ -488,12 +430,8 @@ final class LayoutDataHandler
 
     /**
      * Map items' exported type string to the real type value.
-     *
-     * @param string $typeString
-     *
-     * @return int
      */
-    private function mapItemType($typeString)
+    private function mapItemType(string $typeString): int
     {
         if ($typeString === 'OVERRIDE') {
             return Item::TYPE_OVERRIDE;

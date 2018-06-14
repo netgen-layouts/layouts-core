@@ -19,7 +19,7 @@ class ItemDefinition extends Value implements ItemDefinitionInterface
      */
     protected $valueType;
 
-    public function getValueType()
+    public function getValueType(): string
     {
         return $this->valueType;
     }

@@ -14,7 +14,7 @@ final class TranslationException extends InvalidArgumentException implements Exc
      *
      * @return \Netgen\BlockManager\Exception\Core\TranslationException
      */
-    public static function noTranslation($locale)
+    public static function noTranslation(string $locale): self
     {
         return new self(
             sprintf(

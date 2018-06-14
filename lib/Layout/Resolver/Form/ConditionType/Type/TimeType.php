@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class TimeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'from',
@@ -33,7 +33,7 @@ final class TimeType extends AbstractType
         );
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ngbm_condition_type_time';
     }

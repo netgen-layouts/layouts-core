@@ -11,5 +11,5 @@ interface TemplateResolverInterface
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      */
-    public function resolveTemplate(ViewInterface $view);
+    public function resolveTemplate(ViewInterface $view): void;
 }

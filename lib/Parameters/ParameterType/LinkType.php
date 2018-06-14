@@ -51,7 +51,7 @@ final class LinkType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'value_types',
-            function (Options $options, $value) {
+            function (Options $options, array $value): array {
                 if (!empty($value)) {
                     return $value;
                 }
@@ -156,7 +156,7 @@ final class LinkType extends ParameterType
         return empty($value->getLink());
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [
             new Constraints\Type(['type' => LinkValue::class]),

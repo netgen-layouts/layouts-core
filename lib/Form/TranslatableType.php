@@ -14,10 +14,8 @@ abstract class TranslatableType extends AbstractType
      * Disables all inputs which are not translatable in the form.
      *
      * Basically, only translatable parameters are left enabled.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
      */
-    protected function disableFormsOnNonMainLocale(FormBuilderInterface $builder)
+    protected function disableFormsOnNonMainLocale(FormBuilderInterface $builder): void
     {
         foreach ($builder as $form) {
             /** @var \Symfony\Component\Form\FormBuilderInterface $form */

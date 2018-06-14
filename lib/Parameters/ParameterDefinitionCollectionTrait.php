@@ -18,7 +18,7 @@ trait ParameterDefinitionCollectionTrait
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
-    public function getParameterDefinitions()
+    public function getParameterDefinitions(): array
     {
         return $this->parameterDefinitions;
     }
@@ -32,7 +32,7 @@ trait ParameterDefinitionCollectionTrait
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
-    public function getParameterDefinition($parameterName)
+    public function getParameterDefinition(string $parameterName): ParameterDefinition
     {
         if ($this->hasParameterDefinition($parameterName)) {
             return $this->parameterDefinitions[$parameterName];
@@ -48,7 +48,7 @@ trait ParameterDefinitionCollectionTrait
      *
      * @return bool
      */
-    public function hasParameterDefinition($parameterName)
+    public function hasParameterDefinition(string $parameterName): bool
     {
         return array_key_exists($parameterName, $this->parameterDefinitions);
     }

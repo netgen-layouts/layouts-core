@@ -10,7 +10,7 @@ final class Time extends Constraint
 {
     public $toLowerThanFromMessage = 'netgen_block_manager.layout_resolver.condition_type.time.to_lower';
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ngbm_condition_type_time';
     }

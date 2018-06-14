@@ -24,12 +24,12 @@ final class CommonParametersPlugin extends Plugin
         $this->defaultGroups = $defaultGroups;
     }
 
-    public static function getExtendedHandler()
+    public static function getExtendedHandler(): array
     {
-        return BlockDefinitionHandlerInterface::class;
+        return [BlockDefinitionHandlerInterface::class];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add(
             'css_class',

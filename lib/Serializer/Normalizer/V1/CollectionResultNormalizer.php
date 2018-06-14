@@ -43,7 +43,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
         return $data;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;
@@ -54,12 +54,8 @@ final class CollectionResultNormalizer implements NormalizerInterface
 
     /**
      * Normalizes the provided result item into an array.
-     *
-     * @param \Netgen\BlockManager\Item\ItemInterface $resultItem
-     *
-     * @return array
      */
-    private function normalizeResultItem(ItemInterface $resultItem)
+    private function normalizeResultItem(ItemInterface $resultItem): array
     {
         $itemUrl = null;
         $collectionItem = null;

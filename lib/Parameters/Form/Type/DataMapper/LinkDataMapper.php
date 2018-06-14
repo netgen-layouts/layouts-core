@@ -23,7 +23,7 @@ final class LinkDataMapper implements DataMapperInterface
         $this->parameterDefinition = $parameterDefinition;
     }
 
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, $forms): void
     {
         if (!$data instanceof LinkValue) {
             return;
@@ -40,7 +40,7 @@ final class LinkDataMapper implements DataMapperInterface
         }
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData($forms, &$data): void
     {
         $forms = iterator_to_array($forms);
         $linkType = $forms['link_type']->getData();

@@ -28,9 +28,6 @@ final class CollectViewParametersEvent extends Event
      */
     private $parameters = [];
 
-    /**
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     */
     public function __construct(ViewInterface $view)
     {
         $this->view = clone $view;
@@ -38,33 +35,27 @@ final class CollectViewParametersEvent extends Event
 
     /**
      * Returns the parameters that will be injected into the View.
-     *
-     * @return array
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
     /**
-     * Returns the parameters that will be injected into the View.
+     * Adds the parameter to the view.
      *
      * @param string $parameterName
      * @param mixed $parameterValue
-     *
-     * @return array
      */
-    public function addParameter($parameterName, $parameterValue)
+    public function addParameter(string $parameterName, $parameterValue)
     {
-        return $this->parameters[$parameterName] = $parameterValue;
+        $this->parameters[$parameterName] = $parameterValue;
     }
 
     /**
      * Returns the copy of the view object.
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function getView()
+    public function getView(): ViewInterface
     {
         return $this->view;
     }

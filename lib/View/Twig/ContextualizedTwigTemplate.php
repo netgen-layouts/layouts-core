@@ -49,7 +49,7 @@ final class ContextualizedTwigTemplate
      *
      * @return string
      */
-    public function renderBlock($blockName)
+    public function renderBlock(string $blockName): string
     {
         if (!$this->template->hasBlock($blockName, $this->context, $this->blocks)) {
             return '';

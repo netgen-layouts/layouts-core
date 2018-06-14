@@ -10,7 +10,7 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface
 
 final class Route implements TargetHandlerInterface
 {
-    public function handleQuery(QueryBuilder $query, $value)
+    public function handleQuery(QueryBuilder $query, $value): void
     {
         $query->andWhere(
             $query->expr()->eq('rt.value', ':target_value')

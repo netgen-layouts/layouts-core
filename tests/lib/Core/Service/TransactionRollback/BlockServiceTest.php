@@ -65,7 +65,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockService->createBlock(
             new BlockCreateStruct(
                 [
-                    'definition' => new BlockDefinition(),
+                    'definition' => new BlockDefinition(['identifier' => 'definition']),
                 ]
             ),
             new Block(
@@ -107,7 +107,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->will($this->returnValue(new PersistenceZone(['identifier' => 'right'])));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -131,7 +131,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockService->createBlockInZone(
             new BlockCreateStruct(
                 [
-                    'definition' => new BlockDefinition(),
+                    'definition' => new BlockDefinition(['identifier' => 'definition']),
                 ]
             ),
             new Zone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
@@ -242,7 +242,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->will($this->returnValue(new PersistenceZone(['identifier' => 'right'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -329,7 +329,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->will($this->returnValue(new PersistenceZone(['identifier' => 'right'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))

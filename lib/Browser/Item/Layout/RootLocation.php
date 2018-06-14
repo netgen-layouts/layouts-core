@@ -13,7 +13,7 @@ final class RootLocation implements LocationInterface
         return 0;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'All layouts';
     }

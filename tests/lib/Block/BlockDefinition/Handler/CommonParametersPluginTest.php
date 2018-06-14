@@ -49,7 +49,7 @@ final class CommonParametersPluginTest extends TestCase
     {
         $plugin = $this->plugin;
 
-        $this->assertEquals(BlockDefinitionHandlerInterface::class, $plugin::getExtendedHandler());
+        $this->assertEquals([BlockDefinitionHandlerInterface::class], $plugin::getExtendedHandler());
     }
 
     /**

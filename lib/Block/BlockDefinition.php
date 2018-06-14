@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
@@ -65,37 +68,37 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
      */
     protected $cacheableResolver;
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getIcon()
+    public function getIcon(): ?string
     {
         return $this->icon;
     }
 
-    public function isTranslatable()
+    public function isTranslatable(): bool
     {
         return $this->isTranslatable;
     }
 
-    public function getCollections()
+    public function getCollections(): array
     {
         return $this->collections;
     }
 
-    public function hasCollection($identifier)
+    public function hasCollection(string $identifier): bool
     {
         return array_key_exists($identifier, $this->collections);
     }
 
-    public function getCollection($identifier)
+    public function getCollection(string $identifier): Collection
     {
         if (!$this->hasCollection($identifier)) {
             throw BlockDefinitionException::noCollection($this->identifier, $identifier);
@@ -104,17 +107,17 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
         return $this->collections[$identifier];
     }
 
-    public function getForms()
+    public function getForms(): array
     {
         return $this->forms;
     }
 
-    public function hasForm($formName)
+    public function hasForm(string $formName): bool
     {
         return array_key_exists($formName, $this->forms);
     }
 
-    public function getForm($formName)
+    public function getForm(string $formName): Form
     {
         if (!$this->hasForm($formName)) {
             throw BlockDefinitionException::noForm($this->identifier, $formName);
@@ -123,22 +126,22 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
         return $this->forms[$formName];
     }
 
-    public function getViewTypes()
+    public function getViewTypes(): array
     {
         return $this->viewTypes;
     }
 
-    public function getViewTypeIdentifiers()
+    public function getViewTypeIdentifiers(): array
     {
         return array_keys($this->viewTypes);
     }
 
-    public function hasViewType($viewType)
+    public function hasViewType(string $viewType): bool
     {
         return array_key_exists($viewType, $this->viewTypes);
     }
 
-    public function getViewType($viewType)
+    public function getViewType(string $viewType): ViewType
     {
         if (!$this->hasViewType($viewType)) {
             throw BlockDefinitionException::noViewType($this->identifier, $viewType);
@@ -147,7 +150,7 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
         return $this->viewTypes[$viewType];
     }
 
-    public function getDynamicParameters(Block $block)
+    public function getDynamicParameters(Block $block): DynamicParameters
     {
         $dynamicParams = new DynamicParameters();
 
@@ -160,12 +163,12 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
         return $dynamicParams;
     }
 
-    public function isContextual(Block $block)
+    public function isContextual(Block $block): bool
     {
         return $this->handler->isContextual($block);
     }
 
-    public function hasPlugin($className)
+    public function hasPlugin(string $className): bool
     {
         foreach ($this->handlerPlugins as $handlerPlugin) {
             if (is_a($handlerPlugin, $className, true)) {
@@ -176,7 +179,7 @@ class BlockDefinition extends Value implements BlockDefinitionInterface
         return false;
     }
 
-    public function isCacheable(Block $block)
+    public function isCacheable(Block $block): bool
     {
         return $this->cacheableResolver->isCacheable($block);
     }

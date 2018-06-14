@@ -23,17 +23,13 @@ final class DebugErrorHandler implements ErrorHandlerInterface
      */
     private $debug = false;
 
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param bool $debug
-     */
-    public function __construct(LoggerInterface $logger = null, $debug = false)
+    public function __construct(LoggerInterface $logger = null, bool $debug = false)
     {
         $this->logger = $logger ?: new NullLogger();
         $this->debug = $debug;
     }
 
-    public function handleError(Throwable $throwable, $message = null, array $context = [])
+    public function handleError(Throwable $throwable, string $message = null, array $context = [])
     {
         $this->logError($throwable, $message, $context);
 
@@ -44,12 +40,8 @@ final class DebugErrorHandler implements ErrorHandlerInterface
 
     /**
      * Logs the error.
-     *
-     * @param \Throwable $throwable
-     * @param string $message
-     * @param array $context
      */
-    private function logError(Throwable $throwable, $message = null, array $context = [])
+    private function logError(Throwable $throwable, string $message = null, array $context = [])
     {
         $context['error'] = $throwable;
 

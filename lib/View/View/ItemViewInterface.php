@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\View\View;
 
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
 interface ItemViewInterface extends ViewInterface
@@ -13,12 +14,12 @@ interface ItemViewInterface extends ViewInterface
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function getItem();
+    public function getItem(): ItemInterface;
 
     /**
      * Returns the view type.
      *
      * @return string
      */
-    public function getViewType();
+    public function getViewType(): string;
 }

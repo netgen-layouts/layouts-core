@@ -24,7 +24,7 @@ class ConfigDefinition extends Value implements ConfigDefinitionInterface
      */
     protected $handler;
 
-    public function getConfigKey()
+    public function getConfigKey(): string
     {
         return $this->configKey;
     }

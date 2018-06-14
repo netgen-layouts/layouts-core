@@ -35,17 +35,17 @@ class QueryType extends Value implements QueryTypeInterface
      */
     protected $handler;
 
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->isEnabled;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -55,12 +55,12 @@ class QueryType extends Value implements QueryTypeInterface
         return $this->handler->getValues($query, $offset, $limit);
     }
 
-    public function getCount(Query $query)
+    public function getCount(Query $query): int
     {
         return $this->handler->getCount($query);
     }
 
-    public function isContextual(Query $query)
+    public function isContextual(Query $query): bool
     {
         return $this->handler->isContextual($query);
     }

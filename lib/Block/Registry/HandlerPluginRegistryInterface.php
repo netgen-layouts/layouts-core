@@ -13,7 +13,7 @@ interface HandlerPluginRegistryInterface
      *
      * @param \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface $plugin
      */
-    public function addPlugin(PluginInterface $plugin);
+    public function addPlugin(PluginInterface $plugin): void;
 
     /**
      * Returns all handler plugins for the provided handler class.
@@ -22,5 +22,5 @@ interface HandlerPluginRegistryInterface
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    public function getPlugins($handlerClass);
+    public function getPlugins(string $handlerClass): array;
 }

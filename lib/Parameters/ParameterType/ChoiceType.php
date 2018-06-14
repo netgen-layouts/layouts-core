@@ -33,7 +33,7 @@ final class ChoiceType extends ParameterType
 
         $optionsResolver->setAllowedValues(
             'options',
-            function ($value) {
+            function ($value): bool {
                 if (is_callable($value)) {
                     return true;
                 }
@@ -76,7 +76,7 @@ final class ChoiceType extends ParameterType
         return $value === null || $value === [];
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         $options = $parameterDefinition->getOptions();
 

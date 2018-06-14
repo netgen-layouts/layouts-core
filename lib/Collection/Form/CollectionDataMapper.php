@@ -8,7 +8,7 @@ use Symfony\Component\Form\DataMapperInterface;
 
 final class CollectionDataMapper implements DataMapperInterface
 {
-    public function mapDataToForms($data, $forms)
+    public function mapDataToForms($data, $forms): void
     {
         $forms = iterator_to_array($forms);
 
@@ -16,7 +16,7 @@ final class CollectionDataMapper implements DataMapperInterface
         $forms['limit']->setData($data->limit !== 0 ? $data->limit : null);
     }
 
-    public function mapFormsToData($forms, &$data)
+    public function mapFormsToData($forms, &$data): void
     {
         $forms = iterator_to_array($forms);
         $limit = $forms['limit']->getData();

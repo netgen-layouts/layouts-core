@@ -50,6 +50,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cmsItem' => new Item(
                     [
                         'name' => 'Value name',
+                        'valueType' => 'value_type',
                         'isVisible' => true,
                     ]
                 ),
@@ -103,6 +104,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = new Item(
             [
                 'name' => 'Value name',
+                'valueType' => 'value_type',
                 'isVisible' => true,
             ]
         );
@@ -178,6 +180,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cmsItem' => new Item(
                     [
                         'name' => 'Value name',
+                        'valueType' => 'value_type',
                         'isVisible' => true,
                     ]
                 ),
@@ -200,6 +203,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = new Item(
             [
                 'name' => 'Value name',
+                'valueType' => 'value_type',
                 'isVisible' => true,
             ]
         );

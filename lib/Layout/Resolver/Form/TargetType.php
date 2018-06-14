@@ -28,13 +28,13 @@ final class TargetType extends AbstractType
     {
         $this->mappers = array_filter(
             $mappers,
-            function (MapperInterface $mapper) {
+            function (MapperInterface $mapper): bool {
                 return true;
             }
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -43,7 +43,7 @@ final class TargetType extends AbstractType
         $resolver->setAllowedTypes('data', TargetStruct::class);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType */
         $targetType = $options['target_type'];
@@ -73,7 +73,7 @@ final class TargetType extends AbstractType
         $builder->add($valueForm);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['target_type'] = $options['target_type'];
     }

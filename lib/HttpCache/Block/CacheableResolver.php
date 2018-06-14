@@ -19,17 +19,17 @@ final class CacheableResolver implements CacheableResolverInterface
      *
      * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[] $voters
      */
-    public function setVoters(array $voters = [])
+    public function setVoters(array $voters = []): void
     {
         $this->voters = array_filter(
             $voters,
-            function (VoterInterface $voter) {
+            function (VoterInterface $voter): bool {
                 return true;
             }
         );
     }
 
-    public function isCacheable(Block $block)
+    public function isCacheable(Block $block): bool
     {
         foreach ($this->voters as $voter) {
             $result = $voter->vote($block);

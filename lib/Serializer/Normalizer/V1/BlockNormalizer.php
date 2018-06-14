@@ -69,7 +69,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
         return $data;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof VersionedValue) {
             return false;
@@ -78,7 +78,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
         return $data->getValue() instanceof Block && $data->getVersion() === Version::API_V1;
     }
 
-    private function normalizeBlockCollections(Block $block)
+    private function normalizeBlockCollections(Block $block): array
     {
         $data = [];
 

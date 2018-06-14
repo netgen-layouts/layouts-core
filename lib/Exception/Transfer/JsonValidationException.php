@@ -18,7 +18,7 @@ final class JsonValidationException extends InvalidArgumentException implements 
      *
      * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      */
-    public static function parseError($errorMessage, $errorCode)
+    public static function parseError(string $errorMessage, int $errorCode): self
     {
         return new self(
             sprintf(
@@ -36,7 +36,7 @@ final class JsonValidationException extends InvalidArgumentException implements 
      *
      * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      */
-    public static function notAcceptable($reason)
+    public static function notAcceptable(string $reason): self
     {
         return new self(
             sprintf(
@@ -54,7 +54,7 @@ final class JsonValidationException extends InvalidArgumentException implements 
      *
      * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
      */
-    public static function validationFailed($errorMessage, Throwable $previous = null)
+    public static function validationFailed(string $errorMessage, Throwable $previous = null): self
     {
         return new self(
             sprintf(

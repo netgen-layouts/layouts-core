@@ -20,7 +20,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
         $this->parameterTypeRegistry = $parameterTypeRegistry;
     }
 
-    public function createParameterBuilder(array $config = [])
+    public function createParameterBuilder(array $config = []): ParameterBuilderInterface
     {
         $config = $this->resolveOptions($config);
 
@@ -37,12 +37,8 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 
     /**
      * Resolves the provided parameter builder configuration.
-     *
-     * @param array $config
-     *
-     * @return array
      */
-    protected function resolveOptions(array $config)
+    protected function resolveOptions(array $config): array
     {
         $optionsResolver = new OptionsResolver();
 

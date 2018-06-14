@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class TimeValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if ($value === null) {
             return;

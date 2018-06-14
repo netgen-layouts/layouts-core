@@ -19,22 +19,22 @@ final class NullQueryType implements QueryTypeInterface
     /**
      * @param string $queryType
      */
-    public function __construct($queryType)
+    public function __construct(string $queryType)
     {
         $this->queryType = $queryType;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->queryType;
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return true;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'Invalid query type';
     }
@@ -44,12 +44,12 @@ final class NullQueryType implements QueryTypeInterface
         return [];
     }
 
-    public function getCount(Query $query)
+    public function getCount(Query $query): int
     {
         return 0;
     }
 
-    public function isContextual(Query $query)
+    public function isContextual(Query $query): bool
     {
         return false;
     }

@@ -14,7 +14,7 @@ class ContainerDefinition extends BlockDefinition implements ContainerDefinition
      */
     protected $handler;
 
-    public function getPlaceholders()
+    public function getPlaceholders(): array
     {
         return $this->handler->getPlaceholderIdentifiers();
     }
