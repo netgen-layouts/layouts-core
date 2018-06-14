@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class MainMenuBuilder
@@ -27,10 +28,8 @@ final class MainMenuBuilder
 
     /**
      * Builds the main menu.
-     *
-     * @return \Knp\Menu\ItemInterface
      */
-    public function createMenu()
+    public function createMenu(): ItemInterface
     {
         $menu = $this->factory->createItem('root');
 

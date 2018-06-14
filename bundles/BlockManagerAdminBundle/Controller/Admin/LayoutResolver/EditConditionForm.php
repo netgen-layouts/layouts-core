@@ -26,13 +26,8 @@ final class EditConditionForm extends Controller
 
     /**
      * Displays the condition edit form.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Condition $condition, Request $request)
+    public function __invoke(Condition $condition, Request $request): ViewInterface
     {
         $conditionType = $condition->getConditionType();
 

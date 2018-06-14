@@ -23,12 +23,8 @@ final class DisableRule extends Controller
 
     /**
      * Disables a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule)
+    public function __invoke(Rule $rule): ViewInterface
     {
         $disabledRule = $this->layoutResolverService->disableRule($rule);
 

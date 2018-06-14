@@ -30,17 +30,15 @@ final class CacheEnabledListener implements EventSubscriberInterface
         $this->cacheEnabled = !$this->httpCacheClient instanceof NullClient;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerEvents::BUILD_VIEW => 'onBuildView'];
     }
 
     /**
      * Injects if the HTTP cache clearing is enabled or not.
-     *
-     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onBuildView(CollectViewParametersEvent $event)
+    public function onBuildView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
         if (!$view instanceof LayoutViewInterface) {

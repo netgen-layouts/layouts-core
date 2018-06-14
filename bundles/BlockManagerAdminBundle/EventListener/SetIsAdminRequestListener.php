@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
-    const ADMIN_FLAG_NAME = 'ngbm_is_admin_request';
+    public const ADMIN_FLAG_NAME = 'ngbm_is_admin_request';
 
     private static $adminRoutePrefix = 'ngbm_admin_';
 
@@ -27,17 +27,15 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => ['onKernelRequest', 30]];
     }
 
     /**
-     * Sets the {@link self::ADMIN_FLAG_NAME} flag if this is a request in admin interface.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * Sets the self::ADMIN_FLAG_NAME flag if this is a request in admin interface.
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

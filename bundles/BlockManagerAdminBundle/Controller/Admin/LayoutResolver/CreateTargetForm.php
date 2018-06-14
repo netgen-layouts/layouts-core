@@ -35,14 +35,8 @@ final class CreateTargetForm extends Controller
 
     /**
      * Displays the target create form.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param string $type
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule, $type, Request $request)
+    public function __invoke(Rule $rule, string $type, Request $request): ViewInterface
     {
         $targetType = $this->targetTypeRegistry->getTargetType($type);
         $createStruct = $this->layoutResolverService->newTargetCreateStruct($type);

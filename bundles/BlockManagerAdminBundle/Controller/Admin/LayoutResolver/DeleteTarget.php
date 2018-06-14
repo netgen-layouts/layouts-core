@@ -23,12 +23,8 @@ final class DeleteTarget extends Controller
 
     /**
      * Deletes a rule target.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Target $target)
+    public function __invoke(Target $target): ViewInterface
     {
         $this->layoutResolverService->deleteTarget($target);
 

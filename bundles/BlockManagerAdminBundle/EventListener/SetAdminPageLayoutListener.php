@@ -21,23 +21,21 @@ final class SetAdminPageLayoutListener implements EventSubscriberInterface
      */
     private $defaultTemplate;
 
-    public function __construct(GlobalVariable $globalVariable, $defaultTemplate)
+    public function __construct(GlobalVariable $globalVariable, string $defaultTemplate)
     {
         $this->globalVariable = $globalVariable;
         $this->defaultTemplate = $defaultTemplate;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]];
     }
 
     /**
      * Sets the pagelayout template for admin interface.
-     *
-     * @param \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent $event
      */
-    public function onAdminMatch(AdminMatchEvent $event)
+    public function onAdminMatch(AdminMatchEvent $event): void
     {
         $pageLayoutTemplate = $event->getPageLayoutTemplate() ?? $this->defaultTemplate;
 

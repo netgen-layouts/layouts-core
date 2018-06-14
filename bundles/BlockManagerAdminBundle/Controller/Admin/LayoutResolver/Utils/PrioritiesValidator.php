@@ -15,11 +15,9 @@ final class PrioritiesValidator
     /**
      * Validates list of rules from the request when updating priorities.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
-    public function validatePriorities(Request $request)
+    public function validatePriorities(Request $request): void
     {
         $this->validate(
             $request->request->get('rule_ids'),

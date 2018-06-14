@@ -18,7 +18,7 @@ final class ClearBlocksCacheType extends AbstractType
 {
     use ChoicesAsValuesTrait;
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -26,7 +26,7 @@ final class ClearBlocksCacheType extends AbstractType
         $resolver->setAllowedTypes('blocks', 'array');
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'blocks',
@@ -51,7 +51,7 @@ final class ClearBlocksCacheType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $blocks = [];
         foreach ($options['blocks'] as $block) {

@@ -13,20 +13,16 @@ final class GlobalVariable
 
     /**
      * Sets the pagelayout template.
-     *
-     * @param string $pageLayoutTemplate
      */
-    public function setPageLayoutTemplate($pageLayoutTemplate)
+    public function setPageLayoutTemplate(string $pageLayoutTemplate)
     {
         $this->pageLayoutTemplate = $pageLayoutTemplate;
     }
 
     /**
      * Returns the pagelayout template or null if no pagelayout template exists.
-     *
-     * @return string|null
      */
-    public function getPageLayoutTemplate()
+    public function getPageLayoutTemplate(): ?string
     {
         return $this->pageLayoutTemplate;
     }

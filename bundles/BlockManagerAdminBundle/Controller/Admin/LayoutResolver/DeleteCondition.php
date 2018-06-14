@@ -23,12 +23,8 @@ final class DeleteCondition extends Controller
 
     /**
      * Deletes a rule condition.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Condition $condition)
+    public function __invoke(Condition $condition): ViewInterface
     {
         $this->layoutResolverService->deleteCondition($condition);
 

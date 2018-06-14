@@ -24,12 +24,8 @@ final class ExportLayouts extends Controller
 
     /**
      * Exports the provided list of layouts.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $serializedLayouts = $this->serializer->serializeLayouts(
             array_unique($request->request->get('layout_ids'))

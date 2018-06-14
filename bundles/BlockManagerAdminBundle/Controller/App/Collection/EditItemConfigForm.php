@@ -33,7 +33,7 @@ final class EditItemConfigForm extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request, Item $item, $configKey = null)
+    public function __invoke(Request $request, Item $item, string $configKey = null)
     {
         $updateStruct = $this->collectionService->newItemUpdateStruct($item);
 

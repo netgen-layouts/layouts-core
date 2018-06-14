@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends Controller
 {
@@ -21,10 +22,8 @@ final class Index extends Controller
 
     /**
      * Displays the index page of layout resolver admin interface.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/layout_resolver/index.html.twig',

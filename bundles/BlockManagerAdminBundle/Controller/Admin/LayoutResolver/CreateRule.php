@@ -22,10 +22,8 @@ final class CreateRule extends Controller
 
     /**
      * Creates a new rule.
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke()
+    public function __invoke(): ViewInterface
     {
         $createdRule = $this->layoutResolverService->createRule(
             $this->layoutResolverService->newRuleCreateStruct()

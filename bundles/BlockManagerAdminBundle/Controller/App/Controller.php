@@ -8,7 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller as BaseController;
 
 abstract class Controller extends BaseController
 {
-    protected function checkPermissions()
+    protected function checkPermissions(): void
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_EDITOR');
     }

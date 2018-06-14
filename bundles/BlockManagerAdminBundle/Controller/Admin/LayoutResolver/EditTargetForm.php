@@ -26,13 +26,8 @@ final class EditTargetForm extends Controller
 
     /**
      * Displays the target edit form.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Target $target, Request $request)
+    public function __invoke(Target $target, Request $request): ViewInterface
     {
         $targetType = $target->getTargetType();
 

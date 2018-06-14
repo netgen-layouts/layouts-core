@@ -35,14 +35,8 @@ final class CreateConditionForm extends Controller
 
     /**
      * Displays the condition create form.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param string $type
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule, $type, Request $request)
+    public function __invoke(Rule $rule, string $type, Request $request): ViewInterface
     {
         $conditionType = $this->conditionTypeRegistry->getConditionType($type);
         $createStruct = $this->layoutResolverService->newConditionCreateStruct($type);

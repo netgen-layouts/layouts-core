@@ -14,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
 
 final class NetgenBlockManagerAdminExtension extends Extension implements PrependExtensionInterface
 {
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader(
             $container,
@@ -29,7 +29,7 @@ final class NetgenBlockManagerAdminExtension extends Extension implements Prepen
         $loader->load('services/event_listeners.yml');
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         $prependConfigs = [
             'framework/assets.yml' => 'framework',

@@ -8,7 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin as Base
 
 final class ExtensionPlugin extends BaseExtensionPlugin
 {
-    public function getConfigurationNodes()
+    public function getConfigurationNodes(): array
     {
         return [
             new ConfigurationNode\AdminNode(),

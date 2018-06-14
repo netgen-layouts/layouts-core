@@ -33,7 +33,7 @@ final class ConfigureTranslationForm extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, $locale, Request $request)
+    public function __invoke(Block $block, string $locale, Request $request)
     {
         $form = $this->createForm(
             ConfigureTranslationType::class,

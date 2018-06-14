@@ -23,12 +23,8 @@ final class PublishRuleDraft extends Controller
 
     /**
      * Publishes a rule draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule)
+    public function __invoke(Rule $rule): ViewInterface
     {
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 

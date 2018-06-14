@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends Controller
 {
     /**
-     * Displays the Block Manager app index page.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Displays the Netgen Layouts app index page.
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $appEnvironment = $request->attributes->get('_ngbm_environment');
 

@@ -23,7 +23,7 @@ final class RelatedLayoutsCountListener implements EventSubscriberInterface
         $this->layoutService = $layoutService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerEvents::BUILD_VIEW => 'onBuildView'];
     }
@@ -31,10 +31,8 @@ final class RelatedLayoutsCountListener implements EventSubscriberInterface
     /**
      * Injects the number of layouts connected to the shared layout
      * provided by the event.
-     *
-     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onBuildView(CollectViewParametersEvent $event)
+    public function onBuildView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
         if (!$view instanceof LayoutViewInterface) {

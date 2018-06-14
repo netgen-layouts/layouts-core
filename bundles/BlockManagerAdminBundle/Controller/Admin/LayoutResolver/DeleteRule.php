@@ -24,13 +24,8 @@ final class DeleteRule extends Controller
 
     /**
      * Deletes a rule.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request, Rule $rule)
+    public function __invoke(Request $request, Rule $rule): Response
     {
         if ($request->getMethod() !== Request::METHOD_DELETE) {
             return $this->render(

@@ -23,12 +23,8 @@ final class DiscardRuleDraft extends Controller
 
     /**
      * Discards a rule draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule)
+    public function __invoke(Rule $rule): ViewInterface
     {
         $this->layoutResolverService->discardDraft($rule);
 

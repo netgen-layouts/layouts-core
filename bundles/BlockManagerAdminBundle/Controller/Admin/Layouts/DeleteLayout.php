@@ -24,13 +24,8 @@ final class DeleteLayout extends Controller
 
     /**
      * Deletes a layout.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request, Layout $layout)
+    public function __invoke(Request $request, Layout $layout): Response
     {
         if ($request->getMethod() !== Request::METHOD_DELETE) {
             return $this->render(

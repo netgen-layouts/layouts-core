@@ -36,13 +36,9 @@ final class UpdateRulePriorities extends Controller
     /**
      * Updates rule priorities.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If an error occurred
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $this->prioritiesValidator->validatePriorities($request);
 

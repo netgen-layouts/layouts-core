@@ -23,12 +23,8 @@ final class CreateRuleDraft extends Controller
 
     /**
      * Creates a new rule draft from published state.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule)
+    public function __invoke(Rule $rule): ViewInterface
     {
         $createdDraft = $this->layoutResolverService->createDraft($rule, true);
 

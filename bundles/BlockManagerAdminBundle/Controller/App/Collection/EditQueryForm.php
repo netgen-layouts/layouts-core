@@ -33,7 +33,7 @@ final class EditQueryForm extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Query $query, $locale, Request $request)
+    public function __invoke(Query $query, string $locale, Request $request)
     {
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 

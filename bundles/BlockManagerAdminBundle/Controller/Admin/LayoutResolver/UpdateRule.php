@@ -34,14 +34,9 @@ final class UpdateRule extends Controller
     /**
      * Updates the rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout does not exist
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule, Request $request)
+    public function __invoke(Rule $rule, Request $request): ViewInterface
     {
         $layoutId = $request->request->get('layout_id');
         $layoutId = $layoutId !== null ? trim($layoutId) : null;

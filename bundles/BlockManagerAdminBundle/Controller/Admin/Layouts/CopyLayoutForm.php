@@ -26,13 +26,8 @@ final class CopyLayoutForm extends Controller
 
     /**
      * Copies a layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Layout $layout, Request $request)
+    public function __invoke(Layout $layout, Request $request): ViewInterface
     {
         $copyStruct = $this->layoutService->newLayoutCopyStruct($layout);
 

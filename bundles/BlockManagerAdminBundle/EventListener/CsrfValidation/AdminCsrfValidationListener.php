@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 final class AdminCsrfValidationListener extends CsrfValidationListener
 {
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         $attributes = $event->getRequest()->attributes;
         if ($attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME) !== true) {

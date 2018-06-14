@@ -31,11 +31,7 @@ final class AdminMatchEvent extends Event
      */
     private $pageLayoutTemplate;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $requestType
-     */
-    public function __construct(Request $request, $requestType)
+    public function __construct(Request $request, int $requestType)
     {
         $this->request = $request;
         $this->requestType = $requestType;
@@ -43,40 +39,33 @@ final class AdminMatchEvent extends Event
 
     /**
      * Returns the request the kernel is currently processing.
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
      */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }
 
     /**
      * Returns the request type the kernel is currently processing.
-     *
-     * @return int
      */
-    public function getRequestType()
+    public function getRequestType(): int
     {
         return $this->requestType;
     }
 
     /**
      * Sets the pagelayout template which will be used for admin interface.
-     *
-     * @param string $template
      */
-    public function setPageLayoutTemplate($template)
+    public function setPageLayoutTemplate(string $template)
     {
         $this->pageLayoutTemplate = $template;
     }
 
     /**
-     * Returns the pagelayout template which will be used for admin interface.
-     *
-     * @return string|null
+     * Returns the pagelayout template which will be used for admin interface
+     * or null if no template has been set.
      */
-    public function getPageLayoutTemplate()
+    public function getPageLayoutTemplate(): ?string
     {
         return $this->pageLayoutTemplate;
     }

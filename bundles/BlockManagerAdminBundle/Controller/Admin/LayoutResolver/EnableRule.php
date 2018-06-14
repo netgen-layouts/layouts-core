@@ -23,12 +23,8 @@ final class EnableRule extends Controller
 
     /**
      * Enables a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function __invoke(Rule $rule)
+    public function __invoke(Rule $rule): ViewInterface
     {
         $enabledRule = $this->layoutResolverService->enableRule($rule);
 

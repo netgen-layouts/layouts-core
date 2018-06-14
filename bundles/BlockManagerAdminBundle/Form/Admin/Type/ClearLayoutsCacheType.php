@@ -18,7 +18,7 @@ final class ClearLayoutsCacheType extends AbstractType
 {
     use ChoicesAsValuesTrait;
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -26,7 +26,7 @@ final class ClearLayoutsCacheType extends AbstractType
         $resolver->setAllowedTypes('layouts', 'array');
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'layouts',
@@ -51,7 +51,7 @@ final class ClearLayoutsCacheType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $layouts = [];
         foreach ($options['layouts'] as $layout) {

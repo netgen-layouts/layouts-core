@@ -23,7 +23,7 @@ final class RuleCountListener implements EventSubscriberInterface
         $this->layoutResolverService = $layoutResolverService;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [BlockManagerEvents::BUILD_VIEW => 'onBuildView'];
     }
@@ -31,10 +31,8 @@ final class RuleCountListener implements EventSubscriberInterface
     /**
      * Injects the number of rules mapped to the layout in the rule
      * provided by the event.
-     *
-     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onBuildView(CollectViewParametersEvent $event)
+    public function onBuildView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
         if (!$view instanceof LayoutViewInterface) {
