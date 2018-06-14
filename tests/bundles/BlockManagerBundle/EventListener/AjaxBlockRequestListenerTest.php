@@ -18,7 +18,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new AjaxBlockRequestListener();
     }
@@ -26,7 +26,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => ['onKernelRequest', 10]],
@@ -35,13 +35,10 @@ final class AjaxBlockRequestListenerTest extends TestCase
     }
 
     /**
-     * @param string $uri
-     * @param string $filteredUri
-     *
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener::onKernelRequest
      * @dataProvider onKernelRequestDataProvider
      */
-    public function testOnKernelRequest($uri, $filteredUri)
+    public function testOnKernelRequest(string $uri, string $filteredUri): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create($uri);
@@ -55,7 +52,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $this->assertEquals($filteredUri, $event->getRequest()->attributes->get('ngbmContextUri'));
     }
 
-    public function onKernelRequestDataProvider()
+    public function onKernelRequestDataProvider(): array
     {
         return [
             ['/test/uri', '/test/uri'],
@@ -73,7 +70,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -87,7 +84,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestWithInvalidRoute()
+    public function testOnKernelRequestWithInvalidRoute(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -103,7 +100,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestWithExistingContextUri()
+    public function testOnKernelRequestWithExistingContextUri(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

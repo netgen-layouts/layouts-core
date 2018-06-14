@@ -49,7 +49,7 @@ final class GlobalVariableTest extends TestCase
      */
     private $requestStack;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configMock = $this->createMock(ConfigurationInterface::class);
         $this->layoutResolverMock = $this->createMock(LayoutResolverInterface::class);
@@ -71,7 +71,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getPageLayoutTemplate
      */
-    public function testGetPageLayoutTemplate()
+    public function testGetPageLayoutTemplate(): void
     {
         $this->pageLayoutResolverMock
             ->expects($this->once())
@@ -87,7 +87,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
      */
-    public function testGetLayout()
+    public function testGetLayout(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -119,7 +119,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
      */
-    public function testGetLayoutWithNoResolvedRules()
+    public function testGetLayoutWithNoResolvedRules(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -138,7 +138,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
      */
-    public function testGetLayoutWithNoResolverExecuted()
+    public function testGetLayoutWithNoResolverExecuted(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -149,7 +149,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
-    public function testGetLayoutView()
+    public function testGetLayoutView(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -181,7 +181,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
-    public function testGetLayoutViewWithNoRequest()
+    public function testGetLayoutViewWithNoRequest(): void
     {
         $this->layoutResolverMock
             ->expects($this->never())
@@ -200,7 +200,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
-    public function testGetLayoutViewWithException()
+    public function testGetLayoutViewWithException(): void
     {
         $subRequest = Request::create('/');
         $subRequest->attributes->set('exception', new Exception());
@@ -233,7 +233,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
-    public function testGetLayoutViewWithNoResolvedRules()
+    public function testGetLayoutViewWithNoResolvedRules(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -256,7 +256,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
-    public function testGetLayoutViewWithNoResolverExecuted()
+    public function testGetLayoutViewWithNoResolverExecuted(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -267,7 +267,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getRule
      */
-    public function testGetRule()
+    public function testGetRule(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -299,7 +299,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getRule
      */
-    public function testGetRuleWithNoResolvedRules()
+    public function testGetRuleWithNoResolvedRules(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -318,7 +318,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getRule
      */
-    public function testGetRuleWithNoResolverExecuted()
+    public function testGetRuleWithNoResolverExecuted(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -330,7 +330,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
      */
-    public function testGetLayoutTemplate()
+    public function testGetLayoutTemplate(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -366,7 +366,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
      */
-    public function testGetLayoutTemplateWithAlreadyExistingResolvedLayout()
+    public function testGetLayoutTemplateWithAlreadyExistingResolvedLayout(): void
     {
         $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
@@ -397,7 +397,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
      */
-    public function testGetLayoutTemplateWithNoRequest()
+    public function testGetLayoutTemplateWithNoRequest(): void
     {
         $this->layoutResolverMock
             ->expects($this->never())
@@ -419,7 +419,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
      */
-    public function testGetLayoutTemplateWithException()
+    public function testGetLayoutTemplateWithException(): void
     {
         $request = Request::create('/');
         $request->attributes->set('exception', new Exception());
@@ -456,7 +456,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
      */
-    public function testGetLayoutTemplateWithExceptionWithAlreadyExistingResolvedLayout()
+    public function testGetLayoutTemplateWithExceptionWithAlreadyExistingResolvedLayout(): void
     {
         $layoutView = new LayoutView(['layout' => new Layout()]);
         $layoutView->setTemplate('layout.html.twig');
@@ -488,7 +488,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
      */
-    public function testGetLayoutTemplateWithNoResolvedRules()
+    public function testGetLayoutTemplateWithNoResolvedRules(): void
     {
         $request = Request::create('/');
         $this->requestStack->push($request);
@@ -517,7 +517,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getConfig
      */
-    public function testGetConfig()
+    public function testGetConfig(): void
     {
         $this->assertEquals($this->configMock, $this->globalVariable->getConfig());
     }
@@ -525,7 +525,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getDebug
      */
-    public function testGetDebug()
+    public function testGetDebug(): void
     {
         $this->assertTrue($this->globalVariable->getDebug());
     }

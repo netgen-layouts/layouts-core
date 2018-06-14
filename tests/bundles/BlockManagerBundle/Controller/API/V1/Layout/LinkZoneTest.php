@@ -14,7 +14,7 @@ final class LinkZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZone()
+    public function testLinkZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -38,7 +38,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithNonExistentZone()
+    public function testLinkZoneWithNonExistentZone(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -61,7 +61,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithNonExistentLayout()
+    public function testLinkZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -84,7 +84,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithMissingLinkedLayoutId()
+    public function testLinkZoneWithMissingLinkedLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -111,7 +111,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithInvalidLinkedLayoutId()
+    public function testLinkZoneWithInvalidLinkedLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -139,7 +139,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithMissingLinkedZoneIdentifier()
+    public function testLinkZoneWithMissingLinkedZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -166,7 +166,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithInvalidLinkedZoneIdentifier()
+    public function testLinkZoneWithInvalidLinkedZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -194,7 +194,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithNonExistentLinkedZone()
+    public function testLinkZoneWithNonExistentLinkedZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -222,7 +222,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithNonExistentLinkedLayout()
+    public function testLinkZoneWithNonExistentLinkedLayout(): void
     {
         $data = $this->jsonEncode(
             [
@@ -250,7 +250,7 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithNonSharedLinkedLayout()
+    public function testLinkZoneWithNonSharedLinkedLayout(): void
     {
         $data = $this->jsonEncode(
             [

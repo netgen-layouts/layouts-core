@@ -14,7 +14,7 @@ final class DiscardDraftTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft::__invoke
      */
-    public function testDiscardDraft()
+    public function testDiscardDraft(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -33,7 +33,7 @@ final class DiscardDraftTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft::__invoke
      */
-    public function testDiscardDraftWithNonExistentLayout()
+    public function testDiscardDraftWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 

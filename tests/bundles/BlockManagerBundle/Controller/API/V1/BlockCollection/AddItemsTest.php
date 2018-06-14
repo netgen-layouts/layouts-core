@@ -16,7 +16,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItems()
+    public function testAddItems(): void
     {
         $data = $this->jsonEncode(
             [
@@ -52,7 +52,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithNonExistentBlock()
+    public function testAddItemsWithNonExistentBlock(): void
     {
         $data = $this->jsonEncode(
             [
@@ -92,7 +92,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithNonExistentCollectionReference()
+    public function testAddItemsWithNonExistentCollectionReference(): void
     {
         $data = $this->jsonEncode(
             [
@@ -132,7 +132,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithEmptyItems()
+    public function testAddItemsWithEmptyItems(): void
     {
         $data = $this->jsonEncode(
             [
@@ -160,7 +160,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidItems()
+    public function testAddItemsWithInvalidItems(): void
     {
         $data = $this->jsonEncode(
             [
@@ -188,7 +188,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithMissingItems()
+    public function testAddItemsWithMissingItems(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -212,7 +212,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidItemType()
+    public function testAddItemsWithInvalidItemType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -247,7 +247,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithMissingItemType()
+    public function testAddItemsWithMissingItemType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -281,7 +281,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidValue()
+    public function testAddItemsWithInvalidValue(): void
     {
         $data = $this->jsonEncode(
             [
@@ -316,7 +316,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithMissingValue()
+    public function testAddItemsWithMissingValue(): void
     {
         $data = $this->jsonEncode(
             [
@@ -350,7 +350,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidValueType()
+    public function testAddItemsWithInvalidValueType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -385,7 +385,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithMissingValueType()
+    public function testAddItemsWithMissingValueType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -419,7 +419,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidPosition()
+    public function testAddItemsWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -454,7 +454,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithMissingPosition()
+    public function testAddItemsWithMissingPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -488,7 +488,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithOutOfRangePosition()
+    public function testAddItemsWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
             [

@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class ViewNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettings()
+    public function testViewSettings(): void
     {
         $config = [
             [
@@ -72,7 +73,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithMatchWithArrayValues()
+    public function testViewSettingsWithMatchWithArrayValues(): void
     {
         $config = [
             [
@@ -113,7 +114,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithEmptyMatch()
+    public function testViewSettingsWithEmptyMatch(): void
     {
         $config = [
             [
@@ -154,7 +155,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithNoParameters()
+    public function testViewSettingsWithNoParameters(): void
     {
         $config = [
             [
@@ -191,7 +192,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithNoMatch()
+    public function testViewSettingsWithNoMatch(): void
     {
         $config = [
             'view' => [
@@ -212,7 +213,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithNoTemplate()
+    public function testViewSettingsWithNoTemplate(): void
     {
         $config = [
             'view' => [
@@ -233,7 +234,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithNoBlocks()
+    public function testViewSettingsWithNoBlocks(): void
     {
         $config = [
             'view' => [
@@ -250,7 +251,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithNoContext()
+    public function testViewSettingsWithNoContext(): void
     {
         $config = [
             'view' => [
@@ -265,7 +266,7 @@ final class ViewNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ViewNode::getConfigurationNode
      */
-    public function testViewSettingsWithNoViews()
+    public function testViewSettingsWithNoViews(): void
     {
         $config = [
             'view' => [],
@@ -274,13 +275,7 @@ final class ViewNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

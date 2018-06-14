@@ -22,7 +22,7 @@ final class QueryParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->collectionServiceMock = $this->createMock(CollectionService::class);
 
@@ -33,7 +33,7 @@ final class QueryParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::getSourceAttributeNames
      */
-    public function testGetSourceAttributeName()
+    public function testGetSourceAttributeName(): void
     {
         $this->assertEquals(['queryId'], $this->paramConverter->getSourceAttributeNames());
     }
@@ -41,7 +41,7 @@ final class QueryParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::getDestinationAttributeName
      */
-    public function testGetDestinationAttributeName()
+    public function testGetDestinationAttributeName(): void
     {
         $this->assertEquals('query', $this->paramConverter->getDestinationAttributeName());
     }
@@ -49,7 +49,7 @@ final class QueryParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::getSupportedClass
      */
-    public function testGetSupportedClass()
+    public function testGetSupportedClass(): void
     {
         $this->assertEquals(APIQuery::class, $this->paramConverter->getSupportedClass());
     }
@@ -57,7 +57,7 @@ final class QueryParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValue
      */
-    public function testLoadValue()
+    public function testLoadValue(): void
     {
         $query = new Query();
 
@@ -81,7 +81,7 @@ final class QueryParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValue
      */
-    public function testLoadValueDraft()
+    public function testLoadValueDraft(): void
     {
         $query = new Query();
 

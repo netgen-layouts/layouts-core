@@ -27,7 +27,7 @@ final class BlockResponseListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->taggerMock = $this->createMock(TaggerInterface::class);
 
@@ -37,7 +37,7 @@ final class BlockResponseListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
@@ -49,7 +49,7 @@ final class BlockResponseListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
      */
-    public function testOnKernelResponse()
+    public function testOnKernelResponse(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -74,7 +74,7 @@ final class BlockResponseListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithSubRequest()
+    public function testOnKernelResponseWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -98,7 +98,7 @@ final class BlockResponseListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithoutSupportedValue()
+    public function testOnKernelResponseWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

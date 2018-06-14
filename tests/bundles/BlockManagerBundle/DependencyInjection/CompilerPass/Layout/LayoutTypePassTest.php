@@ -18,7 +18,7 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setParameter('netgen_block_manager.block_definitions', []);
         $this->setParameter(
@@ -53,7 +53,7 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" layout type does not exist.
      */
-    public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
+    public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition(): void
     {
         $this->setParameter('netgen_block_manager.block_definitions', []);
         $this->setParameter(
@@ -78,19 +78,14 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new LayoutTypePass());
     }

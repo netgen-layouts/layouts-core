@@ -16,7 +16,7 @@ final class ParameterFilterPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParameterFilterPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $parameterFilterRegistry = new Definition();
         $parameterFilterRegistry->addArgument([]);
@@ -58,7 +58,7 @@ final class ParameterFilterPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Parameter filter service definition must have a 'type' attribute in its' tag.
      */
-    public function testProcessThrowsExceptionWithNoTypeIdentifier()
+    public function testProcessThrowsExceptionWithNoTypeIdentifier(): void
     {
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_filter', new Definition());
 
@@ -72,19 +72,14 @@ final class ParameterFilterPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParameterFilterPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ParameterFilterPass());
     }

@@ -28,7 +28,7 @@ final class SerializerListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->serializerMock = $this->createMock(SerializerInterface::class);
 
@@ -38,7 +38,7 @@ final class SerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::VIEW => 'onView'],
@@ -50,7 +50,7 @@ final class SerializerListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::onView
      */
-    public function testOnView()
+    public function testOnView(): void
     {
         $value = new VersionedValue(new Value(), 42);
 
@@ -93,7 +93,7 @@ final class SerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::onView
      */
-    public function testOnViewWithNoHtmlRendering()
+    public function testOnViewWithNoHtmlRendering(): void
     {
         $value = new VersionedValue(new Value(), 42);
 
@@ -137,7 +137,7 @@ final class SerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::onView
      */
-    public function testOnViewInSubRequest()
+    public function testOnViewInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -157,7 +157,7 @@ final class SerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::onView
      */
-    public function testOnViewWithoutSupportedValue()
+    public function testOnViewWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

@@ -16,7 +16,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $cacheManager = new Definition(null, [0]);
         $this->setDefinition('fos_http_cache.cache_manager', $cacheManager);
@@ -37,7 +37,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
      */
-    public function testProcessWithoutCacheManager()
+    public function testProcessWithoutCacheManager(): void
     {
         $this->setDefinition('fos_http_cache.proxy_client.varnish', new Definition());
 
@@ -52,7 +52,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
      */
-    public function testProcessWithoutVarnishProxyClient()
+    public function testProcessWithoutVarnishProxyClient(): void
     {
         $this->setDefinition('fos_http_cache.cache_manager', new Definition());
 
@@ -67,19 +67,14 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new CacheManagerPass());
     }

@@ -9,6 +9,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class ConfigurationWithPluginTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class ConfigurationWithPluginTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      */
-    public function testSettings()
+    public function testSettings(): void
     {
         $config = [
             [],
@@ -36,13 +37,7 @@ final class ConfigurationWithPluginTest extends TestCase
         );
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         $extension = new NetgenBlockManagerExtension();
         $extension->addPlugin(new ExtensionPlugin());

@@ -21,7 +21,7 @@ final class ContainerRuntimeLoaderTest extends TestCase
      */
     private $container;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = new Container();
 
@@ -33,7 +33,7 @@ final class ContainerRuntimeLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader::addRuntime
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader::load
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $service = new stdClass();
         $this->container->set('test', $service);
@@ -46,7 +46,7 @@ final class ContainerRuntimeLoaderTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader::load
      */
-    public function testLoadWithNoMapping()
+    public function testLoadWithNoMapping(): void
     {
         $this->assertNull($this->runtimeLoader->load(stdClass::class));
     }

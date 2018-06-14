@@ -16,7 +16,7 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\ConditionTypePass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setDefinition('netgen_block_manager.layout.resolver.registry.condition_type', new Definition());
 
@@ -38,19 +38,14 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\ConditionTypePass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ConditionTypePass());
     }

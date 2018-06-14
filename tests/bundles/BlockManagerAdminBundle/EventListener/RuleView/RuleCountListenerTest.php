@@ -28,7 +28,7 @@ final class RuleCountListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
@@ -38,7 +38,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
@@ -50,7 +50,7 @@ final class RuleCountListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener::onBuildView
      */
-    public function testOnBuildView()
+    public function testOnBuildView(): void
     {
         $view = new RuleView(['rule' => new Rule(['layout' => new Layout(['status' => Layout::STATUS_PUBLISHED])])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -75,7 +75,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener::onBuildView
      */
-    public function testOnBuildViewWithDraftLayout()
+    public function testOnBuildViewWithDraftLayout(): void
     {
         $view = new RuleView(['rule' => new Rule(['layout' => new Layout(['status' => Layout::STATUS_DRAFT])])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -98,7 +98,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener::onBuildView
      */
-    public function testOnBuildViewWithNoRuleView()
+    public function testOnBuildViewWithNoRuleView(): void
     {
         $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);

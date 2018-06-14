@@ -16,7 +16,7 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setDefinition(
             'netgen_block_manager.item.item_loader',
@@ -43,7 +43,7 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value type must begin with a letter and be followed by any combination of letters, digits and underscore.
      */
-    public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag()
+    public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag(): void
     {
         $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
 
@@ -59,7 +59,7 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value loader service definition must have a 'value_type' attribute in its' tag.
      */
-    public function testProcessThrowsRuntimeExceptionWithNoTagValueType()
+    public function testProcessThrowsRuntimeExceptionWithNoTagValueType(): void
     {
         $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
 
@@ -73,19 +73,14 @@ final class ItemLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ItemLoaderPass());
     }

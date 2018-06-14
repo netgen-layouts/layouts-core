@@ -26,7 +26,7 @@ final class TwigExtensionsListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 
@@ -37,7 +37,7 @@ final class TwigExtensionsListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
@@ -48,7 +48,7 @@ final class TwigExtensionsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -82,7 +82,7 @@ final class TwigExtensionsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener::onKernelRequest
      */
-    public function testOnKernelRequestWithExtensionsExist()
+    public function testOnKernelRequestWithExtensionsExist(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

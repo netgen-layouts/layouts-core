@@ -14,7 +14,7 @@ final class MoveToZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZone()
+    public function testMoveToZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -39,7 +39,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithNonExistentBlock()
+    public function testMoveToZoneWithNonExistentBlock(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -62,7 +62,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithNonExistentLayout()
+    public function testMoveToZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode(
             [
@@ -91,7 +91,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithNonExistentZoneIdentifier()
+    public function testMoveToZoneWithNonExistentZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -120,7 +120,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithNotAllowedBlockDefinition()
+    public function testMoveToZoneWithNotAllowedBlockDefinition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -149,7 +149,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithOutOfRangePosition()
+    public function testMoveToZoneWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -178,7 +178,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithInvalidLayoutId()
+    public function testMoveToZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -207,7 +207,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithInvalidZoneIdentifier()
+    public function testMoveToZoneWithInvalidZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -236,7 +236,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithInvalidPosition()
+    public function testMoveToZoneWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -265,7 +265,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithMissingLayoutId()
+    public function testMoveToZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -293,7 +293,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithMissingZoneIdentifier()
+    public function testMoveToZoneWithMissingZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -321,7 +321,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithMissingPosition()
+    public function testMoveToZoneWithMissingPosition(): void
     {
         $data = $this->jsonEncode(
             [

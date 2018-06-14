@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class QueryTypeNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class QueryTypeNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
      */
-    public function testQueryTypeSettings()
+    public function testQueryTypeSettings(): void
     {
         $config = [
             [
@@ -54,7 +55,7 @@ final class QueryTypeNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
      */
-    public function testQueryTypeSettingsWithNoHandler()
+    public function testQueryTypeSettingsWithNoHandler(): void
     {
         $config = [
             [
@@ -81,7 +82,7 @@ final class QueryTypeNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
      */
-    public function testQueryTypeSettingsWithNoQueryTypes()
+    public function testQueryTypeSettingsWithNoQueryTypes(): void
     {
         $config = [
             'query_types' => [],
@@ -94,7 +95,7 @@ final class QueryTypeNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
      */
-    public function testQueryTypeSettingsWithNoName()
+    public function testQueryTypeSettingsWithNoName(): void
     {
         $config = [
             'query_types' => [
@@ -109,7 +110,7 @@ final class QueryTypeNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
      */
-    public function testQueryTypeSettingsWithEmptyName()
+    public function testQueryTypeSettingsWithEmptyName(): void
     {
         $config = [
             'query_types' => [
@@ -122,13 +123,7 @@ final class QueryTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

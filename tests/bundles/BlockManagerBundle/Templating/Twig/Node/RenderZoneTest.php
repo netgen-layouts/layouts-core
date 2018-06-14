@@ -10,12 +10,16 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Twig\Node\Expression\NameExpression;
 
+/**
+ * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compile
+ * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compileContextNode
+ */
 final class RenderZoneTest extends NodeTest
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $zone = new NameExpression('zone', 1);
         $context = new NameExpression('context', 1);
@@ -28,7 +32,7 @@ final class RenderZoneTest extends NodeTest
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::__construct
      */
-    public function testConstructorWithNoContext()
+    public function testConstructorWithNoContext(): void
     {
         $zone = new NameExpression('zone', 1);
         $node = new RenderZone($zone, null, 1);
@@ -37,7 +41,7 @@ final class RenderZoneTest extends NodeTest
         $this->assertFalse($node->hasNode('context'));
     }
 
-    public function getTests()
+    public function getTests(): array
     {
         $environment = $this->getEnvironment();
         $environment->enableStrictVariables();
@@ -79,23 +83,5 @@ EOT
                 $environment,
             ],
         ];
-    }
-
-    /**
-     * Overriden to enable 'covers' annotation.
-     *
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compile
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compileContextNode
-     *
-     * @param \Twig\Node\Node $node
-     * @param string $source
-     * @param \Twig\Environment $environment
-     * @param bool $isPattern
-     *
-     * @dataProvider getTests
-     */
-    public function testCompile($node, $source, $environment = null, $isPattern = false)
-    {
-        parent::testCompile($node, $source, $environment, $isPattern);
     }
 }

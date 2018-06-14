@@ -24,7 +24,7 @@ final class MainMenuBuilderTest extends TestCase
      */
     private $builder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
         $urlGeneratorMock
@@ -32,7 +32,7 @@ final class MainMenuBuilderTest extends TestCase
             ->method('generate')
             ->will(
                 $this->returnCallback(
-                    function ($route) {
+                    function (string $route): string {
                         return $route;
                     }
                 )
@@ -50,7 +50,7 @@ final class MainMenuBuilderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder::createMenu
      */
-    public function testCreateMenu()
+    public function testCreateMenu(): void
     {
         $this->authorizationCheckerMock
             ->expects($this->any())
@@ -85,7 +85,7 @@ final class MainMenuBuilderTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder::createMenu
      */
-    public function testCreateMenuWithNoAccess()
+    public function testCreateMenuWithNoAccess(): void
     {
         $this->authorizationCheckerMock
             ->expects($this->any())

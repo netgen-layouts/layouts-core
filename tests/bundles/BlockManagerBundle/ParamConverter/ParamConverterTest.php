@@ -17,7 +17,7 @@ final class ParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->paramConverter = new ParamConverter();
     }
@@ -25,7 +25,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApply()
+    public function testApply(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -43,7 +43,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithLocale()
+    public function testApplyWithLocale(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -62,7 +62,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithPublishedRouteStatusParam()
+    public function testApplyWithPublishedRouteStatusParam(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -81,7 +81,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithArchivedRouteStatusParam()
+    public function testApplyWithArchivedRouteStatusParam(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -100,7 +100,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithDraftRouteStatusParam()
+    public function testApplyWithDraftRouteStatusParam(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -119,7 +119,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithPublishedQueryStatusParam()
+    public function testApplyWithPublishedQueryStatusParam(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -138,7 +138,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithDraftQueryStatusParam()
+    public function testApplyWithDraftQueryStatusParam(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
@@ -157,7 +157,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithNoAttribute()
+    public function testApplyWithNoAttribute(): void
     {
         $request = Request::create('/');
         $configuration = new ParamConverterConfiguration([]);
@@ -170,7 +170,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
-    public function testApplyWithEmptyAndOptionalAttribute()
+    public function testApplyWithEmptyAndOptionalAttribute(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', '');
@@ -187,7 +187,7 @@ final class ParamConverterTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Required request attribute is empty.
      */
-    public function testApplyWithEmptyAndNonOptionalAttribute()
+    public function testApplyWithEmptyAndNonOptionalAttribute(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', '');
@@ -200,7 +200,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::supports
      */
-    public function testSupports()
+    public function testSupports(): void
     {
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -211,7 +211,7 @@ final class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::supports
      */
-    public function testSupportsInvalidClass()
+    public function testSupportsInvalidClass(): void
     {
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass('Some\Class');

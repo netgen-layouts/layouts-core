@@ -27,7 +27,7 @@ final class FilesystemLoaderTest extends TestCase
      */
     private $loader;
 
-    public function setUp()
+    public function setUp(): void
     {
         // We mock \Twig\Loader\FilesystemLoader instead of the loader interface
         // because it has all needed methods in both versions of Twig (1.x and 2.x)
@@ -50,7 +50,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSource
      */
-    public function testGetSource()
+    public function testGetSource(): void
     {
         $this->innerLoaderMock = $this->createMock(LegacyFilesystemLoader::class);
         $this->loader = new FilesystemLoader($this->innerLoaderMock, $this->configurationMock);
@@ -70,7 +70,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSource
      */
-    public function testGetSourceWithNonLayoutsTwigFile()
+    public function testGetSourceWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock = $this->createMock(LegacyFilesystemLoader::class);
         $this->loader = new FilesystemLoader($this->innerLoaderMock, $this->configurationMock);
@@ -91,7 +91,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSourceContext
      */
-    public function testGetSourceContext()
+    public function testGetSourceContext(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -108,7 +108,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSourceContext
      */
-    public function testGetSourceContextWithNonLayoutsTwigFile()
+    public function testGetSourceContextWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -125,7 +125,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getCacheKey
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
-    public function testGetCacheKey()
+    public function testGetCacheKey(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -142,7 +142,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getCacheKey
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
-    public function testGetCacheKeyWithNonLayoutsTwigFile()
+    public function testGetCacheKeyWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -159,7 +159,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::isFresh
      */
-    public function testIsFresh()
+    public function testIsFresh(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -174,7 +174,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::isFresh
      */
-    public function testIsFreshWithNonLayoutsTwigFile()
+    public function testIsFreshWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -189,7 +189,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::exists
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
-    public function testExists()
+    public function testExists(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())
@@ -204,7 +204,7 @@ final class FilesystemLoaderTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::exists
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
-    public function testExistsWithNonLayoutsTwigFile()
+    public function testExistsWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
             ->expects($this->once())

@@ -27,7 +27,7 @@ final class ItemRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
@@ -42,7 +42,7 @@ final class ItemRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPath()
+    public function testGetItemPath(): void
     {
         $this->itemLoaderMock
             ->expects($this->once())
@@ -64,7 +64,7 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithUri()
+    public function testGetItemPathWithUri(): void
     {
         $this->itemLoaderMock
             ->expects($this->once())
@@ -86,7 +86,7 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithItem()
+    public function testGetItemPathWithItem(): void
     {
         $this->itemLoaderMock
             ->expects($this->never())
@@ -106,7 +106,7 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithUrlGeneratorReturningNull()
+    public function testGetItemPathWithUrlGeneratorReturningNull(): void
     {
         $this->itemLoaderMock
             ->expects($this->never())
@@ -126,7 +126,7 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithInvalidValue()
+    public function testGetItemPathWithInvalidValue(): void
     {
         $this->itemLoaderMock
             ->expects($this->never())
@@ -144,7 +144,7 @@ final class ItemRuntimeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Item "value" is not valid.
      */
-    public function testGetItemPathThrowsItemExceptionInDebugModeWithInvalidValue()
+    public function testGetItemPathThrowsItemExceptionInDebugModeWithInvalidValue(): void
     {
         $this->runtime = new ItemRuntime(
             $this->itemLoaderMock,
@@ -166,7 +166,7 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithUnsupportedValue()
+    public function testGetItemPathWithUnsupportedValue(): void
     {
         $this->itemLoaderMock
             ->expects($this->never())
@@ -184,7 +184,7 @@ final class ItemRuntimeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Item could not be loaded.
      */
-    public function testGetItemPathThrowsItemExceptionInDebugModeWithUnsupportedValue()
+    public function testGetItemPathThrowsItemExceptionInDebugModeWithUnsupportedValue(): void
     {
         $this->runtime = new ItemRuntime(
             $this->itemLoaderMock,

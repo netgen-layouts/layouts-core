@@ -22,7 +22,7 @@ final class ConditionParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
@@ -33,7 +33,7 @@ final class ConditionParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getSourceAttributeNames
      */
-    public function testGetSourceAttributeName()
+    public function testGetSourceAttributeName(): void
     {
         $this->assertEquals(['conditionId'], $this->paramConverter->getSourceAttributeNames());
     }
@@ -41,7 +41,7 @@ final class ConditionParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getDestinationAttributeName
      */
-    public function testGetDestinationAttributeName()
+    public function testGetDestinationAttributeName(): void
     {
         $this->assertEquals('condition', $this->paramConverter->getDestinationAttributeName());
     }
@@ -49,7 +49,7 @@ final class ConditionParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getSupportedClass
      */
-    public function testGetSupportedClass()
+    public function testGetSupportedClass(): void
     {
         $this->assertEquals(APICondition::class, $this->paramConverter->getSupportedClass());
     }
@@ -57,7 +57,7 @@ final class ConditionParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValue
      */
-    public function testLoadValue()
+    public function testLoadValue(): void
     {
         $condition = new Condition();
 
@@ -81,7 +81,7 @@ final class ConditionParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValue
      */
-    public function testLoadValueDraft()
+    public function testLoadValueDraft(): void
     {
         $condition = new Condition();
 

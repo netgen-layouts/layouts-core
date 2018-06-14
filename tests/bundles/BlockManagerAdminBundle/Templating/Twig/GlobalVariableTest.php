@@ -14,7 +14,7 @@ final class GlobalVariableTest extends TestCase
      */
     private $globalVariable;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->globalVariable = new GlobalVariable();
     }
@@ -22,7 +22,7 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable::getPageLayoutTemplate
      */
-    public function testGetPageLayoutTemplate()
+    public function testGetPageLayoutTemplate(): void
     {
         $this->assertNull($this->globalVariable->getPageLayoutTemplate());
     }
@@ -31,7 +31,7 @@ final class GlobalVariableTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable::getPageLayoutTemplate
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable::setPageLayoutTemplate
      */
-    public function testSetPageLayoutTemplate()
+    public function testSetPageLayoutTemplate(): void
     {
         $this->globalVariable->setPageLayoutTemplate('template.html.twig');
 

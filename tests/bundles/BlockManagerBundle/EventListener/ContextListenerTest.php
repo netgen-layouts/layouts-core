@@ -36,7 +36,7 @@ final class ContextListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->context = new Context();
 
@@ -54,7 +54,7 @@ final class ContextListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
@@ -65,7 +65,7 @@ final class ContextListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -88,7 +88,7 @@ final class ContextListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
-    public function testOnKernelRequestWithContextFromUri()
+    public function testOnKernelRequestWithContextFromUri(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -114,7 +114,7 @@ final class ContextListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
-    public function testOnKernelRequestWithContextFromAttributes()
+    public function testOnKernelRequestWithContextFromAttributes(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -140,7 +140,7 @@ final class ContextListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
-    public function testOnKernelRequestWithContextFromRequestOverrideAttribute()
+    public function testOnKernelRequestWithContextFromRequestOverrideAttribute(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -169,7 +169,7 @@ final class ContextListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
-    public function testOnKernelRequestWithContextFromUriAndFailedHashCheck()
+    public function testOnKernelRequestWithContextFromUriAndFailedHashCheck(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -195,7 +195,7 @@ final class ContextListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

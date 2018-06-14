@@ -14,7 +14,7 @@ final class MoveItemTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
-    public function testMoveItem()
+    public function testMoveItem(): void
     {
         $data = $this->jsonEncode(
             [
@@ -37,7 +37,7 @@ final class MoveItemTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
-    public function testMoveItemWithNonExistentItem()
+    public function testMoveItemWithNonExistentItem(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -60,7 +60,7 @@ final class MoveItemTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
-    public function testMoveItemWithOutOfRangePosition()
+    public function testMoveItemWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -87,7 +87,7 @@ final class MoveItemTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
-    public function testMoveItemWithInvalidPosition()
+    public function testMoveItemWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -114,7 +114,7 @@ final class MoveItemTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
-    public function testMoveItemWithMissingPosition()
+    public function testMoveItemWithMissingPosition(): void
     {
         $data = $this->jsonEncode([]);
 

@@ -22,7 +22,7 @@ final class TargetParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
@@ -33,7 +33,7 @@ final class TargetParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::getSourceAttributeNames
      */
-    public function testGetSourceAttributeName()
+    public function testGetSourceAttributeName(): void
     {
         $this->assertEquals(['targetId'], $this->paramConverter->getSourceAttributeNames());
     }
@@ -41,7 +41,7 @@ final class TargetParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::getDestinationAttributeName
      */
-    public function testGetDestinationAttributeName()
+    public function testGetDestinationAttributeName(): void
     {
         $this->assertEquals('target', $this->paramConverter->getDestinationAttributeName());
     }
@@ -49,7 +49,7 @@ final class TargetParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::getSupportedClass
      */
-    public function testGetSupportedClass()
+    public function testGetSupportedClass(): void
     {
         $this->assertEquals(APITarget::class, $this->paramConverter->getSupportedClass());
     }
@@ -57,7 +57,7 @@ final class TargetParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValue
      */
-    public function testLoadValue()
+    public function testLoadValue(): void
     {
         $target = new Target();
 
@@ -81,7 +81,7 @@ final class TargetParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValue
      */
-    public function testLoadValueDraft()
+    public function testLoadValueDraft(): void
     {
         $target = new Target();
 

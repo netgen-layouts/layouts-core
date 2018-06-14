@@ -52,7 +52,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      */
     private $runtime;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
@@ -80,7 +80,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      * @param mixed $exception
      * @param mixed $outputs
      */
-    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs)
+    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs): void
     {
         $this->configureMocks();
 
@@ -98,7 +98,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      * @param mixed $exception
      * @param mixed $outputs
      */
-    public function testIntegrationWithLocale($file, $message, $condition, $templates, $exception, $outputs)
+    public function testIntegrationWithLocale($file, $message, $condition, $templates, $exception, $outputs): void
     {
         $request = Request::create('');
         $this->requestStack->push($request);
@@ -108,20 +108,17 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
     }
 
-    /**
-     * @return \Twig\Extension\ExtensionInterface[]
-     */
-    protected function getExtensions()
+    protected function getExtensions(): array
     {
         return [$this->extension];
     }
 
-    protected function getRuntimeLoaders()
+    protected function getRuntimeLoaders(): array
     {
         return [
             new FactoryRuntimeLoader(
                 [
-                    RenderingRuntime::class => function () {
+                    RenderingRuntime::class => function (): RenderingRuntime {
                         return $this->runtime;
                     },
                 ]
@@ -129,15 +126,12 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         ];
     }
 
-    /**
-     * @return string
-     */
-    protected function getFixturesDir()
+    protected function getFixturesDir(): string
     {
         return __DIR__ . '/_fixtures/';
     }
 
-    private function configureMocks()
+    private function configureMocks(): void
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -207,7 +201,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->method('renderValue')
             ->will(
                 $this->returnCallback(
-                    function (Block $block, $context) {
+                    function (Block $block, string $context): string {
                         if ($block->getDefinition()->getIdentifier() === 'twig_block') {
                             return 'rendered twig block' . PHP_EOL;
                         }

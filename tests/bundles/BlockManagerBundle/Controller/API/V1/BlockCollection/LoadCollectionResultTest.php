@@ -14,7 +14,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
-    public function testLoadCollectionResult()
+    public function testLoadCollectionResult(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/35/collections/default/result');
 
@@ -28,7 +28,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
-    public function testLoadCollectionResultWithNonExistentBlock()
+    public function testLoadCollectionResultWithNonExistentBlock(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999/collections/default/result');
 
@@ -42,7 +42,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
-    public function testLoadCollectionResultWithNonExistentCollectionReference()
+    public function testLoadCollectionResultWithNonExistentCollectionReference(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31/collections/unknown/result');
 

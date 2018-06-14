@@ -19,7 +19,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected $clientContainer;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -30,12 +30,12 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->closeDatabase();
     }
 
-    public function setUpClient()
+    public function setUpClient(): void
     {
         parent::setUpClient();
 
@@ -52,7 +52,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->client->setServerParameter('PHP_AUTH_PW', (string) getenv('SF_PASSWORD'));
     }
 
-    protected function mockQueryType()
+    protected function mockQueryType(): void
     {
         $searchFixtures = require __DIR__ . '/_fixtures/search.php';
 
@@ -65,10 +65,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     /**
      * Asserts that response is empty and has No Content status code.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function assertEmptyResponse(Response $response)
+    protected function assertEmptyResponse(Response $response): void
     {
         $this->assertEmpty($response->getContent());
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -77,12 +75,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Asserts that response has a proper JSON exception content.
      * If statusCode is set, asserts that response has given status code.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param int $statusCode
-     * @param string $message
      */
-    protected function assertException(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
+    protected function assertException(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, string $message = null): void
     {
         if (($_SERVER['OPEN_ERROR_IN_BROWSER'] ?? false) === true) {
             $this->showErrorInBrowserIfOccurred($response);
@@ -95,12 +89,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     /**
      * Asserts that exception response has a correct response status text and code.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param int $statusCode
-     * @param string $message
      */
-    protected function assertExceptionResponse(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
+    protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, string $message = null): void
     {
         $responseContent = json_decode($response->getContent(), true);
         $this->assertInternalType('array', $responseContent);
@@ -119,13 +109,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Pretty encodes the provided array.
      *
-     * @param array $content
-     *
      * @throws \RuntimeException If encoding failed
-     *
-     * @return string
      */
-    protected function jsonEncode(array $content)
+    protected function jsonEncode(array $content): string
     {
         $encodedContent = json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 

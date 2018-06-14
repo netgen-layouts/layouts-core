@@ -16,7 +16,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
@@ -42,7 +42,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Matcher service definition must have an 'identifier' attribute in its' tag.
      */
-    public function testProcessThrowsExceptionWithNoTagIdentifier()
+    public function testProcessThrowsExceptionWithNoTagIdentifier(): void
     {
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
@@ -58,19 +58,14 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new TemplateResolverPass());
     }

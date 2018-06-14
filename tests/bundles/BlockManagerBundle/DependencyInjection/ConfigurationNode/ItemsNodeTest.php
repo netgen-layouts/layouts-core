@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class ItemsNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class ItemsNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
      */
-    public function testItemsSettings()
+    public function testItemsSettings(): void
     {
         $config = [
             [
@@ -63,7 +64,7 @@ final class ItemsNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
      */
-    public function testItemsSettingsWithNoValueTypes()
+    public function testItemsSettingsWithNoValueTypes(): void
     {
         $config = [['items' => []]];
 
@@ -84,7 +85,7 @@ final class ItemsNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
      */
-    public function testItemsSettingsWithEmptyValueTypes()
+    public function testItemsSettingsWithEmptyValueTypes(): void
     {
         $config = [['items' => ['value_types' => []]]];
 
@@ -105,19 +106,13 @@ final class ItemsNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
      */
-    public function testValueTypesSettingsWithNoName()
+    public function testValueTypesSettingsWithNoName(): void
     {
         $config = [['items' => ['value_types' => ['value' => []]]]];
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

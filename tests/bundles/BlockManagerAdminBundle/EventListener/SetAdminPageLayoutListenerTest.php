@@ -24,7 +24,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
      */
     private $globalVariable;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->globalVariable = new GlobalVariable();
 
@@ -38,7 +38,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [BlockManagerAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]],
@@ -49,7 +49,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener::onAdminMatch
      */
-    public function testOnAdminMatch()
+    public function testOnAdminMatch(): void
     {
         $request = Request::create('/');
         $request->attributes->set('_route', 'ngbm_admin_layout_resolver_index');
@@ -66,7 +66,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener::onAdminMatch
      */
-    public function testOnAdminMatchWithExistingTemplate()
+    public function testOnAdminMatchWithExistingTemplate(): void
     {
         $request = Request::create('/');
         $request->attributes->set('_route', 'ngbm_admin_layout_resolver_index');

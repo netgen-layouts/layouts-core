@@ -19,7 +19,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new SetIsAdminRequestListener(
             $this->createMock(EventDispatcherInterface::class)
@@ -30,7 +30,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
@@ -41,7 +41,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -58,7 +58,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestWithInvalidRoute()
+    public function testOnKernelRequestWithInvalidRoute(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -73,7 +73,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

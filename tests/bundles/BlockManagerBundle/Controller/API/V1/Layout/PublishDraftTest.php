@@ -14,7 +14,7 @@ final class PublishDraftTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft::__invoke
      */
-    public function testPublishDraft()
+    public function testPublishDraft(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -33,7 +33,7 @@ final class PublishDraftTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft::__invoke
      */
-    public function testPublishDraftWithNonExistentLayout()
+    public function testPublishDraftWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 

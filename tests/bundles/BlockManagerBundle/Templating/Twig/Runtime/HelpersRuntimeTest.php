@@ -14,7 +14,7 @@ final class HelpersRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->runtime = new HelpersRuntime();
     }
@@ -23,7 +23,7 @@ final class HelpersRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime::getLocaleName
      */
-    public function testGetLocaleName()
+    public function testGetLocaleName(): void
     {
         $localeName = $this->runtime->getLocaleName('hr_HR', 'hr_HR');
 

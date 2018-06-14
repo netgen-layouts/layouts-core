@@ -14,7 +14,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
-    public function testLoadZoneBlocks()
+    public function testLoadZoneBlocks(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?html=false');
 
@@ -28,7 +28,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
-    public function testLoadZoneBlocksInPublishedState()
+    public function testLoadZoneBlocksInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
 
@@ -42,7 +42,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
-    public function testLoadZoneBlocksWithNonExistentZone()
+    public function testLoadZoneBlocksWithNonExistentZone(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/unknown/blocks');
 
@@ -56,7 +56,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
-    public function testLoadZoneBlocksWithNonExistentLayout()
+    public function testLoadZoneBlocksWithNonExistentLayout(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/zones/right/blocks');
 
@@ -70,7 +70,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks::__invoke
      */
-    public function testLoadZoneBlocksWithNonExistentLayoutLocale()
+    public function testLoadZoneBlocksWithNonExistentLayoutLocale(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/zones/right/blocks');
 

@@ -14,7 +14,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
-    public function testLoadLayoutBlocks()
+    public function testLoadLayoutBlocks(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?html=false');
 
@@ -28,7 +28,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
-    public function testLoadLayoutBlocksInPublishedState()
+    public function testLoadLayoutBlocksInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?published=true&html=false');
 
@@ -42,7 +42,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
-    public function testLoadLayoutBlocksWithNonExistentLayout()
+    public function testLoadLayoutBlocksWithNonExistentLayout(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/blocks');
 
@@ -56,7 +56,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks::__invoke
      */
-    public function testLoadLayoutBlocksWithNonExistentLayoutLocale()
+    public function testLoadLayoutBlocksWithNonExistentLayoutLocale(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/blocks');
 

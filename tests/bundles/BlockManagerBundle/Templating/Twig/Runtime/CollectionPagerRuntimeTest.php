@@ -28,9 +28,9 @@ final class CollectionPagerRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->routeGenerator = function (APIBlock $block, $collectionIdentifier, $page) {
+        $this->routeGenerator = function (APIBlock $block, string $collectionIdentifier, int $page): string {
             return '/generated/uri';
         };
 
@@ -46,7 +46,7 @@ final class CollectionPagerRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::renderCollectionPager
      */
-    public function testRenderCollectionPager()
+    public function testRenderCollectionPager(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
 
@@ -74,7 +74,7 @@ final class CollectionPagerRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::renderCollectionPager
      */
-    public function testRenderCollectionPagerWithOptions()
+    public function testRenderCollectionPagerWithOptions(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
 
@@ -106,7 +106,7 @@ final class CollectionPagerRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
      */
-    public function testGetCollectionPageUrl()
+    public function testGetCollectionPageUrl(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects($this->any())
@@ -127,7 +127,7 @@ final class CollectionPagerRuntimeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Argument "page" has an invalid value. Page -5 is out of bounds
      */
-    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithTooLowPage()
+    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithTooLowPage(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects($this->any())
@@ -147,7 +147,7 @@ final class CollectionPagerRuntimeTest extends TestCase
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Argument "page" has an invalid value. Page 10 is out of bounds
      */
-    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithTooLargePage()
+    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithTooLargePage(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects($this->any())

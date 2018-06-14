@@ -26,7 +26,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new GetTwigBlockContentListener();
     }
@@ -34,7 +34,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
@@ -46,7 +46,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
-    public function testOnRenderView()
+    public function testOnRenderView(): void
     {
         $block = new Block(
             [
@@ -71,7 +71,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $twigTemplateMock
             ->expects($this->once())
             ->method('displayBlock')
-            ->will($this->returnCallback(function () { echo 'rendered twig block'; }));
+            ->will($this->returnCallback(function (): void { echo 'rendered twig block'; }));
 
         $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
 
@@ -85,7 +85,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
-    public function testOnRenderViewWithNoTwigBlock()
+    public function testOnRenderViewWithNoTwigBlock(): void
     {
         $block = new Block(
             [
@@ -105,7 +105,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
-    public function testOnRenderViewInvalidTwigTemplate()
+    public function testOnRenderViewInvalidTwigTemplate(): void
     {
         $block = new Block(
             [
@@ -128,7 +128,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
-    public function testOnRenderViewWithNoTwigTemplate()
+    public function testOnRenderViewWithNoTwigTemplate(): void
     {
         $block = new Block(
             [
@@ -149,7 +149,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
-    public function testOnRenderViewWithNoBlockView()
+    public function testOnRenderViewWithNoBlockView(): void
     {
         $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);

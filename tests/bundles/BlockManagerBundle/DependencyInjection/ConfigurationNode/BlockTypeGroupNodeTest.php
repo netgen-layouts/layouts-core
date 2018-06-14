@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class BlockTypeGroupNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettings()
+    public function testBlockTypeGroupsSettings(): void
     {
         $config = [
             [
@@ -55,7 +56,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      */
-    public function testBlockTypeGroupsSettingsWithBlockTypesMerge()
+    public function testBlockTypeGroupsSettingsWithBlockTypesMerge(): void
     {
         $config = [
             [
@@ -95,7 +96,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettingsWithBlockTypes()
+    public function testBlockTypeGroupsSettingsWithBlockTypes(): void
     {
         $config = [
             [
@@ -128,7 +129,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettingsWithNonUniqueBlockTypes()
+    public function testBlockTypeGroupsSettingsWithNonUniqueBlockTypes(): void
     {
         $config = [
             [
@@ -159,7 +160,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettingsWithNoBlockTypeSettings()
+    public function testBlockTypeGroupsSettingsWithNoBlockTypeSettings(): void
     {
         $config = [
             'block_type_groups' => [],
@@ -172,7 +173,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettingsWithNoName()
+    public function testBlockTypeGroupsSettingsWithNoName(): void
     {
         $config = [
             'block_type_groups' => [
@@ -187,7 +188,7 @@ final class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettingsWithEmptyBlockTypes()
+    public function testBlockTypeGroupsSettingsWithEmptyBlockTypes(): void
     {
         $config = [
             'block_type_groups' => [
@@ -201,13 +202,7 @@ final class BlockTypeGroupNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

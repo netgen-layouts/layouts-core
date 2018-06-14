@@ -15,7 +15,7 @@ final class LoadConfigTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__invoke
      */
-    public function testLoadConfig()
+    public function testLoadConfig(): void
     {
         /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
         $tokenManager = $this->clientContainer->get('security.csrf.token_manager');

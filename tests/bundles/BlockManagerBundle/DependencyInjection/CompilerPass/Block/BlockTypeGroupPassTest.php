@@ -18,7 +18,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
@@ -52,7 +52,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
      */
-    public function testProcessWithNoBlockType()
+    public function testProcessWithNoBlockType(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
@@ -92,7 +92,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
      */
-    public function testProcessWithPopulatingCustomGroup()
+    public function testProcessWithPopulatingCustomGroup(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
@@ -147,7 +147,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
      */
-    public function testProcessWithDisabledGroup()
+    public function testProcessWithDisabledGroup(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_type_groups',
@@ -180,19 +180,14 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new BlockTypeGroupPass());
     }

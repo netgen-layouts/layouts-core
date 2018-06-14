@@ -22,7 +22,7 @@ final class ZoneParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
@@ -33,7 +33,7 @@ final class ZoneParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::getSourceAttributeNames
      */
-    public function testGetSourceAttributeName()
+    public function testGetSourceAttributeName(): void
     {
         $this->assertEquals(['layoutId', 'zoneIdentifier'], $this->paramConverter->getSourceAttributeNames());
     }
@@ -41,7 +41,7 @@ final class ZoneParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::getDestinationAttributeName
      */
-    public function testGetDestinationAttributeName()
+    public function testGetDestinationAttributeName(): void
     {
         $this->assertEquals('zone', $this->paramConverter->getDestinationAttributeName());
     }
@@ -49,7 +49,7 @@ final class ZoneParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::getSupportedClass
      */
-    public function testGetSupportedClass()
+    public function testGetSupportedClass(): void
     {
         $this->assertEquals(APIZone::class, $this->paramConverter->getSupportedClass());
     }
@@ -57,7 +57,7 @@ final class ZoneParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValue
      */
-    public function testLoadValue()
+    public function testLoadValue(): void
     {
         $zone = new Zone();
 
@@ -82,7 +82,7 @@ final class ZoneParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValue
      */
-    public function testLoadValueDraft()
+    public function testLoadValueDraft(): void
     {
         $zone = new Zone();
 

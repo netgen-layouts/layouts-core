@@ -27,7 +27,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->decoderMock = $this->createMock(DecoderInterface::class);
 
@@ -37,7 +37,7 @@ final class RequestBodyListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
@@ -49,7 +49,7 @@ final class RequestBodyListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $this->decoderMock
             ->expects($this->once())
@@ -78,7 +78,7 @@ final class RequestBodyListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNonApiRoute()
+    public function testOnKernelRequestWithNonApiRoute(): void
     {
         $this->decoderMock->expects($this->never())->method('decode');
 
@@ -95,7 +95,7 @@ final class RequestBodyListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $this->decoderMock->expects($this->never())->method('decode');
 
@@ -114,7 +114,7 @@ final class RequestBodyListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::isDecodeable
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
-    public function testOnKernelRequestWithInvalidMethod()
+    public function testOnKernelRequestWithInvalidMethod(): void
     {
         $this->decoderMock->expects($this->never())->method('decode');
 
@@ -132,7 +132,7 @@ final class RequestBodyListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::isDecodeable
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      */
-    public function testOnKernelRequestWithInvalidContentType()
+    public function testOnKernelRequestWithInvalidContentType(): void
     {
         $this->decoderMock->expects($this->never())->method('decode');
 
@@ -152,7 +152,7 @@ final class RequestBodyListenerTest extends TestCase
      * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      * @expectedExceptionMessage Request body has an invalid format
      */
-    public function testOnKernelRequestWithInvalidJson()
+    public function testOnKernelRequestWithInvalidJson(): void
     {
         $this->decoderMock
             ->expects($this->once())
@@ -174,7 +174,7 @@ final class RequestBodyListenerTest extends TestCase
      * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      * @expectedExceptionMessage Request body has an invalid format
      */
-    public function testOnKernelRequestWithNonArrayJson()
+    public function testOnKernelRequestWithNonArrayJson(): void
     {
         $this->decoderMock
             ->expects($this->once())

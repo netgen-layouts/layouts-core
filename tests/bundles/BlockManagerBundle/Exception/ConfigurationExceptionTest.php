@@ -12,7 +12,7 @@ final class ConfigurationExceptionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException::noParameter
      */
-    public function testNoParameter()
+    public function testNoParameter(): void
     {
         $exception = ConfigurationException::noParameter('test');
 

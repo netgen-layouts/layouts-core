@@ -15,7 +15,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $data = $this->jsonEncode(
             [
@@ -46,7 +46,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithMissingDescription()
+    public function testCreateWithMissingDescription(): void
     {
         $data = $this->jsonEncode(
             [
@@ -76,7 +76,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithEmptyDescription()
+    public function testCreateWithEmptyDescription(): void
     {
         $data = $this->jsonEncode(
             [
@@ -107,7 +107,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithInvalidLayoutType()
+    public function testCreateWithInvalidLayoutType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -137,7 +137,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithMissingLayoutType()
+    public function testCreateWithMissingLayoutType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -166,7 +166,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithInvalidName()
+    public function testCreateWithInvalidName(): void
     {
         $data = $this->jsonEncode(
             [
@@ -196,7 +196,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithMissingName()
+    public function testCreateWithMissingName(): void
     {
         $data = $this->jsonEncode(
             [
@@ -225,7 +225,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithInvalidDescription()
+    public function testCreateWithInvalidDescription(): void
     {
         $data = $this->jsonEncode(
             [
@@ -256,7 +256,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithInvalidLocale()
+    public function testCreateWithInvalidLocale(): void
     {
         $data = $this->jsonEncode(
             [
@@ -287,7 +287,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithMissingLocale()
+    public function testCreateWithMissingLocale(): void
     {
         $data = $this->jsonEncode(
             [
@@ -317,7 +317,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithNonExistentLocale()
+    public function testCreateWithNonExistentLocale(): void
     {
         $data = $this->jsonEncode(
             [
@@ -348,7 +348,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithNonExistingLayoutType()
+    public function testCreateWithNonExistingLayoutType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -378,7 +378,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithExistingName()
+    public function testCreateWithExistingName(): void
     {
         $data = $this->jsonEncode(
             [

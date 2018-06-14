@@ -22,7 +22,7 @@ final class ItemParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->collectionServiceMock = $this->createMock(CollectionService::class);
 
@@ -33,7 +33,7 @@ final class ItemParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::getSourceAttributeNames
      */
-    public function testGetSourceAttributeName()
+    public function testGetSourceAttributeName(): void
     {
         $this->assertEquals(['itemId'], $this->paramConverter->getSourceAttributeNames());
     }
@@ -41,7 +41,7 @@ final class ItemParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::getDestinationAttributeName
      */
-    public function testGetDestinationAttributeName()
+    public function testGetDestinationAttributeName(): void
     {
         $this->assertEquals('item', $this->paramConverter->getDestinationAttributeName());
     }
@@ -49,7 +49,7 @@ final class ItemParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::getSupportedClass
      */
-    public function testGetSupportedClass()
+    public function testGetSupportedClass(): void
     {
         $this->assertEquals(APIItem::class, $this->paramConverter->getSupportedClass());
     }
@@ -57,7 +57,7 @@ final class ItemParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValue
      */
-    public function testLoadValue()
+    public function testLoadValue(): void
     {
         $item = new Item();
 
@@ -81,7 +81,7 @@ final class ItemParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValue
      */
-    public function testLoadValueDraft()
+    public function testLoadValueDraft(): void
     {
         $item = new Item();
 

@@ -14,7 +14,7 @@ final class CreateDraftTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft::__invoke
      */
-    public function testCreateDraft()
+    public function testCreateDraft(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -37,7 +37,7 @@ final class CreateDraftTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft::__invoke
      */
-    public function testCreateDraftWithNonExistentLayout()
+    public function testCreateDraftWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 

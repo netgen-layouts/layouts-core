@@ -32,7 +32,7 @@ final class InvalidationListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->httpCacheClientMock = $this->createMock(ClientInterface::class);
 
@@ -43,7 +43,7 @@ final class InvalidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [
@@ -60,7 +60,7 @@ final class InvalidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onKernelTerminate
      */
-    public function testOnKernelTerminate()
+    public function testOnKernelTerminate(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -81,7 +81,7 @@ final class InvalidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onKernelException
      */
-    public function testOnKernelException()
+    public function testOnKernelException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -103,7 +103,7 @@ final class InvalidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onConsoleTerminate
      */
-    public function testOnConsoleTerminate()
+    public function testOnConsoleTerminate(): void
     {
         $commandMock = $this->createMock(Command::class);
         $inputMock = $this->createMock(InputInterface::class);

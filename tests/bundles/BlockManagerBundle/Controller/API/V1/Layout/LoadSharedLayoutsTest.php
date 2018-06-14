@@ -14,7 +14,7 @@ final class LoadSharedLayoutsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadSharedLayouts::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadSharedLayouts::__invoke
      */
-    public function testLoadSharedLayouts()
+    public function testLoadSharedLayouts(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/layouts/shared');
 

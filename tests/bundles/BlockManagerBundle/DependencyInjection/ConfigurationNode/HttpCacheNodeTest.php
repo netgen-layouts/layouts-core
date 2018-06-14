@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class HttpCacheNodeTest extends TestCase
 {
@@ -20,7 +21,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testDefaultTtlSettings()
+    public function testDefaultTtlSettings(): void
     {
         $config = [
             [
@@ -52,7 +53,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testBlockTtlSettings()
+    public function testBlockTtlSettings(): void
     {
         $config = [
             [
@@ -93,7 +94,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testBlockDefinitionTtlSettings()
+    public function testBlockDefinitionTtlSettings(): void
     {
         $config = [
             [
@@ -133,7 +134,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testInvalidationSettings()
+    public function testInvalidationSettings(): void
     {
         $config = [
             [
@@ -163,7 +164,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testDisabledInvalidationSettings()
+    public function testDisabledInvalidationSettings(): void
     {
         $config = [
             [
@@ -195,7 +196,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testDefaultBlockTtlSettingsWithInvalidSharedMaxAge()
+    public function testDefaultBlockTtlSettingsWithInvalidSharedMaxAge(): void
     {
         $config = [
             'http_cache' => [
@@ -217,7 +218,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testBlockDefinitionTtlSettingsWithInvalidSharedMaxAge()
+    public function testBlockDefinitionTtlSettingsWithInvalidSharedMaxAge(): void
     {
         $config = [
             'http_cache' => [
@@ -238,7 +239,7 @@ final class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testInvalidationSettingsWithInvalidEnabled()
+    public function testInvalidationSettingsWithInvalidEnabled(): void
     {
         $config = [
             'http_cache' => [
@@ -251,13 +252,7 @@ final class HttpCacheNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

@@ -36,7 +36,7 @@ final class CsrfValidationListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->csrfTokenManagerMock = $this->createMock(
             CsrfTokenManagerInterface::class
@@ -55,7 +55,7 @@ final class CsrfValidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
@@ -68,7 +68,7 @@ final class CsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->once())
@@ -97,7 +97,7 @@ final class CsrfValidationListenerTest extends TestCase
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @expectedExceptionMessage Missing or invalid CSRF token
      */
-    public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken()
+    public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->once())
@@ -127,7 +127,7 @@ final class CsrfValidationListenerTest extends TestCase
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @expectedExceptionMessage Missing or invalid CSRF token
      */
-    public function testOnKernelRequestThrowsAccessDeniedExceptionOnMissingTokenHeader()
+    public function testOnKernelRequestThrowsAccessDeniedExceptionOnMissingTokenHeader(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->never())
@@ -150,7 +150,7 @@ final class CsrfValidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->never())
@@ -166,7 +166,7 @@ final class CsrfValidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoSession()
+    public function testOnKernelRequestWithNoSession(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->never())
@@ -188,7 +188,7 @@ final class CsrfValidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
-    public function testOnKernelRequestWithSafeMethod()
+    public function testOnKernelRequestWithSafeMethod(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->never())

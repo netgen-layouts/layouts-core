@@ -14,7 +14,7 @@ final class DeleteTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete::__invoke
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -33,7 +33,7 @@ final class DeleteTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete::__invoke
      */
-    public function testDeleteWithNonExistentLayout()
+    public function testDeleteWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 

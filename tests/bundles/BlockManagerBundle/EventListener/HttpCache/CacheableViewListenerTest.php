@@ -20,7 +20,7 @@ final class CacheableViewListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new CacheableViewListener();
     }
@@ -28,7 +28,7 @@ final class CacheableViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
@@ -40,7 +40,7 @@ final class CacheableViewListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
      */
-    public function testOnKernelResponse()
+    public function testOnKernelResponse(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -66,7 +66,7 @@ final class CacheableViewListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
      */
-    public function testOnKernelResponseWithDisabledCache()
+    public function testOnKernelResponseWithDisabledCache(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -93,7 +93,7 @@ final class CacheableViewListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
      */
-    public function testOnKernelResponseWithExistingHeaders()
+    public function testOnKernelResponseWithExistingHeaders(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -121,7 +121,7 @@ final class CacheableViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
      */
-    public function testOnKernelResponseWithSubRequest()
+    public function testOnKernelResponseWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -146,7 +146,7 @@ final class CacheableViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
      */
-    public function testOnKernelResponseWithoutSupportedValue()
+    public function testOnKernelResponseWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

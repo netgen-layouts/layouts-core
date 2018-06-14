@@ -16,7 +16,7 @@ final class RenderingExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->extension = new RenderingExtension();
     }
@@ -24,7 +24,7 @@ final class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getFunctions
      */
-    public function testGetFunctions()
+    public function testGetFunctions(): void
     {
         $this->assertNotEmpty($this->extension->getFunctions());
 
@@ -36,7 +36,7 @@ final class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTokenParsers
      */
-    public function testGetTokenParsers()
+    public function testGetTokenParsers(): void
     {
         $this->assertNotEmpty($this->extension->getTokenParsers());
 

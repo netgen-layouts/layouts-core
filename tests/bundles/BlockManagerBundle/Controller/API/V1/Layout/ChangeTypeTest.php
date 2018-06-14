@@ -14,7 +14,7 @@ final class ChangeTypeTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType::__invoke
      */
-    public function testChangeType()
+    public function testChangeType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -45,7 +45,7 @@ final class ChangeTypeTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType::__invoke
      */
-    public function testChangeTypeWithoutMappings()
+    public function testChangeTypeWithoutMappings(): void
     {
         $data = $this->jsonEncode(
             [

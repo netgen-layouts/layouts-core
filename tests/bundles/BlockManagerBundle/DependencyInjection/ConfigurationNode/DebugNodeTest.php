@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class DebugNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class DebugNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DebugNode::getConfigurationNode
      */
-    public function testDebugSettings()
+    public function testDebugSettings(): void
     {
         $config = [
             [
@@ -44,7 +45,7 @@ final class DebugNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DebugNode::getConfigurationNode
      */
-    public function testDefaultDebugSettings()
+    public function testDefaultDebugSettings(): void
     {
         $config = [
             [],
@@ -64,7 +65,7 @@ final class DebugNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DebugNode::getConfigurationNode
      */
-    public function testDebugSettingsWithInvalidDebugConfig()
+    public function testDebugSettingsWithInvalidDebugConfig(): void
     {
         $config = [
             [
@@ -75,13 +76,7 @@ final class DebugNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.debug". Expected boolean, but got array.');
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

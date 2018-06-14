@@ -9,7 +9,7 @@ use Twig\Test\NodeTestCase;
 
 abstract class NodeTest extends NodeTestCase
 {
-    protected function getNodeGetter($name, $line = false)
+    protected function getNodeGetter(string $name, int $line = 0): string
     {
         $line = $line > 0 ? "// line {$line}\n" : '';
 

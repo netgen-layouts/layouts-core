@@ -27,7 +27,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->serializerMock = $this->createMock(SerializerInterface::class);
 
@@ -37,7 +37,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::EXCEPTION => ['onException', 5]],
@@ -49,7 +49,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnException()
+    public function testOnException(): void
     {
         $exception = new Exception();
 
@@ -91,7 +91,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnExceptionWithNoApiRequest()
+    public function testOnExceptionWithNoApiRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -111,7 +111,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnExceptionInSubRequest()
+    public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

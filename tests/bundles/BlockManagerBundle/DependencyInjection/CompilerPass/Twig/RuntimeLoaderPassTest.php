@@ -18,7 +18,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Twig\RuntimeLoaderPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setDefinition('twig', new Definition());
         $this->setDefinition('netgen_block_manager.templating.twig.runtime.container_loader', new Definition());
@@ -45,7 +45,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Twig\RuntimeLoaderPass::process
      */
-    public function testProcessWithExistingContainerLoader()
+    public function testProcessWithExistingContainerLoader(): void
     {
         $this->setDefinition('twig', new Definition());
         $this->setDefinition('twig.runtime_loader', new Definition());
@@ -63,19 +63,14 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Twig\RuntimeLoaderPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RuntimeLoaderPass());
     }
@@ -83,18 +78,13 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * Assert that the ContainerBuilder for this test has a service definition with the given id,
      * which does not have a method call to the given method with the given arguments.
-     *
-     * @param string $serviceId
-     * @param string $method
-     * @param array $arguments
-     * @param int|null $index
      */
     private function assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
-        $serviceId,
-        $method,
+        string $serviceId,
+        string $method,
         array $arguments = [],
-        $index = null
-    ) {
+        int $index = null
+    ): void {
         $this->assertThat(
             $this->container->findDefinition($serviceId),
             $this->logicalNot(

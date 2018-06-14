@@ -28,7 +28,7 @@ final class CacheableViewSessionListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (Kernel::VERSION_ID < 30400) {
             $this->markTestSkipped('CacheableViewSessionListener does nothing on versions of Symfony lower than 3.4');
@@ -43,7 +43,7 @@ final class CacheableViewSessionListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $listener = $this->listener;
 
@@ -53,7 +53,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $event = new GetResponseEvent(
             $this->createMock(KernelInterface::class),
@@ -72,7 +72,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelResponse
      */
-    public function testOnKernelResponseWithNoView()
+    public function testOnKernelResponseWithNoView(): void
     {
         $event = new FilterResponseEvent(
             $this->createMock(KernelInterface::class),
@@ -92,7 +92,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelResponse
      */
-    public function testOnKernelResponseInSubRequest()
+    public function testOnKernelResponseInSubRequest(): void
     {
         $event = new FilterResponseEvent(
             $this->createMock(KernelInterface::class),
@@ -111,7 +111,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelResponse
      */
-    public function testOnKernelResponseWithCacheableBlockView()
+    public function testOnKernelResponseWithCacheableBlockView(): void
     {
         $request = Request::create('/');
         $request->attributes->set('ngbmView', new BlockView());
@@ -133,7 +133,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelResponse
      */
-    public function testOnKernelResponseWithNonCacheableBlockView()
+    public function testOnKernelResponseWithNonCacheableBlockView(): void
     {
         $request = Request::create('/');
         $blockView = new BlockView();
@@ -158,7 +158,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelResponse
      */
-    public function testOnKernelResponseWithNonCacheableView()
+    public function testOnKernelResponseWithNonCacheableView(): void
     {
         $request = Request::create('/');
         $request->attributes->set('ngbmView', new LayoutView());
@@ -181,7 +181,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onKernelResponse
      */
-    public function testOnKernelResponseWithInvalidView()
+    public function testOnKernelResponseWithInvalidView(): void
     {
         $request = Request::create('/');
         $request->attributes->set('ngbmView', 42);

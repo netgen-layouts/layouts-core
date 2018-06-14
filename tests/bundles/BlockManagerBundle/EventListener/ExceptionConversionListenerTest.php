@@ -36,7 +36,7 @@ final class ExceptionConversionListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new ExceptionConversionListener();
     }
@@ -44,7 +44,7 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::EXCEPTION => ['onException', 10]],
@@ -55,13 +55,8 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
      * @dataProvider onExceptionDataProvider
-     *
-     * @param \Exception $exception
-     * @param string $convertedClass
-     * @param int $statusCode
-     * @param bool $converted
      */
-    public function testOnException($exception, $convertedClass, $statusCode, $converted)
+    public function testOnException(Exception $exception, string $convertedClass, int $statusCode, bool $converted): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -96,7 +91,7 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
      */
-    public function testOnExceptionNotConvertsOtherExceptions()
+    public function testOnExceptionNotConvertsOtherExceptions(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -121,7 +116,7 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
      */
-    public function testOnExceptionInSubRequest()
+    public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -143,7 +138,7 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
      */
-    public function testOnExceptionWithNonAPIRequest()
+    public function testOnExceptionWithNonAPIRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -161,7 +156,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $this->assertEquals($exception, $event->getException());
     }
 
-    public function onExceptionDataProvider()
+    public function onExceptionDataProvider(): array
     {
         return [
             [

@@ -29,7 +29,7 @@ final class LayoutResponseListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->taggerMock = $this->createMock(TaggerInterface::class);
 
@@ -39,7 +39,7 @@ final class LayoutResponseListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [
@@ -54,7 +54,7 @@ final class LayoutResponseListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponse()
+    public function testOnKernelResponse(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -79,7 +79,7 @@ final class LayoutResponseListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithSubRequest()
+    public function testOnKernelResponseWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -103,7 +103,7 @@ final class LayoutResponseListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithoutSupportedValue()
+    public function testOnKernelResponseWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -128,7 +128,7 @@ final class LayoutResponseListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithException()
+    public function testOnKernelResponseWithException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -163,7 +163,7 @@ final class LayoutResponseListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithExceptionAndSubRequest()
+    public function testOnKernelResponseWithExceptionAndSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -197,7 +197,7 @@ final class LayoutResponseListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithExceptionAndWithoutSupportedValue()
+    public function testOnKernelResponseWithExceptionAndWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

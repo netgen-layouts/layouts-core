@@ -9,6 +9,7 @@ use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ExtensionPlugin;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class AppNodeTest extends TestCase
 {
@@ -17,7 +18,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testJavascripts()
+    public function testJavascripts(): void
     {
         $config = [
             [
@@ -47,7 +48,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testJavascriptsWithNoJavascripts()
+    public function testJavascriptsWithNoJavascripts(): void
     {
         $config = [
             [
@@ -71,7 +72,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testJavascriptsWithInvalidJavascripts()
+    public function testJavascriptsWithInvalidJavascripts(): void
     {
         $config = [
             [
@@ -87,7 +88,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testJavascriptsWithInvalidJavascript()
+    public function testJavascriptsWithInvalidJavascript(): void
     {
         $config = [
             [
@@ -105,7 +106,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testStylesheets()
+    public function testStylesheets(): void
     {
         $config = [
             [
@@ -135,7 +136,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testStylesheetsWithNoStylesheets()
+    public function testStylesheetsWithNoStylesheets(): void
     {
         $config = [
             [
@@ -159,7 +160,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testStylesheetsWithInvalidStylesheets()
+    public function testStylesheetsWithInvalidStylesheets(): void
     {
         $config = [
             [
@@ -175,7 +176,7 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
-    public function testStylesheetsWithInvalidStylesheet()
+    public function testStylesheetsWithInvalidStylesheet(): void
     {
         $config = [
             [
@@ -190,13 +191,7 @@ final class AppNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config, 'The value should be a string');
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         $extension = new NetgenBlockManagerExtension();
         $extension->addPlugin(new ExtensionPlugin());

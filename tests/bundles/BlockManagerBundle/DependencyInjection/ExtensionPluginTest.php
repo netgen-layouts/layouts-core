@@ -17,7 +17,7 @@ final class ExtensionPluginTest extends TestCase
      */
     private $plugin;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->plugin = $this->getMockForAbstractClass(ExtensionPlugin::class);
     }
@@ -25,7 +25,7 @@ final class ExtensionPluginTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::preProcessConfiguration
      */
-    public function testPreProcessConfiguration()
+    public function testPreProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->preProcessConfiguration([]);
         $this->assertEquals([], $processedConfig);
@@ -34,7 +34,7 @@ final class ExtensionPluginTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::postProcessConfiguration
      */
-    public function testPostProcessConfiguration()
+    public function testPostProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->postProcessConfiguration([]);
         $this->assertEquals([], $processedConfig);
@@ -43,7 +43,7 @@ final class ExtensionPluginTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::addConfiguration
      */
-    public function testAddConfiguration()
+    public function testAddConfiguration(): void
     {
         $node1 = new ConfigurationNode();
         $node2 = new ConfigurationNode();
@@ -87,7 +87,7 @@ final class ExtensionPluginTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::getConfigurationNodes
      */
-    public function testGetConfigurationNodes()
+    public function testGetConfigurationNodes(): void
     {
         $this->assertEquals([], $this->plugin->getConfigurationNodes());
     }
@@ -95,7 +95,7 @@ final class ExtensionPluginTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::appendConfigurationFiles
      */
-    public function testAppendConfigurationFiles()
+    public function testAppendConfigurationFiles(): void
     {
         $this->assertEquals([], $this->plugin->appendConfigurationFiles());
     }

@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ClearLayoutsCacheTypeTest extends FormTestCase
@@ -16,17 +17,14 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
      */
     private $layouts;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->layouts = [42 => new Layout(['id' => 42]), 24 => new Layout(['id' => 24])];
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ClearLayoutsCacheType();
     }
@@ -35,7 +33,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildForm
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'layouts' => [42],
@@ -61,7 +59,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -81,7 +79,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "layouts" with value 42 is expected to be of type "array", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidLayouts()
+    public function testConfigureOptionsWithInvalidLayouts(): void
     {
         $optionsResolver = new OptionsResolver();
 

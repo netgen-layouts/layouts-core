@@ -14,7 +14,7 @@ final class LoadBlockTypesTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes::__invoke
      */
-    public function testLoadBlockTypes()
+    public function testLoadBlockTypes(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/config/block_types');
 

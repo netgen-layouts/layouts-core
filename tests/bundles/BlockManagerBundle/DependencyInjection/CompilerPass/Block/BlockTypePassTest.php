@@ -19,7 +19,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -64,7 +64,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcessWithRedefinedBlockType()
+    public function testProcessWithRedefinedBlockType(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -128,7 +128,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcessWithDefaultConfigForBlockType()
+    public function testProcessWithDefaultConfigForBlockType(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -184,7 +184,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcessWithNonExistingBlockType()
+    public function testProcessWithNonExistingBlockType(): void
     {
         $this->setParameter('netgen_block_manager.block_types', []);
 
@@ -234,7 +234,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcessWithDisabledBlockType()
+    public function testProcessWithDisabledBlockType(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -293,7 +293,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcessWithDisabledBlockDefinition()
+    public function testProcessWithDisabledBlockDefinition(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -353,7 +353,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
-    public function testProcessWithDisabledBlockDefinitionAndAdditionalBlockType()
+    public function testProcessWithDisabledBlockDefinitionAndAdditionalBlockType(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -414,7 +414,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" block type does not exist.
      */
-    public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
+    public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -437,19 +437,14 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new BlockTypePass());
     }

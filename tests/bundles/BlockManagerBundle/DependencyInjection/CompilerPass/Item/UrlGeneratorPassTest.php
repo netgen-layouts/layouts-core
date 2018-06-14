@@ -16,7 +16,7 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $urlGenerator = new Definition();
         $urlGenerator->addArgument(null);
@@ -43,7 +43,7 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value type must begin with a letter and be followed by any combination of letters, digits and underscore.
      */
-    public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag()
+    public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag(): void
     {
         $this->setDefinition('netgen_block_manager.item.url_generator', new Definition());
 
@@ -59,7 +59,7 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value URL generator service definition must have a 'value_type' attribute in its' tag.
      */
-    public function testProcessThrowsRuntimeExceptionWithNoTagValueType()
+    public function testProcessThrowsRuntimeExceptionWithNoTagValueType(): void
     {
         $urlGenerator = new Definition();
         $urlGenerator->addArgument(null);
@@ -76,19 +76,14 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new UrlGeneratorPass());
     }

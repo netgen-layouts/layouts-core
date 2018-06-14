@@ -14,7 +14,7 @@ final class RestoreTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore::__invoke
      */
-    public function testRestore()
+    public function testRestore(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -37,7 +37,7 @@ final class RestoreTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore::__invoke
      */
-    public function testRestoreWithNonExistentBlock()
+    public function testRestoreWithNonExistentBlock(): void
     {
         $data = $this->jsonEncode([]);
 

@@ -16,7 +16,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
@@ -46,7 +46,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      */
-    public function testProcessWithCustomHandler()
+    public function testProcessWithCustomHandler(): void
     {
         $queryTypes = ['query_type' => ['handler' => 'custom']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
@@ -78,7 +78,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Query type handler definition must have a 'type' attribute in its' tag.
      */
-    public function testProcessThrowsExceptionWithNoTagType()
+    public function testProcessThrowsExceptionWithNoTagType(): void
     {
         $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
@@ -97,7 +97,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Query type handler for "query_type" query type does not exist.
      */
-    public function testProcessThrowsExceptionWithNoHandler()
+    public function testProcessThrowsExceptionWithNoHandler(): void
     {
         $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
@@ -116,7 +116,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Query type handler for "query_type" query type does not exist.
      */
-    public function testProcessThrowsExceptionWithNoCustomHandler()
+    public function testProcessThrowsExceptionWithNoCustomHandler(): void
     {
         $queryTypes = ['query_type' => ['handler' => 'custom']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
@@ -133,19 +133,14 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new QueryTypePass());
     }

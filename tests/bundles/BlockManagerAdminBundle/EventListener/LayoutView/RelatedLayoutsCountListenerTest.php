@@ -27,7 +27,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
@@ -37,7 +37,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
@@ -49,7 +49,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
      */
-    public function testOnBuildView()
+    public function testOnBuildView(): void
     {
         $view = new LayoutView(['layout' => new Layout(['shared' => true, 'status' => Layout::STATUS_PUBLISHED])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -74,7 +74,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
      */
-    public function testOnBuildViewWithDraftLayout()
+    public function testOnBuildViewWithDraftLayout(): void
     {
         $view = new LayoutView(['layout' => new Layout(['shared' => true, 'status' => Layout::STATUS_DRAFT])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -97,7 +97,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
      */
-    public function testOnBuildViewWithNonSharedLayout()
+    public function testOnBuildViewWithNonSharedLayout(): void
     {
         $view = new LayoutView(['layout' => new Layout(['shared' => false, 'status' => Layout::STATUS_PUBLISHED])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -120,7 +120,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
      */
-    public function testOnBuildViewWithNoLayoutView()
+    public function testOnBuildViewWithNoLayoutView(): void
     {
         $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
@@ -132,7 +132,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
      */
-    public function testOnBuildViewWithWrongContext()
+    public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(['layout' => new Layout()]);
         $view->setContext(ViewInterface::CONTEXT_API);

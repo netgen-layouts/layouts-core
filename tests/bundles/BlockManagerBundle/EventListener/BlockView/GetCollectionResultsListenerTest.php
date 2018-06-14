@@ -36,7 +36,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
@@ -52,7 +52,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
@@ -65,7 +65,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderView()
+    public function testOnRenderView(): void
     {
         $collection1 = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference1 = new CollectionReference(
@@ -140,7 +140,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderViewWithPagedCollection()
+    public function testOnRenderViewWithPagedCollection(): void
     {
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference = new CollectionReference(
@@ -202,7 +202,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages()
+    public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
     {
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference = new CollectionReference(
@@ -264,7 +264,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderViewWithPagedCollectionAndDisabledPaging()
+    public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
     {
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference = new CollectionReference(
@@ -325,7 +325,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderViewWithAPIContext()
+    public function testOnRenderViewWithAPIContext(): void
     {
         $collection1 = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
         $collectionReference1 = new CollectionReference(
@@ -375,7 +375,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderViewWithNoBlockView()
+    public function testOnRenderViewWithNoBlockView(): void
     {
         $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
@@ -387,7 +387,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnRenderViewWithWrongContext()
+    public function testOnRenderViewWithWrongContext(): void
     {
         $view = new BlockView(['block' => new Block()]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);

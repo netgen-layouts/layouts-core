@@ -20,7 +20,7 @@ final class ContainerConfigurationTest extends TestCase
      */
     private $configuration;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->createConfiguration();
     }
@@ -29,7 +29,7 @@ final class ContainerConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
      */
-    public function testHasParameter()
+    public function testHasParameter(): void
     {
         $this->containerMock
             ->expects($this->once())
@@ -43,7 +43,7 @@ final class ContainerConfigurationTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
      */
-    public function testHasParameterWithInjectedParameter()
+    public function testHasParameterWithInjectedParameter(): void
     {
         $this->createConfiguration(['some_param' => 'some_value']);
 
@@ -57,7 +57,7 @@ final class ContainerConfigurationTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
      */
-    public function testHasParameterWithNoParameter()
+    public function testHasParameterWithNoParameter(): void
     {
         $this->containerMock
             ->expects($this->once())
@@ -71,7 +71,7 @@ final class ContainerConfigurationTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
      */
-    public function testGetParameter()
+    public function testGetParameter(): void
     {
         $this->containerMock
             ->expects($this->once())
@@ -91,7 +91,7 @@ final class ContainerConfigurationTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
      */
-    public function testGetParameterWithInjectedParameter()
+    public function testGetParameterWithInjectedParameter(): void
     {
         $this->createConfiguration(['some_param' => 'injected']);
 
@@ -111,7 +111,7 @@ final class ContainerConfigurationTest extends TestCase
      * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException
      * @expectedExceptionMessage Parameter "some_param" does not exist in configuration.
      */
-    public function testGetParameterThrowsConfigurationException()
+    public function testGetParameterThrowsConfigurationException(): void
     {
         $this->containerMock
             ->expects($this->once())
@@ -122,7 +122,7 @@ final class ContainerConfigurationTest extends TestCase
         $this->configuration->getParameter('some_param');
     }
 
-    private function createConfiguration(array $injectedParameters = [])
+    private function createConfiguration(array $injectedParameters = []): void
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
         $this->configuration = new ContainerConfiguration($this->containerMock, $injectedParameters);

@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ClearBlocksCacheTypeTest extends FormTestCase
@@ -16,7 +17,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
      */
     private $blocks;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -38,10 +39,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
         ];
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         return new ClearBlocksCacheType();
     }
@@ -50,7 +48,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType::buildForm
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType::buildView
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $submittedData = [
             'blocks' => [42],
@@ -76,7 +74,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -96,7 +94,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "blocks" with value 42 is expected to be of type "array", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidBlocks()
+    public function testConfigureOptionsWithInvalidBlocks(): void
     {
         $optionsResolver = new OptionsResolver();
 

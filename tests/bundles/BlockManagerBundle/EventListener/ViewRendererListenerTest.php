@@ -30,7 +30,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
         $this->listener = new ViewRendererListener(
@@ -42,7 +42,7 @@ final class ViewRendererListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::VIEW => ['onView', -255]],
@@ -54,7 +54,7 @@ final class ViewRendererListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
      */
-    public function testOnView()
+    public function testOnView(): void
     {
         $view = new View(['value' => new Value()]);
 
@@ -92,7 +92,7 @@ final class ViewRendererListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
      */
-    public function testOnViewWithException()
+    public function testOnViewWithException(): void
     {
         $view = new View(['value' => new Value()]);
 
@@ -130,7 +130,7 @@ final class ViewRendererListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
      */
-    public function testOnViewWithoutViewResponse()
+    public function testOnViewWithoutViewResponse(): void
     {
         $view = new View(['value' => new Value()]);
 
@@ -156,7 +156,7 @@ final class ViewRendererListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
      */
-    public function testOnViewWithoutSupportedValue()
+    public function testOnViewWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

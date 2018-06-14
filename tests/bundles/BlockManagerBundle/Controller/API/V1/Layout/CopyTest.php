@@ -14,7 +14,7 @@ final class CopyTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopy()
+    public function testCopy(): void
     {
         $data = $this->jsonEncode(
             [
@@ -42,7 +42,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyInPublishedState()
+    public function testCopyInPublishedState(): void
     {
         $data = $this->jsonEncode(
             [
@@ -70,7 +70,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithNonExistingDescription()
+    public function testCopyWithNonExistingDescription(): void
     {
         $data = $this->jsonEncode(
             [
@@ -97,7 +97,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithEmptyDescription()
+    public function testCopyWithEmptyDescription(): void
     {
         $data = $this->jsonEncode(
             [
@@ -125,7 +125,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithNonExistingLayout()
+    public function testCopyWithNonExistingLayout(): void
     {
         $data = $this->jsonEncode(
             [
@@ -152,7 +152,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithInvalidName()
+    public function testCopyWithInvalidName(): void
     {
         $data = $this->jsonEncode(
             [
@@ -179,7 +179,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithMissingName()
+    public function testCopyWithMissingName(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -202,7 +202,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithExistingName()
+    public function testCopyWithExistingName(): void
     {
         $data = $this->jsonEncode(
             [
@@ -229,7 +229,7 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy::__invoke
      */
-    public function testCopyWithInvalidDescription()
+    public function testCopyWithInvalidDescription(): void
     {
         $data = $this->jsonEncode(
             [

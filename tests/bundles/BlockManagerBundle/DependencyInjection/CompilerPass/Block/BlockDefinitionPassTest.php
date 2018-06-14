@@ -20,13 +20,10 @@ use Symfony\Component\DependencyInjection\Reference;
 final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @param string $handlerClass
-     * @param string $definitionClass
-     *
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @dataProvider processDataProvider
      */
-    public function testProcess($handlerClass, $definitionClass)
+    public function testProcess(string $handlerClass, string $definitionClass): void
     {
         $this->setParameter('test.class', BlockDefinitionHandler::class);
 
@@ -66,13 +63,10 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @param string $handlerClass
-     * @param string $definitionClass
-     *
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @dataProvider processDataProvider
      */
-    public function testProcessWithCustomHandler($handlerClass, $definitionClass)
+    public function testProcessWithCustomHandler(string $handlerClass, string $definitionClass): void
     {
         $this->setParameter('test.class', BlockDefinitionHandler::class);
 
@@ -116,7 +110,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition handler definition must have an 'identifier' attribute in its' tag.
      */
-    public function testProcessThrowsExceptionWithNoTagIdentifier()
+    public function testProcessThrowsExceptionWithNoTagIdentifier(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
@@ -137,7 +131,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
-    public function testProcessThrowsExceptionWithNoHandler()
+    public function testProcessThrowsExceptionWithNoHandler(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
@@ -154,7 +148,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
-    public function testProcessThrowsExceptionWithNoCustomHandler()
+    public function testProcessThrowsExceptionWithNoCustomHandler(): void
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
@@ -169,14 +163,14 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    public function processDataProvider()
+    public function processDataProvider(): array
     {
         return [
             ['%test.class%', BlockDefinition::class],
@@ -186,12 +180,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         ];
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new BlockDefinitionPass());
     }

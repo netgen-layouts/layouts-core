@@ -15,7 +15,7 @@ final class HelpersExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->extension = new HelpersExtension();
     }
@@ -23,7 +23,7 @@ final class HelpersExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension::getFilters
      */
-    public function testGetFilters()
+    public function testGetFilters(): void
     {
         $this->assertNotEmpty($this->extension->getFilters());
 

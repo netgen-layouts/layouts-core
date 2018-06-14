@@ -13,7 +13,7 @@ final class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCa
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension::load
      */
-    public function testParameters()
+    public function testParameters(): void
     {
         $this->load();
 
@@ -29,7 +29,7 @@ final class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCa
      *
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension::load
      */
-    public function testServices()
+    public function testServices(): void
     {
         $this->load();
 
@@ -44,7 +44,7 @@ final class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCa
      *
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension::prepend
      */
-    public function testPrepend()
+    public function testPrepend(): void
     {
         $this->container->setParameter('kernel.bundles', ['NetgenBlockManagerBundle' => true]);
         $this->container->registerExtension(new NetgenBlockManagerExtension());
@@ -75,13 +75,7 @@ final class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCa
         $this->assertArrayHasKey('admin', $config['default_view_templates']['layout_view']);
     }
 
-    /**
-     * Return an array of container extensions that need to be registered for
-     * each test (usually just the container extension you are testing).
-     *
-     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface[]
-     */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new NetgenBlockManagerAdminExtension(),

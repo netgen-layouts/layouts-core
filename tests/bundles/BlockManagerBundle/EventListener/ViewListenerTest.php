@@ -19,7 +19,7 @@ final class ViewListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new ViewListener();
     }
@@ -27,7 +27,7 @@ final class ViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::VIEW => 'onView'],
@@ -38,7 +38,7 @@ final class ViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewListener::onView
      */
-    public function testOnView()
+    public function testOnView(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -62,7 +62,7 @@ final class ViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewListener::onView
      */
-    public function testOnViewWithSubRequest()
+    public function testOnViewWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -85,7 +85,7 @@ final class ViewListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewListener::onView
      */
-    public function testOnViewWithoutSupportedValue()
+    public function testOnViewWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

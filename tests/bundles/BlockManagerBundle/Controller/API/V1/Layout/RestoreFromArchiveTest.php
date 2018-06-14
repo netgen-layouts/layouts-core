@@ -14,7 +14,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive::__invoke
      */
-    public function testRestoreFromArchive()
+    public function testRestoreFromArchive(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -33,7 +33,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive::__invoke
      */
-    public function testRestoreFromArchiveWithNonExistentLayout()
+    public function testRestoreFromArchiveWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 

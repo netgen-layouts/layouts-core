@@ -14,7 +14,7 @@ final class CopyToZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZone()
+    public function testCopyToZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -42,7 +42,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithNonExistentBlock()
+    public function testCopyToZoneWithNonExistentBlock(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -65,7 +65,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithNonExistentLayout()
+    public function testCopyToZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode(
             [
@@ -93,7 +93,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithNonExistentZone()
+    public function testCopyToZoneWithNonExistentZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -121,7 +121,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithNotAllowedBlockDefinition()
+    public function testCopyToZoneWithNotAllowedBlockDefinition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -149,7 +149,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithInvalidLayoutId()
+    public function testCopyToZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -177,7 +177,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithInvalidZoneIdentifier()
+    public function testCopyToZoneWithInvalidZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -205,7 +205,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithMissingLayoutId()
+    public function testCopyToZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -232,7 +232,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithMissingZoneIdentifier()
+    public function testCopyToZoneWithMissingZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [

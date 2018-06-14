@@ -16,7 +16,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZone()
+    public function testCreateInZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -48,7 +48,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithNoPosition()
+    public function testCreateInZoneWithNoPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -78,7 +78,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithInvalidBlockType()
+    public function testCreateInZoneWithInvalidBlockType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -109,7 +109,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithMissingBlockType()
+    public function testCreateInZoneWithMissingBlockType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -139,7 +139,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithInvalidLayoutId()
+    public function testCreateInZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -170,7 +170,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithMissingLayoutId()
+    public function testCreateInZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -200,7 +200,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithInvalidZoneIdentifier()
+    public function testCreateInZoneWithInvalidZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -231,7 +231,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithMissingZoneIdentifier()
+    public function testCreateInZoneWithMissingZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
             [
@@ -261,7 +261,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithInvalidPosition()
+    public function testCreateInZoneWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -292,7 +292,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithNonExistentBlockType()
+    public function testCreateInZoneWithNonExistentBlockType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -323,7 +323,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithNonExistentLayout()
+    public function testCreateInZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode(
             [
@@ -354,7 +354,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithNonExistentLayoutZone()
+    public function testCreateInZoneWithNonExistentLayoutZone(): void
     {
         $data = $this->jsonEncode(
             [
@@ -385,7 +385,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithOutOfRangePosition()
+    public function testCreateInZoneWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -416,7 +416,7 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateInZoneWithNotAllowedBlockDefinition()
+    public function testCreateInZoneWithNotAllowedBlockDefinition(): void
     {
         $data = $this->jsonEncode(
             [

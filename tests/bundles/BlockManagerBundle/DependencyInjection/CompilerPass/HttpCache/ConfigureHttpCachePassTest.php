@@ -15,7 +15,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
         $this->setParameter('session.storage.options', []);
@@ -40,7 +40,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
      */
-    public function testProcessWithDisabledInvalidation()
+    public function testProcessWithDisabledInvalidation(): void
     {
         $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
         $this->setParameter('session.storage.options', []);
@@ -65,19 +65,14 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ConfigureHttpCachePass());
     }

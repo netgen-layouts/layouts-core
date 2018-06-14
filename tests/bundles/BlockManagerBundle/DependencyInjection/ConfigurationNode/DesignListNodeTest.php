@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class DesignListNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class DesignListNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignListNode::getConfigurationNode
      */
-    public function testDesignListSettings()
+    public function testDesignListSettings(): void
     {
         $config = [
             [
@@ -62,7 +63,7 @@ final class DesignListNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignListNode::getConfigurationNode
      */
-    public function testDesignListSettingsWithEmptyDesignList()
+    public function testDesignListSettingsWithEmptyDesignList(): void
     {
         $config = [
             'design_list' => [],
@@ -82,7 +83,7 @@ final class DesignListNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignListNode::getConfigurationNode
      */
-    public function testDesignListSettingsWithEmptyDesign()
+    public function testDesignListSettingsWithEmptyDesign(): void
     {
         $config = [
             [
@@ -108,7 +109,7 @@ final class DesignListNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignListNode::getConfigurationNode
      */
-    public function testDesignListSettingsWithEmptyThemeName()
+    public function testDesignListSettingsWithEmptyThemeName(): void
     {
         $config = [
             [
@@ -123,13 +124,7 @@ final class DesignListNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design_list.design.0" cannot contain an empty value, but got "".');
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

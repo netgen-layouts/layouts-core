@@ -16,7 +16,7 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $layoutResolverHandler = new Definition();
         $layoutResolverHandler->addArgument([]);
@@ -50,7 +50,7 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Doctrine target handler service tags should have an "target_type" attribute.
      */
-    public function testProcessThrowsRuntimeExceptionWhenNoIdentifier()
+    public function testProcessThrowsRuntimeExceptionWhenNoIdentifier(): void
     {
         $this->setDefinition('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler', new Definition());
 
@@ -64,19 +64,14 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new DoctrineTargetHandlerPass());
     }

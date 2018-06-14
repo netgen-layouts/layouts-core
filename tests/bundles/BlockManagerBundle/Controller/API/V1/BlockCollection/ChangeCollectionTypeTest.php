@@ -15,7 +15,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
-    public function testChangeCollectionTypeFromManualToManual()
+    public function testChangeCollectionTypeFromManualToManual(): void
     {
         $data = $this->jsonEncode(
             [
@@ -39,7 +39,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
-    public function testChangeCollectionTypeFromManualToDynamic()
+    public function testChangeCollectionTypeFromManualToDynamic(): void
     {
         $data = $this->jsonEncode(
             [
@@ -64,7 +64,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
-    public function testChangeCollectionTypeFromDynamicToManual()
+    public function testChangeCollectionTypeFromDynamicToManual(): void
     {
         $data = $this->jsonEncode(
             [
@@ -88,7 +88,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
      */
-    public function testChangeCollectionTypeFromDynamicToDynamic()
+    public function testChangeCollectionTypeFromDynamicToDynamic(): void
     {
         $data = $this->jsonEncode(
             [

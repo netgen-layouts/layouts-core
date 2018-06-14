@@ -16,7 +16,7 @@ final class SerializationVisitorPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Transfer\SerializationVisitorPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $aggregateVisitor = new Definition();
         $aggregateVisitor->addArgument([]);
@@ -45,19 +45,14 @@ final class SerializationVisitorPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Transfer\SerializationVisitorPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new SerializationVisitorPass());
     }

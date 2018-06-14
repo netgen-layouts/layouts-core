@@ -17,7 +17,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $data = $this->jsonEncode(
             [
@@ -48,7 +48,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithViewType()
+    public function testCreateWithViewType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -79,7 +79,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithItemViewType()
+    public function testCreateWithItemViewType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -110,7 +110,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithNoPosition()
+    public function testCreateWithNoPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -139,7 +139,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithNonContainerTargetBlock()
+    public function testCreateWithNonContainerTargetBlock(): void
     {
         $data = $this->jsonEncode(
             [
@@ -169,7 +169,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithContainerInsideContainer()
+    public function testCreateWithContainerInsideContainer(): void
     {
         $data = $this->jsonEncode(
             [
@@ -199,7 +199,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidBlockType()
+    public function testCreateWithInvalidBlockType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -229,7 +229,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithMissingBlockType()
+    public function testCreateWithMissingBlockType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -258,7 +258,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidPlaceholder()
+    public function testCreateWithInvalidPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -288,7 +288,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithMissingPlaceholder()
+    public function testCreateWithMissingPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -317,7 +317,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidPosition()
+    public function testCreateWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -347,7 +347,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithNonExistentBlockType()
+    public function testCreateWithNonExistentBlockType(): void
     {
         $data = $this->jsonEncode(
             [
@@ -377,7 +377,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithNonExistentPlaceholder()
+    public function testCreateWithNonExistentPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -407,7 +407,7 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
-    public function testCreateWithOutOfRangePosition()
+    public function testCreateWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
             [

@@ -22,7 +22,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->listener = new AdminAuthenticationExceptionListener();
     }
@@ -30,7 +30,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::EXCEPTION => ['onException', 20]],
@@ -41,7 +41,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
      */
-    public function testOnException()
+    public function testOnException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -64,7 +64,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
      */
-    public function testOnExceptionWithWrongException()
+    public function testOnExceptionWithWrongException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -87,7 +87,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
      */
-    public function testOnExceptionInNonAdminRequest()
+    public function testOnExceptionInNonAdminRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -109,7 +109,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
      */
-    public function testOnExceptionInNonXmlHttpRequest()
+    public function testOnExceptionInNonXmlHttpRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

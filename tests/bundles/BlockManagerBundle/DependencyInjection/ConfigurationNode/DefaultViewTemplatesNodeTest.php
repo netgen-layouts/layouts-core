@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class DefaultViewTemplatesNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DefaultViewTemplatesNode::getConfigurationNode
      */
-    public function testDefaultViewTemplatesSettings()
+    public function testDefaultViewTemplatesSettings(): void
     {
         $config = [
             [
@@ -52,7 +53,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DefaultViewTemplatesNode::getConfigurationNode
      */
-    public function testDefaultViewTemplatesSettingsWithNoContexts()
+    public function testDefaultViewTemplatesSettingsWithNoContexts(): void
     {
         $config = [
             'default_view_templates' => [
@@ -69,7 +70,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DefaultViewTemplatesNode::getConfigurationNode
      */
-    public function testDefaultViewTemplatesSettingsWithEmptyTemplate()
+    public function testDefaultViewTemplatesSettingsWithEmptyTemplate(): void
     {
         $config = [
             'default_view_templates' => [
@@ -88,7 +89,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DefaultViewTemplatesNode::getConfigurationNode
      */
-    public function testDefaultViewTemplatesSettingsWithInvalidTemplate()
+    public function testDefaultViewTemplatesSettingsWithInvalidTemplate(): void
     {
         $config = [
             'default_view_templates' => [
@@ -101,13 +102,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

@@ -8,6 +8,7 @@ use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class ApiKeysNodeTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class ApiKeysNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ApiKeysNode::getConfigurationNode
      */
-    public function testGoogleMapsApiKeySettings()
+    public function testGoogleMapsApiKeySettings(): void
     {
         $config = [
             [
@@ -48,7 +49,7 @@ final class ApiKeysNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ApiKeysNode::getConfigurationNode
      */
-    public function testGoogleMapsApiKeySettingsWithEmptyKey()
+    public function testGoogleMapsApiKeySettingsWithEmptyKey(): void
     {
         $config = [];
 
@@ -65,13 +66,7 @@ final class ApiKeysNodeTest extends TestCase
         );
     }
 
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
+    protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

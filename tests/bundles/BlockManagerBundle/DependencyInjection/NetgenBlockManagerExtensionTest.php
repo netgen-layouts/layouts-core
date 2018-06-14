@@ -26,7 +26,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     private $extension;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -40,7 +40,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::hasPlugin
      */
-    public function testHasPlugin()
+    public function testHasPlugin(): void
     {
         $this->assertTrue($this->extension->hasPlugin(ExtensionPlugin::class));
     }
@@ -49,7 +49,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugin
      */
-    public function testGetPlugin()
+    public function testGetPlugin(): void
     {
         $this->assertInstanceOf(ExtensionPlugin::class, $this->extension->getPlugin(ExtensionPlugin::class));
     }
@@ -60,7 +60,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Extension plugin "unknown" does not exist
      */
-    public function testGetPluginThrowsRuntimeException()
+    public function testGetPluginThrowsRuntimeException(): void
     {
         $this->extension->getPlugin('unknown');
     }
@@ -69,7 +69,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugins
      */
-    public function testGetPlugins()
+    public function testGetPlugins(): void
     {
         $plugins = $this->extension->getPlugins();
 
@@ -83,7 +83,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
      */
-    public function testParameters()
+    public function testParameters(): void
     {
         $this->load($this->minimalConfig);
 
@@ -109,7 +109,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
      */
-    public function testServices()
+    public function testServices(): void
     {
         $this->load($this->minimalConfig);
 
@@ -151,7 +151,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getConfiguration
      */
-    public function testGetConfiguration()
+    public function testGetConfiguration(): void
     {
         $configuration = $this->extension->getConfiguration([], $this->container);
         $this->assertInstanceOf(Configuration::class, $configuration);
@@ -162,7 +162,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      *
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::prepend
      */
-    public function testPrepend()
+    public function testPrepend(): void
     {
         $this->container->setParameter('kernel.bundles', ['NetgenContentBrowserBundle' => true]);
         $this->container->registerExtension(new NetgenContentBrowserExtension());
@@ -199,7 +199,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::prepend
      */
-    public function testAppendFromPlugin()
+    public function testAppendFromPlugin(): void
     {
         $this->extension->prepend($this->container);
 
@@ -224,7 +224,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::processHttpCacheConfiguration
      */
-    public function testHttpCacheConfiguration()
+    public function testHttpCacheConfiguration(): void
     {
         $this->load($this->minimalConfig);
 
@@ -245,7 +245,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      * @expectedExceptionMessage Design "non_existing" does not exist. Available designs are: standard
      */
-    public function testNonExistingCurrentDesign()
+    public function testNonExistingCurrentDesign(): void
     {
         $this->load($this->minimalConfig + ['design' => 'non_existing']);
     }
@@ -254,7 +254,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::validateCurrentDesign
      */
-    public function testStandardAsCurrentDesign()
+    public function testStandardAsCurrentDesign(): void
     {
         $this->load($this->minimalConfig + ['design' => 'standard']);
 
@@ -266,7 +266,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::validateCurrentDesign
      */
-    public function testCustomDesignAsCurrentDesign()
+    public function testCustomDesignAsCurrentDesign(): void
     {
         $designList = $this->minimalConfig;
         $designList['design_list']['custom'] = [];
@@ -277,13 +277,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * Return an array of container extensions that need to be registered for
-     * each test (usually just the container extension you are testing).
-     *
-     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface[]
-     */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         $extension = new NetgenBlockManagerExtension();
         $extension->addPlugin(new ExtensionPlugin());

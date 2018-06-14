@@ -14,7 +14,7 @@ final class LoadLayoutTypesTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadLayoutTypes::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadLayoutTypes::__invoke
      */
-    public function testLoadLayoutTypes()
+    public function testLoadLayoutTypes(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/config/layout_types');
 

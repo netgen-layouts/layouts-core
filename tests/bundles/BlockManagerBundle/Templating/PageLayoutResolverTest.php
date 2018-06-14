@@ -14,7 +14,7 @@ final class PageLayoutResolverTest extends TestCase
      */
     private $resolver;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->resolver = new PageLayoutResolver('defaultPagelayout');
     }
@@ -23,7 +23,7 @@ final class PageLayoutResolverTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver::resolvePageLayout
      */
-    public function testResolvePageLayout()
+    public function testResolvePageLayout(): void
     {
         $this->assertEquals('defaultPagelayout', $this->resolver->resolvePageLayout());
     }

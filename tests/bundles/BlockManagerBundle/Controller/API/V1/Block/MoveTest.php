@@ -14,7 +14,7 @@ final class MoveTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMove()
+    public function testMove(): void
     {
         $data = $this->jsonEncode(
             [
@@ -39,7 +39,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveToDifferentPlaceholder()
+    public function testMoveToDifferentPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -64,7 +64,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveToDifferentBlock()
+    public function testMoveToDifferentBlock(): void
     {
         $data = $this->jsonEncode(
             [
@@ -89,7 +89,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithNonExistentBlock()
+    public function testMoveWithNonExistentBlock(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -112,7 +112,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithNonExistentTargetBlock()
+    public function testMoveWithNonExistentTargetBlock(): void
     {
         $data = $this->jsonEncode(
             [
@@ -141,7 +141,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithNonExistentPlaceholder()
+    public function testMoveWithNonExistentPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -170,7 +170,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithNonContainerTargetBlock()
+    public function testMoveWithNonContainerTargetBlock(): void
     {
         $data = $this->jsonEncode(
             [
@@ -199,7 +199,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithOutOfRangePosition()
+    public function testMoveWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -228,7 +228,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithContainerInsideContainer()
+    public function testMoveWithContainerInsideContainer(): void
     {
         $data = $this->jsonEncode(
             [
@@ -257,7 +257,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithInvalidBlockId()
+    public function testMoveWithInvalidBlockId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -286,7 +286,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithInvalidPlaceholder()
+    public function testMoveWithInvalidPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -315,7 +315,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithInvalidPosition()
+    public function testMoveWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
             [
@@ -344,7 +344,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithMissingBlockId()
+    public function testMoveWithMissingBlockId(): void
     {
         $data = $this->jsonEncode(
             [
@@ -372,7 +372,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithMissingPlaceholder()
+    public function testMoveWithMissingPlaceholder(): void
     {
         $data = $this->jsonEncode(
             [
@@ -400,7 +400,7 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithMissingPosition()
+    public function testMoveWithMissingPosition(): void
     {
         $data = $this->jsonEncode(
             [

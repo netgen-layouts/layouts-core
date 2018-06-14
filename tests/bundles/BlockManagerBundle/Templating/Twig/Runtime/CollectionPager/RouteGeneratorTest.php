@@ -33,7 +33,7 @@ final class RouteGeneratorTest extends TestCase
      */
     private $routeGenerator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->contextMock = $this->createMock(ContextInterface::class);
         $this->uriSignerMock = $this->createMock(UriSigner::class);
@@ -50,7 +50,7 @@ final class RouteGeneratorTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
      */
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $block = new Block(
             [
@@ -92,7 +92,7 @@ final class RouteGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
      */
-    public function testInvokeWithFirstPage()
+    public function testInvokeWithFirstPage(): void
     {
         $block = new Block(
             [

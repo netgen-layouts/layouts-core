@@ -15,7 +15,7 @@ final class ExtensionPluginTest extends TestCase
      */
     private $plugin;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->plugin = new ExtensionPlugin();
     }
@@ -23,7 +23,7 @@ final class ExtensionPluginTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ExtensionPlugin::getConfigurationNodes
      */
-    public function testGetConfigurationNodes()
+    public function testGetConfigurationNodes(): void
     {
         $nodes = $this->plugin->getConfigurationNodes();
 

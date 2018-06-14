@@ -13,7 +13,7 @@ final class LoadTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load::__invoke
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?html=false');
 
@@ -27,7 +27,7 @@ final class LoadTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load::__invoke
      */
-    public function testLoadInPublishedState()
+    public function testLoadInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?published=true&html=false');
 
@@ -41,7 +41,7 @@ final class LoadTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load::__invoke
      */
-    public function testLoadWithNonExistentBlock()
+    public function testLoadWithNonExistentBlock(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999');
 

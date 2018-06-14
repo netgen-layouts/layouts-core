@@ -15,7 +15,7 @@ final class CollectionPagerExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->extension = new CollectionPagerExtension();
     }
@@ -23,7 +23,7 @@ final class CollectionPagerExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerExtension::getFunctions
      */
-    public function testGetFunctions()
+    public function testGetFunctions(): void
     {
         $this->assertNotEmpty($this->extension->getFunctions());
 

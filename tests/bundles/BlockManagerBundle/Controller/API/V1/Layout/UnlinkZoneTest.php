@@ -14,7 +14,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__invoke
      */
-    public function testUnlinkZone()
+    public function testUnlinkZone(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -33,7 +33,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__invoke
      */
-    public function testUnlinkZoneWithNonExistentZone()
+    public function testUnlinkZoneWithNonExistentZone(): void
     {
         $data = $this->jsonEncode([]);
 
@@ -56,7 +56,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone::__invoke
      */
-    public function testUnlinkZoneWithNonExistentLayout()
+    public function testUnlinkZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode([]);
 

@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
 final class ThemePassTest extends AbstractCompilerPassTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         @mkdir('/tmp/ngbm/templates/ngbm/themes/theme2', 0777, true);
         @mkdir('/tmp/ngbm/templates/ngbm/themes/theme3', 0777, true);
@@ -32,7 +32,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
 
@@ -100,7 +100,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
-    public function testProcessWithoutTwigDefaultPath()
+    public function testProcessWithoutTwigDefaultPath(): void
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
 
@@ -165,7 +165,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
-    public function testProcessWithRootDir()
+    public function testProcessWithRootDir(): void
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
 
@@ -228,19 +228,14 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ThemePass());
     }

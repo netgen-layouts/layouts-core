@@ -26,7 +26,7 @@ final class RenderZoneTest extends TestCase
      */
     private $parser;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->environment = new Environment(
             $this->createMock(LoaderInterface::class),
@@ -42,15 +42,12 @@ final class RenderZoneTest extends TestCase
     }
 
     /**
-     * @param string $source
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone $node
-     *
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::getTag
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
      *
      * @dataProvider compileProvider
      */
-    public function testCompile($source, $node)
+    public function testCompile(string $source, RenderZoneNode $node): void
     {
         $stream = $this->environment->tokenize(new Source($source, ''));
 
@@ -63,7 +60,7 @@ final class RenderZoneTest extends TestCase
      * @expectedException \Twig\Error\SyntaxError
      * @expectedExceptionMessage Unexpected token "name" of value "foo" at line 1.
      */
-    public function testCompileThrowsTwigErrorSyntaxException()
+    public function testCompileThrowsTwigErrorSyntaxException(): void
     {
         $stream = $this->environment->tokenize(
             new Source('{% ngbm_render_zone zone foo=\'bar\' %}', '')
@@ -72,7 +69,7 @@ final class RenderZoneTest extends TestCase
         $this->parser->parse($stream);
     }
 
-    public function compileProvider()
+    public function compileProvider(): array
     {
         return [
             [

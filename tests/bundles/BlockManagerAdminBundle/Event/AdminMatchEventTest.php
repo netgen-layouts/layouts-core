@@ -26,7 +26,7 @@ final class AdminMatchEventTest extends TestCase
      */
     private $event;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = Request::create('/');
         $this->requestType = HttpKernelInterface::SUB_REQUEST;
@@ -41,7 +41,7 @@ final class AdminMatchEventTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent::getRequest
      */
-    public function testGetRequest()
+    public function testGetRequest(): void
     {
         $this->assertEquals($this->request, $this->event->getRequest());
     }
@@ -49,7 +49,7 @@ final class AdminMatchEventTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent::getRequestType
      */
-    public function testGetRequestType()
+    public function testGetRequestType(): void
     {
         $this->assertEquals($this->requestType, $this->event->getRequestType());
     }
@@ -57,7 +57,7 @@ final class AdminMatchEventTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent::getPageLayoutTemplate
      */
-    public function testGetPageLayoutTemplate()
+    public function testGetPageLayoutTemplate(): void
     {
         $this->assertNull($this->event->getPageLayoutTemplate());
     }
@@ -66,7 +66,7 @@ final class AdminMatchEventTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent::getPageLayoutTemplate
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent::setPageLayoutTemplate
      */
-    public function testSetPageLayoutTemplate()
+    public function testSetPageLayoutTemplate(): void
     {
         $this->event->setPageLayoutTemplate('template.html.twig');
 

@@ -27,7 +27,7 @@ final class RuleCountListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
@@ -37,7 +37,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
@@ -49,7 +49,7 @@ final class RuleCountListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener::onBuildView
      */
-    public function testOnBuildView()
+    public function testOnBuildView(): void
     {
         $view = new LayoutView(['layout' => new Layout(['status' => Layout::STATUS_PUBLISHED])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -74,7 +74,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener::onBuildView
      */
-    public function testOnBuildViewWithDraftLayout()
+    public function testOnBuildViewWithDraftLayout(): void
     {
         $view = new LayoutView(['layout' => new Layout(['status' => Layout::STATUS_DRAFT])]);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
@@ -97,7 +97,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener::onBuildView
      */
-    public function testOnBuildViewWithNoLayoutView()
+    public function testOnBuildViewWithNoLayoutView(): void
     {
         $view = new View(['value' => new Value()]);
         $event = new CollectViewParametersEvent($view);
@@ -109,7 +109,7 @@ final class RuleCountListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener::onBuildView
      */
-    public function testOnBuildViewWithWrongContext()
+    public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(['layout' => new Layout()]);
         $view->setContext(ViewInterface::CONTEXT_API);

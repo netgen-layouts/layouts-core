@@ -13,7 +13,7 @@ final class LoadCollectionTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection::__invoke
      */
-    public function testLoadCollection()
+    public function testLoadCollection(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/3');
 
@@ -27,7 +27,7 @@ final class LoadCollectionTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection::__invoke
      */
-    public function testLoadCollectionWithNonExistentCollection()
+    public function testLoadCollectionWithNonExistentCollection(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/9999');
 
