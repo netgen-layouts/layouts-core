@@ -52,7 +52,12 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 
     /**
      * Returns the main locale of the layout.
-     * public function getMainLocale(): string;
+     */
+    public function getMainLocale(): string;
+
+    /**
+     * Returns the main locale of the layout.
+     * public function getMainLocale(): string;.
      *
      * /**
      * Returns the list of all available locales in the layout.
