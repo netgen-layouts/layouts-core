@@ -153,7 +153,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 null;
         }
 
-        if ($ruleUpdateStruct->comment !== null) {
+        if (is_string($ruleUpdateStruct->comment)) {
             $updatedRule->comment = trim($ruleUpdateStruct->comment);
         }
 
@@ -166,12 +166,12 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $updatedRule = clone $rule;
 
-        if ($ruleUpdateStruct->priority !== null) {
-            $updatedRule->priority = (int) $ruleUpdateStruct->priority;
+        if (is_int($ruleUpdateStruct->priority)) {
+            $updatedRule->priority = $ruleUpdateStruct->priority;
         }
 
-        if ($ruleUpdateStruct->enabled !== null) {
-            $updatedRule->enabled = (bool) $ruleUpdateStruct->enabled;
+        if (is_bool($ruleUpdateStruct->enabled)) {
+            $updatedRule->enabled = $ruleUpdateStruct->enabled;
         }
 
         $this->queryHandler->updateRuleData($updatedRule);
@@ -328,8 +328,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     private function getRulePriority(RuleCreateStruct $ruleCreateStruct): int
     {
-        if ($ruleCreateStruct->priority !== null) {
-            return (int) $ruleCreateStruct->priority;
+        if (is_int($ruleCreateStruct->priority)) {
+            return $ruleCreateStruct->priority;
         }
 
         $lowestRulePriority = $this->queryHandler->getLowestRulePriority();

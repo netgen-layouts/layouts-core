@@ -65,6 +65,6 @@ final class LinkValue extends Value
      */
     public function getNewWindow(): bool
     {
-        return (bool) $this->newWindow;
+        return $this->newWindow;
     }
 }

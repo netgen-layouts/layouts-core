@@ -1,10 +1,5 @@
 parameters:
     ignoreErrors:
-        # We should probably remove these when upgrading to PHP 7
-        - "#Casting to string something that's already string#"
-        - "#Casting to bool something that's already bool#"
-        - "#Casting to int something that's already int#"
-
         # Uncomment when upgrading to PHPStan 0.10
         # - "#Strict comparison using !== between 'DEV' and 'DEV' will always evaluate to false#"
 

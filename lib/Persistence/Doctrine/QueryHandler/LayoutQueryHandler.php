@@ -68,7 +68,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->andWhere($statusExpr);
 
-        $query->setParameter('shared', (bool) $shared, Type::BOOLEAN);
+        $query->setParameter('shared', $shared, Type::BOOLEAN);
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);

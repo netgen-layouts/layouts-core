@@ -47,7 +47,7 @@ final class PagerFactory
             $flags
         );
 
-        return $this->buildPager($pagerAdapter, $collection, (int) $startPage);
+        return $this->buildPager($pagerAdapter, $collection, $startPage);
     }
 
     /**

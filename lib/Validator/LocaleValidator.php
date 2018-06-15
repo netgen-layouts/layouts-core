@@ -44,7 +44,6 @@ final class LocaleValidator extends ConstraintValidator
 
         $validator->validate($value, [$localeConstraint]);
 
-        $value = (string) $value;
         $canonicalizedLocale = Locale::canonicalize($value);
 
         if ($canonicalizedLocale !== $value) {

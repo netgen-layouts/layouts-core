@@ -19,7 +19,7 @@ interface CacheableViewInterface extends ViewInterface
     /**
      * Returns the shared max age.
      */
-    public function getSharedMaxAge(): ?int;
+    public function getSharedMaxAge(): int;
 
     /**
      * Sets the shared max age.

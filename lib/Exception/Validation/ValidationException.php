@@ -15,7 +15,7 @@ final class ValidationException extends BaseInvalidArgumentException implements 
         return new self(
             sprintf(
                 'There was an error validating "%s": %s',
-                (string) $propertyPath,
+                $propertyPath,
                 $message
             ),
             0,

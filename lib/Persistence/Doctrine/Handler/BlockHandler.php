@@ -215,23 +215,23 @@ final class BlockHandler implements BlockHandlerInterface
     {
         $updatedBlock = clone $block;
 
-        if ($blockUpdateStruct->viewType !== null) {
-            $updatedBlock->viewType = (string) $blockUpdateStruct->viewType;
+        if (is_string($blockUpdateStruct->viewType)) {
+            $updatedBlock->viewType = $blockUpdateStruct->viewType;
         }
 
-        if ($blockUpdateStruct->itemViewType !== null) {
-            $updatedBlock->itemViewType = (string) $blockUpdateStruct->itemViewType;
+        if (is_string($blockUpdateStruct->itemViewType)) {
+            $updatedBlock->itemViewType = $blockUpdateStruct->itemViewType;
         }
 
-        if ($blockUpdateStruct->isTranslatable !== null) {
-            $updatedBlock->isTranslatable = (bool) $blockUpdateStruct->isTranslatable;
+        if (is_bool($blockUpdateStruct->isTranslatable)) {
+            $updatedBlock->isTranslatable = $blockUpdateStruct->isTranslatable;
         }
 
-        if ($blockUpdateStruct->alwaysAvailable !== null) {
-            $updatedBlock->alwaysAvailable = (bool) $blockUpdateStruct->alwaysAvailable;
+        if (is_bool($blockUpdateStruct->alwaysAvailable)) {
+            $updatedBlock->alwaysAvailable = $blockUpdateStruct->alwaysAvailable;
         }
 
-        if ($blockUpdateStruct->name !== null) {
+        if (is_string($blockUpdateStruct->name)) {
             $updatedBlock->name = trim($blockUpdateStruct->name);
         }
 

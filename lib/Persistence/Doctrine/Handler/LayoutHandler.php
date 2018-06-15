@@ -242,15 +242,15 @@ final class LayoutHandler implements LayoutHandlerInterface
         $updatedLayout = clone $layout;
         $updatedLayout->modified = time();
 
-        if ($layoutUpdateStruct->name !== null) {
+        if (is_string($layoutUpdateStruct->name)) {
             $updatedLayout->name = trim($layoutUpdateStruct->name);
         }
 
-        if ($layoutUpdateStruct->modified !== null) {
-            $updatedLayout->modified = (int) $layoutUpdateStruct->modified;
+        if (is_int($layoutUpdateStruct->modified)) {
+            $updatedLayout->modified = $layoutUpdateStruct->modified;
         }
 
-        if ($layoutUpdateStruct->description !== null) {
+        if (is_string($layoutUpdateStruct->description)) {
             $updatedLayout->description = trim($layoutUpdateStruct->description);
         }
 
@@ -286,11 +286,11 @@ final class LayoutHandler implements LayoutHandlerInterface
         $copiedLayout->created = $currentTimeStamp;
         $copiedLayout->modified = $currentTimeStamp;
 
-        if ($layoutCopyStruct->name !== null) {
+        if (is_string($layoutCopyStruct->name)) {
             $copiedLayout->name = trim($layoutCopyStruct->name);
         }
 
-        if ($layoutCopyStruct->description !== null) {
+        if (is_string($layoutCopyStruct->description)) {
             $copiedLayout->description = trim($layoutCopyStruct->description);
         }
 
