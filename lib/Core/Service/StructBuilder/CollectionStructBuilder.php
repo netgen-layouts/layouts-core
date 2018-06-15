@@ -30,10 +30,6 @@ final class CollectionStructBuilder
 
     /**
      * Creates a new collection create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
     public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct
     {
@@ -48,10 +44,6 @@ final class CollectionStructBuilder
      * Creates a new collection update struct.
      *
      * If collection is provided, initial data is copied from the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
      */
     public function newCollectionUpdateStruct(Collection $collection = null): CollectionUpdateStruct
     {
@@ -89,10 +81,6 @@ final class CollectionStructBuilder
      * Creates a new item update struct.
      *
      * If item is provided, initial data is copied from the item.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct
      */
     public function newItemUpdateStruct(Item $item = null): ItemUpdateStruct
     {
@@ -109,10 +97,6 @@ final class CollectionStructBuilder
 
     /**
      * Creates a new query create struct from provided query type.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType): QueryCreateStruct
     {
@@ -131,11 +115,6 @@ final class CollectionStructBuilder
      * Creates a new query update struct for provided locale.
      *
      * If query is provided, initial data is copied from the query.
-     *
-     * @param string $locale
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
     public function newQueryUpdateStruct(string $locale, Query $query = null): QueryUpdateStruct
     {

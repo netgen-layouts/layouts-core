@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ConfigException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $configKey
-     *
-     * @return \Netgen\BlockManager\Exception\Core\ConfigException
-     */
     public static function noConfig(string $configKey): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class ConfigException extends InvalidArgumentException implements Exceptio
         );
     }
 
-    /**
-     * @param string $configKey
-     *
-     * @return \Netgen\BlockManager\Exception\Core\ConfigException
-     */
     public static function noConfigStruct(string $configKey): self
     {
         return new self(

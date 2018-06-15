@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Values;
 
 use Netgen\BlockManager\Exception\Core\ParameterException;
+use Netgen\BlockManager\Parameters\Parameter;
 
 trait ParameterBasedValueTrait
 {
@@ -26,13 +27,9 @@ trait ParameterBasedValueTrait
     /**
      * Returns the specified parameter.
      *
-     * @param string $parameterName
-     *
      * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter does not exist
-     *
-     * @return \Netgen\BlockManager\Parameters\Parameter
      */
-    public function getParameter(string $parameterName)
+    public function getParameter(string $parameterName): Parameter
     {
         if (isset($this->parameters[$parameterName])) {
             return $this->parameters[$parameterName];
@@ -43,10 +40,6 @@ trait ParameterBasedValueTrait
 
     /**
      * Returns if the object has a specified parameter.
-     *
-     * @param string $parameterName
-     *
-     * @return bool
      */
     public function hasParameter(string $parameterName): bool
     {

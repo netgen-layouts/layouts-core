@@ -14,9 +14,6 @@ final class NullConditionType implements ConditionTypeInterface
      */
     private $conditionType;
 
-    /**
-     * @param string $conditionType
-     */
     public function __construct(string $conditionType)
     {
         $this->conditionType = $conditionType;

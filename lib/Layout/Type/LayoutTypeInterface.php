@@ -30,8 +30,6 @@ interface LayoutTypeInterface
 
     /**
      * Returns the layout type icon.
-     *
-     * @return string|null
      */
     public function getIcon(): ?string;
 

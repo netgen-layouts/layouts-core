@@ -27,11 +27,7 @@ trait ConfigAwareValueTrait
     /**
      * Returns the config with specified config key.
      *
-     * @param string $configKey
-     *
      * @throws \Netgen\BlockManager\Exception\Core\ConfigException If the config does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Config\Config
      */
     public function getConfig(string $configKey): APIConfig
     {
@@ -44,10 +40,6 @@ trait ConfigAwareValueTrait
 
     /**
      * Returns if the config with specified config key exists.
-     *
-     * @param string $configKey
-     *
-     * @return bool
      */
     public function hasConfig(string $configKey): bool
     {

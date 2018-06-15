@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class LayoutTypeException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $layoutType
-     *
-     * @return \Netgen\BlockManager\Exception\Layout\LayoutTypeException
-     */
     public static function noLayoutType(string $layoutType): self
     {
         return new self(
@@ -24,12 +19,6 @@ final class LayoutTypeException extends InvalidArgumentException implements Exce
         );
     }
 
-    /**
-     * @param string $layoutType
-     * @param string $zoneIdentifier
-     *
-     * @return \Netgen\BlockManager\Exception\Layout\LayoutTypeException
-     */
     public static function noZone(string $layoutType, string $zoneIdentifier): self
     {
         return new self(

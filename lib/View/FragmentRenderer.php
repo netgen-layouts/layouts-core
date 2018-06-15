@@ -80,10 +80,6 @@ final class FragmentRenderer implements RendererInterface
 
     /**
      * Returns the fragment view renderer for the provided view.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return \Netgen\BlockManager\View\Fragment\ViewRendererInterface|null
      */
     private function getFragmentViewRenderer(ViewInterface $view): ?FragmentViewRendererInterface
     {

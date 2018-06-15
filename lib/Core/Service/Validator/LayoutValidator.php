@@ -17,8 +17,6 @@ final class LayoutValidator extends Validator
     /**
      * Validates the provided layout create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct $layoutCreateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct): void
@@ -75,8 +73,6 @@ final class LayoutValidator extends Validator
     /**
      * Validates the provided layout update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct): void
@@ -114,8 +110,6 @@ final class LayoutValidator extends Validator
     /**
      * Validates the provided layout create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct): void
@@ -150,11 +144,6 @@ final class LayoutValidator extends Validator
 
     /**
      * Validates zone mappings for changing the provided layout type.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $targetLayoutType
-     * @param array $zoneMappings
-     * @param bool $preserveSharedZones
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */

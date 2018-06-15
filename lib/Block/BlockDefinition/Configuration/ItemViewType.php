@@ -20,8 +20,6 @@ final class ItemViewType extends Value
 
     /**
      * Returns the item view type identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
@@ -30,8 +28,6 @@ final class ItemViewType extends Value
 
     /**
      * Returns the item view type name.
-     *
-     * @return string
      */
     public function getName(): string
     {

@@ -24,8 +24,6 @@ interface ConfigurationInterface
     /**
      * Returns the parameter from configuration.
      *
-     * @param string $parameterName
-     *
      * @throws \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException If parameter is undefined
      *
      * @return mixed

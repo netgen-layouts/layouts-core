@@ -175,11 +175,6 @@ final class BlockDefinitionFactory
 
     /**
      * Processes and returns the block definition configuration.
-     *
-     * @param string $identifier
-     * @param array $config
-     *
-     * @return array
      */
     private function processConfig(string $identifier, array $config): array
     {

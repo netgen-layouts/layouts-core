@@ -40,8 +40,6 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided rule create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct): void
@@ -91,8 +89,6 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided rule update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct): void
@@ -122,8 +118,6 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided rule metadata update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct): void
@@ -142,8 +136,6 @@ final class LayoutResolverValidator extends Validator
 
     /**
      * Validates the provided target create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
@@ -170,9 +162,6 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided target update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct): void
@@ -188,8 +177,6 @@ final class LayoutResolverValidator extends Validator
 
     /**
      * Validates the provided condition create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
@@ -215,9 +202,6 @@ final class LayoutResolverValidator extends Validator
 
     /**
      * Validates the provided condition update struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */

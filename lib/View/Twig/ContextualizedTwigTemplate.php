@@ -28,11 +28,6 @@ final class ContextualizedTwigTemplate
      */
     private $blocks;
 
-    /**
-     * @param \Twig\Template $template
-     * @param array $context
-     * @param array $blocks
-     */
     public function __construct(Template $template, array $context = [], array $blocks = [])
     {
         $this->template = $template;
@@ -43,11 +38,7 @@ final class ContextualizedTwigTemplate
     /**
      * Renders the provided block. If block does not exist, an empty string will be returned.
      *
-     * @param string $blockName
-     *
      * @throws \Throwable
-     *
-     * @return string
      */
     public function renderBlock(string $blockName): string
     {

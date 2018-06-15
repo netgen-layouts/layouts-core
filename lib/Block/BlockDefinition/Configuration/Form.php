@@ -20,8 +20,6 @@ final class Form extends Value
 
     /**
      * Returns the form identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
@@ -30,8 +28,6 @@ final class Form extends Value
 
     /**
      * Returns the form type.
-     *
-     * @return string
      */
     public function getType(): string
     {

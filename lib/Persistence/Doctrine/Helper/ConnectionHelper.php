@@ -37,9 +37,6 @@ final class ConnectionHelper
      * be null. In case for sequence based RDBMS, this method can return a
      * proper value for the given column.
      *
-     * @param string $table
-     * @param string $column
-     *
      * @return mixed
      */
     public function getAutoIncrementValue(string $table, string $column = 'id')
@@ -55,9 +52,6 @@ final class ConnectionHelper
 
     /**
      * Returns the last inserted ID.
-     *
-     * @param string $table
-     * @param string $column
      *
      * @return mixed
      */

@@ -13,29 +13,18 @@ interface FormMapperRegistryInterface extends IteratorAggregate, Countable, Arra
 {
     /**
      * Adds a parameter form mapper to registry.
-     *
-     * @param string $parameterType
-     * @param \Netgen\BlockManager\Parameters\Form\MapperInterface $formMapper
      */
     public function addFormMapper(string $parameterType, MapperInterface $formMapper): void;
 
     /**
      * Returns if registry has a parameter form mapper.
-     *
-     * @param string $parameterType
-     *
-     * @return bool
      */
     public function hasFormMapper(string $parameterType): bool;
 
     /**
      * Returns a form mapper for provided parameter type.
      *
-     * @param string $parameterType
-     *
      * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If form mapper does not exist
-     *
-     * @return \Netgen\BlockManager\Parameters\Form\MapperInterface
      */
     public function getFormMapper(string $parameterType): MapperInterface;
 

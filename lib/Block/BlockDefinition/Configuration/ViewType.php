@@ -31,8 +31,6 @@ final class ViewType extends Value
 
     /**
      * Returns the view type identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
@@ -41,8 +39,6 @@ final class ViewType extends Value
 
     /**
      * Returns the view type name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -73,8 +69,6 @@ final class ViewType extends Value
      * Returns the valid parameters.
      *
      * If null is returned, all parameters are valid.
-     *
-     * @return array|null
      */
     public function getValidParameters(): ?array
     {
@@ -83,10 +77,6 @@ final class ViewType extends Value
 
     /**
      * Returns if the view type has an item view type with provided identifier.
-     *
-     * @param string $itemViewType
-     *
-     * @return bool
      */
     public function hasItemViewType(string $itemViewType): bool
     {
@@ -96,11 +86,7 @@ final class ViewType extends Value
     /**
      * Returns the item view type with provided identifier.
      *
-     * @param string $itemViewType
-     *
      * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If item view type does not exist
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
      */
     public function getItemViewType(string $itemViewType): ItemViewType
     {

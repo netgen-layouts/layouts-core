@@ -28,11 +28,6 @@ final class EditForm extends Controller
     /**
      * Displays and processes block draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $locale
-     * @param string $formName
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Netgen\BlockManager\Serializer\Values\View|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Block $block, string $locale, string $formName, Request $request)

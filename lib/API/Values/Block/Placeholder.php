@@ -12,8 +12,6 @@ interface Placeholder extends ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Returns the placeholder identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string;
 

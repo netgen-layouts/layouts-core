@@ -198,11 +198,9 @@ final class Collection extends Value implements APICollection
     /**
      * Returns all items of specified type (manual or override).
      *
-     * @param int $type
-     *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    private function filterItems($type): array
+    private function filterItems(int $type): array
     {
         return $this->items->filter(
             function (APIItem $item) use ($type): bool {

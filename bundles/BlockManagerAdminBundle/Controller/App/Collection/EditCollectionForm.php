@@ -27,9 +27,6 @@ final class EditCollectionForm extends Controller
     /**
      * Displays and processes collection draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Collection $collection, Request $request)

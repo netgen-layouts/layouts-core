@@ -29,11 +29,6 @@ abstract class QueryHandler
 
     /**
      * Applies status condition to the query.
-     *
-     * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param int|null $status
-     * @param string $statusColumn
-     * @param string $paramName
      */
     public function applyStatusCondition(QueryBuilder $query, ?int $status, string $statusColumn = 'status', string $paramName = 'status'): void
     {
@@ -43,10 +38,6 @@ abstract class QueryHandler
 
     /**
      * Applies offset and limit to the query.
-     *
-     * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param int|null $offset
-     * @param int|null $limit
      */
     public function applyOffsetAndLimit(QueryBuilder $query, ?int $offset, ?int $limit): void
     {

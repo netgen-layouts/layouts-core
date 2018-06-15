@@ -25,8 +25,6 @@ final class Zone extends Value
 
     /**
      * Returns the zone identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
@@ -35,8 +33,6 @@ final class Zone extends Value
 
     /**
      * Returns the zone name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -45,8 +41,6 @@ final class Zone extends Value
 
     /**
      * Returns allowed block definition identifiers.
-     *
-     * @return array
      */
     public function getAllowedBlockDefinitions(): array
     {

@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ContextException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $variableName
-     *
-     * @return \Netgen\BlockManager\Exception\Context\ContextException
-     */
     public static function noVariable(string $variableName): self
     {
         return new self(

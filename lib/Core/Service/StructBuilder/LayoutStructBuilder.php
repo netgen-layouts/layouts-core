@@ -14,12 +14,6 @@ final class LayoutStructBuilder
 {
     /**
      * Creates a new layout create struct from the provided values.
-     *
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
-     * @param string $name
-     * @param string $mainLocale
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
     public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, string $name, string $mainLocale): LayoutCreateStruct
     {
@@ -36,10 +30,6 @@ final class LayoutStructBuilder
      * Creates a new layout update struct.
      *
      * If the layout is provided, initial data is copied from the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
      */
     public function newLayoutUpdateStruct(Layout $layout = null): LayoutUpdateStruct
     {
@@ -59,10 +49,6 @@ final class LayoutStructBuilder
      * Creates a new layout copy struct.
      *
      * If the layout is provided, initial data is copied from the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct
      */
     public function newLayoutCopyStruct(Layout $layout = null): LayoutCopyStruct
     {

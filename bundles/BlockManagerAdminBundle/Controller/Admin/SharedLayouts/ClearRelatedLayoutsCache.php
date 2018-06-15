@@ -34,9 +34,6 @@ final class ClearRelatedLayoutsCache extends Controller
     /**
      * Clears the HTTP caches for layouts related to provided shared layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Layout $layout, Request $request)

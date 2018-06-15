@@ -80,9 +80,6 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
 
     /**
      * Adds a collection create struct with specified identifier to the struct.
-     *
-     * @param string $identifier
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      */
     public function addCollectionCreateStruct(string $identifier, CollectionCreateStruct $collectionCreateStruct): void
     {
@@ -103,9 +100,6 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * Sets the provided parameter values to the struct.
      *
      * The values need to be in the domain format of the value for the parameter.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     * @param array $values
      */
     public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = []): void
     {
@@ -114,8 +108,6 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
 
     /**
      * Fills the parameter values based on provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      */
     public function fillParametersFromBlock(Block $block): void
     {
@@ -131,10 +123,6 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * If $doImport is set to true, the values will be considered as coming from an import,
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     * @param array $values
-     * @param bool $doImport
      */
     public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], bool $doImport = false): void
     {

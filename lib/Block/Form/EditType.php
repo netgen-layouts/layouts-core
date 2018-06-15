@@ -154,8 +154,6 @@ abstract class EditType extends TranslatableType
      * and parameters based on selected view type.
      *
      * @todo Move this code somewhere else
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      */
     private function processViewTypeConfig(BlockDefinitionInterface $blockDefinition): void
     {

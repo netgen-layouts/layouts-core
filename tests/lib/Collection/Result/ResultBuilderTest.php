@@ -269,8 +269,6 @@ final class ResultBuilderTest extends TestCase
     /**
      * Builds the list of values as returned by queries from provided IDs.
      *
-     * @param array $ids
-     *
      * @return \Netgen\BlockManager\Tests\Item\Stubs\Value[]
      */
     private function buildQueryValues(array $ids = []): array

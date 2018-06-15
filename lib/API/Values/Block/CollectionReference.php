@@ -16,15 +16,11 @@ interface CollectionReference
 {
     /**
      * Returns the collection.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function getCollection(): Collection;
 
     /**
      * Returns the collection identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string;
 }

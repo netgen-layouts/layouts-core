@@ -16,9 +16,6 @@ final class NullQueryType implements QueryTypeInterface
      */
     private $queryType;
 
-    /**
-     * @param string $queryType
-     */
     public function __construct(string $queryType)
     {
         $this->queryType = $queryType;

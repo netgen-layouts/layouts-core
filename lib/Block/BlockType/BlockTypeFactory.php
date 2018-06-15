@@ -10,12 +10,6 @@ final class BlockTypeFactory
 {
     /**
      * Builds the block type.
-     *
-     * @param string $identifier
-     * @param array $config
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     *
-     * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
     public static function buildBlockType(string $identifier, array $config, BlockDefinitionInterface $blockDefinition): BlockType
     {

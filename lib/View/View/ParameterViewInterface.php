@@ -11,8 +11,6 @@ interface ParameterViewInterface extends ViewInterface
 {
     /**
      * Returns the parameter.
-     *
-     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     public function getParameterValue(): Parameter;
 }

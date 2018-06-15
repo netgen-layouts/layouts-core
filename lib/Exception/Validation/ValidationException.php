@@ -10,13 +10,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ValidationException extends BaseInvalidArgumentException implements Exception
 {
-    /**
-     * @param string $propertyPath
-     * @param string $message
-     * @param \Exception $previous
-     *
-     * @return \Netgen\BlockManager\Exception\Validation\ValidationException
-     */
     public static function validationFailed(string $propertyPath, string $message, BaseException $previous = null): self
     {
         return new self(

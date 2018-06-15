@@ -41,9 +41,6 @@ abstract class Validator
      *
      * Use the $propertyPath to change the name of the validated property in the error message.
      *
-     * @param string $identifier
-     * @param string $propertyPath
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateIdentifier(string $identifier, string $propertyPath = null): void
@@ -67,10 +64,6 @@ abstract class Validator
      *
      * Use the $propertyPath to change the name of the validated property in the error message.
      *
-     * @param int|null $position
-     * @param string $propertyPath
-     * @param bool $isRequired
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validatePosition(?int $position, string $propertyPath = null, bool $isRequired = false): void
@@ -89,9 +82,6 @@ abstract class Validator
 
     /**
      * Validates the provided offset and limit values to be integers.
-     *
-     * @param int|null $offset
-     * @param int|null $limit
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
@@ -118,9 +108,6 @@ abstract class Validator
 
     /**
      * Validates the provided locale.
-     *
-     * @param string $locale
-     * @param string $propertyPath
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */

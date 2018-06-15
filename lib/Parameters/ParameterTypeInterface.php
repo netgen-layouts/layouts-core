@@ -17,8 +17,6 @@ interface ParameterTypeInterface
 
     /**
      * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
     public function configureOptions(OptionsResolver $optionsResolver);
 

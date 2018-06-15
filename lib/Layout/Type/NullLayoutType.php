@@ -14,9 +14,6 @@ final class NullLayoutType implements LayoutTypeInterface
      */
     private $layoutType;
 
-    /**
-     * @param string $layoutType
-     */
     public function __construct(string $layoutType)
     {
         $this->layoutType = $layoutType;

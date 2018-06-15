@@ -12,8 +12,6 @@ interface BlockViewInterface extends ViewInterface, CacheableViewInterface
 {
     /**
      * Returns the block.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function getBlock(): Block;
 }

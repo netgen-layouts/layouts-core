@@ -55,15 +55,11 @@ interface Item extends Value, ConfigAwareValue
 
     /**
      * Returns the item definition.
-     *
-     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
     public function getDefinition(): ItemDefinitionInterface;
 
     /**
      * Returns the item position within the collection.
-     *
-     * @return int
      */
     public function getPosition(): int;
 
@@ -72,8 +68,6 @@ interface Item extends Value, ConfigAwareValue
      *
      * Type can either be manual (inserted between items returned from the query),
      * or override (replaces the item from the query in the same position).
-     *
-     * @return int
      */
     public function getType(): int;
 
@@ -86,16 +80,12 @@ interface Item extends Value, ConfigAwareValue
 
     /**
      * Returns the CMS item loaded from value and value type stored in this collection item.
-     *
-     * @return \Netgen\BlockManager\Item\ItemInterface
      */
     public function getCmsItem(): ItemInterface;
 
     /**
      * Returns if the item visibility is scheduled, as specified by item visibility/scheduling
      * configuration.
-     *
-     * @return bool
      */
     public function isScheduled(): bool;
 
@@ -104,18 +94,12 @@ interface Item extends Value, ConfigAwareValue
      * visibility/scheduling configuration.
      *
      * If reference time is not provided, current time is used.
-     *
-     * @param \DateTimeInterface $reference
-     *
-     * @return bool
      */
     public function isVisible(DateTimeInterface $reference = null): bool;
 
     /**
      * Returns if the item is valid. An item is valid if it is visible (both the collection item
      * and CMS item) and if CMS item actually exists in the CMS.
-     *
-     * @return bool
      */
     public function isValid(): bool;
 }

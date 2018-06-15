@@ -15,9 +15,6 @@ final class Modified implements ColumnValueProviderInterface
      */
     private $dateFormat;
 
-    /**
-     * @param string $dateFormat
-     */
     public function __construct(string $dateFormat)
     {
         $this->dateFormat = $dateFormat;

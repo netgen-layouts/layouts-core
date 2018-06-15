@@ -13,8 +13,6 @@ final class LayoutResolverMapper
     /**
      * Maps data from database to rule values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
     public function mapRules(array $data = []): array
@@ -40,8 +38,6 @@ final class LayoutResolverMapper
     /**
      * Maps data from database to target values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target[]
      */
     public function mapTargets(array $data = []): array
@@ -65,8 +61,6 @@ final class LayoutResolverMapper
 
     /**
      * Maps data from database to condition values.
-     *
-     * @param array $data
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition[]
      */

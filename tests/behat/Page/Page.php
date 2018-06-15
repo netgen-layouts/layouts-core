@@ -114,8 +114,6 @@ abstract class Page
     }
 
     /**
-     * @param string $name
-     *
      * @return mixed
      */
     protected function getParameter(string $name)
@@ -223,10 +221,6 @@ abstract class Page
     }
 
     /**
-     * @param string $name
-     * @param array $parameters
-     * @param array $definedElements
-     *
      * @return string|array
      */
     private function resolveParameters(string $name, array $parameters, array $definedElements)

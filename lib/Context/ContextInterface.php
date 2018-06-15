@@ -34,8 +34,6 @@ interface ContextInterface extends IteratorAggregate, Countable, ArrayAccess
     /**
      * Returns the variable with provided name from the context.
      *
-     * @param string $variableName
-     *
      * @throws \Netgen\BlockManager\Exception\Context\ContextException If variable with provided name does not exist
      *
      * @return mixed

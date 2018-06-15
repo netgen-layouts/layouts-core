@@ -23,10 +23,6 @@ final class BlockStructBuilder
 
     /**
      * Creates a new block create struct from data found in provided block definition.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
     public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition): BlockCreateStruct
     {
@@ -53,11 +49,6 @@ final class BlockStructBuilder
      * Creates a new block update struct in specified locale.
      *
      * If block is provided, initial data is copied from the block.
-     *
-     * @param string $locale
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
      */
     public function newBlockUpdateStruct(string $locale, Block $block = null): BlockUpdateStruct
     {

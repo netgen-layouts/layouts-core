@@ -18,7 +18,7 @@ final class ValueNormalizer implements NormalizerInterface, SerializerAwareInter
      * @param string $format
      * @param array $context
      *
-     * @return array
+     * @return mixed
      */
     public function normalize($object, $format = null, array $context = [])
     {

@@ -56,8 +56,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns the parameter name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -66,8 +64,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns the parameter type.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
     public function getType(): ParameterTypeInterface
     {
@@ -76,8 +72,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns the parameter options.
-     *
-     * @return array
      */
     public function getOptions(): array
     {
@@ -86,10 +80,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns if the provided parameter option exists.
-     *
-     * @param string $option
-     *
-     * @return bool
      */
     public function hasOption(string $option): bool
     {
@@ -98,8 +88,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns the provided parameter option.
-     *
-     * @param string $option
      *
      * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If option does not exist
      *
@@ -116,8 +104,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns if the parameter is required.
-     *
-     * @return bool
      */
     public function isRequired(): bool
     {
@@ -146,8 +132,6 @@ class ParameterDefinition extends Value
 
     /**
      * Returns the list of all parameter groups.
-     *
-     * @return array
      */
     public function getGroups(): array
     {
@@ -159,8 +143,6 @@ class ParameterDefinition extends Value
      *
      * These can either be instances of Symfony constraints (\Symfony\Component\Validator\Constraint)
      * or closures that return a Symfony constraint each.
-     *
-     * @return array
      */
     public function getConstraints(): array
     {

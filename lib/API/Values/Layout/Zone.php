@@ -10,8 +10,6 @@ interface Zone extends Value
 {
     /**
      * Returns the zone identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string;
 
@@ -24,15 +22,11 @@ interface Zone extends Value
 
     /**
      * Returns if the zone has a linked zone.
-     *
-     * @return bool
      */
     public function hasLinkedZone(): bool;
 
     /**
      * Returns the linked zone or null if no linked zone exists.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone|null
      */
     public function getLinkedZone(): ?self;
 }

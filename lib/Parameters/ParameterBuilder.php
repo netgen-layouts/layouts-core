@@ -78,13 +78,6 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     protected $locked = false;
 
-    /**
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $builderFactory
-     * @param string $name
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
-     * @param array $options
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $parentBuilder
-     */
     public function __construct(
         ParameterBuilderFactoryInterface $builderFactory,
         string $name = null,
@@ -450,10 +443,6 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     /**
      * Validates the list of constraints to be either a Symfony constraint or a closure.
-     *
-     * @param array $constraints
-     *
-     * @return bool
      */
     private function validateConstraints(array $constraints): bool
     {

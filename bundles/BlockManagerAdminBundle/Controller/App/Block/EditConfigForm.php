@@ -27,11 +27,6 @@ final class EditConfigForm extends Controller
     /**
      * Displays and processes block config edit form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $locale
-     * @param string $configKey
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Request $request, Block $block, string $locale, string $configKey = null)

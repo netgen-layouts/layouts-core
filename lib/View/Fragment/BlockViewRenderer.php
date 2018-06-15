@@ -32,12 +32,6 @@ final class BlockViewRenderer implements ViewRendererInterface
      */
     private $supportedViewContexts;
 
-    /**
-     * @param \Netgen\BlockManager\Context\ContextInterface $context
-     * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface $cacheableResolver
-     * @param string $blockController
-     * @param array $supportedViewContexts
-     */
     public function __construct(
         ContextInterface $context,
         CacheableResolverInterface $cacheableResolver,

@@ -12,11 +12,6 @@ final class ParameterMapper
 {
     /**
      * Maps the parameter values based on provided collection of parameters.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
-     * @param array $parameterValues
-     *
-     * @return array
      */
     public function mapParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues): array
     {
@@ -52,12 +47,6 @@ final class ParameterMapper
 
     /**
      * Serializes the parameter values based on provided collection of parameters.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
-     * @param array $parameterValues
-     * @param array $fallbackValues
-     *
-     * @return array
      */
     public function serializeValues(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues, array $fallbackValues = []): array
     {
@@ -85,12 +74,6 @@ final class ParameterMapper
         return $serializedValues + $fallbackValues;
     }
 
-    /**
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
-     * @param array $parameterValues
-     *
-     * @return array
-     */
     public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues): array
     {
         $untranslatableParams = [];

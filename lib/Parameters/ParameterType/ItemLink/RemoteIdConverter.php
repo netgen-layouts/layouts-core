@@ -27,10 +27,6 @@ final class RemoteIdConverter
      *
      * If the conversion cannot be done, (for example, because item does not exist), a reference to
      * the so called null item will be returned.
-     *
-     * @param string $link
-     *
-     * @return string
      */
     public function convertToRemoteId($link)
     {
@@ -54,10 +50,6 @@ final class RemoteIdConverter
      *
      * If the conversion cannot be done, (for example, because item does not exist), a reference to
      * the so called null item will be returned.
-     *
-     * @param string $link
-     *
-     * @return string
      */
     public function convertFromRemoteId($link)
     {

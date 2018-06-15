@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class BlockException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $placeholder
-     *
-     * @return \Netgen\BlockManager\Exception\Core\BlockException
-     */
     public static function noPlaceholder(string $placeholder): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class BlockException extends InvalidArgumentException implements Exception
         );
     }
 
-    /**
-     * @param string $collection
-     *
-     * @return \Netgen\BlockManager\Exception\Core\BlockException
-     */
     public static function noCollection(string $collection): self
     {
         return new self(

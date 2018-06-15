@@ -30,8 +30,6 @@ final class Parameter extends Value
 
     /**
      * Returns the string representation of the parameter value.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -40,8 +38,6 @@ final class Parameter extends Value
 
     /**
      * Returns the parameter name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -50,8 +46,6 @@ final class Parameter extends Value
 
     /**
      * Returns the parameter definition.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     public function getParameterDefinition(): ParameterDefinition
     {
@@ -70,8 +64,6 @@ final class Parameter extends Value
 
     /**
      * Returns if the parameter value is empty.
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {

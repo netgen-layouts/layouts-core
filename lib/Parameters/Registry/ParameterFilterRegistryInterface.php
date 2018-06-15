@@ -10,16 +10,11 @@ interface ParameterFilterRegistryInterface
 {
     /**
      * Adds a parameter filter to registry.
-     *
-     * @param string $parameterType
-     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
      */
     public function addParameterFilter(string $parameterType, ParameterFilterInterface $parameterFilter): void;
 
     /**
      * Returns all parameter filters for provided parameter type.
-     *
-     * @param string $parameterType
      *
      * @return \Netgen\BlockManager\Parameters\ParameterFilterInterface[]
      */

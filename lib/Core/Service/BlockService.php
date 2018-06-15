@@ -584,13 +584,6 @@ final class BlockService extends Service implements BlockServiceInterface
      * If position is not provided, block is placed at the end of the placeholder.
      *
      * This is an internal method unifying creating a block in a zone and a parent block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     private function internalCreateBlock(
         APIBlockCreateStruct $blockCreateStruct,
@@ -695,13 +688,6 @@ final class BlockService extends Service implements BlockServiceInterface
      * Moves a block to specified target block and placeholder and position.
      *
      * This is an internal method unifying moving a block to a zone and to a parent block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     private function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, string $placeholder, int $position): PersistenceBlock
     {
@@ -724,10 +710,6 @@ final class BlockService extends Service implements BlockServiceInterface
     /**
      * Disables the translations on provided block and removes all translations
      * keeping only the main one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     private function internalDisableTranslations(PersistenceBlock $block): PersistenceBlock
     {
@@ -764,12 +746,6 @@ final class BlockService extends Service implements BlockServiceInterface
      * all other translations need to be updated too to reflect changes to untranslatable params,
      * and if any other translation is updated, it needs to take values of untranslatable params
      * from the main translation.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $persistenceBlock
-     * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     private function updateBlockTranslations(
         BlockDefinitionInterface $blockDefinition,

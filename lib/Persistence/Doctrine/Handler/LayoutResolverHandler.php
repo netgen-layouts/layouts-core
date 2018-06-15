@@ -325,10 +325,6 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * inserting rules in between).
      *
      * If no rules exist, priority is 0.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
-     *
-     * @return int
      */
     private function getRulePriority(RuleCreateStruct $ruleCreateStruct): int
     {

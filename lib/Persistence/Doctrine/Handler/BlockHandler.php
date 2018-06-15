@@ -494,9 +494,6 @@ final class BlockHandler implements BlockHandlerInterface
 
     /**
      * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      */
     private function copyBlockCollections(Block $block, Block $targetBlock): void
     {
@@ -529,9 +526,6 @@ final class BlockHandler implements BlockHandlerInterface
      *
      * This method does not create new status for sub-block collections,
      * so any process that works with this method needs to take care of that.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param int $newStatus
      */
     private function createBlockCollectionsStatus(Block $block, int $newStatus): void
     {
@@ -567,9 +561,6 @@ final class BlockHandler implements BlockHandlerInterface
      *
      * This method does not delete block collections from sub-blocks,
      * so this should be used only when deleting the entire layout.
-     *
-     * @param array $blockIds
-     * @param int $status
      */
     private function deleteBlockCollections(array $blockIds, int $status = null): void
     {

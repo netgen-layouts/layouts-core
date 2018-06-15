@@ -16,10 +16,6 @@ interface TwigBlockDefinitionInterface extends BlockDefinitionInterface
 {
     /**
      * Returns the name of the Twig block to render.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return string
      */
     public function getTwigBlockName(Block $block): string;
 }

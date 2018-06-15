@@ -13,8 +13,6 @@ final class CollectionMapper
     /**
      * Maps data from database to collection values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
     public function mapCollections(array $data = []): array
@@ -55,8 +53,6 @@ final class CollectionMapper
     /**
      * Maps data from database to item values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
      */
     public function mapItems(array $data = []): array
@@ -83,10 +79,6 @@ final class CollectionMapper
 
     /**
      * Maps data from database to query values.
-     *
-     * @param array $data
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     public function mapQuery(array $data = []): Query
     {
@@ -126,10 +118,6 @@ final class CollectionMapper
 
     /**
      * Builds the array of parameters from provided JSON string.
-     *
-     * @param string $parameters
-     *
-     * @return array
      */
     private function buildParameters(?string $parameters): array
     {

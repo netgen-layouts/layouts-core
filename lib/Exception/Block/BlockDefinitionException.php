@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class BlockDefinitionException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     */
     public static function noBlockDefinition(string $identifier): self
     {
         return new self(
@@ -24,12 +19,6 @@ final class BlockDefinitionException extends InvalidArgumentException implements
         );
     }
 
-    /**
-     * @param string $blockDefinition
-     * @param string $collection
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     */
     public static function noCollection(string $blockDefinition, string $collection): self
     {
         return new self(
@@ -41,12 +30,6 @@ final class BlockDefinitionException extends InvalidArgumentException implements
         );
     }
 
-    /**
-     * @param string $blockDefinition
-     * @param string $viewType
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     */
     public static function noViewType(string $blockDefinition, string $viewType): self
     {
         return new self(
@@ -58,12 +41,6 @@ final class BlockDefinitionException extends InvalidArgumentException implements
         );
     }
 
-    /**
-     * @param string $viewType
-     * @param string $itemViewType
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     */
     public static function noItemViewType(string $viewType, string $itemViewType): self
     {
         return new self(
@@ -75,12 +52,6 @@ final class BlockDefinitionException extends InvalidArgumentException implements
         );
     }
 
-    /**
-     * @param string $blockDefinition
-     * @param string $form
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     */
     public static function noForm(string $blockDefinition, string $form): self
     {
         return new self(

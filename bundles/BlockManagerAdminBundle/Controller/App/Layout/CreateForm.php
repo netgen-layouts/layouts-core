@@ -28,9 +28,7 @@ final class CreateForm extends Controller
     /**
      * Displays and processes layout create form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Request $request)
     {

@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class QueryTypeException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\Exception\Collection\QueryTypeException
-     */
     public static function noQueryType(string $identifier): self
     {
         return new self(
@@ -24,12 +19,6 @@ final class QueryTypeException extends InvalidArgumentException implements Excep
         );
     }
 
-    /**
-     * @param string $queryType
-     * @param string $form
-     *
-     * @return \Netgen\BlockManager\Exception\Collection\QueryTypeException
-     */
     public static function noForm(string $queryType, string $form): self
     {
         return new self(

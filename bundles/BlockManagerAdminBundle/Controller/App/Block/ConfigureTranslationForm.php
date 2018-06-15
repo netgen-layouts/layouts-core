@@ -27,10 +27,6 @@ final class ConfigureTranslationForm extends Controller
     /**
      * Displays and processes form for configuring the block translations.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $locale
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Block $block, string $locale, Request $request)

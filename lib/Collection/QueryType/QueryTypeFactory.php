@@ -20,12 +20,6 @@ final class QueryTypeFactory
 
     /**
      * Builds the query type.
-     *
-     * @param string $type
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface $handler
-     * @param array $config
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     public function buildQueryType(
         string $type,

@@ -95,11 +95,6 @@ final class ParametersType extends AbstractType
 
     /**
      * Returns if the parameter will be included in the form based on provided groups.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
-     * @param array $groups
-     *
-     * @return bool
      */
     private function includeParameter(ParameterDefinition $parameterDefinition, array $groups = []): bool
     {

@@ -25,8 +25,6 @@ final class Collection extends Value
 
     /**
      * Returns the collection identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
@@ -37,8 +35,6 @@ final class Collection extends Value
      * Returns the valid query types.
      *
      * If null, all query types are valid.
-     *
-     * @return array|null
      */
     public function getValidQueryTypes(): ?array
     {
@@ -47,10 +43,6 @@ final class Collection extends Value
 
     /**
      * Returns if the provided query type is valid.
-     *
-     * @param string $queryType
-     *
-     * @return bool
      */
     public function isValidQueryType(string $queryType): bool
     {
@@ -65,8 +57,6 @@ final class Collection extends Value
      * Returns the valid item types.
      *
      * If null, all item types are valid.
-     *
-     * @return array|null
      */
     public function getValidItemTypes(): ?array
     {
@@ -75,10 +65,6 @@ final class Collection extends Value
 
     /**
      * Returns if the provided item type is valid.
-     *
-     * @param string $itemType
-     *
-     * @return bool
      */
     public function isValidItemType(string $itemType): bool
     {

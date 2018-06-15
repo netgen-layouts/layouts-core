@@ -63,13 +63,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns all data for all rules.
-     *
-     * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return array
      */
     public function loadRulesData(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array
     {
@@ -92,13 +85,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns the number of rules.
-     *
-     * If the layout is provided, the count of rules pointing to provided layout is returned.
-     *
-     * @param int $ruleStatus
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return int
      */
     public function getRuleCount(int $ruleStatus, Layout $layout = null): int
     {
@@ -181,10 +167,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns all data for all rule targets.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return array
      */
     public function loadRuleTargetsData(Rule $rule): array
     {
@@ -202,10 +184,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns the number of targets within the rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return int
      */
     public function getTargetCount(Rule $rule): int
     {
@@ -247,10 +225,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns all data for for all rule conditions.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return array
      */
     public function loadRuleConditionsData(Rule $rule): array
     {
@@ -295,8 +269,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns the lowest priority from the list of all the rules.
-     *
-     * @return int|null
      */
     public function getLowestRulePriority(): ?int
     {
@@ -314,10 +286,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Creates a rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
     public function createRule(Rule $rule): Rule
     {
@@ -367,8 +335,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Updates a rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      */
     public function updateRule(Rule $rule): void
     {
@@ -391,8 +357,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Updates rule data which is independent of statuses.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      */
     public function updateRuleData(Rule $rule): void
     {
@@ -492,10 +456,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Adds a target.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
     public function addTarget(Target $target): Target
     {
@@ -530,8 +490,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Updates a target.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      */
     public function updateTarget(Target $target): void
     {
@@ -577,10 +535,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Adds a condition.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
     public function addCondition(Condition $condition): Condition
     {
@@ -615,8 +569,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Updates a condition.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      */
     public function updateCondition(Condition $condition): void
     {
@@ -662,8 +614,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a rule database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getRuleSelectQuery(): QueryBuilder
     {
@@ -682,8 +632,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a target database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getTargetSelectQuery(): QueryBuilder
     {
@@ -696,8 +644,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a condition database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getConditionSelectQuery(): QueryBuilder
     {

@@ -14,10 +14,8 @@ interface ImporterInterface
     /**
      * Imports the data into the system from provided JSON string.
      *
-     * @param string $data
-     *
-     * @return \Traversable A traversable instance holding the results of the import as
-     *                      \Netgen\BlockManager\Transfer\Input\Result\ResultInterface objects
+     * Returns a traversable instance holding the results of the import as
+     * \Netgen\BlockManager\Transfer\Input\Result\ResultInterface objects
      */
     public function importData(string $data): Traversable;
 }

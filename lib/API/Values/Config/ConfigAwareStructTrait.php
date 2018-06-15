@@ -15,9 +15,6 @@ trait ConfigAwareStructTrait
 
     /**
      * Sets the config struct to this struct.
-     *
-     * @param string $configKey
-     * @param \Netgen\BlockManager\API\Values\Config\ConfigStruct $configStruct
      */
     public function setConfigStruct(string $configKey, ConfigStruct $configStruct): void
     {
@@ -26,10 +23,6 @@ trait ConfigAwareStructTrait
 
     /**
      * Returns if the struct has a config struct with provided config key.
-     *
-     * @param string $configKey
-     *
-     * @return bool
      */
     public function hasConfigStruct(string $configKey): bool
     {
@@ -39,11 +32,7 @@ trait ConfigAwareStructTrait
     /**
      * Gets the config struct with provided config key.
      *
-     * @param string $configKey
-     *
      * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config struct does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct
      */
     public function getConfigStruct(string $configKey): ConfigStruct
     {

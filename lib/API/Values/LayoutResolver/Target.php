@@ -25,8 +25,6 @@ interface Target extends Value
 
     /**
      * Returns the target type.
-     *
-     * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
     public function getTargetType(): TargetTypeInterface;
 

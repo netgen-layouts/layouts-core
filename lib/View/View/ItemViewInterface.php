@@ -11,15 +11,11 @@ interface ItemViewInterface extends ViewInterface
 {
     /**
      * Returns the item.
-     *
-     * @return \Netgen\BlockManager\Item\ItemInterface
      */
     public function getItem(): ItemInterface;
 
     /**
      * Returns the view type.
-     *
-     * @return string
      */
     public function getViewType(): string;
 }

@@ -22,9 +22,6 @@ final class NullBlockDefinition implements BlockDefinitionInterface
      */
     private $identifier;
 
-    /**
-     * @param string $identifier
-     */
     public function __construct(string $identifier)
     {
         $this->identifier = $identifier;

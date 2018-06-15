@@ -58,11 +58,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads an item with specified position in specified collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int $position
-     *
-     * @return array
      */
     public function loadItemWithPositionData(Collection $collection, int $position): array
     {
@@ -104,10 +99,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all data for items that belong to collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return array
      */
     public function loadCollectionItemsData(Collection $collection): array
     {
@@ -158,10 +149,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all data for queries that belong to collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return array
      */
     public function loadCollectionQueryData(Collection $collection): array
     {
@@ -203,10 +190,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Creates a collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
     public function createCollection(Collection $collection): Collection
     {
@@ -245,9 +228,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Creates a collection translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $locale
      */
     public function createCollectionTranslation(Collection $collection, string $locale): void
     {
@@ -269,8 +249,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Updates a collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      */
     public function updateCollection(Collection $collection): void
     {
@@ -369,10 +347,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Adds an item.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
     public function addItem(Item $item): Item
     {
@@ -413,8 +387,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Updates an item.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      */
     public function updateItem(Item $item): void
     {
@@ -522,10 +494,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Creates a query.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     public function createQuery(Query $query): Query
     {
@@ -558,9 +526,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Creates a query translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param string $locale
      */
     public function createQueryTranslation(Query $query, string $locale): void
     {
@@ -584,9 +549,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Updates a query translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param string $locale
      */
     public function updateQueryTranslation(Query $query, string $locale): void
     {
@@ -611,11 +573,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes the queries with provided IDs.
-     *
-     * @param array $queryIds
-     * @param int $status
      */
-    public function deleteQuery($queryIds, int $status = null): void
+    public function deleteQuery(array $queryIds, int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -634,12 +593,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes the query translations with provided query IDs.
-     *
-     * @param array $queryIds
-     * @param int $status
-     * @param string $locale
      */
-    public function deleteQueryTranslations($queryIds, int $status = null, string $locale = null): void
+    public function deleteQueryTranslations(array $queryIds, int $status = null, string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -664,8 +619,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a collection database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getCollectionSelectQuery(): QueryBuilder
     {
@@ -687,8 +640,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Builds and returns an item database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getItemSelectQuery(): QueryBuilder
     {
@@ -701,8 +652,6 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a block database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getQuerySelectQuery(): QueryBuilder
     {

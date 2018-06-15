@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ParameterTypeException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $parameterType
-     *
-     * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     */
     public static function noParameterType(string $parameterType): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         );
     }
 
-    /**
-     * @param string $class
-     *
-     * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     */
     public static function noParameterTypeClass(string $class): self
     {
         return new self(
@@ -39,11 +29,6 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         );
     }
 
-    /**
-     * @param string $parameterType
-     *
-     * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     */
     public static function noFormMapper(string $parameterType): self
     {
         return new self(
@@ -54,11 +39,6 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         );
     }
 
-    /**
-     * @param string $parameterType
-     *
-     * @return \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     */
     public static function unsupportedParameterType(string $parameterType): self
     {
         return new self(

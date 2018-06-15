@@ -13,39 +13,25 @@ interface ParameterTypeRegistryInterface extends IteratorAggregate, Countable, A
 {
     /**
      * Adds a parameter type to registry.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $parameterType
      */
     public function addParameterType(ParameterTypeInterface $parameterType): void;
 
     /**
      * Returns if registry has a parameter type.
-     *
-     * @param string $identifier
-     *
-     * @return bool
      */
     public function hasParameterType(string $identifier): bool;
 
     /**
      * Returns a parameter type with provided identifier.
      *
-     * @param string $identifier
-     *
      * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If parameter type does not exist
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
     public function getParameterType(string $identifier): ParameterTypeInterface;
 
     /**
      * Returns a parameter type with provided class.
      *
-     * @param string $class
-     *
      * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If parameter type does not exist
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
     public function getParameterTypeByClass(string $class): ParameterTypeInterface;
 

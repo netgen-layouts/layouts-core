@@ -22,17 +22,12 @@ interface MapperInterface
     /**
      * Maps parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
-     *
      * @return array
      */
     public function mapOptions(ParameterDefinition $parameterDefinition);
 
     /**
      * Allows the mapper to do any kind of processing to created form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $form
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      */
     public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition);
 }

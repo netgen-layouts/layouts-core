@@ -11,8 +11,6 @@ abstract class Value
     /**
      * Creates the object and hydrates it with property values provided in $properties array.
      *
-     * @param array $properties
-     *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If one of the properties does not exist in the value
      */
     public function __construct(array $properties = [])

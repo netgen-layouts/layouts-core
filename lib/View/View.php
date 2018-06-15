@@ -39,9 +39,6 @@ abstract class View implements ViewInterface
      */
     protected $customParameters = [];
 
-    /**
-     * @param array $parameters
-     */
     public function __construct(array $parameters = [])
     {
         $this->parameters = $parameters;

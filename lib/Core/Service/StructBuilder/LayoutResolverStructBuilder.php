@@ -16,8 +16,6 @@ final class LayoutResolverStructBuilder
 {
     /**
      * Creates a new rule create struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct
      */
     public function newRuleCreateStruct(): RuleCreateStruct
     {
@@ -26,8 +24,6 @@ final class LayoutResolverStructBuilder
 
     /**
      * Creates a new rule update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct
      */
     public function newRuleUpdateStruct(): RuleUpdateStruct
     {
@@ -36,8 +32,6 @@ final class LayoutResolverStructBuilder
 
     /**
      * Creates a new rule metadata update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct
      */
     public function newRuleMetadataUpdateStruct(): RuleMetadataUpdateStruct
     {
@@ -46,10 +40,6 @@ final class LayoutResolverStructBuilder
 
     /**
      * Creates a new target create struct from the provided values.
-     *
-     * @param string $type
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct
      */
     public function newTargetCreateStruct(string $type): TargetCreateStruct
     {
@@ -62,8 +52,6 @@ final class LayoutResolverStructBuilder
 
     /**
      * Creates a new target update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct
      */
     public function newTargetUpdateStruct(): TargetUpdateStruct
     {
@@ -72,10 +60,6 @@ final class LayoutResolverStructBuilder
 
     /**
      * Creates a new condition create struct from the provided values.
-     *
-     * @param string $type
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct
      */
     public function newConditionCreateStruct(string $type): ConditionCreateStruct
     {
@@ -88,8 +72,6 @@ final class LayoutResolverStructBuilder
 
     /**
      * Creates a new condition update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct
      */
     public function newConditionUpdateStruct(): ConditionUpdateStruct
     {

@@ -18,7 +18,7 @@ final class AddItemsValidator
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $collectionIdentifier
-     * @param array $items
+     * @param mixed $items
      */
     public function validateAddItems(Block $block, string $collectionIdentifier, $items): void
     {

@@ -22,54 +22,39 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 
     /**
      * Returns the layout type.
-     *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
     public function getLayoutType(): LayoutTypeInterface;
 
     /**
      * Returns human readable name of the layout.
-     *
-     * @return string
      */
     public function getName(): string;
 
     /**
      * Return human readable description of the layout.
-     *
-     * @return string
      */
     public function getDescription(): ?string;
 
     /**
      * Returns when was the layout first created.
-     *
-     * @return \DateTimeInterface
      */
     public function getCreated(): DateTimeInterface;
 
     /**
      * Returns when was the layout last updated.
-     *
-     * @return \DateTimeInterface
      */
     public function getModified(): DateTimeInterface;
 
     /**
      * Returns if the layout is shared.
-     *
-     * @return bool
      */
     public function isShared(): bool;
 
     /**
      * Returns the main locale of the layout.
+     * public function getMainLocale(): string;
      *
-     * @return string
-     */
-    public function getMainLocale(): string;
-
-    /**
+     * /**
      * Returns the list of all available locales in the layout.
      *
      * @return string[]
@@ -78,10 +63,6 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 
     /**
      * Returns if the layout has the provided locale.
-     *
-     * @param string $locale
-     *
-     * @return bool
      */
     public function hasLocale(string $locale): bool;
 
@@ -98,20 +79,11 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
      * By default, this method will return the linked zone if the
      * requested zone has one. Set $ignoreLinkedZone to true to
      * always return the original zone.
-     *
-     * @param string $zoneIdentifier
-     * @param bool $ignoreLinkedZone
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function getZone(string $zoneIdentifier, bool $ignoreLinkedZone = false): ?Zone;
 
     /**
      * Returns if layout has a specified zone.
-     *
-     * @param string $zoneIdentifier
-     *
-     * @return bool
      */
     public function hasZone(string $zoneIdentifier): bool;
 }

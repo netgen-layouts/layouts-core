@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ItemException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $valueType
-     *
-     * @return \Netgen\BlockManager\Exception\Item\ItemException
-     */
     public static function noValueType(string $valueType): self
     {
         return new self(
@@ -54,9 +49,6 @@ final class ItemException extends InvalidArgumentException implements Exception
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Exception\Item\ItemException
-     */
     public static function canNotLoadItem(): self
     {
         return new self('Item could not be loaded.');

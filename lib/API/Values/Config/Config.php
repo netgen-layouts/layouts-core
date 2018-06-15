@@ -11,15 +11,11 @@ interface Config extends ParameterBasedValue
 {
     /**
      * Returns the config key.
-     *
-     * @return string
      */
     public function getConfigKey(): string;
 
     /**
      * Returns the config definition.
-     *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
     public function getDefinition(): ConfigDefinitionInterface;
 }

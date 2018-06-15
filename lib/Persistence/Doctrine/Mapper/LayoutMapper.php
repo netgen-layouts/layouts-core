@@ -12,8 +12,6 @@ final class LayoutMapper
     /**
      * Maps data from database to layout values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
     public function mapLayouts(array $data = []): array
@@ -55,8 +53,6 @@ final class LayoutMapper
 
     /**
      * Maps data from database to zone values.
-     *
-     * @param array $data
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
      */

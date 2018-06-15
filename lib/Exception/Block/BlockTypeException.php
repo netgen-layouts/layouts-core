@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class BlockTypeException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockTypeException
-     */
     public static function noBlockType(string $identifier): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class BlockTypeException extends InvalidArgumentException implements Excep
         );
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\Exception\Block\BlockTypeException
-     */
     public static function noBlockTypeGroup(string $identifier): self
     {
         return new self(

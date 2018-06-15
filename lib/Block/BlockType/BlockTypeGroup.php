@@ -36,8 +36,6 @@ class BlockTypeGroup extends Value
 
     /**
      * Returns the block type group identifier.
-     *
-     * @return string
      */
     public function getIdentifier(): string
     {
@@ -46,8 +44,6 @@ class BlockTypeGroup extends Value
 
     /**
      * Returns if the block type group is enabled or not.
-     *
-     * @return bool
      */
     public function isEnabled(): bool
     {
@@ -56,8 +52,6 @@ class BlockTypeGroup extends Value
 
     /**
      * Returns the block type group name.
-     *
-     * @return string
      */
     public function getName(): string
     {

@@ -28,10 +28,7 @@ final class SetMainLocaleForm extends Controller
     /**
      * Displays and processes form for setting the main locale.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Layout $layout, Request $request)
     {

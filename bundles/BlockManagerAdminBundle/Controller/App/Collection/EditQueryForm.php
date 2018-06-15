@@ -27,10 +27,6 @@ final class EditQueryForm extends Controller
     /**
      * Displays and processes query draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param string $locale
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Query $query, string $locale, Request $request)

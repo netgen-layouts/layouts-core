@@ -202,8 +202,6 @@ final class GlobalVariable
      *
      * See class docs for more details.
      *
-     * @param string $context
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|false|null
      */
     private function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT)

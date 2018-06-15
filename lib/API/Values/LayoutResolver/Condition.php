@@ -25,8 +25,6 @@ interface Condition extends Value
 
     /**
      * Returns the condition type.
-     *
-     * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
     public function getConditionType(): ConditionTypeInterface;
 

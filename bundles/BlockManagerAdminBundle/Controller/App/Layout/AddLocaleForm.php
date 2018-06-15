@@ -28,9 +28,6 @@ final class AddLocaleForm extends Controller
     /**
      * Displays and processes form for adding a new locale to layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Layout $layout, Request $request)

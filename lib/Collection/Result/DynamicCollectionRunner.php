@@ -73,11 +73,6 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * 2) When override item is not valid, that the item itself is a subitem, and the main
      *    item is a query value, just as it is the case with manual items.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
-     * @param \Iterator $queryIterator
-     *
-     * @return \Netgen\BlockManager\Collection\Result\Result|null
      */
     private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
@@ -99,11 +94,6 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * When manual items are invisible or invalid, they are pushed to the subitem role,
      * and the item which is displayed is the next query value.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
-     * @param \Iterator $queryIterator
-     *
-     * @return \Netgen\BlockManager\Collection\Result\Result|null
      */
     private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
@@ -140,12 +130,6 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
     /**
      * Returns the iterator that can be used to iterate over provided collection query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Iterator
      */
     private function runQuery(Collection $collection, int $offset, int $limit): Iterator
     {
@@ -157,12 +141,6 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
     /**
      * Returns the count of valid manual items in a collection between $startOffset and $endOffset.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $startOffset
-     * @param int $endOffset
-     *
-     * @return int
      */
     private function getManualItemsCount(Collection $collection, int $startOffset, int $endOffset): int
     {

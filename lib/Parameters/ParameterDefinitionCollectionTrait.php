@@ -26,11 +26,7 @@ trait ParameterDefinitionCollectionTrait
     /**
      * Returns the parameter definition with provided name.
      *
-     * @param string $parameterName
-     *
      * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If parameter with provided name does not exist
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
      */
     public function getParameterDefinition(string $parameterName): ParameterDefinition
     {
@@ -43,10 +39,6 @@ trait ParameterDefinitionCollectionTrait
 
     /**
      * Returns if the parameter definition with provided name exists in the collection.
-     *
-     * @param string $parameterName
-     *
-     * @return bool
      */
     public function hasParameterDefinition(string $parameterName): bool
     {

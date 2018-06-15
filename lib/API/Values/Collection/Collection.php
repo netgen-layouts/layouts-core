@@ -30,44 +30,28 @@ interface Collection extends Value
      *
      * The type can be manual (can have only manual items)
      * or dynamic (can have manual items as well as a query).
-     *
-     * @return int
      */
     public function getType(): int;
 
     /**
      * Returns the starting collection offset.
-     *
-     * @return int
      */
     public function getOffset(): int;
 
     /**
      * Returns the starting collection limit or null if no limit is set.
-     *
-     * @return int|null
      */
     public function getLimit(): ?int;
 
     /**
      * Returns if the item with specified type (manual or override)
      * exists at specified position.
-     *
-     * @param int $position
-     * @param int $type
-     *
-     * @return bool
      */
     public function hasItem(int $position, int $type = null): bool;
 
     /**
      * Returns the item of specified type (manual or override)
      * at specified position.
-     *
-     * @param int $position
-     * @param int $type
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function getItem(int $position, int $type = null): ?Item;
 
@@ -80,19 +64,11 @@ interface Collection extends Value
 
     /**
      * Returns if the collection has a manual item at specified position.
-     *
-     * @param int $position
-     *
-     * @return bool
      */
     public function hasManualItem(int $position): bool;
 
     /**
      * Returns the manual item at specified position.
-     *
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function getManualItem(int $position): ?Item;
 
@@ -105,19 +81,11 @@ interface Collection extends Value
 
     /**
      * Returns if the collection has an override item at specified position.
-     *
-     * @param int $position
-     *
-     * @return bool
      */
     public function hasOverrideItem(int $position): bool;
 
     /**
      * Returns the override item at specified position.
-     *
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function getOverrideItem(int $position): ?Item;
 
@@ -130,15 +98,11 @@ interface Collection extends Value
 
     /**
      * Returns the query from the collection or null if no query exists.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query|null
      */
     public function getQuery(): ?Query;
 
     /**
      * Returns if the query exists in the collection.
-     *
-     * @return bool
      */
     public function hasQuery(): bool;
 
@@ -151,30 +115,22 @@ interface Collection extends Value
 
     /**
      * Returns the main locale for the collection.
-     *
-     * @return string
      */
     public function getMainLocale(): string;
 
     /**
      * Returns if the collection is translatable.
-     *
-     * @return bool
      */
     public function isTranslatable(): bool;
 
     /**
      * Returns if the main translation of the collection will be used
      * in case there are no prioritized translations.
-     *
-     * @return bool
      */
     public function isAlwaysAvailable(): bool;
 
     /**
      * Returns the locale of the currently loaded translation.
-     *
-     * @return string
      */
     public function getLocale(): string;
 }

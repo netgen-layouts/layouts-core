@@ -38,11 +38,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all collection reference data.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string $identifier
-     *
-     * @return array
      */
     public function loadCollectionReferencesData(Block $block, string $identifier = null): array
     {
@@ -67,10 +62,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all layout block data.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return array
      */
     public function loadLayoutBlocksData(Layout $layout): array
     {
@@ -87,10 +78,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all zone block data.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
-     *
-     * @return array
      */
     public function loadZoneBlocksData(Zone $zone): array
     {
@@ -107,11 +94,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all child block data from specified block, optionally filtered by placeholder.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string $placeholder
-     *
-     * @return array
      */
     public function loadChildBlocksData(Block $block, string $placeholder = null): array
     {
@@ -162,11 +144,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Creates a block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param bool $updatePath
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function createBlock(Block $block, bool $updatePath = true): Block
     {
@@ -246,9 +223,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Creates a block translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string $locale
      */
     public function createBlockTranslation(Block $block, string $locale): void
     {
@@ -272,8 +246,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Creates the collection reference.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
      */
     public function createCollectionReference(CollectionReference $collectionReference): void
     {
@@ -300,8 +272,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Updates a block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      */
     public function updateBlock(Block $block): void
     {
@@ -348,9 +318,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Updates a block translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string $locale
      */
     public function updateBlockTranslation(Block $block, string $locale): void
     {
@@ -376,11 +343,6 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Moves a block. If the target block is not provided, the block is only moved within its
      * current parent ID and placeholder.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     * @param int $position
      */
     public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): void
     {
@@ -428,9 +390,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Deletes all blocks with provided IDs.
-     *
-     * @param array $blockIds
-     * @param int $status
      */
     public function deleteBlocks(array $blockIds, int $status = null): void
     {
@@ -451,10 +410,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Deletes block translations.
-     *
-     * @param array $blockIds
-     * @param int $status
-     * @param string $locale
      */
     public function deleteBlockTranslations(array $blockIds, int $status = null, string $locale = null): void
     {
@@ -481,9 +436,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Deletes the collection reference.
-     *
-     * @param array $blockIds
-     * @param int $status
      */
     public function deleteCollectionReferences(array $blockIds, int $status = null): void
     {
@@ -568,11 +520,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all block collection IDs.
-     *
-     * @param array $blockIds
-     * @param int $status
-     *
-     * @return array
      */
     public function loadBlockCollectionIds(array $blockIds, int $status = null): array
     {
@@ -600,8 +547,6 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a block database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getBlockSelectQuery(): QueryBuilder
     {

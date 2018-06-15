@@ -37,13 +37,6 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
-     *
-     * @param bool $includeDrafts
-     * @param bool $shared
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return array
      */
     public function loadLayoutsData(bool $includeDrafts, bool $shared, int $offset = 0, int $limit = null): array
     {
@@ -86,12 +79,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Loads all data for layouts related to provided shared layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return array
      */
     public function loadRelatedLayoutsData(Layout $sharedLayout, int $offset = 0, int $limit = null): array
     {
@@ -125,10 +112,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Loads the count of layouts related to provided shared layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
-     *
-     * @return int
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
@@ -188,10 +171,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Loads all data for zones that belong to provided layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return array
      */
     public function loadLayoutZonesData(Layout $layout): array
     {
@@ -294,10 +273,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Creates a layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
     public function createLayout(Layout $layout): Layout
     {
@@ -340,9 +315,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Creates a layout translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $locale
      */
     public function createLayoutTranslation(Layout $layout, string $locale): void
     {
@@ -364,8 +336,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Creates a zone.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      */
     public function createZone(Zone $zone): void
     {
@@ -393,8 +363,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Updates a layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      */
     public function updateLayout(Layout $layout): void
     {
@@ -427,8 +395,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Updates a zone.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      */
     public function updateZone(Zone $zone): void
     {
@@ -558,8 +524,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a layout database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getLayoutSelectQuery(): QueryBuilder
     {
@@ -581,8 +545,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Builds and returns a zone database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     private function getZoneSelectQuery(): QueryBuilder
     {

@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class TargetTypeException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $targetType
-     *
-     * @return \Netgen\BlockManager\Exception\Layout\TargetTypeException
-     */
     public static function noTargetType(string $targetType): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class TargetTypeException extends InvalidArgumentException implements Exce
         );
     }
 
-    /**
-     * @param string $targetType
-     *
-     * @return \Netgen\BlockManager\Exception\Layout\TargetTypeException
-     */
     public static function noFormMapper(string $targetType): self
     {
         return new self(

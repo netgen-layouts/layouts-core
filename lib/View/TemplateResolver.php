@@ -72,11 +72,6 @@ class TemplateResolver implements TemplateResolverInterface
 
     /**
      * Matches the view to provided config with configured matchers.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     * @param array $matchConfig
-     *
-     * @return bool
      */
     private function matches(ViewInterface $view, array $matchConfig): bool
     {
@@ -97,11 +92,6 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * Iterates over all provided parameters and evaluates the values with expression
      * engine if the parameter value specifies so.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     * @param array $parameters
-     *
-     * @return array
      */
     private function evaluateParameters(ViewInterface $view, array $parameters): array
     {

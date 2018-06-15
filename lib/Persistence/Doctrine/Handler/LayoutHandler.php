@@ -468,8 +468,6 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     /**
      * Updates the layout modified date to the current timestamp.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      */
     private function updateLayoutModifiedDate(Layout $layout): void
     {

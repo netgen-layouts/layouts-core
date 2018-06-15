@@ -61,12 +61,7 @@ interface CollectionService extends Service
     /**
      * Updates a collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection;
 
@@ -138,14 +133,8 @@ interface CollectionService extends Service
      * If new type is a dynamic collection, you also need to provide the QueryCreateStruct used to
      * create the query in the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $newType
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If collection type cannot be changed
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function changeCollectionType(Collection $collection, int $newType, QueryCreateStruct $queryCreateStruct = null): Collection;
 
@@ -154,46 +143,28 @@ interface CollectionService extends Service
      *
      * If position is not provided, item is placed at the end of the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
-     * @param int $position
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If position is out of range (for manual collections)
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, int $position = null): Item;
 
     /**
      * Updates a specified item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct $itemUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct): Item;
 
     /**
      * Moves an item within the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param int $position
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
      *                                                          If position is out of range (for manual collections)
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function moveItem(Item $item, int $position): Item;
 
     /**
      * Removes an item.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
      */
@@ -205,34 +176,20 @@ interface CollectionService extends Service
      * If item type (one of Item::TYPE_* constants) is provided, only items
      * of that type are removed (manual or override).
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $itemType
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function deleteItems(Collection $collection, int $itemType = null): Collection;
 
     /**
      * Updates a query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
      *                                                          If query does not have a specified translation
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct): Query;
 
     /**
      * Creates a new collection create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
     public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct;
 
@@ -240,10 +197,6 @@ interface CollectionService extends Service
      * Creates a new collection update struct.
      *
      * If collection is provided, initial data is copied from the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
      */
     public function newCollectionUpdateStruct(Collection $collection = null): CollectionUpdateStruct;
 
@@ -262,19 +215,11 @@ interface CollectionService extends Service
      * Creates a new item update struct.
      *
      * If item is provided, initial data is copied from the item.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct
      */
     public function newItemUpdateStruct(Item $item = null): ItemUpdateStruct;
 
     /**
      * Creates a new query create struct from provided query type.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType): QueryCreateStruct;
 
@@ -282,11 +227,6 @@ interface CollectionService extends Service
      * Creates a new query update struct for provided locale.
      *
      * If query is provided, initial data is copied from the query.
-     *
-     * @param string $locale
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
     public function newQueryUpdateStruct(string $locale, Query $query = null): QueryUpdateStruct;
 }

@@ -11,8 +11,6 @@ interface RuleViewInterface extends ViewInterface
 {
     /**
      * Returns the rule.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function getRule(): Rule;
 }

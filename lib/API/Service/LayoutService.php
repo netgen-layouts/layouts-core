@@ -50,10 +50,6 @@ interface LayoutService extends Service
      * Loads all published layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
-     * @param bool $includeDrafts
-     * @param int $offset
-     * @param int $limit
-     *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
@@ -62,20 +58,12 @@ interface LayoutService extends Service
      * Loads all published shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
-     * @param bool $includeDrafts
-     * @param int $offset
-     * @param int $limit
-     *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
     public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
 
     /**
      * Loads all published layouts related to provided shared layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
-     * @param int $offset
-     * @param int $limit
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
@@ -87,12 +75,8 @@ interface LayoutService extends Service
     /**
      * Returns the count of published layouts related to provided shared layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
-     *
-     * @return int
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 
@@ -145,38 +129,25 @@ interface LayoutService extends Service
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $linkedZone
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not published
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function linkZone(Zone $zone, Zone $linkedZone): Zone;
 
     /**
      * Removes the existing zone link from the provided zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function unlinkZone(Zone $zone): Zone;
 
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct $layoutCreateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct): Layout;
 
@@ -188,15 +159,9 @@ interface LayoutService extends Service
      * All blocks and their collections and queries in the layout will receive the newly added
      * translation, except those that are marked as untranslatable.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $locale
-     * @param string $sourceLocale
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If translation with provided locale already exists
      *                                                          If translation with provided source locale does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function addTranslation(Layout $layout, string $locale, string $sourceLocale): Layout;
 
@@ -206,13 +171,8 @@ interface LayoutService extends Service
      * Setting the main translation will propagate to all the blocks and their collections and
      * queries.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $mainLocale
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If translation with provided locale does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function setMainTranslation(Layout $layout, string $mainLocale): Layout;
 
@@ -222,39 +182,24 @@ interface LayoutService extends Service
      * Translation will be removed from all blocks and their collections and queries too. If the
      * translation being removed is the only one for a block, the block will be removed too.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $locale
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If translation with provided locale does not exist
      *                                                          If translation with provided locale is the main layout translation
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function removeTranslation(Layout $layout, string $locale): Layout;
 
     /**
      * Updates a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If layout with provided name already exists
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct): Layout;
 
     /**
      * Copies a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct): Layout;
 
@@ -275,34 +220,20 @@ interface LayoutService extends Service
      * of the zones from the new layout type is mapped to a shared zone from the old layout,
      * the mapping needs to be 1:1, instead of 1:n.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $targetLayoutType
-     * @param array $zoneMappings
-     * @param bool $preserveSharedZones
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], bool $preserveSharedZones = true): Layout;
 
     /**
      * Creates a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param bool $discardExisting
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
      *                                                          If draft already exists for layout and $discardExisting is set to false
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function createDraft(Layout $layout, bool $discardExisting = false): Layout;
 
     /**
      * Discards a layout draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      */
@@ -311,11 +242,7 @@ interface LayoutService extends Service
     /**
      * Publishes a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function publishLayout(Layout $layout): Layout;
 
@@ -323,30 +250,18 @@ interface LayoutService extends Service
      * Restores the archived version of a layout to a draft. If draft already exists,
      * it will be removed.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not in archived status
      * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout does not have a published version to restore the name from
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function restoreFromArchive(Layout $layout): Layout;
 
     /**
      * Deletes a specified layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
     public function deleteLayout(Layout $layout): void;
 
     /**
      * Creates a new layout create struct from the provided values.
-     *
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
-     * @param string $name
-     * @param string $mainLocale
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
     public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, string $name, string $mainLocale): LayoutCreateStruct;
 
@@ -354,10 +269,6 @@ interface LayoutService extends Service
      * Creates a new layout update struct.
      *
      * If the layout is provided, initial data is copied from the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
      */
     public function newLayoutUpdateStruct(Layout $layout = null): LayoutUpdateStruct;
 
@@ -365,10 +276,6 @@ interface LayoutService extends Service
      * Creates a new layout copy struct.
      *
      * If the layout is provided, initial data is copied from the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct
      */
     public function newLayoutCopyStruct(Layout $layout = null): LayoutCopyStruct;
 }

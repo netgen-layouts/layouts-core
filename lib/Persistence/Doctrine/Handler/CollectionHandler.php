@@ -527,10 +527,6 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     /**
      * Returns if the provided collection is a dynamic collection (i.e. if it has a query).
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return bool
      */
     private function isCollectionDynamic(Collection $collection): bool
     {
@@ -552,11 +548,6 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * In case of a dynamic collection, the items below are incremented, but only up
      * until the first break in positions.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int|null $newPosition
-     *
-     * @return int
      */
     private function createItemPosition(Collection $collection, ?int $newPosition): int
     {
@@ -585,12 +576,6 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * In case of a dynamic collection, the items below the new position are incremented,
      * but only up until the first break in positions. The positions are never decremented.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
-     * @param int $newPosition
-     *
-     * @return int
      */
     private function moveItemToPosition(Collection $collection, Item $item, int $newPosition): int
     {
@@ -612,12 +597,6 @@ final class CollectionHandler implements CollectionHandlerInterface
      * Creates space for a new manual item by shifting positions of other items
      * below the new position, but only up until the first break in positions,
      * or up to $maxPosition if provided.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int $startPosition
-     * @param int|null $maxPosition
-     *
-     * @return int
      */
     private function incrementItemPositions(Collection $collection, int $startPosition, int $maxPosition = null): int
     {

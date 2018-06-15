@@ -26,8 +26,6 @@ final class BlockValidator extends Validator
     /**
      * Validates the provided block create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct): void
@@ -58,9 +56,6 @@ final class BlockValidator extends Validator
 
     /**
      * Validates the provided block update struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */

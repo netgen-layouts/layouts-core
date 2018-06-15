@@ -18,8 +18,6 @@ trait CacheableViewTrait
 
     /**
      * Returns if the view is cacheable.
-     *
-     * @return bool
      */
     public function isCacheable(): bool
     {
@@ -28,8 +26,6 @@ trait CacheableViewTrait
 
     /**
      * Sets if the view is cacheable or not.
-     *
-     * @param bool $isCacheable
      */
     public function setIsCacheable(bool $isCacheable): void
     {
@@ -38,8 +34,6 @@ trait CacheableViewTrait
 
     /**
      * Returns the shared max age.
-     *
-     * @return int|null
      */
     public function getSharedMaxAge(): ?int
     {
@@ -48,8 +42,6 @@ trait CacheableViewTrait
 
     /**
      * Sets the shared max age.
-     *
-     * @param int $sharedMaxAge
      */
     public function setSharedMaxAge(int $sharedMaxAge): void
     {

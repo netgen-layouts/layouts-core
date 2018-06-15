@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ParameterException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $parameter
-     *
-     * @return \Netgen\BlockManager\Exception\Parameters\ParameterException
-     */
     public static function noParameterDefinition(string $parameter): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class ParameterException extends InvalidArgumentException implements Excep
         );
     }
 
-    /**
-     * @param string $option
-     *
-     * @return \Netgen\BlockManager\Exception\Parameters\ParameterException
-     */
     public static function noOption(string $option): self
     {
         return new self(

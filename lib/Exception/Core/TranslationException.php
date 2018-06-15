@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class TranslationException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $locale
-     *
-     * @return \Netgen\BlockManager\Exception\Core\TranslationException
-     */
     public static function noTranslation(string $locale): self
     {
         return new self(

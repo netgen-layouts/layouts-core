@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ValueException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $valueType
-     *
-     * @return \Netgen\BlockManager\Exception\Item\ValueException
-     */
     public static function noValueLoader(string $valueType): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class ValueException extends InvalidArgumentException implements Exception
         );
     }
 
-    /**
-     * @param string $type
-     *
-     * @return \Netgen\BlockManager\Exception\Item\ValueException
-     */
     public static function noValueConverter(string $type): self
     {
         return new self(

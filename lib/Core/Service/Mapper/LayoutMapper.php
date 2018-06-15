@@ -39,10 +39,6 @@ final class LayoutMapper
 
     /**
      * Builds the API zone value from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function mapZone(PersistenceZone $zone): APIZone
     {
@@ -75,10 +71,6 @@ final class LayoutMapper
 
     /**
      * Builds the API layout value from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function mapLayout(PersistenceLayout $layout): APILayout
     {

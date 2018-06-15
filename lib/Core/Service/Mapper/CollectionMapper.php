@@ -82,13 +82,7 @@ final class CollectionMapper
      * collection in main locale will be returned if none of the locales in $locales
      * array are found.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param array $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function mapCollection(PersistenceCollection $collection, array $locales = null, bool $useMainLocale = true): APICollection
     {
@@ -140,10 +134,6 @@ final class CollectionMapper
 
     /**
      * Builds the API item value from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function mapItem(PersistenceItem $item): APIItem
     {
@@ -181,13 +171,7 @@ final class CollectionMapper
      * query in main locale will be returned if none of the locales in $locales
      * array are found.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param array $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function mapQuery(PersistenceQuery $query, array $locales = null, bool $useMainLocale = true): APIQuery
     {

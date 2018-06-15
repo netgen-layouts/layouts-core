@@ -12,8 +12,6 @@ final class BlockMapper
     /**
      * Maps data from database to block values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
     public function mapBlocks(array $data = []): array
@@ -65,8 +63,6 @@ final class BlockMapper
     /**
      * Maps data from database to collection reference values.
      *
-     * @param array $data
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
     public function mapCollectionReferences(array $data = []): array
@@ -90,10 +86,6 @@ final class BlockMapper
 
     /**
      * Builds the array of parameters from provided JSON string.
-     *
-     * @param string $parameters
-     *
-     * @return array
      */
     private function buildParameters(?string $parameters): array
     {

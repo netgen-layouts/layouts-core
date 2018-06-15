@@ -38,8 +38,6 @@ final class LinkValue extends Value
 
     /**
      * Returns the link type.
-     *
-     * @return string
      */
     public function getLinkType(): ?string
     {
@@ -48,8 +46,6 @@ final class LinkValue extends Value
 
     /**
      * Returns the link value.
-     *
-     * @return string
      */
     public function getLink(): ?string
     {
@@ -58,8 +54,6 @@ final class LinkValue extends Value
 
     /**
      * Returns the link suffix.
-     *
-     * @return string
      */
     public function getLinkSuffix(): ?string
     {
@@ -68,8 +62,6 @@ final class LinkValue extends Value
 
     /**
      * Returns if the link should be opened in new window.
-     *
-     * @return bool
      */
     public function getNewWindow(): bool
     {

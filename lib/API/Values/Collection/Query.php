@@ -26,15 +26,11 @@ interface Query extends Value, ParameterBasedValue
 
     /**
      * Returns if the query is dependent on a context, i.e. currently displayed page.
-     *
-     * @return bool
      */
     public function isContextual(): bool;
 
     /**
      * Returns the query type.
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
     public function getQueryType(): QueryTypeInterface;
 
@@ -47,30 +43,22 @@ interface Query extends Value, ParameterBasedValue
 
     /**
      * Returns the main locale for the query.
-     *
-     * @return string
      */
     public function getMainLocale(): string;
 
     /**
      * Returns if the query is translatable.
-     *
-     * @return bool
      */
     public function isTranslatable(): bool;
 
     /**
      * Returns if the main translation of the query will be used
      * in case there are no prioritized translations.
-     *
-     * @return bool
      */
     public function isAlwaysAvailable(): bool;
 
     /**
      * Returns the locale of the currently loaded translation.
-     *
-     * @return string
      */
     public function getLocale(): string;
 }

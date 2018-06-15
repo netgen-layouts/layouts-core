@@ -27,10 +27,6 @@ final class EditItemConfigForm extends Controller
     /**
      * Displays and processes item config edit form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param string $configKey
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Request $request, Item $item, string $configKey = null)

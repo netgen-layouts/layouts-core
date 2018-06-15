@@ -91,10 +91,6 @@ final class LayoutDataHandler
 
     /**
      * Create and return layout from the given serialized $data.
-     *
-     * @param array $data
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function createLayout(array $data): Layout
     {
@@ -150,8 +146,6 @@ final class LayoutDataHandler
 
     /**
      * Extract translation locales from the given $layoutData.
-     *
-     * @param array $layoutData
      *
      * @return string[]
      */

@@ -26,9 +26,6 @@ final class QueryUpdateStruct extends Value implements ParameterStruct
      * Sets the provided parameter values to the struct.
      *
      * The values need to be in the domain format of the value for the parameter.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     * @param array $values
      */
     public function fillParameters(QueryTypeInterface $queryType, array $values = []): void
     {
@@ -37,8 +34,6 @@ final class QueryUpdateStruct extends Value implements ParameterStruct
 
     /**
      * Fills the parameter values based on provided query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      */
     public function fillParametersFromQuery(Query $query): void
     {
@@ -54,10 +49,6 @@ final class QueryUpdateStruct extends Value implements ParameterStruct
      * If $doImport is set to true, the values will be considered as coming from an import,
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     * @param array $values
-     * @param bool $doImport
      */
     public function fillParametersFromHash(QueryTypeInterface $queryType, array $values = [], bool $doImport = false): void
     {

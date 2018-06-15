@@ -12,9 +12,6 @@ final class ConfigStructBuilder
 {
     /**
      * Fills the provided config aware struct with config structs, according to the provided value.
-     *
-     * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue
-     * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct
      */
     public function buildConfigUpdateStructs(ConfigAwareValue $configAwareValue, ConfigAwareStruct $configAwareStruct): void
     {

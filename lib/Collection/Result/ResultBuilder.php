@@ -28,11 +28,6 @@ final class ResultBuilder implements ResultBuilderInterface
      */
     private $maxLimit;
 
-    /**
-     * @param \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory $runnerFactory
-     * @param int $contextualLimit
-     * @param int $maxLimit
-     */
     public function __construct(
         CollectionRunnerFactory $runnerFactory,
         int $contextualLimit,

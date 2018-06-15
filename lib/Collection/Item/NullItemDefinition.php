@@ -15,9 +15,6 @@ final class NullItemDefinition implements ItemDefinitionInterface
      */
     private $valueType;
 
-    /**
-     * @param string $valueType
-     */
     public function __construct(string $valueType)
     {
         $this->valueType = $valueType;

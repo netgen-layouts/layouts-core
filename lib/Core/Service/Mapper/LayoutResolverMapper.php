@@ -61,10 +61,6 @@ final class LayoutResolverMapper
 
     /**
      * Builds the API rule value from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function mapRule(PersistenceRule $rule): APIRule
     {
@@ -109,10 +105,6 @@ final class LayoutResolverMapper
 
     /**
      * Builds the API target value from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
     public function mapTarget(PersistenceTarget $target): APITarget
     {
@@ -137,10 +129,6 @@ final class LayoutResolverMapper
 
     /**
      * Builds the API condition value from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
     public function mapCondition(PersistenceCondition $condition): APICondition
     {

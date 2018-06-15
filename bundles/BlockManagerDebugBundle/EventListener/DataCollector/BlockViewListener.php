@@ -39,8 +39,6 @@ final class BlockViewListener implements EventSubscriberInterface
 
     /**
      * Includes results built from all block collections, if specified so.
-     *
-     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
     public function onBuildView(CollectViewParametersEvent $event): void
     {

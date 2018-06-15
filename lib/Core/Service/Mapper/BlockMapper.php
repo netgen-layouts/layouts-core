@@ -77,13 +77,7 @@ final class BlockMapper
      * block in main locale will be returned if none of the locales in $locales
      * array are found.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param array $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any requested translations
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function mapBlock(PersistenceBlock $block, array $locales = null, bool $useMainLocale = true): APIBlock
     {
@@ -140,9 +134,6 @@ final class BlockMapper
     /**
      * Builds the API collection reference values for the provided block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param array $locales
-     *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
     private function mapCollectionReferences(PersistenceBlock $block, array $locales = null): array
@@ -171,10 +162,6 @@ final class BlockMapper
 
     /**
      * Maps the placeholder from persistence parameters.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     * @param array $locales
      *
      * @return \Netgen\BlockManager\Core\Values\Block\Placeholder[]
      */

@@ -25,8 +25,6 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided collection create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct): void
@@ -73,9 +71,6 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided collection update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): void
@@ -112,8 +107,6 @@ final class CollectionValidator extends Validator
 
     /**
      * Validates the provided item create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
@@ -167,9 +160,6 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided item update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct $itemUpdateStruct
-     *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct): void
@@ -187,8 +177,6 @@ final class CollectionValidator extends Validator
 
     /**
      * Validates the provided query create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
@@ -218,9 +206,6 @@ final class CollectionValidator extends Validator
 
     /**
      * Validates the provided query update struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */

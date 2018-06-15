@@ -14,9 +14,6 @@ final class NullTargetType implements TargetTypeInterface
      */
     private $targetType;
 
-    /**
-     * @param string $targetType
-     */
     public function __construct(string $targetType)
     {
         $this->targetType = $targetType;

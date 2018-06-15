@@ -10,14 +10,6 @@ use Throwable;
 
 final class JsonValidationException extends InvalidArgumentException implements Exception
 {
-    /**
-     * Thrown when JSON string could not be parsed.
-     *
-     * @param string $errorMessage
-     * @param int $errorCode
-     *
-     * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
-     */
     public static function parseError(string $errorMessage, int $errorCode): self
     {
         return new self(
@@ -29,13 +21,6 @@ final class JsonValidationException extends InvalidArgumentException implements 
         );
     }
 
-    /**
-     * Thrown when JSON string is not acceptable.
-     *
-     * @param string $reason
-     *
-     * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
-     */
     public static function notAcceptable(string $reason): self
     {
         return new self(
@@ -46,14 +31,6 @@ final class JsonValidationException extends InvalidArgumentException implements 
         );
     }
 
-    /**
-     * Thrown when JSON data failed to validate the schema.
-     *
-     * @param string $errorMessage
-     * @param \Throwable $previous
-     *
-     * @return \Netgen\BlockManager\Exception\Transfer\JsonValidationException
-     */
     public static function validationFailed(string $errorMessage, Throwable $previous = null): self
     {
         return new self(

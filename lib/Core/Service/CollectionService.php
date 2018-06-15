@@ -444,12 +444,6 @@ final class CollectionService extends Service implements APICollectionService
      * all other translations need to be updated too to reflect changes to untranslatable params,
      * and if any other translation is updated, it needs to take values of untranslatable params
      * from the main translation.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $persistenceQuery
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     private function updateQueryTranslations(QueryTypeInterface $queryType, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct): PersistenceQuery
     {

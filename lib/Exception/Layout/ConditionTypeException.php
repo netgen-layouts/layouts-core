@@ -9,11 +9,6 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ConditionTypeException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param string $conditionType
-     *
-     * @return \Netgen\BlockManager\Exception\Layout\ConditionTypeException
-     */
     public static function noConditionType(string $conditionType): self
     {
         return new self(
@@ -24,11 +19,6 @@ final class ConditionTypeException extends InvalidArgumentException implements E
         );
     }
 
-    /**
-     * @param string $conditionType
-     *
-     * @return \Netgen\BlockManager\Exception\Layout\ConditionTypeException
-     */
     public static function noFormMapper(string $conditionType): self
     {
         return new self(

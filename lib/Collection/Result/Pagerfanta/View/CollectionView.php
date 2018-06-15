@@ -22,10 +22,6 @@ final class CollectionView implements ViewInterface
      */
     private $template;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param string $template
-     */
     public function __construct(Environment $twig, string $template)
     {
         $this->twig = $twig;

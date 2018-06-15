@@ -20,11 +20,6 @@ final class ConfigDefinitionFactory
 
     /**
      * Builds the config definition.
-     *
-     * @param string $configKey
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface $handler
-     *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
     public function buildConfigDefinition(
         string $configKey,
