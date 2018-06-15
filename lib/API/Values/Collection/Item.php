@@ -7,39 +7,37 @@ namespace Netgen\BlockManager\API\Values\Collection;
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
+use Netgen\BlockManager\Item\ItemInterface;
 
 interface Item extends Value, ConfigAwareValue
 {
     /**
      * Item of this type is inserted between items coming from the collection query.
-     *
-     * @const int
      */
-    const TYPE_MANUAL = 0;
+    public const TYPE_MANUAL = 0;
 
     /**
      * Items of this type override the item from the query at the specified position.
-     *
-     * @const int
      */
-    const TYPE_OVERRIDE = 1;
+    public const TYPE_OVERRIDE = 1;
 
     /**
      * Denotes that the item is visible. Does not take into account the possibility that
      * the CMS entity wrapped by the item might be hidden in CMS.
      */
-    const VISIBILITY_VISIBLE = 'visible';
+    public const VISIBILITY_VISIBLE = 'visible';
 
     /**
      * Denotes that the item is hidden.
      */
-    const VISIBILITY_HIDDEN = 'hidden';
+    public const VISIBILITY_HIDDEN = 'hidden';
 
     /**
      * Denotes that the item is visible at certain time only, as configured by the scheduling
      * configuration.
      */
-    const VISIBILITY_SCHEDULED = 'scheduled';
+    public const VISIBILITY_SCHEDULED = 'scheduled';
 
     /**
      * Returns the item ID.
@@ -60,14 +58,14 @@ interface Item extends Value, ConfigAwareValue
      *
      * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
-    public function getDefinition();
+    public function getDefinition(): ItemDefinitionInterface;
 
     /**
      * Returns the item position within the collection.
      *
      * @return int
      */
-    public function getPosition();
+    public function getPosition(): int;
 
     /**
      * Returns the type of this item.
@@ -77,7 +75,7 @@ interface Item extends Value, ConfigAwareValue
      *
      * @return int
      */
-    public function getType();
+    public function getType(): int;
 
     /**
      * Returns the value stored inside the collection item.
@@ -91,7 +89,7 @@ interface Item extends Value, ConfigAwareValue
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function getCmsItem();
+    public function getCmsItem(): ItemInterface;
 
     /**
      * Returns if the item visibility is scheduled, as specified by item visibility/scheduling
@@ -99,7 +97,7 @@ interface Item extends Value, ConfigAwareValue
      *
      * @return bool
      */
-    public function isScheduled();
+    public function isScheduled(): bool;
 
     /**
      * Returns if the item is visible in provided point in time, as specified by item
@@ -109,9 +107,9 @@ interface Item extends Value, ConfigAwareValue
      *
      * @param \DateTimeInterface $reference
      *
-     * @return string
+     * @return bool
      */
-    public function isVisible(DateTimeInterface $reference = null);
+    public function isVisible(DateTimeInterface $reference = null): bool;
 
     /**
      * Returns if the item is valid. An item is valid if it is visible (both the collection item
@@ -119,5 +117,5 @@ interface Item extends Value, ConfigAwareValue
      *
      * @return bool
      */
-    public function isValid();
+    public function isValid(): bool;
 }

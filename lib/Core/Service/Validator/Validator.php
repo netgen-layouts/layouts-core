@@ -22,7 +22,7 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateId($id, $propertyPath = null)
+    public function validateId($id, string $propertyPath = null): void
     {
         $this->validate(
             $id,
@@ -46,11 +46,10 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateIdentifier($identifier, $propertyPath = null)
+    public function validateIdentifier(string $identifier, string $propertyPath = null): void
     {
         $constraints = [
             new Constraints\NotBlank(),
-            new Constraints\Type(['type' => 'string']),
             new Constraints\Regex(
                 [
                     'pattern' => '/^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$/',
@@ -74,7 +73,7 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validatePosition($position, $propertyPath = null, $isRequired = false)
+    public function validatePosition(?int $position, string $propertyPath = null, bool $isRequired = false): void
     {
         if (!$isRequired && $position === null) {
             return;
@@ -83,7 +82,6 @@ abstract class Validator
         $constraints = [
             new Constraints\NotBlank(),
             new Constraints\GreaterThanOrEqual(0),
-            new Constraints\Type(['type' => 'int']),
         ];
 
         $this->validate($position, $constraints, $propertyPath);
@@ -97,13 +95,12 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateOffsetAndLimit($offset, $limit)
+    public function validateOffsetAndLimit(?int $offset, ?int $limit): void
     {
         $this->validate(
             $offset,
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'int']),
             ],
             'offset'
         );
@@ -113,7 +110,6 @@ abstract class Validator
                 $limit,
                 [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'int']),
                 ],
                 'limit'
             );
@@ -128,13 +124,12 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateLocale($locale, $propertyPath = null)
+    public function validateLocale(string $locale, string $propertyPath = null): void
     {
         $this->validate(
             $locale,
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
                 new LocaleConstraint(),
             ],
             $propertyPath

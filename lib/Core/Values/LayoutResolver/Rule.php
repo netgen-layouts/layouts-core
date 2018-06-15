@@ -62,37 +62,37 @@ final class Rule extends Value implements APIRule
         return $this->id;
     }
 
-    public function getLayout()
+    public function getLayout(): ?Layout
     {
         return $this->getLazyProperty($this->layout);
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
 
-    public function getComment()
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    public function getTargets()
+    public function getTargets(): array
     {
         return $this->targets->toArray();
     }
 
-    public function getConditions()
+    public function getConditions(): array
     {
         return $this->conditions->toArray();
     }
 
-    public function canBeEnabled()
+    public function canBeEnabled(): bool
     {
         if (!$this->isPublished()) {
             return false;

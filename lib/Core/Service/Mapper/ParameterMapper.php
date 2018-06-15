@@ -18,7 +18,7 @@ final class ParameterMapper
      *
      * @return array
      */
-    public function mapParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues)
+    public function mapParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues): array
     {
         $mappedValues = [];
 
@@ -59,7 +59,7 @@ final class ParameterMapper
      *
      * @return array
      */
-    public function serializeValues(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues, array $fallbackValues = [])
+    public function serializeValues(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues, array $fallbackValues = []): array
     {
         $serializedValues = [];
 
@@ -91,7 +91,7 @@ final class ParameterMapper
      *
      * @return array
      */
-    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues)
+    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues): array
     {
         $untranslatableParams = [];
 

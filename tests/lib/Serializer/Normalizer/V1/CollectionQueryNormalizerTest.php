@@ -44,6 +44,7 @@ final class CollectionQueryNormalizerTest extends TestCase
                 'collectionId' => 24,
                 'queryType' => new QueryType('my_query_type'),
                 'isTranslatable' => true,
+                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',

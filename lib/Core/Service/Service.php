@@ -37,12 +37,12 @@ abstract class Service implements APIService
         return $return;
     }
 
-    public function beginTransaction()
+    public function beginTransaction(): void
     {
         $this->persistenceHandler->beginTransaction();
     }
 
-    public function commitTransaction()
+    public function commitTransaction(): void
     {
         try {
             $this->persistenceHandler->commitTransaction();
@@ -51,7 +51,7 @@ abstract class Service implements APIService
         }
     }
 
-    public function rollbackTransaction()
+    public function rollbackTransaction(): void
     {
         try {
             $this->persistenceHandler->rollbackTransaction();

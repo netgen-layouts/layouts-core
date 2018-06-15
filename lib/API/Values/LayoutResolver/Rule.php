@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Value;
 
 interface Rule extends Value
@@ -20,42 +21,42 @@ interface Rule extends Value
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout|null
      */
-    public function getLayout();
+    public function getLayout(): ?Layout;
 
     /**
      * Returns if the rule is enabled.
      *
      * @return bool
      */
-    public function isEnabled();
+    public function isEnabled(): bool;
 
     /**
      * Returns the rule priority.
      *
      * @return int
      */
-    public function getPriority();
+    public function getPriority(): int;
 
     /**
      * Returns the rule comment.
      *
      * @return string
      */
-    public function getComment();
+    public function getComment(): ?string;
 
     /**
      * Returns all the targets in the rule.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target[]
      */
-    public function getTargets();
+    public function getTargets(): array;
 
     /**
      * Returns all conditions in the rule.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
      */
-    public function getConditions();
+    public function getConditions(): array;
 
     /**
      * Returns if the rule can be enabled.
@@ -64,5 +65,5 @@ interface Rule extends Value
      *
      * @return bool
      */
-    public function canBeEnabled();
+    public function canBeEnabled(): bool;
 }

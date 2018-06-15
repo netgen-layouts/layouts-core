@@ -19,7 +19,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct
      */
-    public function newRuleCreateStruct()
+    public function newRuleCreateStruct(): RuleCreateStruct
     {
         return new RuleCreateStruct();
     }
@@ -29,7 +29,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct
      */
-    public function newRuleUpdateStruct()
+    public function newRuleUpdateStruct(): RuleUpdateStruct
     {
         return new RuleUpdateStruct();
     }
@@ -39,7 +39,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct
      */
-    public function newRuleMetadataUpdateStruct()
+    public function newRuleMetadataUpdateStruct(): RuleMetadataUpdateStruct
     {
         return new RuleMetadataUpdateStruct();
     }
@@ -51,7 +51,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct
      */
-    public function newTargetCreateStruct($type)
+    public function newTargetCreateStruct(string $type): TargetCreateStruct
     {
         return new TargetCreateStruct(
             [
@@ -65,7 +65,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct
      */
-    public function newTargetUpdateStruct()
+    public function newTargetUpdateStruct(): TargetUpdateStruct
     {
         return new TargetUpdateStruct();
     }
@@ -77,7 +77,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct
      */
-    public function newConditionCreateStruct($type)
+    public function newConditionCreateStruct(string $type): ConditionCreateStruct
     {
         return new ConditionCreateStruct(
             [
@@ -91,7 +91,7 @@ final class LayoutResolverStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct
      */
-    public function newConditionUpdateStruct()
+    public function newConditionUpdateStruct(): ConditionUpdateStruct
     {
         return new ConditionUpdateStruct();
     }

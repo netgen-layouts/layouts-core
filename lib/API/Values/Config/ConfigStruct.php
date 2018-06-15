@@ -21,7 +21,7 @@ final class ConfigStruct extends Value implements ParameterStruct
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface $configDefinition
      * @param array $values
      */
-    public function fillParameters(ConfigDefinitionInterface $configDefinition, array $values = [])
+    public function fillParameters(ConfigDefinitionInterface $configDefinition, array $values = []): void
     {
         $this->fill($configDefinition, $values);
     }
@@ -31,7 +31,7 @@ final class ConfigStruct extends Value implements ParameterStruct
      *
      * @param \Netgen\BlockManager\API\Values\Config\Config $config
      */
-    public function fillParametersFromConfig(Config $config)
+    public function fillParametersFromConfig(Config $config): void
     {
         $this->fillFromValue($config->getDefinition(), $config);
     }
@@ -50,7 +50,7 @@ final class ConfigStruct extends Value implements ParameterStruct
      * @param array $values
      * @param bool $doImport
      */
-    public function fillParametersFromHash(ConfigDefinitionInterface $configDefinition, array $values = [], $doImport = false)
+    public function fillParametersFromHash(ConfigDefinitionInterface $configDefinition, array $values = [], bool $doImport = false): void
     {
         $this->fillFromHash($configDefinition, $values, $doImport);
     }

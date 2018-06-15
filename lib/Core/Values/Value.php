@@ -14,22 +14,22 @@ abstract class Value extends BaseValue implements APIValue
      */
     protected $status;
 
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }
 
-    public function isDraft()
+    public function isDraft(): bool
     {
         return $this->status === self::STATUS_DRAFT;
     }
 
-    public function isPublished()
+    public function isPublished(): bool
     {
         return $this->status === self::STATUS_PUBLISHED;
     }
 
-    public function isArchived()
+    public function isArchived(): bool
     {
         return $this->status === self::STATUS_ARCHIVED;
     }

@@ -77,7 +77,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
 
-    public function loadRule($ruleId)
+    public function loadRule($ruleId): Rule
     {
         $this->validator->validateId($ruleId, 'ruleId');
 
@@ -89,7 +89,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRuleDraft($ruleId)
+    public function loadRuleDraft($ruleId): Rule
     {
         $this->validator->validateId($ruleId, 'ruleId');
 
@@ -101,7 +101,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRuleArchive($ruleId)
+    public function loadRuleArchive($ruleId): Rule
     {
         $this->validator->validateId($ruleId, 'ruleId');
 
@@ -113,7 +113,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRules(Layout $layout = null, $offset = 0, $limit = null)
+    public function loadRules(Layout $layout = null, int $offset = 0, int $limit = null): array
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
@@ -144,7 +144,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $rules;
     }
 
-    public function getRuleCount(Layout $layout = null)
+    public function getRuleCount(Layout $layout = null): int
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
@@ -161,7 +161,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->handler->getRuleCount($persistenceLayout);
     }
 
-    public function matchRules($targetType, $targetValue)
+    public function matchRules(string $targetType, $targetValue): array
     {
         $persistenceRules = $this->handler->matchRules($targetType, $targetValue);
 
@@ -173,7 +173,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $rules;
     }
 
-    public function loadTarget($targetId)
+    public function loadTarget($targetId): Target
     {
         $this->validator->validateId($targetId, 'targetId');
 
@@ -185,7 +185,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadTargetDraft($targetId)
+    public function loadTargetDraft($targetId): Target
     {
         $this->validator->validateId($targetId, 'targetId');
 
@@ -197,7 +197,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadCondition($conditionId)
+    public function loadCondition($conditionId): Condition
     {
         $this->validator->validateId($conditionId, 'conditionId');
 
@@ -209,7 +209,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadConditionDraft($conditionId)
+    public function loadConditionDraft($conditionId): Condition
     {
         $this->validator->validateId($conditionId, 'conditionId');
 
@@ -221,7 +221,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function createRule(APIRuleCreateStruct $ruleCreateStruct)
+    public function createRule(APIRuleCreateStruct $ruleCreateStruct): Rule
     {
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);
 
@@ -244,7 +244,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($createdRule);
     }
 
-    public function updateRule(Rule $rule, APIRuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule, APIRuleUpdateStruct $ruleUpdateStruct): Rule
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Only draft rules can be updated.');
@@ -271,7 +271,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($updatedRule);
     }
 
-    public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct)
+    public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct): Rule
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
@@ -297,7 +297,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($updatedRule);
     }
 
-    public function copyRule(Rule $rule)
+    public function copyRule(Rule $rule): Rule
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
@@ -310,7 +310,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($copiedRule);
     }
 
-    public function createDraft(Rule $rule, $discardExisting = false)
+    public function createDraft(Rule $rule, bool $discardExisting = false): Rule
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
@@ -335,7 +335,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($ruleDraft);
     }
 
-    public function discardDraft(Rule $rule)
+    public function discardDraft(Rule $rule): void
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Only draft rules can be discarded.');
@@ -353,7 +353,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function publishRule(Rule $rule)
+    public function publishRule(Rule $rule): Rule
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Only draft rules can be published.');
@@ -398,7 +398,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($publishedRule);
     }
 
-    public function restoreFromArchive(Rule $rule)
+    public function restoreFromArchive(Rule $rule): Rule
     {
         if (!$rule->isArchived()) {
             throw new BadStateException('rule', 'Only archived rules can be restored.');
@@ -426,7 +426,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($draftRule);
     }
 
-    public function deleteRule(Rule $rule)
+    public function deleteRule(Rule $rule): void
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
@@ -439,7 +439,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function enableRule(Rule $rule)
+    public function enableRule(Rule $rule): Rule
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Only published rules can be enabled.');
@@ -475,7 +475,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($updatedRule);
     }
 
-    public function disableRule(Rule $rule)
+    public function disableRule(Rule $rule): Rule
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Only published rules can be disabled.');
@@ -503,7 +503,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapRule($updatedRule);
     }
 
-    public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct)
+    public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct): Target
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Targets can be added only to draft rules.');
@@ -542,7 +542,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapTarget($createdTarget);
     }
 
-    public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct): Target
     {
         if (!$target->isDraft()) {
             throw new BadStateException('target', 'Only draft targets can be updated.');
@@ -568,7 +568,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapTarget($updatedTarget);
     }
 
-    public function deleteTarget(Target $target)
+    public function deleteTarget(Target $target): void
     {
         if (!$target->isDraft()) {
             throw new BadStateException('target', 'Only draft targets can be deleted.');
@@ -583,7 +583,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct)
+    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): Condition
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
@@ -610,7 +610,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapCondition($createdCondition);
     }
 
-    public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct): Condition
     {
         if (!$condition->isDraft()) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
@@ -636,7 +636,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->mapper->mapCondition($updatedCondition);
     }
 
-    public function deleteCondition(Condition $condition)
+    public function deleteCondition(Condition $condition): void
     {
         if (!$condition->isDraft()) {
             throw new BadStateException('condition', 'Only draft conditions can be deleted.');
@@ -651,37 +651,37 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function newRuleCreateStruct()
+    public function newRuleCreateStruct(): APIRuleCreateStruct
     {
         return $this->structBuilder->newRuleCreateStruct();
     }
 
-    public function newRuleUpdateStruct()
+    public function newRuleUpdateStruct(): APIRuleUpdateStruct
     {
         return $this->structBuilder->newRuleUpdateStruct();
     }
 
-    public function newRuleMetadataUpdateStruct()
+    public function newRuleMetadataUpdateStruct(): APIRuleMetadataUpdateStruct
     {
         return $this->structBuilder->newRuleMetadataUpdateStruct();
     }
 
-    public function newTargetCreateStruct($type)
+    public function newTargetCreateStruct(string $type): APITargetCreateStruct
     {
         return $this->structBuilder->newTargetCreateStruct($type);
     }
 
-    public function newTargetUpdateStruct()
+    public function newTargetUpdateStruct(): APITargetUpdateStruct
     {
         return $this->structBuilder->newTargetUpdateStruct();
     }
 
-    public function newConditionCreateStruct($type)
+    public function newConditionCreateStruct(string $type): APIConditionCreateStruct
     {
         return $this->structBuilder->newConditionCreateStruct($type);
     }
 
-    public function newConditionUpdateStruct()
+    public function newConditionUpdateStruct(): APIConditionUpdateStruct
     {
         return $this->structBuilder->newConditionUpdateStruct();
     }

@@ -69,7 +69,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $this->blockHandler = $persistenceHandler->getBlockHandler();
     }
 
-    public function loadLayout($layoutId)
+    public function loadLayout($layoutId): Layout
     {
         $this->validator->validateId($layoutId, 'layoutId');
 
@@ -81,7 +81,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayoutDraft($layoutId)
+    public function loadLayoutDraft($layoutId): Layout
     {
         $this->validator->validateId($layoutId, 'layoutId');
 
@@ -93,7 +93,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayoutArchive($layoutId)
+    public function loadLayoutArchive($layoutId): Layout
     {
         $this->validator->validateId($layoutId, 'layoutId');
 
@@ -105,7 +105,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
@@ -123,7 +123,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $layouts;
     }
 
-    public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
@@ -141,7 +141,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $layouts;
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array
     {
         if (!$sharedLayout->isPublished()) {
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
@@ -167,7 +167,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $relatedLayouts;
     }
 
-    public function getRelatedLayoutsCount(Layout $sharedLayout)
+    public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
         if (!$sharedLayout->isPublished()) {
             throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for published shared layouts.');
@@ -182,12 +182,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->getRelatedLayoutsCount($persistenceLayout);
     }
 
-    public function hasStatus($layoutId, $status)
+    public function hasStatus($layoutId, int $status): bool
     {
         return $this->layoutHandler->layoutExists($layoutId, $status);
     }
 
-    public function loadZone($layoutId, $identifier)
+    public function loadZone($layoutId, string $identifier): Zone
     {
         $this->validator->validateId($layoutId, 'layoutId');
         $this->validator->validateIdentifier($identifier, 'identifier');
@@ -201,7 +201,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadZoneDraft($layoutId, $identifier)
+    public function loadZoneDraft($layoutId, string $identifier): Zone
     {
         $this->validator->validateId($layoutId, 'layoutId');
         $this->validator->validateIdentifier($identifier, 'identifier');
@@ -215,12 +215,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function layoutNameExists($name, $excludedLayoutId = null)
+    public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {
         return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
-    public function linkZone(Zone $zone, Zone $linkedZone)
+    public function linkZone(Zone $zone, Zone $linkedZone): Zone
     {
         if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'Only draft zones can be linked.');
@@ -264,7 +264,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapZone($updatedZone);
     }
 
-    public function unlinkZone(Zone $zone)
+    public function unlinkZone(Zone $zone): Zone
     {
         if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'Only draft zones can be unlinked.');
@@ -288,7 +288,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapZone($updatedZone);
     }
 
-    public function createLayout(APILayoutCreateStruct $layoutCreateStruct)
+    public function createLayout(APILayoutCreateStruct $layoutCreateStruct): Layout
     {
         $this->validator->validateLayoutCreateStruct($layoutCreateStruct);
 
@@ -329,7 +329,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($createdLayout);
     }
 
-    public function addTranslation(Layout $layout, $locale, $sourceLocale)
+    public function addTranslation(Layout $layout, string $locale, string $sourceLocale): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'You can only add translation to draft layouts.');
@@ -349,7 +349,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($updatedLayout);
     }
 
-    public function setMainTranslation(Layout $layout, $mainLocale)
+    public function setMainTranslation(Layout $layout, string $mainLocale): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'You can only set main translation in draft layouts.');
@@ -368,7 +368,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($updatedLayout);
     }
 
-    public function removeTranslation(Layout $layout, $locale)
+    public function removeTranslation(Layout $layout, string $locale): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'You can only remove translations from draft layouts.');
@@ -387,7 +387,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($updatedLayout);
     }
 
-    public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct)
+    public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'Only draft layouts can be updated.');
@@ -420,7 +420,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($updatedLayout);
     }
 
-    public function copyLayout(Layout $layout, APILayoutCopyStruct $layoutCopyStruct)
+    public function copyLayout(Layout $layout, APILayoutCopyStruct $layoutCopyStruct): Layout
     {
         $this->validator->validateLayoutCopyStruct($layoutCopyStruct);
 
@@ -447,7 +447,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($copiedLayout);
     }
 
-    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], bool $preserveSharedZones = true): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
@@ -497,7 +497,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($newLayout);
     }
 
-    public function createDraft(Layout $layout, $discardExisting = false)
+    public function createDraft(Layout $layout, bool $discardExisting = false): Layout
     {
         if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Drafts can only be created from published layouts.');
@@ -522,7 +522,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($layoutDraft);
     }
 
-    public function discardDraft(Layout $layout)
+    public function discardDraft(Layout $layout): void
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'Only drafts can be discarded.');
@@ -540,7 +540,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function publishLayout(Layout $layout)
+    public function publishLayout(Layout $layout): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'Only drafts can be published.');
@@ -585,7 +585,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($publishedLayout);
     }
 
-    public function restoreFromArchive(Layout $layout)
+    public function restoreFromArchive(Layout $layout): Layout
     {
         if (!$layout->isArchived()) {
             throw new BadStateException('layout', 'Only archived layouts can be restored.');
@@ -623,7 +623,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($draftLayout);
     }
 
-    public function deleteLayout(Layout $layout)
+    public function deleteLayout(Layout $layout): void
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
@@ -636,17 +636,17 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, $name, $mainLocale)
+    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, string $name, string $mainLocale): APILayoutCreateStruct
     {
         return $this->structBuilder->newLayoutCreateStruct($layoutType, $name, $mainLocale);
     }
 
-    public function newLayoutUpdateStruct(Layout $layout = null)
+    public function newLayoutUpdateStruct(Layout $layout = null): APILayoutUpdateStruct
     {
         return $this->structBuilder->newLayoutUpdateStruct($layout);
     }
 
-    public function newLayoutCopyStruct(Layout $layout = null)
+    public function newLayoutCopyStruct(Layout $layout = null): APILayoutCopyStruct
     {
         return $this->structBuilder->newLayoutCopyStruct($layout);
     }

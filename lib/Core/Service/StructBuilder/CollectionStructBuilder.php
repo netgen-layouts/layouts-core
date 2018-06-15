@@ -35,7 +35,7 @@ final class CollectionStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null)
+    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct
     {
         return new CollectionCreateStruct(
             [
@@ -53,7 +53,7 @@ final class CollectionStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
      */
-    public function newCollectionUpdateStruct(Collection $collection = null)
+    public function newCollectionUpdateStruct(Collection $collection = null): CollectionUpdateStruct
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
 
@@ -74,7 +74,7 @@ final class CollectionStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
      */
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $type, $value)
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): ItemCreateStruct
     {
         return new ItemCreateStruct(
             [
@@ -94,7 +94,7 @@ final class CollectionStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct
      */
-    public function newItemUpdateStruct(Item $item = null)
+    public function newItemUpdateStruct(Item $item = null): ItemUpdateStruct
     {
         $itemUpdateStruct = new ItemUpdateStruct();
 
@@ -114,7 +114,7 @@ final class CollectionStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
-    public function newQueryCreateStruct(QueryTypeInterface $queryType)
+    public function newQueryCreateStruct(QueryTypeInterface $queryType): QueryCreateStruct
     {
         $queryCreateStruct = new QueryCreateStruct(
             [
@@ -137,7 +137,7 @@ final class CollectionStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct($locale, Query $query = null)
+    public function newQueryUpdateStruct(string $locale, Query $query = null): QueryUpdateStruct
     {
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->locale = $locale;

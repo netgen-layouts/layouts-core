@@ -6,8 +6,10 @@ namespace Netgen\BlockManager\API\Values\Layout;
 
 use ArrayAccess;
 use Countable;
+use DateTimeInterface;
 use IteratorAggregate;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 
 interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 {
@@ -23,56 +25,56 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
      *
      * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
-    public function getLayoutType();
+    public function getLayoutType(): LayoutTypeInterface;
 
     /**
      * Returns human readable name of the layout.
      *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Return human readable description of the layout.
      *
      * @return string
      */
-    public function getDescription();
+    public function getDescription(): ?string;
 
     /**
      * Returns when was the layout first created.
      *
      * @return \DateTimeInterface
      */
-    public function getCreated();
+    public function getCreated(): DateTimeInterface;
 
     /**
      * Returns when was the layout last updated.
      *
      * @return \DateTimeInterface
      */
-    public function getModified();
+    public function getModified(): DateTimeInterface;
 
     /**
      * Returns if the layout is shared.
      *
      * @return bool
      */
-    public function isShared();
+    public function isShared(): bool;
 
     /**
      * Returns the main locale of the layout.
      *
      * @return string
      */
-    public function getMainLocale();
+    public function getMainLocale(): string;
 
     /**
      * Returns the list of all available locales in the layout.
      *
      * @return string[]
      */
-    public function getAvailableLocales();
+    public function getAvailableLocales(): array;
 
     /**
      * Returns if the layout has the provided locale.
@@ -81,14 +83,14 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
      *
      * @return bool
      */
-    public function hasLocale($locale);
+    public function hasLocale(string $locale): bool;
 
     /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone[]
      */
-    public function getZones();
+    public function getZones(): array;
 
     /**
      * Returns the specified zone or null if zone does not exist.
@@ -102,7 +104,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
-    public function getZone($zoneIdentifier, $ignoreLinkedZone = false);
+    public function getZone(string $zoneIdentifier, bool $ignoreLinkedZone = false): ?Zone;
 
     /**
      * Returns if layout has a specified zone.
@@ -111,5 +113,5 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
      *
      * @return bool
      */
-    public function hasZone($zoneIdentifier);
+    public function hasZone(string $zoneIdentifier): bool;
 }

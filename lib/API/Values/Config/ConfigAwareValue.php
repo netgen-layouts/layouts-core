@@ -11,7 +11,7 @@ interface ConfigAwareValue
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config[]
      */
-    public function getConfigs();
+    public function getConfigs(): array;
 
     /**
      * Returns the config with specified config key.
@@ -22,7 +22,7 @@ interface ConfigAwareValue
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config
      */
-    public function getConfig($configKey);
+    public function getConfig(string $configKey): Config;
 
     /**
      * Returns if the config with specified config key exists.
@@ -31,5 +31,5 @@ interface ConfigAwareValue
      *
      * @return bool
      */
-    public function hasConfig($configKey);
+    public function hasConfig(string $configKey): bool;
 }

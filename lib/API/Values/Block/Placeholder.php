@@ -15,12 +15,12 @@ interface Placeholder extends ArrayAccess, IteratorAggregate, Countable
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getIdentifier(): string;
 
     /**
      * Returns all blocks in this placeholder.
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function getBlocks();
+    public function getBlocks(): array;
 }

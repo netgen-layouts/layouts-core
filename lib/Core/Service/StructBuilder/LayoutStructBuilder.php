@@ -21,7 +21,7 @@ final class LayoutStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, $name, $mainLocale)
+    public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, string $name, string $mainLocale): LayoutCreateStruct
     {
         return new LayoutCreateStruct(
             [
@@ -41,7 +41,7 @@ final class LayoutStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
      */
-    public function newLayoutUpdateStruct(Layout $layout = null)
+    public function newLayoutUpdateStruct(Layout $layout = null): LayoutUpdateStruct
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
 
@@ -64,7 +64,7 @@ final class LayoutStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct
      */
-    public function newLayoutCopyStruct(Layout $layout = null)
+    public function newLayoutCopyStruct(Layout $layout = null): LayoutCopyStruct
     {
         $layoutCopyStruct = new LayoutCopyStruct();
 

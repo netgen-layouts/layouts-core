@@ -13,7 +13,7 @@ interface Zone extends Value
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getIdentifier(): string;
 
     /**
      * Returns the ID of the layout to which this zone belongs.
@@ -27,12 +27,12 @@ interface Zone extends Value
      *
      * @return bool
      */
-    public function hasLinkedZone();
+    public function hasLinkedZone(): bool;
 
     /**
      * Returns the linked zone or null if no linked zone exists.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone|null
      */
-    public function getLinkedZone();
+    public function getLinkedZone(): ?self;
 }

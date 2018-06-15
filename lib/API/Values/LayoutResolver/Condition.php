@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 
 interface Condition extends Value
 {
@@ -27,7 +28,7 @@ interface Condition extends Value
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    public function getConditionType();
+    public function getConditionType(): ConditionTypeInterface;
 
     /**
      * Returns the condition value.

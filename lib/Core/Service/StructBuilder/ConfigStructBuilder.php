@@ -16,7 +16,7 @@ final class ConfigStructBuilder
      * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue
      * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct
      */
-    public function buildConfigUpdateStructs(ConfigAwareValue $configAwareValue, ConfigAwareStruct $configAwareStruct)
+    public function buildConfigUpdateStructs(ConfigAwareValue $configAwareValue, ConfigAwareStruct $configAwareStruct): void
     {
         foreach ($configAwareValue->getConfigs() as $configIdentifier => $config) {
             $configStruct = new ConfigStruct();

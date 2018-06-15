@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
@@ -43,7 +44,7 @@ final class LayoutMapper
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
-    public function mapZone(PersistenceZone $zone)
+    public function mapZone(PersistenceZone $zone): APIZone
     {
         $zoneData = [
             'identifier' => $zone->identifier,
@@ -79,7 +80,7 @@ final class LayoutMapper
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function mapLayout(PersistenceLayout $layout)
+    public function mapLayout(PersistenceLayout $layout): APILayout
     {
         try {
             $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->type);

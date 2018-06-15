@@ -15,7 +15,7 @@ interface ParameterStruct
      *
      * @param array $parameterValues
      */
-    public function setParameterValues(array $parameterValues);
+    public function setParameterValues(array $parameterValues): void;
 
     /**
      * Sets the parameter value to the struct.
@@ -25,14 +25,14 @@ interface ParameterStruct
      * @param string $parameterName
      * @param mixed $parameterValue
      */
-    public function setParameterValue($parameterName, $parameterValue);
+    public function setParameterValue(string $parameterName, $parameterValue): void;
 
     /**
      * Returns all parameter values from the struct.
      *
      * @return array
      */
-    public function getParameterValues();
+    public function getParameterValues(): array;
 
     /**
      * Returns the parameter value with provided name or null if parameter does not exist.
@@ -41,7 +41,7 @@ interface ParameterStruct
      *
      * @return mixed
      */
-    public function getParameterValue($parameterName);
+    public function getParameterValue(string $parameterName);
 
     /**
      * Returns if the struct has a parameter value with provided name.
@@ -50,7 +50,7 @@ interface ParameterStruct
      *
      * @return bool
      */
-    public function hasParameterValue($parameterName);
+    public function hasParameterValue(string $parameterName): bool;
 
     /**
      * Sets the provided parameter values to the struct.
@@ -60,7 +60,7 @@ interface ParameterStruct
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
      */
-    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []);
+    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []): void;
 
     /**
      * Fills the struct values based on provided value.
@@ -68,7 +68,7 @@ interface ParameterStruct
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue);
+    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue): void;
 
     /**
      * Fills the struct values based on provided array of values.
@@ -78,6 +78,7 @@ interface ParameterStruct
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
+     * @param bool $doImport
      */
-    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []);
+    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [], bool $doImport = false): void;
 }

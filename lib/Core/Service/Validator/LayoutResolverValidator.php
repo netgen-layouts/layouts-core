@@ -44,7 +44,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct)
+    public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct): void
     {
         if ($ruleCreateStruct->layoutId !== null) {
             $this->validate(
@@ -95,7 +95,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct)
+    public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct): void
     {
         if ($ruleUpdateStruct->layoutId !== null) {
             $this->validate(
@@ -126,7 +126,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct)
+    public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct): void
     {
         if ($ruleUpdateStruct->priority !== null) {
             $this->validate(
@@ -147,7 +147,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateTargetCreateStruct(TargetCreateStruct $targetCreateStruct)
+    public function validateTargetCreateStruct(TargetCreateStruct $targetCreateStruct): void
     {
         $this->validate(
             $targetCreateStruct->type,
@@ -175,7 +175,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct)
+    public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct): void
     {
         $targetType = $target->getTargetType();
 
@@ -193,7 +193,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateConditionCreateStruct(ConditionCreateStruct $conditionCreateStruct)
+    public function validateConditionCreateStruct(ConditionCreateStruct $conditionCreateStruct): void
     {
         $this->validate(
             $conditionCreateStruct->type,
@@ -221,7 +221,7 @@ final class LayoutResolverValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
+    public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): void
     {
         $conditionType = $condition->getConditionType();
 

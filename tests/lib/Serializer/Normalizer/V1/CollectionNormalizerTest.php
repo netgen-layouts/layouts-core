@@ -33,6 +33,7 @@ final class CollectionNormalizerTest extends TestCase
                 'id' => 42,
                 'query' => new Query(),
                 'isTranslatable' => true,
+                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
             ]

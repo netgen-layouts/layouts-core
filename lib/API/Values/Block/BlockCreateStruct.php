@@ -84,7 +84,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * @param string $identifier
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      */
-    public function addCollectionCreateStruct($identifier, CollectionCreateStruct $collectionCreateStruct)
+    public function addCollectionCreateStruct(string $identifier, CollectionCreateStruct $collectionCreateStruct): void
     {
         $this->collectionCreateStructs[$identifier] = $collectionCreateStruct;
     }
@@ -94,7 +94,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
      */
-    public function getCollectionCreateStructs()
+    public function getCollectionCreateStructs(): array
     {
         return $this->collectionCreateStructs;
     }
@@ -107,7 +107,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      * @param array $values
      */
-    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = [])
+    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = []): void
     {
         $this->fill($blockDefinition, $values);
     }
@@ -117,7 +117,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      */
-    public function fillParametersFromBlock(Block $block)
+    public function fillParametersFromBlock(Block $block): void
     {
         $this->fillFromValue($block->getDefinition(), $block);
     }
@@ -136,7 +136,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * @param array $values
      * @param bool $doImport
      */
-    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], $doImport = false)
+    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], bool $doImport = false): void
     {
         $this->fillFromHash($blockDefinition, $values, $doImport);
     }

@@ -31,7 +31,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId, array $locales = null, $useMainLocale = true);
+    public function loadBlock($blockId, array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads a block draft with specified ID.
@@ -51,7 +51,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId, array $locales = null, $useMainLocale = true);
+    public function loadBlockDraft($blockId, array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads all blocks belonging to provided zone.
@@ -69,7 +69,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone, array $locales = null, $useMainLocale = true);
+    public function loadZoneBlocks(Zone $zone, array $locales = null, bool $useMainLocale = true): array;
 
     /**
      * Loads all blocks belonging to provided layout.
@@ -87,7 +87,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout, array $locales = null, $useMainLocale = true);
+    public function loadLayoutBlocks(Layout $layout, array $locales = null, bool $useMainLocale = true): array;
 
     /**
      * Returns if provided block has a published status.
@@ -96,7 +96,7 @@ interface BlockService extends Service
      *
      * @return bool
      */
-    public function hasPublishedState(Block $block);
+    public function hasPublishedState(Block $block): bool;
 
     /**
      * Creates a block in specified block and placeholder and at specified position.
@@ -118,7 +118,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, int $position = null): Block;
 
     /**
      * Creates a block in specified zone and at specified position.
@@ -135,7 +135,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, $position = null);
+    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, int $position = null): Block;
 
     /**
      * Updates a specified block.
@@ -148,7 +148,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct);
+    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct): Block;
 
     /**
      * Copies a block to a specified target block and placeholder.
@@ -170,7 +170,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null);
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block;
 
     /**
      * Copies a block to a specified zone.
@@ -190,7 +190,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function copyBlockToZone(Block $block, Zone $zone, $position = null);
+    public function copyBlockToZone(Block $block, Zone $zone, int $position = null): Block;
 
     /**
      * Moves a block to specified target block.
@@ -210,7 +210,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position);
+    public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): Block;
 
     /**
      * Moves a block to specified position inside the zone.
@@ -227,7 +227,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function moveBlockToZone(Block $block, Zone $zone, $position);
+    public function moveBlockToZone(Block $block, Zone $zone, int $position): Block;
 
     /**
      * Restores the specified block from the published status.
@@ -240,7 +240,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function restoreBlock(Block $block);
+    public function restoreBlock(Block $block): Block;
 
     /**
      * Enables translating the block.
@@ -252,7 +252,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function enableTranslations(Block $block);
+    public function enableTranslations(Block $block): Block;
 
     /**
      * Disable translating the block. All translations (except the main one) will be removed.
@@ -263,7 +263,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function disableTranslations(Block $block);
+    public function disableTranslations(Block $block): Block;
 
     /**
      * Deletes a specified block.
@@ -272,7 +272,7 @@ interface BlockService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
      */
-    public function deleteBlock(Block $block);
+    public function deleteBlock(Block $block): void;
 
     /**
      * Creates a new block create struct from data found in provided block definition.
@@ -281,7 +281,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
-    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition);
+    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition): BlockCreateStruct;
 
     /**
      * Creates a new block update struct in specified locale.
@@ -293,5 +293,5 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct($locale, Block $block = null);
+    public function newBlockUpdateStruct(string $locale, Block $block = null): BlockUpdateStruct;
 }

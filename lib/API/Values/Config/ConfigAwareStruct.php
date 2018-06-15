@@ -12,7 +12,7 @@ interface ConfigAwareStruct
      * @param string $configKey
      * @param \Netgen\BlockManager\API\Values\Config\ConfigStruct $configStruct
      */
-    public function setConfigStruct($configKey, ConfigStruct $configStruct);
+    public function setConfigStruct(string $configKey, ConfigStruct $configStruct): void;
 
     /**
      * Returns if the struct has a config struct with provided config key.
@@ -21,14 +21,14 @@ interface ConfigAwareStruct
      *
      * @return bool
      */
-    public function hasConfigStruct($configKey);
+    public function hasConfigStruct(string $configKey): bool;
 
     /**
      * Returns all config structs from the struct.
      *
      * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
      */
-    public function getConfigStructs();
+    public function getConfigStructs(): array;
 
     /**
      * Gets the config struct with provided config key.
@@ -39,5 +39,5 @@ interface ConfigAwareStruct
      *
      * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct
      */
-    public function getConfigStruct($configKey);
+    public function getConfigStruct(string $configKey): ConfigStruct;
 }

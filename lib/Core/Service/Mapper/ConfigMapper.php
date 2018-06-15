@@ -27,7 +27,7 @@ final class ConfigMapper
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config[]
      */
-    public function mapConfig(array $config, array $configDefinitions)
+    public function mapConfig(array $config, array $configDefinitions): array
     {
         $configs = [];
 
@@ -58,7 +58,7 @@ final class ConfigMapper
      *
      * @return array
      */
-    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = [])
+    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = []): array
     {
         $configs = [];
 

@@ -97,6 +97,7 @@ final class LayoutNormalizerTest extends TestCase
                 'created' => $date1,
                 'modified' => $date1,
                 'shared' => true,
+                'name' => 'My layout',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr'],
                 'zones' => new ArrayCollection(
@@ -218,17 +219,31 @@ final class LayoutNormalizerTest extends TestCase
 
         $layout = new Layout(
             [
+                'id' => 42,
                 'layoutType' => $this->layoutType,
+                'status' => Value::STATUS_PUBLISHED,
                 'created' => $date1,
                 'modified' => $date1,
+                'shared' => true,
+                'name' => 'My layout',
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'zones' => new ArrayCollection(),
             ]
         );
 
         $archivedLayout = new Layout(
             [
+                'id' => 42,
                 'layoutType' => $this->layoutType,
+                'status' => Value::STATUS_ARCHIVED,
                 'created' => $date2,
                 'modified' => $date2,
+                'shared' => true,
+                'name' => 'My layout',
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'zones' => new ArrayCollection(),
             ]
         );
 

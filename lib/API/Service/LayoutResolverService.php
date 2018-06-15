@@ -27,7 +27,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function loadRule($ruleId);
+    public function loadRule($ruleId): Rule;
 
     /**
      * Loads a rule draft by its' ID.
@@ -38,7 +38,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function loadRuleDraft($ruleId);
+    public function loadRuleDraft($ruleId): Rule;
 
     /**
      * Loads a rule archive by its' ID.
@@ -49,7 +49,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function loadRuleArchive($ruleId);
+    public function loadRuleArchive($ruleId): Rule;
 
     /**
      * Loads all published rules.
@@ -64,7 +64,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function loadRules(Layout $layout = null, $offset = 0, $limit = null);
+    public function loadRules(Layout $layout = null, int $offset = 0, int $limit = null): array;
 
     /**
      * Returns the number of published rules.
@@ -77,7 +77,7 @@ interface LayoutResolverService extends Service
      *
      * @return int
      */
-    public function getRuleCount(Layout $layout = null);
+    public function getRuleCount(Layout $layout = null): int;
 
     /**
      * Returns all rules that match specified target type and value.
@@ -87,7 +87,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetType, $targetValue);
+    public function matchRules(string $targetType, $targetValue): array;
 
     /**
      * Loads a target by its' ID.
@@ -98,7 +98,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function loadTarget($targetId);
+    public function loadTarget($targetId): Target;
 
     /**
      * Loads a target draft by its' ID.
@@ -109,7 +109,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function loadTargetDraft($targetId);
+    public function loadTargetDraft($targetId): Target;
 
     /**
      * Loads a condition by its' ID.
@@ -120,7 +120,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function loadCondition($conditionId);
+    public function loadCondition($conditionId): Condition;
 
     /**
      * Loads a condition draft by its' ID.
@@ -131,7 +131,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function loadConditionDraft($conditionId);
+    public function loadConditionDraft($conditionId): Condition;
 
     /**
      * Creates a rule.
@@ -140,7 +140,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function createRule(RuleCreateStruct $ruleCreateStruct);
+    public function createRule(RuleCreateStruct $ruleCreateStruct): Rule;
 
     /**
      * Updates a rule.
@@ -152,7 +152,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct);
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct): Rule;
 
     /**
      * Updates rule metadata.
@@ -164,7 +164,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct);
+    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct): Rule;
 
     /**
      * Copies a rule.
@@ -173,7 +173,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function copyRule(Rule $rule);
+    public function copyRule(Rule $rule): Rule;
 
     /**
      * Creates a rule draft.
@@ -186,7 +186,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function createDraft(Rule $rule, $discardExisting = false);
+    public function createDraft(Rule $rule, bool $discardExisting = false): Rule;
 
     /**
      * Discards a rule draft.
@@ -196,7 +196,7 @@ interface LayoutResolverService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      */
-    public function discardDraft(Rule $rule);
+    public function discardDraft(Rule $rule): void;
 
     /**
      * Publishes a rule.
@@ -207,7 +207,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function publishRule(Rule $rule);
+    public function publishRule(Rule $rule): Rule;
 
     /**
      * Restores the archived version of a rule to a draft. If draft already exists,
@@ -219,14 +219,14 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function restoreFromArchive(Rule $rule);
+    public function restoreFromArchive(Rule $rule): Rule;
 
     /**
      * Deletes a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      */
-    public function deleteRule(Rule $rule);
+    public function deleteRule(Rule $rule): void;
 
     /**
      * Enables a rule.
@@ -238,7 +238,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function enableRule(Rule $rule);
+    public function enableRule(Rule $rule): Rule;
 
     /**
      * Disables a rule.
@@ -250,7 +250,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function disableRule(Rule $rule);
+    public function disableRule(Rule $rule): Rule;
 
     /**
      * Adds a target to rule.
@@ -263,7 +263,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct);
+    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target;
 
     /**
      * Updates a target.
@@ -275,7 +275,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct);
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct): Target;
 
     /**
      * Removes a target.
@@ -284,7 +284,7 @@ interface LayoutResolverService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If target is not a draft
      */
-    public function deleteTarget(Target $target);
+    public function deleteTarget(Target $target): void;
 
     /**
      * Adds a condition to rule.
@@ -296,7 +296,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct);
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
      * Updates a condition.
@@ -308,7 +308,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct);
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): Condition;
 
     /**
      * Removes a condition.
@@ -317,28 +317,28 @@ interface LayoutResolverService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
      */
-    public function deleteCondition(Condition $condition);
+    public function deleteCondition(Condition $condition): void;
 
     /**
      * Creates a new rule create struct.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct
      */
-    public function newRuleCreateStruct();
+    public function newRuleCreateStruct(): RuleCreateStruct;
 
     /**
      * Creates a new rule update struct.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct
      */
-    public function newRuleUpdateStruct();
+    public function newRuleUpdateStruct(): RuleUpdateStruct;
 
     /**
      * Creates a new rule metadata update struct.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct
      */
-    public function newRuleMetadataUpdateStruct();
+    public function newRuleMetadataUpdateStruct(): RuleMetadataUpdateStruct;
 
     /**
      * Creates a new target create struct from the provided values.
@@ -347,14 +347,14 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct
      */
-    public function newTargetCreateStruct($type);
+    public function newTargetCreateStruct(string $type): TargetCreateStruct;
 
     /**
      * Creates a new target update struct.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct
      */
-    public function newTargetUpdateStruct();
+    public function newTargetUpdateStruct(): TargetUpdateStruct;
 
     /**
      * Creates a new condition create struct from the provided values.
@@ -363,12 +363,12 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct
      */
-    public function newConditionCreateStruct($type);
+    public function newConditionCreateStruct(string $type): ConditionCreateStruct;
 
     /**
      * Creates a new condition update struct.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct
      */
-    public function newConditionUpdateStruct();
+    public function newConditionUpdateStruct(): ConditionUpdateStruct;
 }

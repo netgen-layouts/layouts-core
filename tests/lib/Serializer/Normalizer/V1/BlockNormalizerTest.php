@@ -85,6 +85,7 @@ final class BlockNormalizerTest extends TestCase
                     'default' => $collectionReference,
                 ],
                 'isTranslatable' => true,
+                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',
@@ -165,12 +166,27 @@ final class BlockNormalizerTest extends TestCase
     {
         $block = new Block(
             [
+                'id' => 42,
+                'layoutId' => 24,
                 'definition' => new ContainerDefinition(
                     [
                         'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),
                     ]
                 ),
+                'viewType' => 'default',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'parentPosition' => 3,
+                'status' => Value::STATUS_PUBLISHED,
+                'placeholders' => [],
+                'collectionReferences' => [],
+                'isTranslatable' => true,
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
+                'mainLocale' => 'en',
+                'locale' => 'en',
+                'parameters' => [],
             ]
         );
 

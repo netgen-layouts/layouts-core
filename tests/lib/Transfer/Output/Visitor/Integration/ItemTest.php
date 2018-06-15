@@ -46,6 +46,7 @@ abstract class ItemTest extends VisitorTest
             new ItemValue(
                 [
                     'type' => 9999,
+                    'position' => 42,
                     'definition' => new ItemDefinition(),
                     'cmsItem' => new CmsItem(),
                 ]
@@ -61,6 +62,7 @@ abstract class ItemTest extends VisitorTest
             new ItemValue(
                 [
                     'type' => ItemValue::TYPE_OVERRIDE,
+                    'position' => 42,
                     'definition' => new ItemDefinition(['valueType' => 'value_type']),
                     'cmsItem' => new CmsItem(),
                 ]

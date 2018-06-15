@@ -115,6 +115,7 @@ final class LayoutServiceTest extends ServiceTestCase
             new LayoutCreateStruct(
                 [
                     'name' => 'Name',
+                    'mainLocale' => 'en',
                     'layoutType' => new LayoutType(['identifier' => 'layout_type']),
                 ]
             )

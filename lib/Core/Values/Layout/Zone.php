@@ -27,7 +27,7 @@ final class Zone extends Value implements APIZone
      */
     protected $linkedZone;
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -37,12 +37,12 @@ final class Zone extends Value implements APIZone
         return $this->layoutId;
     }
 
-    public function hasLinkedZone()
+    public function hasLinkedZone(): bool
     {
         return $this->getLinkedZone() instanceof APIZone;
     }
 
-    public function getLinkedZone()
+    public function getLinkedZone(): ?APIZone
     {
         return $this->getLazyProperty($this->linkedZone);
     }

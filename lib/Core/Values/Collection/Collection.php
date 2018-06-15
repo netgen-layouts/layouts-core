@@ -77,12 +77,12 @@ final class Collection extends Value implements APICollection
         return $this->id;
     }
 
-    public function getType()
+    public function getType(): int
     {
         return $this->hasQuery() ? self::TYPE_DYNAMIC : self::TYPE_MANUAL;
     }
 
-    public function getOffset()
+    public function getOffset(): int
     {
         if ($this->offset !== null && !$this->hasQuery()) {
             // Manual collections always use offset of 0
@@ -92,12 +92,12 @@ final class Collection extends Value implements APICollection
         return $this->offset;
     }
 
-    public function getLimit()
+    public function getLimit(): ?int
     {
         return $this->limit;
     }
 
-    public function hasItem($position, $type = null)
+    public function hasItem(int $position, int $type = null): bool
     {
         return $this->items->exists(
             function ($key, APIItem $item) use ($position, $type): bool {
@@ -110,7 +110,7 @@ final class Collection extends Value implements APICollection
         );
     }
 
-    public function getItem($position, $type = null)
+    public function getItem(int $position, int $type = null): ?APIItem
     {
         foreach ($this->items as $item) {
             if ($item->getPosition() === $position) {
@@ -118,77 +118,79 @@ final class Collection extends Value implements APICollection
                     return $item;
                 }
 
-                return;
+                return null;
             }
         }
+
+        return null;
     }
 
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items->toArray();
     }
 
-    public function hasManualItem($position)
+    public function hasManualItem(int $position): bool
     {
         return $this->hasItem($position, Item::TYPE_MANUAL);
     }
 
-    public function getManualItem($position)
+    public function getManualItem(int $position): ?APIItem
     {
         return $this->getItem($position, Item::TYPE_MANUAL);
     }
 
-    public function getManualItems()
+    public function getManualItems(): array
     {
         return $this->filterItems(Item::TYPE_MANUAL);
     }
 
-    public function hasOverrideItem($position)
+    public function hasOverrideItem(int $position): bool
     {
         return $this->hasItem($position, Item::TYPE_OVERRIDE);
     }
 
-    public function getOverrideItem($position)
+    public function getOverrideItem(int $position): ?APIItem
     {
         return $this->getItem($position, Item::TYPE_OVERRIDE);
     }
 
-    public function getOverrideItems()
+    public function getOverrideItems(): array
     {
         return $this->filterItems(Item::TYPE_OVERRIDE);
     }
 
-    public function getQuery()
+    public function getQuery(): ?APIQuery
     {
         return $this->getLazyProperty($this->query);
     }
 
-    public function hasQuery()
+    public function hasQuery(): bool
     {
         return $this->getQuery() instanceof APIQuery;
     }
 
-    public function getAvailableLocales()
+    public function getAvailableLocales(): array
     {
         return $this->availableLocales;
     }
 
-    public function getMainLocale()
+    public function getMainLocale(): string
     {
         return $this->mainLocale;
     }
 
-    public function isTranslatable()
+    public function isTranslatable(): bool
     {
         return $this->isTranslatable;
     }
 
-    public function isAlwaysAvailable()
+    public function isAlwaysAvailable(): bool
     {
         return $this->alwaysAvailable;
     }
 
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -200,7 +202,7 @@ final class Collection extends Value implements APICollection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    private function filterItems($type)
+    private function filterItems($type): array
     {
         return $this->items->filter(
             function (APIItem $item) use ($type): bool {

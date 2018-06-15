@@ -21,7 +21,7 @@ final class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
+    public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct): void
     {
         $layoutName = is_string($layoutCreateStruct->name) ?
             trim($layoutCreateStruct->name) :
@@ -79,7 +79,7 @@ final class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct)
+    public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct): void
     {
         $layoutName = is_string($layoutUpdateStruct->name) ?
             trim($layoutUpdateStruct->name) :
@@ -118,7 +118,7 @@ final class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct)
+    public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct): void
     {
         $layoutName = is_string($layoutCopyStruct->name) ?
             trim($layoutCopyStruct->name) :
@@ -158,7 +158,7 @@ final class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], $preserveSharedZones = true)
+    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], bool $preserveSharedZones = true): void
     {
         $seenZones = [];
         foreach ($zoneMappings as $newZone => $oldZones) {

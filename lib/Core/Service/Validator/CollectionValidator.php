@@ -29,7 +29,7 @@ final class CollectionValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
+    public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct): void
     {
         if ($collectionCreateStruct->queryCreateStruct !== null) {
             $this->validate(
@@ -78,7 +78,7 @@ final class CollectionValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): void
     {
         if ($collectionUpdateStruct->offset !== null) {
             $offsetConstraints = [
@@ -117,7 +117,7 @@ final class CollectionValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
+    public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct): void
     {
         $this->validate(
             $itemCreateStruct->definition,
@@ -172,7 +172,7 @@ final class CollectionValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct)
+    public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct): void
     {
         $this->validate(
             $itemUpdateStruct,
@@ -192,7 +192,7 @@ final class CollectionValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct)
+    public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct): void
     {
         $this->validate(
             $queryCreateStruct->queryType,
@@ -224,7 +224,7 @@ final class CollectionValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
+    public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct): void
     {
         $this->validate(
             $queryUpdateStruct,

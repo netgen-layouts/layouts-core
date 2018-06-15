@@ -6,48 +6,31 @@ namespace Netgen\BlockManager\API\Values;
 
 interface Value
 {
-    /**
-     * @const int
-     */
-    const STATUS_DRAFT = 0;
+    public const STATUS_DRAFT = 0;
 
-    /**
-     * @const int
-     */
-    const STATUS_PUBLISHED = 1;
+    public const STATUS_PUBLISHED = 1;
 
-    /**
-     * @const int
-     */
-    const STATUS_ARCHIVED = 2;
+    public const STATUS_ARCHIVED = 2;
 
     /**
      * Returns the status of the value.
      *
      * A value can have one of three statuses: draft, published or archived.
-     *
-     * @return int
      */
-    public function getStatus();
+    public function getStatus(): int;
 
     /**
      * Returns if the value is a draft.
-     *
-     * @return bool
      */
-    public function isDraft();
+    public function isDraft(): bool;
 
     /**
      * Returns if the value is published.
-     *
-     * @return bool
      */
-    public function isPublished();
+    public function isPublished(): bool;
 
     /**
      * Returns if the value is archived.
-     *
-     * @return bool
      */
-    public function isArchived();
+    public function isArchived(): bool;
 }

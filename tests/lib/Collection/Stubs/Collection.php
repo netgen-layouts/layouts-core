@@ -76,38 +76,45 @@ final class Collection implements APICollection
 
     public function getStatus(): int
     {
+        return self::STATUS_DRAFT;
     }
 
-    public function getType(): string
+    public function getType(): int
     {
+        return self::TYPE_MANUAL;
     }
 
     public function isDraft(): bool
     {
+        return true;
     }
 
     public function isPublished(): bool
     {
+        return false;
     }
 
     public function isArchived(): bool
     {
+        return false;
     }
 
     public function getOffset(): int
     {
+        return 0;
     }
 
     public function getLimit(): ?int
     {
+        return null;
     }
 
-    public function hasItem($position, $type = null): bool
+    public function hasItem(int $position, int $type = null): bool
     {
         return $this->hasManualItem($position) || $this->hasOverrideItem($position);
     }
 
-    public function getItem($position, $type = null): ?APIItem
+    public function getItem(int $position, int $type = null): ?APIItem
     {
         $item = $this->getManualItem($position);
         if ($item !== null) {
@@ -126,12 +133,12 @@ final class Collection implements APICollection
         return $items;
     }
 
-    public function hasManualItem($position): bool
+    public function hasManualItem(int $position): bool
     {
         return isset($this->manualItems[$position]);
     }
 
-    public function getManualItem($position): ?APIItem
+    public function getManualItem(int $position): ?APIItem
     {
         return $this->manualItems[$position] ?? null;
     }
@@ -141,12 +148,12 @@ final class Collection implements APICollection
         return $this->manualItems;
     }
 
-    public function hasOverrideItem($position): bool
+    public function hasOverrideItem(int $position): bool
     {
         return isset($this->overrideItems[$position]);
     }
 
-    public function getOverrideItem($position): ?APIItem
+    public function getOverrideItem(int $position): ?APIItem
     {
         return $this->overrideItems[$position] ?? null;
     }
@@ -156,7 +163,7 @@ final class Collection implements APICollection
         return $this->overrideItems;
     }
 
-    public function getQuery(): APIQuery
+    public function getQuery(): ?APIQuery
     {
         return $this->query;
     }
@@ -168,21 +175,26 @@ final class Collection implements APICollection
 
     public function getAvailableLocales(): array
     {
+        return ['en'];
     }
 
     public function getMainLocale(): string
     {
+        return 'en';
     }
 
     public function isTranslatable(): bool
     {
+        return false;
     }
 
     public function isAlwaysAvailable(): bool
     {
+        return true;
     }
 
     public function getLocale(): string
     {
+        return 'en';
     }
 }

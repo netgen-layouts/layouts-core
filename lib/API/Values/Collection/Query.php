@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\ParameterBasedValue;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 
 interface Query extends Value, ParameterBasedValue
 {
@@ -28,35 +29,35 @@ interface Query extends Value, ParameterBasedValue
      *
      * @return bool
      */
-    public function isContextual();
+    public function isContextual(): bool;
 
     /**
      * Returns the query type.
      *
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
-    public function getQueryType();
+    public function getQueryType(): QueryTypeInterface;
 
     /**
      * Returns the list of all available locales in the query.
      *
      * @return string[]
      */
-    public function getAvailableLocales();
+    public function getAvailableLocales(): array;
 
     /**
      * Returns the main locale for the query.
      *
      * @return string
      */
-    public function getMainLocale();
+    public function getMainLocale(): string;
 
     /**
      * Returns if the query is translatable.
      *
      * @return bool
      */
-    public function isTranslatable();
+    public function isTranslatable(): bool;
 
     /**
      * Returns if the main translation of the query will be used
@@ -64,12 +65,12 @@ interface Query extends Value, ParameterBasedValue
      *
      * @return bool
      */
-    public function isAlwaysAvailable();
+    public function isAlwaysAvailable(): bool;
 
     /**
      * Returns the locale of the currently loaded translation.
      *
      * @return string
      */
-    public function getLocale();
+    public function getLocale(): string;
 }

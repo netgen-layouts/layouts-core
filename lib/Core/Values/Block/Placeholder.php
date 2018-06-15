@@ -34,12 +34,12 @@ final class Placeholder extends Value implements APIPlaceholder
         $this->blocks = $this->blocks ?? new ArrayCollection();
     }
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    public function getBlocks()
+    public function getBlocks(): array
     {
         return $this->blocks->toArray();
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
 interface Target extends Value
 {
@@ -27,7 +28,7 @@ interface Target extends Value
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    public function getTargetType();
+    public function getTargetType(): TargetTypeInterface;
 
     /**
      * Returns the target value.

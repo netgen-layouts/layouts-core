@@ -11,7 +11,7 @@ interface ParameterBasedValue
      *
      * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
-    public function getParameters();
+    public function getParameters(): array;
 
     /**
      * Returns the specified parameters.
@@ -22,7 +22,7 @@ interface ParameterBasedValue
      *
      * @return \Netgen\BlockManager\Parameters\Parameter
      */
-    public function getParameter($parameter);
+    public function getParameter(string $parameter);
 
     /**
      * Returns if the object has a specified parameter.
@@ -31,5 +31,5 @@ interface ParameterBasedValue
      *
      * @return bool
      */
-    public function hasParameter($parameter);
+    public function hasParameter(string $parameter): bool;
 }

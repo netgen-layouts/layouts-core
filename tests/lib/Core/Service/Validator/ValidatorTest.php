@@ -140,8 +140,6 @@ final class ValidatorTest extends TestCase
     public function validateIdentifierDataProvider(): array
     {
         return [
-            [24, false],
-            [null, false],
             ['a', true],
             ['identifier', true],
             ['identifier_2', true],
@@ -166,8 +164,6 @@ final class ValidatorTest extends TestCase
             [24, true, true],
             [null, false, true],
             [null, true, false],
-            ['identifier', false, false],
-            ['identifier', true, false],
         ];
     }
 
@@ -176,13 +172,10 @@ final class ValidatorTest extends TestCase
         return [
             [0, null, true],
             [5, null, true],
-            ['5', null, false],
             [null, null, false],
             [0, 1, true],
             [5, 1, true],
-            ['5', 1, false],
             [null, 1, false],
-            [5, '5', false],
         ];
     }
 

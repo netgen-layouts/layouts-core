@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
@@ -65,7 +66,7 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function mapRule(PersistenceRule $rule)
+    public function mapRule(PersistenceRule $rule): APIRule
     {
         $ruleData = [
             'id' => $rule->id,
@@ -113,7 +114,7 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function mapTarget(PersistenceTarget $target)
+    public function mapTarget(PersistenceTarget $target): APITarget
     {
         try {
             $targetType = $this->targetTypeRegistry->getTargetType(
@@ -141,7 +142,7 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function mapCondition(PersistenceCondition $condition)
+    public function mapCondition(PersistenceCondition $condition): APICondition
     {
         try {
             $conditionType = $this->conditionTypeRegistry->getConditionType(

@@ -21,7 +21,7 @@ trait ParameterStructTrait
      *
      * @param array $parameterValues
      */
-    public function setParameterValues(array $parameterValues)
+    public function setParameterValues(array $parameterValues): void
     {
         $this->parameterValues = $parameterValues;
     }
@@ -34,7 +34,7 @@ trait ParameterStructTrait
      * @param string $parameterName
      * @param mixed $parameterValue
      */
-    public function setParameterValue($parameterName, $parameterValue)
+    public function setParameterValue(string $parameterName, $parameterValue): void
     {
         $this->parameterValues[$parameterName] = $parameterValue;
     }
@@ -44,7 +44,7 @@ trait ParameterStructTrait
      *
      * @return array
      */
-    public function getParameterValues()
+    public function getParameterValues(): array
     {
         return $this->parameterValues;
     }
@@ -56,7 +56,7 @@ trait ParameterStructTrait
      *
      * @return mixed
      */
-    public function getParameterValue($parameterName)
+    public function getParameterValue(string $parameterName)
     {
         if (!$this->hasParameterValue($parameterName)) {
             return null;
@@ -72,7 +72,7 @@ trait ParameterStructTrait
      *
      * @return bool
      */
-    public function hasParameterValue($parameterName)
+    public function hasParameterValue(string $parameterName): bool
     {
         return array_key_exists($parameterName, $this->parameterValues);
     }
@@ -85,7 +85,7 @@ trait ParameterStructTrait
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param array $values
      */
-    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [])
+    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []): void
     {
         foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
@@ -106,7 +106,7 @@ trait ParameterStructTrait
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions
      * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue)
+    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue): void
     {
         foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $value = null;
@@ -141,7 +141,7 @@ trait ParameterStructTrait
      * @param array $values
      * @param bool $doImport
      */
-    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [], $doImport = false)
+    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [], bool $doImport = false): void
     {
         $importMethod = $doImport ? 'import' : 'fromHash';
 

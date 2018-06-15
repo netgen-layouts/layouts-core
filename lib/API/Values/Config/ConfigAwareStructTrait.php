@@ -19,7 +19,7 @@ trait ConfigAwareStructTrait
      * @param string $configKey
      * @param \Netgen\BlockManager\API\Values\Config\ConfigStruct $configStruct
      */
-    public function setConfigStruct($configKey, ConfigStruct $configStruct)
+    public function setConfigStruct(string $configKey, ConfigStruct $configStruct): void
     {
         $this->configStructs[$configKey] = $configStruct;
     }
@@ -31,7 +31,7 @@ trait ConfigAwareStructTrait
      *
      * @return bool
      */
-    public function hasConfigStruct($configKey)
+    public function hasConfigStruct(string $configKey): bool
     {
         return array_key_exists($configKey, $this->configStructs);
     }
@@ -45,7 +45,7 @@ trait ConfigAwareStructTrait
      *
      * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct
      */
-    public function getConfigStruct($configKey)
+    public function getConfigStruct(string $configKey): ConfigStruct
     {
         if (!$this->hasConfigStruct($configKey)) {
             throw ConfigException::noConfigStruct($configKey);
@@ -59,7 +59,7 @@ trait ConfigAwareStructTrait
      *
      * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
      */
-    public function getConfigStructs()
+    public function getConfigStructs(): array
     {
         return $this->configStructs;
     }

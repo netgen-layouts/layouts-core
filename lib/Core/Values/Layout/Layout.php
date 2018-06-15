@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Values\Layout;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Value;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 
 final class Layout extends Value implements APILayout
 {
@@ -73,57 +76,57 @@ final class Layout extends Value implements APILayout
         return $this->id;
     }
 
-    public function getLayoutType()
+    public function getLayoutType(): LayoutTypeInterface
     {
         return $this->layoutType;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getCreated()
+    public function getCreated(): DateTimeInterface
     {
         return $this->created;
     }
 
-    public function getModified()
+    public function getModified(): DateTimeInterface
     {
         return $this->modified;
     }
 
-    public function isShared()
+    public function isShared(): bool
     {
         return $this->shared;
     }
 
-    public function getMainLocale()
+    public function getMainLocale(): string
     {
         return $this->mainLocale;
     }
 
-    public function getAvailableLocales()
+    public function getAvailableLocales(): array
     {
         return $this->availableLocales;
     }
 
-    public function hasLocale($locale)
+    public function hasLocale(string $locale): bool
     {
         return in_array($locale, $this->availableLocales, true);
     }
 
-    public function getZones()
+    public function getZones(): array
     {
         return $this->zones->toArray();
     }
 
-    public function getZone($zoneIdentifier, $ignoreLinkedZone = false)
+    public function getZone(string $zoneIdentifier, bool $ignoreLinkedZone = false): ?APIZone
     {
         if ($this->hasZone($zoneIdentifier)) {
             if (!$ignoreLinkedZone && $this->zones->get($zoneIdentifier)->hasLinkedZone()) {
@@ -132,9 +135,11 @@ final class Layout extends Value implements APILayout
 
             return $this->zones->get($zoneIdentifier);
         }
+
+        return null;
     }
 
-    public function hasZone($zoneIdentifier)
+    public function hasZone(string $zoneIdentifier): bool
     {
         return $this->zones->containsKey($zoneIdentifier);
     }

@@ -84,7 +84,7 @@ final class ContentEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->block = new Block(['definition' => $this->definition]);
+        $this->block = new Block(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -119,13 +119,13 @@ final class ContentEditTypeTest extends FormTestCase
             'name' => 'My block',
         ];
 
-        $updatedStruct = new BlockUpdateStruct();
+        $updatedStruct = new BlockUpdateStruct(['locale' => 'en']);
         $updatedStruct->name = 'My block';
         $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
             ContentEditType::class,
-            new BlockUpdateStruct(),
+            new BlockUpdateStruct(['locale' => 'en']),
             ['block' => $this->block]
         );
 

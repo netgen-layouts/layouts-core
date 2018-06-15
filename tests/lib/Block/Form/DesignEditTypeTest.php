@@ -90,7 +90,7 @@ final class DesignEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->block = new Block(['definition' => $this->definition]);
+        $this->block = new Block(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -128,14 +128,14 @@ final class DesignEditTypeTest extends FormTestCase
             'item_view_type' => 'standard',
         ];
 
-        $updatedStruct = new BlockUpdateStruct();
+        $updatedStruct = new BlockUpdateStruct(['locale' => 'en']);
         $updatedStruct->viewType = 'large';
         $updatedStruct->itemViewType = 'standard';
         $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
             DesignEditType::class,
-            new BlockUpdateStruct(),
+            new BlockUpdateStruct(['locale' => 'en']),
             ['block' => $this->block]
         );
 

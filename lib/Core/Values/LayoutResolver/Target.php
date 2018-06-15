@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
 final class Target extends Value implements APITarget
 {
@@ -39,7 +40,7 @@ final class Target extends Value implements APITarget
         return $this->ruleId;
     }
 
-    public function getTargetType()
+    public function getTargetType(): TargetTypeInterface
     {
         return $this->targetType;
     }

@@ -334,26 +334,6 @@ final class LayoutValidatorTest extends TestCase
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
-                    'mainLocale' => null,
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 42,
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
                     'mainLocale' => 'unknown',
                     'shared' => null,
                 ],

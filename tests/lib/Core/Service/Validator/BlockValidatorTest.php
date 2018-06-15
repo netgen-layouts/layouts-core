@@ -430,18 +430,6 @@ final class BlockValidatorTest extends TestCase
                 ],
                 false,
             ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => 42,
-                ],
-                false,
-            ],
 
             // Container block definitions
 
@@ -815,17 +803,6 @@ final class BlockValidatorTest extends TestCase
                     'parameterValues' => [],
                 ],
                 true,
-            ],
-            [
-                [
-                    'locale' => 'en',
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => 42,
-                ],
-                false,
             ],
             [
                 [

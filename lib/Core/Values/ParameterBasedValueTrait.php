@@ -18,7 +18,7 @@ trait ParameterBasedValueTrait
      *
      * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
@@ -32,7 +32,7 @@ trait ParameterBasedValueTrait
      *
      * @return \Netgen\BlockManager\Parameters\Parameter
      */
-    public function getParameter($parameterName)
+    public function getParameter(string $parameterName)
     {
         if (isset($this->parameters[$parameterName])) {
             return $this->parameters[$parameterName];
@@ -48,7 +48,7 @@ trait ParameterBasedValueTrait
      *
      * @return bool
      */
-    public function hasParameter($parameterName)
+    public function hasParameter(string $parameterName): bool
     {
         return isset($this->parameters[$parameterName]);
     }

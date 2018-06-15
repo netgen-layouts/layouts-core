@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
@@ -83,7 +84,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->handler = $persistenceHandler->getCollectionHandler();
     }
 
-    public function loadCollection($collectionId, array $locales = null, $useMainLocale = true)
+    public function loadCollection($collectionId, array $locales = null, bool $useMainLocale = true): Collection
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -97,7 +98,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadCollectionDraft($collectionId, array $locales = null, $useMainLocale = true)
+    public function loadCollectionDraft($collectionId, array $locales = null, bool $useMainLocale = true): Collection
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -111,7 +112,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
@@ -138,7 +139,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
     }
 
-    public function loadItem($itemId)
+    public function loadItem($itemId): Item
     {
         $this->validator->validateId($itemId, 'itemId');
 
@@ -150,7 +151,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadItemDraft($itemId)
+    public function loadItemDraft($itemId): Item
     {
         $this->validator->validateId($itemId, 'itemId');
 
@@ -162,7 +163,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQuery($queryId, array $locales = null, $useMainLocale = true)
+    public function loadQuery($queryId, array $locales = null, bool $useMainLocale = true): Query
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -176,7 +177,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQueryDraft($queryId, array $locales = null, $useMainLocale = true)
+    public function loadQueryDraft($queryId, array $locales = null, bool $useMainLocale = true): Query
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -190,7 +191,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function changeCollectionType(Collection $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
+    public function changeCollectionType(Collection $collection, int $newType, APIQueryCreateStruct $queryCreateStruct = null): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
@@ -245,7 +246,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapCollection($persistenceCollection, [$collection->getLocale()]);
     }
 
-    public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
+    public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, int $position = null): Item
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
@@ -284,7 +285,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapItem($createdItem);
     }
 
-    public function updateItem(Item $item, APIItemUpdateStruct $itemUpdateStruct)
+    public function updateItem(Item $item, APIItemUpdateStruct $itemUpdateStruct): Item
     {
         if (!$item->isDraft()) {
             throw new BadStateException('item', 'Only draft items can be updated.');
@@ -316,7 +317,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapItem($updatedItem);
     }
 
-    public function moveItem(Item $item, $position)
+    public function moveItem(Item $item, int $position): Item
     {
         if (!$item->isDraft()) {
             throw new BadStateException('item', 'Only draft items can be moved.');
@@ -338,7 +339,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapItem($movedItem);
     }
 
-    public function deleteItem(Item $item)
+    public function deleteItem(Item $item): void
     {
         if (!$item->isDraft()) {
             throw new BadStateException('item', 'Only draft items can be deleted.');
@@ -353,7 +354,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function deleteItems(Collection $collection, $itemType = null)
+    public function deleteItems(Collection $collection, $itemType = null): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
@@ -376,7 +377,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
     }
 
-    public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct): Query
     {
         if (!$query->isDraft()) {
             throw new BadStateException('query', 'Only draft queries can be updated.');
@@ -405,32 +406,32 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapQuery($updatedQuery, [$query->getLocale()]);
     }
 
-    public function newCollectionCreateStruct(APIQueryCreateStruct $queryCreateStruct = null)
+    public function newCollectionCreateStruct(APIQueryCreateStruct $queryCreateStruct = null): APICollectionCreateStruct
     {
         return $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
     }
 
-    public function newCollectionUpdateStruct(Collection $collection = null)
+    public function newCollectionUpdateStruct(Collection $collection = null): APICollectionUpdateStruct
     {
         return $this->structBuilder->newCollectionUpdateStruct($collection);
     }
 
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $type, $value)
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): APIItemCreateStruct
     {
         return $this->structBuilder->newItemCreateStruct($itemDefinition, $type, $value);
     }
 
-    public function newItemUpdateStruct(Item $item = null)
+    public function newItemUpdateStruct(Item $item = null): APIItemUpdateStruct
     {
         return $this->structBuilder->newItemUpdateStruct($item);
     }
 
-    public function newQueryCreateStruct(QueryTypeInterface $queryType)
+    public function newQueryCreateStruct(QueryTypeInterface $queryType): APIQueryCreateStruct
     {
         return $this->structBuilder->newQueryCreateStruct($queryType);
     }
 
-    public function newQueryUpdateStruct($locale, Query $query = null)
+    public function newQueryUpdateStruct(string $locale, Query $query = null): APIQueryUpdateStruct
     {
         return $this->structBuilder->newQueryUpdateStruct($locale, $query);
     }
@@ -450,7 +451,7 @@ final class CollectionService extends Service implements APICollectionService
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    private function updateQueryTranslations(QueryTypeInterface $queryType, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct)
+    private function updateQueryTranslations(QueryTypeInterface $queryType, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct): PersistenceQuery
     {
         if ($queryUpdateStruct->locale === $persistenceQuery->mainLocale) {
             $persistenceQuery = $this->handler->updateQueryTranslation(

@@ -30,7 +30,7 @@ final class BlockValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
+    public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct): void
     {
         $this->validate(
             $blockCreateStruct,
@@ -64,7 +64,7 @@ final class BlockValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
+    public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct): void
     {
         $this->validate(
             $blockUpdateStruct,

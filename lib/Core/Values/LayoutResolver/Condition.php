@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
 use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 
 final class Condition extends Value implements APICondition
 {
@@ -39,7 +40,7 @@ final class Condition extends Value implements APICondition
         return $this->ruleId;
     }
 
-    public function getConditionType()
+    public function getConditionType(): ConditionTypeInterface
     {
         return $this->conditionType;
     }

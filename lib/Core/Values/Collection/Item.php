@@ -6,9 +6,11 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 
@@ -62,17 +64,17 @@ final class Item extends Value implements APIItem
         return $this->collectionId;
     }
 
-    public function getDefinition()
+    public function getDefinition(): ItemDefinitionInterface
     {
         return $this->definition;
     }
 
-    public function getPosition()
+    public function getPosition(): int
     {
         return $this->position;
     }
 
-    public function getType()
+    public function getType(): int
     {
         return $this->type;
     }
@@ -82,12 +84,12 @@ final class Item extends Value implements APIItem
         return $this->value;
     }
 
-    public function getCmsItem()
+    public function getCmsItem(): ItemInterface
     {
         return $this->getLazyProperty($this->cmsItem);
     }
 
-    public function isScheduled()
+    public function isScheduled(): bool
     {
         if (!$this->hasConfig('visibility')) {
             return false;
@@ -98,7 +100,7 @@ final class Item extends Value implements APIItem
         return $visibilityConfig->getParameter('visibility_status')->getValue() === self::VISIBILITY_SCHEDULED;
     }
 
-    public function isVisible(DateTimeInterface $reference = null)
+    public function isVisible(DateTimeInterface $reference = null): bool
     {
         if (!$this->hasConfig('visibility')) {
             return true;
@@ -117,7 +119,7 @@ final class Item extends Value implements APIItem
         return DateTimeUtils::isBetweenDates($reference, $visibleFrom, $visibleTo);
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         if ($this->getCmsItem() instanceof NullItem) {
             return false;

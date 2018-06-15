@@ -28,7 +28,7 @@ final class BlockStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
-    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition)
+    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition): BlockCreateStruct
     {
         $viewTypeIdentifier = $blockDefinition->getViewTypeIdentifiers()[0];
         $viewType = $blockDefinition->getViewType($viewTypeIdentifier);
@@ -59,7 +59,7 @@ final class BlockStructBuilder
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct($locale, Block $block = null)
+    public function newBlockUpdateStruct(string $locale, Block $block = null): BlockUpdateStruct
     {
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->locale = $locale;

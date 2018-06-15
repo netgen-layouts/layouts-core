@@ -34,7 +34,7 @@ final class QueryEditTypeTest extends FormTestCase
 
         $this->queryType = new QueryType('query_type');
 
-        $this->query = new Query(['queryType' => $this->queryType]);
+        $this->query = new Query(['queryType' => $this->queryType, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -68,12 +68,12 @@ final class QueryEditTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new QueryUpdateStruct();
+        $updatedStruct = new QueryUpdateStruct(['locale' => 'en']);
         $updatedStruct->setParameterValue('param', 'Param value');
 
         $form = $this->factory->create(
             QueryEditType::class,
-            new QueryUpdateStruct(),
+            new QueryUpdateStruct(['locale' => 'en']),
             ['query' => $this->query]
         );
 

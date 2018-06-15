@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
@@ -35,7 +36,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId, array $locales = null, $useMainLocale = true);
+    public function loadCollection($collectionId, array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Loads a collection draft with specified ID.
@@ -55,7 +56,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId, array $locales = null, $useMainLocale = true);
+    public function loadCollectionDraft($collectionId, array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Updates a collection.
@@ -67,7 +68,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection;
 
     /**
      * Loads an item with specified ID.
@@ -78,7 +79,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function loadItem($itemId);
+    public function loadItem($itemId): Item;
 
     /**
      * Loads an item draft with specified ID.
@@ -89,7 +90,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function loadItemDraft($itemId);
+    public function loadItemDraft($itemId): Item;
 
     /**
      * Loads a query with specified ID.
@@ -109,7 +110,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQuery($queryId, array $locales = null, $useMainLocale = true);
+    public function loadQuery($queryId, array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Loads a query with specified ID.
@@ -129,7 +130,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId, array $locales = null, $useMainLocale = true);
+    public function loadQueryDraft($queryId, array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Changes the type of specified collection.
@@ -146,7 +147,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
+    public function changeCollectionType(Collection $collection, int $newType, QueryCreateStruct $queryCreateStruct = null): Collection;
 
     /**
      * Adds an item to collection at specified position.
@@ -162,7 +163,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null);
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, int $position = null): Item;
 
     /**
      * Updates a specified item.
@@ -174,7 +175,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct);
+    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct): Item;
 
     /**
      * Moves an item within the collection.
@@ -187,7 +188,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function moveItem(Item $item, $position);
+    public function moveItem(Item $item, int $position): Item;
 
     /**
      * Removes an item.
@@ -196,7 +197,7 @@ interface CollectionService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
      */
-    public function deleteItem(Item $item);
+    public function deleteItem(Item $item): void;
 
     /**
      * Removes all manual and override items from provided collection.
@@ -211,7 +212,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function deleteItems(Collection $collection, $itemType = null);
+    public function deleteItems(Collection $collection, int $itemType = null): Collection;
 
     /**
      * Updates a query.
@@ -224,7 +225,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
+    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct): Query;
 
     /**
      * Creates a new collection create struct.
@@ -233,7 +234,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null);
+    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct;
 
     /**
      * Creates a new collection update struct.
@@ -244,7 +245,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
      */
-    public function newCollectionUpdateStruct(Collection $collection = null);
+    public function newCollectionUpdateStruct(Collection $collection = null): CollectionUpdateStruct;
 
     /**
      * Creates a new item create struct from provided values.
@@ -255,7 +256,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
      */
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $type, $value);
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): ItemCreateStruct;
 
     /**
      * Creates a new item update struct.
@@ -266,7 +267,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct
      */
-    public function newItemUpdateStruct(Item $item = null);
+    public function newItemUpdateStruct(Item $item = null): ItemUpdateStruct;
 
     /**
      * Creates a new query create struct from provided query type.
@@ -275,7 +276,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
-    public function newQueryCreateStruct(QueryTypeInterface $queryType);
+    public function newQueryCreateStruct(QueryTypeInterface $queryType): QueryCreateStruct;
 
     /**
      * Creates a new query update struct for provided locale.
@@ -287,5 +288,5 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct($locale, Query $query = null);
+    public function newQueryUpdateStruct(string $locale, Query $query = null): QueryUpdateStruct;
 }

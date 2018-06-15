@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
@@ -89,7 +90,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function mapCollection(PersistenceCollection $collection, array $locales = null, $useMainLocale = true)
+    public function mapCollection(PersistenceCollection $collection, array $locales = null, bool $useMainLocale = true): APICollection
     {
         $locales = !empty($locales) ? $locales : [$collection->mainLocale];
         if ($useMainLocale && $collection->alwaysAvailable) {
@@ -144,7 +145,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function mapItem(PersistenceItem $item)
+    public function mapItem(PersistenceItem $item): APIItem
     {
         try {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
@@ -188,7 +189,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function mapQuery(PersistenceQuery $query, array $locales = null, $useMainLocale = true)
+    public function mapQuery(PersistenceQuery $query, array $locales = null, bool $useMainLocale = true): APIQuery
     {
         try {
             $queryType = $this->queryTypeRegistry->getQueryType($query->type);

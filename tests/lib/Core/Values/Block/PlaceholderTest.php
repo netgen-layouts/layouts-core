@@ -39,12 +39,12 @@ final class PlaceholderTest extends TestCase
     {
         $placeholder = new Placeholder(
             [
-                'identifier' => 42,
+                'identifier' => 'placeholder',
                 'blocks' => new ArrayCollection([new Block()]),
             ]
         );
 
-        $this->assertEquals(42, $placeholder->getIdentifier());
+        $this->assertEquals('placeholder', $placeholder->getIdentifier());
         $this->assertEquals([new Block()], $placeholder->getBlocks());
 
         $this->assertInstanceOf(Traversable::class, $placeholder->getIterator());

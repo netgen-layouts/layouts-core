@@ -73,7 +73,7 @@ final class FullEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->block = new Block(['definition' => $this->definition]);
+        $this->block = new Block(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -114,7 +114,7 @@ final class FullEditTypeTest extends FormTestCase
             'name' => 'My block',
         ];
 
-        $updatedStruct = new BlockUpdateStruct();
+        $updatedStruct = new BlockUpdateStruct(['locale' => 'en']);
         $updatedStruct->viewType = 'large';
         $updatedStruct->itemViewType = 'standard';
         $updatedStruct->name = 'My block';
@@ -123,7 +123,7 @@ final class FullEditTypeTest extends FormTestCase
 
         $form = $this->factory->create(
             FullEditType::class,
-            new BlockUpdateStruct(),
+            new BlockUpdateStruct(['locale' => 'en']),
             ['block' => $this->block]
         );
 
