@@ -14,7 +14,7 @@ final class GlobalVariable
     /**
      * Sets the pagelayout template.
      */
-    public function setPageLayoutTemplate(string $pageLayoutTemplate)
+    public function setPageLayoutTemplate(string $pageLayoutTemplate): void
     {
         $this->pageLayoutTemplate = $pageLayoutTemplate;
     }

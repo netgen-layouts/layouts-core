@@ -56,7 +56,7 @@ final class AdminMatchEvent extends Event
     /**
      * Sets the pagelayout template which will be used for admin interface.
      */
-    public function setPageLayoutTemplate(string $template)
+    public function setPageLayoutTemplate(string $template): void
     {
         $this->pageLayoutTemplate = $template;
     }

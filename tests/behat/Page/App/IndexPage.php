@@ -15,7 +15,7 @@ final class IndexPage extends SymfonyPage
         return 'ngbm_app';
     }
 
-    public function verifyLayout($layoutName): void
+    public function verifyLayout(string $layoutName): void
     {
         $this->waitForElement(10, 'layout_name', ['%layout-name%' => $layoutName]);
 

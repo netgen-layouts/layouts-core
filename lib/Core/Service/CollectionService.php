@@ -354,7 +354,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function deleteItems(Collection $collection, $itemType = null): Collection
+    public function deleteItems(Collection $collection, int $itemType = null): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');

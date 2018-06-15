@@ -56,7 +56,7 @@ abstract class AdminPage extends SymfonyPage
         throw new PageException('Modal dialog was expected to be closed');
     }
 
-    public function modalErrorExists($errorMessage): bool
+    public function modalErrorExists(string $errorMessage): bool
     {
         return $this->hasElement('modal_error', ['%error-message%' => $errorMessage]);
     }

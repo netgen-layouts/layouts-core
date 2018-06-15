@@ -11,5 +11,5 @@ interface ErrorHandlerInterface
     /**
      * Handles the provided throwable. Context can be arbitrary data relevant to the error.
      */
-    public function handleError(Throwable $throwable, string $message = null, array $context = []);
+    public function handleError(Throwable $throwable, string $message = null, array $context = []): void;
 }
