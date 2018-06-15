@@ -27,7 +27,7 @@ interface PluginInterface
      * which this plugin extends. If you wish to extend every existing handler,
      * return the array with FQCN of the block handler interface.
      *
-     * @return string[]
+     * @return string|string[]
      */
     public static function getExtendedHandler();
 

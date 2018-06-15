@@ -25,7 +25,10 @@ final class JsonValidatorTest extends TestCase
      */
     public function testValidateJson(): void
     {
-        $this->assertNull($this->validator->validateJson('{}', '{}'));
+        $this->validator->validateJson('{}', '{}');
+
+        // Fake assertion to disable risky warning
+        $this->assertTrue(true);
     }
 
     /**

@@ -22,7 +22,7 @@ final class TranslatableParameterBuilderTest extends TestCase
     private $factory;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\TranslatableParameterBuilder
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
     private $builder;
 

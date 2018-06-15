@@ -27,7 +27,7 @@ final class ParameterBuilderTest extends TestCase
     private $factory;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilder
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
     private $builder;
 
