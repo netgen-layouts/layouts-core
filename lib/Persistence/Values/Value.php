@@ -11,18 +11,9 @@ use Netgen\BlockManager\Value as BaseValue;
  */
 abstract class Value extends BaseValue
 {
-    /**
-     * @const int
-     */
     public const STATUS_DRAFT = 0;
 
-    /**
-     * @const int
-     */
     public const STATUS_PUBLISHED = 1;
 
-    /**
-     * @const int
-     */
     public const STATUS_ARCHIVED = 2;
 }

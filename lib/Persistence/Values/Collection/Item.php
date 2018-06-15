@@ -9,12 +9,12 @@ use Netgen\BlockManager\Persistence\Values\Value;
 final class Item extends Value
 {
     /**
-     * @const int
+     * Denotes that the item is manual. Manual items are injected in between items fetched from queries.
      */
     const TYPE_MANUAL = 0;
 
     /**
-     * @const int
+     * Denotes that the item is an override. Override items replace the items fetched from queries at specified position.
      */
     const TYPE_OVERRIDE = 1;
 
