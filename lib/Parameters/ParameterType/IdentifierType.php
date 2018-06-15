@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints;
  */
 final class IdentifierType extends ParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'identifier';
     }

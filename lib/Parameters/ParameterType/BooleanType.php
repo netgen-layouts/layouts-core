@@ -15,12 +15,12 @@ use Symfony\Component\Validator\Constraints;
  */
 final class BooleanType extends ParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'boolean';
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefault(
             'default_value',
@@ -34,7 +34,7 @@ final class BooleanType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         return $value === null;
     }

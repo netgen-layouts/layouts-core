@@ -34,12 +34,12 @@ final class ItemLinkType extends ParameterType
         $this->remoteIdConverter = $remoteIdConverter;
     }
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'item_link';
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setRequired(['value_types', 'allow_invalid']);
         $optionsResolver->setAllowedTypes('value_types', 'array');
@@ -63,15 +63,23 @@ final class ItemLinkType extends ParameterType
 
     public function export(ParameterDefinition $parameterDefinition, $value)
     {
+        if (!is_string($value)) {
+            return null;
+        }
+
         return $this->remoteIdConverter->convertToRemoteId($value);
     }
 
     public function import(ParameterDefinition $parameterDefinition, $value)
     {
+        if (!is_string($value)) {
+            return null;
+        }
+
         return $this->remoteIdConverter->convertFromRemoteId($value);
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         if (!is_string($value)) {
             return true;

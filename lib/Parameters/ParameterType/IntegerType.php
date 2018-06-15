@@ -15,12 +15,12 @@ use Symfony\Component\Validator\Constraints;
  */
 final class IntegerType extends ParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'integer';
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefault('min', null);
         $optionsResolver->setDefault('max', null);
@@ -57,7 +57,7 @@ final class IntegerType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         return $value === null;
     }

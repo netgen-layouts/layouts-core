@@ -22,12 +22,12 @@ use Symfony\Component\Validator\Constraints;
  */
 final class BooleanType extends CompoundParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'compound_boolean';
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setRequired(['reverse']);
         $optionsResolver->setAllowedTypes('reverse', 'bool');
@@ -42,7 +42,7 @@ final class BooleanType extends CompoundParameterType
         });
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         return $value === null;
     }

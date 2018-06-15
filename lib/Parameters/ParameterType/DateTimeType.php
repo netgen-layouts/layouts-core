@@ -20,12 +20,12 @@ final class DateTimeType extends ParameterType
 {
     private static $storageDateFormat = 'Y-m-d H:i:s.u';
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'datetime';
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         return !$value instanceof DateTimeInterface;
     }

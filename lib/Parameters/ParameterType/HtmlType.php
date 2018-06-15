@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints;
  */
 final class HtmlType extends ParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'html';
     }

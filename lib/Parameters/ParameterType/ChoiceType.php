@@ -17,12 +17,12 @@ use Symfony\Component\Validator\Constraints;
  */
 final class ChoiceType extends ParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'choice';
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefault('multiple', false);
         $optionsResolver->setDefault('expanded', false);
@@ -71,7 +71,7 @@ final class ChoiceType extends ParameterType
         return is_array($value) ? array_values($value)[0] : $value;
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         return $value === null || $value === [];
     }

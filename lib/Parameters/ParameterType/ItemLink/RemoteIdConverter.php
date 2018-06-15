@@ -28,9 +28,9 @@ final class RemoteIdConverter
      * If the conversion cannot be done, (for example, because item does not exist), a reference to
      * the so called null item will be returned.
      */
-    public function convertToRemoteId($link)
+    public function convertToRemoteId(string $link): string
     {
-        $link = is_string($link) ? parse_url($link) : $link;
+        $link = parse_url($link);
 
         if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
             return self::$nullLink;
@@ -51,9 +51,9 @@ final class RemoteIdConverter
      * If the conversion cannot be done, (for example, because item does not exist), a reference to
      * the so called null item will be returned.
      */
-    public function convertFromRemoteId($link)
+    public function convertFromRemoteId(string $link): string
     {
-        $link = is_string($link) ? parse_url($link) : $link;
+        $link = parse_url($link);
 
         if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
             return self::$nullLink;

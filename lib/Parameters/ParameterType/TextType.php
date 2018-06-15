@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints;
  */
 final class TextType extends ParameterType
 {
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'text';
     }

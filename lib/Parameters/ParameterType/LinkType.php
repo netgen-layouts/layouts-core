@@ -36,12 +36,12 @@ final class LinkType extends ParameterType
         $this->remoteIdConverter = $remoteIdConverter;
     }
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'link';
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setRequired(['value_types', 'allow_invalid_internal']);
         $optionsResolver->setAllowedTypes('value_types', 'array');
@@ -104,7 +104,7 @@ final class LinkType extends ParameterType
         // If the link is internal, we need to convert the format
         // from value_type://value to value_type://remote_id
         if ($value->getLinkType() === LinkValue::LINK_TYPE_INTERNAL) {
-            $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink);
+            $valueLink = $this->remoteIdConverter->convertToRemoteId((string) $valueLink);
         }
 
         return [
@@ -126,7 +126,7 @@ final class LinkType extends ParameterType
         // If the link is internal, we need to convert the format
         // from value_type://remote_id to value_type://value
         if ($value['link_type'] === LinkValue::LINK_TYPE_INTERNAL) {
-            $valueLink = $this->remoteIdConverter->convertFromRemoteId($valueLink);
+            $valueLink = $this->remoteIdConverter->convertFromRemoteId((string) $valueLink);
         }
 
         return new LinkValue(
@@ -139,7 +139,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         if (!$value instanceof LinkValue) {
             return true;
