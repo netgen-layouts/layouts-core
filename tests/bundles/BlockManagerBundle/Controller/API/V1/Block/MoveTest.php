@@ -286,64 +286,6 @@ final class MoveTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
      */
-    public function testMoveWithInvalidPlaceholder(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_id' => 33,
-                'placeholder' => 42,
-                'position' => 1,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "placeholder": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
-     */
-    public function testMoveWithInvalidPosition(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_id' => 33,
-                'placeholder' => 'main',
-                'position' => '1',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should be of type int.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
-     */
     public function testMoveWithMissingBlockId(): void
     {
         $data = $this->jsonEncode(
@@ -366,62 +308,6 @@ final class MoveTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "blockId": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
-     */
-    public function testMoveWithMissingPlaceholder(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_id' => 33,
-                'position' => 1,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "placeholder": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move::__invoke
-     */
-    public function testMoveWithMissingPosition(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_id' => 33,
-                'placeholder' => 'main',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should not be blank.'
         );
     }
 }

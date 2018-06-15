@@ -139,61 +139,6 @@ final class LinkZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
      */
-    public function testLinkZoneWithMissingLinkedZoneIdentifier(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'linked_layout_id' => 5,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/zones/right/link',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
-     */
-    public function testLinkZoneWithInvalidLinkedZoneIdentifier(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'linked_layout_id' => 5,
-                'linked_zone_identifier' => 42,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/zones/right/link',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithNonExistentLinkedZone(): void
     {
         $data = $this->jsonEncode(

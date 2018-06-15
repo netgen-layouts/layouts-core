@@ -177,34 +177,6 @@ final class CopyToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
      */
-    public function testCopyToZoneWithInvalidZoneIdentifier(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => 1,
-                'zone_identifier' => 42,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -226,33 +198,6 @@ final class CopyToZoneTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone::__invoke
-     */
-    public function testCopyToZoneWithMissingZoneIdentifier(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => 1,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should not be blank.'
         );
     }
 }

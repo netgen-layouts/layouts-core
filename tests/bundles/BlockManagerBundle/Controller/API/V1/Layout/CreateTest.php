@@ -166,65 +166,6 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
      */
-    public function testCreateWithInvalidName(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_type' => '4_zones_a',
-                'name' => 42,
-                'locale' => 'en',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/layouts',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
-     */
-    public function testCreateWithMissingName(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_type' => '4_zones_a',
-                'locale' => 'en',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/layouts',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
-     */
     public function testCreateWithInvalidDescription(): void
     {
         $data = $this->jsonEncode(

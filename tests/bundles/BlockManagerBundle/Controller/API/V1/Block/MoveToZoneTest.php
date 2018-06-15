@@ -207,64 +207,6 @@ final class MoveToZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
      */
-    public function testMoveToZoneWithInvalidZoneIdentifier(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => 1,
-                'zone_identifier' => 42,
-                'position' => 1,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
-     */
-    public function testMoveToZoneWithInvalidPosition(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => 1,
-                'zone_identifier' => 'left',
-                'position' => '1',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should be of type int.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -287,62 +229,6 @@ final class MoveToZoneTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
-     */
-    public function testMoveToZoneWithMissingZoneIdentifier(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => 1,
-                'position' => 1,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone::__invoke
-     */
-    public function testMoveToZoneWithMissingPosition(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => 1,
-                'zone_identifier' => 'left',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should not be blank.'
         );
     }
 }

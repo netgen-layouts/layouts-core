@@ -205,34 +205,6 @@ final class CopyTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
      */
-    public function testCopyWithInvalidPlaceholder(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_id' => 33,
-                'placeholder' => 42,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "placeholder": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
-     */
     public function testCopyWithMissingBlockId(): void
     {
         $data = $this->jsonEncode(
@@ -254,33 +226,6 @@ final class CopyTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "blockId": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy::__invoke
-     */
-    public function testCopyWithMissingPlaceholder(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_id' => 33,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "placeholder": This value should not be blank.'
         );
     }
 }
