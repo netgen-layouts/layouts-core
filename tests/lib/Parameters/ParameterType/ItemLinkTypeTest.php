@@ -176,11 +176,27 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
+     */
+    public function testExportWithInvalidValue(): void
+    {
+        $this->assertNull($this->type->export($this->getParameterDefinition(), 42));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
      */
     public function testImport(): void
     {
         $this->assertEquals('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
+     */
+    public function testImportWithInvalidValue(): void
+    {
+        $this->assertNull($this->type->import($this->getParameterDefinition(), 42));
     }
 
     /**

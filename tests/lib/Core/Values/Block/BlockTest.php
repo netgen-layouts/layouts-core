@@ -13,6 +13,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -87,8 +88,8 @@ final class BlockTest extends TestCase
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => [
-                    'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value',
+                    'some_param' => new Parameter(['value' => 'some_value']),
+                    'some_other_param' => new Parameter(['value' => 'some_other_value']),
                 ],
             ]
         );
@@ -117,8 +118,8 @@ final class BlockTest extends TestCase
 
         $this->assertEquals(
             [
-                'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
+                'some_param' => new Parameter(['value' => 'some_value']),
+                'some_other_param' => new Parameter(['value' => 'some_other_value']),
             ],
             $block->getParameters()
         );

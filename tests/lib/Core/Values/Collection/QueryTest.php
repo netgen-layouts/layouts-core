@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Core\ParameterException;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -57,7 +58,7 @@ final class QueryTest extends TestCase
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => [
-                    'param' => 'value',
+                    'param' => new Parameter(['value' => 'value']),
                 ],
             ]
         );
@@ -77,7 +78,7 @@ final class QueryTest extends TestCase
 
         $this->assertEquals(
             [
-                'param' => 'value',
+                'param' => new Parameter(['value' => 'value']),
             ],
             $query->getParameters()
         );
