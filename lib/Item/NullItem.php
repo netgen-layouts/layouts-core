@@ -22,10 +22,12 @@ final class NullItem implements ItemInterface
 
     public function getValue()
     {
+        return null;
     }
 
     public function getRemoteId()
     {
+        return null;
     }
 
     public function getValueType(): string
@@ -45,5 +47,6 @@ final class NullItem implements ItemInterface
 
     public function getObject()
     {
+        return null;
     }
 }

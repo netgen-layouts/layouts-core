@@ -31,5 +31,6 @@ final class NullTargetType implements TargetTypeInterface
 
     public function provideValue(Request $request)
     {
+        return null;
     }
 }

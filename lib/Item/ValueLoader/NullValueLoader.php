@@ -12,8 +12,8 @@ final class NullValueLoader implements ValueLoaderInterface
     public function load($id)
     {
         throw new ItemException(
-                sprintf('Item with ID "%s" could not be loaded.', $id)
-            );
+            sprintf('Item with ID "%s" could not be loaded.', $id)
+        );
     }
 
     public function loadByRemoteId($remoteId)

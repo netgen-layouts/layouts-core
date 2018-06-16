@@ -72,6 +72,7 @@ final class Collection implements APICollection
 
     public function getId()
     {
+        return null;
     }
 
     public function getStatus(): int

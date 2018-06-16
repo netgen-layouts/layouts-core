@@ -11,12 +11,12 @@ final class Item extends Value
     /**
      * Denotes that the item is manual. Manual items are injected in between items fetched from queries.
      */
-    const TYPE_MANUAL = 0;
+    public const TYPE_MANUAL = 0;
 
     /**
      * Denotes that the item is an override. Override items replace the items fetched from queries at specified position.
      */
-    const TYPE_OVERRIDE = 1;
+    public const TYPE_OVERRIDE = 1;
 
     /**
      * Item ID.

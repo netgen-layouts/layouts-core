@@ -13,6 +13,7 @@ return PhpCsFixer\Config::create()
         'compact_nullable_typehint' => true,
         'concat_space' => ['spacing' => 'one'],
         'date_time_immutable' => true,
+        'declare_strict_types' => true,
         'escape_implicit_backslashes' => true,
         'explicit_indirect_variable' => true,
         'explicit_string_variable' => true,
@@ -38,6 +39,8 @@ return PhpCsFixer\Config::create()
         'strict_comparison' => true,
         'strict_param' => true,
         'string_line_ending' => true,
+        'ternary_to_null_coalescing' => true,
+        'visibility_required' => ['elements' => ['property', 'method', 'const']],
         'yoda_style' => false,
     ])
     ->setFinder(

@@ -14,7 +14,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Configuration;
  */
 interface ConfigurationInterface
 {
-    const PARAMETER_NAMESPACE = 'netgen_block_manager';
+    public const PARAMETER_NAMESPACE = 'netgen_block_manager';
 
     /**
      * Returns if parameter exists in configuration.

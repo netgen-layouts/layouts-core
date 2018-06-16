@@ -11,12 +11,12 @@ interface Collection extends Value
     /**
      * Denotes that the collection is manual, i.e., does not have a collection.
      */
-    const TYPE_MANUAL = 0;
+    public const TYPE_MANUAL = 0;
 
     /**
      * Denotes that the collection is dynamic, i.e., that it has a collection.
      */
-    const TYPE_DYNAMIC = 1;
+    public const TYPE_DYNAMIC = 1;
 
     /**
      * Returns the collection ID.
