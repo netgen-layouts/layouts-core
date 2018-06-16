@@ -11,7 +11,7 @@ use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Selector\SelectorsHandler;
 use Behat\Mink\Session;
-use Exception;
+use Throwable;
 use InvalidArgumentException;
 use Netgen\BlockManager\Behat\Exception\PageException;
 
@@ -48,7 +48,7 @@ abstract class Page
     {
         try {
             $this->verify($urlParameters);
-        } catch (Exception $e) {
+        } catch (Throwable $t) {
             return false;
         }
 
