@@ -52,7 +52,7 @@ final class DateTimeUtils
      */
     public static function isBetweenDates(DateTimeInterface $date = null, DateTimeInterface $from = null, DateTimeInterface $to = null): bool
     {
-        $date = $date ?: self::createFromTimestamp();
+        $date = $date ?? self::createFromTimestamp();
 
         if ($from instanceof DateTimeInterface && $date < $from) {
             return false;

@@ -28,7 +28,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     public function __construct(SerializerInterface $serializer, LoggerInterface $logger = null)
     {
         $this->serializer = $serializer;
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?? new NullLogger();
     }
 
     public static function getSubscribedEvents(): array

@@ -25,7 +25,7 @@ final class DebugErrorHandler implements ErrorHandlerInterface
 
     public function __construct(LoggerInterface $logger = null, bool $debug = false)
     {
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?? new NullLogger();
         $this->debug = $debug;
     }
 
