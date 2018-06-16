@@ -68,8 +68,7 @@ abstract class VisitorTest extends ServiceTestCase
             // from setUp method, because data providers are executed before the setUp method
             // This rebinds the closure to $this, to get the instantiated dependencies
             // https://github.com/sebastianbergmann/phpunit/issues/3097
-            $value = Closure::bind($value, $this);
-            $value = $value();
+            $value = $value->call($this);
         }
 
         $expectedData = trim((string) file_get_contents($fixturePath));
