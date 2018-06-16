@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 /**
- * Runtime loader for Netgen Block Manager Twig runtimes.
+ * Runtime loader for Netgen Layouts Twig runtimes.
  *
  * @deprecated Remove when support for Symfony 2.8 ends.
  */

@@ -1,10 +1,10 @@
-Netgen Block Manager installation instructions
-==============================================
+Netgen Layouts installation instructions
+========================================
 
 Use Composer
 ------------
 
-Run the following command to install Netgen Block Manager:
+Run the following command to install Netgen Layouts:
 
 ```
 composer require netgen/block-manager:^1.0
@@ -13,8 +13,8 @@ composer require netgen/block-manager:^1.0
 Activate the bundles
 --------------------
 
-Activate the Block Manager in your kernel class together will all other required
-bundles:
+Activate Netgen Layouts bundles in your kernel class together will all other
+required bundles:
 
 ```
 ...
@@ -54,7 +54,7 @@ php app/console doctrine:migrations:migrate --configuration=vendor/netgen/block-
 Install assets
 --------------
 
-Run the following from your repo root to install Block Manager assets:
+Run the following from your repo root to install assets:
 
 ```
 php app/console assets:install --symlink --relative

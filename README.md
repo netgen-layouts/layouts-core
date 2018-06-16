@@ -1,5 +1,5 @@
-Netgen Block Manager
-====================
+Netgen Layouts
+==============
 
 # Installation instructions
 

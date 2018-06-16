@@ -1,6 +1,6 @@
 {
     "name": "netgen/block-manager",
-    "description": "Netgen Block Manager",
+    "description": "Netgen Layouts core",
     "license": "proprietary",
     "authors": [
         {

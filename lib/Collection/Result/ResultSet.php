@@ -29,7 +29,7 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      *
      * Slot may not be populated for example when query is a contextual one,
      * meaning that it cannot run when there's no real frontend request,
-     * e.g. in Block Manager app.
+     * e.g. in layout editing app.
      */
     public const INCLUDE_UNKNOWN_ITEMS = 2;
 
