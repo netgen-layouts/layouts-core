@@ -44,6 +44,6 @@ final class TranslatableTypeStub extends TranslatableType
             ]
         );
 
-        $this->disableFormsOnNonMainLocale($builder);
+        $this->disableUntranslatableForms($builder);
     }
 }

@@ -11,11 +11,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 abstract class TranslatableType extends AbstractType
 {
     /**
-     * Disables all inputs which are not translatable in the form.
-     *
-     * Basically, only translatable parameters are left enabled.
+     * Disables all inputs for parameters which are not translatable.
      */
-    protected function disableFormsOnNonMainLocale(FormBuilderInterface $builder): void
+    protected function disableUntranslatableForms(FormBuilderInterface $builder): void
     {
         foreach ($builder as $form) {
             /** @var \Symfony\Component\Form\FormBuilderInterface $form */
@@ -33,7 +31,7 @@ abstract class TranslatableType extends AbstractType
                 continue;
             }
 
-            $this->disableFormsOnNonMainLocale($form);
+            $this->disableUntranslatableForms($form);
         }
     }
 }

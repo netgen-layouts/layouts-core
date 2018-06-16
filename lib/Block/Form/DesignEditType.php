@@ -22,7 +22,7 @@ final class DesignEditType extends EditType
         );
 
         if ($locale !== $mainLocale) {
-            $this->disableFormsOnNonMainLocale($builder);
+            $this->disableUntranslatableForms($builder);
         }
     }
 }

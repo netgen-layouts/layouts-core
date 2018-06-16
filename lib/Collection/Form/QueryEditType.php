@@ -62,7 +62,7 @@ final class QueryEditType extends TranslatableType
         );
 
         if ($locale !== $mainLocale) {
-            $this->disableFormsOnNonMainLocale($builder);
+            $this->disableUntranslatableForms($builder);
         }
     }
 }

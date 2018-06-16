@@ -39,7 +39,7 @@ final class TranslatableTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\TranslatableType::disableFormsOnNonMainLocale
+     * @covers \Netgen\BlockManager\Form\TranslatableType::disableUntranslatableForms
      */
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void
     {
@@ -73,7 +73,7 @@ final class TranslatableTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\TranslatableType::disableFormsOnNonMainLocale
+     * @covers \Netgen\BlockManager\Form\TranslatableType::disableUntranslatableForms
      */
     public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter(): void
     {

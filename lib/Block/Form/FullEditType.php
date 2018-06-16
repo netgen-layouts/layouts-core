@@ -18,7 +18,7 @@ final class FullEditType extends EditType
         $this->addParametersForm($builder, $options);
 
         if ($locale !== $mainLocale) {
-            $this->disableFormsOnNonMainLocale($builder);
+            $this->disableUntranslatableForms($builder);
         }
     }
 }
