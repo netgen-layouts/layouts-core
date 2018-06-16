@@ -11,9 +11,9 @@ use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Selector\SelectorsHandler;
 use Behat\Mink\Session;
-use Throwable;
 use InvalidArgumentException;
 use Netgen\BlockManager\Behat\Exception\PageException;
+use Throwable;
 
 abstract class Page
 {
