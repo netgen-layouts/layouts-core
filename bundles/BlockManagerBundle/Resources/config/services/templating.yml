@@ -74,12 +74,10 @@ services:
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_generator"
-            - "%kernel.debug%"
-            - "@?logger"
+            - "@netgen_block_manager.error.handler"
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }
-            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.twig.extension.helpers:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension

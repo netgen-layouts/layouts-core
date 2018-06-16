@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
-use Exception;
+use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
+use Throwable;
 
 final class ItemRuntime
 {
@@ -25,25 +24,18 @@ final class ItemRuntime
     private $urlGenerator;
 
     /**
-     * @var bool
+     * @var \Netgen\BlockManager\Error\ErrorHandlerInterface
      */
-    private $debug = false;
-
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private $errorHandler;
 
     public function __construct(
         ItemLoaderInterface $itemLoader,
         UrlGeneratorInterface $urlGenerator,
-        bool $debug = false,
-        LoggerInterface $logger = null
+        ErrorHandlerInterface $errorHandler
     ) {
         $this->itemLoader = $itemLoader;
         $this->urlGenerator = $urlGenerator;
-        $this->debug = $debug;
-        $this->logger = $logger ?: new NullLogger();
+        $this->errorHandler = $errorHandler;
     }
 
     /**
@@ -93,14 +85,10 @@ final class ItemRuntime
             }
 
             return $itemPath;
-        } catch (Exception $e) {
-            $this->logger->error($e->getMessage());
-
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
+        } catch (Throwable $t) {
+            $this->errorHandler->handleError($t);
         }
+
+        return '';
     }
 }

@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
+use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +35,8 @@ final class ItemRuntimeTest extends TestCase
 
         $this->runtime = new ItemRuntime(
             $this->itemLoaderMock,
-            $this->urlGeneratorMock
+            $this->urlGeneratorMock,
+            new ErrorHandler()
         );
     }
 
@@ -141,30 +143,6 @@ final class ItemRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Item "value" is not valid.
-     */
-    public function testGetItemPathThrowsItemExceptionInDebugModeWithInvalidValue(): void
-    {
-        $this->runtime = new ItemRuntime(
-            $this->itemLoaderMock,
-            $this->urlGeneratorMock,
-            true
-        );
-
-        $this->itemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->never())
-            ->method('generate');
-
-        $this->runtime->getItemPath('value');
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
     public function testGetItemPathWithUnsupportedValue(): void
     {
@@ -177,29 +155,5 @@ final class ItemRuntimeTest extends TestCase
             ->method('generate');
 
         $this->assertEquals('', $this->runtime->getItemPath(42));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Item could not be loaded.
-     */
-    public function testGetItemPathThrowsItemExceptionInDebugModeWithUnsupportedValue(): void
-    {
-        $this->runtime = new ItemRuntime(
-            $this->itemLoaderMock,
-            $this->urlGeneratorMock,
-            true
-        );
-
-        $this->itemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->never())
-            ->method('generate');
-
-        $this->runtime->getItemPath(42);
     }
 }
