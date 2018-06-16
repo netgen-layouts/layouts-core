@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Exception\Validation;
 
-use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
+use Throwable;
 
 final class ValidationException extends BaseInvalidArgumentException implements Exception
 {
-    public static function validationFailed(string $propertyPath, string $message, BaseException $previous = null): self
+    public static function validationFailed(string $propertyPath, string $message, Throwable $previous = null): self
     {
         return new self(
             sprintf(

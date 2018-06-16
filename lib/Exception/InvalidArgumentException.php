@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Exception;
 
-use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 
 final class InvalidArgumentException extends BaseInvalidArgumentException implements Exception
 {
     /**
      * Creates a new invalid argument exception.
      */
-    public function __construct(string $argument, string $whatIsWrong, BaseException $previousException = null)
+    public function __construct(string $argument, string $whatIsWrong, Throwable $previous = null)
     {
         parent::__construct(
             sprintf(
@@ -21,7 +21,7 @@ final class InvalidArgumentException extends BaseInvalidArgumentException implem
                 $whatIsWrong
             ),
             0,
-            $previousException
+            $previous
         );
     }
 }

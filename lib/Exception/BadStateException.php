@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Exception;
 
 use Exception as BaseException;
+use Throwable;
 
 final class BadStateException extends BaseException implements Exception
 {
     /**
      * Creates a new bad state exception.
      */
-    public function __construct(string $argument, string $whatIsWrong, BaseException $previousException = null)
+    public function __construct(string $argument, string $whatIsWrong, Throwable $previous = null)
     {
         parent::__construct(
             sprintf(
@@ -20,7 +21,7 @@ final class BadStateException extends BaseException implements Exception
                 $whatIsWrong
             ),
             0,
-            $previousException
+            $previous
         );
     }
 }

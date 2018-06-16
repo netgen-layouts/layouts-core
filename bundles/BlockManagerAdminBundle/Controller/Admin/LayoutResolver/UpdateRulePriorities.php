@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 
-use Exception;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -12,6 +11,7 @@ use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Utils\PrioritiesValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 final class UpdateRulePriorities extends Controller
 {
@@ -75,8 +75,8 @@ final class UpdateRulePriorities extends Controller
                     }
                 }
             );
-        } catch (Exception $e) {
-            throw new BadStateException('rule', $e->getMessage());
+        } catch (Throwable $t) {
+            throw new BadStateException('rule', $t->getMessage());
         }
 
         return new Response(null, Response::HTTP_NO_CONTENT);

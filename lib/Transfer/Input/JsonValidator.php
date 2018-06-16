@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Input;
 
-use Exception;
 use Netgen\BlockManager\Exception\Transfer\JsonValidationException;
 use stdClass;
 use Swaggest\JsonSchema\Schema;
+use Throwable;
 
 class JsonValidator implements JsonValidatorInterface
 {
@@ -19,8 +19,8 @@ class JsonValidator implements JsonValidatorInterface
         try {
             $schema = Schema::import($schema);
             $schema->in($data);
-        } catch (Exception $e) {
-            throw JsonValidationException::validationFailed($e->getMessage(), $e);
+        } catch (Throwable $t) {
+            throw JsonValidationException::validationFailed($t->getMessage(), $t);
         }
     }
 

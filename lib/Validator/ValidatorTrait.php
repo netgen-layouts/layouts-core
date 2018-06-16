@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Validator;
 
-use Exception;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Throwable;
 
 trait ValidatorTrait
 {
@@ -33,8 +33,8 @@ trait ValidatorTrait
     {
         try {
             $violations = $this->validator->validate($value, $constraints);
-        } catch (Exception $e) {
-            throw ValidationException::validationFailed((string) $propertyPath, $e->getMessage(), $e);
+        } catch (Throwable $t) {
+            throw ValidationException::validationFailed((string) $propertyPath, $t->getMessage(), $t);
         }
 
         if (count($violations) === 0) {
