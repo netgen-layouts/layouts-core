@@ -114,8 +114,6 @@ final class RenderingRuntime
 
     /**
      * Displays the provided zone.
-     *
-     * @throws \Exception If an error occurred
      */
     public function displayZone(Zone $zone, string $viewContext, ContextualizedTwigTemplate $twigTemplate): void
     {

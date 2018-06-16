@@ -27,8 +27,6 @@ final class ViewBlock extends Controller
      * Renders the provided block. Used by ESI rendering strategy, so if rendering fails,
      * we log an error and just return an empty response in order not to crash the page.
      *
-     * @throws \Exception If rendering fails
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Block $block, string $viewContext = ViewInterface::CONTEXT_DEFAULT)

@@ -32,8 +32,6 @@ final class ViewAjaxBlock extends Controller
      * Paging itself of the collection is not handled here, but rather in
      * an event listener triggering when the block is rendered.
      *
-     * @throws \Exception If rendering fails
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Block $block, string $collectionIdentifier, string $viewContext = ViewInterface::CONTEXT_AJAX)
