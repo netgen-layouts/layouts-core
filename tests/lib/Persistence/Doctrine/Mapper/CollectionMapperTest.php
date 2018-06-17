@@ -153,9 +153,9 @@ final class CollectionMapperTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
      */
-    public function testMapQuery(): void
+    public function testMapQueries(): void
     {
         $data = [
             [
@@ -176,24 +176,26 @@ final class CollectionMapperTest extends TestCase
             ],
         ];
 
-        $expectedData = new Query(
-            [
-                'id' => 42,
-                'collectionId' => 1,
-                'type' => 'my_query_type',
-                'availableLocales' => ['en', 'hr'],
-                'parameters' => [
-                    'en' => [
-                        'param' => 'value',
+        $expectedData = [
+            new Query(
+                [
+                    'id' => 42,
+                    'collectionId' => 1,
+                    'type' => 'my_query_type',
+                    'availableLocales' => ['en', 'hr'],
+                    'parameters' => [
+                        'en' => [
+                            'param' => 'value',
+                        ],
+                        'hr' => [
+                            'param2' => 'value2',
+                        ],
                     ],
-                    'hr' => [
-                        'param2' => 'value2',
-                    ],
-                ],
-                'status' => Value::STATUS_PUBLISHED,
-            ]
-        );
+                    'status' => Value::STATUS_PUBLISHED,
+                ]
+            ),
+        ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapQuery($data));
+        $this->assertEquals($expectedData, $this->mapper->mapQueries($data));
     }
 }

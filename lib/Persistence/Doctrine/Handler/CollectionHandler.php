@@ -55,9 +55,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('collection', $collectionId);
         }
 
-        $data = $this->collectionMapper->mapCollections($data);
-
-        return reset($data);
+        return $this->collectionMapper->mapCollections($data)[0];
     }
 
     public function loadItem($itemId, int $status): Item
@@ -68,9 +66,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('item', $itemId);
         }
 
-        $data = $this->collectionMapper->mapItems($data);
-
-        return reset($data);
+        return $this->collectionMapper->mapItems($data)[0];
     }
 
     public function loadItemWithPosition(Collection $collection, int $position): Item
@@ -87,9 +83,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             );
         }
 
-        $data = $this->collectionMapper->mapItems($data);
-
-        return reset($data);
+        return $this->collectionMapper->mapItems($data)[0];
     }
 
     public function loadCollectionItems(Collection $collection): array
@@ -107,7 +101,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('query', $queryId);
         }
 
-        $query = $this->collectionMapper->mapQuery($data);
+        $query = $this->collectionMapper->mapQueries($data)[0];
 
         $collection = $this->loadCollection($query->collectionId, $query->status);
 
@@ -126,7 +120,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('query for collection', $collection->id);
         }
 
-        $query = $this->collectionMapper->mapQuery($data);
+        $query = $this->collectionMapper->mapQueries($data)[0];
 
         $query->isTranslatable = $collection->isTranslatable;
         $query->mainLocale = $collection->mainLocale;

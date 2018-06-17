@@ -47,9 +47,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             throw new NotFoundException('rule', $ruleId);
         }
 
-        $data = $this->mapper->mapRules($data);
-
-        return reset($data);
+        return $this->mapper->mapRules($data)[0];
     }
 
     public function loadRules(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array
@@ -85,9 +83,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             throw new NotFoundException('target', $targetId);
         }
 
-        $data = $this->mapper->mapTargets($data);
-
-        return reset($data);
+        return $this->mapper->mapTargets($data)[0];
     }
 
     public function loadRuleTargets(Rule $rule): array
@@ -110,9 +106,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             throw new NotFoundException('condition', $conditionId);
         }
 
-        $data = $this->mapper->mapConditions($data);
-
-        return reset($data);
+        return $this->mapper->mapConditions($data)[0];
     }
 
     public function loadRuleConditions(Rule $rule): array

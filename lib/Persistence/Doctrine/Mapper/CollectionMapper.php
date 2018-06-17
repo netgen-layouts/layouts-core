@@ -80,7 +80,7 @@ final class CollectionMapper
     /**
      * Maps data from database to query values.
      */
-    public function mapQuery(array $data = []): Query
+    public function mapQueries(array $data = []): array
     {
         $queries = [];
 
@@ -113,7 +113,7 @@ final class CollectionMapper
             )
         );
 
-        return reset($queries);
+        return $queries;
     }
 
     /**

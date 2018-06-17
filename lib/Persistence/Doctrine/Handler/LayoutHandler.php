@@ -54,9 +54,7 @@ final class LayoutHandler implements LayoutHandlerInterface
             throw new NotFoundException('layout', $layoutId);
         }
 
-        $data = $this->layoutMapper->mapLayouts($data);
-
-        return reset($data);
+        return $this->layoutMapper->mapLayouts($data)[0];
     }
 
     public function loadZone($layoutId, int $status, string $identifier): Zone
@@ -67,9 +65,7 @@ final class LayoutHandler implements LayoutHandlerInterface
             throw new NotFoundException('zone', $identifier);
         }
 
-        $data = $this->layoutMapper->mapZones($data);
-
-        return reset($data);
+        return array_values($this->layoutMapper->mapZones($data))[0];
     }
 
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array

@@ -96,8 +96,6 @@ final class CollectionMapper
             throw new NotFoundException('collection', $collection->id);
         }
 
-        $collectionLocale = reset($validLocales);
-
         $collectionData = [
             'id' => $collection->id,
             'status' => $collection->status,
@@ -126,7 +124,7 @@ final class CollectionMapper
             'mainLocale' => $collection->mainLocale,
             'alwaysAvailable' => $collection->alwaysAvailable,
             'availableLocales' => $collection->availableLocales,
-            'locale' => $collectionLocale,
+            'locale' => array_values($validLocales)[0],
         ];
 
         return new Collection($collectionData);
@@ -191,7 +189,7 @@ final class CollectionMapper
             throw new NotFoundException('query', $query->id);
         }
 
-        $queryLocale = reset($validLocales);
+        $queryLocale = array_values($validLocales)[0];
         $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
             $queryType,
             $query->parameters[$query->mainLocale]

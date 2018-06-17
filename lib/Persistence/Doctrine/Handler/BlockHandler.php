@@ -63,9 +63,7 @@ final class BlockHandler implements BlockHandlerInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        $data = $this->blockMapper->mapBlocks($data);
-
-        return reset($data);
+        return $this->blockMapper->mapBlocks($data)[0];
     }
 
     public function blockExists($blockId, int $status): bool
@@ -102,9 +100,7 @@ final class BlockHandler implements BlockHandlerInterface
             throw new NotFoundException('collection reference', $identifier);
         }
 
-        $data = $this->blockMapper->mapCollectionReferences($data);
-
-        return reset($data);
+        return $this->blockMapper->mapCollectionReferences($data)[0];
     }
 
     public function loadCollectionReferences(Block $block): array
