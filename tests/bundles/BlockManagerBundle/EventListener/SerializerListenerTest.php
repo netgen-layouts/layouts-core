@@ -42,7 +42,7 @@ final class SerializerListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::VIEW => 'onView'],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

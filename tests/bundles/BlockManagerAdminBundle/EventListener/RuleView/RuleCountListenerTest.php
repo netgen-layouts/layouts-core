@@ -42,7 +42,7 @@ final class RuleCountListenerTest extends TestCase
     {
         $this->assertEquals(
             [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

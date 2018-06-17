@@ -41,7 +41,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::EXCEPTION => ['onException', 5]],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

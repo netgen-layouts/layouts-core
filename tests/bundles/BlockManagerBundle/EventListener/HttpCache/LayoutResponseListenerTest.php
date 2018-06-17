@@ -46,7 +46,7 @@ final class LayoutResponseListenerTest extends TestCase
                 KernelEvents::RESPONSE => 'onKernelResponse',
                 KernelEvents::EXCEPTION => 'onKernelException',
             ],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

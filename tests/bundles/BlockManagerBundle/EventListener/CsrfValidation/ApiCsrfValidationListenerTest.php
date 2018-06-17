@@ -60,7 +60,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

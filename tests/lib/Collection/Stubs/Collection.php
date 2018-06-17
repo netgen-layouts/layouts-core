@@ -23,7 +23,7 @@ final class Collection implements APICollection
     private $overrideItems = [];
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query
+     * @var \Netgen\BlockManager\API\Values\Collection\Query|null
      */
     private $query;
 

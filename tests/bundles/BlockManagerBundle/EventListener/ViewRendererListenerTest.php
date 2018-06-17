@@ -46,7 +46,7 @@ final class ViewRendererListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::VIEW => ['onView', -255]],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

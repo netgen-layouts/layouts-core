@@ -34,7 +34,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

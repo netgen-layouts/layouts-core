@@ -38,7 +38,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $this->assertEquals(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

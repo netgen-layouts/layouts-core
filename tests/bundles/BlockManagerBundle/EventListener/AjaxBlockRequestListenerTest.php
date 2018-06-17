@@ -30,7 +30,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => ['onKernelRequest', 10]],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

@@ -56,7 +56,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     {
         $this->assertEquals(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

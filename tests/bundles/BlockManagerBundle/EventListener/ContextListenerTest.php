@@ -58,7 +58,7 @@ final class ContextListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

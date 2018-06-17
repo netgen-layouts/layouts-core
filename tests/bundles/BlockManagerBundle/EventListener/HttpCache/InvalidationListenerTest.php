@@ -53,7 +53,7 @@ final class InvalidationListenerTest extends TestCase
                 'console.exception' => 'onConsoleTerminate',
                 'console.error' => 'onConsoleTerminate',
             ],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

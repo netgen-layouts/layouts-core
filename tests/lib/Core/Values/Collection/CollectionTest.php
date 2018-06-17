@@ -90,6 +90,11 @@ final class CollectionTest extends TestCase
         $this->assertCount(1, $collection->getManualItems());
         $this->assertCount(1, $collection->getOverrideItems());
 
+        $this->assertInstanceOf(Item::class, $collection->getItem(3));
+        $this->assertInstanceOf(Item::class, $collection->getItem(5));
+        $this->assertInstanceOf(Item::class, $collection->getManualItem(3));
+        $this->assertInstanceOf(Item::class, $collection->getOverrideItem(5));
+
         $this->assertEquals(Item::TYPE_MANUAL, $collection->getItem(3)->getType());
         $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getItem(5)->getType());
         $this->assertEquals(Item::TYPE_MANUAL, $collection->getManualItem(3)->getType());

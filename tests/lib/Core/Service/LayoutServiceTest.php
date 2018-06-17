@@ -845,11 +845,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $this->assertTrue($topZone->hasLinkedZone());
 
-        $this->assertInstanceOf(Zone::class, $layout->getZone('top', true)->getLinkedZone());
-        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+        $newTopZone = $layout->getZone('top', true);
+        $this->assertInstanceOf(Zone::class, $newTopZone);
 
-        $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
-        $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+        $this->assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
+
+        $this->assertEquals($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        $this->assertEquals($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
 
     /**
@@ -896,11 +899,15 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $this->assertTrue($topZone->hasLinkedZone());
 
-        $this->assertInstanceOf(Zone::class, $layout->getZone('top', true)->getLinkedZone());
-        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+        $newTopZone = $layout->getZone('top', true);
 
-        $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
-        $this->assertEquals($layout->getZone('top', true)->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+        $this->assertInstanceOf(Zone::class, $newTopZone);
+
+        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+        $this->assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
+
+        $this->assertEquals($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        $this->assertEquals($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
 
     /**
