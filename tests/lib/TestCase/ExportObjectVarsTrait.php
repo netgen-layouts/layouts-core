@@ -4,41 +4,66 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
+use Closure;
+
 trait ExportObjectVarsTrait
 {
     /**
      * @param object $object
+     * @param bool $recursive
      *
      * @return array
      */
-    private function exportObjectVars($object): array
+    private function exportObjectVars($object, bool $recursive = false): array
     {
-        return $this->getExporter()->call($object);
+        $data = $this->getExporter()->call($object);
+
+        if (!$recursive) {
+            return $data;
+        }
+
+        return $this->exportArray($data, $recursive);
     }
 
-    /**
-     * @param array $object
-     *
-     * @return array
-     */
-    private function exportObjectArrayVars(array $objects): array
+    private function exportObjectArrayVars(array $objects, bool $recursive = false): array
     {
         $data = [];
-
-        $exporter = $this->getExporter();
 
         foreach ($objects as $key => $object) {
             if (!is_object($object)) {
                 continue;
             }
 
-            $data[$key] = $exporter->call($object);
+            $data[$key] = $this->exportObjectVars($object, $recursive);
         }
 
         return $data;
     }
 
-    private function getExporter()
+    private function exportArray(array $data, bool $recursive = false): array
+    {
+        $exportedData = [];
+
+        foreach ($data as $key => $value) {
+            if ($recursive && is_array($value)) {
+                $exportedData[$key] = $this->exportArray($value, $recursive);
+
+                continue;
+            }
+
+            if ($recursive && is_object($value)) {
+                $exportedData[$key] = $this->exportObjectVars($value, $recursive);
+
+                continue;
+            }
+
+            $exportedData[$key] = $value;
+        }
+
+        return $exportedData;
+    }
+
+    private function getExporter(): Closure
     {
         return function (): array {
             return get_object_vars($this);

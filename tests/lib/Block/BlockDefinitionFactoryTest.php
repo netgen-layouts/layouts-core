@@ -24,10 +24,13 @@ use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionFactoryTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -164,63 +167,69 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $this->assertEquals(
+        $this->assertArrayHasKey('view_type', $blockDefinition->getViewTypes());
+
+        $viewType = $blockDefinition->getViewType('view_type');
+        $this->assertInstanceOf(ViewType::class, $viewType);
+
+        $this->assertArrayHasKey('standard', $viewType->getItemViewTypes());
+        $this->assertArrayHasKey('item_view_type', $viewType->getItemViewTypes());
+
+        $this->assertInstanceOf(ItemViewType::class, $viewType->getItemViewType('standard'));
+        $this->assertInstanceOf(ItemViewType::class, $viewType->getItemViewType('item_view_type'));
+
+        $this->assertSame(
             [
-                'view_type' => new ViewType(
-                    [
-                        'identifier' => 'view_type',
-                        'name' => 'View type',
-                        'itemViewTypes' => [
-                            'standard' => new ItemViewType(
-                                [
-                                    'identifier' => 'standard',
-                                    'name' => 'Standard',
-                                ]
-                            ),
-                            'item_view_type' => new ItemViewType(
-                                [
-                                    'identifier' => 'item_view_type',
-                                    'name' => 'Item view type',
-                                ]
-                            ),
+                'view_type' => [
+                    'identifier' => 'view_type',
+                    'name' => 'View type',
+                    'itemViewTypes' => [
+                        'item_view_type' => [
+                            'identifier' => 'item_view_type',
+                            'name' => 'Item view type',
                         ],
-                        'validParameters' => ['param1', 'param2'],
-                    ]
-                ),
+                        'standard' => [
+                            'identifier' => 'standard',
+                            'name' => 'Standard',
+                        ],
+                    ],
+                    'validParameters' => ['param1', 'param2'],
+                ],
             ],
-            $blockDefinition->getViewTypes()
+            $this->exportObjectArrayVars($blockDefinition->getViewTypes(), true)
         );
 
-        $this->assertEquals(
+        $this->assertArrayHasKey('form', $blockDefinition->getForms());
+        $this->assertInstanceOf(Form::class, $blockDefinition->getForm('form'));
+
+        $this->assertSame(
             [
-                'form' => new Form(
-                    [
-                        'identifier' => 'form',
-                        'type' => 'form_type',
-                    ]
-                ),
+                'identifier' => 'form',
+                'type' => 'form_type',
             ],
-            $blockDefinition->getForms()
+            $this->exportObjectVars($blockDefinition->getForm('form'))
         );
 
-        $this->assertEquals(
+        $this->assertArrayHasKey('default', $blockDefinition->getCollections());
+        $this->assertArrayHasKey('featured', $blockDefinition->getCollections());
+
+        $this->assertInstanceOf(Collection::class, $blockDefinition->getCollection('default'));
+        $this->assertInstanceOf(Collection::class, $blockDefinition->getCollection('featured'));
+
+        $this->assertSame(
             [
-                'default' => new Collection(
-                    [
-                        'identifier' => 'default',
-                        'validItemTypes' => null,
-                        'validQueryTypes' => null,
-                    ]
-                ),
-                'featured' => new Collection(
-                    [
-                        'identifier' => 'featured',
-                        'validItemTypes' => ['item'],
-                        'validQueryTypes' => [],
-                    ]
-                ),
+                'default' => [
+                    'identifier' => 'default',
+                    'validItemTypes' => null,
+                    'validQueryTypes' => null,
+                ],
+                'featured' => [
+                    'identifier' => 'featured',
+                    'validItemTypes' => ['item'],
+                    'validQueryTypes' => [],
+                ],
             ],
-            $blockDefinition->getCollections()
+            $this->exportObjectArrayVars($blockDefinition->getCollections())
         );
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();

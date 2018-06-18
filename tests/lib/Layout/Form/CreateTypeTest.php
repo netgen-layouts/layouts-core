@@ -95,7 +95,7 @@ final class CreateTypeTest extends FormTestCase
         $this->assertSame('en', $struct->mainLocale);
 
         $this->assertInstanceOf(LayoutType::class, $struct->layoutType);
-        $this->assertEquals('4_zones_a', $struct->layoutType->getIdentifier());
+        $this->assertSame('4_zones_a', $struct->layoutType->getIdentifier());
 
         $view = $form->createView();
         $children = $view->children;

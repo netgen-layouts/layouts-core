@@ -795,6 +795,8 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testBuildParameterDefinitions(): void
     {
+        $constraints = [new NotBlank(), function (): void {}];
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -803,7 +805,7 @@ final class ParameterBuilderTest extends TestCase
                 'default_value' => 'test value',
                 'label' => null,
                 'groups' => ['group'],
-                'constraints' => [new NotBlank(), function (): void {}],
+                'constraints' => $constraints,
             ]
         );
 
@@ -831,48 +833,60 @@ final class ParameterBuilderTest extends TestCase
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
-        $this->assertEquals(
-            $parameterDefinitions,
+        $this->assertArrayHasKey('test', $parameterDefinitions);
+        $this->assertArrayHasKey('compound', $parameterDefinitions);
+
+        $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
+        $this->assertNotInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['test']);
+        $this->assertInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['compound']);
+
+        $innerDefinitions = $parameterDefinitions['compound']->getParameterDefinitions();
+
+        $this->assertArrayHasKey('test2', $innerDefinitions);
+        $this->assertInstanceOf(ParameterDefinition::class, $innerDefinitions['test2']);
+        $this->assertNotInstanceOf(CompoundParameterDefinition::class, $innerDefinitions['test2']);
+
+        $this->assertSame(
             [
-                'test' => new ParameterDefinition(
-                    [
-                        'name' => 'test',
-                        'type' => $this->registry->getParameterType('text'),
-                        'options' => [],
-                        'isRequired' => true,
-                        'defaultValue' => 'test value',
-                        'label' => null,
-                        'groups' => ['group'],
-                        'constraints' => [new NotBlank(), function (): void {}],
-                    ]
-                ),
-                'compound' => new CompoundParameterDefinition(
-                    [
-                        'name' => 'compound',
-                        'type' => $this->registry->getParameterType('compound_boolean'),
-                        'options' => ['reverse' => false],
-                        'isRequired' => false,
-                        'defaultValue' => true,
-                        'label' => false,
-                        'groups' => ['group 2'],
-                        'constraints' => [],
-                        'parameterDefinitions' => [
-                            'test2' => new ParameterDefinition(
-                                [
-                                    'name' => 'test2',
-                                    'type' => $this->registry->getParameterType('text'),
-                                    'options' => [],
-                                    'isRequired' => true,
-                                    'defaultValue' => 'test value 2',
-                                    'label' => 'Custom label',
-                                    'groups' => ['group 2'],
-                                    'constraints' => [],
-                                ]
-                            ),
-                        ],
-                    ]
-                ),
-            ]
+                'name' => 'test',
+                'type' => $this->registry->getParameterType('text'),
+                'options' => [],
+                'isRequired' => true,
+                'defaultValue' => 'test value',
+                'label' => null,
+                'groups' => ['group'],
+                'constraints' => $constraints,
+            ],
+            $this->exportObjectVars($parameterDefinitions['test'])
+        );
+
+        $this->assertSame(
+            [
+                'name' => 'compound',
+                'type' => $this->registry->getParameterType('compound_boolean'),
+                'options' => ['reverse' => false],
+                'isRequired' => false,
+                'defaultValue' => true,
+                'label' => false,
+                'groups' => ['group 2'],
+                'constraints' => [],
+                'parameterDefinitions' => $innerDefinitions,
+            ],
+            $this->exportObjectVars($parameterDefinitions['compound'])
+        );
+
+        $this->assertSame(
+            [
+                'name' => 'test2',
+                'type' => $this->registry->getParameterType('text'),
+                'options' => [],
+                'isRequired' => true,
+                'defaultValue' => 'test value 2',
+                'label' => 'Custom label',
+                'groups' => ['group 2'],
+                'constraints' => [],
+            ],
+            $this->exportObjectVars($innerDefinitions['test2'])
         );
     }
 
