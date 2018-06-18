@@ -8,6 +8,11 @@ use Twig\Loader\FilesystemLoader as BaseFilesystemLoader;
 
 class LegacyFilesystemLoader extends BaseFilesystemLoader
 {
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
     public function getSource($name): string
     {
         return '';

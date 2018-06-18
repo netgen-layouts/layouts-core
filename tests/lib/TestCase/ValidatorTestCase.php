@@ -22,6 +22,9 @@ abstract class ValidatorTestCase extends TestCase
      */
     protected $validator;
 
+    /**
+     * @var mixed
+     */
     protected $constraint;
 
     public function setUp(): void

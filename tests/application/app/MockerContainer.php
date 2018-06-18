@@ -18,6 +18,12 @@ class MockerContainer extends Container
      */
     private $mockedServices = [];
 
+    /**
+     * @param string $id
+     * @param \PHPUnit\Framework\MockObject\MockObject $mock
+     *
+     * @return mixed
+     */
     public function mock(string $id, /* PHPUnit\Framework\MockObject\MockObject */ $mock)
     {
         // @deprecated Enable MockObject type hint when support for PHPUnit 5 ends

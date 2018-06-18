@@ -9,6 +9,9 @@ use Netgen\BlockManager\Item\ValueLoaderInterface;
 
 final class ValueLoader implements ValueLoaderInterface
 {
+    /**
+     * @var bool
+     */
     private $throwException = false;
 
     public function __construct(bool $throwException = false)

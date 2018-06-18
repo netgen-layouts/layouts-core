@@ -9,6 +9,9 @@ use Throwable;
 
 final class ErrorHandler implements ErrorHandlerInterface
 {
+    /**
+     * @var bool
+     */
     private $throw = false;
 
     public function setThrow(bool $throw = false): void

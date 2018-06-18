@@ -20,6 +20,10 @@ final class TargetType implements TargetTypeInterface
      */
     private $value;
 
+    /**
+     * @param string $type
+     * @param mixed $value
+     */
     public function __construct(string $type, $value = null)
     {
         $this->type = $type;
