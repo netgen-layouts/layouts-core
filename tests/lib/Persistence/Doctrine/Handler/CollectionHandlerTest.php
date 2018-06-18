@@ -1339,6 +1339,27 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage When adding items to dynamic collections, position is mandatory.
+     */
+    public function testAddItemToDynamicCollectionWithoutPositionThrowsBadStateException(): void
+    {
+        $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->value = '42';
+        $itemCreateStruct->valueType = 'my_value_type';
+
+        $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $itemCreateStruct
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
