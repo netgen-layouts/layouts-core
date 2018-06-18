@@ -225,7 +225,7 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param array $value
-     * @param array $convertedValue
+     * @param array $expectedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromHash
      * @dataProvider fromHashProvider
@@ -410,7 +410,7 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param array  $convertedValue
+     * @param array  $expectedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId

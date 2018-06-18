@@ -838,9 +838,12 @@ final class ParameterBuilderTest extends TestCase
 
         $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
         $this->assertNotInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['test']);
-        $this->assertInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['compound']);
 
-        $innerDefinitions = $parameterDefinitions['compound']->getParameterDefinitions();
+        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        $compoundDefinition = $parameterDefinitions['compound'];
+        $this->assertInstanceOf(CompoundParameterDefinition::class, $compoundDefinition);
+
+        $innerDefinitions = $compoundDefinition->getParameterDefinitions();
 
         $this->assertArrayHasKey('test2', $innerDefinitions);
         $this->assertInstanceOf(ParameterDefinition::class, $innerDefinitions['test2']);

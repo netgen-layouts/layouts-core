@@ -45,7 +45,7 @@ final class CompoundParameterDefinitionTest extends TestCase
         $this->assertTrue($parameterDefinition->hasParameterDefinition('name'));
 
         try {
-            $this->assertSame([], $parameterDefinition->getParameterDefinition('test'));
+            $parameterDefinition->getParameterDefinition('test');
             $this->fail('Fetched a parameter in empty collection.');
         } catch (ParameterException $e) {
             // Do nothing

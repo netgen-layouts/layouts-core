@@ -24,7 +24,7 @@ final class BlockTest extends TestCase
                 'definitionIdentifier' => 'text',
                 'parameters' => [
                     'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value',
+                    'some_other_param' => ['some_other_value'],
                 ],
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -55,7 +55,7 @@ final class BlockTest extends TestCase
         $this->assertSame(
             [
                 'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
+                'some_other_param' => ['some_other_value'],
             ],
             $block->parameters
         );

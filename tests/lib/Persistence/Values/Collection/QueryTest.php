@@ -17,7 +17,7 @@ final class QueryTest extends TestCase
                 'id' => 42,
                 'collectionId' => 30,
                 'type' => 'my_query_type',
-                'parameters' => ['param' => 'value'],
+                'parameters' => ['param' => ['value']],
                 'status' => Value::STATUS_PUBLISHED,
             ]
         );
@@ -25,7 +25,7 @@ final class QueryTest extends TestCase
         $this->assertSame(42, $query->id);
         $this->assertSame(30, $query->collectionId);
         $this->assertSame('my_query_type', $query->type);
-        $this->assertSame(['param' => 'value'], $query->parameters);
+        $this->assertSame(['param' => ['value']], $query->parameters);
         $this->assertSame(Value::STATUS_PUBLISHED, $query->status);
     }
 }

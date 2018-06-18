@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 use Traversable;
@@ -31,10 +33,12 @@ final class ResultSetTest extends TestCase
     {
         $collection = new Collection();
 
+        $resultItem = new Result(0, new Item());
+
         $result = new ResultSet(
             [
                 'collection' => $collection,
-                'results' => ['items'],
+                'results' => [$resultItem],
                 'totalCount' => 15,
                 'offset' => 3,
                 'limit' => 5,
@@ -42,19 +46,19 @@ final class ResultSetTest extends TestCase
         );
 
         $this->assertSame($collection, $result->getCollection());
-        $this->assertSame(['items'], $result->getResults());
+        $this->assertSame([$resultItem], $result->getResults());
         $this->assertFalse($result->isContextual());
         $this->assertSame(15, $result->getTotalCount());
         $this->assertSame(3, $result->getOffset());
         $this->assertSame(5, $result->getLimit());
 
         $this->assertInstanceOf(Traversable::class, $result->getIterator());
-        $this->assertSame(['items'], iterator_to_array($result->getIterator()));
+        $this->assertSame([$resultItem], iterator_to_array($result->getIterator()));
 
         $this->assertCount(1, $result);
 
         $this->assertTrue(isset($result[0]));
-        $this->assertSame('items', $result[0]);
+        $this->assertSame($resultItem, $result[0]);
 
         try {
             $result[0] = 'new';
