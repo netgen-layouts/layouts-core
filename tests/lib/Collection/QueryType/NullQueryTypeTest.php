@@ -26,7 +26,7 @@ final class NullQueryTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertEquals('type', $this->queryType->getType());
+        $this->assertSame('type', $this->queryType->getType());
     }
 
     /**
@@ -42,7 +42,7 @@ final class NullQueryTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Invalid query type', $this->queryType->getName());
+        $this->assertSame('Invalid query type', $this->queryType->getName());
     }
 
     /**
@@ -50,7 +50,7 @@ final class NullQueryTypeTest extends TestCase
      */
     public function testGetValues(): void
     {
-        $this->assertEquals([], $this->queryType->getValues(new Query()));
+        $this->assertSame([], $this->queryType->getValues(new Query()));
     }
 
     /**
@@ -58,7 +58,7 @@ final class NullQueryTypeTest extends TestCase
      */
     public function testGetCount(): void
     {
-        $this->assertEquals(0, $this->queryType->getCount(new Query()));
+        $this->assertSame(0, $this->queryType->getCount(new Query()));
     }
 
     /**

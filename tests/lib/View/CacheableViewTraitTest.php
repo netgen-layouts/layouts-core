@@ -26,7 +26,7 @@ final class CacheableViewTraitTest extends TestCase
     public function testDefaultValues(): void
     {
         $this->assertTrue($this->view->isCacheable());
-        $this->assertEquals(0, $this->view->getSharedMaxAge());
+        $this->assertSame(0, $this->view->getSharedMaxAge());
     }
 
     /**
@@ -46,6 +46,6 @@ final class CacheableViewTraitTest extends TestCase
     public function testGetSetSharedMaxAge(): void
     {
         $this->view->setSharedMaxAge(42);
-        $this->assertEquals(42, $this->view->getSharedMaxAge());
+        $this->assertSame(42, $this->view->getSharedMaxAge());
     }
 }

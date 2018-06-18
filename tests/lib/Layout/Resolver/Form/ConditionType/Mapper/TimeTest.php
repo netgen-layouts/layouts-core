@@ -25,7 +25,7 @@ final class TimeTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(TimeType::class, $this->mapper->getFormType());
+        $this->assertSame(TimeType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -33,6 +33,6 @@ final class TimeTest extends TestCase
      */
     public function testGetFormOptions(): void
     {
-        $this->assertEquals(['label' => false], $this->mapper->getFormOptions());
+        $this->assertSame(['label' => false], $this->mapper->getFormOptions());
     }
 }

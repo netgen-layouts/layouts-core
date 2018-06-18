@@ -37,7 +37,7 @@ final class SharedTest extends TestCase
 
         $view = new LayoutView(['layout' => $layout]);
 
-        $this->assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertSame($expected, $this->matcher->match($view, $config));
     }
 
     public function matchProvider(): array

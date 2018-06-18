@@ -45,7 +45,7 @@ final class InvalidationListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 KernelEvents::TERMINATE => 'onKernelTerminate',
                 KernelEvents::EXCEPTION => 'onKernelException',

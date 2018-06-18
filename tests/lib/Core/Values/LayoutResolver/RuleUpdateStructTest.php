@@ -18,7 +18,7 @@ final class RuleUpdateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $ruleUpdateStruct->layoutId);
-        $this->assertEquals('Comment', $ruleUpdateStruct->comment);
+        $this->assertSame(42, $ruleUpdateStruct->layoutId);
+        $this->assertSame('Comment', $ruleUpdateStruct->comment);
     }
 }

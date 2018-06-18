@@ -16,7 +16,7 @@ final class TargetHandlerExceptionTest extends TestCase
     {
         $exception = TargetHandlerException::noTargetHandler('Doctrine', 'target_type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Doctrine target handler for "target_type" target type does not exist.',
             $exception->getMessage()
         );

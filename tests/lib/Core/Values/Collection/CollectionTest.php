@@ -27,8 +27,8 @@ final class CollectionTest extends TestCase
     {
         $collection = new Collection();
 
-        $this->assertEquals([], $collection->getAvailableLocales());
-        $this->assertEquals([], $collection->getItems());
+        $this->assertSame([], $collection->getAvailableLocales());
+        $this->assertSame([], $collection->getItems());
     }
 
     /**
@@ -62,6 +62,8 @@ final class CollectionTest extends TestCase
             new Item(['type' => Item::TYPE_OVERRIDE, 'position' => 5]),
         ];
 
+        $query = new Query();
+
         $collection = new Collection(
             [
                 'id' => 42,
@@ -73,19 +75,19 @@ final class CollectionTest extends TestCase
                 'alwaysAvailable' => false,
                 'locale' => 'en',
                 'items' => new ArrayCollection($items),
-                'query' => new Query(),
+                'query' => $query,
             ]
         );
 
-        $this->assertEquals(42, $collection->getId());
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
-        $this->assertEquals(5, $collection->getOffset());
-        $this->assertEquals(10, $collection->getLimit());
-        $this->assertEquals('en', $collection->getMainLocale());
-        $this->assertEquals(['en', 'hr'], $collection->getAvailableLocales());
+        $this->assertSame(42, $collection->getId());
+        $this->assertSame(Collection::TYPE_DYNAMIC, $collection->getType());
+        $this->assertSame(5, $collection->getOffset());
+        $this->assertSame(10, $collection->getLimit());
+        $this->assertSame('en', $collection->getMainLocale());
+        $this->assertSame(['en', 'hr'], $collection->getAvailableLocales());
         $this->assertTrue($collection->isTranslatable());
         $this->assertFalse($collection->isAlwaysAvailable());
-        $this->assertEquals('en', $collection->getLocale());
+        $this->assertSame('en', $collection->getLocale());
         $this->assertCount(2, $collection->getItems());
         $this->assertCount(1, $collection->getManualItems());
         $this->assertCount(1, $collection->getOverrideItems());
@@ -95,31 +97,31 @@ final class CollectionTest extends TestCase
         $this->assertInstanceOf(Item::class, $collection->getManualItem(3));
         $this->assertInstanceOf(Item::class, $collection->getOverrideItem(5));
 
-        $this->assertEquals(Item::TYPE_MANUAL, $collection->getItem(3)->getType());
-        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getItem(5)->getType());
-        $this->assertEquals(Item::TYPE_MANUAL, $collection->getManualItem(3)->getType());
-        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItem(5)->getType());
+        $this->assertSame(Item::TYPE_MANUAL, $collection->getItem(3)->getType());
+        $this->assertSame(Item::TYPE_OVERRIDE, $collection->getItem(5)->getType());
+        $this->assertSame(Item::TYPE_MANUAL, $collection->getManualItem(3)->getType());
+        $this->assertSame(Item::TYPE_OVERRIDE, $collection->getOverrideItem(5)->getType());
 
-        $this->assertEquals(new Query(), $collection->getQuery());
+        $this->assertSame($query, $collection->getQuery());
         $this->assertTrue($collection->hasQuery());
 
         $this->assertFalse($collection->hasItem(2));
         $this->assertTrue($collection->hasItem(3));
         $this->assertTrue($collection->hasItem(5));
 
-        $this->assertEquals($items[0], $collection->getItem(3));
-        $this->assertEquals($items[1], $collection->getItem(5));
+        $this->assertSame($items[0], $collection->getItem(3));
+        $this->assertSame($items[1], $collection->getItem(5));
 
         $this->assertFalse($collection->hasManualItem(2));
         $this->assertTrue($collection->hasManualItem(3));
 
-        $this->assertEquals($items[0], $collection->getManualItem(3));
+        $this->assertSame($items[0], $collection->getManualItem(3));
         $this->assertNull($collection->getManualItem(2));
 
         $this->assertFalse($collection->hasOverrideItem(4));
         $this->assertTrue($collection->hasOverrideItem(5));
 
-        $this->assertEquals($items[1], $collection->getOverrideItem(5));
+        $this->assertSame($items[1], $collection->getOverrideItem(5));
         $this->assertNull($collection->getOverrideItem(4));
     }
 
@@ -134,6 +136,6 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertEquals(0, $collection->getOffset());
+        $this->assertSame(0, $collection->getOffset());
     }
 }

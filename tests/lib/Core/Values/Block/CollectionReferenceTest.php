@@ -17,14 +17,16 @@ final class CollectionReferenceTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $collection = new Collection();
+
         $collectionReference = new CollectionReference(
             [
-                'collection' => new Collection(),
+                'collection' => $collection,
                 'identifier' => 'default',
             ]
         );
 
-        $this->assertEquals(new Collection(), $collectionReference->getCollection());
-        $this->assertEquals('default', $collectionReference->getIdentifier());
+        $this->assertSame($collection, $collectionReference->getCollection());
+        $this->assertSame('default', $collectionReference->getIdentifier());
     }
 }

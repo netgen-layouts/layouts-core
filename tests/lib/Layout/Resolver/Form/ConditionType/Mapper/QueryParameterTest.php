@@ -26,7 +26,7 @@ final class QueryParameterTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(KeyValuesType::class, $this->mapper->getFormType());
+        $this->assertSame(KeyValuesType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -34,7 +34,7 @@ final class QueryParameterTest extends TestCase
      */
     public function testGetFormOptions(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'label' => false,
                 'required' => false,

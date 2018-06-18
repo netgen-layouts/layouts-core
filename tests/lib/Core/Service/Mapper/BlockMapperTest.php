@@ -60,21 +60,21 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
             $block->getDefinition()
         );
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(31, $block->getId());
-        $this->assertEquals(13, $block->getLayoutId());
-        $this->assertEquals('default', $block->getViewType());
-        $this->assertEquals('standard', $block->getItemViewType());
-        $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(3, $block->getParentPosition());
+        $this->assertSame(31, $block->getId());
+        $this->assertSame(13, $block->getLayoutId());
+        $this->assertSame('default', $block->getViewType());
+        $this->assertSame('standard', $block->getItemViewType());
+        $this->assertSame('My block', $block->getName());
+        $this->assertSame(3, $block->getParentPosition());
         $this->assertTrue($block->isPublished());
 
-        $this->assertEquals('test', $block->getParameter('css_class')->getValue());
+        $this->assertSame('test', $block->getParameter('css_class')->getValue());
         $this->assertNull($block->getParameter('css_id')->getValue());
 
         $this->assertTrue($block->hasConfig('http_cache'));
@@ -83,16 +83,16 @@ abstract class BlockMapperTest extends ServiceTestCase
         $httpCacheConfig = $block->getConfig('http_cache');
 
         $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
-        $this->assertEquals(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
+        $this->assertSame(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
 
         $this->assertTrue($block->isTranslatable());
-        $this->assertEquals('en', $block->getMainLocale());
+        $this->assertSame('en', $block->getMainLocale());
         $this->assertFalse($block->isAlwaysAvailable());
-        $this->assertEquals(['en'], $block->getAvailableLocales());
+        $this->assertSame(['en'], $block->getAvailableLocales());
 
-        $this->assertEquals('en', $block->getLocale());
+        $this->assertSame('en', $block->getLocale());
 
-        $this->assertEquals('test', $block->getParameter('css_class')->getValue());
+        $this->assertSame('test', $block->getParameter('css_class')->getValue());
         $this->assertNull($block->getParameter('css_id')->getValue());
     }
 
@@ -116,8 +116,8 @@ abstract class BlockMapperTest extends ServiceTestCase
         $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(['en', 'hr', 'de'], $block->getAvailableLocales());
-        $this->assertEquals('hr', $block->getLocale());
+        $this->assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
+        $this->assertSame('hr', $block->getLocale());
     }
 
     /**
@@ -140,8 +140,8 @@ abstract class BlockMapperTest extends ServiceTestCase
         $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr', 'en']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(['en', 'hr', 'de'], $block->getAvailableLocales());
-        $this->assertEquals('hr', $block->getLocale());
+        $this->assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
+        $this->assertSame('hr', $block->getLocale());
     }
 
     /**
@@ -165,8 +165,8 @@ abstract class BlockMapperTest extends ServiceTestCase
         $block = $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(['en', 'hr', 'de'], $block->getAvailableLocales());
-        $this->assertEquals('en', $block->getLocale());
+        $this->assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
+        $this->assertSame('en', $block->getLocale());
     }
 
     /**
@@ -256,12 +256,12 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertInstanceOf(NullBlockDefinition::class, $block->getDefinition());
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(31, $block->getId());
-        $this->assertEquals(13, $block->getLayoutId());
-        $this->assertEquals('default', $block->getViewType());
-        $this->assertEquals('standard', $block->getItemViewType());
-        $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(3, $block->getParentPosition());
+        $this->assertSame(31, $block->getId());
+        $this->assertSame(13, $block->getLayoutId());
+        $this->assertSame('default', $block->getViewType());
+        $this->assertSame('standard', $block->getItemViewType());
+        $this->assertSame('My block', $block->getName());
+        $this->assertSame(3, $block->getParentPosition());
         $this->assertTrue($block->isPublished());
 
         $this->assertFalse($block->hasParameter('css_class'));
@@ -270,11 +270,11 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertFalse($block->hasConfig('http_cache'));
 
         $this->assertTrue($block->isTranslatable());
-        $this->assertEquals('en', $block->getMainLocale());
+        $this->assertSame('en', $block->getMainLocale());
         $this->assertFalse($block->isAlwaysAvailable());
-        $this->assertEquals(['en'], $block->getAvailableLocales());
+        $this->assertSame(['en'], $block->getAvailableLocales());
 
-        $this->assertEquals('en', $block->getLocale());
+        $this->assertSame('en', $block->getLocale());
     }
 
     /**
@@ -305,7 +305,7 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
             $block->getDefinition()
         );
@@ -314,7 +314,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('left'));
 
         $placeholder = $block->getPlaceholder('left');
-        $this->assertEquals('left', $placeholder->getIdentifier());
+        $this->assertSame('left', $placeholder->getIdentifier());
         $this->assertCount(1, $placeholder->getBlocks());
         $this->assertInstanceOf(APIBlock::class, $placeholder->getBlocks()[0]);
 
@@ -322,7 +322,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('right'));
 
         $placeholder = $block->getPlaceholder('right');
-        $this->assertEquals('right', $placeholder->getIdentifier());
+        $this->assertSame('right', $placeholder->getIdentifier());
         $this->assertCount(0, $placeholder->getBlocks());
     }
 
@@ -362,7 +362,7 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
             $block->getDefinition()
         );

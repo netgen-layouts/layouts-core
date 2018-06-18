@@ -49,12 +49,11 @@ final class RouteTest extends FormTestCase
             'value' => 'route_name',
         ];
 
-        $updatedStruct = new TargetCreateStruct();
-        $updatedStruct->value = 'route_name';
+        $struct = new TargetCreateStruct();
 
         $form = $this->factory->create(
             TargetType::class,
-            new TargetCreateStruct(),
+            $struct,
             ['target_type' => $this->targetType]
         );
 
@@ -63,13 +62,14 @@ final class RouteTest extends FormTestCase
 
         $form->submit($submittedData);
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('route_name', $struct->value);
 
         $formView = $form->createView();
 
         $this->assertArrayHasKey('value', $formView->children);
 
         $this->assertArrayHasKey('target_type', $formView->vars);
-        $this->assertEquals($this->targetType, $formView->vars['target_type']);
+        $this->assertSame($this->targetType, $formView->vars['target_type']);
     }
 }

@@ -16,7 +16,7 @@ final class TranslationExceptionTest extends TestCase
     {
         $exception = TranslationException::noTranslation('en');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Translation with "en" locale does not exist.',
             $exception->getMessage()
         );

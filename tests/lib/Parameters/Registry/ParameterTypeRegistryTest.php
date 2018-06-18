@@ -36,7 +36,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testAddParameterType(): void
     {
-        $this->assertEquals(['type' => $this->parameterType], $this->registry->getParameterTypes());
+        $this->assertSame(['type' => $this->parameterType], $this->registry->getParameterTypes());
     }
 
     /**
@@ -60,7 +60,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testGetParameterType(): void
     {
-        $this->assertEquals($this->parameterType, $this->registry->getParameterType('type'));
+        $this->assertSame($this->parameterType, $this->registry->getParameterType('type'));
     }
 
     /**
@@ -78,7 +78,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testGetParameterTypeByClass(): void
     {
-        $this->assertEquals($this->parameterType, $this->registry->getParameterTypeByClass(ParameterType::class));
+        $this->assertSame($this->parameterType, $this->registry->getParameterTypeByClass(ParameterType::class));
     }
 
     /**
@@ -103,7 +103,7 @@ final class ParameterTypeRegistryTest extends TestCase
             $parameterTypes[$identifier] = $parameterType;
         }
 
-        $this->assertEquals($this->registry->getParameterTypes(), $parameterTypes);
+        $this->assertSame($this->registry->getParameterTypes(), $parameterTypes);
     }
 
     /**
@@ -128,7 +128,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->parameterType, $this->registry['type']);
+        $this->assertSame($this->parameterType, $this->registry['type']);
     }
 
     /**

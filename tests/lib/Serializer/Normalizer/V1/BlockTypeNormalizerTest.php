@@ -52,7 +52,7 @@ final class BlockTypeNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'identifier' => $blockType->getIdentifier(),
                 'enabled' => false,
@@ -99,7 +99,7 @@ final class BlockTypeNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

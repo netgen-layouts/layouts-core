@@ -147,7 +147,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         $ruleCount = $this->layoutResolverService->getRuleCount();
 
-        $this->assertEquals(12, $ruleCount);
+        $this->assertSame(12, $ruleCount);
     }
 
     /**
@@ -159,7 +159,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
             $this->layoutService->loadLayout(1)
         );
 
-        $this->assertEquals(2, $ruleCount);
+        $this->assertSame(2, $ruleCount);
     }
 
     /**
@@ -303,8 +303,8 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertInstanceOf(Layout::class, $updatedRule->getLayout());
         $this->assertTrue($updatedRule->getLayout()->isPublished());
-        $this->assertEquals(3, $updatedRule->getLayout()->getId());
-        $this->assertEquals('Updated comment', $updatedRule->getComment());
+        $this->assertSame(3, $updatedRule->getLayout()->getId());
+        $this->assertSame('Updated comment', $updatedRule->getComment());
     }
 
     /**
@@ -323,8 +323,8 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertInstanceOf(Layout::class, $updatedRule->getLayout());
         $this->assertTrue($updatedRule->getLayout()->isPublished());
-        $this->assertEquals(2, $updatedRule->getLayout()->getId());
-        $this->assertEquals('Updated comment', $updatedRule->getComment());
+        $this->assertSame(2, $updatedRule->getLayout()->getId());
+        $this->assertSame('Updated comment', $updatedRule->getComment());
     }
 
     /**
@@ -343,7 +343,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertTrue($updatedRule->isDraft());
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertNull($updatedRule->getLayout());
-        $this->assertEquals('Updated comment', $updatedRule->getComment());
+        $this->assertSame('Updated comment', $updatedRule->getComment());
     }
 
     /**
@@ -379,7 +379,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         );
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertEquals(50, $updatedRule->getPriority());
+        $this->assertSame(50, $updatedRule->getPriority());
         $this->assertTrue($updatedRule->isPublished());
     }
 
@@ -410,9 +410,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $rule = $this->layoutResolverService->loadRule(2);
         $copiedRule = $this->layoutResolverService->copyRule($rule);
 
-        $this->assertEquals($rule->isPublished(), $copiedRule->isPublished());
+        $this->assertSame($rule->isPublished(), $copiedRule->isPublished());
         $this->assertInstanceOf(Rule::class, $copiedRule);
-        $this->assertEquals(13, $copiedRule->getId());
+        $this->assertSame(13, $copiedRule->getId());
     }
 
     /**
@@ -794,7 +794,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertTrue($updatedTarget->isDraft());
         $this->assertInstanceOf(Target::class, $updatedTarget);
 
-        $this->assertEquals('new_value', $updatedTarget->getValue());
+        $this->assertSame('new_value', $updatedTarget->getValue());
     }
 
     /**
@@ -896,7 +896,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertTrue($updatedCondition->isDraft());
         $this->assertInstanceOf(Condition::class, $updatedCondition);
 
-        $this->assertEquals('new_value', $updatedCondition->getValue());
+        $this->assertSame('new_value', $updatedCondition->getValue());
     }
 
     /**

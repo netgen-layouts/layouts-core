@@ -16,7 +16,7 @@ final class ValueExceptionTest extends TestCase
     {
         $exception = ValueException::noValueLoader('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value loader for "type" value type does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ValueExceptionTest extends TestCase
     {
         $exception = ValueException::noValueConverter('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value converter for "type" type does not exist.',
             $exception->getMessage()
         );

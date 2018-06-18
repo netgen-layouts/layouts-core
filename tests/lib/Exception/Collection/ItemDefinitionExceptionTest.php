@@ -16,7 +16,7 @@ final class ItemDefinitionExceptionTest extends TestCase
     {
         $exception = ItemDefinitionException::noItemDefinition('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Item definition for "type" value type does not exist.',
             $exception->getMessage()
         );

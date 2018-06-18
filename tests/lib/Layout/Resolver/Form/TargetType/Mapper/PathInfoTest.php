@@ -25,6 +25,6 @@ final class PathInfoTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(TextType::class, $this->mapper->getFormType());
+        $this->assertSame(TextType::class, $this->mapper->getFormType());
     }
 }

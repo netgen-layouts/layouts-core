@@ -34,6 +34,6 @@ final class ParameterFilterRegistryTest extends TestCase
      */
     public function testGetParameterFilters(): void
     {
-        $this->assertEquals([$this->filter], $this->registry->getParameterFilters('html'));
+        $this->assertSame([$this->filter], $this->registry->getParameterFilters('html'));
     }
 }

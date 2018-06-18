@@ -50,7 +50,7 @@ final class RemoteIdConverterTest extends TestCase
                 )
             );
 
-        $this->assertEquals('my-value-type://abc', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
+        $this->assertSame('my-value-type://abc', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
     }
 
     /**
@@ -58,7 +58,7 @@ final class RemoteIdConverterTest extends TestCase
      */
     public function testCovertToRemoteIdWithInvalidLink(): void
     {
-        $this->assertEquals('null://0', $this->remoteIdConverter->convertToRemoteId('invalid'));
+        $this->assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('invalid'));
     }
 
     /**
@@ -72,7 +72,7 @@ final class RemoteIdConverterTest extends TestCase
             ->with($this->equalTo(42), $this->equalTo('my_value_type'))
             ->will($this->returnValue(new NullItem('my_value_type')));
 
-        $this->assertEquals('null://0', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
+        $this->assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
     }
 
     /**
@@ -95,7 +95,7 @@ final class RemoteIdConverterTest extends TestCase
                 )
             );
 
-        $this->assertEquals('my-value-type://42', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
+        $this->assertSame('my-value-type://42', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
     }
 
     /**
@@ -103,7 +103,7 @@ final class RemoteIdConverterTest extends TestCase
      */
     public function testConvertFromRemoteIdWithInvalidLink(): void
     {
-        $this->assertEquals('null://0', $this->remoteIdConverter->convertFromRemoteId('invalid'));
+        $this->assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('invalid'));
     }
 
     /**
@@ -117,6 +117,6 @@ final class RemoteIdConverterTest extends TestCase
             ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
             ->will($this->returnValue(new NullItem('my_value_type')));
 
-        $this->assertEquals('null://0', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
+        $this->assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
     }
 }

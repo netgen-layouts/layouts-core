@@ -25,18 +25,20 @@ final class TargetTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $targetType = new TargetType('target');
+
         $target = new Target(
             [
                 'id' => 42,
                 'ruleId' => 30,
-                'targetType' => new TargetType('target'),
+                'targetType' => $targetType,
                 'value' => 32,
             ]
         );
 
-        $this->assertEquals(42, $target->getId());
-        $this->assertEquals(30, $target->getRuleId());
-        $this->assertEquals(new TargetType('target'), $target->getTargetType());
-        $this->assertEquals(32, $target->getValue());
+        $this->assertSame(42, $target->getId());
+        $this->assertSame(30, $target->getRuleId());
+        $this->assertSame($targetType, $target->getTargetType());
+        $this->assertSame(32, $target->getValue());
     }
 }

@@ -114,23 +114,26 @@ final class FullEditTypeTest extends FormTestCase
             'name' => 'My block',
         ];
 
-        $updatedStruct = new BlockUpdateStruct(['locale' => 'en']);
-        $updatedStruct->viewType = 'large';
-        $updatedStruct->itemViewType = 'standard';
-        $updatedStruct->name = 'My block';
-        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
-        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
+        $struct = new BlockUpdateStruct(['locale' => 'en']);
 
         $form = $this->factory->create(
             FullEditType::class,
-            new BlockUpdateStruct(['locale' => 'en']),
+            $struct,
             ['block' => $this->block]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('My block', $struct->name);
+        $this->assertSame('large', $struct->viewType);
+        $this->assertSame('standard', $struct->itemViewType);
+
+        $this->assertSame(
+            ['css_class' => 'Some CSS class', 'css_id' => 'Some CSS ID'],
+            $struct->getParameterValues()
+        );
 
         $view = $form->createView();
         $children = $view->children;
@@ -144,7 +147,7 @@ final class FullEditTypeTest extends FormTestCase
         }
 
         $this->assertArrayHasKey('block', $view->vars);
-        $this->assertEquals($this->block, $view->vars['block']);
+        $this->assertSame($this->block, $view->vars['block']);
 
         $this->assertArrayHasKey('parameter_view_types', $view->vars);
     }
@@ -223,15 +226,17 @@ final class FullEditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new BlockUpdateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'block' => $this->block,
-                'data' => new BlockUpdateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->block, $options['block']);
-        $this->assertEquals(new BlockUpdateStruct(), $options['data']);
+        $this->assertSame($this->block, $options['block']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

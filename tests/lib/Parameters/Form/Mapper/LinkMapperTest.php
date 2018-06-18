@@ -60,7 +60,7 @@ final class LinkMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(LinkType::class, $this->mapper->getFormType());
+        $this->assertSame(LinkType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -77,7 +77,7 @@ final class LinkMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'label' => false,
                 'value_types' => ['value'],
@@ -100,7 +100,7 @@ final class LinkMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'label' => false,
                 'value_types' => ['default'],

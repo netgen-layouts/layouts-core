@@ -15,14 +15,13 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
      */
     public function testGetParameterDefinition(): void
     {
+        $definition = new ParameterDefinition();
+
         $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => new ParameterDefinition()]
+            ['name' => $definition]
         );
 
-        $this->assertEquals(
-            new ParameterDefinition(),
-            $parameterDefinitions->getParameterDefinition('name')
-        );
+        $this->assertSame($definition, $parameterDefinitions->getParameterDefinition('name'));
     }
 
     /**
@@ -44,12 +43,14 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
      */
     public function testGetParameterDefinitions(): void
     {
+        $definition = new ParameterDefinition();
+
         $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => new ParameterDefinition()]
+            ['name' => $definition]
         );
 
-        $this->assertEquals(
-            ['name' => new ParameterDefinition()],
+        $this->assertSame(
+            ['name' => $definition],
             $parameterDefinitions->getParameterDefinitions()
         );
     }

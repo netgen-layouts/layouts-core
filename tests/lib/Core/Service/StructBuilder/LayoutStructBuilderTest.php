@@ -32,16 +32,18 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
      */
     public function testNewLayoutCreateStruct(): void
     {
+        $layoutType = new LayoutType(['identifier' => '4_zones_a']);
+
         $this->assertEquals(
             new LayoutCreateStruct(
                 [
-                    'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
+                    'layoutType' => $layoutType,
                     'name' => 'New layout',
                     'mainLocale' => 'en',
                 ]
             ),
             $this->structBuilder->newLayoutCreateStruct(
-                new LayoutType(['identifier' => '4_zones_a']),
+                $layoutType,
                 'New layout',
                 'en'
             )

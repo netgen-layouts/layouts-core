@@ -40,8 +40,8 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($value, $forms);
 
-        $this->assertEquals('2018-02-01 15:00:00', $forms['datetime']->getData());
-        $this->assertEquals('Antarctica/Casey', $forms['timezone']->getData());
+        $this->assertSame('2018-02-01 15:00:00', $forms['datetime']->getData());
+        $this->assertSame('Antarctica/Casey', $forms['timezone']->getData());
     }
 
     /**
@@ -59,8 +59,8 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($input, $forms);
 
-        $this->assertEquals($dateTime, $forms['datetime']->getData());
-        $this->assertEquals($timeZone, $forms['timezone']->getData());
+        $this->assertSame($dateTime, $forms['datetime']->getData());
+        $this->assertSame($timeZone, $forms['timezone']->getData());
     }
 
     public function mapDataToFormsWithArrayProvider(): array
@@ -89,7 +89,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
         $this->mapper->mapDataToForms(null, $forms);
 
         $this->assertNull($forms['datetime']->getData());
-        $this->assertEquals(date_default_timezone_get(), $forms['timezone']->getData());
+        $this->assertSame(date_default_timezone_get(), $forms['timezone']->getData());
     }
 
     /**
@@ -106,13 +106,9 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertEquals(
-            new DateTimeImmutable(
-                '2018-02-01 15:00:00',
-                new DateTimeZone('Antarctica/Casey')
-            ),
-            $data
-        );
+        $this->assertInstanceOf(DateTimeImmutable::class, $data);
+        $this->assertSame('2018-02-01 15:00:00', $data->format('Y-m-d H:i:s'));
+        $this->assertSame('Antarctica/Casey', $data->getTimezone()->getName());
     }
 
     /**
@@ -131,7 +127,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'datetime' => '2018-02-01 15:00:00',
                 'timezone' => 'Antarctica/Casey',

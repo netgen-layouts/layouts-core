@@ -22,12 +22,19 @@ final class BlockCreateStructTest extends TestCase
      */
     private $struct;
 
+    /**
+     * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
+     */
+    private $collectionStruct;
+
     public function setUp(): void
     {
+        $this->collectionStruct = new CollectionCreateStruct(['offset' => 0]);
+
         $this->struct = new BlockCreateStruct(
             [
                 'collectionCreateStructs' => [
-                    'default' => new CollectionCreateStruct(['offset' => 0]),
+                    'default' => $this->collectionStruct,
                 ],
             ]
         );
@@ -38,8 +45,8 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testGetCollectionCreateStructs(): void
     {
-        $this->assertEquals(
-            ['default' => new CollectionCreateStruct(['offset' => 0])],
+        $this->assertSame(
+            ['default' => $this->collectionStruct],
             $this->struct->getCollectionCreateStructs()
         );
     }
@@ -50,13 +57,16 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testAddCollectionCreateStruct(): void
     {
-        $this->struct->addCollectionCreateStruct('default', new CollectionCreateStruct(['offset' => 5]));
-        $this->struct->addCollectionCreateStruct('featured', new CollectionCreateStruct(['offset' => 10]));
+        $collectionStruct1 = new CollectionCreateStruct(['offset' => 5]);
+        $collectionStruct2 = new CollectionCreateStruct(['offset' => 10]);
 
-        $this->assertEquals(
+        $this->struct->addCollectionCreateStruct('default', $collectionStruct1);
+        $this->struct->addCollectionCreateStruct('featured', $collectionStruct2);
+
+        $this->assertSame(
             [
-                'default' => new CollectionCreateStruct(['offset' => 5]),
-                'featured' => new CollectionCreateStruct(['offset' => 10]),
+                'default' => $collectionStruct1,
+                'featured' => $collectionStruct2,
             ],
             $this->struct->getCollectionCreateStructs()
         );
@@ -78,7 +88,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParameters($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -103,7 +113,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParameters($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
@@ -146,7 +156,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromBlock($block);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => null,
@@ -173,7 +183,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -198,7 +208,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

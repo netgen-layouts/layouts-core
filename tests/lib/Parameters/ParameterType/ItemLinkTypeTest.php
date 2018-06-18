@@ -73,7 +73,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('item_link', $this->type->getIdentifier());
+        $this->assertSame('item_link', $this->type->getIdentifier());
     }
 
     /**
@@ -83,7 +83,7 @@ final class ItemLinkTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -154,7 +154,7 @@ final class ItemLinkTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -172,7 +172,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testExport(): void
     {
-        $this->assertEquals('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
+        $this->assertSame('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
     }
 
     /**
@@ -188,7 +188,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testImport(): void
     {
-        $this->assertEquals('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
+        $this->assertSame('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
     }
 
     /**
@@ -208,7 +208,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

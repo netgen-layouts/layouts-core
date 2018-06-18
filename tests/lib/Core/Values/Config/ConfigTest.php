@@ -25,7 +25,7 @@ final class ConfigTest extends TestCase
             ]
         );
 
-        $this->assertEquals('config', $config->getConfigKey());
-        $this->assertEquals($definition, $config->getDefinition());
+        $this->assertSame('config', $config->getConfigKey());
+        $this->assertSame($definition, $config->getDefinition());
     }
 }

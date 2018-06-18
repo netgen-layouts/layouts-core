@@ -16,7 +16,7 @@ final class ContextExceptionTest extends TestCase
     {
         $exception = ContextException::noVariable('var');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Variable "var" does not exist in the context.',
             $exception->getMessage()
         );

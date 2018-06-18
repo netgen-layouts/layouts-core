@@ -41,7 +41,7 @@ final class LocaleTest extends TestCase
             ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertSame($expected, $this->matcher->match($view, $config));
     }
 
     public function matchProvider(): array

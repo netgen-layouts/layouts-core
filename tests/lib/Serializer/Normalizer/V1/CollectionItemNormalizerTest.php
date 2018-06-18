@@ -80,19 +80,19 @@ final class CollectionItemNormalizerTest extends TestCase
             ->with($this->equalTo($item->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
-                'value' => $item->getValue(),
-                'value_type' => $item->getDefinition()->getValueType(),
                 'visible' => $item->isVisible(),
                 'scheduled' => $item->isScheduled(),
+                'value' => $item->getValue(),
+                'value_type' => $item->getDefinition()->getValueType(),
                 'name' => 'Value name',
-                'cms_url' => '/some/url',
                 'cms_visible' => true,
+                'cms_url' => '/some/url',
             ],
             $this->normalizer->normalize(new VersionedValue($item, 1))
         );
@@ -107,7 +107,7 @@ final class CollectionItemNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

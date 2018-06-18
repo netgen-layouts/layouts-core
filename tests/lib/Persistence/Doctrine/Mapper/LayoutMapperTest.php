@@ -8,10 +8,13 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutMapperTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
      */
@@ -55,37 +58,39 @@ final class LayoutMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Layout(
-                [
-                    'id' => 42,
-                    'type' => '4_zones_a',
-                    'name' => 'My layout',
-                    'description' => 'My layout description',
-                    'created' => 123,
-                    'modified' => 456,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'shared' => true,
-                ]
-            ),
-            new Layout(
-                [
-                    'id' => 84,
-                    'type' => '4_zones_b',
-                    'name' => 'My other layout',
-                    'description' => 'My other layout description',
-                    'created' => 789,
-                    'modified' => 111,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'shared' => false,
-                ]
-            ),
+            [
+                'id' => 42,
+                'type' => '4_zones_a',
+                'name' => 'My layout',
+                'description' => 'My layout description',
+                'shared' => true,
+                'created' => 123,
+                'modified' => 456,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            [
+                'id' => 84,
+                'type' => '4_zones_b',
+                'name' => 'My other layout',
+                'description' => 'My other layout description',
+                'shared' => false,
+                'created' => 789,
+                'modified' => 111,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'status' => Value::STATUS_PUBLISHED,
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapLayouts($data));
+        $layouts = $this->mapper->mapLayouts($data);
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(Layout::class, $layout);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($layouts));
     }
 
     /**
@@ -113,28 +118,30 @@ final class LayoutMapperTest extends TestCase
         ];
 
         $expectedData = [
-            'left' => new Zone(
-                [
-                    'identifier' => 'left',
-                    'layoutId' => 1,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'rootBlockId' => 3,
-                    'linkedLayoutId' => 3,
-                    'linkedZoneIdentifier' => 'top',
-                ]
-            ),
-            'right' => new Zone(
-                [
-                    'identifier' => 'right',
-                    'layoutId' => 1,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'rootBlockId' => 4,
-                    'linkedLayoutId' => null,
-                    'linkedZoneIdentifier' => null,
-                ]
-            ),
+            'left' => [
+                'identifier' => 'left',
+                'layoutId' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 3,
+                'linkedLayoutId' => 3,
+                'linkedZoneIdentifier' => 'top',
+            ],
+            'right' => [
+                'identifier' => 'right',
+                'layoutId' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 4,
+                'linkedLayoutId' => null,
+                'linkedZoneIdentifier' => null,
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapZones($data));
+        $zones = $this->mapper->mapZones($data);
+
+        foreach ($zones as $zone) {
+            $this->assertInstanceOf(Zone::class, $zone);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($zones));
     }
 }

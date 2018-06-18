@@ -88,7 +88,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered block'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [
@@ -123,7 +123,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered block'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [],
@@ -156,7 +156,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered block'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [
@@ -194,7 +194,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered block'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [
@@ -231,7 +231,7 @@ final class RenderingRuntimeTest extends TestCase
             $block
         );
 
-        $this->assertEquals('', $renderedBlock);
+        $this->assertSame('', $renderedBlock);
     }
 
     /**
@@ -292,7 +292,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered placeholder'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
@@ -340,7 +340,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered placeholder'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [],
@@ -386,7 +386,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered placeholder'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
@@ -437,7 +437,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered placeholder'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
@@ -479,7 +479,7 @@ final class RenderingRuntimeTest extends TestCase
             'main'
         );
 
-        $this->assertEquals('', $renderedBlock);
+        $this->assertSame('', $renderedBlock);
     }
 
     /**
@@ -524,7 +524,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered item'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered item',
             $this->runtime->renderItem(
                 [],
@@ -550,7 +550,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered item'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered item',
             $this->runtime->renderItem(
                 [],
@@ -577,7 +577,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered item'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered item',
             $this->runtime->renderItem(
                 [
@@ -605,7 +605,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->throwException(new Exception()));
 
-        $this->assertEquals(
+        $this->assertSame(
             '',
             $this->runtime->renderItem(
                 [],
@@ -659,7 +659,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered value'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered value',
             $this->runtime->renderValue(
                 [],
@@ -685,7 +685,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered value'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered value',
             $this->runtime->renderValue(
                 [],
@@ -712,7 +712,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->returnValue('rendered value'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered value',
             $this->runtime->renderValue(
                 [
@@ -740,7 +740,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->throwException(new Exception()));
 
-        $this->assertEquals(
+        $this->assertSame(
             '',
             $this->runtime->renderValue(
                 [],

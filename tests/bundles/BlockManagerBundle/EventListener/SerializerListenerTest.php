@@ -40,7 +40,7 @@ final class SerializerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::VIEW => 'onView'],
             $this->listener::getSubscribedEvents()
         );
@@ -84,7 +84,7 @@ final class SerializerListenerTest extends TestCase
             $event->getResponse()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'serialized content',
             $event->getResponse()->getContent()
         );
@@ -128,7 +128,7 @@ final class SerializerListenerTest extends TestCase
             $event->getResponse()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'serialized content',
             $event->getResponse()->getContent()
         );

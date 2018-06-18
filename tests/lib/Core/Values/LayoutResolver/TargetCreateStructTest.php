@@ -18,7 +18,7 @@ final class TargetCreateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals('target', $targetCreateStruct->type);
-        $this->assertEquals(42, $targetCreateStruct->value);
+        $this->assertSame('target', $targetCreateStruct->type);
+        $this->assertSame(42, $targetCreateStruct->value);
     }
 }

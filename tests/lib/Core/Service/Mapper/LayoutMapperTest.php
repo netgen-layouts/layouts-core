@@ -42,13 +42,13 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         $this->assertInstanceOf(APIZone::class, $zone);
-        $this->assertEquals('right', $zone->getIdentifier());
-        $this->assertEquals(1, $zone->getLayoutId());
+        $this->assertSame('right', $zone->getIdentifier());
+        $this->assertSame(1, $zone->getLayoutId());
         $this->assertTrue($zone->isPublished());
         $this->assertInstanceOf(APIZone::class, $zone->getLinkedZone());
         $this->assertTrue($zone->getLinkedZone()->isPublished());
-        $this->assertEquals(3, $zone->getLinkedZone()->getLayoutId());
-        $this->assertEquals('right', $zone->getLinkedZone()->getIdentifier());
+        $this->assertSame(3, $zone->getLinkedZone()->getLayoutId());
+        $this->assertSame('right', $zone->getLinkedZone()->getIdentifier());
     }
 
     /**
@@ -70,8 +70,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         $this->assertInstanceOf(APIZone::class, $zone);
-        $this->assertEquals('right', $zone->getIdentifier());
-        $this->assertEquals(1, $zone->getLayoutId());
+        $this->assertSame('right', $zone->getIdentifier());
+        $this->assertSame(1, $zone->getLayoutId());
         $this->assertTrue($zone->isPublished());
         $this->assertNull($zone->getLinkedZone());
     }
@@ -95,8 +95,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         $this->assertInstanceOf(APIZone::class, $zone);
-        $this->assertEquals('right', $zone->getIdentifier());
-        $this->assertEquals(1, $zone->getLayoutId());
+        $this->assertSame('right', $zone->getIdentifier());
+        $this->assertSame(1, $zone->getLayoutId());
         $this->assertTrue($zone->isPublished());
         $this->assertNull($zone->getLinkedZone());
     }
@@ -121,19 +121,19 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $layout = $this->layoutMapper->mapLayout($persistenceLayout);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             $layout->getLayoutType()
         );
 
         $this->assertInstanceOf(APILayout::class, $layout);
-        $this->assertEquals(1, $layout->getId());
-        $this->assertEquals('My layout', $layout->getName());
-        $this->assertEquals('My description', $layout->getDescription());
+        $this->assertSame(1, $layout->getId());
+        $this->assertSame('My layout', $layout->getName());
+        $this->assertSame('My description', $layout->getDescription());
         $this->assertInstanceOf(DateTimeInterface::class, $layout->getCreated());
-        $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
+        $this->assertSame(1447065813, $layout->getCreated()->getTimestamp());
         $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
-        $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
+        $this->assertSame(1447065813, $layout->getModified()->getTimestamp());
         $this->assertTrue($layout->isPublished());
         $this->assertTrue($layout->isShared());
 
@@ -167,13 +167,13 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
 
         $this->assertInstanceOf(APILayout::class, $layout);
-        $this->assertEquals(1, $layout->getId());
-        $this->assertEquals('My layout', $layout->getName());
-        $this->assertEquals('My description', $layout->getDescription());
+        $this->assertSame(1, $layout->getId());
+        $this->assertSame('My layout', $layout->getName());
+        $this->assertSame('My description', $layout->getDescription());
         $this->assertInstanceOf(DateTimeInterface::class, $layout->getCreated());
-        $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
+        $this->assertSame(1447065813, $layout->getCreated()->getTimestamp());
         $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
-        $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
+        $this->assertSame(1447065813, $layout->getModified()->getTimestamp());
         $this->assertTrue($layout->isPublished());
         $this->assertTrue($layout->isShared());
 

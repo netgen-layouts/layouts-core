@@ -15,11 +15,13 @@ use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutHandlerTest extends TestCase
 {
     use TestCaseTrait;
+    use ExportObjectVarsTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
@@ -62,22 +64,24 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayout(): void
     {
-        $this->assertEquals(
-            new Layout(
-                [
-                    'id' => 1,
-                    'type' => '4_zones_a',
-                    'name' => 'My layout',
-                    'description' => 'My layout description',
-                    'created' => 1447065813,
-                    'modified' => 1447065813,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'shared' => false,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                ]
-            ),
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
+        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
+
+        $this->assertInstanceOf(Layout::class, $layout);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'type' => '4_zones_a',
+                'name' => 'My layout',
+                'description' => 'My layout description',
+                'shared' => false,
+                'created' => 1447065813,
+                'modified' => 1447065813,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($layout)
         );
     }
 
@@ -99,18 +103,20 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadZone(): void
     {
-        $this->assertEquals(
-            new Zone(
-                [
-                    'identifier' => 'top',
-                    'layoutId' => 2,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'rootBlockId' => 5,
-                    'linkedLayoutId' => 3,
-                    'linkedZoneIdentifier' => 'top',
-                ]
-            ),
-            $this->layoutHandler->loadZone(2, Value::STATUS_PUBLISHED, 'top')
+        $zone = $this->layoutHandler->loadZone(2, Value::STATUS_PUBLISHED, 'top');
+
+        $this->assertInstanceOf(Zone::class, $zone);
+
+        $this->assertSame(
+            [
+                'identifier' => 'top',
+                'layoutId' => 2,
+                'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 5,
+                'linkedLayoutId' => 3,
+                'linkedZoneIdentifier' => 'top',
+            ],
+            $this->exportObjectVars($zone)
         );
     }
 
@@ -132,52 +138,52 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayouts(): void
     {
-        $this->assertEquals(
+        $layouts = $this->layoutHandler->loadLayouts();
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(Layout::class, $layout);
+        }
+
+        $this->assertSame(
             [
-                new Layout(
-                    [
-                        'id' => 1,
-                        'type' => '4_zones_a',
-                        'name' => 'My layout',
-                        'description' => 'My layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en', 'hr'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 2,
-                        'type' => '4_zones_b',
-                        'name' => 'My other layout',
-                        'description' => 'My other layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 6,
-                        'type' => '4_zones_b',
-                        'name' => 'My sixth layout',
-                        'description' => 'My sixth layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
+                [
+                    'id' => 1,
+                    'type' => '4_zones_a',
+                    'name' => 'My layout',
+                    'description' => 'My layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 2,
+                    'type' => '4_zones_b',
+                    'name' => 'My other layout',
+                    'description' => 'My other layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 6,
+                    'type' => '4_zones_b',
+                    'name' => 'My sixth layout',
+                    'description' => 'My sixth layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
             ],
-            $this->layoutHandler->loadLayouts()
+            $this->exportObjectArrayVars($layouts)
         );
     }
 
@@ -188,80 +194,76 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayoutsWithUnpublishedLayouts(): void
     {
-        $this->assertEquals(
+        $layouts = $this->layoutHandler->loadLayouts(true);
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(Layout::class, $layout);
+        }
+
+        $this->assertSame(
             [
-                new Layout(
-                    [
-                        'id' => 4,
-                        'type' => '4_zones_b',
-                        'name' => 'My fourth layout',
-                        'description' => 'My fourth layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_DRAFT,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 1,
-                        'type' => '4_zones_a',
-                        'name' => 'My layout',
-                        'description' => 'My layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en', 'hr'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 2,
-                        'type' => '4_zones_b',
-                        'name' => 'My other layout',
-                        'description' => 'My other layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 7,
-                        'type' => '4_zones_b',
-                        'name' => 'My seventh layout',
-                        'description' => 'My seventh layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_DRAFT,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 6,
-                        'type' => '4_zones_b',
-                        'name' => 'My sixth layout',
-                        'description' => 'My sixth layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
+                [
+                    'id' => 4,
+                    'type' => '4_zones_b',
+                    'name' => 'My fourth layout',
+                    'description' => 'My fourth layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_DRAFT,
+                ],
+                [
+                    'id' => 1,
+                    'type' => '4_zones_a',
+                    'name' => 'My layout',
+                    'description' => 'My layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 2,
+                    'type' => '4_zones_b',
+                    'name' => 'My other layout',
+                    'description' => 'My other layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 7,
+                    'type' => '4_zones_b',
+                    'name' => 'My seventh layout',
+                    'description' => 'My seventh layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_DRAFT,
+                ],
+                [
+                    'id' => 6,
+                    'type' => '4_zones_b',
+                    'name' => 'My sixth layout',
+                    'description' => 'My sixth layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
             ],
-            $this->layoutHandler->loadLayouts(true)
+            $this->exportObjectArrayVars($layouts)
         );
     }
 
@@ -272,38 +274,40 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadSharedLayouts(): void
     {
-        $this->assertEquals(
+        $layouts = $this->layoutHandler->loadSharedLayouts();
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(Layout::class, $layout);
+        }
+
+        $this->assertSame(
             [
-                new Layout(
-                    [
-                        'id' => 5,
-                        'type' => '4_zones_b',
-                        'name' => 'My fifth layout',
-                        'description' => 'My fifth layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => true,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
-                new Layout(
-                    [
-                        'id' => 3,
-                        'type' => '4_zones_b',
-                        'name' => 'My third layout',
-                        'description' => 'My third layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => true,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
+                [
+                    'id' => 5,
+                    'type' => '4_zones_b',
+                    'name' => 'My fifth layout',
+                    'description' => 'My fifth layout description',
+                    'shared' => true,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 3,
+                    'type' => '4_zones_b',
+                    'name' => 'My third layout',
+                    'description' => 'My third layout description',
+                    'shared' => true,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
             ],
-            $this->layoutHandler->loadSharedLayouts()
+            $this->exportObjectArrayVars($layouts)
         );
     }
 
@@ -314,26 +318,30 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadRelatedLayouts(): void
     {
-        $this->assertEquals(
+        $layouts = $this->layoutHandler->loadRelatedLayouts(
+            $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
+        );
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(Layout::class, $layout);
+        }
+
+        $this->assertSame(
             [
-                new Layout(
-                    [
-                        'id' => 2,
-                        'type' => '4_zones_b',
-                        'name' => 'My other layout',
-                        'description' => 'My other layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => ['en'],
-                    ]
-                ),
+                [
+                    'id' => 2,
+                    'type' => '4_zones_b',
+                    'name' => 'My other layout',
+                    'description' => 'My other layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
             ],
-            $this->layoutHandler->loadRelatedLayouts(
-                $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
-            )
+            $this->exportObjectArrayVars($layouts)
         );
     }
 
@@ -347,7 +355,7 @@ final class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertEquals(1, $count);
+        $this->assertSame(1, $count);
     }
 
     /**
@@ -432,52 +440,50 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayoutZones(): void
     {
-        $this->assertEquals(
+        $zones = $this->layoutHandler->loadLayoutZones(
+            $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED)
+        );
+
+        foreach ($zones as $zone) {
+            $this->assertInstanceOf(Zone::class, $zone);
+        }
+
+        $this->assertSame(
             [
-                'bottom' => new Zone(
-                    [
-                        'identifier' => 'bottom',
-                        'layoutId' => 2,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 8,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'left' => new Zone(
-                    [
-                        'identifier' => 'left',
-                        'layoutId' => 2,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 6,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'right' => new Zone(
-                    [
-                        'identifier' => 'right',
-                        'layoutId' => 2,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 7,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'top' => new Zone(
-                    [
-                        'identifier' => 'top',
-                        'layoutId' => 2,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 5,
-                        'linkedLayoutId' => 3,
-                        'linkedZoneIdentifier' => 'top',
-                    ]
-                ),
+                'bottom' => [
+                    'identifier' => 'bottom',
+                    'layoutId' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 8,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'left' => [
+                    'identifier' => 'left',
+                    'layoutId' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 6,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'right' => [
+                    'identifier' => 'right',
+                    'layoutId' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 7,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'top' => [
+                    'identifier' => 'top',
+                    'layoutId' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 5,
+                    'linkedLayoutId' => 3,
+                    'linkedZoneIdentifier' => 'top',
+                ],
             ],
-            $this->layoutHandler->loadLayoutZones(
-                $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED)
-            )
+            $this->exportObjectArrayVars($zones)
         );
     }
 
@@ -499,18 +505,18 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertEquals(
-            new Zone(
-                [
-                    'identifier' => 'top',
-                    'layoutId' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'rootBlockId' => 1,
-                    'linkedLayoutId' => 3,
-                    'linkedZoneIdentifier' => 'top',
-                ]
-            ),
-            $updatedZone
+        $this->assertInstanceOf(Zone::class, $updatedZone);
+
+        $this->assertSame(
+            [
+                'identifier' => 'top',
+                'layoutId' => 1,
+                'status' => Value::STATUS_DRAFT,
+                'rootBlockId' => 1,
+                'linkedLayoutId' => 3,
+                'linkedZoneIdentifier' => 'top',
+            ],
+            $this->exportObjectVars($updatedZone)
         );
     }
 
@@ -531,18 +537,18 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertEquals(
-            new Zone(
-                [
-                    'identifier' => 'left',
-                    'layoutId' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'rootBlockId' => 2,
-                    'linkedLayoutId' => null,
-                    'linkedZoneIdentifier' => null,
-                ]
-            ),
-            $updatedZone
+        $this->assertInstanceOf(Zone::class, $updatedZone);
+
+        $this->assertSame(
+            [
+                'identifier' => 'left',
+                'layoutId' => 1,
+                'status' => Value::STATUS_DRAFT,
+                'rootBlockId' => 2,
+                'linkedLayoutId' => null,
+                'linkedZoneIdentifier' => null,
+            ],
+            $this->exportObjectVars($updatedZone)
         );
     }
 
@@ -565,13 +571,13 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $createdLayout);
 
-        $this->assertEquals(8, $createdLayout->id);
-        $this->assertEquals('new_layout', $createdLayout->type);
-        $this->assertEquals('New layout', $createdLayout->name);
-        $this->assertEquals('New description', $createdLayout->description);
-        $this->assertEquals(Value::STATUS_DRAFT, $createdLayout->status);
+        $this->assertSame(8, $createdLayout->id);
+        $this->assertSame('new_layout', $createdLayout->type);
+        $this->assertSame('New layout', $createdLayout->name);
+        $this->assertSame('New description', $createdLayout->description);
+        $this->assertSame(Value::STATUS_DRAFT, $createdLayout->status);
         $this->assertTrue($createdLayout->shared);
-        $this->assertEquals('en', $createdLayout->mainLocale);
+        $this->assertSame('en', $createdLayout->mainLocale);
 
         $this->assertInternalType('int', $createdLayout->created);
         $this->assertGreaterThan(0, $createdLayout->created);
@@ -591,9 +597,9 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $layout);
 
-        $this->assertEquals('en', $layout->mainLocale);
-        $this->assertEquals(['en', 'hr', 'de'], $layout->availableLocales);
-        $this->assertEquals($originalLayout->created, $layout->created);
+        $this->assertSame('en', $layout->mainLocale);
+        $this->assertSame(['en', 'hr', 'de'], $layout->availableLocales);
+        $this->assertSame($originalLayout->created, $layout->created);
         $this->assertGreaterThan($originalLayout->modified, $layout->modified);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
@@ -642,13 +648,13 @@ final class LayoutHandlerTest extends TestCase
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->setMainTranslation($layout, 'hr');
 
-        $this->assertEquals('hr', $updatedLayout->mainLocale);
-        $this->assertEquals($layout->created, $updatedLayout->created);
+        $this->assertSame('hr', $updatedLayout->mainLocale);
+        $this->assertSame($layout->created, $updatedLayout->created);
         $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
-            $this->assertEquals('hr', $layoutBlock->mainLocale);
+            $this->assertSame('hr', $layoutBlock->mainLocale);
         }
     }
 
@@ -681,37 +687,39 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Zone::class, $createdZone);
 
-        $this->assertEquals(1, $createdZone->layoutId);
-        $this->assertEquals(Value::STATUS_DRAFT, $createdZone->status);
-        $this->assertEquals('new_zone', $createdZone->identifier);
-        $this->assertEquals(39, $createdZone->rootBlockId);
-        $this->assertEquals(3, $createdZone->linkedLayoutId);
-        $this->assertEquals('linked_zone', $createdZone->linkedZoneIdentifier);
+        $this->assertSame(1, $createdZone->layoutId);
+        $this->assertSame(Value::STATUS_DRAFT, $createdZone->status);
+        $this->assertSame('new_zone', $createdZone->identifier);
+        $this->assertSame(39, $createdZone->rootBlockId);
+        $this->assertSame(3, $createdZone->linkedLayoutId);
+        $this->assertSame('linked_zone', $createdZone->linkedZoneIdentifier);
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => $createdZone->layoutId,
-                    'depth' => 0,
-                    'path' => '/39/',
-                    'parentId' => 0,
-                    'placeholder' => null,
-                    'position' => 0,
-                    'definitionIdentifier' => '',
-                    'viewType' => '',
-                    'itemViewType' => '',
-                    'name' => '',
-                    'isTranslatable' => false,
-                    'mainLocale' => 'en',
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => ['en' => []],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
+        $rootBlock = $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT);
+
+        $this->assertInstanceOf(Block::class, $rootBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => $createdZone->layoutId,
+                'depth' => 0,
+                'path' => '/39/',
+                'parentId' => null,
+                'placeholder' => null,
+                'position' => null,
+                'definitionIdentifier' => '',
+                'parameters' => ['en' => []],
+                'config' => [],
+                'viewType' => '',
+                'itemViewType' => '',
+                'name' => '',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($rootBlock)
         );
     }
 
@@ -733,10 +741,10 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertEquals('New name', $updatedLayout->name);
-        $this->assertEquals('New description', $updatedLayout->description);
-        $this->assertEquals($originalLayout->created, $updatedLayout->created);
-        $this->assertEquals(123, $updatedLayout->modified);
+        $this->assertSame('New name', $updatedLayout->name);
+        $this->assertSame('New description', $updatedLayout->description);
+        $this->assertSame($originalLayout->created, $updatedLayout->created);
+        $this->assertSame(123, $updatedLayout->modified);
     }
 
     /**
@@ -754,9 +762,9 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertEquals('My layout', $updatedLayout->name);
-        $this->assertEquals('My layout description', $updatedLayout->description);
-        $this->assertEquals($originalLayout->created, $updatedLayout->created);
+        $this->assertSame('My layout', $updatedLayout->name);
+        $this->assertSame('My layout description', $updatedLayout->description);
+        $this->assertSame($originalLayout->created, $updatedLayout->created);
         $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
     }
 
@@ -787,165 +795,157 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        $this->assertEquals(8, $copiedLayout->id);
-        $this->assertEquals('4_zones_a', $copiedLayout->type);
-        $this->assertEquals('New name', $copiedLayout->name);
-        $this->assertEquals('New description', $copiedLayout->description);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $copiedLayout->status);
+        $this->assertSame(8, $copiedLayout->id);
+        $this->assertSame('4_zones_a', $copiedLayout->type);
+        $this->assertSame('New name', $copiedLayout->name);
+        $this->assertSame('New description', $copiedLayout->description);
+        $this->assertSame(Value::STATUS_PUBLISHED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
-        $this->assertEquals('en', $copiedLayout->mainLocale);
-        $this->assertEquals(['en', 'hr'], $copiedLayout->availableLocales);
+        $this->assertSame('en', $copiedLayout->mainLocale);
+        $this->assertSame(['en', 'hr'], $copiedLayout->availableLocales);
 
         $this->assertGreaterThan($originalLayout->created, $copiedLayout->created);
-        $this->assertEquals($copiedLayout->created, $copiedLayout->modified);
+        $this->assertSame($copiedLayout->created, $copiedLayout->modified);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'bottom' => new Zone(
-                    [
-                        'identifier' => 'bottom',
-                        'layoutId' => $copiedLayout->id,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 39,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'left' => new Zone(
-                    [
-                        'identifier' => 'left',
-                        'layoutId' => $copiedLayout->id,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 40,
-                        'linkedLayoutId' => 3,
-                        'linkedZoneIdentifier' => 'left',
-                    ]
-                ),
-                'right' => new Zone(
-                    [
-                        'identifier' => 'right',
-                        'layoutId' => $copiedLayout->id,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 42,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'top' => new Zone(
-                    [
-                        'identifier' => 'top',
-                        'layoutId' => $copiedLayout->id,
-                        'status' => Value::STATUS_PUBLISHED,
-                        'rootBlockId' => 45,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
+                'bottom' => [
+                    'identifier' => 'bottom',
+                    'layoutId' => $copiedLayout->id,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 39,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'left' => [
+                    'identifier' => 'left',
+                    'layoutId' => $copiedLayout->id,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 40,
+                    'linkedLayoutId' => 3,
+                    'linkedZoneIdentifier' => 'left',
+                ],
+                'right' => [
+                    'identifier' => 'right',
+                    'layoutId' => $copiedLayout->id,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 42,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'top' => [
+                    'identifier' => 'top',
+                    'layoutId' => $copiedLayout->id,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 45,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
             ],
-            $this->layoutHandler->loadLayoutZones($copiedLayout)
-        );
-
-        $this->assertEquals(
-            [
-                new Block(
-                    [
-                        'id' => 41,
-                        'layoutId' => $copiedLayout->id,
-                        'depth' => 1,
-                        'path' => '/40/41/',
-                        'parentId' => 40,
-                        'placeholder' => 'root',
-                        'position' => 0,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My other block',
-                        'isTranslatable' => true,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
-                            'hr' => [
-                                'number_of_columns' => 3,
-                            ],
-                        ],
-                        'config' => [
-                            'http_cache' => [
-                                'use_http_cache' => false,
-                            ],
-                        ],
-                    ]
-                ),
-            ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED)
+            $this->exportObjectArrayVars(
+                $this->layoutHandler->loadLayoutZones($copiedLayout)
             )
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Block(
-                    [
-                        'id' => 43,
-                        'layoutId' => $copiedLayout->id,
-                        'depth' => 1,
-                        'path' => '/42/43/',
-                        'parentId' => 42,
-                        'placeholder' => 'root',
-                        'position' => 0,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard_with_intro',
-                        'name' => 'My published block',
-                        'isTranslatable' => true,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
-                            'hr' => [
-                                'number_of_columns' => 3,
-                            ],
+                [
+                    'id' => 41,
+                    'layoutId' => $copiedLayout->id,
+                    'depth' => 1,
+                    'path' => '/40/41/',
+                    'parentId' => 40,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [],
-                    ]
-                ),
-                new Block(
-                    [
-                        'id' => 44,
-                        'layoutId' => $copiedLayout->id,
-                        'depth' => 1,
-                        'path' => '/42/44/',
-                        'parentId' => 42,
-                        'placeholder' => 'root',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My fourth block',
-                        'isTranslatable' => false,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en'],
-                        'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
+                        'hr' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [],
-                    ]
-                ),
+                    ],
+                    'config' => [
+                        'http_cache' => [
+                            'use_http_cache' => false,
+                        ],
+                    ],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My other block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
             ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED)
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadChildBlocks(
+                    $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED)
+                )
+            )
+        );
+
+        $this->assertSame(
+            [
+                [
+                    'id' => 43,
+                    'layoutId' => $copiedLayout->id,
+                    'depth' => 1,
+                    'path' => '/42/43/',
+                    'parentId' => 42,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
+                        ],
+                        'hr' => [
+                            'number_of_columns' => 3,
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard_with_intro',
+                    'name' => 'My published block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 44,
+                    'layoutId' => $copiedLayout->id,
+                    'depth' => 1,
+                    'path' => '/42/44/',
+                    'parentId' => 42,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My fourth block',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadChildBlocks(
+                    $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED)
+                )
             )
         );
 
@@ -977,7 +977,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(1, $references);
-        $this->assertEquals($references[0]->collectionId, 9);
+        $this->assertSame($references[0]->collectionId, 9);
     }
 
     /**
@@ -1011,158 +1011,148 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
 
-        $this->assertEquals(1, $updatedLayout->id);
-        $this->assertEquals('4_zones_b', $updatedLayout->type);
-        $this->assertEquals('My layout', $updatedLayout->name);
-        $this->assertEquals('My layout description', $updatedLayout->description);
-        $this->assertEquals(Value::STATUS_DRAFT, $updatedLayout->status);
+        $this->assertSame(1, $updatedLayout->id);
+        $this->assertSame('4_zones_b', $updatedLayout->type);
+        $this->assertSame('My layout', $updatedLayout->name);
+        $this->assertSame('My layout description', $updatedLayout->description);
+        $this->assertSame(Value::STATUS_DRAFT, $updatedLayout->status);
         $this->assertFalse($updatedLayout->shared);
 
-        $this->assertEquals($originalLayout->created, $updatedLayout->created);
+        $this->assertSame($originalLayout->created, $updatedLayout->created);
         $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'top' => new Zone(
-                    [
-                        'identifier' => 'top',
-                        'layoutId' => $updatedLayout->id,
-                        'status' => Value::STATUS_DRAFT,
-                        'rootBlockId' => 39,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'left' => new Zone(
-                    [
-                        'identifier' => 'left',
-                        'layoutId' => $updatedLayout->id,
-                        'status' => Value::STATUS_DRAFT,
-                        'rootBlockId' => 40,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'right' => new Zone(
-                    [
-                        'identifier' => 'right',
-                        'layoutId' => $updatedLayout->id,
-                        'status' => Value::STATUS_DRAFT,
-                        'rootBlockId' => 41,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'bottom' => new Zone(
-                    [
-                        'identifier' => 'bottom',
-                        'layoutId' => $updatedLayout->id,
-                        'status' => Value::STATUS_DRAFT,
-                        'rootBlockId' => 42,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
+                'bottom' => [
+                    'identifier' => 'bottom',
+                    'layoutId' => $updatedLayout->id,
+                    'status' => Value::STATUS_DRAFT,
+                    'rootBlockId' => 42,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'left' => [
+                    'identifier' => 'left',
+                    'layoutId' => $updatedLayout->id,
+                    'status' => Value::STATUS_DRAFT,
+                    'rootBlockId' => 40,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'right' => [
+                    'identifier' => 'right',
+                    'layoutId' => $updatedLayout->id,
+                    'status' => Value::STATUS_DRAFT,
+                    'rootBlockId' => 41,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'top' => [
+                    'identifier' => 'top',
+                    'layoutId' => $updatedLayout->id,
+                    'status' => Value::STATUS_DRAFT,
+                    'rootBlockId' => 39,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
             ],
-            $this->layoutHandler->loadLayoutZones($updatedLayout)
+            $this->exportObjectArrayVars(
+                $this->layoutHandler->loadLayoutZones($updatedLayout)
+            )
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Block(
-                    [
-                        'id' => 32,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/39/32/',
-                        'parentId' => 39,
-                        'placeholder' => 'root',
-                        'position' => 0,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My other block',
-                        'isTranslatable' => true,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'status' => Value::STATUS_DRAFT,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
-                            'hr' => [
-                                'number_of_columns' => 3,
-                            ],
+                [
+                    'id' => 32,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/39/32/',
+                    'parentId' => 39,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [
-                            'http_cache' => [
-                                'use_http_cache' => false,
-                            ],
+                        'hr' => [
+                            'number_of_columns' => 3,
                         ],
-                    ]
-                ),
-                new Block(
-                    [
-                        'id' => 31,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/39/31/',
-                        'parentId' => 39,
-                        'placeholder' => 'root',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'list',
-                        'itemViewType' => 'standard',
-                        'name' => 'My block',
-                        'isTranslatable' => true,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'status' => Value::STATUS_DRAFT,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 2,
-                                'css_class' => 'css-class',
-                                'css_id' => 'css-id',
-                            ],
-                            'hr' => [
-                                'css_class' => 'css-class-hr',
-                                'css_id' => 'css-id',
-                            ],
+                    ],
+                    'config' => [
+                        'http_cache' => [
+                            'use_http_cache' => false,
                         ],
-                        'config' => [],
-                    ]
-                ),
-                new Block(
-                    [
-                        'id' => 35,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/39/35/',
-                        'parentId' => 39,
-                        'placeholder' => 'root',
-                        'position' => 2,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My fourth block',
-                        'isTranslatable' => false,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en'],
-                        'status' => Value::STATUS_DRAFT,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
+                    ],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My other block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_DRAFT,
+                ],
+                [
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/39/31/',
+                    'parentId' => 39,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
                         ],
-                        'config' => [],
-                    ]
-                ),
+                        'hr' => [
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_DRAFT,
+                ],
+                [
+                    'id' => 35,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/39/35/',
+                    'parentId' => 39,
+                    'placeholder' => 'root',
+                    'position' => 2,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My fourth block',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_DRAFT,
+                ],
             ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadChildBlocks(
+                    $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
+                )
             )
         );
 
@@ -1209,165 +1199,157 @@ final class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        $this->assertEquals(1, $copiedLayout->id);
-        $this->assertEquals('4_zones_a', $copiedLayout->type);
-        $this->assertEquals('My layout', $copiedLayout->name);
-        $this->assertEquals('My layout description', $copiedLayout->description);
-        $this->assertEquals(Value::STATUS_ARCHIVED, $copiedLayout->status);
+        $this->assertSame(1, $copiedLayout->id);
+        $this->assertSame('4_zones_a', $copiedLayout->type);
+        $this->assertSame('My layout', $copiedLayout->name);
+        $this->assertSame('My layout description', $copiedLayout->description);
+        $this->assertSame(Value::STATUS_ARCHIVED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
-        $this->assertEquals('en', $copiedLayout->mainLocale);
-        $this->assertEquals(['en', 'hr'], $copiedLayout->availableLocales);
+        $this->assertSame('en', $copiedLayout->mainLocale);
+        $this->assertSame(['en', 'hr'], $copiedLayout->availableLocales);
 
-        $this->assertEquals($originalLayout->created, $copiedLayout->created);
+        $this->assertSame($originalLayout->created, $copiedLayout->created);
         $this->assertGreaterThan($originalLayout->modified, $copiedLayout->modified);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'bottom' => new Zone(
-                    [
-                        'identifier' => 'bottom',
-                        'layoutId' => 1,
-                        'status' => Value::STATUS_ARCHIVED,
-                        'rootBlockId' => 4,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'left' => new Zone(
-                    [
-                        'identifier' => 'left',
-                        'layoutId' => 1,
-                        'status' => Value::STATUS_ARCHIVED,
-                        'rootBlockId' => 2,
-                        'linkedLayoutId' => 3,
-                        'linkedZoneIdentifier' => 'left',
-                    ]
-                ),
-                'right' => new Zone(
-                    [
-                        'identifier' => 'right',
-                        'layoutId' => 1,
-                        'status' => Value::STATUS_ARCHIVED,
-                        'rootBlockId' => 3,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
-                'top' => new Zone(
-                    [
-                        'identifier' => 'top',
-                        'layoutId' => 1,
-                        'status' => Value::STATUS_ARCHIVED,
-                        'rootBlockId' => 1,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    ]
-                ),
+                'bottom' => [
+                    'identifier' => 'bottom',
+                    'layoutId' => 1,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'rootBlockId' => 4,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'left' => [
+                    'identifier' => 'left',
+                    'layoutId' => 1,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'rootBlockId' => 2,
+                    'linkedLayoutId' => 3,
+                    'linkedZoneIdentifier' => 'left',
+                ],
+                'right' => [
+                    'identifier' => 'right',
+                    'layoutId' => 1,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'rootBlockId' => 3,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
+                'top' => [
+                    'identifier' => 'top',
+                    'layoutId' => 1,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'rootBlockId' => 1,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                ],
             ],
-            $this->layoutHandler->loadLayoutZones($copiedLayout)
-        );
-
-        $this->assertEquals(
-            [
-                new Block(
-                    [
-                        'id' => 32,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/2/32/',
-                        'parentId' => 2,
-                        'placeholder' => 'root',
-                        'position' => 0,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My other block',
-                        'isTranslatable' => true,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'status' => Value::STATUS_ARCHIVED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
-                            'hr' => [
-                                'number_of_columns' => 3,
-                            ],
-                        ],
-                        'config' => [
-                            'http_cache' => [
-                                'use_http_cache' => false,
-                            ],
-                        ],
-                    ]
-                ),
-            ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
+            $this->exportObjectArrayVars(
+                $this->layoutHandler->loadLayoutZones($copiedLayout)
             )
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Block(
-                    [
-                        'id' => 31,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/3/31/',
-                        'parentId' => 3,
-                        'placeholder' => 'root',
-                        'position' => 0,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard_with_intro',
-                        'name' => 'My published block',
-                        'isTranslatable' => true,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'status' => Value::STATUS_ARCHIVED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
-                            'hr' => [
-                                'number_of_columns' => 3,
-                            ],
+                [
+                    'id' => 32,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/2/32/',
+                    'parentId' => 2,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [],
-                    ]
-                ),
-                new Block(
-                    [
-                        'id' => 35,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/3/35/',
-                        'parentId' => 3,
-                        'placeholder' => 'root',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My fourth block',
-                        'isTranslatable' => false,
-                        'mainLocale' => 'en',
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en'],
-                        'status' => Value::STATUS_ARCHIVED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
+                        'hr' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [],
-                    ]
-                ),
+                    ],
+                    'config' => [
+                        'http_cache' => [
+                            'use_http_cache' => false,
+                        ],
+                    ],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My other block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
             ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED)
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadChildBlocks(
+                    $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
+                )
+            )
+        );
+
+        $this->assertSame(
+            [
+                [
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
+                        ],
+                        'hr' => [
+                            'number_of_columns' => 3,
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard_with_intro',
+                    'name' => 'My published block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+                [
+                    'id' => 35,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/35/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My fourth block',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+            ],
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadChildBlocks(
+                    $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED)
+                )
             )
         );
 
@@ -1389,7 +1371,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(1, $archivedReferences);
-        $this->assertEquals(4, $archivedReferences[0]->collectionId);
+        $this->assertSame(4, $archivedReferences[0]->collectionId);
     }
 
     /**
@@ -1465,7 +1447,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(1, $publishedReferences);
-        $this->assertEquals(4, $publishedReferences[0]->collectionId);
+        $this->assertSame(4, $publishedReferences[0]->collectionId);
     }
 
     /**
@@ -1479,11 +1461,11 @@ final class LayoutHandlerTest extends TestCase
         $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertEquals($layout->created, $updatedLayout->created);
+        $this->assertSame($layout->created, $updatedLayout->created);
         $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $this->assertEquals('en', $updatedLayout->mainLocale);
-        $this->assertEquals(['en'], $updatedLayout->availableLocales);
+        $this->assertSame('en', $updatedLayout->mainLocale);
+        $this->assertSame(['en'], $updatedLayout->availableLocales);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
@@ -1510,11 +1492,11 @@ final class LayoutHandlerTest extends TestCase
         $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertEquals($layout->created, $updatedLayout->created);
+        $this->assertSame($layout->created, $updatedLayout->created);
         $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $this->assertEquals('en', $updatedLayout->mainLocale);
-        $this->assertEquals(['en'], $updatedLayout->availableLocales);
+        $this->assertSame('en', $updatedLayout->mainLocale);
+        $this->assertSame(['en'], $updatedLayout->availableLocales);
 
         $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
     }

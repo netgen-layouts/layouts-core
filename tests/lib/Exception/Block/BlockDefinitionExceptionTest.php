@@ -16,7 +16,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     {
         $exception = BlockDefinitionException::noForm('def', 'form');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Form "form" does not exist in "def" block definition.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     {
         $exception = BlockDefinitionException::noViewType('def', 'view_type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'View type "view_type" does not exist in "def" block definition.',
             $exception->getMessage()
         );
@@ -42,7 +42,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     {
         $exception = BlockDefinitionException::noItemViewType('view_type', 'item_view_type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Item view type "item_view_type" does not exist in "view_type" view type.',
             $exception->getMessage()
         );
@@ -55,7 +55,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     {
         $exception = BlockDefinitionException::noCollection('def', 'coll');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Collection "coll" does not exist in "def" block definition.',
             $exception->getMessage()
         );
@@ -68,7 +68,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     {
         $exception = BlockDefinitionException::noBlockDefinition('def');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Block definition with "def" identifier does not exist.',
             $exception->getMessage()
         );

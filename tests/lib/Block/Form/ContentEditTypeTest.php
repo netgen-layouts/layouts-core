@@ -119,20 +119,20 @@ final class ContentEditTypeTest extends FormTestCase
             'name' => 'My block',
         ];
 
-        $updatedStruct = new BlockUpdateStruct(['locale' => 'en']);
-        $updatedStruct->name = 'My block';
-        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
+        $struct = new BlockUpdateStruct(['locale' => 'en']);
 
         $form = $this->factory->create(
             ContentEditType::class,
-            new BlockUpdateStruct(['locale' => 'en']),
+            $struct,
             ['block' => $this->block]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('My block', $struct->name);
+        $this->assertSame(['css_class' => 'Some CSS class'], $struct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
@@ -216,15 +216,17 @@ final class ContentEditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new BlockUpdateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'block' => $this->block,
-                'data' => new BlockUpdateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->block, $options['block']);
-        $this->assertEquals(new BlockUpdateStruct(), $options['data']);
+        $this->assertSame($this->block, $options['block']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

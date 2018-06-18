@@ -30,7 +30,7 @@ final class APIVersionTest extends TestCase
         $view = new View(['value' => new Value()]);
         $view->addParameter('api_version', 42);
 
-        $this->assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertSame($expected, $this->matcher->match($view, $config));
     }
 
     public function matchProvider(): array

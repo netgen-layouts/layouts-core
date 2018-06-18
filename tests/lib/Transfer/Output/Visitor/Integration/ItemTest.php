@@ -72,7 +72,7 @@ abstract class ItemTest extends VisitorTest
 
         $this->assertInternalType('array', $visitedData);
         $this->assertArrayHasKey('type', $visitedData);
-        $this->assertEquals('OVERRIDE', $visitedData['type']);
+        $this->assertSame('OVERRIDE', $visitedData['type']);
     }
 
     public function getVisitor(): VisitorInterface

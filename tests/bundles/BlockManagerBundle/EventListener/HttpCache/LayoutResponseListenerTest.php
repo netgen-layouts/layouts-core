@@ -41,7 +41,7 @@ final class LayoutResponseListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 KernelEvents::RESPONSE => 'onKernelResponse',
                 KernelEvents::EXCEPTION => 'onKernelException',

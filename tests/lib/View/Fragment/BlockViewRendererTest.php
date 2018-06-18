@@ -114,9 +114,9 @@ final class BlockViewRendererTest extends TestCase
         $controller = $this->blockViewRenderer->getController($view);
 
         $this->assertInstanceOf(ControllerReference::class, $controller);
-        $this->assertEquals('block_controller', $controller->controller);
+        $this->assertSame('block_controller', $controller->controller);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'blockId' => 42,
                 'locale' => 'en',

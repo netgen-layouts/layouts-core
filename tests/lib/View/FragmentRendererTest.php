@@ -100,7 +100,7 @@ final class FragmentRendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(new Block());
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -139,7 +139,7 @@ final class FragmentRendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(new Block());
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -163,7 +163,7 @@ final class FragmentRendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(new Layout());
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -188,7 +188,7 @@ final class FragmentRendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(new Block());
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -218,7 +218,7 @@ final class FragmentRendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(new Block());
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -243,6 +243,6 @@ final class FragmentRendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(new Block());
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 }

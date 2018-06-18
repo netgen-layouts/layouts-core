@@ -63,7 +63,7 @@ final class GetCollectionPagerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
@@ -128,13 +128,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            $event->getParameters()['collection']
-        );
+        $result = $event->getParameters()['collection'];
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(1000, $result->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertEquals(3, $event->getParameters()['pager']->getCurrentPage());
+        $this->assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -204,13 +205,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            $event->getParameters()['collection']
-        );
+        $result = $event->getParameters()['collection'];
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(1000, $result->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertEquals(2, $event->getParameters()['pager']->getCurrentPage());
+        $this->assertSame(2, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -280,13 +282,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            $event->getParameters()['collection']
-        );
+        $result = $event->getParameters()['collection'];
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(1000, $result->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertEquals(3, $event->getParameters()['pager']->getCurrentPage());
+        $this->assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -355,13 +358,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            $event->getParameters()['collection']
-        );
+        $result = $event->getParameters()['collection'];
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(1000, $result->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertEquals(3, $event->getParameters()['pager']->getCurrentPage());
+        $this->assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -373,7 +377,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 
     /**
@@ -387,7 +391,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 
     /**
@@ -401,7 +405,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 
     /**
@@ -417,6 +421,6 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 }

@@ -40,7 +40,7 @@ final class ContainerRuntimeLoaderTest extends TestCase
 
         $this->runtimeLoader->addRuntime(stdClass::class, 'test');
 
-        $this->assertEquals($service, $this->runtimeLoader->load(stdClass::class));
+        $this->assertSame($service, $this->runtimeLoader->load(stdClass::class));
     }
 
     /**

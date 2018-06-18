@@ -16,11 +16,13 @@ use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionHandlerTest extends TestCase
 {
     use TestCaseTrait;
+    use ExportObjectVarsTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
@@ -51,20 +53,22 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadCollection(): void
     {
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+
+        $this->assertInstanceOf(Collection::class, $collection);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($collection)
         );
     }
 
@@ -86,20 +90,22 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadItem(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 1,
-                    'collectionId' => 1,
-                    'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '72',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT)
+        $item = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 1,
+                'position' => 0,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($item)
         );
     }
 
@@ -121,23 +127,25 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadItemWithPosition(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 1,
-                    'collectionId' => 1,
-                    'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '72',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->loadItemWithPosition(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                0
-            )
+        $item = $this->collectionHandler->loadItemWithPosition(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            0
+        );
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 1,
+                'position' => 0,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($item)
         );
     }
 
@@ -179,34 +187,36 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadQuery(): void
     {
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => 2,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+
+        $this->assertInstanceOf(Query::class, $query);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 2,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED)
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($query)
         );
     }
 
@@ -231,34 +241,34 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => 2,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $this->assertInstanceOf(Query::class, $query);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 2,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $query
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($query)
         );
     }
 
@@ -318,20 +328,20 @@ final class CollectionHandlerTest extends TestCase
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 7,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 5,
-                    'limit' => 10,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $createdCollection
+        $this->assertInstanceOf(Collection::class, $createdCollection);
+
+        $this->assertSame(
+            [
+                'id' => 7,
+                'offset' => 5,
+                'limit' => 10,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($createdCollection)
         );
     }
 
@@ -348,58 +358,56 @@ final class CollectionHandlerTest extends TestCase
             'en'
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 2,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr', 'de'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $collection
+        $this->assertInstanceOf(Collection::class, $collection);
+
+        $this->assertSame(
+            [
+                'id' => 2,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr', 'de'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($collection)
         );
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => $collection->id,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['de', 'en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'de' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => $collection->id,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'de' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $query
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['de', 'en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($query)
         );
     }
 
@@ -415,58 +423,56 @@ final class CollectionHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 2,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr', 'de'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $collection
+        $this->assertInstanceOf(Collection::class, $collection);
+
+        $this->assertSame(
+            [
+                'id' => 2,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr', 'de'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($collection)
         );
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => $collection->id,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['de', 'en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'de' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => $collection->id,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'de' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $query
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['de', 'en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($query)
         );
     }
 
@@ -482,20 +488,20 @@ final class CollectionHandlerTest extends TestCase
             'en'
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr', 'de'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $collection
+        $this->assertInstanceOf(Collection::class, $collection);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr', 'de'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($collection)
         );
     }
 
@@ -538,10 +544,10 @@ final class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
         $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
 
-        $this->assertEquals('hr', $collection->mainLocale);
+        $this->assertSame('hr', $collection->mainLocale);
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
-        $this->assertEquals('hr', $query->mainLocale);
+        $this->assertSame('hr', $query->mainLocale);
     }
 
     /**
@@ -553,7 +559,7 @@ final class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
         $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
 
-        $this->assertEquals('hr', $collection->mainLocale);
+        $this->assertSame('hr', $collection->mainLocale);
     }
 
     /**
@@ -579,23 +585,25 @@ final class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct->isTranslatable = false;
         $collectionUpdateStruct->alwaysAvailable = false;
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 5,
-                    'limit' => 10,
-                    'isTranslatable' => false,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => false,
-                ]
-            ),
-            $this->collectionHandler->updateCollection(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                $collectionUpdateStruct
-            )
+        $updatedCollection = $this->collectionHandler->updateCollection(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $collectionUpdateStruct
+        );
+
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'offset' => 5,
+                'limit' => 10,
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => false,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedCollection)
         );
     }
 
@@ -609,23 +617,25 @@ final class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct->offset = 5;
         $collectionUpdateStruct->limit = 0;
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 3,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 5,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $this->collectionHandler->updateCollection(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-                $collectionUpdateStruct
-            )
+        $updatedCollection = $this->collectionHandler->updateCollection(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $collectionUpdateStruct
+        );
+
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
+
+        $this->assertSame(
+            [
+                'id' => 3,
+                'offset' => 5,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedCollection)
         );
     }
 
@@ -637,23 +647,25 @@ final class CollectionHandlerTest extends TestCase
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $this->collectionHandler->updateCollection(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                $collectionUpdateStruct
-            )
+        $updatedCollection = $this->collectionHandler->updateCollection(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $collectionUpdateStruct
+        );
+
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedCollection)
         );
     }
 
@@ -672,92 +684,88 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 7,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'offset' => 4,
-                    'limit' => 2,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $copiedCollection
-        );
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Item(
-                    [
-                        'id' => 13,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 2,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '72',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_PUBLISHED,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 14,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 3,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '73',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_PUBLISHED,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 15,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 5,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '74',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_PUBLISHED,
-                        'config' => [],
-                    ]
-                ),
+                'id' => 7,
+                'offset' => 4,
+                'limit' => 2,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->collectionHandler->loadCollectionItems($copiedCollection)
+            $this->exportObjectVars($copiedCollection)
         );
 
-        $this->assertEquals(
-            new Query(
+        $this->assertSame(
+            [
                 [
-                    'id' => 5,
+                    'id' => 13,
                     'collectionId' => $copiedCollection->id,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                    ],
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->collectionHandler->loadCollectionQuery($copiedCollection)
+                    'config' => [],
+                ],
+                [
+                    'id' => 14,
+                    'collectionId' => $copiedCollection->id,
+                    'position' => 3,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '73',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_PUBLISHED,
+                    'config' => [],
+                ],
+                [
+                    'id' => 15,
+                    'collectionId' => $copiedCollection->id,
+                    'position' => 5,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '74',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_PUBLISHED,
+                    'config' => [],
+                ],
+            ],
+            $this->exportObjectArrayVars(
+                $this->collectionHandler->loadCollectionItems($copiedCollection)
+            )
+        );
+
+        $query = $this->collectionHandler->loadCollectionQuery($copiedCollection);
+
+        $this->assertSame(
+            [
+                'id' => 5,
+                'collectionId' => $copiedCollection->id,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($query)
         );
     }
 
@@ -774,62 +782,58 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 7,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $copiedCollection
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
+
+        $this->assertSame(
+            [
+                'id' => 7,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedCollection)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Item(
-                    [
-                        'id' => 13,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 0,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '72',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_DRAFT,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 14,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 1,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '73',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_DRAFT,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 15,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 2,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '74',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_DRAFT,
-                        'config' => [],
-                    ]
-                ),
+                [
+                    'id' => 13,
+                    'collectionId' => $copiedCollection->id,
+                    'position' => 0,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => [],
+                ],
+                [
+                    'id' => 14,
+                    'collectionId' => $copiedCollection->id,
+                    'position' => 1,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '73',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => [],
+                ],
+                [
+                    'id' => 15,
+                    'collectionId' => $copiedCollection->id,
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '74',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => [],
+                ],
             ],
-            $this->collectionHandler->loadCollectionItems($copiedCollection)
+            $this->exportObjectArrayVars(
+                $this->collectionHandler->loadCollectionItems($copiedCollection)
+            )
         );
     }
 
@@ -849,92 +853,88 @@ final class CollectionHandlerTest extends TestCase
             Value::STATUS_ARCHIVED
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 3,
-                    'status' => Value::STATUS_ARCHIVED,
-                    'offset' => 4,
-                    'limit' => 2,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $copiedCollection
-        );
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Item(
-                    [
-                        'id' => 7,
-                        'collectionId' => 3,
-                        'position' => 2,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '72',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_ARCHIVED,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 8,
-                        'collectionId' => 3,
-                        'position' => 3,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '73',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_ARCHIVED,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 9,
-                        'collectionId' => 3,
-                        'position' => 5,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '74',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_ARCHIVED,
-                        'config' => [],
-                    ]
-                ),
+                'id' => 3,
+                'offset' => 4,
+                'limit' => 2,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_ARCHIVED,
             ],
-            $this->collectionHandler->loadCollectionItems($copiedCollection)
+            $this->exportObjectVars($copiedCollection)
         );
 
-        $this->assertEquals(
-            new Query(
+        $this->assertSame(
+            [
                 [
-                    'id' => 2,
+                    'id' => 7,
                     'collectionId' => 3,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                    ],
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'my_value_type',
                     'status' => Value::STATUS_ARCHIVED,
-                ]
-            ),
-            $this->collectionHandler->loadCollectionQuery($copiedCollection)
+                    'config' => [],
+                ],
+                [
+                    'id' => 8,
+                    'collectionId' => 3,
+                    'position' => 3,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '73',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_ARCHIVED,
+                    'config' => [],
+                ],
+                [
+                    'id' => 9,
+                    'collectionId' => 3,
+                    'position' => 5,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '74',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_ARCHIVED,
+                    'config' => [],
+                ],
+            ],
+            $this->exportObjectArrayVars(
+                $this->collectionHandler->loadCollectionItems($copiedCollection)
+            )
+        );
+
+        $this->assertSame(
+            [
+                'id' => 2,
+                'collectionId' => 3,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_ARCHIVED,
+            ],
+            $this->exportObjectVars(
+                $this->collectionHandler->loadCollectionQuery($copiedCollection)
+            )
         );
     }
 
@@ -952,62 +952,58 @@ final class CollectionHandlerTest extends TestCase
             Value::STATUS_ARCHIVED
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 1,
-                    'status' => Value::STATUS_ARCHIVED,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $copiedCollection
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_ARCHIVED,
+            ],
+            $this->exportObjectVars($copiedCollection)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Item(
-                    [
-                        'id' => 1,
-                        'collectionId' => 1,
-                        'position' => 0,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '72',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_ARCHIVED,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 2,
-                        'collectionId' => 1,
-                        'position' => 1,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '73',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_ARCHIVED,
-                        'config' => [],
-                    ]
-                ),
-                new Item(
-                    [
-                        'id' => 3,
-                        'collectionId' => 1,
-                        'position' => 2,
-                        'type' => Item::TYPE_MANUAL,
-                        'value' => '74',
-                        'valueType' => 'my_value_type',
-                        'status' => Value::STATUS_ARCHIVED,
-                        'config' => [],
-                    ]
-                ),
+                [
+                    'id' => 1,
+                    'collectionId' => 1,
+                    'position' => 0,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_ARCHIVED,
+                    'config' => [],
+                ],
+                [
+                    'id' => 2,
+                    'collectionId' => 1,
+                    'position' => 1,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '73',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_ARCHIVED,
+                    'config' => [],
+                ],
+                [
+                    'id' => 3,
+                    'collectionId' => 1,
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '74',
+                    'valueType' => 'my_value_type',
+                    'status' => Value::STATUS_ARCHIVED,
+                    'config' => [],
+                ],
             ],
-            $this->collectionHandler->loadCollectionItems($copiedCollection)
+            $this->exportObjectArrayVars(
+                $this->collectionHandler->loadCollectionItems($copiedCollection)
+            )
         );
     }
 
@@ -1079,46 +1075,44 @@ final class CollectionHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 2,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $collection
+        $this->assertInstanceOf(Collection::class, $collection);
+
+        $this->assertSame(
+            [
+                'id' => 2,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($collection)
         );
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => $collection->id,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => $collection->id,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $query
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($query)
         );
     }
 
@@ -1133,20 +1127,20 @@ final class CollectionHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertEquals(
-            new Collection(
-                [
-                    'id' => 1,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 0,
-                    'limit' => null,
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'alwaysAvailable' => true,
-                ]
-            ),
-            $collection
+        $this->assertInstanceOf(Collection::class, $collection);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'offset' => 0,
+                'limit' => null,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($collection)
         );
     }
 
@@ -1194,27 +1188,29 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 13,
-                    'collectionId' => 1,
-                    'position' => 1,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '42',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => ['config' => ['value' => 42]],
-                ]
-            ),
-            $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                $itemCreateStruct
-            )
+        $item = $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $itemCreateStruct
+        );
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 13,
+                'collectionId' => 1,
+                'position' => 1,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '42',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => ['config' => ['value' => 42]],
+            ],
+            $this->exportObjectVars($item)
         );
 
         $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertEquals(2, $secondItem->position);
+        $this->assertSame(2, $secondItem->position);
     }
 
     /**
@@ -1233,33 +1229,35 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 13,
-                    'collectionId' => 3,
-                    'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '42',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => ['config' => ['value' => 42]],
-                ]
-            ),
-            $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-                $itemCreateStruct
-            )
+        $item = $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $itemCreateStruct
+        );
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 13,
+                'collectionId' => 3,
+                'position' => 2,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '42',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => ['config' => ['value' => 42]],
+            ],
+            $this->exportObjectVars($item)
         );
 
         $secondItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
-        $this->assertEquals(3, $secondItem->position);
+        $this->assertSame(3, $secondItem->position);
 
         $thirdItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
-        $this->assertEquals(4, $thirdItem->position);
+        $this->assertSame(4, $thirdItem->position);
 
         $fourthItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
-        $this->assertEquals(5, $fourthItem->position);
+        $this->assertSame(5, $fourthItem->position);
     }
 
     /**
@@ -1278,27 +1276,29 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 13,
-                    'collectionId' => 3,
-                    'position' => 4,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '42',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => ['config' => ['value' => 42]],
-                ]
-            ),
-            $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-                $itemCreateStruct
-            )
+        $item = $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $itemCreateStruct
+        );
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 13,
+                'collectionId' => 3,
+                'position' => 4,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '42',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => ['config' => ['value' => 42]],
+            ],
+            $this->exportObjectVars($item)
         );
 
         $secondItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
-        $this->assertEquals(5, $secondItem->position);
+        $this->assertSame(5, $secondItem->position);
     }
 
     /**
@@ -1316,23 +1316,25 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 13,
-                    'collectionId' => 1,
-                    'position' => 3,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '42',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => ['config' => ['value' => 42]],
-                ]
-            ),
-            $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                $itemCreateStruct
-            )
+        $item = $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $itemCreateStruct
+        );
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 13,
+                'collectionId' => 1,
+                'position' => 3,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '42',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => ['config' => ['value' => 42]],
+            ],
+            $this->exportObjectVars($item)
         );
     }
 
@@ -1418,23 +1420,25 @@ final class CollectionHandlerTest extends TestCase
             ],
         ];
 
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 1,
-                    'collectionId' => 1,
-                    'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '72',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => ['new_config' => ['val' => 24]],
-                ]
-            ),
-            $this->collectionHandler->updateItem(
-                $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
-                $itemUpdateStruct
-            )
+        $item = $this->collectionHandler->updateItem(
+            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $itemUpdateStruct
+        );
+
+        $this->assertInstanceOf(Item::class, $item);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 1,
+                'position' => 0,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => ['new_config' => ['val' => 24]],
+            ],
+            $this->exportObjectVars($item)
         );
     }
 
@@ -1448,30 +1452,32 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItem(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 12,
-                    'collectionId' => 4,
-                    'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '74',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(12, Value::STATUS_DRAFT),
-                2
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(12, Value::STATUS_DRAFT),
+            2
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 12,
+                'collectionId' => 4,
+                'position' => 2,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '74',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(10, Value::STATUS_DRAFT);
-        $this->assertEquals(3, $firstItem->position);
+        $this->assertSame(3, $firstItem->position);
 
         $secondItem = $this->collectionHandler->loadItem(11, Value::STATUS_DRAFT);
-        $this->assertEquals(4, $secondItem->position);
+        $this->assertSame(4, $secondItem->position);
     }
 
     /**
@@ -1484,30 +1490,32 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemWithSwitchingPositions(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 1,
-                    'collectionId' => 1,
-                    'position' => 1,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '72',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
-                1
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            1
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 1,
+                'position' => 1,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertEquals(0, $firstItem->position);
+        $this->assertSame(0, $firstItem->position);
 
         $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
-        $this->assertEquals(2, $secondItem->position);
+        $this->assertSame(2, $secondItem->position);
     }
 
     /**
@@ -1520,30 +1528,32 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemToSamePosition(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 1,
-                    'collectionId' => 1,
-                    'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '72',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
-                0
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            0
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 1,
+                'position' => 0,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertEquals(1, $firstItem->position);
+        $this->assertSame(1, $firstItem->position);
 
         $firstItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
-        $this->assertEquals(2, $firstItem->position);
+        $this->assertSame(2, $firstItem->position);
     }
 
     /**
@@ -1556,27 +1566,29 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemToLowerPosition(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 2,
-                    'collectionId' => 1,
-                    'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '73',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT),
-                0
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT),
+            0
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 2,
+                'collectionId' => 1,
+                'position' => 0,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '73',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
-        $this->assertEquals(1, $firstItem->position);
+        $this->assertSame(1, $firstItem->position);
     }
 
     /**
@@ -1589,30 +1601,32 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemToLowerPositionWithSwitchingPositions(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 3,
-                    'collectionId' => 1,
-                    'position' => 1,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '74',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT),
-                1
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT),
+            1
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 3,
+                'collectionId' => 1,
+                'position' => 1,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '74',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
-        $this->assertEquals(0, $firstItem->position);
+        $this->assertSame(0, $firstItem->position);
 
         $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertEquals(2, $secondItem->position);
+        $this->assertSame(2, $secondItem->position);
     }
 
     /**
@@ -1625,30 +1639,32 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemInDynamicCollection(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 7,
-                    'collectionId' => 3,
-                    'position' => 4,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '72',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT),
-                4
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT),
+            4
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 7,
+                'collectionId' => 3,
+                'position' => 4,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
-        $this->assertEquals(3, $secondItem->position);
+        $this->assertSame(3, $secondItem->position);
 
         $thirdItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
-        $this->assertEquals(5, $thirdItem->position);
+        $this->assertSame(5, $thirdItem->position);
     }
 
     /**
@@ -1661,27 +1677,29 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemToLowerPositionInDynamicCollection(): void
     {
-        $this->assertEquals(
-            new Item(
-                [
-                    'id' => 8,
-                    'collectionId' => 3,
-                    'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '73',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
-            $this->collectionHandler->moveItem(
-                $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT),
-                2
-            )
+        $movedItem = $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT),
+            2
+        );
+
+        $this->assertInstanceOf(Item::class, $movedItem);
+
+        $this->assertSame(
+            [
+                'id' => 8,
+                'collectionId' => 3,
+                'position' => 2,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '73',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
+            $this->exportObjectVars($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
-        $this->assertEquals(3, $firstItem->position);
+        $this->assertSame(3, $firstItem->position);
     }
 
     /**
@@ -1733,8 +1751,8 @@ final class CollectionHandlerTest extends TestCase
         $updatedItem1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
         $updatedItem2 = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
 
-        $this->assertEquals($item2->position, $updatedItem1->position);
-        $this->assertEquals($item1->position, $updatedItem2->position);
+        $this->assertSame($item2->position, $updatedItem1->position);
+        $this->assertSame($item1->position, $updatedItem2->position);
     }
 
     /**
@@ -1776,7 +1794,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
-        $this->assertEquals(1, $secondItem->position);
+        $this->assertSame(1, $secondItem->position);
 
         try {
             $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
@@ -1799,7 +1817,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
-        $this->assertEquals(3, $secondItem->position);
+        $this->assertSame(3, $secondItem->position);
 
         try {
             $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
@@ -1845,7 +1863,7 @@ final class CollectionHandlerTest extends TestCase
         $this->assertCount(3, $collectionItems);
 
         foreach ($collectionItems as $item) {
-            $this->assertEquals(Item::TYPE_MANUAL, $item->type);
+            $this->assertSame(Item::TYPE_MANUAL, $item->type);
         }
     }
 
@@ -1863,31 +1881,33 @@ final class CollectionHandlerTest extends TestCase
             'param' => 'value',
         ];
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 5,
-                    'collectionId' => $collection->id,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'param' => 'value',
-                        ],
-                        'hr' => [
-                            'param' => 'value',
-                        ],
+        $createdQuery = $this->collectionHandler->createQuery(
+            $collection,
+            $queryCreateStruct
+        );
+
+        $this->assertInstanceOf(Query::class, $createdQuery);
+
+        $this->assertSame(
+            [
+                'id' => 5,
+                'collectionId' => $collection->id,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'param' => 'value',
                     ],
-                    'status' => Value::STATUS_DRAFT,
-                ]
-            ),
-            $this->collectionHandler->createQuery(
-                $collection,
-                $queryCreateStruct
-            )
+                    'hr' => [
+                        'param' => 'value',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($createdQuery)
         );
     }
 
@@ -1924,36 +1944,38 @@ final class CollectionHandlerTest extends TestCase
             'some_param' => 'Some value',
         ];
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => 2,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 999,
-                            'some_param' => 'Some value',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $updatedQuery = $this->collectionHandler->updateQueryTranslation(
+            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+            'en',
+            $translationUpdateStruct
+        );
+
+        $this->assertInstanceOf(Query::class, $updatedQuery);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 2,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 999,
+                        'some_param' => 'Some value',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->collectionHandler->updateQueryTranslation(
-                $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
-                'en',
-                $translationUpdateStruct
-            )
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($updatedQuery)
         );
     }
 
@@ -1965,38 +1987,40 @@ final class CollectionHandlerTest extends TestCase
     {
         $translationUpdateStruct = new QueryTranslationUpdateStruct();
 
-        $this->assertEquals(
-            new Query(
-                [
-                    'id' => 1,
-                    'collectionId' => 2,
-                    'type' => 'my_query_type',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
-                    'parameters' => [
-                        'en' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
-                        'hr' => [
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'query_type' => 'list',
-                        ],
+        $updatedQuery = $this->collectionHandler->updateQueryTranslation(
+            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+            'en',
+            $translationUpdateStruct
+        );
+
+        $this->assertInstanceOf(Query::class, $updatedQuery);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'collectionId' => 2,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->collectionHandler->updateQueryTranslation(
-                $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
-                'en',
-                $translationUpdateStruct
-            )
+                    'hr' => [
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'query_type' => 'list',
+                    ],
+                ],
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($updatedQuery)
         );
     }
 

@@ -21,8 +21,8 @@ final class ValueTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $value->someProperty);
-        $this->assertEquals(84, $value->someOtherProperty);
+        $this->assertSame(42, $value->someProperty);
+        $this->assertSame(84, $value->someOtherProperty);
     }
 
     /**

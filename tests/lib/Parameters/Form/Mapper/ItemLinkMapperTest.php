@@ -60,7 +60,7 @@ final class ItemLinkMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(ContentBrowserDynamicType::class, $this->mapper->getFormType());
+        $this->assertSame(ContentBrowserDynamicType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -77,7 +77,7 @@ final class ItemLinkMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'item_types' => ['value'],
             ],
@@ -99,7 +99,7 @@ final class ItemLinkMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'item_types' => ['default'],
             ],

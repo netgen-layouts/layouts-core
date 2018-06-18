@@ -32,7 +32,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::EXCEPTION => ['onException', 20]],
             $this->listener::getSubscribedEvents()
         );

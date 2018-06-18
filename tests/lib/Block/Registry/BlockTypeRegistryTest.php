@@ -45,7 +45,7 @@ final class BlockTypeRegistryTest extends TestCase
         $this->registry->addBlockType('test', $this->blockType);
 
         $this->assertTrue($this->registry->hasBlockType('test'));
-        $this->assertEquals($this->blockType, $this->registry->getBlockType('test'));
+        $this->assertSame($this->blockType, $this->registry->getBlockType('test'));
     }
 
     /**
@@ -53,7 +53,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetBlockTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'block_type' => $this->blockType,
                 'block_type2' => $this->blockType2,
@@ -67,7 +67,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetEnabledBlockTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'block_type' => $this->blockType,
             ],
@@ -96,7 +96,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetBlockType(): void
     {
-        $this->assertEquals($this->blockType, $this->registry->getBlockType('block_type'));
+        $this->assertSame($this->blockType, $this->registry->getBlockType('block_type'));
     }
 
     /**
@@ -121,7 +121,7 @@ final class BlockTypeRegistryTest extends TestCase
             $blockTypes[$identifier] = $blockType;
         }
 
-        $this->assertEquals($this->registry->getBlockTypes(), $blockTypes);
+        $this->assertSame($this->registry->getBlockTypes(), $blockTypes);
     }
 
     /**
@@ -146,7 +146,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->blockType, $this->registry['block_type']);
+        $this->assertSame($this->blockType, $this->registry['block_type']);
     }
 
     /**

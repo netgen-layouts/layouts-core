@@ -33,6 +33,8 @@ final class LoadConfigTest extends JsonApiTestCase
 
         $this->assertInternalType('array', $responseContent);
         $this->assertArrayHasKey('csrf_token', $responseContent);
-        $this->assertEquals($currentToken, $responseContent['csrf_token']);
+
+        $this->assertInternalType('string', $responseContent['csrf_token']);
+        $this->assertSame($currentToken->getValue(), $responseContent['csrf_token']);
     }
 }

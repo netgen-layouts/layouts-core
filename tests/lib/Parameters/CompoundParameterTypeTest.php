@@ -45,17 +45,17 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testGetConstraints(): void
     {
-        $this->assertEquals(
-            [new Constraints\NotNull()],
-            $this->parameterType->getConstraints(
-                new CompoundParameterDefinition(
-                    [
-                        'type' => new CompoundParameterType(),
-                    ]
-                ),
-                42
-            )
+        $constraints = $this->parameterType->getConstraints(
+            new CompoundParameterDefinition(
+                [
+                    'type' => new CompoundParameterType(),
+                ]
+            ),
+            42
         );
+
+        $this->assertCount(1, $constraints);
+        $this->assertInstanceOf(Constraints\NotNull::class, $constraints[0]);
     }
 
     /**
@@ -65,18 +65,19 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testGetConstraintsWithRequiredParameter(): void
     {
-        $this->assertEquals(
-            [new Constraints\NotBlank(), new Constraints\NotNull()],
-            $this->parameterType->getConstraints(
-                new CompoundParameterDefinition(
-                    [
-                        'type' => new CompoundParameterType(),
-                        'isRequired' => true,
-                    ]
-                ),
-                42
-            )
+        $constraints = $this->parameterType->getConstraints(
+            new CompoundParameterDefinition(
+                [
+                    'type' => new CompoundParameterType(),
+                    'isRequired' => true,
+                ]
+            ),
+            42
         );
+
+        $this->assertCount(2, $constraints);
+        $this->assertInstanceOf(Constraints\NotBlank::class, $constraints[0]);
+        $this->assertInstanceOf(Constraints\NotNull::class, $constraints[1]);
     }
 
     /**
@@ -97,7 +98,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testToHash(): void
     {
-        $this->assertEquals(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
+        $this->assertSame(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -105,7 +106,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testFromHash(): void
     {
-        $this->assertEquals(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
+        $this->assertSame(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
 
     /**

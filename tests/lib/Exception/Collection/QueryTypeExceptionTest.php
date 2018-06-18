@@ -16,7 +16,7 @@ final class QueryTypeExceptionTest extends TestCase
     {
         $exception = QueryTypeException::noQueryType('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Query type with "type" identifier does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class QueryTypeExceptionTest extends TestCase
     {
         $exception = QueryTypeException::noForm('type', 'form');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Form "form" does not exist in "type" query type.',
             $exception->getMessage()
         );

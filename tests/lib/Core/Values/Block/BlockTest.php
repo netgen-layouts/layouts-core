@@ -35,10 +35,10 @@ final class BlockTest extends TestCase
     {
         $block = new Block();
 
-        $this->assertEquals([], $block->getParameters());
-        $this->assertEquals([], $block->getPlaceholders());
-        $this->assertEquals([], $block->getCollections());
-        $this->assertEquals([], $block->getAvailableLocales());
+        $this->assertSame([], $block->getParameters());
+        $this->assertSame([], $block->getPlaceholders());
+        $this->assertSame([], $block->getCollections());
+        $this->assertSame([], $block->getAvailableLocales());
     }
 
     /**
@@ -67,20 +67,30 @@ final class BlockTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $definition = new BlockDefinition();
+
+        $parameter1 = new Parameter(['value' => 'some_value']);
+        $parameter2 = new Parameter(['value' => 'some_other_value']);
+
+        $placeholder = new Placeholder(['identifier' => 'main']);
+
+        $collection = new Collection(['id' => 42]);
+        $collectionReference = new CollectionReference(['identifier' => 'default', 'collection' => $collection]);
+
         $block = new Block(
             [
                 'id' => 42,
                 'layoutId' => 24,
-                'definition' => new BlockDefinition(),
+                'definition' => $definition,
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'parentPosition' => 3,
                 'placeholders' => [
-                    'main' => new Placeholder(['identifier' => 'main']),
+                    'main' => $placeholder,
                 ],
                 'collectionReferences' => [
-                    'default' => new CollectionReference(['identifier' => 'default', 'collection' => new Collection(['id' => 42])]),
+                    'default' => $collectionReference,
                 ],
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -88,38 +98,38 @@ final class BlockTest extends TestCase
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => [
-                    'some_param' => new Parameter(['value' => 'some_value']),
-                    'some_other_param' => new Parameter(['value' => 'some_other_value']),
+                    'some_param' => $parameter1,
+                    'some_other_param' => $parameter2,
                 ],
             ]
         );
 
-        $this->assertEquals(42, $block->getId());
-        $this->assertEquals(24, $block->getLayoutId());
-        $this->assertEquals(new BlockDefinition(), $block->getDefinition());
-        $this->assertEquals('some_value', $block->getParameter('some_param'));
+        $this->assertSame(42, $block->getId());
+        $this->assertSame(24, $block->getLayoutId());
+        $this->assertSame($definition, $block->getDefinition());
+        $this->assertSame($parameter1, $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));
         $this->assertTrue($block->hasParameter('some_param'));
-        $this->assertEquals(new Placeholder(['identifier' => 'main']), $block->getPlaceholder('main'));
+        $this->assertSame($placeholder, $block->getPlaceholder('main'));
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertTrue($block->hasPlaceholder('main'));
-        $this->assertEquals(new Collection(['id' => 42]), $block->getCollection('default'));
+        $this->assertSame($collection, $block->getCollection('default'));
         $this->assertFalse($block->hasCollection('test'));
         $this->assertTrue($block->hasCollection('default'));
-        $this->assertEquals('default', $block->getViewType());
-        $this->assertEquals('standard', $block->getItemViewType());
-        $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(3, $block->getParentPosition());
+        $this->assertSame('default', $block->getViewType());
+        $this->assertSame('standard', $block->getItemViewType());
+        $this->assertSame('My block', $block->getName());
+        $this->assertSame(3, $block->getParentPosition());
         $this->assertTrue($block->isTranslatable());
-        $this->assertEquals('en', $block->getMainLocale());
+        $this->assertSame('en', $block->getMainLocale());
         $this->assertTrue($block->isAlwaysAvailable());
-        $this->assertEquals(['en'], $block->getAvailableLocales());
-        $this->assertEquals('en', $block->getLocale());
+        $this->assertSame(['en'], $block->getAvailableLocales());
+        $this->assertSame('en', $block->getLocale());
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'some_param' => new Parameter(['value' => 'some_value']),
-                'some_other_param' => new Parameter(['value' => 'some_other_value']),
+                'some_param' => $parameter1,
+                'some_other_param' => $parameter2,
             ],
             $block->getParameters()
         );
@@ -130,9 +140,9 @@ final class BlockTest extends TestCase
             // Do nothing
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'main' => new Placeholder(['identifier' => 'main']),
+                'main' => $placeholder,
             ],
             $block->getPlaceholders()
         );
@@ -143,9 +153,9 @@ final class BlockTest extends TestCase
             // Do nothing
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'default' => new Collection(['id' => 42]),
+                'default' => $collection,
             ],
             $block->getCollections()
         );
@@ -175,10 +185,10 @@ final class BlockTest extends TestCase
         );
 
         $this->assertTrue($block->hasDynamicParameter('definition_param'));
-        $this->assertEquals('definition_value', $block->getDynamicParameter('definition_param'));
+        $this->assertSame('definition_value', $block->getDynamicParameter('definition_param'));
 
         $this->assertTrue($block->hasDynamicParameter('closure_param'));
-        $this->assertEquals('closure_value', $block->getDynamicParameter('closure_param'));
+        $this->assertSame('closure_value', $block->getDynamicParameter('closure_param'));
 
         $this->assertNull($block->getDynamicParameter('unknown_param'));
         $this->assertFalse($block->hasDynamicParameter('unknown_param'));

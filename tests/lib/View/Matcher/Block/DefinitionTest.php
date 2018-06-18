@@ -44,7 +44,7 @@ final class DefinitionTest extends TestCase
             ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertSame($expected, $this->matcher->match($view, $config));
     }
 
     /**

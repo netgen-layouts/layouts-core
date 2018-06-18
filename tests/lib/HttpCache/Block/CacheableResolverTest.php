@@ -21,7 +21,7 @@ final class CacheableResolverTest extends TestCase
         $cacheableResolver = new CacheableResolver();
         $cacheableResolver->setVoters($voters);
 
-        $this->assertEquals($result, $cacheableResolver->isCacheable(new Block()));
+        $this->assertSame($result, $cacheableResolver->isCacheable(new Block()));
     }
 
     public function isCacheableProvider(): array

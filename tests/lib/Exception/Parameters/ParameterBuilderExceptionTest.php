@@ -16,7 +16,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     {
         $exception = ParameterBuilderException::noParameter('param');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter with "param" name does not exist in the builder.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     {
         $exception = ParameterBuilderException::noOption('opt', 'param');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Option "opt" does not exist in the builder for "param" parameter.',
             $exception->getMessage()
         );
@@ -42,7 +42,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     {
         $exception = ParameterBuilderException::subCompound();
 
-        $this->assertEquals(
+        $this->assertSame(
             'Compound parameters cannot be added to compound parameters.',
             $exception->getMessage()
         );
@@ -55,7 +55,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     {
         $exception = ParameterBuilderException::nonCompound();
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameters cannot be added to non-compound parameters.',
             $exception->getMessage()
         );
@@ -68,7 +68,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     {
         $exception = ParameterBuilderException::invalidConstraints();
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter constraints need to be either a Symfony constraint or a closure.',
             $exception->getMessage()
         );

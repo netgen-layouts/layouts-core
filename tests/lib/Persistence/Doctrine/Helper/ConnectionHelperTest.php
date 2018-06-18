@@ -50,7 +50,7 @@ final class ConnectionHelperTest extends TestCase
             ->method('getName')
             ->will($this->returnValue('mysql'));
 
-        $this->assertEquals('null', $this->connectionHelper->getAutoIncrementValue('table'));
+        $this->assertSame('null', $this->connectionHelper->getAutoIncrementValue('table'));
     }
 
     /**
@@ -71,7 +71,7 @@ final class ConnectionHelperTest extends TestCase
             ->with($this->equalTo('table'), $this->equalTo('id'))
             ->will($this->returnValue('s_table_id'));
 
-        $this->assertEquals("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
+        $this->assertSame("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
     }
 
     /**
@@ -91,7 +91,7 @@ final class ConnectionHelperTest extends TestCase
             ->with($this->equalTo('table'))
             ->will($this->returnValue(42));
 
-        $this->assertEquals(42, $this->connectionHelper->lastInsertId('table'));
+        $this->assertSame(42, $this->connectionHelper->lastInsertId('table'));
     }
 
     /**
@@ -118,6 +118,6 @@ final class ConnectionHelperTest extends TestCase
             ->with($this->equalTo('s_table_id'))
             ->will($this->returnValue(43));
 
-        $this->assertEquals(43, $this->connectionHelper->lastInsertId('table'));
+        $this->assertSame(43, $this->connectionHelper->lastInsertId('table'));
     }
 }

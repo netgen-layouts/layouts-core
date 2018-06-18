@@ -43,7 +43,7 @@ final class AdminMatchEventTest extends TestCase
      */
     public function testGetRequest(): void
     {
-        $this->assertEquals($this->request, $this->event->getRequest());
+        $this->assertSame($this->request, $this->event->getRequest());
     }
 
     /**
@@ -51,7 +51,7 @@ final class AdminMatchEventTest extends TestCase
      */
     public function testGetRequestType(): void
     {
-        $this->assertEquals($this->requestType, $this->event->getRequestType());
+        $this->assertSame($this->requestType, $this->event->getRequestType());
     }
 
     /**
@@ -70,6 +70,6 @@ final class AdminMatchEventTest extends TestCase
     {
         $this->event->setPageLayoutTemplate('template.html.twig');
 
-        $this->assertEquals('template.html.twig', $this->event->getPageLayoutTemplate());
+        $this->assertSame('template.html.twig', $this->event->getPageLayoutTemplate());
     }
 }

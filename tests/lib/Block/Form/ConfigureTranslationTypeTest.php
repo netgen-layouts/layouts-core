@@ -38,12 +38,12 @@ final class ConfigureTranslationTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($submittedData, $form->getData());
+        $this->assertSame($submittedData, $form->getData());
 
         $view = $form->createView();
 
         $this->assertArrayHasKey('block', $view->vars);
-        $this->assertEquals($block, $view->vars['block']);
+        $this->assertSame($block, $view->vars['block']);
 
         $this->assertArrayHasKey('translatable', $view->children);
     }
@@ -61,8 +61,8 @@ final class ConfigureTranslationTypeTest extends FormTestCase
         $options = ['block' => $block];
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertEquals('ngbm_forms', $resolvedOptions['translation_domain']);
-        $this->assertEquals($block, $resolvedOptions['block']);
+        $this->assertSame('ngbm_forms', $resolvedOptions['translation_domain']);
+        $this->assertSame($block, $resolvedOptions['block']);
     }
 
     /**

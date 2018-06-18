@@ -61,14 +61,14 @@ final class ConfigMapperTest extends TestCase
         $config = $mappedConfig['config_key'];
 
         $this->assertInstanceOf(Config::class, $config);
-        $this->assertEquals('config_key', $config->getConfigKey());
-        $this->assertEquals($this->configDefinition, $config->getDefinition());
+        $this->assertSame('config_key', $config->getConfigKey());
+        $this->assertSame($this->configDefinition, $config->getDefinition());
 
         $this->assertTrue($config->hasParameter('param'));
 
         $this->assertInstanceOf(Parameter::class, $config->getParameter('param'));
 
-        $this->assertEquals('value', $config->getParameter('param')->getValue());
+        $this->assertSame('value', $config->getParameter('param')->getValue());
     }
 
     /**
@@ -93,7 +93,7 @@ final class ConfigMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'config_key' => [
                     'param' => 'new_value',

@@ -27,9 +27,9 @@ final class RuleCreateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $ruleCreateStruct->layoutId);
-        $this->assertEquals(13, $ruleCreateStruct->priority);
+        $this->assertSame(42, $ruleCreateStruct->layoutId);
+        $this->assertSame(13, $ruleCreateStruct->priority);
         $this->assertTrue($ruleCreateStruct->enabled);
-        $this->assertEquals('Comment', $ruleCreateStruct->comment);
+        $this->assertSame('Comment', $ruleCreateStruct->comment);
     }
 }

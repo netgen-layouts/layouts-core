@@ -51,12 +51,12 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(['layouts' => [$this->layouts[42]]], $form->getData());
+        $this->assertSame(['layouts' => [$this->layouts[42]]], $form->getData());
 
         $view = $form->createView();
 
         $this->assertArrayHasKey('layouts', $view->vars);
-        $this->assertEquals($this->layouts, $view->vars['layouts']);
+        $this->assertSame($this->layouts, $view->vars['layouts']);
     }
 
     /**
@@ -74,7 +74,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertEquals($this->layouts, $options['layouts']);
+        $this->assertSame($this->layouts, $options['layouts']);
     }
 
     /**

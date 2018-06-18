@@ -24,7 +24,7 @@ final class RootLocationTest extends TestCase
      */
     public function testGetLocationId(): void
     {
-        $this->assertEquals(0, $this->location->getLocationId());
+        $this->assertSame(0, $this->location->getLocationId());
     }
 
     /**
@@ -32,7 +32,7 @@ final class RootLocationTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('All layouts', $this->location->getName());
+        $this->assertSame('All layouts', $this->location->getName());
     }
 
     /**

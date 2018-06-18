@@ -30,7 +30,7 @@ final class ChoiceMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(ChoiceType::class, $this->mapper->getFormType());
+        $this->assertSame(ChoiceType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -53,7 +53,7 @@ final class ChoiceMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'multiple' => true,
                 'expanded' => true,
@@ -88,7 +88,7 @@ final class ChoiceMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'multiple' => true,
                 'expanded' => true,

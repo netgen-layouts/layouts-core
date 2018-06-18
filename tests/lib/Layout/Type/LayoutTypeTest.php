@@ -16,8 +16,34 @@ final class LayoutTypeTest extends TestCase
      */
     private $layoutType;
 
+    /**
+     * @var \Netgen\BlockManager\Layout\Type\Zone
+     */
+    private $zone1;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Type\Zone
+     */
+    private $zone2;
+
     public function setUp(): void
     {
+        $this->zone1 = new Zone(
+            [
+                'identifier' => 'left',
+                'name' => 'Left',
+                'allowedBlockDefinitions' => ['title', 'text'],
+            ]
+        );
+
+        $this->zone2 = new Zone(
+            [
+                'identifier' => 'right',
+                'name' => 'Right',
+                'allowedBlockDefinitions' => [],
+            ]
+        );
+
         $this->layoutType = new LayoutType(
             [
                 'identifier' => '4_zones_a',
@@ -25,20 +51,8 @@ final class LayoutTypeTest extends TestCase
                 'name' => '4 zones A',
                 'icon' => '/icon.svg',
                 'zones' => [
-                    'left' => new Zone(
-                        [
-                            'identifier' => 'left',
-                            'name' => 'Left',
-                            'allowedBlockDefinitions' => ['title', 'text'],
-                        ]
-                    ),
-                    'right' => new Zone(
-                        [
-                            'identifier' => 'right',
-                            'name' => 'Right',
-                            'allowedBlockDefinitions' => [],
-                        ]
-                    ),
+                    'left' => $this->zone1,
+                    'right' => $this->zone2,
                 ],
             ]
         );
@@ -50,7 +64,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('4_zones_a', $this->layoutType->getIdentifier());
+        $this->assertSame('4_zones_a', $this->layoutType->getIdentifier());
     }
 
     /**
@@ -66,7 +80,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('4 zones A', $this->layoutType->getName());
+        $this->assertSame('4 zones A', $this->layoutType->getName());
     }
 
     /**
@@ -74,7 +88,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertEquals('/icon.svg', $this->layoutType->getIcon());
+        $this->assertSame('/icon.svg', $this->layoutType->getIcon());
     }
 
     /**
@@ -82,22 +96,10 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetZones(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'left' => new Zone(
-                    [
-                        'identifier' => 'left',
-                        'name' => 'Left',
-                        'allowedBlockDefinitions' => ['title', 'text'],
-                    ]
-                ),
-                'right' => new Zone(
-                    [
-                        'identifier' => 'right',
-                        'name' => 'Right',
-                        'allowedBlockDefinitions' => [],
-                    ]
-                ),
+                'left' => $this->zone1,
+                'right' => $this->zone2,
             ],
             $this->layoutType->getZones()
         );
@@ -108,7 +110,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetZoneIdentifiers(): void
     {
-        $this->assertEquals(['left', 'right'], $this->layoutType->getZoneIdentifiers());
+        $this->assertSame(['left', 'right'], $this->layoutType->getZoneIdentifiers());
     }
 
     /**
@@ -132,16 +134,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetZone(): void
     {
-        $this->assertEquals(
-            new Zone(
-                [
-                    'identifier' => 'left',
-                    'name' => 'Left',
-                    'allowedBlockDefinitions' => ['title', 'text'],
-                ]
-            ),
-            $this->layoutType->getZone('left')
-        );
+        $this->assertSame($this->zone1, $this->layoutType->getZone('left'));
     }
 
     /**

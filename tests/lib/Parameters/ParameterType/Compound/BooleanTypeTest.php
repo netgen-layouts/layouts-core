@@ -23,7 +23,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('compound_boolean', $this->type->getIdentifier());
+        $this->assertSame('compound_boolean', $this->type->getIdentifier());
     }
 
     /**
@@ -39,7 +39,7 @@ final class BooleanTypeTest extends TestCase
     public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
-        $this->assertEquals($expected, $parameter->getDefaultValue());
+        $this->assertSame($expected, $parameter->getDefaultValue());
     }
 
     /**
@@ -49,7 +49,7 @@ final class BooleanTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -131,7 +131,7 @@ final class BooleanTypeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -159,7 +159,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

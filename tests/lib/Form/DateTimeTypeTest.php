@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Form;
 
 use DateTimeImmutable;
-use DateTimeZone;
 use Netgen\BlockManager\Form\DateTimeType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -29,17 +28,19 @@ final class DateTimeTypeTest extends FormTestCase
             'timezone' => 'Antarctica/Casey',
         ];
 
-        $processedData = new DateTimeImmutable(
-            '2018-03-31 01:00:00',
-            new DateTimeZone('Antarctica/Casey')
-        );
-
         $form = $this->factory->create(DateTimeType::class);
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($processedData, $form->getData());
+
+        $processedData = $form->getData();
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $processedData);
+        $this->assertSame('2018-03-31 01:00:00', $processedData->format('Y-m-d H:i:s'));
+        $this->assertSame('Antarctica/Casey', $processedData->getTimezone()->getName());
+
+        $this->assertSame($processedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
@@ -70,7 +71,7 @@ final class DateTimeTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($processedData, $form->getData());
+        $this->assertSame($processedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
@@ -133,6 +134,6 @@ final class DateTimeTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertEquals('ngbm_datetime', $this->formType->getBlockPrefix());
+        $this->assertSame('ngbm_datetime', $this->formType->getBlockPrefix());
     }
 }

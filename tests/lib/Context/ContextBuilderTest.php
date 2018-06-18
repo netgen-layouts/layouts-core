@@ -39,10 +39,10 @@ final class ContextBuilderTest extends TestCase
 
         $this->contextBuilder->buildContext($this->context);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'var1' => 'value1',
                 'var2' => 'value2',
+                'var1' => 'value1',
             ],
             $this->context->all()
         );

@@ -50,7 +50,7 @@ final class RemoveLocaleTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($submittedData, $form->getData());
+        $this->assertSame($submittedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
@@ -60,7 +60,7 @@ final class RemoveLocaleTypeTest extends FormTestCase
         }
 
         $this->assertArrayHasKey('layout', $view->vars);
-        $this->assertEquals($this->layout, $view->vars['layout']);
+        $this->assertSame($this->layout, $view->vars['layout']);
     }
 
     /**
@@ -76,7 +76,7 @@ final class RemoveLocaleTypeTest extends FormTestCase
         $options = ['layout' => $layout];
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertEquals($layout, $resolvedOptions['layout']);
+        $this->assertSame($layout, $resolvedOptions['layout']);
     }
 
     /**

@@ -39,7 +39,7 @@ final class BlockResponseListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
             $this->listener::getSubscribedEvents()
         );

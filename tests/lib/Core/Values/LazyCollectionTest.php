@@ -27,7 +27,7 @@ final class LazyCollectionTest extends TestCase
     {
         $this->assertFalse($this->collection->isInitialized());
 
-        $this->assertEquals([1, 2, 3], $this->collection->toArray());
+        $this->assertSame([1, 2, 3], $this->collection->toArray());
 
         $this->assertTrue($this->collection->isInitialized());
     }

@@ -39,7 +39,7 @@ final class CollectionNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
@@ -61,7 +61,7 @@ final class CollectionNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

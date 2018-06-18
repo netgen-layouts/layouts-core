@@ -34,10 +34,12 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'status' => Value::STATUS_DRAFT]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
     /**
@@ -53,10 +55,13 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'locale' => 'en', 'status' => Value::STATUS_DRAFT]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame('en', $value->getLocale());
+        $this->assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
     /**
@@ -72,10 +77,12 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'status' => Value::STATUS_PUBLISHED]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
     }
 
     /**
@@ -91,10 +98,12 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'status' => Value::STATUS_ARCHIVED]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame(Value::STATUS_ARCHIVED, $value->getStatus());
     }
 
     /**
@@ -110,10 +119,12 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'status' => Value::STATUS_DRAFT]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
     /**
@@ -129,10 +140,12 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'status' => Value::STATUS_PUBLISHED]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
     }
 
     /**
@@ -148,10 +161,12 @@ final class ParamConverterTest extends TestCase
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
-        $this->assertEquals(
-            new Value(['id' => 42, 'status' => Value::STATUS_DRAFT]),
-            $request->attributes->get('value')
-        );
+
+        $value = $request->attributes->get('value');
+
+        $this->assertInstanceOf(Value::class, $value);
+        $this->assertSame(42, $value->getId());
+        $this->assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
     /**

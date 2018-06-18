@@ -16,7 +16,7 @@ final class ParameterTypeExceptionTest extends TestCase
     {
         $exception = ParameterTypeException::noParameterType('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter type with "type" identifier does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ParameterTypeExceptionTest extends TestCase
     {
         $exception = ParameterTypeException::noParameterTypeClass('class');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter type with class "class" does not exist.',
             $exception->getMessage()
         );
@@ -42,7 +42,7 @@ final class ParameterTypeExceptionTest extends TestCase
     {
         $exception = ParameterTypeException::noFormMapper('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Form mapper for "type" parameter type does not exist.',
             $exception->getMessage()
         );
@@ -55,7 +55,7 @@ final class ParameterTypeExceptionTest extends TestCase
     {
         $exception = ParameterTypeException::unsupportedParameterType('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter with "type" type is not supported.',
             $exception->getMessage()
         );

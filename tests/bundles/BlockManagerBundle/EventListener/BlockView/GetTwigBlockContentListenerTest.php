@@ -36,7 +36,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
@@ -79,7 +79,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $this->listener->onRenderView($event);
 
         $this->assertArrayHasKey('twig_content', $event->getParameters());
-        $this->assertEquals('rendered twig block', $event->getParameters()['twig_content']);
+        $this->assertSame('rendered twig block', $event->getParameters()['twig_content']);
     }
 
     /**
@@ -98,7 +98,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 
     /**
@@ -121,7 +121,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $this->listener->onRenderView($event);
 
         $this->assertArrayHasKey('twig_content', $event->getParameters());
-        $this->assertEquals('', $event->getParameters()['twig_content']);
+        $this->assertSame('', $event->getParameters()['twig_content']);
     }
 
     /**
@@ -143,7 +143,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $this->listener->onRenderView($event);
 
         $this->assertArrayHasKey('twig_content', $event->getParameters());
-        $this->assertEquals('', $event->getParameters()['twig_content']);
+        $this->assertSame('', $event->getParameters()['twig_content']);
     }
 
     /**
@@ -155,6 +155,6 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 }

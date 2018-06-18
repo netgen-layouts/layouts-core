@@ -38,8 +38,8 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($data, $forms);
 
-        $this->assertEquals('42', $forms['item_id']->getData());
-        $this->assertEquals('value', $forms['item_type']->getData());
+        $this->assertSame('42', $forms['item_id']->getData());
+        $this->assertSame('value', $forms['item_type']->getData());
     }
 
     /**
@@ -96,7 +96,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertEquals('value://42', $data);
+        $this->assertSame('value://42', $data);
     }
 
     /**

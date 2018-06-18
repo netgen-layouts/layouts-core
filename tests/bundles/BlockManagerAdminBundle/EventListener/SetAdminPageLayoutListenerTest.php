@@ -40,7 +40,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [BlockManagerAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]],
             $this->listener::getSubscribedEvents()
         );
@@ -57,7 +57,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
         $event = new AdminMatchEvent($request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onAdminMatch($event);
 
-        $this->assertEquals(
+        $this->assertSame(
             'default.html.twig',
             $this->globalVariable->getPageLayoutTemplate()
         );
@@ -75,7 +75,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
         $event->setPageLayoutTemplate('template.html.twig');
         $this->listener->onAdminMatch($event);
 
-        $this->assertEquals(
+        $this->assertSame(
             'template.html.twig',
             $this->globalVariable->getPageLayoutTemplate()
         );

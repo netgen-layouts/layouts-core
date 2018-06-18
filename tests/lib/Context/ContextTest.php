@@ -31,7 +31,7 @@ final class ContextTest extends TestCase
         $this->context->set('var2', 'value2');
 
         $this->assertTrue($this->context->has('var2'));
-        $this->assertEquals('value2', $this->context->get('var2'));
+        $this->assertSame('value2', $this->context->get('var2'));
     }
 
     /**
@@ -44,10 +44,10 @@ final class ContextTest extends TestCase
         $this->context->add(['var2' => 'value2', 'var3' => 'value3']);
 
         $this->assertTrue($this->context->has('var2'));
-        $this->assertEquals('value2', $this->context->get('var2'));
+        $this->assertSame('value2', $this->context->get('var2'));
 
         $this->assertTrue($this->context->has('var3'));
-        $this->assertEquals('value3', $this->context->get('var3'));
+        $this->assertSame('value3', $this->context->get('var3'));
     }
 
     /**
@@ -55,7 +55,7 @@ final class ContextTest extends TestCase
      */
     public function testGet(): void
     {
-        $this->assertEquals('value', $this->context->get('var'));
+        $this->assertSame('value', $this->context->get('var'));
     }
 
     /**
@@ -89,7 +89,7 @@ final class ContextTest extends TestCase
      */
     public function testAll(): void
     {
-        $this->assertEquals(['var' => 'value'], $this->context->all());
+        $this->assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -104,7 +104,7 @@ final class ContextTest extends TestCase
             $variables[$identifier] = $value;
         }
 
-        $this->assertEquals($this->context->all(), $variables);
+        $this->assertSame($this->context->all(), $variables);
     }
 
     /**
@@ -129,7 +129,7 @@ final class ContextTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals('value', $this->context['var']);
+        $this->assertSame('value', $this->context['var']);
     }
 
     /**
@@ -139,7 +139,7 @@ final class ContextTest extends TestCase
     {
         $this->context['var'] = 'value2';
 
-        $this->assertEquals('value2', $this->context['var']);
+        $this->assertSame('value2', $this->context['var']);
     }
 
     /**

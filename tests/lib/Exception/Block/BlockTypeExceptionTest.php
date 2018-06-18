@@ -16,7 +16,7 @@ final class BlockTypeExceptionTest extends TestCase
     {
         $exception = BlockTypeException::noBlockType('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Block type with "type" identifier does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class BlockTypeExceptionTest extends TestCase
     {
         $exception = BlockTypeException::noBlockTypeGroup('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Block type group with "type" identifier does not exist.',
             $exception->getMessage()
         );

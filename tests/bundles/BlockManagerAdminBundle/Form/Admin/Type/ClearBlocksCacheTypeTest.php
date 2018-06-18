@@ -63,12 +63,12 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(['blocks' => [$this->blocks[42]]], $form->getData());
+        $this->assertSame(['blocks' => [$this->blocks[42]]], $form->getData());
 
         $view = $form->createView();
 
         $this->assertArrayHasKey('blocks', $view->vars);
-        $this->assertEquals($this->blocks, $view->vars['blocks']);
+        $this->assertSame($this->blocks, $view->vars['blocks']);
     }
 
     /**
@@ -86,7 +86,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertEquals($this->blocks, $options['blocks']);
+        $this->assertSame($this->blocks, $options['blocks']);
     }
 
     /**

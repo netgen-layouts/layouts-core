@@ -30,7 +30,7 @@ final class CacheableViewListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
             $this->listener::getSubscribedEvents()
         );
@@ -59,7 +59,7 @@ final class CacheableViewListenerTest extends TestCase
 
         $this->listener->onKernelResponse($event);
 
-        $this->assertEquals(42, $event->getResponse()->getMaxAge());
+        $this->assertSame(42, $event->getResponse()->getMaxAge());
     }
 
     /**
@@ -115,7 +115,7 @@ final class CacheableViewListenerTest extends TestCase
 
         $this->listener->onKernelResponse($event);
 
-        $this->assertEquals(41, $event->getResponse()->getMaxAge());
+        $this->assertSame(41, $event->getResponse()->getMaxAge());
     }
 
     /**

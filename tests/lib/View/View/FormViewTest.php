@@ -48,11 +48,11 @@ final class FormViewTest extends TestCase
      */
     public function testGetForm(): void
     {
-        $this->assertEquals($this->form, $this->view->getForm());
-        $this->assertEquals(FormType::class, $this->view->getFormType());
+        $this->assertSame($this->form, $this->view->getForm());
+        $this->assertSame(FormType::class, $this->view->getFormType());
         $this->assertInstanceOf(SymfonyFormView::class, $this->view->getFormView());
 
-        $this->assertEquals('value', $this->view->getParameter('param'));
+        $this->assertSame('value', $this->view->getParameter('param'));
         $this->assertInstanceOf(SymfonyFormView::class, $this->view->getParameter('form'));
     }
 
@@ -61,6 +61,6 @@ final class FormViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('form_view', $this->view->getIdentifier());
+        $this->assertSame('form_view', $this->view->getIdentifier());
     }
 }

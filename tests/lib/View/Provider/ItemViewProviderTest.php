@@ -35,9 +35,9 @@ final class ItemViewProviderTest extends TestCase
 
         $this->assertInstanceOf(ItemViewInterface::class, $view);
 
-        $this->assertEquals($item, $view->getItem());
+        $this->assertSame($item, $view->getItem());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'item' => $item,
                 'view_type' => 'view_type',
@@ -75,7 +75,7 @@ final class ItemViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->itemViewProvider->supports($value));
+        $this->assertSame($supports, $this->itemViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

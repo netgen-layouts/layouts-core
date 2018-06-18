@@ -63,7 +63,7 @@ final class FilesystemLoaderTest extends TestCase
 
         $source = $this->loader->getSource('@ngbm/template.html.twig');
 
-        $this->assertEquals('source code', $source);
+        $this->assertSame('source code', $source);
     }
 
     /**
@@ -83,7 +83,7 @@ final class FilesystemLoaderTest extends TestCase
 
         $source = $this->loader->getSource('@other/template.html.twig');
 
-        $this->assertEquals('source code', $source);
+        $this->assertSame('source code', $source);
     }
 
     /**
@@ -93,15 +93,17 @@ final class FilesystemLoaderTest extends TestCase
      */
     public function testGetSourceContext(): void
     {
+        $source = new Source('', '@ngbm_test/template.html.twig');
+
         $this->innerLoaderMock
             ->expects($this->once())
             ->method('getSourceContext')
             ->with($this->equalTo('@ngbm_test/template.html.twig'))
-            ->will($this->returnValue(new Source('', '@ngbm_test/template.html.twig')));
+            ->will($this->returnValue($source));
 
         $sourceContext = $this->loader->getSourceContext('@ngbm/template.html.twig');
 
-        $this->assertEquals(new Source('', '@ngbm_test/template.html.twig'), $sourceContext);
+        $this->assertSame($source, $sourceContext);
     }
 
     /**
@@ -110,15 +112,17 @@ final class FilesystemLoaderTest extends TestCase
      */
     public function testGetSourceContextWithNonLayoutsTwigFile(): void
     {
+        $source = new Source('', '@other/template.html.twig');
+
         $this->innerLoaderMock
             ->expects($this->once())
             ->method('getSourceContext')
             ->with($this->equalTo('@other/template.html.twig'))
-            ->will($this->returnValue(new Source('', '@other/template.html.twig')));
+            ->will($this->returnValue($source));
 
         $sourceContext = $this->loader->getSourceContext('@other/template.html.twig');
 
-        $this->assertEquals(new Source('', '@other/template.html.twig'), $sourceContext);
+        $this->assertSame($source, $sourceContext);
     }
 
     /**
@@ -135,7 +139,7 @@ final class FilesystemLoaderTest extends TestCase
 
         $cacheKey = $this->loader->getCacheKey('@ngbm/template.html.twig');
 
-        $this->assertEquals('cache_key', $cacheKey);
+        $this->assertSame('cache_key', $cacheKey);
     }
 
     /**
@@ -152,7 +156,7 @@ final class FilesystemLoaderTest extends TestCase
 
         $cacheKey = $this->loader->getCacheKey('@other/template.html.twig');
 
-        $this->assertEquals('cache_key', $cacheKey);
+        $this->assertSame('cache_key', $cacheKey);
     }
 
     /**

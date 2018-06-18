@@ -40,13 +40,11 @@ final class CopyTypeTest extends FormTestCase
             'description' => 'New description',
         ];
 
-        $updatedStruct = new LayoutCopyStruct();
-        $updatedStruct->name = 'New name';
-        $updatedStruct->description = 'New description';
+        $struct = new LayoutCopyStruct();
 
         $form = $this->factory->create(
             CopyType::class,
-            new LayoutCopyStruct(),
+            $struct,
             [
                 'layout' => $this->layout,
             ]
@@ -55,7 +53,9 @@ final class CopyTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('New name', $struct->name);
+        $this->assertSame('New description', $struct->description);
 
         $view = $form->createView();
         $children = $view->children;
@@ -75,15 +75,17 @@ final class CopyTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new LayoutCopyStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'layout' => $this->layout,
-                'data' => new LayoutCopyStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->layout, $options['layout']);
-        $this->assertEquals(new LayoutCopyStruct(), $options['data']);
+        $this->assertSame($this->layout, $options['layout']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

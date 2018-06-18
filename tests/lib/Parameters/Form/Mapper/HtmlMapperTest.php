@@ -25,6 +25,6 @@ final class HtmlMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(TextareaType::class, $this->mapper->getFormType());
+        $this->assertSame(TextareaType::class, $this->mapper->getFormType());
     }
 }

@@ -53,9 +53,9 @@ final class BlockViewProviderTest extends TestCase
 
         $this->assertInstanceOf(BlockViewInterface::class, $view);
 
-        $this->assertEquals($block, $view->getBlock());
+        $this->assertSame($block, $view->getBlock());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'block' => $block,
             ],
@@ -63,7 +63,7 @@ final class BlockViewProviderTest extends TestCase
         );
 
         $this->assertTrue($view->isCacheable());
-        $this->assertEquals(400, $view->getSharedMaxAge());
+        $this->assertSame(400, $view->getSharedMaxAge());
     }
 
     /**
@@ -75,7 +75,7 @@ final class BlockViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->blockViewProvider->supports($value));
+        $this->assertSame($supports, $this->blockViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

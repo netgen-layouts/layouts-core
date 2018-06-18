@@ -28,7 +28,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::REQUEST => ['onKernelRequest', 10]],
             $this->listener::getSubscribedEvents()
         );
@@ -49,7 +49,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
 
         $this->assertTrue($event->getRequest()->attributes->has('ngbmContextUri'));
-        $this->assertEquals($filteredUri, $event->getRequest()->attributes->get('ngbmContextUri'));
+        $this->assertSame($filteredUri, $event->getRequest()->attributes->get('ngbmContextUri'));
     }
 
     public function onKernelRequestDataProvider(): array
@@ -111,6 +111,6 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals('/some/uri', $event->getRequest()->attributes->get('ngbmContextUri'));
+        $this->assertSame('/some/uri', $event->getRequest()->attributes->get('ngbmContextUri'));
     }
 }

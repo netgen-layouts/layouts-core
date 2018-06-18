@@ -37,6 +37,6 @@ final class ConfigDefinitionTest extends TestCase
      */
     public function testGetConfigKey(): void
     {
-        $this->assertEquals('config_definition', $this->configDefinition->getConfigKey());
+        $this->assertSame('config_definition', $this->configDefinition->getConfigKey());
     }
 }

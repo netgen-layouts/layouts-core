@@ -29,9 +29,11 @@ final class ResultSetTest extends TestCase
      */
     public function testObject(): void
     {
+        $collection = new Collection();
+
         $result = new ResultSet(
             [
-                'collection' => new Collection(),
+                'collection' => $collection,
                 'results' => ['items'],
                 'totalCount' => 15,
                 'offset' => 3,
@@ -39,20 +41,20 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertEquals(new Collection(), $result->getCollection());
-        $this->assertEquals(['items'], $result->getResults());
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(['items'], $result->getResults());
         $this->assertFalse($result->isContextual());
-        $this->assertEquals(15, $result->getTotalCount());
-        $this->assertEquals(3, $result->getOffset());
-        $this->assertEquals(5, $result->getLimit());
+        $this->assertSame(15, $result->getTotalCount());
+        $this->assertSame(3, $result->getOffset());
+        $this->assertSame(5, $result->getLimit());
 
         $this->assertInstanceOf(Traversable::class, $result->getIterator());
-        $this->assertEquals(['items'], iterator_to_array($result->getIterator()));
+        $this->assertSame(['items'], iterator_to_array($result->getIterator()));
 
         $this->assertCount(1, $result);
 
         $this->assertTrue(isset($result[0]));
-        $this->assertEquals('items', $result[0]);
+        $this->assertSame('items', $result[0]);
 
         try {
             $result[0] = 'new';

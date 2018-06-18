@@ -15,15 +15,28 @@ final class ViewTypeTest extends TestCase
      */
     private $viewType;
 
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
+     */
+    private $itemViewType1;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
+     */
+    private $itemViewType2;
+
     public function setUp(): void
     {
+        $this->itemViewType1 = new ItemViewType(['identifier' => 'standard']);
+        $this->itemViewType1 = new ItemViewType(['identifier' => 'standard_with_intro']);
+
         $this->viewType = new ViewType(
             [
                 'identifier' => 'large',
                 'name' => 'Large',
                 'itemViewTypes' => [
-                    'standard' => new ItemViewType(['identifier' => 'standard']),
-                    'standard_with_intro' => new ItemViewType(['identifier' => 'standard_with_intro']),
+                    'standard' => $this->itemViewType1,
+                    'standard_with_intro' => $this->itemViewType2,
                 ],
                 'validParameters' => ['param1', 'param2'],
             ]
@@ -36,7 +49,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('large', $this->viewType->getIdentifier());
+        $this->assertSame('large', $this->viewType->getIdentifier());
     }
 
     /**
@@ -44,7 +57,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Large', $this->viewType->getName());
+        $this->assertSame('Large', $this->viewType->getName());
     }
 
     /**
@@ -52,10 +65,10 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetItemViewTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'standard' => new ItemViewType(['identifier' => 'standard']),
-                'standard_with_intro' => new ItemViewType(['identifier' => 'standard_with_intro']),
+                'standard' => $this->itemViewType1,
+                'standard_with_intro' => $this->itemViewType2,
             ],
             $this->viewType->getItemViewTypes()
         );
@@ -66,7 +79,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetItemViewTypeIdentifiers(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['standard', 'standard_with_intro'],
             $this->viewType->getItemViewTypeIdentifiers()
         );
@@ -86,8 +99,8 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetItemViewType(): void
     {
-        $this->assertEquals(
-            new ItemViewType(['identifier' => 'standard']),
+        $this->assertSame(
+            $this->itemViewType1,
             $this->viewType->getItemViewType('standard')
         );
     }
@@ -107,7 +120,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetValidParameters(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['param1', 'param2'],
             $this->viewType->getValidParameters()
         );

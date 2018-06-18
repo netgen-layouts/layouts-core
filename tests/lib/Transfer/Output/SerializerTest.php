@@ -81,7 +81,7 @@ final class SerializerTest extends TestCase
             ->with($this->equalTo(new Layout(['id' => 24])))
             ->will($this->returnValue('serialized_layout_24'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
@@ -118,7 +118,7 @@ final class SerializerTest extends TestCase
             ->with($this->equalTo(new Layout(['id' => 42])))
             ->will($this->returnValue('serialized_layout_42'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
@@ -160,7 +160,7 @@ final class SerializerTest extends TestCase
             ->with($this->equalTo(new Rule(['id' => 24])))
             ->will($this->returnValue('serialized_rule_24'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
@@ -197,7 +197,7 @@ final class SerializerTest extends TestCase
             ->with($this->equalTo(new Rule(['id' => 42])))
             ->will($this->returnValue('serialized_rule_42'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [

@@ -36,9 +36,9 @@ final class LayoutViewProviderTest extends TestCase
 
         $this->assertInstanceOf(LayoutViewInterface::class, $view);
 
-        $this->assertEquals($layout, $view->getLayout());
+        $this->assertSame($layout, $view->getLayout());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'layout' => $layout,
             ],
@@ -55,7 +55,7 @@ final class LayoutViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->layoutViewProvider->supports($value));
+        $this->assertSame($supports, $this->layoutViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

@@ -49,12 +49,11 @@ final class RoutePrefixTest extends FormTestCase
             'value' => 'route_prefix_',
         ];
 
-        $updatedStruct = new TargetCreateStruct();
-        $updatedStruct->value = 'route_prefix_';
+        $struct = new TargetCreateStruct();
 
         $form = $this->factory->create(
             TargetType::class,
-            new TargetCreateStruct(),
+            $struct,
             ['target_type' => $this->targetType]
         );
 
@@ -63,13 +62,14 @@ final class RoutePrefixTest extends FormTestCase
 
         $form->submit($submittedData);
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('route_prefix_', $struct->value);
 
         $formView = $form->createView();
 
         $this->assertArrayHasKey('value', $formView->children);
 
         $this->assertArrayHasKey('target_type', $formView->vars);
-        $this->assertEquals($this->targetType, $formView->vars['target_type']);
+        $this->assertSame($this->targetType, $formView->vars['target_type']);
     }
 }

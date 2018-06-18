@@ -26,9 +26,9 @@ final class LazyPropertyTraitTest extends TestCase
     {
         $this->assertInternalType('callable', $this->value->value);
 
-        $this->assertEquals(42, $this->value->getValue());
+        $this->assertSame(42, $this->value->getValue());
 
         $this->assertInternalType('int', $this->value->value);
-        $this->assertEquals(42, $this->value->value);
+        $this->assertSame(42, $this->value->value);
     }
 }

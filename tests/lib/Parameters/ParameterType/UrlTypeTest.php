@@ -22,7 +22,7 @@ final class UrlTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('url', $this->type->getIdentifier());
+        $this->assertSame('url', $this->type->getIdentifier());
     }
 
     /**
@@ -32,7 +32,7 @@ final class UrlTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -86,7 +86,7 @@ final class UrlTypeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array

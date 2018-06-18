@@ -72,6 +72,6 @@ final class RendererTest extends TestCase
             ['some_param' => 'some_value']
         );
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 }

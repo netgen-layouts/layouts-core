@@ -18,7 +18,7 @@ final class ConditionCreateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals('condition', $conditionCreateStruct->type);
-        $this->assertEquals(42, $conditionCreateStruct->value);
+        $this->assertSame('condition', $conditionCreateStruct->type);
+        $this->assertSame(42, $conditionCreateStruct->value);
     }
 }

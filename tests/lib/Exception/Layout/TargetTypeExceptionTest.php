@@ -16,7 +16,7 @@ final class TargetTypeExceptionTest extends TestCase
     {
         $exception = TargetTypeException::noTargetType('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Target type "type" does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class TargetTypeExceptionTest extends TestCase
     {
         $exception = TargetTypeException::noFormMapper('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Form mapper for "type" target type does not exist.',
             $exception->getMessage()
         );

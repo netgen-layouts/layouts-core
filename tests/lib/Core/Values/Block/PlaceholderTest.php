@@ -21,7 +21,7 @@ final class PlaceholderTest extends TestCase
     {
         $placeholder = new Placeholder();
 
-        $this->assertEquals([], $placeholder->getBlocks());
+        $this->assertSame([], $placeholder->getBlocks());
     }
 
     /**
@@ -37,26 +37,28 @@ final class PlaceholderTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $block = new Block();
+
         $placeholder = new Placeholder(
             [
                 'identifier' => 'placeholder',
-                'blocks' => new ArrayCollection([new Block()]),
+                'blocks' => new ArrayCollection([$block]),
             ]
         );
 
-        $this->assertEquals('placeholder', $placeholder->getIdentifier());
-        $this->assertEquals([new Block()], $placeholder->getBlocks());
+        $this->assertSame('placeholder', $placeholder->getIdentifier());
+        $this->assertSame([$block], $placeholder->getBlocks());
 
         $this->assertInstanceOf(Traversable::class, $placeholder->getIterator());
-        $this->assertEquals([new Block()], iterator_to_array($placeholder->getIterator()));
+        $this->assertSame([$block], iterator_to_array($placeholder->getIterator()));
 
         $this->assertCount(1, $placeholder);
 
         $this->assertTrue(isset($placeholder[0]));
-        $this->assertEquals(new Block(), $placeholder[0]);
+        $this->assertSame($block, $placeholder[0]);
 
         try {
-            $placeholder[1] = new Block();
+            $placeholder[1] = $block;
             $this->fail('Succeeded in setting a new block to placeholder.');
         } catch (RuntimeException $e) {
             // Do nothing

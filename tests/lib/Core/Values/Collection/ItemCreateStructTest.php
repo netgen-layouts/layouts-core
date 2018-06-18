@@ -15,21 +15,23 @@ final class ItemCreateStructTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
 
-        $this->assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
+        $this->assertNull($itemCreateStruct->type);
     }
 
     public function testSetProperties(): void
     {
+        $itemDefinition = new ItemDefinition();
+
         $itemCreateStruct = new ItemCreateStruct(
             [
                 'value' => 3,
-                'definition' => new ItemDefinition(),
+                'definition' => $itemDefinition,
                 'type' => Item::TYPE_OVERRIDE,
             ]
         );
 
-        $this->assertEquals(new ItemDefinition(), $itemCreateStruct->definition);
-        $this->assertEquals(3, $itemCreateStruct->value);
-        $this->assertEquals(Item::TYPE_OVERRIDE, $itemCreateStruct->type);
+        $this->assertSame($itemDefinition, $itemCreateStruct->definition);
+        $this->assertSame(3, $itemCreateStruct->value);
+        $this->assertSame(Item::TYPE_OVERRIDE, $itemCreateStruct->type);
     }
 }

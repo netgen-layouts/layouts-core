@@ -15,9 +15,16 @@ final class SuccessResultTest extends TestCase
      */
     private $result;
 
+    /**
+     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     */
+    private $entity;
+
     public function setUp(): void
     {
-        $this->result = new SuccessResult('type', ['data'], 42, new Value());
+        $this->entity = new Value();
+
+        $this->result = new SuccessResult('type', ['data'], 42, $this->entity);
     }
 
     /**
@@ -26,7 +33,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntityType(): void
     {
-        $this->assertEquals('type', $this->result->getEntityType());
+        $this->assertSame('type', $this->result->getEntityType());
     }
 
     /**
@@ -34,7 +41,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetData(): void
     {
-        $this->assertEquals(['data'], $this->result->getData());
+        $this->assertSame(['data'], $this->result->getData());
     }
 
     /**
@@ -42,7 +49,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntityId(): void
     {
-        $this->assertEquals(42, $this->result->getEntityId());
+        $this->assertSame(42, $this->result->getEntityId());
     }
 
     /**
@@ -50,6 +57,6 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntity(): void
     {
-        $this->assertEquals(new Value(), $this->result->getEntity());
+        $this->assertSame($this->entity, $this->result->getEntity());
     }
 }

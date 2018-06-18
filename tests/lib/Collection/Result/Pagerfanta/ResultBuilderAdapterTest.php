@@ -41,7 +41,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection());
 
-        $this->assertEquals(3, $adapter->getNbResults());
+        $this->assertSame(3, $adapter->getNbResults());
     }
 
     /**
@@ -63,7 +63,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 0, 10);
 
-        $this->assertEquals(10, $adapter->getNbResults());
+        $this->assertSame(10, $adapter->getNbResults());
     }
 
     /**
@@ -84,7 +84,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3);
 
-        $this->assertEquals(3, $adapter->getNbResults());
+        $this->assertSame(3, $adapter->getNbResults());
     }
 
     /**
@@ -105,7 +105,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3, 5);
 
-        $this->assertEquals(5, $adapter->getNbResults());
+        $this->assertSame(5, $adapter->getNbResults());
     }
 
     /**
@@ -128,7 +128,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection());
 
-        $this->assertEquals($resultSet, $adapter->getSlice(0, 10));
+        $this->assertSame($resultSet, $adapter->getSlice(0, 10));
     }
 
     /**
@@ -151,6 +151,6 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3);
 
-        $this->assertEquals($resultSet, $adapter->getSlice(0, 10));
+        $this->assertSame($resultSet, $adapter->getSlice(0, 10));
     }
 }

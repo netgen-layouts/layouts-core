@@ -35,7 +35,7 @@ final class CollectionViewTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('ngbm_collection', $this->collectionView->getName());
+        $this->assertSame('ngbm_collection', $this->collectionView->getName());
     }
 
     /**
@@ -68,7 +68,7 @@ final class CollectionViewTest extends TestCase
             ]
         );
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -102,7 +102,7 @@ final class CollectionViewTest extends TestCase
             ]
         );
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 
     /**

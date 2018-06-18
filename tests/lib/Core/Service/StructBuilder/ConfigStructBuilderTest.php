@@ -54,18 +54,11 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
 
         $this->structBuilder->buildConfigUpdateStructs($block, $struct);
 
-        $this->assertEquals(
-            [
-                'config' => new ConfigStruct(
-                    [
-                        'parameterValues' => [
-                            'param' => null,
-                            'param2' => null,
-                        ],
-                    ]
-                ),
-            ],
-            $struct->getConfigStructs()
-        );
+        $this->assertArrayHasKey('config', $struct->getConfigStructs());
+
+        $configStruct = $struct->getConfigStructs()['config'];
+
+        $this->assertInstanceOf(ConfigStruct::class, $configStruct);
+        $this->assertSame(['param' => null, 'param2' => null], $configStruct->getParameterValues());
     }
 }

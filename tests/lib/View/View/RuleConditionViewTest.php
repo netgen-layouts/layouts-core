@@ -40,11 +40,11 @@ final class RuleConditionViewTest extends TestCase
      */
     public function testGetCondition(): void
     {
-        $this->assertEquals($this->condition, $this->view->getCondition());
-        $this->assertEquals(
+        $this->assertSame($this->condition, $this->view->getCondition());
+        $this->assertSame(
             [
-                'param' => 'value',
                 'condition' => $this->condition,
+                'param' => 'value',
             ],
             $this->view->getParameters()
         );
@@ -55,6 +55,6 @@ final class RuleConditionViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('rule_condition_view', $this->view->getIdentifier());
+        $this->assertSame('rule_condition_view', $this->view->getIdentifier());
     }
 }

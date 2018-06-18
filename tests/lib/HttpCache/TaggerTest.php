@@ -37,7 +37,7 @@ final class TaggerTest extends TestCase
         $this->assertSame('42', $response->headers->get('X-Layout-Id'));
 
         $this->assertTrue($response->hasVary());
-        $this->assertEquals(['Cookie', 'X-Layout-Id'], $response->getVary());
+        $this->assertSame(['Cookie', 'X-Layout-Id'], $response->getVary());
     }
 
     /**

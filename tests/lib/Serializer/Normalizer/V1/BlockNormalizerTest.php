@@ -128,7 +128,7 @@ final class BlockNormalizerTest extends TestCase
             ->with($this->equalTo($block))
             ->will($this->returnValue(true));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => $block->getId(),
                 'layout_id' => $block->getLayoutId(),
@@ -204,7 +204,7 @@ final class BlockNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

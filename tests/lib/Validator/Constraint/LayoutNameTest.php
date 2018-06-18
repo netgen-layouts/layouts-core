@@ -15,6 +15,6 @@ final class LayoutNameTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new LayoutName();
-        $this->assertEquals('ngbm_layout_name', $constraint->validatedBy());
+        $this->assertSame('ngbm_layout_name', $constraint->validatedBy());
     }
 }

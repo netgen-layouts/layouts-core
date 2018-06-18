@@ -52,15 +52,11 @@ final class RouteParameterTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ConditionCreateStruct();
-        $updatedStruct->value = [
-            'parameter_name' => 'some_name',
-            'parameter_values' => ['value1', 'value1'],
-        ];
+        $struct = new ConditionCreateStruct();
 
         $form = $this->factory->create(
             ConditionType::class,
-            new ConditionCreateStruct(),
+            $struct,
             ['condition_type' => $this->conditionType]
         );
 
@@ -69,13 +65,20 @@ final class RouteParameterTest extends FormTestCase
 
         $form->submit($submittedData);
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(
+            [
+                'parameter_name' => 'some_name',
+                'parameter_values' => ['value1', 'value1'],
+            ],
+            $struct->value
+        );
 
         $formView = $form->createView();
 
         $this->assertArrayHasKey('value', $formView->children);
 
         $this->assertArrayHasKey('condition_type', $formView->vars);
-        $this->assertEquals($this->conditionType, $formView->vars['condition_type']);
+        $this->assertSame($this->conditionType, $formView->vars['condition_type']);
     }
 }

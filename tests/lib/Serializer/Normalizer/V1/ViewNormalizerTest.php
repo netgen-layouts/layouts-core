@@ -66,7 +66,7 @@ final class ViewNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize($view);
 
-        $this->assertEquals(['id' => 42, 'html' => 'rendered view'], $data);
+        $this->assertSame(['id' => 42, 'html' => 'rendered view'], $data);
     }
 
     /**
@@ -78,7 +78,7 @@ final class ViewNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

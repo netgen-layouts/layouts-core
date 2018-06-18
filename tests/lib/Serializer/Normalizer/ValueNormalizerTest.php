@@ -51,7 +51,7 @@ final class ValueNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize($value, 'json', ['context']);
 
-        $this->assertEquals(['serialized'], $data);
+        $this->assertSame(['serialized'], $data);
     }
 
     /**
@@ -63,7 +63,7 @@ final class ValueNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

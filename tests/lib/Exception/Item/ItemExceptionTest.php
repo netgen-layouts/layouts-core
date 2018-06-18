@@ -16,7 +16,7 @@ final class ItemExceptionTest extends TestCase
     {
         $exception = ItemException::noValueType('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value type "type" does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ItemExceptionTest extends TestCase
     {
         $exception = ItemException::noValue(42);
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value with (remote) ID 42 does not exist.',
             $exception->getMessage()
         );
@@ -42,7 +42,7 @@ final class ItemExceptionTest extends TestCase
     {
         $exception = ItemException::invalidValue('type');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Item "type" is not valid.',
             $exception->getMessage()
         );
@@ -55,7 +55,7 @@ final class ItemExceptionTest extends TestCase
     {
         $exception = ItemException::canNotLoadItem();
 
-        $this->assertEquals(
+        $this->assertSame(
             'Item could not be loaded.',
             $exception->getMessage()
         );

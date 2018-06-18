@@ -44,7 +44,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::VIEW => ['onView', -255]],
             $this->listener::getSubscribedEvents()
         );
@@ -84,9 +84,9 @@ final class ViewRendererListenerTest extends TestCase
         $this->assertInstanceOf(FoundationResponse::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        $this->assertEquals($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+        $this->assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
 
-        $this->assertEquals('rendered content', $event->getResponse()->getContent());
+        $this->assertSame('rendered content', $event->getResponse()->getContent());
     }
 
     /**
@@ -122,9 +122,9 @@ final class ViewRendererListenerTest extends TestCase
         $this->assertInstanceOf(FoundationResponse::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        $this->assertEquals($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+        $this->assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
 
-        $this->assertEquals('', $event->getResponse()->getContent());
+        $this->assertSame('', $event->getResponse()->getContent());
     }
 
     /**

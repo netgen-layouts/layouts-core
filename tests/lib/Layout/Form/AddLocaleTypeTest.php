@@ -68,7 +68,7 @@ final class AddLocaleTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($submittedData, $form->getData());
+        $this->assertSame($submittedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
@@ -91,8 +91,8 @@ final class AddLocaleTypeTest extends FormTestCase
         $options = ['layout' => $layout];
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertEquals('ngbm_forms', $resolvedOptions['translation_domain']);
-        $this->assertEquals($layout, $resolvedOptions['layout']);
+        $this->assertSame('ngbm_forms', $resolvedOptions['translation_domain']);
+        $this->assertSame($layout, $resolvedOptions['layout']);
     }
 
     /**

@@ -42,7 +42,7 @@ final class BlockUpdateStructTest extends TestCase
 
         $this->struct->fillParameters($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -67,7 +67,7 @@ final class BlockUpdateStructTest extends TestCase
 
         $this->struct->fillParameters($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
@@ -110,7 +110,7 @@ final class BlockUpdateStructTest extends TestCase
 
         $this->struct->fillParametersFromBlock($block);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => null,
@@ -137,7 +137,7 @@ final class BlockUpdateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -162,7 +162,7 @@ final class BlockUpdateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

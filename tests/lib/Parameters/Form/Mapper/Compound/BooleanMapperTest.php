@@ -27,7 +27,7 @@ final class BooleanMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(CompoundBooleanType::class, $this->mapper->getFormType());
+        $this->assertSame(CompoundBooleanType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -35,7 +35,7 @@ final class BooleanMapperTest extends TestCase
      */
     public function testMapOptions(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'mapped' => false,
                 'reverse' => true,

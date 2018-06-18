@@ -52,7 +52,7 @@ final class IdProviderTest extends TestCase
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertEquals([42], $providedIds);
+        $this->assertSame([42], $providedIds);
     }
 
     /**
@@ -72,7 +72,7 @@ final class IdProviderTest extends TestCase
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertEquals([42], $providedIds);
+        $this->assertSame([42], $providedIds);
     }
 
     /**
@@ -116,6 +116,6 @@ final class IdProviderTest extends TestCase
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertEquals([42, 43, 44], $providedIds);
+        $this->assertSame([42, 43, 44], $providedIds);
     }
 }

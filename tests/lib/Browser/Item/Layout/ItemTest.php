@@ -33,7 +33,7 @@ final class ItemTest extends TestCase
      */
     public function testGetValue(): void
     {
-        $this->assertEquals(42, $this->item->getValue());
+        $this->assertSame(42, $this->item->getValue());
     }
 
     /**
@@ -41,7 +41,7 @@ final class ItemTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('My layout', $this->item->getName());
+        $this->assertSame('My layout', $this->item->getName());
     }
 
     /**
@@ -65,6 +65,6 @@ final class ItemTest extends TestCase
      */
     public function testGetLayout(): void
     {
-        $this->assertEquals($this->layout, $this->item->getLayout());
+        $this->assertSame($this->layout, $this->item->getLayout());
     }
 }

@@ -18,7 +18,7 @@ final class LayoutUpdateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals('My layout', $layoutUpdateStruct->name);
-        $this->assertEquals('My description', $layoutUpdateStruct->description);
+        $this->assertSame('My layout', $layoutUpdateStruct->name);
+        $this->assertSame('My description', $layoutUpdateStruct->description);
     }
 }

@@ -42,18 +42,22 @@ final class QueryRunnerTest extends TestCase
      */
     public function testRunner(): void
     {
-        $expectedItems = [
-            new Item(['value' => 40, 'isVisible' => true]),
-            new Item(['value' => 41, 'isVisible' => true]),
-            new Item(['value' => 42, 'isVisible' => true]),
-        ];
-
         $queryType = new QueryType('query', [40, 41, 42]);
         $query = new Query(['queryType' => $queryType]);
 
         $queryRunner = new QueryRunner($this->itemBuilderMock);
 
-        $this->assertEquals($expectedItems, iterator_to_array($queryRunner->runQuery($query)));
-        $this->assertEquals(3, $queryRunner->count($query));
+        $items = iterator_to_array($queryRunner->runQuery($query));
+
+        foreach ($items as $item) {
+            $this->assertInstanceOf(Item::class, $item);
+            $this->assertTrue($item->isVisible());
+        }
+
+        $this->assertSame(40, $items[0]->getValue());
+        $this->assertSame(41, $items[1]->getValue());
+        $this->assertSame(42, $items[2]->getValue());
+
+        $this->assertSame(3, $queryRunner->count($query));
     }
 }

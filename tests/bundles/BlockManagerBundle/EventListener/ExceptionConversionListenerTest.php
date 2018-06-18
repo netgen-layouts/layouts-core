@@ -46,7 +46,7 @@ final class ExceptionConversionListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::EXCEPTION => ['onException', 10]],
             $this->listener::getSubscribedEvents()
         );
@@ -76,16 +76,16 @@ final class ExceptionConversionListenerTest extends TestCase
             $event->getException()
         );
 
-        $this->assertEquals($exception->getMessage(), $event->getException()->getMessage());
-        $this->assertEquals($exception->getCode(), $event->getException()->getCode());
+        $this->assertSame($exception->getMessage(), $event->getException()->getMessage());
+        $this->assertSame($exception->getCode(), $event->getException()->getCode());
 
         if ($event->getException() instanceof HttpExceptionInterface) {
-            $this->assertEquals($statusCode, $event->getException()->getStatusCode());
+            $this->assertSame($statusCode, $event->getException()->getStatusCode());
         }
 
         $converted ?
-            $this->assertEquals($exception, $event->getException()->getPrevious()) :
-            $this->assertEquals($exception, $event->getException());
+            $this->assertSame($exception, $event->getException()->getPrevious()) :
+            $this->assertSame($exception, $event->getException());
     }
 
     /**
@@ -132,7 +132,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertEquals($exception, $event->getException());
+        $this->assertSame($exception, $event->getException());
     }
 
     /**
@@ -153,7 +153,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertEquals($exception, $event->getException());
+        $this->assertSame($exception, $event->getException());
     }
 
     public function onExceptionDataProvider(): array

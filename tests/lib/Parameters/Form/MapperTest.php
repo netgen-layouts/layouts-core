@@ -25,6 +25,6 @@ final class MapperTest extends TestCase
      */
     public function testMapOptions(): void
     {
-        $this->assertEquals([], $this->mapper->mapOptions(new ParameterDefinition()));
+        $this->assertSame([], $this->mapper->mapOptions(new ParameterDefinition()));
     }
 }

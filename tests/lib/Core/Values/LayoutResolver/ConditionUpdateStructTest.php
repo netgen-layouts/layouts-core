@@ -17,6 +17,6 @@ final class ConditionUpdateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $conditionUpdateStruct->value);
+        $this->assertSame(42, $conditionUpdateStruct->value);
     }
 }

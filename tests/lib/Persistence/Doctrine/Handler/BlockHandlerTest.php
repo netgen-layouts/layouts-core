@@ -14,11 +14,13 @@ use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockHandlerTest extends TestCase
 {
     use TestCaseTrait;
+    use ExportObjectVarsTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
@@ -61,37 +63,39 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadBlock(): void
     {
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 3,
-                        ],
-                        'hr' => [
-                            'number_of_columns' => 3,
-                        ],
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
+
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 3,
                     ],
-                    'config' => [],
-                    'viewType' => 'grid',
-                    'itemViewType' => 'standard_with_intro',
-                    'name' => 'My published block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED)
+                    'hr' => [
+                        'number_of_columns' => 3,
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'grid',
+                'itemViewType' => 'standard_with_intro',
+                'name' => 'My published block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObjectVars($block)
         );
     }
 
@@ -165,67 +169,69 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadChildBlocks(): void
     {
-        $this->assertEquals(
+        $blocks = $this->blockHandler->loadChildBlocks(
+            $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED)
+        );
+
+        foreach ($blocks as $block) {
+            $this->assertInstanceOf(Block::class, $block);
+        }
+
+        $this->assertSame(
             [
-                new Block(
-                    [
-                        'id' => 31,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/3/31/',
-                        'parentId' => 3,
-                        'placeholder' => 'root',
-                        'position' => 0,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard_with_intro',
-                        'name' => 'My published block',
-                        'isTranslatable' => true,
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en', 'hr'],
-                        'mainLocale' => 'en',
-                        'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
-                            'hr' => [
-                                'number_of_columns' => 3,
-                            ],
+                [
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [],
-                    ]
-                ),
-                new Block(
-                    [
-                        'id' => 35,
-                        'layoutId' => 1,
-                        'depth' => 1,
-                        'path' => '/3/35/',
-                        'parentId' => 3,
-                        'placeholder' => 'root',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My fourth block',
-                        'isTranslatable' => false,
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en'],
-                        'mainLocale' => 'en',
-                        'status' => Value::STATUS_PUBLISHED,
-                        'parameters' => [
-                            'en' => [
-                                'number_of_columns' => 3,
-                            ],
+                        'hr' => [
+                            'number_of_columns' => 3,
                         ],
-                        'config' => [],
-                    ]
-                ),
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard_with_intro',
+                    'name' => 'My published block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 35,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/35/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => [
+                        'en' => [
+                            'number_of_columns' => 3,
+                        ],
+                    ],
+                    'config' => [],
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My fourth block',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
             ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED)
-            )
+            $this->exportObjectArrayVars($blocks)
         );
     }
 
@@ -235,39 +241,43 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadChildBlocksInPlaceholder(): void
     {
-        $this->assertEquals(
+        $blocks = $this->blockHandler->loadChildBlocks(
+            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+            'left'
+        );
+
+        foreach ($blocks as $block) {
+            $this->assertInstanceOf(Block::class, $block);
+        }
+
+        $this->assertSame(
             [
-                new Block(
-                    [
-                        'id' => 37,
-                        'layoutId' => 2,
-                        'depth' => 2,
-                        'path' => '/7/33/37/',
-                        'parentId' => 33,
-                        'placeholder' => 'left',
-                        'position' => 0,
-                        'definitionIdentifier' => 'text',
-                        'viewType' => 'text',
-                        'itemViewType' => 'standard',
-                        'name' => 'My seventh block',
-                        'isTranslatable' => false,
-                        'alwaysAvailable' => true,
-                        'availableLocales' => ['en'],
-                        'mainLocale' => 'en',
-                        'status' => Value::STATUS_DRAFT,
-                        'parameters' => [
-                            'en' => [
-                                'content' => 'Text',
-                            ],
+                [
+                    'id' => 37,
+                    'layoutId' => 2,
+                    'depth' => 2,
+                    'path' => '/7/33/37/',
+                    'parentId' => 33,
+                    'placeholder' => 'left',
+                    'position' => 0,
+                    'definitionIdentifier' => 'text',
+                    'parameters' => [
+                        'en' => [
+                            'content' => 'Text',
                         ],
-                        'config' => [],
-                    ]
-                ),
+                    ],
+                    'config' => [],
+                    'viewType' => 'text',
+                    'itemViewType' => 'standard',
+                    'name' => 'My seventh block',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_DRAFT,
+                ],
             ],
-            $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-                'left'
-            )
+            $this->exportObjectArrayVars($blocks)
         );
     }
 
@@ -291,20 +301,22 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadCollectionReference(): void
     {
-        $this->assertEquals(
-            new CollectionReference(
-                [
-                    'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
-                    'collectionId' => 1,
-                    'collectionStatus' => Value::STATUS_DRAFT,
-                    'identifier' => 'default',
-                ]
-            ),
-            $this->blockHandler->loadCollectionReference(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                'default'
-            )
+        $reference = $this->blockHandler->loadCollectionReference(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'default'
+        );
+
+        $this->assertInstanceOf(CollectionReference::class, $reference);
+
+        $this->assertSame(
+            [
+                'blockId' => 31,
+                'blockStatus' => Value::STATUS_DRAFT,
+                'collectionId' => 1,
+                'collectionStatus' => Value::STATUS_DRAFT,
+                'identifier' => 'default',
+            ],
+            $this->exportObjectVars($reference)
         );
     }
 
@@ -328,30 +340,32 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadCollectionReferences(): void
     {
-        $this->assertEquals(
+        $references = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
+        );
+
+        foreach ($references as $reference) {
+            $this->assertInstanceOf(CollectionReference::class, $reference);
+        }
+
+        $this->assertSame(
             [
-                new CollectionReference(
-                    [
-                        'blockId' => 31,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 1,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'default',
-                    ]
-                ),
-                new CollectionReference(
-                    [
-                        'blockId' => 31,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 3,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'featured',
-                    ]
-                ),
+                [
+                    'blockId' => 31,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 1,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'default',
+                ],
+                [
+                    'blockId' => 31,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 3,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'featured',
+                ],
             ],
-            $this->blockHandler->loadCollectionReferences(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
-            )
+            $this->exportObjectArrayVars($references)
         );
     }
 
@@ -381,48 +395,50 @@ final class BlockHandlerTest extends TestCase
             'config_param' => 'Config value',
         ];
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'new_block',
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'a_param' => 'A value',
-                        ],
-                        'hr' => [
-                            'a_param' => 'A value',
-                        ],
+        $createdBlock = $this->blockHandler->createBlock(
+            $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root'
+        );
+
+        $this->assertInstanceOf(Block::class, $createdBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'new_block',
+                'parameters' => [
+                    'en' => [
+                        'a_param' => 'A value',
                     ],
-                    'config' => [
-                        'config_param' => 'Config value',
+                    'hr' => [
+                        'a_param' => 'A value',
                     ],
-                ]
-            ),
-            $this->blockHandler->createBlock(
-                $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                'root'
-            )
+                ],
+                'config' => [
+                    'config_param' => 'Config value',
+                ],
+                'viewType' => 'large',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($createdBlock)
         );
 
         $secondBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->assertEquals(1, $secondBlock->position);
+        $this->assertSame(1, $secondBlock->position);
     }
 
     /**
@@ -437,45 +453,45 @@ final class BlockHandlerTest extends TestCase
             'en'
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr', 'de'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
-                        'de' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $block
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                    'de' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr', 'de'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($block)
         );
     }
 
@@ -491,44 +507,44 @@ final class BlockHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr', 'de'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
-                        'de' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $block
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                    'de' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr', 'de'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($block)
         );
     }
 
@@ -587,39 +603,41 @@ final class BlockHandlerTest extends TestCase
             'config_param' => 'Config value',
         ];
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 0,
-                    'path' => '/39/',
-                    'parentId' => null,
-                    'placeholder' => null,
-                    'position' => null,
-                    'definitionIdentifier' => 'new_block',
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en'],
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'a_param' => 'A value',
-                        ],
+        $block = $this->blockHandler->createBlock(
+            $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+        );
+
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 0,
+                'path' => '/39/',
+                'parentId' => null,
+                'placeholder' => null,
+                'position' => null,
+                'definitionIdentifier' => 'new_block',
+                'parameters' => [
+                    'en' => [
+                        'a_param' => 'A value',
                     ],
-                    'config' => [
-                        'config_param' => 'Config value',
-                    ],
-                ]
-            ),
-            $this->blockHandler->createBlock(
-                $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
-            )
+                ],
+                'config' => [
+                    'config_param' => 'Config value',
+                ],
+                'viewType' => 'large',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($block)
         );
     }
 
@@ -647,44 +665,46 @@ final class BlockHandlerTest extends TestCase
             'config' => 'Config value',
         ];
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 2,
-                    'definitionIdentifier' => 'new_block',
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'a_param' => 'A value',
-                        ],
-                        'hr' => [
-                            'a_param' => 'A value',
-                        ],
+        $block = $this->blockHandler->createBlock(
+            $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root'
+        );
+
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 2,
+                'definitionIdentifier' => 'new_block',
+                'parameters' => [
+                    'en' => [
+                        'a_param' => 'A value',
                     ],
-                    'config' => [
-                        'config' => 'Config value',
+                    'hr' => [
+                        'a_param' => 'A value',
                     ],
-                ]
-            ),
-            $this->blockHandler->createBlock(
-                $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                'root'
-            )
+                ],
+                'config' => [
+                    'config' => 'Config value',
+                ],
+                'viewType' => 'large',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($block)
         );
     }
 
@@ -797,17 +817,17 @@ final class BlockHandlerTest extends TestCase
             )
         );
 
-        $this->assertEquals(
-            new CollectionReference(
-                [
-                    'blockId' => $block->id,
-                    'blockStatus' => $block->status,
-                    'collectionId' => $collection->id,
-                    'collectionStatus' => $collection->status,
-                    'identifier' => 'new',
-                ]
-            ),
-            $reference
+        $this->assertInstanceOf(CollectionReference::class, $reference);
+
+        $this->assertSame(
+            [
+                'blockId' => $block->id,
+                'blockStatus' => $block->status,
+                'collectionId' => $collection->id,
+                'collectionStatus' => $collection->status,
+                'identifier' => 'new',
+            ],
+            $this->exportObjectVars($reference)
         );
     }
 
@@ -826,43 +846,45 @@ final class BlockHandlerTest extends TestCase
         $blockUpdateStruct->alwaysAvailable = false;
         $blockUpdateStruct->config = ['config'];
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'large',
-                    'itemViewType' => 'new',
-                    'name' => 'Updated name',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => false,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $updatedBlock = $this->blockHandler->updateBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $blockUpdateStruct
+        );
+
+        $this->assertInstanceOf(Block::class, $updatedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => ['config'],
-                ]
-            ),
-            $this->blockHandler->updateBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $blockUpdateStruct
-            )
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => ['config'],
+                'viewType' => 'large',
+                'itemViewType' => 'new',
+                'name' => 'Updated name',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => false,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedBlock)
         );
     }
 
@@ -874,43 +896,45 @@ final class BlockHandlerTest extends TestCase
     {
         $blockUpdateStruct = new BlockUpdateStruct();
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $updatedBlock = $this->blockHandler->updateBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $blockUpdateStruct
+        );
+
+        $this->assertInstanceOf(Block::class, $updatedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->updateBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $blockUpdateStruct
-            )
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedBlock)
         );
     }
 
@@ -927,43 +951,45 @@ final class BlockHandlerTest extends TestCase
             'some_param' => 'Some value',
         ];
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 4,
-                            'some_param' => 'Some value',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $updatedBlock = $this->blockHandler->updateBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'en',
+            $translationUpdateStruct
+        );
+
+        $this->assertInstanceOf(Block::class, $updatedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 4,
+                        'some_param' => 'Some value',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->updateBlockTranslation(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                'en',
-                $translationUpdateStruct
-            )
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedBlock)
         );
     }
 
@@ -975,44 +1001,46 @@ final class BlockHandlerTest extends TestCase
     {
         $translationUpdateStruct = new TranslationUpdateStruct();
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $updatedBlock = $this->blockHandler->updateBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'en',
+            $translationUpdateStruct
+        );
+
+        $this->assertInstanceOf(Block::class, $updatedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->updateBlockTranslation(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                'en',
-                $translationUpdateStruct
-            )
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($updatedBlock)
         );
     }
 
@@ -1040,7 +1068,7 @@ final class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
         $block = $this->blockHandler->setMainTranslation($block, 'hr');
 
-        $this->assertEquals('hr', $block->mainLocale);
+        $this->assertSame('hr', $block->mainLocale);
     }
 
     /**
@@ -1069,64 +1097,62 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 2,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 2,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new CollectionReference(
-                    [
-                        'blockId' => 39,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 7,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'default',
-                    ]
-                ),
-                new CollectionReference(
-                    [
-                        'blockId' => 39,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 8,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'featured',
-                    ]
-                ),
+                [
+                    'blockId' => 39,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 7,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'default',
+                ],
+                [
+                    'blockId' => 39,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 8,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'featured',
+                ],
             ],
-            $this->blockHandler->loadCollectionReferences($copiedBlock)
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadCollectionReferences($copiedBlock)
+            )
         );
     }
 
@@ -1146,40 +1172,40 @@ final class BlockHandlerTest extends TestCase
             1
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 1,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 1,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
     }
 
@@ -1199,40 +1225,40 @@ final class BlockHandlerTest extends TestCase
             0
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
     }
 
@@ -1252,40 +1278,40 @@ final class BlockHandlerTest extends TestCase
             2
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 2,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 2,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
     }
 
@@ -1305,34 +1331,34 @@ final class BlockHandlerTest extends TestCase
             0
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/39/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'grid',
-                    'itemViewType' => 'standard',
-                    'name' => 'My fourth block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 3,
-                        ],
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/39/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 3,
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+                ],
+                'config' => [],
+                'viewType' => 'grid',
+                'itemViewType' => 'standard',
+                'name' => 'My fourth block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
     }
 
@@ -1381,79 +1407,77 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 2,
-                    'depth' => 1,
-                    'path' => '/7/39/',
-                    'parentId' => 7,
-                    'placeholder' => 'root',
-                    'position' => 3,
-                    'definitionIdentifier' => 'two_columns',
-                    'viewType' => 'two_columns_50_50',
-                    'itemViewType' => 'standard',
-                    'name' => 'My third block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [],
-                    ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 2,
+                'depth' => 1,
+                'path' => '/7/39/',
+                'parentId' => 7,
+                'placeholder' => 'root',
+                'position' => 3,
+                'definitionIdentifier' => 'two_columns',
+                'parameters' => [
+                    'en' => [],
+                ],
+                'config' => [],
+                'viewType' => 'two_columns_50_50',
+                'itemViewType' => 'standard',
+                'name' => 'My third block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
 
         $copiedSubBlock = $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT);
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 40,
-                    'layoutId' => 2,
-                    'depth' => 2,
-                    'path' => '/7/39/40/',
-                    'parentId' => 39,
-                    'placeholder' => 'left',
-                    'position' => 0,
-                    'definitionIdentifier' => 'text',
-                    'viewType' => 'text',
-                    'itemViewType' => 'standard',
-                    'name' => 'My seventh block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'content' => 'Text',
-                        ],
+        $this->assertSame(
+            [
+                'id' => 40,
+                'layoutId' => 2,
+                'depth' => 2,
+                'path' => '/7/39/40/',
+                'parentId' => 39,
+                'placeholder' => 'left',
+                'position' => 0,
+                'definitionIdentifier' => 'text',
+                'parameters' => [
+                    'en' => [
+                        'content' => 'Text',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedSubBlock
+                ],
+                'config' => [],
+                'viewType' => 'text',
+                'itemViewType' => 'standard',
+                'name' => 'My seventh block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedSubBlock)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new CollectionReference(
-                    [
-                        'blockId' => 40,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 7,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'default',
-                    ]
-                ),
+                [
+                    'blockId' => 40,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 7,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'default',
+                ],
             ],
-            $this->blockHandler->loadCollectionReferences($copiedSubBlock)
+            $this->exportObjectArrayVars(
+                $this->blockHandler->loadCollectionReferences($copiedSubBlock)
+            )
         );
     }
 
@@ -1472,64 +1496,60 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 39,
-                    'layoutId' => 2,
-                    'depth' => 1,
-                    'path' => '/8/39/',
-                    'parentId' => 8,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 39,
+                'layoutId' => 2,
+                'depth' => 1,
+                'path' => '/8/39/',
+                'parentId' => 8,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $copiedBlock
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($copiedBlock)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new CollectionReference(
-                    [
-                        'blockId' => 39,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 7,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'default',
-                    ]
-                ),
-                new CollectionReference(
-                    [
-                        'blockId' => 39,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 8,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'featured',
-                    ]
-                ),
+                [
+                    'blockId' => 39,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 7,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'default',
+                ],
+                [
+                    'blockId' => 39,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 8,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'featured',
+                ],
             ],
-            $this->blockHandler->loadCollectionReferences($copiedBlock)
+            $this->exportObjectArrayVars($this->blockHandler->loadCollectionReferences($copiedBlock))
         );
     }
 
@@ -1568,67 +1588,67 @@ final class BlockHandlerTest extends TestCase
      */
     public function testMoveBlock(): void
     {
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 33,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/4/33/',
-                    'parentId' => 4,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'two_columns',
-                    'viewType' => 'two_columns_50_50',
-                    'itemViewType' => 'standard',
-                    'name' => 'My third block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [],
-                    ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->moveBlock(
-                $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
-                'root',
-                0
-            )
+        $movedBlock = $this->blockHandler->moveBlock(
+            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
+            'root',
+            0
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 37,
-                    'layoutId' => 1,
-                    'depth' => 2,
-                    'path' => '/4/33/37/',
-                    'parentId' => 33,
-                    'placeholder' => 'left',
-                    'position' => 0,
-                    'definitionIdentifier' => 'text',
-                    'viewType' => 'text',
-                    'itemViewType' => 'standard',
-                    'name' => 'My seventh block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'content' => 'Text',
-                        ],
+        $this->assertInstanceOf(Block::class, $movedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 33,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/4/33/',
+                'parentId' => 4,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'two_columns',
+                'parameters' => [
+                    'en' => [],
+                ],
+                'config' => [],
+                'viewType' => 'two_columns_50_50',
+                'itemViewType' => 'standard',
+                'name' => 'My third block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($movedBlock)
+        );
+
+        $this->assertSame(
+            [
+                'id' => 37,
+                'layoutId' => 1,
+                'depth' => 2,
+                'path' => '/4/33/37/',
+                'parentId' => 33,
+                'placeholder' => 'left',
+                'position' => 0,
+                'definitionIdentifier' => 'text',
+                'parameters' => [
+                    'en' => [
+                        'content' => 'Text',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT)
+                ],
+                'config' => [],
+                'viewType' => 'text',
+                'itemViewType' => 'standard',
+                'name' => 'My seventh block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($this->blockHandler->loadBlock(37, Value::STATUS_DRAFT))
         );
     }
 
@@ -1714,47 +1734,49 @@ final class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockToPosition(): void
     {
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 1,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+        $movedBlock = $this->blockHandler->moveBlockToPosition(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            1
+        );
+
+        $this->assertInstanceOf(Block::class, $movedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 1,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->moveBlockToPosition(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                1
-            )
+                    'hr' => [
+                        'css_class' => 'css-class-hr',
+                        'css_id' => 'css-id',
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($movedBlock)
         );
 
         $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-        $this->assertEquals(0, $firstBlock->position);
+        $this->assertSame(0, $firstBlock->position);
     }
 
     /**
@@ -1764,41 +1786,43 @@ final class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockToLowerPosition(): void
     {
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 35,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/35/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'grid',
-                    'itemViewType' => 'standard',
-                    'name' => 'My fourth block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 3,
-                        ],
+        $movedBlock = $this->blockHandler->moveBlockToPosition(
+            $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
+            0
+        );
+
+        $this->assertInstanceOf(Block::class, $movedBlock);
+
+        $this->assertSame(
+            [
+                'id' => 35,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/35/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 3,
                     ],
-                    'config' => [],
-                ]
-            ),
-            $this->blockHandler->moveBlockToPosition(
-                $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
-                0
-            )
+                ],
+                'config' => [],
+                'viewType' => 'grid',
+                'itemViewType' => 'standard',
+                'name' => 'My fourth block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($movedBlock)
         );
 
         $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->assertEquals(1, $firstBlock->position);
+        $this->assertSame(1, $firstBlock->position);
     }
 
     /**
@@ -1845,37 +1869,37 @@ final class BlockHandlerTest extends TestCase
             Value::STATUS_DRAFT
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'grid',
-                    'itemViewType' => 'standard_with_intro',
-                    'name' => 'My published block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 3,
-                        ],
-                        'hr' => [
-                            'number_of_columns' => 3,
-                        ],
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 3,
                     ],
-                    'config' => [],
-                ]
-            ),
-            $block
+                    'hr' => [
+                        'number_of_columns' => 3,
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'grid',
+                'itemViewType' => 'standard_with_intro',
+                'name' => 'My published block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($block)
         );
 
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
@@ -1907,37 +1931,37 @@ final class BlockHandlerTest extends TestCase
 
         $restoredBlock = $this->blockHandler->restoreBlock($movedBlock, Value::STATUS_PUBLISHED);
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/2/31/',
-                    'parentId' => 2,
-                    'placeholder' => 'root',
-                    'position' => 1,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'grid',
-                    'itemViewType' => 'standard_with_intro',
-                    'status' => Value::STATUS_DRAFT,
-                    'name' => 'My published block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                    'mainLocale' => 'en',
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 3,
-                        ],
-                        'hr' => [
-                            'number_of_columns' => 3,
-                        ],
+        $this->assertInstanceOf(Block::class, $restoredBlock);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/2/31/',
+                'parentId' => 2,
+                'placeholder' => 'root',
+                'position' => 1,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 3,
                     ],
-                    'config' => [],
-                ]
-            ),
-            $restoredBlock
+                    'hr' => [
+                        'number_of_columns' => 3,
+                    ],
+                ],
+                'config' => [],
+                'viewType' => 'grid',
+                'itemViewType' => 'standard_with_intro',
+                'name' => 'My published block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($restoredBlock)
         );
     }
 
@@ -1966,7 +1990,7 @@ final class BlockHandlerTest extends TestCase
         );
 
         $secondBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-        $this->assertEquals(0, $secondBlock->position);
+        $this->assertSame(0, $secondBlock->position);
 
         try {
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -2031,36 +2055,36 @@ final class BlockHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertEquals(
-            new Block(
-                [
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'mainLocale' => 'en',
-                    'status' => Value::STATUS_DRAFT,
-                    'parameters' => [
-                        'en' => [
-                            'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
-                        ],
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertSame(
+            [
+                'id' => 31,
+                'layoutId' => 1,
+                'depth' => 1,
+                'path' => '/3/31/',
+                'parentId' => 3,
+                'placeholder' => 'root',
+                'position' => 0,
+                'definitionIdentifier' => 'list',
+                'parameters' => [
+                    'en' => [
+                        'number_of_columns' => 2,
+                        'css_class' => 'css-class',
+                        'css_id' => 'css-id',
                     ],
-                    'config' => [],
-                ]
-            ),
-            $block
+                ],
+                'config' => [],
+                'viewType' => 'list',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObjectVars($block)
         );
     }
 

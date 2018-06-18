@@ -24,7 +24,7 @@ final class MapperTest extends TestCase
      */
     public function testGetFormOptions(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [],
             $this->mapper->getFormOptions()
         );

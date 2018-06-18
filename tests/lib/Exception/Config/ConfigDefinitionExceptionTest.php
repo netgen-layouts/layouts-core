@@ -16,7 +16,7 @@ final class ConfigDefinitionExceptionTest extends TestCase
     {
         $exception = ConfigDefinitionException::noConfigDefinition('type', 'def');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Config definition for "type" type and "def" identifier does not exist.',
             $exception->getMessage()
         );

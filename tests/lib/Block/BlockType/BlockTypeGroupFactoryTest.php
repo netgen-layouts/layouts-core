@@ -7,34 +7,39 @@ namespace Netgen\BlockManager\Tests\Block\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupFactoryTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory::buildBlockTypeGroup
      */
     public function testBuildBlockTypeGroup(): void
     {
+        $blockType = new BlockType(['identifier' => 'title']);
+
         $blockTypeGroup = BlockTypeGroupFactory::buildBlockTypeGroup(
             'simple_blocks',
             [
                 'enabled' => false,
                 'name' => 'Simple blocks',
             ],
-            [new BlockType(['identifier' => 'title'])]
+            [$blockType]
         );
 
-        $this->assertEquals(
-            new BlockTypeGroup(
-                [
-                    'identifier' => 'simple_blocks',
-                    'isEnabled' => false,
-                    'name' => 'Simple blocks',
-                    'blockTypes' => [new BlockType(['identifier' => 'title'])],
-                ]
-            ),
-            $blockTypeGroup
+        $this->assertInstanceOf(BlockTypeGroup::class, $blockTypeGroup);
+
+        $this->assertSame(
+            [
+                'identifier' => 'simple_blocks',
+                'isEnabled' => false,
+                'name' => 'Simple blocks',
+                'blockTypes' => [$blockType],
+            ],
+            $this->exportObjectVars($blockTypeGroup)
         );
     }
 }

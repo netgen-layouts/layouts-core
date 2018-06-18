@@ -77,7 +77,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->with($this->equalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
@@ -117,7 +117,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->with($this->equalTo($item))
             ->will($this->returnValue('/some/url'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => null,
                 'collection_id' => null,
@@ -149,7 +149,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->expects($this->never())
             ->method('generate');
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => null,
                 'collection_id' => null,
@@ -215,7 +215,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->with($this->equalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => null,
                 'collection_id' => null,
@@ -254,7 +254,7 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

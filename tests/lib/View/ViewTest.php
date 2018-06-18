@@ -16,9 +16,16 @@ final class ViewTest extends TestCase
      */
     private $view;
 
+    /**
+     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     */
+    private $value;
+
     public function setUp(): void
     {
-        $this->view = new View(['value' => new Value()]);
+        $this->value = new Value();
+
+        $this->view = new View(['value' => $this->value]);
     }
 
     /**
@@ -29,7 +36,7 @@ final class ViewTest extends TestCase
     {
         $this->view->setContext('context');
 
-        $this->assertEquals('context', $this->view->getContext());
+        $this->assertSame('context', $this->view->getContext());
     }
 
     /**
@@ -40,7 +47,7 @@ final class ViewTest extends TestCase
     {
         $this->view->setTemplate('template.html.twig');
 
-        $this->assertEquals('template.html.twig', $this->view->getTemplate());
+        $this->assertSame('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -58,7 +65,7 @@ final class ViewTest extends TestCase
     {
         $this->view->setFallbackContext('fallback');
 
-        $this->assertEquals('fallback', $this->view->getFallbackContext());
+        $this->assertSame('fallback', $this->view->getFallbackContext());
     }
 
     /**
@@ -79,7 +86,7 @@ final class ViewTest extends TestCase
 
         $this->view->setResponse($response);
 
-        $this->assertEquals($response, $this->view->getResponse());
+        $this->assertSame($response, $this->view->getResponse());
     }
 
     /**
@@ -112,7 +119,7 @@ final class ViewTest extends TestCase
     {
         $this->view->addParameter('param', 'value');
 
-        $this->assertEquals('value', $this->view->getParameter('param'));
+        $this->assertSame('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -147,12 +154,12 @@ final class ViewTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
+                'value' => $this->value,
                 'some_param' => 'new_value',
-                'some_other_param' => 'some_other_value',
                 'third_param' => 'third_value',
-                'value' => new Value(),
+                'some_other_param' => 'some_other_value',
             ],
             $this->view->getParameters()
         );

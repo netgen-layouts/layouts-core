@@ -9,10 +9,13 @@ use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class ItemBuilderTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build
@@ -21,20 +24,23 @@ final class ItemBuilderTest extends TestCase
     {
         $value = new Value(42, 'abc');
 
-        $item = new Item(
+        $builder = new ItemBuilder([new ValueConverter()]);
+
+        $builtItem = $builder->build($value);
+
+        $this->assertInstanceOf(Item::class, $builtItem);
+
+        $this->assertSame(
             [
                 'value' => 42,
                 'remoteId' => 'abc',
-                'name' => 'Some value',
                 'valueType' => 'value',
+                'name' => 'Some value',
                 'isVisible' => true,
                 'object' => $value,
-            ]
+            ],
+            $this->exportObjectVars($builtItem)
         );
-
-        $builder = new ItemBuilder([new ValueConverter()]);
-
-        $this->assertEquals($item, $builder->build($value));
     }
 
     /**

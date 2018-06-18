@@ -21,7 +21,7 @@ final class ParameterTest extends TestCase
 
         $this->assertNull($parameter->getValue());
         $this->assertTrue($parameter->isEmpty());
-        $this->assertEquals('', (string) $parameter);
+        $this->assertSame('', (string) $parameter);
     }
 
     /**
@@ -33,19 +33,21 @@ final class ParameterTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $parameterDefinition = new ParameterDefinition();
+
         $parameter = new Parameter(
             [
                 'name' => 'param_name',
-                'parameterDefinition' => new ParameterDefinition(),
+                'parameterDefinition' => $parameterDefinition,
                 'value' => 42,
                 'isEmpty' => false,
             ]
         );
 
-        $this->assertEquals('param_name', $parameter->getName());
-        $this->assertEquals(new ParameterDefinition(), $parameter->getParameterDefinition());
-        $this->assertEquals(42, $parameter->getValue());
+        $this->assertSame('param_name', $parameter->getName());
+        $this->assertSame($parameterDefinition, $parameter->getParameterDefinition());
+        $this->assertSame(42, $parameter->getValue());
         $this->assertFalse($parameter->isEmpty());
-        $this->assertEquals('42', (string) $parameter);
+        $this->assertSame('42', (string) $parameter);
     }
 }

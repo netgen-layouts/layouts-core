@@ -12,6 +12,7 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
@@ -22,6 +23,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class LinkTypeTest extends FormTestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
      */
@@ -67,15 +70,6 @@ final class LinkTypeTest extends FormTestCase
             'url' => 'http://www.google.com',
         ];
 
-        $formData = new LinkValue(
-            [
-                'linkType' => 'url',
-                'linkSuffix' => '?suffix',
-                'newWindow' => true,
-                'link' => 'http://www.google.com',
-            ]
-        );
-
         $parameterDefinition = new ParameterDefinition(
             [
                 'type' => $this->parameterType,
@@ -89,7 +83,20 @@ final class LinkTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($formData, $form->getData());
+
+        $formData = $form->getData();
+
+        $this->assertInstanceOf(LinkValue::class, $formData);
+
+        $this->assertSame(
+            [
+                'linkType' => 'url',
+                'link' => 'http://www.google.com',
+                'linkSuffix' => '?suffix',
+                'newWindow' => true,
+            ],
+            $this->exportObjectVars($formData)
+        );
 
         // View test
 
@@ -113,8 +120,6 @@ final class LinkTypeTest extends FormTestCase
             'url' => 'http://www.google.com',
         ];
 
-        $formData = new LinkValue();
-
         $parameterDefinition = new ParameterDefinition(
             [
                 'type' => $this->parameterType,
@@ -128,7 +133,20 @@ final class LinkTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($formData, $form->getData());
+
+        $formData = $form->getData();
+
+        $this->assertInstanceOf(LinkValue::class, $formData);
+
+        $this->assertSame(
+            [
+                'linkType' => null,
+                'link' => null,
+                'linkSuffix' => null,
+                'newWindow' => false,
+            ],
+            $this->exportObjectVars($formData)
+        );
 
         // View test
 
@@ -170,7 +188,7 @@ final class LinkTypeTest extends FormTestCase
         $errors = $form->get('url')->getErrors();
 
         $this->assertCount(1, $errors);
-        $this->assertEquals('an error', iterator_to_array($errors)[0]->getMessage());
+        $this->assertSame('an error', iterator_to_array($errors)[0]->getMessage());
     }
 
     /**
@@ -218,10 +236,10 @@ final class LinkTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'value_types' => ['value'],
                 'translation_domain' => 'ngbm_forms',
+                'value_types' => ['value'],
             ],
             $resolvedOptions
         );
@@ -238,10 +256,10 @@ final class LinkTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve();
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'value_types' => [],
                 'translation_domain' => 'ngbm_forms',
+                'value_types' => [],
             ],
             $resolvedOptions
         );
@@ -270,6 +288,6 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertEquals('ngbm_link', $this->formType->getBlockPrefix());
+        $this->assertSame('ngbm_link', $this->formType->getBlockPrefix());
     }
 }

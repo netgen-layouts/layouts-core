@@ -9,10 +9,13 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionMapperTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
      */
@@ -62,31 +65,35 @@ final class CollectionMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Collection(
-                [
-                    'id' => 42,
-                    'status' => Value::STATUS_PUBLISHED,
-                    'offset' => 5,
-                    'limit' => 10,
-                    'mainLocale' => 'en',
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                ]
-            ),
-            new Collection(
-                [
-                    'id' => 43,
-                    'status' => Value::STATUS_DRAFT,
-                    'offset' => 10,
-                    'limit' => 20,
-                    'mainLocale' => 'en',
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en', 'hr'],
-                ]
-            ),
+            [
+                'id' => 42,
+                'offset' => 5,
+                'limit' => 10,
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            [
+                'id' => 43,
+                'offset' => 10,
+                'limit' => 20,
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapCollections($data));
+        $collections = $this->mapper->mapCollections($data);
+
+        foreach ($collections as $collection) {
+            $this->assertInstanceOf(Collection::class, $collection);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($collections));
     }
 
     /**
@@ -118,37 +125,39 @@ final class CollectionMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Item(
-                [
-                    'id' => 42,
-                    'collectionId' => 1,
-                    'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => '32',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_PUBLISHED,
-                    'config' => [
-                        'config_item' => [
-                            'id' => 42,
-                        ],
+            [
+                'id' => 42,
+                'collectionId' => 1,
+                'position' => 2,
+                'type' => Item::TYPE_MANUAL,
+                'value' => '32',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_PUBLISHED,
+                'config' => [
+                    'config_item' => [
+                        'id' => 42,
                     ],
-                ]
-            ),
-            new Item(
-                [
-                    'id' => 43,
-                    'collectionId' => 2,
-                    'position' => 5,
-                    'type' => Item::TYPE_OVERRIDE,
-                    'value' => '42',
-                    'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
-                    'config' => [],
-                ]
-            ),
+                ],
+            ],
+            [
+                'id' => 43,
+                'collectionId' => 2,
+                'position' => 5,
+                'type' => Item::TYPE_OVERRIDE,
+                'value' => '42',
+                'valueType' => 'my_value_type',
+                'status' => Value::STATUS_DRAFT,
+                'config' => [],
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapItems($data));
+        $items = $this->mapper->mapItems($data);
+
+        foreach ($items as $item) {
+            $this->assertInstanceOf(Item::class, $item);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($items));
     }
 
     /**
@@ -177,25 +186,32 @@ final class CollectionMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Query(
-                [
-                    'id' => 42,
-                    'collectionId' => 1,
-                    'type' => 'my_query_type',
-                    'availableLocales' => ['en', 'hr'],
-                    'parameters' => [
-                        'en' => [
-                            'param' => 'value',
-                        ],
-                        'hr' => [
-                            'param2' => 'value2',
-                        ],
+            [
+                'id' => 42,
+                'collectionId' => 1,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'param' => 'value',
                     ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
+                    'hr' => [
+                        'param2' => 'value2',
+                    ],
+                ],
+                'isTranslatable' => null,
+                'mainLocale' => null,
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => null,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapQueries($data));
+        $queries = $this->mapper->mapQueries($data);
+
+        foreach ($queries as $query) {
+            $this->assertInstanceOf(Query::class, $query);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($queries));
     }
 }

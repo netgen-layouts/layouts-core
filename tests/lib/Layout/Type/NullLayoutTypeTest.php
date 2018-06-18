@@ -26,7 +26,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('type', $this->layoutType->getIdentifier());
+        $this->assertSame('type', $this->layoutType->getIdentifier());
     }
 
     /**
@@ -42,7 +42,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Invalid layout type', $this->layoutType->getName());
+        $this->assertSame('Invalid layout type', $this->layoutType->getName());
     }
 
     /**
@@ -50,7 +50,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertEquals('', $this->layoutType->getIcon());
+        $this->assertSame('', $this->layoutType->getIcon());
     }
 
     /**
@@ -58,7 +58,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     public function testGetZones(): void
     {
-        $this->assertEquals([], $this->layoutType->getZones());
+        $this->assertSame([], $this->layoutType->getZones());
     }
 
     /**
@@ -66,7 +66,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     public function testGetZoneIdentifiers(): void
     {
-        $this->assertEquals([], $this->layoutType->getZoneIdentifiers());
+        $this->assertSame([], $this->layoutType->getZoneIdentifiers());
     }
 
     /**

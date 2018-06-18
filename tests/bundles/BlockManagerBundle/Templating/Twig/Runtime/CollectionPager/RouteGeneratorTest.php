@@ -86,7 +86,7 @@ final class RouteGeneratorTest extends TestCase
         $routeGenerator = $this->routeGenerator;
         $url = $routeGenerator($block, 'default', 5);
 
-        $this->assertEquals('/signed/uri?page=5', $url);
+        $this->assertSame('/signed/uri?page=5', $url);
     }
 
     /**
@@ -128,6 +128,6 @@ final class RouteGeneratorTest extends TestCase
         $routeGenerator = $this->routeGenerator;
         $url = $routeGenerator($block, 'default', 1);
 
-        $this->assertEquals('/signed/uri', $url);
+        $this->assertSame('/signed/uri', $url);
     }
 }

@@ -42,7 +42,7 @@ final class ConfigStructTest extends TestCase
 
         $this->struct->fillParameters($configDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -67,7 +67,7 @@ final class ConfigStructTest extends TestCase
 
         $this->struct->fillParameters($configDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',
@@ -110,7 +110,7 @@ final class ConfigStructTest extends TestCase
 
         $this->struct->fillParametersFromConfig($config);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => null,
@@ -137,7 +137,7 @@ final class ConfigStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($configDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -162,7 +162,7 @@ final class ConfigStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($configDefinition, $initialValues);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

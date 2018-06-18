@@ -16,7 +16,7 @@ final class InvalidArgumentExceptionTest extends TestCase
     {
         $exception = new InvalidArgumentException('test', 'Value must be an integer.');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Argument "test" has an invalid value. Value must be an integer.',
             $exception->getMessage()
         );

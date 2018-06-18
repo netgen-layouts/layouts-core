@@ -45,7 +45,7 @@ final class ValueTypeRegistryTest extends TestCase
         $this->registry->addValueType('test', $this->valueType1);
 
         $this->assertTrue($this->registry->hasValueType('test'));
-        $this->assertEquals($this->valueType1, $this->registry->getValueType('test'));
+        $this->assertSame($this->valueType1, $this->registry->getValueType('test'));
     }
 
     /**
@@ -53,7 +53,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetValueTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'value1' => $this->valueType1,
                 'value2' => $this->valueType2,
@@ -67,7 +67,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetEnabledValueTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'value1' => $this->valueType1,
             ],
@@ -80,7 +80,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetValueType(): void
     {
-        $this->assertEquals($this->valueType1, $this->registry->getValueType('value1'));
+        $this->assertSame($this->valueType1, $this->registry->getValueType('value1'));
     }
 
     /**
@@ -121,7 +121,7 @@ final class ValueTypeRegistryTest extends TestCase
             $valueTypes[$identifier] = $valueType;
         }
 
-        $this->assertEquals($this->registry->getValueTypes(), $valueTypes);
+        $this->assertSame($this->registry->getValueTypes(), $valueTypes);
     }
 
     /**
@@ -146,7 +146,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->valueType1, $this->registry['value1']);
+        $this->assertSame($this->valueType1, $this->registry['value1']);
     }
 
     /**

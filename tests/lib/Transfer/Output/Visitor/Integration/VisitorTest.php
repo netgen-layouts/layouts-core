@@ -46,7 +46,7 @@ abstract class VisitorTest extends ServiceTestCase
      */
     public function testAccept($value, bool $accepted): void
     {
-        $this->assertEquals($accepted, $this->getVisitor()->accept($value));
+        $this->assertSame($accepted, $this->getVisitor()->accept($value));
     }
 
     /**

@@ -85,7 +85,7 @@ final class ContainerConfigurationTest extends TestCase
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue('some_param_value'));
 
-        $this->assertEquals('some_param_value', $this->configuration->getParameter('some_param'));
+        $this->assertSame('some_param_value', $this->configuration->getParameter('some_param'));
     }
 
     /**
@@ -103,7 +103,7 @@ final class ContainerConfigurationTest extends TestCase
             ->expects($this->never())
             ->method('getParameter');
 
-        $this->assertEquals('injected', $this->configuration->getParameter('some_param'));
+        $this->assertSame('injected', $this->configuration->getParameter('some_param'));
     }
 
     /**

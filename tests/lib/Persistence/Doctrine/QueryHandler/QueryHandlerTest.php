@@ -42,7 +42,7 @@ final class QueryHandlerTest extends TestCase
         $query = $this->databaseConnection->createQueryBuilder();
         $this->queryHandler->applyStatusCondition($query, 1);
 
-        $this->assertEquals(['status' => 1], $query->getParameters());
+        $this->assertSame(['status' => 1], $query->getParameters());
     }
 
     /**
@@ -53,7 +53,7 @@ final class QueryHandlerTest extends TestCase
         $query = $this->databaseConnection->createQueryBuilder();
         $this->queryHandler->applyOffsetAndLimit($query, 10, 15);
 
-        $this->assertEquals(10, $query->getFirstResult());
-        $this->assertEquals(15, $query->getMaxResults());
+        $this->assertSame(10, $query->getFirstResult());
+        $this->assertSame(15, $query->getMaxResults());
     }
 }

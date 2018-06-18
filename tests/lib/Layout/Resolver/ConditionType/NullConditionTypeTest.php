@@ -26,7 +26,7 @@ final class NullConditionTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertEquals('type', $this->conditionType->getType());
+        $this->assertSame('type', $this->conditionType->getType());
     }
 
     /**
@@ -34,7 +34,7 @@ final class NullConditionTypeTest extends TestCase
      */
     public function testGetConstraints(): void
     {
-        $this->assertEquals([], $this->conditionType->getConstraints());
+        $this->assertSame([], $this->conditionType->getConstraints());
     }
 
     /**

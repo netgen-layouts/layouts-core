@@ -29,7 +29,7 @@ final class ParametersTypeExtensionTest extends TestCase
      */
     public function testGetExtendedType(): void
     {
-        $this->assertEquals(FormType::class, $this->formTypeExtension->getExtendedType());
+        $this->assertSame(FormType::class, $this->formTypeExtension->getExtendedType());
     }
 
     /**
@@ -39,14 +39,16 @@ final class ParametersTypeExtensionTest extends TestCase
     {
         $view = new FormView();
 
+        $parameterDefinition = new ParameterDefinition();
+
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            ['ngbm_parameter_definition' => new ParameterDefinition()]
+            ['ngbm_parameter_definition' => $parameterDefinition]
         );
 
         $this->assertArrayHasKey('ngbm_parameter_definition', $view->vars);
-        $this->assertEquals(new ParameterDefinition(), $view->vars['ngbm_parameter_definition']);
+        $this->assertSame($parameterDefinition, $view->vars['ngbm_parameter_definition']);
     }
 
     /**
@@ -73,15 +75,17 @@ final class ParametersTypeExtensionTest extends TestCase
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);
 
+        $parameterDefinition = new ParameterDefinition();
+
         $options = [
-            'ngbm_parameter_definition' => new ParameterDefinition(),
+            'ngbm_parameter_definition' => $parameterDefinition,
         ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'ngbm_parameter_definition' => new ParameterDefinition(),
+                'ngbm_parameter_definition' => $parameterDefinition,
             ],
             $resolvedOptions
         );
@@ -96,7 +100,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->configureOptions($optionsResolver);
         $resolvedOptions = $optionsResolver->resolve();
 
-        $this->assertEquals([], $resolvedOptions);
+        $this->assertSame([], $resolvedOptions);
     }
 
     /**

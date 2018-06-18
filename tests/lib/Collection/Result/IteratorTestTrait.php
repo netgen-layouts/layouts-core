@@ -15,7 +15,7 @@ trait IteratorTestTrait
     {
         $i = 0;
 
-        $this->assertEquals(
+        $this->assertSame(
             empty($expected),
             !$resultIterator->valid(),
             'Iterator does not have any values when it should.'
@@ -35,7 +35,7 @@ trait IteratorTestTrait
                 )
             );
 
-            $this->assertEquals(
+            $this->assertSame(
                 $expected[$i]->getItem()->getValue(),
                 $result->getItem()->getValue(),
                 sprintf(

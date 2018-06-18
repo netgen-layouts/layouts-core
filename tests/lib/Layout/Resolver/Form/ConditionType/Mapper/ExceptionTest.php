@@ -25,7 +25,7 @@ final class ExceptionTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(ChoiceType::class, $this->mapper->getFormType());
+        $this->assertSame(ChoiceType::class, $this->mapper->getFormType());
     }
 
     /**

@@ -68,7 +68,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             'default'
         );
 
-        $this->assertEquals('rendered view', $renderedPagerfanta);
+        $this->assertSame('rendered view', $renderedPagerfanta);
     }
 
     /**
@@ -100,7 +100,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             ]
         );
 
-        $this->assertEquals('rendered view', $renderedPagerfanta);
+        $this->assertSame('rendered view', $renderedPagerfanta);
     }
 
     /**
@@ -119,7 +119,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             'default'
         );
 
-        $this->assertEquals('/generated/uri', $uri);
+        $this->assertSame('/generated/uri', $uri);
     }
 
     /**

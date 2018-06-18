@@ -102,7 +102,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertInternalType('array', $blockTypes);
         $this->assertArrayHasKey('test', $blockTypes);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'enabled' => true,
                 'icon' => '/icon2.svg',
@@ -157,11 +157,11 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertInternalType('array', $blockTypes);
         $this->assertArrayHasKey('test', $blockTypes);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
+                'enabled' => true,
                 'name' => 'Test',
                 'icon' => '/icon.svg',
-                'enabled' => true,
                 'definition_identifier' => 'test',
             ],
             $blockTypes['test']
@@ -206,7 +206,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
         $this->assertArrayHasKey('test', $blockTypes);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'name' => 'Test',
                 'icon' => '/icon.svg',
@@ -267,7 +267,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertInternalType('array', $blockTypes);
         $this->assertArrayHasKey('type', $blockTypes);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'enabled' => false,
                 'icon' => '/icon.svg',
@@ -326,7 +326,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertInternalType('array', $blockTypes);
         $this->assertArrayHasKey('title', $blockTypes);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'enabled' => false,
                 'icon' => '/icon.svg',
@@ -386,7 +386,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertInternalType('array', $blockTypes);
         $this->assertArrayHasKey('type', $blockTypes);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'enabled' => false,
                 'icon' => '/icon.svg',

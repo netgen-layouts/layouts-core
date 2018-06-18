@@ -36,7 +36,7 @@ final class FormMapperRegistryTest extends TestCase
      */
     public function testAddFormMapper(): void
     {
-        $this->assertEquals(['mapper' => $this->formMapper], $this->registry->getFormMappers());
+        $this->assertSame(['mapper' => $this->formMapper], $this->registry->getFormMappers());
     }
 
     /**
@@ -60,7 +60,7 @@ final class FormMapperRegistryTest extends TestCase
      */
     public function testGetFormMapper(): void
     {
-        $this->assertEquals($this->formMapper, $this->registry->getFormMapper('mapper'));
+        $this->assertSame($this->formMapper, $this->registry->getFormMapper('mapper'));
     }
 
     /**
@@ -85,7 +85,7 @@ final class FormMapperRegistryTest extends TestCase
             $formMappers[$identifier] = $formMapper;
         }
 
-        $this->assertEquals($this->registry->getFormMappers(), $formMappers);
+        $this->assertSame($this->registry->getFormMappers(), $formMappers);
     }
 
     /**
@@ -110,7 +110,7 @@ final class FormMapperRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->formMapper, $this->registry['mapper']);
+        $this->assertSame($this->formMapper, $this->registry['mapper']);
     }
 
     /**

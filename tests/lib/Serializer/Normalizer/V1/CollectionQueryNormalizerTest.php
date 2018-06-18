@@ -79,7 +79,7 @@ final class CollectionQueryNormalizerTest extends TestCase
             ->method('normalize')
             ->will($this->returnValue($serializedParams));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => $query->getId(),
                 'collection_id' => $query->getCollectionId(),
@@ -102,7 +102,7 @@ final class CollectionQueryNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

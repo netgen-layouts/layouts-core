@@ -143,7 +143,7 @@ abstract class ImporterTest extends ServiceTestCase
         foreach ($this->importer->importData($importData) as $index => $result) {
             $this->assertInstanceOf(SuccessResult::class, $result);
             $this->assertInstanceOf(Layout::class, $result->getEntity());
-            $this->assertEquals($result->getEntity()->getId(), $result->getEntityId());
+            $this->assertSame($result->getEntity()->getId(), $result->getEntityId());
 
             $layoutData = $decodedData['entities'][$index];
             $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntityId()]);
@@ -192,7 +192,7 @@ abstract class ImporterTest extends ServiceTestCase
 
         $this->assertInstanceOf(ErrorResult::class, $result[0]);
         $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertEquals('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
+        $this->assertSame('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -209,7 +209,7 @@ abstract class ImporterTest extends ServiceTestCase
 
         $this->assertInstanceOf(ErrorResult::class, $result[0]);
         $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertEquals('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
+        $this->assertSame('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -226,7 +226,7 @@ abstract class ImporterTest extends ServiceTestCase
 
         $this->assertInstanceOf(ErrorResult::class, $result[0]);
         $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertEquals('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
+        $this->assertSame('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -243,7 +243,7 @@ abstract class ImporterTest extends ServiceTestCase
 
         $this->assertInstanceOf(ErrorResult::class, $result[0]);
         $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertEquals('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
+        $this->assertSame('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -260,7 +260,7 @@ abstract class ImporterTest extends ServiceTestCase
 
         $this->assertInstanceOf(ErrorResult::class, $result[0]);
         $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertEquals('Missing data for zone "right"', $result[0]->getError()->getMessage());
+        $this->assertSame('Missing data for zone "right"', $result[0]->getError()->getMessage());
     }
 
     private function prepareBlockDefinitionRegistry(): void

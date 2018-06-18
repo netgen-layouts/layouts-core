@@ -56,7 +56,7 @@ final class ItemLoaderTest extends TestCase
             ->method('build')
             ->will($this->returnValue($item));
 
-        $this->assertEquals($item, $this->itemLoader->load(42, 'value'));
+        $this->assertSame($item, $this->itemLoader->load(42, 'value'));
     }
 
     /**
@@ -69,7 +69,10 @@ final class ItemLoaderTest extends TestCase
             ['value' => new ValueLoader(true)]
         );
 
-        $this->assertEquals(new NullItem('value'), $this->itemLoader->load(42, 'value'));
+        $loadedValue = $this->itemLoader->load(42, 'value');
+
+        $this->assertInstanceOf(NullItem::class, $loadedValue);
+        $this->assertSame('value', $loadedValue->getValueType());
     }
 
     /**
@@ -110,7 +113,7 @@ final class ItemLoaderTest extends TestCase
             ->method('build')
             ->will($this->returnValue($item));
 
-        $this->assertEquals($item, $this->itemLoader->loadByRemoteId(42, 'value'));
+        $this->assertSame($item, $this->itemLoader->loadByRemoteId(42, 'value'));
     }
 
     /**
@@ -123,7 +126,10 @@ final class ItemLoaderTest extends TestCase
             ['value' => new ValueLoader(true)]
         );
 
-        $this->assertEquals(new NullItem('value'), $this->itemLoader->loadByRemoteId(42, 'value'));
+        $loadedValue = $this->itemLoader->loadByRemoteId(42, 'value');
+
+        $this->assertInstanceOf(NullItem::class, $loadedValue);
+        $this->assertSame('value', $loadedValue->getValueType());
     }
 
     /**

@@ -39,7 +39,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
@@ -72,7 +72,7 @@ final class RequestBodyListenerTest extends TestCase
         $data = $event->getRequest()->attributes->get('data');
         $this->assertInstanceOf(ParameterBag::class, $data);
 
-        $this->assertEquals('value', $data->get('test'));
+        $this->assertSame('value', $data->get('test'));
     }
 
     /**

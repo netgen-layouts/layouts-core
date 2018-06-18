@@ -35,7 +35,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertEquals(['ruleId'], $this->paramConverter->getSourceAttributeNames());
+        $this->assertSame(['ruleId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertEquals('rule', $this->paramConverter->getDestinationAttributeName());
+        $this->assertSame('rule', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertEquals(APIRule::class, $this->paramConverter->getSupportedClass());
+        $this->assertSame(APIRule::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -67,7 +67,7 @@ final class RuleParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($rule));
 
-        $this->assertEquals(
+        $this->assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
@@ -91,7 +91,7 @@ final class RuleParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($rule));
 
-        $this->assertEquals(
+        $this->assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
@@ -115,7 +115,7 @@ final class RuleParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($rule));
 
-        $this->assertEquals(
+        $this->assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [

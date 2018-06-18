@@ -72,6 +72,6 @@ final class ViewRendererTest extends TestCase
 
         $renderedTemplate = $this->viewRenderer->renderView($view);
 
-        $this->assertEquals('rendered template', $renderedTemplate);
+        $this->assertSame('rendered template', $renderedTemplate);
     }
 }

@@ -34,7 +34,7 @@ class AggregateTest extends TestCase
      */
     public function testAccept($value, bool $accepted): void
     {
-        $this->assertEquals($accepted, $this->visitor->accept($value));
+        $this->assertSame($accepted, $this->visitor->accept($value));
     }
 
     /**
@@ -42,7 +42,7 @@ class AggregateTest extends TestCase
      */
     public function testVisit(): void
     {
-        $this->assertEquals('visited_value', $this->visitor->visit(42));
+        $this->assertSame('visited_value', $this->visitor->visit(42));
     }
 
     /**

@@ -25,7 +25,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('datetime', $this->type->getIdentifier());
+        $this->assertSame('datetime', $this->type->getIdentifier());
     }
 
     /**
@@ -37,7 +37,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array
@@ -60,7 +60,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue): void
     {
-        $this->assertEquals($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
+        $this->assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
     public function toHashProvider(): array
@@ -81,18 +81,36 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::fromHash
+     */
+    public function testFromHash(): void
+    {
+        $convertedValue = $this->type->fromHash(
+            $this->getParameterDefinition(),
+            [
+                'datetime' => '2018-02-01 15:00:00.000000',
+                'timezone' => 'Antarctica/Casey',
+            ]
+        );
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $convertedValue);
+        $this->assertSame('2018-02-01 15:00:00', $convertedValue->format('Y-m-d H:i:s'));
+        $this->assertSame('Antarctica/Casey', $convertedValue->getTimezone()->getName());
+    }
+
+    /**
      * @param mixed $value
      * @param mixed $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::fromHash
-     * @dataProvider fromHashProvider
+     * @dataProvider invalidFromHashProvider
      */
-    public function testFromHash($value, $convertedValue): void
+    public function testFromHashWithInvalidValues($value, $convertedValue): void
     {
-        $this->assertEquals($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
+        $this->assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
-    public function fromHashProvider(): array
+    public function invalidFromHashProvider(): array
     {
         return [
             [null, null],
@@ -102,7 +120,6 @@ final class DateTimeTypeTest extends TestCase
             [['datetime' => '2018-02-01 00:00:00', 'timezone' => ''], null],
             [['datetime' => '', 'timezone' => 'Antarctica/Casey'], null],
             [['datetime' => '', 'timezone' => ''], null],
-            [['datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey'], new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'))],
         ];
     }
 
@@ -122,7 +139,7 @@ final class DateTimeTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array

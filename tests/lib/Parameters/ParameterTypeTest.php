@@ -29,17 +29,17 @@ final class ParameterTypeTest extends TestCase
      */
     public function testGetConstraints(): void
     {
-        $this->assertEquals(
-            [new Constraints\NotNull()],
-            $this->parameterType->getConstraints(
-                new ParameterDefinition(
-                    [
-                        'type' => new ParameterType(),
-                    ]
-                ),
-                42
-            )
+        $constraints = $this->parameterType->getConstraints(
+            new ParameterDefinition(
+                [
+                    'type' => new ParameterType(),
+                ]
+            ),
+            42
         );
+
+        $this->assertCount(1, $constraints);
+        $this->assertInstanceOf(Constraints\NotNull::class, $constraints[0]);
     }
 
     /**
@@ -49,18 +49,19 @@ final class ParameterTypeTest extends TestCase
      */
     public function testGetConstraintsWithRequiredParameter(): void
     {
-        $this->assertEquals(
-            [new Constraints\NotBlank(), new Constraints\NotNull()],
-            $this->parameterType->getConstraints(
-                new ParameterDefinition(
-                    [
-                        'type' => new ParameterType(),
-                        'isRequired' => true,
-                    ]
-                ),
-                42
-            )
+        $constraints = $this->parameterType->getConstraints(
+            new ParameterDefinition(
+                [
+                    'type' => new ParameterType(),
+                    'isRequired' => true,
+                ]
+            ),
+            42
         );
+
+        $this->assertCount(2, $constraints);
+        $this->assertInstanceOf(Constraints\NotBlank::class, $constraints[0]);
+        $this->assertInstanceOf(Constraints\NotNull::class, $constraints[1]);
     }
 
     /**
@@ -81,7 +82,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testToHash(): void
     {
-        $this->assertEquals(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
+        $this->assertSame(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -89,7 +90,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testFromHash(): void
     {
-        $this->assertEquals(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
+        $this->assertSame(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -97,7 +98,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testExport(): void
     {
-        $this->assertEquals(42, $this->parameterType->export(new ParameterDefinition(), 42));
+        $this->assertSame(42, $this->parameterType->export(new ParameterDefinition(), 42));
     }
 
     /**
@@ -105,7 +106,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testImport(): void
     {
-        $this->assertEquals(42, $this->parameterType->import(new ParameterDefinition(), 42));
+        $this->assertSame(42, $this->parameterType->import(new ParameterDefinition(), 42));
     }
 
     /**

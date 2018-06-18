@@ -18,4 +18,14 @@ final class Value extends BaseValue implements APIValue
      * @var string
      */
     protected $locale;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
 }

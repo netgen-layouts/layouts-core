@@ -18,7 +18,7 @@ final class LocaleProviderTest extends TestCase
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'en' => 'English',
                 'hr' => 'Croatian',
@@ -35,7 +35,7 @@ final class LocaleProviderTest extends TestCase
     {
         $localeProvider = new LocaleProvider(['en', 'hr_NON_EXISTING']);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'en' => 'English',
             ],
@@ -66,7 +66,7 @@ final class LocaleProviderTest extends TestCase
             ->method('getLocale')
             ->will($this->returnValue('en'));
 
-        $this->assertEquals(['en'], $localeProvider->getRequestLocales($requestMock));
+        $this->assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
     /**
@@ -81,7 +81,7 @@ final class LocaleProviderTest extends TestCase
             ->method('getLocale')
             ->will($this->returnValue('en'));
 
-        $this->assertEquals(['en'], $localeProvider->getRequestLocales($requestMock));
+        $this->assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
     /**
@@ -96,6 +96,6 @@ final class LocaleProviderTest extends TestCase
             ->method('getLocale')
             ->will($this->returnValue('de'));
 
-        $this->assertEquals([], $localeProvider->getRequestLocales($requestMock));
+        $this->assertSame([], $localeProvider->getRequestLocales($requestMock));
     }
 }

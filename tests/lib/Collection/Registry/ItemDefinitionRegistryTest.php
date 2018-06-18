@@ -36,7 +36,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testAddItemDefinition(): void
     {
-        $this->assertEquals(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
+        $this->assertSame(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
     }
 
     /**
@@ -44,7 +44,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testGetItemDefinition(): void
     {
-        $this->assertEquals($this->itemDefinition, $this->registry->getItemDefinition('item_definition'));
+        $this->assertSame($this->itemDefinition, $this->registry->getItemDefinition('item_definition'));
     }
 
     /**
@@ -85,7 +85,7 @@ final class ItemDefinitionRegistryTest extends TestCase
             $itemDefinitions[$identifier] = $itemDefinition;
         }
 
-        $this->assertEquals($this->registry->getItemDefinitions(), $itemDefinitions);
+        $this->assertSame($this->registry->getItemDefinitions(), $itemDefinitions);
     }
 
     /**
@@ -110,7 +110,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->itemDefinition, $this->registry['item_definition']);
+        $this->assertSame($this->itemDefinition, $this->registry['item_definition']);
     }
 
     /**

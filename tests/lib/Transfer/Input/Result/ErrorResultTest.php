@@ -15,9 +15,16 @@ final class ErrorResultTest extends TestCase
      */
     private $result;
 
+    /**
+     * @var \Throwable
+     */
+    private $error;
+
     public function setUp(): void
     {
-        $this->result = new ErrorResult('type', ['data'], new Exception());
+        $this->error = new Exception();
+
+        $this->result = new ErrorResult('type', ['data'], $this->error);
     }
 
     /**
@@ -26,7 +33,7 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetEntityType(): void
     {
-        $this->assertEquals('type', $this->result->getEntityType());
+        $this->assertSame('type', $this->result->getEntityType());
     }
 
     /**
@@ -34,7 +41,7 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetData(): void
     {
-        $this->assertEquals(['data'], $this->result->getData());
+        $this->assertSame(['data'], $this->result->getData());
     }
 
     /**
@@ -42,6 +49,6 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetError(): void
     {
-        $this->assertEquals(new Exception(), $this->result->getError());
+        $this->assertSame($this->error, $this->result->getError());
     }
 }

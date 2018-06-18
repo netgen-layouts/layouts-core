@@ -12,9 +12,11 @@ final class BlockCreateStructTest extends TestCase
 {
     public function testSetProperties(): void
     {
+        $blockDefinition = new BlockDefinition();
+
         $blockCreateStruct = new BlockCreateStruct(
             [
-                'definition' => new BlockDefinition(),
+                'definition' => $blockDefinition,
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
@@ -23,10 +25,10 @@ final class BlockCreateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(new BlockDefinition(), $blockCreateStruct->definition);
-        $this->assertEquals('default', $blockCreateStruct->viewType);
-        $this->assertEquals('standard', $blockCreateStruct->itemViewType);
-        $this->assertEquals('My block', $blockCreateStruct->name);
+        $this->assertSame($blockDefinition, $blockCreateStruct->definition);
+        $this->assertSame('default', $blockCreateStruct->viewType);
+        $this->assertSame('standard', $blockCreateStruct->itemViewType);
+        $this->assertSame('My block', $blockCreateStruct->name);
         $this->assertTrue($blockCreateStruct->isTranslatable);
         $this->assertFalse($blockCreateStruct->alwaysAvailable);
     }

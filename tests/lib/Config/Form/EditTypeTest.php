@@ -79,15 +79,10 @@ final class EditTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ConfigAwareStruct();
-
         $configStruct = new ConfigStruct();
-        $configStruct->setParameterValue('param', 'new_value');
-
-        $updatedStruct->setConfigStruct('test', $configStruct);
 
         $struct = new ConfigAwareStruct();
-        $struct->setConfigStruct('test', new ConfigStruct());
+        $struct->setConfigStruct('test', $configStruct);
 
         $form = $this->factory->create(
             EditType::class,
@@ -101,7 +96,8 @@ final class EditTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(['param' => 'new_value'], $configStruct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
@@ -110,7 +106,7 @@ final class EditTypeTest extends FormTestCase
         $this->assertArrayHasKey('param', $children['test']);
 
         $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertEquals($this->configurable, $view->vars['configurable']);
+        $this->assertSame($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -125,15 +121,10 @@ final class EditTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ConfigAwareStruct();
-
         $configStruct = new ConfigStruct();
-        $configStruct->setParameterValue('param', 'new_value');
-
-        $updatedStruct->setConfigStruct('test', $configStruct);
 
         $struct = new ConfigAwareStruct();
-        $struct->setConfigStruct('test', new ConfigStruct());
+        $struct->setConfigStruct('test', $configStruct);
 
         $form = $this->factory->create(
             EditType::class,
@@ -148,7 +139,8 @@ final class EditTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(['param' => 'new_value'], $configStruct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
@@ -157,7 +149,7 @@ final class EditTypeTest extends FormTestCase
         $this->assertArrayHasKey('param', $children['test']);
 
         $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertEquals($this->configurable, $view->vars['configurable']);
+        $this->assertSame($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -171,11 +163,6 @@ final class EditTypeTest extends FormTestCase
                 'param' => 'new_value',
             ],
         ];
-
-        $updatedStruct = new ConfigAwareStruct();
-
-        $configStruct = new ConfigStruct();
-        $updatedStruct->setConfigStruct('test', $configStruct);
 
         $struct = new ConfigAwareStruct();
         $struct->setConfigStruct('test', new ConfigStruct());
@@ -193,7 +180,8 @@ final class EditTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame($struct, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
@@ -202,7 +190,7 @@ final class EditTypeTest extends FormTestCase
         $this->assertArrayNotHasKey('unknown', $children);
 
         $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertEquals($this->configurable, $view->vars['configurable']);
+        $this->assertSame($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -215,16 +203,18 @@ final class EditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new ConfigAwareStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'configurable' => $this->configurable,
                 'label_prefix' => 'config.configurable',
-                'data' => new ConfigAwareStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->configurable, $options['configurable']);
-        $this->assertEquals(new ConfigAwareStruct(), $options['data']);
+        $this->assertSame($this->configurable, $options['configurable']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

@@ -25,7 +25,7 @@ final class NullItemDefinitionTest extends TestCase
      */
     public function testGetValueType(): void
     {
-        $this->assertEquals('value', $this->itemDefinition->getValueType());
+        $this->assertSame('value', $this->itemDefinition->getValueType());
     }
 
     /**
@@ -33,6 +33,6 @@ final class NullItemDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions(): void
     {
-        $this->assertEquals([], $this->itemDefinition->getConfigDefinitions());
+        $this->assertSame([], $this->itemDefinition->getConfigDefinitions());
     }
 }

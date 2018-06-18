@@ -21,10 +21,10 @@ final class BlockUpdateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals('default', $blockUpdateStruct->viewType);
-        $this->assertEquals('standard', $blockUpdateStruct->itemViewType);
-        $this->assertEquals('My block', $blockUpdateStruct->name);
+        $this->assertSame('default', $blockUpdateStruct->viewType);
+        $this->assertSame('standard', $blockUpdateStruct->itemViewType);
+        $this->assertSame('My block', $blockUpdateStruct->name);
         $this->assertFalse($blockUpdateStruct->alwaysAvailable);
-        $this->assertEquals('en', $blockUpdateStruct->locale);
+        $this->assertSame('en', $blockUpdateStruct->locale);
     }
 }

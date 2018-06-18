@@ -47,7 +47,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('title', $this->blockType->getIdentifier());
+        $this->assertSame('title', $this->blockType->getIdentifier());
     }
 
     /**
@@ -63,7 +63,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Title', $this->blockType->getName());
+        $this->assertSame('Title', $this->blockType->getName());
     }
 
     /**
@@ -71,7 +71,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertEquals('/icon.svg', $this->blockType->getIcon());
+        $this->assertSame('/icon.svg', $this->blockType->getIcon());
     }
 
     /**
@@ -79,7 +79,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefinition(): void
     {
-        $this->assertEquals($this->blockDefinition, $this->blockType->getDefinition());
+        $this->assertSame($this->blockDefinition, $this->blockType->getDefinition());
     }
 
     /**
@@ -87,7 +87,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefaults(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'name' => 'Name',
                 'view_type' => 'default',
@@ -103,7 +103,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefaultName(): void
     {
-        $this->assertEquals('Name', $this->blockType->getDefaultName());
+        $this->assertSame('Name', $this->blockType->getDefaultName());
     }
 
     /**
@@ -111,7 +111,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefaultViewType(): void
     {
-        $this->assertEquals('default', $this->blockType->getDefaultViewType());
+        $this->assertSame('default', $this->blockType->getDefaultViewType());
     }
 
     /**
@@ -119,7 +119,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefaultItemViewType(): void
     {
-        $this->assertEquals('standard', $this->blockType->getDefaultItemViewType());
+        $this->assertSame('standard', $this->blockType->getDefaultItemViewType());
     }
 
     /**
@@ -127,7 +127,7 @@ final class BlockTypeTest extends TestCase
      */
     public function testGetDefaultParameters(): void
     {
-        $this->assertEquals(['tag' => 'h3'], $this->blockType->getDefaultParameters());
+        $this->assertSame(['tag' => 'h3'], $this->blockType->getDefaultParameters());
     }
 
     /**
@@ -137,7 +137,7 @@ final class BlockTypeTest extends TestCase
     {
         $this->blockType = new BlockType();
 
-        $this->assertEquals('', $this->blockType->getDefaultName());
+        $this->assertSame('', $this->blockType->getDefaultName());
     }
 
     /**
@@ -147,7 +147,7 @@ final class BlockTypeTest extends TestCase
     {
         $this->blockType = new BlockType();
 
-        $this->assertEquals('', $this->blockType->getDefaultViewType());
+        $this->assertSame('', $this->blockType->getDefaultViewType());
     }
 
     /**
@@ -157,7 +157,7 @@ final class BlockTypeTest extends TestCase
     {
         $this->blockType = new BlockType();
 
-        $this->assertEquals('', $this->blockType->getDefaultItemViewType());
+        $this->assertSame('', $this->blockType->getDefaultItemViewType());
     }
 
     /**
@@ -167,6 +167,6 @@ final class BlockTypeTest extends TestCase
     {
         $this->blockType = new BlockType();
 
-        $this->assertEquals([], $this->blockType->getDefaultParameters());
+        $this->assertSame([], $this->blockType->getDefaultParameters());
     }
 }

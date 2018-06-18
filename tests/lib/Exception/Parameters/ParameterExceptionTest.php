@@ -16,7 +16,7 @@ final class ParameterExceptionTest extends TestCase
     {
         $exception = ParameterException::noParameterDefinition('param');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter definition with "param" name does not exist in the object.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ParameterExceptionTest extends TestCase
     {
         $exception = ParameterException::noOption('opt');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Option "opt" does not exist in the parameter definition.',
             $exception->getMessage()
         );

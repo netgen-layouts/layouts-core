@@ -67,16 +67,18 @@ final class LayoutBackendTest extends TestCase
      */
     public function testLoadItem(): void
     {
+        $layout = new Layout();
+
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
             ->with($this->equalTo(1))
-            ->will($this->returnValue(new Layout()));
+            ->will($this->returnValue($layout));
 
         $item = $this->backend->loadItem(1);
 
         $this->assertInstanceOf(ItemInterface::class, $item);
-        $this->assertEquals(new Layout(), $item->getLayout());
+        $this->assertSame($layout, $item->getLayout());
     }
 
     /**
@@ -102,7 +104,7 @@ final class LayoutBackendTest extends TestCase
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
-        $this->assertEquals([], $locations);
+        $this->assertSame([], $locations);
     }
 
     /**
@@ -112,7 +114,7 @@ final class LayoutBackendTest extends TestCase
     {
         $count = $this->backend->getSubLocationsCount(new RootLocation());
 
-        $this->assertEquals(0, $count);
+        $this->assertSame(0, $count);
     }
 
     /**
@@ -181,7 +183,7 @@ final class LayoutBackendTest extends TestCase
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 
-        $this->assertEquals(2, $count);
+        $this->assertSame(2, $count);
     }
 
     /**
@@ -191,7 +193,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test');
 
-        $this->assertEquals([], $items);
+        $this->assertSame([], $items);
     }
 
     /**
@@ -201,7 +203,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test', 5, 10);
 
-        $this->assertEquals([], $items);
+        $this->assertSame([], $items);
     }
 
     /**
@@ -211,6 +213,6 @@ final class LayoutBackendTest extends TestCase
     {
         $count = $this->backend->searchCount('test');
 
-        $this->assertEquals(0, $count);
+        $this->assertSame(0, $count);
     }
 }

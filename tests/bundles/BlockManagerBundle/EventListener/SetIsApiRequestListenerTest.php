@@ -28,7 +28,7 @@ final class SetIsApiRequestListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
             $this->listener::getSubscribedEvents()
         );

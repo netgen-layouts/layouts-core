@@ -35,7 +35,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionTypes(): void
     {
-        $this->assertEquals(['type' => $this->conditionType], $this->registry->getConditionTypes());
+        $this->assertSame(['type' => $this->conditionType], $this->registry->getConditionTypes());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionType(): void
     {
-        $this->assertEquals($this->conditionType, $this->registry->getConditionType('type'));
+        $this->assertSame($this->conditionType, $this->registry->getConditionType('type'));
     }
 
     /**
@@ -84,7 +84,7 @@ final class ConditionTypeRegistryTest extends TestCase
             $conditionTypes[$identifier] = $conditionType;
         }
 
-        $this->assertEquals($this->registry->getConditionTypes(), $conditionTypes);
+        $this->assertSame($this->registry->getConditionTypes(), $conditionTypes);
     }
 
     /**
@@ -109,7 +109,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->conditionType, $this->registry['type']);
+        $this->assertSame($this->conditionType, $this->registry['type']);
     }
 
     /**

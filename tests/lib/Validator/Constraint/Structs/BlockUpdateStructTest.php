@@ -15,6 +15,6 @@ final class BlockUpdateStructTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new BlockUpdateStruct();
-        $this->assertEquals('ngbm_block_update_struct', $constraint->validatedBy());
+        $this->assertSame('ngbm_block_update_struct', $constraint->validatedBy());
     }
 }

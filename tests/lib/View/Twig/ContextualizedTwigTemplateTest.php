@@ -39,7 +39,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $template = new ContextualizedTwigTemplate($templateMock);
 
-        $this->assertEquals('rendered', $template->renderBlock('block_name'));
+        $this->assertSame('rendered', $template->renderBlock('block_name'));
     }
 
     /**
@@ -62,7 +62,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $template = new ContextualizedTwigTemplate($templateMock);
 
-        $this->assertEquals('', $template->renderBlock('block_name'));
+        $this->assertSame('', $template->renderBlock('block_name'));
     }
 
     /**

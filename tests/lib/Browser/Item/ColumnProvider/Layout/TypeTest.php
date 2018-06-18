@@ -40,7 +40,7 @@ final class TypeTest extends TestCase
             )
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             '4 zones A',
             $this->provider->getValue($item)
         );

@@ -35,7 +35,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertEquals(['queryId'], $this->paramConverter->getSourceAttributeNames());
+        $this->assertSame(['queryId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertEquals('query', $this->paramConverter->getDestinationAttributeName());
+        $this->assertSame('query', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertEquals(APIQuery::class, $this->paramConverter->getSupportedClass());
+        $this->assertSame(APIQuery::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -67,7 +67,7 @@ final class QueryParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($query));
 
-        $this->assertEquals(
+        $this->assertSame(
             $query,
             $this->paramConverter->loadValue(
                 [
@@ -91,7 +91,7 @@ final class QueryParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($query));
 
-        $this->assertEquals(
+        $this->assertSame(
             $query,
             $this->paramConverter->loadValue(
                 [

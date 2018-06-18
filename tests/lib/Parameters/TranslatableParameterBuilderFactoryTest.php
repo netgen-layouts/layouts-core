@@ -39,7 +39,10 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
     {
         $parameterBuilder = $this->factory->createParameterBuilder();
 
-        $this->assertEquals(new TranslatableParameterBuilder($this->factory), $parameterBuilder);
+        $this->assertInstanceOf(TranslatableParameterBuilder::class, $parameterBuilder);
+        $this->assertNull($parameterBuilder->getName());
+        $this->assertTrue($parameterBuilder->getOption('translatable'));
+        $this->assertNull($parameterBuilder->getType());
     }
 
     /**
@@ -55,16 +58,13 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
-            new TranslatableParameterBuilder(
-                $this->factory,
-                'param',
-                $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-                [
-                    'translatable' => true,
-                ]
-            ),
-            $parameterBuilder
+        $this->assertInstanceOf(TranslatableParameterBuilder::class, $parameterBuilder);
+        $this->assertSame('param', $parameterBuilder->getName());
+        $this->assertTrue($parameterBuilder->getOption('translatable'));
+
+        $this->assertSame(
+            $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
+            $parameterBuilder->getType()
         );
     }
 
@@ -84,16 +84,13 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
-            new TranslatableParameterBuilder(
-                $this->factory,
-                'param',
-                $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-                [
-                    'translatable' => false,
-                ]
-            ),
-            $parameterBuilder
+        $this->assertInstanceOf(TranslatableParameterBuilder::class, $parameterBuilder);
+        $this->assertSame('param', $parameterBuilder->getName());
+        $this->assertSame(['translatable' => false], $parameterBuilder->getOptions());
+
+        $this->assertSame(
+            $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
+            $parameterBuilder->getType()
         );
     }
 }

@@ -40,7 +40,7 @@ final class TypeTest extends TestCase
 
         $view = new LayoutView(['layout' => $layout]);
 
-        $this->assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertSame($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -83,7 +83,7 @@ final class TypeTest extends TestCase
     {
         $view = new LayoutTypeView(['layoutType' => new LayoutType(['identifier' => '4_zones_a'])]);
 
-        $this->assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertSame($expected, $this->matcher->match($view, $config));
     }
 
     public function matchProvider(): array

@@ -24,6 +24,8 @@ final class ManualItemTest extends TestCase
      */
     public function testObject(): void
     {
+        $object = new stdClass();
+
         $collectionItem = new Item(
             [
                 'cmsItem' => new CmsItem(
@@ -33,7 +35,7 @@ final class ManualItemTest extends TestCase
                         'valueType' => 'type',
                         'name' => 'Value name',
                         'isVisible' => true,
-                        'object' => new stdClass(),
+                        'object' => $object,
                     ]
                 ),
             ]
@@ -41,12 +43,12 @@ final class ManualItemTest extends TestCase
 
         $value = new ManualItem($collectionItem);
 
-        $this->assertEquals($collectionItem, $value->getCollectionItem());
-        $this->assertEquals(42, $value->getValue());
-        $this->assertEquals('abc', $value->getRemoteId());
-        $this->assertEquals('type', $value->getValueType());
-        $this->assertEquals('Value name', $value->getName());
+        $this->assertSame($collectionItem, $value->getCollectionItem());
+        $this->assertSame(42, $value->getValue());
+        $this->assertSame('abc', $value->getRemoteId());
+        $this->assertSame('type', $value->getValueType());
+        $this->assertSame('Value name', $value->getName());
         $this->assertTrue($value->isVisible());
-        $this->assertEquals(new stdClass(), $value->getObject());
+        $this->assertSame($object, $value->getObject());
     }
 }

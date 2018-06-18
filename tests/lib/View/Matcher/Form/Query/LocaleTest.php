@@ -51,7 +51,7 @@ final class LocaleTest extends TestCase
             ]
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
+        $this->assertSame($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
     }
 
     public function matchProvider(): array

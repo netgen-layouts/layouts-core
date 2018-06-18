@@ -47,12 +47,11 @@ final class ExceptionTest extends FormTestCase
     {
         $submittedData = ['value' => [404]];
 
-        $updatedStruct = new ConditionCreateStruct();
-        $updatedStruct->value = [404];
+        $struct = new ConditionCreateStruct();
 
         $form = $this->factory->create(
             ConditionType::class,
-            new ConditionCreateStruct(),
+            $struct,
             ['condition_type' => $this->conditionType]
         );
 
@@ -61,12 +60,13 @@ final class ExceptionTest extends FormTestCase
 
         $form->submit($submittedData);
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame([404], $struct->value);
 
         $formView = $form->createView();
         $this->assertArrayHasKey('value', $formView->children);
 
         $this->assertArrayHasKey('condition_type', $formView->vars);
-        $this->assertEquals($this->conditionType, $formView->vars['condition_type']);
+        $this->assertSame($this->conditionType, $formView->vars['condition_type']);
     }
 }

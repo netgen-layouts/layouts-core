@@ -35,27 +35,30 @@ final class ItemTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $cmsItem = new CmsItem();
+        $definition = new ItemDefinition();
+
         $item = new Item(
             [
                 'id' => 42,
                 'collectionId' => 30,
-                'definition' => new ItemDefinition(),
+                'definition' => $definition,
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
-                'cmsItem' => function (): ItemInterface {
-                    return new CmsItem();
+                'cmsItem' => function () use ($cmsItem): ItemInterface {
+                    return $cmsItem;
                 },
             ]
         );
 
-        $this->assertEquals(42, $item->getId());
-        $this->assertEquals(30, $item->getCollectionId());
-        $this->assertEquals(new ItemDefinition(), $item->getDefinition());
-        $this->assertEquals(3, $item->getPosition());
-        $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
-        $this->assertEquals(32, $item->getValue());
-        $this->assertEquals(new CmsItem(), $item->getCmsItem());
+        $this->assertSame(42, $item->getId());
+        $this->assertSame(30, $item->getCollectionId());
+        $this->assertSame($definition, $item->getDefinition());
+        $this->assertSame(3, $item->getPosition());
+        $this->assertSame(Item::TYPE_OVERRIDE, $item->getType());
+        $this->assertSame(32, $item->getValue());
+        $this->assertSame($cmsItem, $item->getCmsItem());
     }
 
     /**
@@ -96,7 +99,7 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertEquals($itemVisible, $item->isVisible(new DateTimeImmutable('@15000')));
+        $this->assertSame($itemVisible, $item->isVisible(new DateTimeImmutable('@15000')));
     }
 
     /**
@@ -125,7 +128,7 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertEquals($itemScheduled, $item->isScheduled());
+        $this->assertSame($itemScheduled, $item->isScheduled());
     }
 
     /**
@@ -174,7 +177,7 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertEquals($isValid, $item->isValid());
+        $this->assertSame($isValid, $item->isValid());
     }
 
     /**

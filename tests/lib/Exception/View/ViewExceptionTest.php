@@ -16,7 +16,7 @@ final class ViewExceptionTest extends TestCase
     {
         $exception = ViewException::parameterNotFound('param', 'view');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter with "param" name was not found in "view" view.',
             $exception->getMessage()
         );

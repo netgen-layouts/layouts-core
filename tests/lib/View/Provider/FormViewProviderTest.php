@@ -40,9 +40,9 @@ final class FormViewProviderTest extends TestCase
 
         $this->assertInstanceOf(FormViewInterface::class, $view);
 
-        $this->assertEquals($form, $view->getForm());
+        $this->assertSame($form, $view->getForm());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'form_object' => $form,
                 'form' => $formView,
@@ -60,7 +60,7 @@ final class FormViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->formViewProvider->supports($value));
+        $this->assertSame($supports, $this->formViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

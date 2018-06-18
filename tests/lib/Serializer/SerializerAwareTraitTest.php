@@ -26,6 +26,6 @@ final class SerializerAwareTraitTest extends TestCase
         $value = new SerializerAwareValue();
         $value->setSerializer($serializer);
 
-        $this->assertEquals($serializer, $value->getSerializer());
+        $this->assertSame($serializer, $value->getSerializer());
     }
 }

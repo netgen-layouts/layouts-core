@@ -40,15 +40,17 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewCollectionCreateStruct(): void
     {
+        $queryCreateStruct = new QueryCreateStruct();
+
         $this->assertEquals(
             new CollectionCreateStruct(
                 [
                     'offset' => 0,
                     'limit' => null,
-                    'queryCreateStruct' => new QueryCreateStruct(),
+                    'queryCreateStruct' => $queryCreateStruct,
                 ]
             ),
-            $this->structBuilder->newCollectionCreateStruct(new QueryCreateStruct())
+            $this->structBuilder->newCollectionCreateStruct($queryCreateStruct)
         );
     }
 
@@ -109,15 +111,17 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewItemCreateStruct(): void
     {
+        $itemDefinition = new ItemDefinition();
+
         $this->assertEquals(
             new ItemCreateStruct(
                 [
-                    'definition' => new ItemDefinition(),
+                    'definition' => $itemDefinition,
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
                 ]
             ),
-            $this->structBuilder->newItemCreateStruct(new ItemDefinition(), Item::TYPE_OVERRIDE, '42')
+            $this->structBuilder->newItemCreateStruct($itemDefinition, Item::TYPE_OVERRIDE, '42')
         );
     }
 
@@ -166,14 +170,14 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewQueryCreateStruct(): void
     {
-        $queryCreateStruct = $this->structBuilder->newQueryCreateStruct(
-            new QueryType('my_query_type')
-        );
+        $queryType = new QueryType('my_query_type');
+
+        $queryCreateStruct = $this->structBuilder->newQueryCreateStruct($queryType);
 
         $this->assertEquals(
             new QueryCreateStruct(
                 [
-                    'queryType' => new QueryType('my_query_type'),
+                    'queryType' => $queryType,
                     'parameterValues' => [
                         'param' => null,
                         'param2' => null,

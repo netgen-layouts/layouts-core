@@ -30,7 +30,7 @@ final class UrlGeneratorTest extends TestCase
      */
     public function testGenerate(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             '/item-url',
             $this->urlGenerator->generate(
                 new Item(['valueType' => 'value'])

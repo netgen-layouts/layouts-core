@@ -15,12 +15,19 @@ final class ItemDefinitionTest extends TestCase
      */
     private $itemDefinition;
 
+    /**
+     * @var \Netgen\BlockManager\Config\ConfigDefinition
+     */
+    private $configDefinition;
+
     public function setUp(): void
     {
+        $this->configDefinition = new ConfigDefinition();
+
         $this->itemDefinition = new ItemDefinition(
             [
                 'valueType' => 'value_type',
-                'configDefinitions' => ['config' => new ConfigDefinition()],
+                'configDefinitions' => ['config' => $this->configDefinition],
             ]
         );
     }
@@ -30,7 +37,7 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testGetValueType(): void
     {
-        $this->assertEquals('value_type', $this->itemDefinition->getValueType());
+        $this->assertSame('value_type', $this->itemDefinition->getValueType());
     }
 
     /**
@@ -38,8 +45,8 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions(): void
     {
-        $this->assertEquals(
-            ['config' => new ConfigDefinition()],
+        $this->assertSame(
+            ['config' => $this->configDefinition],
             $this->itemDefinition->getConfigDefinitions()
         );
     }

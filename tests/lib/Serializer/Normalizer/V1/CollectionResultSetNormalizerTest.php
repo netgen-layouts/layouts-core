@@ -89,7 +89,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
             )
             ->will($this->returnValue(['overflow_items']));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'items' => ['items'],
                 'overflow_items' => ['overflow_items'],
@@ -107,7 +107,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

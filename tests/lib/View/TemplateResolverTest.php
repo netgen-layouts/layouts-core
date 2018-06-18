@@ -17,9 +17,16 @@ final class TemplateResolverTest extends TestCase
      */
     private $view;
 
+    /**
+     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     */
+    private $value;
+
     public function setUp(): void
     {
-        $this->view = new View(['value' => new Value()]);
+        $this->value = new Value();
+
+        $this->view = new View(['value' => $this->value]);
         $this->view->setContext('context');
     }
 
@@ -64,13 +71,13 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
 
         $this->assertTrue($this->view->hasParameter('param'));
-        $this->assertEquals('value', $this->view->getParameter('param'));
+        $this->assertSame('value', $this->view->getParameter('param'));
 
         $this->assertTrue($this->view->hasParameter('param2'));
-        $this->assertEquals(new Value(), $this->view->getParameter('param2'));
+        $this->assertSame($this->value, $this->view->getParameter('param2'));
     }
 
     /**
@@ -101,9 +108,9 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
         $this->assertTrue($this->view->hasParameter('param'));
-        $this->assertEquals('value', $this->view->getParameter('param'));
+        $this->assertSame('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -137,7 +144,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -169,7 +176,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
     }
 
     /**

@@ -22,7 +22,7 @@ final class IntegerTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('integer', $this->type->getIdentifier());
+        $this->assertSame('integer', $this->type->getIdentifier());
     }
 
     /**
@@ -38,7 +38,7 @@ final class IntegerTypeTest extends TestCase
     public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
-        $this->assertEquals($expected, $parameter->getDefaultValue());
+        $this->assertSame($expected, $parameter->getDefaultValue());
     }
 
     /**
@@ -48,7 +48,7 @@ final class IntegerTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -82,8 +82,8 @@ final class IntegerTypeTest extends TestCase
                 [
                 ],
                 [
-                    'max' => null,
                     'min' => null,
+                    'max' => null,
                 ],
             ],
             [
@@ -91,8 +91,8 @@ final class IntegerTypeTest extends TestCase
                     'max' => 5,
                 ],
                 [
-                    'max' => 5,
                     'min' => null,
+                    'max' => 5,
                 ],
             ],
             [
@@ -100,8 +100,8 @@ final class IntegerTypeTest extends TestCase
                     'max' => null,
                 ],
                 [
-                    'max' => null,
                     'min' => null,
+                    'max' => null,
                 ],
             ],
             [
@@ -118,8 +118,8 @@ final class IntegerTypeTest extends TestCase
                     'min' => null,
                 ],
                 [
-                    'max' => null,
                     'min' => null,
+                    'max' => null,
                 ],
             ],
             [
@@ -188,7 +188,7 @@ final class IntegerTypeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -221,7 +221,7 @@ final class IntegerTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

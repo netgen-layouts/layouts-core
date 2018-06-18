@@ -156,15 +156,15 @@ final class LayoutNormalizerTest extends TestCase
             ->with($this->equalTo($layout->getId(), Layout::STATUS_ARCHIVED))
             ->will($this->throwException(new NotFoundException('layout')));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'id' => $layout->getId(),
                 'type' => $this->layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
-                'has_archived_state' => false,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+                'has_archived_state' => false,
                 'archive_created_at' => null,
                 'archive_updated_at' => null,
                 'shared' => true,
@@ -262,8 +262,8 @@ final class LayoutNormalizerTest extends TestCase
         $data = $this->normalizer->normalize(new VersionedValue($layout, 1));
 
         $this->assertTrue($data['has_archived_state']);
-        $this->assertEquals($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
-        $this->assertEquals($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);
+        $this->assertSame($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
+        $this->assertSame($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);
     }
 
     /**
@@ -275,7 +275,7 @@ final class LayoutNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

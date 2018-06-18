@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\DependencyInjection;
 
-use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode;
+use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AdminNode;
+use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ConfigurationNode\AppNode;
 use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
 
@@ -27,12 +28,9 @@ final class ExtensionPluginTest extends TestCase
     {
         $nodes = $this->plugin->getConfigurationNodes();
 
-        $this->assertEquals(
-            [
-                new ConfigurationNode\AdminNode(),
-                new ConfigurationNode\AppNode(),
-            ],
-            $nodes
-        );
+        $this->assertCount(2, $nodes);
+
+        $this->assertInstanceOf(AdminNode::class, $nodes[0]);
+        $this->assertInstanceOf(AppNode::class, $nodes[1]);
     }
 }

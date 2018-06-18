@@ -27,7 +27,7 @@ final class NumberMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(NumberType::class, $this->mapper->getFormType());
+        $this->assertSame(NumberType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -44,7 +44,7 @@ final class NumberMapperTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'scale' => 6,
             ],

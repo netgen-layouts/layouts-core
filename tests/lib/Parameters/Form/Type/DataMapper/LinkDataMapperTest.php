@@ -13,9 +13,12 @@ use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 
 final class LinkDataMapperTest extends DataMapperTest
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper
      */
@@ -63,10 +66,10 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($linkValue, $forms);
 
-        $this->assertEquals('url', $forms['link_type']->getData());
-        $this->assertEquals('?suffix', $forms['link_suffix']->getData());
-        $this->assertEquals('1', $forms['new_window']->getData());
-        $this->assertEquals('http://www.google.com', $forms['url']->getData());
+        $this->assertSame('url', $forms['link_type']->getData());
+        $this->assertSame('?suffix', $forms['link_suffix']->getData());
+        $this->assertSame('1', $forms['new_window']->getData());
+        $this->assertSame('http://www.google.com', $forms['url']->getData());
     }
 
     /**
@@ -107,16 +110,16 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertEquals(
-            new LinkValue(
-                [
-                    'linkType' => 'url',
-                    'link' => 'http://www.google.com',
-                    'linkSuffix' => '?suffix',
-                    'newWindow' => true,
-                ]
-            ),
-            $data
+        $this->assertInstanceOf(LinkValue::class, $data);
+
+        $this->assertSame(
+            [
+                'linkType' => 'url',
+                'link' => 'http://www.google.com',
+                'linkSuffix' => '?suffix',
+                'newWindow' => true,
+            ],
+            $this->exportObjectVars($data)
         );
     }
 
@@ -135,6 +138,16 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertEquals(new LinkValue(), $data);
+        $this->assertInstanceOf(LinkValue::class, $data);
+
+        $this->assertSame(
+            [
+                'linkType' => null,
+                'link' => null,
+                'linkSuffix' => null,
+                'newWindow' => false,
+            ],
+            $this->exportObjectVars($data)
+        );
     }
 }

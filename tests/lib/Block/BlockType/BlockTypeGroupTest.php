@@ -15,17 +15,27 @@ final class BlockTypeGroupTest extends TestCase
      */
     private $blockTypeGroup;
 
+    /**
+     * @var \Netgen\BlockManager\Block\BlockType\BlockType
+     */
+    private $blockType1;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockType\BlockType
+     */
+    private $blockType2;
+
     public function setUp(): void
     {
+        $this->blockType1 = new BlockType(['isEnabled' => true, 'identifier' => 'type']);
+        $this->blockType2 = new BlockType(['isEnabled' => false, 'identifier' => 'type2']);
+
         $this->blockTypeGroup = new BlockTypeGroup(
             [
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
                 'name' => 'Simple blocks',
-                'blockTypes' => [
-                    new BlockType(['isEnabled' => true, 'identifier' => 'type']),
-                    new BlockType(['isEnabled' => false, 'identifier' => 'type2']),
-                ],
+                'blockTypes' => [$this->blockType1, $this->blockType2],
             ]
         );
     }
@@ -36,7 +46,7 @@ final class BlockTypeGroupTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('simple_blocks', $this->blockTypeGroup->getIdentifier());
+        $this->assertSame('simple_blocks', $this->blockTypeGroup->getIdentifier());
     }
 
     /**
@@ -52,7 +62,7 @@ final class BlockTypeGroupTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Simple blocks', $this->blockTypeGroup->getName());
+        $this->assertSame('Simple blocks', $this->blockTypeGroup->getName());
     }
 
     /**
@@ -60,13 +70,7 @@ final class BlockTypeGroupTest extends TestCase
      */
     public function testGetBlockTypes(): void
     {
-        $this->assertEquals(
-            [
-                new BlockType(['isEnabled' => true, 'identifier' => 'type']),
-                new BlockType(['isEnabled' => false, 'identifier' => 'type2']),
-            ],
-            $this->blockTypeGroup->getBlockTypes()
-        );
+        $this->assertSame([$this->blockType1, $this->blockType2], $this->blockTypeGroup->getBlockTypes());
     }
 
     /**
@@ -74,11 +78,6 @@ final class BlockTypeGroupTest extends TestCase
      */
     public function testGetEnabledBlockTypes(): void
     {
-        $this->assertEquals(
-            [
-                new BlockType(['isEnabled' => true, 'identifier' => 'type']),
-            ],
-            $this->blockTypeGroup->getBlockTypes(true)
-        );
+        $this->assertSame([$this->blockType1], $this->blockTypeGroup->getBlockTypes(true));
     }
 }

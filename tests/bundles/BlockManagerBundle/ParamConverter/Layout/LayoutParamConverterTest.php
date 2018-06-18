@@ -35,7 +35,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertEquals(['layoutId'], $this->paramConverter->getSourceAttributeNames());
+        $this->assertSame(['layoutId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertEquals('layout', $this->paramConverter->getDestinationAttributeName());
+        $this->assertSame('layout', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertEquals(APILayout::class, $this->paramConverter->getSupportedClass());
+        $this->assertSame(APILayout::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -67,7 +67,7 @@ final class LayoutParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        $this->assertEquals(
+        $this->assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
@@ -91,7 +91,7 @@ final class LayoutParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        $this->assertEquals(
+        $this->assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
@@ -115,7 +115,7 @@ final class LayoutParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        $this->assertEquals(
+        $this->assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [

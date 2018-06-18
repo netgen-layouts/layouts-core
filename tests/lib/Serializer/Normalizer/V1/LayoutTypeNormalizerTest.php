@@ -49,7 +49,7 @@ final class LayoutTypeNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'identifier' => $layoutType->getIdentifier(),
                 'name' => $layoutType->getName(),
@@ -80,7 +80,7 @@ final class LayoutTypeNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

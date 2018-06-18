@@ -59,14 +59,14 @@ final class ResultBuilderTest extends TestCase
         $resultSet = $this->resultBuilder->build($collection, 0, 5);
 
         $this->assertInstanceOf(ResultSet::class, $resultSet);
-        $this->assertEquals($collection, $resultSet->getCollection());
-        $this->assertEquals(0, $resultSet->getOffset());
-        $this->assertEquals(5, $resultSet->getLimit());
+        $this->assertSame($collection, $resultSet->getCollection());
+        $this->assertSame(0, $resultSet->getOffset());
+        $this->assertSame(5, $resultSet->getLimit());
 
         foreach ($resultSet as $index => $result) {
             $this->assertInstanceOf(Result::class, $result);
             $this->assertInstanceOf(ManualItem::class, $result->getItem());
-            $this->assertEquals($index, $result->getPosition());
+            $this->assertSame($index, $result->getPosition());
         }
     }
 
@@ -85,14 +85,14 @@ final class ResultBuilderTest extends TestCase
         $resultSet = $resultBuilder->build($collection, 0, 5);
 
         $this->assertInstanceOf(ResultSet::class, $resultSet);
-        $this->assertEquals($collection, $resultSet->getCollection());
-        $this->assertEquals(0, $resultSet->getOffset());
-        $this->assertEquals(3, $resultSet->getLimit());
+        $this->assertSame($collection, $resultSet->getCollection());
+        $this->assertSame(0, $resultSet->getOffset());
+        $this->assertSame(3, $resultSet->getLimit());
 
         foreach ($resultSet as $index => $result) {
             $this->assertInstanceOf(Result::class, $result);
             $this->assertInstanceOf(ManualItem::class, $result->getItem());
-            $this->assertEquals($index, $result->getPosition());
+            $this->assertSame($index, $result->getPosition());
         }
     }
 
@@ -111,13 +111,13 @@ final class ResultBuilderTest extends TestCase
         $result = $this->resultBuilder->build($collection, 0, 5);
 
         $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertEquals($collection, $result->getCollection());
-        $this->assertEquals(0, $result->getOffset());
-        $this->assertEquals(5, $result->getLimit());
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(0, $result->getOffset());
+        $this->assertSame(5, $result->getLimit());
 
         foreach ($result->getResults() as $index => $resultItem) {
             $this->assertInstanceOf(Result::class, $resultItem);
-            $this->assertEquals($index, $resultItem->getPosition());
+            $this->assertSame($index, $resultItem->getPosition());
             // @todo Test item types
         }
     }
@@ -138,13 +138,13 @@ final class ResultBuilderTest extends TestCase
         $result = $this->resultBuilder->build($collection, 0, 20, PHP_INT_MAX);
 
         $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertEquals($collection, $result->getCollection());
-        $this->assertEquals(0, $result->getOffset());
-        $this->assertEquals(12, $result->getLimit());
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(0, $result->getOffset());
+        $this->assertSame(12, $result->getLimit());
 
         foreach ($result->getResults() as $index => $resultItem) {
             $this->assertInstanceOf(Result::class, $resultItem);
-            $this->assertEquals($index, $resultItem->getPosition());
+            $this->assertSame($index, $resultItem->getPosition());
             // @todo Test item types
         }
     }
@@ -165,13 +165,13 @@ final class ResultBuilderTest extends TestCase
         $result = $this->resultBuilder->build($collection, 0, 5, PHP_INT_MAX);
 
         $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertEquals($collection, $result->getCollection());
-        $this->assertEquals(0, $result->getOffset());
-        $this->assertEquals(5, $result->getLimit());
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(0, $result->getOffset());
+        $this->assertSame(5, $result->getLimit());
 
         foreach ($result->getResults() as $index => $resultItem) {
             $this->assertInstanceOf(Result::class, $resultItem);
-            $this->assertEquals($index, $resultItem->getPosition());
+            $this->assertSame($index, $resultItem->getPosition());
             // @todo Test item types
         }
     }

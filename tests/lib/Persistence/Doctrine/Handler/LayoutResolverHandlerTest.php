@@ -17,11 +17,13 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverHandlerTest extends TestCase
 {
     use TestCaseTrait;
+    use ExportObjectVarsTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
@@ -58,18 +60,20 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRule(): void
     {
-        $this->assertEquals(
-            new Rule(
-                [
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'enabled' => true,
-                    'priority' => 9,
-                    'comment' => 'My comment',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
+        $rule = $this->handler->loadRule(1, Value::STATUS_PUBLISHED);
+
+        $this->assertInstanceOf(Rule::class, $rule);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'layoutId' => 1,
+                'enabled' => true,
+                'priority' => 9,
+                'comment' => 'My comment',
+            ],
+            $this->exportObjectVars($rule)
         );
     }
 
@@ -139,7 +143,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $rules = $this->handler->getRuleCount();
 
-        $this->assertEquals(12, $rules);
+        $this->assertSame(12, $rules);
     }
 
     /**
@@ -152,7 +156,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertEquals(2, $rules);
+        $this->assertSame(2, $rules);
     }
 
     /**
@@ -162,17 +166,19 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadTarget(): void
     {
-        $this->assertEquals(
-            new Target(
-                [
-                    'id' => 1,
-                    'ruleId' => 1,
-                    'type' => 'route',
-                    'value' => 'my_cool_route',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->loadTarget(1, Value::STATUS_PUBLISHED)
+        $target = $this->handler->loadTarget(1, Value::STATUS_PUBLISHED);
+
+        $this->assertInstanceOf(Target::class, $target);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 1,
+                'type' => 'route',
+                'value' => 'my_cool_route',
+            ],
+            $this->exportObjectVars($target)
         );
     }
 
@@ -214,7 +220,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertEquals(2, $targets);
+        $this->assertSame(2, $targets);
     }
 
     /**
@@ -224,20 +230,22 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadCondition(): void
     {
-        $this->assertEquals(
-            new Condition(
-                [
-                    'id' => 1,
-                    'ruleId' => 2,
-                    'type' => 'route_parameter',
-                    'value' => [
-                        'parameter_name' => 'some_param',
-                        'parameter_values' => [1, 2],
-                    ],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->loadCondition(1, Value::STATUS_PUBLISHED)
+        $condition = $this->handler->loadCondition(1, Value::STATUS_PUBLISHED);
+
+        $this->assertInstanceOf(Condition::class, $condition);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 2,
+                'type' => 'route_parameter',
+                'value' => [
+                    'parameter_name' => 'some_param',
+                    'parameter_values' => [1, 2],
+                ],
+            ],
+            $this->exportObjectVars($condition)
         );
     }
 
@@ -315,12 +323,12 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $createdRule);
 
-        $this->assertEquals(13, $createdRule->id);
-        $this->assertEquals(3, $createdRule->layoutId);
-        $this->assertEquals(5, $createdRule->priority);
+        $this->assertSame(13, $createdRule->id);
+        $this->assertSame(3, $createdRule->layoutId);
+        $this->assertSame(5, $createdRule->priority);
         $this->assertTrue($createdRule->enabled);
-        $this->assertEquals('My rule', $createdRule->comment);
-        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
+        $this->assertSame('My rule', $createdRule->comment);
+        $this->assertSame(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -338,12 +346,12 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $createdRule);
 
-        $this->assertEquals(13, $createdRule->id);
+        $this->assertSame(13, $createdRule->id);
         $this->assertNull($createdRule->layoutId);
-        $this->assertEquals(-12, $createdRule->priority);
+        $this->assertSame(-12, $createdRule->priority);
         $this->assertFalse($createdRule->enabled);
-        $this->assertEquals('', $createdRule->comment);
-        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
+        $this->assertSame('', $createdRule->comment);
+        $this->assertSame(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -372,8 +380,8 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $createdRule);
 
-        $this->assertEquals(0, $createdRule->priority);
-        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
+        $this->assertSame(0, $createdRule->priority);
+        $this->assertSame(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -393,10 +401,10 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
 
-        $this->assertEquals(3, $updatedRule->id);
-        $this->assertEquals(15, $updatedRule->layoutId);
-        $this->assertEquals('New comment', $updatedRule->comment);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertSame(3, $updatedRule->id);
+        $this->assertSame(15, $updatedRule->layoutId);
+        $this->assertSame('New comment', $updatedRule->comment);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -415,9 +423,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
 
-        $this->assertEquals(3, $updatedRule->id);
+        $this->assertSame(3, $updatedRule->id);
         $this->assertNull($updatedRule->layoutId);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -435,10 +443,10 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
 
-        $this->assertEquals(3, $updatedRule->id);
-        $this->assertEquals(3, $updatedRule->layoutId);
+        $this->assertSame(3, $updatedRule->id);
+        $this->assertSame(3, $updatedRule->layoutId);
         $this->assertNull($updatedRule->comment);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -458,9 +466,9 @@ final class LayoutResolverHandlerTest extends TestCase
         );
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertEquals(50, $updatedRule->priority);
+        $this->assertSame(50, $updatedRule->priority);
         $this->assertFalse($updatedRule->enabled);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -475,9 +483,9 @@ final class LayoutResolverHandlerTest extends TestCase
         );
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertEquals(5, $updatedRule->priority);
+        $this->assertSame(5, $updatedRule->priority);
         $this->assertTrue($updatedRule->enabled);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -496,50 +504,48 @@ final class LayoutResolverHandlerTest extends TestCase
         );
 
         $this->assertInstanceOf(Rule::class, $copiedRule);
-        $this->assertEquals(13, $copiedRule->id);
-        $this->assertEquals(2, $copiedRule->layoutId);
-        $this->assertEquals(5, $copiedRule->priority);
+        $this->assertSame(13, $copiedRule->id);
+        $this->assertSame(2, $copiedRule->layoutId);
+        $this->assertSame(5, $copiedRule->priority);
         $this->assertTrue($copiedRule->enabled);
         $this->assertNull($copiedRule->comment);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $copiedRule->status);
+        $this->assertSame(Value::STATUS_PUBLISHED, $copiedRule->status);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Target(
-                    [
-                        'id' => 21,
-                        'ruleId' => $copiedRule->id,
-                        'type' => 'route_prefix',
-                        'value' => 'my_second_cool_',
-                        'status' => Value::STATUS_PUBLISHED,
-                    ]
-                ),
-                new Target(
-                    [
-                        'id' => 22,
-                        'ruleId' => $copiedRule->id,
-                        'type' => 'route_prefix',
-                        'value' => 'my_third_cool_',
-                        'status' => Value::STATUS_PUBLISHED,
-                    ]
-                ),
+                [
+                    'id' => 21,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'ruleId' => $copiedRule->id,
+                    'type' => 'route_prefix',
+                    'value' => 'my_second_cool_',
+                ],
+                [
+                    'id' => 22,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'ruleId' => $copiedRule->id,
+                    'type' => 'route_prefix',
+                    'value' => 'my_third_cool_',
+                ],
             ],
-            $this->handler->loadRuleTargets($copiedRule)
+            $this->exportObjectArrayVars(
+                $this->handler->loadRuleTargets($copiedRule)
+            )
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Condition(
-                    [
-                        'id' => 5,
-                        'ruleId' => $copiedRule->id,
-                        'type' => 'my_condition',
-                        'value' => ['some_value'],
-                        'status' => Value::STATUS_PUBLISHED,
-                    ]
-                ),
+                [
+                    'id' => 5,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'ruleId' => $copiedRule->id,
+                    'type' => 'my_condition',
+                    'value' => ['some_value'],
+                ],
             ],
-            $this->handler->loadRuleConditions($copiedRule)
+            $this->exportObjectArrayVars(
+                $this->handler->loadRuleConditions($copiedRule)
+            )
         );
     }
 
@@ -561,65 +567,61 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $copiedRule);
 
-        $this->assertEquals(3, $copiedRule->id);
-        $this->assertEquals(3, $copiedRule->layoutId);
-        $this->assertEquals(7, $copiedRule->priority);
+        $this->assertSame(3, $copiedRule->id);
+        $this->assertSame(3, $copiedRule->layoutId);
+        $this->assertSame(7, $copiedRule->priority);
         $this->assertTrue($copiedRule->enabled);
         $this->assertNull($copiedRule->comment);
-        $this->assertEquals(Value::STATUS_ARCHIVED, $copiedRule->status);
+        $this->assertSame(Value::STATUS_ARCHIVED, $copiedRule->status);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Target(
-                    [
-                        'id' => 5,
-                        'ruleId' => 3,
-                        'type' => 'route',
-                        'value' => 'my_fourth_cool_route',
-                        'status' => Value::STATUS_ARCHIVED,
-                    ]
-                ),
-                new Target(
-                    [
-                        'id' => 6,
-                        'ruleId' => 3,
-                        'type' => 'route',
-                        'value' => 'my_fifth_cool_route',
-                        'status' => Value::STATUS_ARCHIVED,
-                    ]
-                ),
+                [
+                    'id' => 5,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'ruleId' => 3,
+                    'type' => 'route',
+                    'value' => 'my_fourth_cool_route',
+                ],
+                [
+                    'id' => 6,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'ruleId' => 3,
+                    'type' => 'route',
+                    'value' => 'my_fifth_cool_route',
+                ],
             ],
-            $this->handler->loadRuleTargets($copiedRule)
+            $this->exportObjectArrayVars(
+                $this->handler->loadRuleTargets($copiedRule)
+            )
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                new Condition(
-                    [
-                        'id' => 2,
-                        'ruleId' => 3,
-                        'type' => 'route_parameter',
-                        'value' => [
-                            'parameter_name' => 'some_param',
-                            'parameter_values' => [3, 4],
-                        ],
-                        'status' => Value::STATUS_ARCHIVED,
-                    ]
-                ),
-                new Condition(
-                    [
-                        'id' => 3,
-                        'ruleId' => 3,
-                        'type' => 'route_parameter',
-                        'value' => [
-                            'parameter_name' => 'some_other_param',
-                            'parameter_values' => [5, 6],
-                        ],
-                        'status' => Value::STATUS_ARCHIVED,
-                    ]
-                ),
+                [
+                    'id' => 2,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'ruleId' => 3,
+                    'type' => 'route_parameter',
+                    'value' => [
+                        'parameter_name' => 'some_param',
+                        'parameter_values' => [3, 4],
+                    ],
+                ],
+                [
+                    'id' => 3,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'ruleId' => 3,
+                    'type' => 'route_parameter',
+                    'value' => [
+                        'parameter_name' => 'some_other_param',
+                        'parameter_values' => [5, 6],
+                    ],
+                ],
             ],
-            $this->handler->loadRuleConditions($copiedRule)
+            $this->exportObjectArrayVars(
+                $this->handler->loadRuleConditions($copiedRule)
+            )
         );
     }
 
@@ -670,20 +672,22 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetCreateStruct->type = 'target';
         $targetCreateStruct->value = '42';
 
-        $this->assertEquals(
-            new Target(
-                [
-                    'id' => 21,
-                    'ruleId' => 1,
-                    'type' => 'target',
-                    'value' => '42',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->addTarget(
-                $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
-                $targetCreateStruct
-            )
+        $target = $this->handler->addTarget(
+            $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
+            $targetCreateStruct
+        );
+
+        $this->assertInstanceOf(Target::class, $target);
+
+        $this->assertSame(
+            [
+                'id' => 21,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 1,
+                'type' => 'target',
+                'value' => '42',
+            ],
+            $this->exportObjectVars($target)
         );
     }
 
@@ -696,20 +700,22 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetUpdateStruct = new TargetUpdateStruct();
         $targetUpdateStruct->value = 'my_new_route';
 
-        $this->assertEquals(
-            new Target(
-                [
-                    'id' => 1,
-                    'ruleId' => 1,
-                    'type' => 'route',
-                    'value' => 'my_new_route',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->updateTarget(
-                $this->handler->loadTarget(1, Value::STATUS_PUBLISHED),
-                $targetUpdateStruct
-            )
+        $target = $this->handler->updateTarget(
+            $this->handler->loadTarget(1, Value::STATUS_PUBLISHED),
+            $targetUpdateStruct
+        );
+
+        $this->assertInstanceOf(Target::class, $target);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 1,
+                'type' => 'route',
+                'value' => 'my_new_route',
+            ],
+            $this->exportObjectVars($target)
         );
     }
 
@@ -738,20 +744,22 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionCreateStruct->type = 'condition';
         $conditionCreateStruct->value = ['param' => 'value'];
 
-        $this->assertEquals(
-            new Condition(
-                [
-                    'id' => 5,
-                    'ruleId' => 3,
-                    'type' => 'condition',
-                    'value' => ['param' => 'value'],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->addCondition(
-                $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-                $conditionCreateStruct
-            )
+        $condition = $this->handler->addCondition(
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            $conditionCreateStruct
+        );
+
+        $this->assertInstanceOf(Condition::class, $condition);
+
+        $this->assertSame(
+            [
+                'id' => 5,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 3,
+                'type' => 'condition',
+                'value' => ['param' => 'value'],
+            ],
+            $this->exportObjectVars($condition)
         );
     }
 
@@ -764,20 +772,22 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionUpdateStruct = new ConditionUpdateStruct();
         $conditionUpdateStruct->value = ['new_param' => 'new_value'];
 
-        $this->assertEquals(
-            new Condition(
-                [
-                    'id' => 1,
-                    'ruleId' => 2,
-                    'type' => 'route_parameter',
-                    'value' => ['new_param' => 'new_value'],
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            $this->handler->updateCondition(
-                $this->handler->loadCondition(1, Value::STATUS_PUBLISHED),
-                $conditionUpdateStruct
-            )
+        $condition = $this->handler->updateCondition(
+            $this->handler->loadCondition(1, Value::STATUS_PUBLISHED),
+            $conditionUpdateStruct
+        );
+
+        $this->assertInstanceOf(Condition::class, $condition);
+
+        $this->assertSame(
+            [
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 2,
+                'type' => 'route_parameter',
+                'value' => ['new_param' => 'new_value'],
+            ],
+            $this->exportObjectVars($condition)
         );
     }
 

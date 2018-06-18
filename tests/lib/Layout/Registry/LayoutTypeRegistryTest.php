@@ -43,7 +43,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetLayoutTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'layout_type1' => $this->layoutType1,
                 'layout_type2' => $this->layoutType2,
@@ -58,7 +58,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetEnabledLayoutTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'layout_type1' => $this->layoutType1,
             ],
@@ -87,7 +87,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetLayoutType(): void
     {
-        $this->assertEquals($this->layoutType1, $this->registry->getLayoutType('layout_type1'));
+        $this->assertSame($this->layoutType1, $this->registry->getLayoutType('layout_type1'));
     }
 
     /**
@@ -112,7 +112,7 @@ final class LayoutTypeRegistryTest extends TestCase
             $layoutTypes[$identifier] = $layoutType;
         }
 
-        $this->assertEquals($this->registry->getLayoutTypes(), $layoutTypes);
+        $this->assertSame($this->registry->getLayoutTypes(), $layoutTypes);
     }
 
     /**
@@ -137,7 +137,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->layoutType1, $this->registry['layout_type1']);
+        $this->assertSame($this->layoutType1, $this->registry['layout_type1']);
     }
 
     /**

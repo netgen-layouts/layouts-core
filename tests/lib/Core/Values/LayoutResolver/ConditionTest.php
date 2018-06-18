@@ -25,18 +25,20 @@ final class ConditionTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $conditionType = new ConditionType('condition');
+
         $condition = new Condition(
             [
                 'id' => 42,
                 'ruleId' => 30,
-                'conditionType' => new ConditionType('condition'),
+                'conditionType' => $conditionType,
                 'value' => 32,
             ]
         );
 
-        $this->assertEquals(42, $condition->getId());
-        $this->assertEquals(30, $condition->getRuleId());
-        $this->assertEquals(new ConditionType('condition'), $condition->getConditionType());
-        $this->assertEquals(32, $condition->getValue());
+        $this->assertSame(42, $condition->getId());
+        $this->assertSame(30, $condition->getRuleId());
+        $this->assertSame($conditionType, $condition->getConditionType());
+        $this->assertSame(32, $condition->getValue());
     }
 }

@@ -42,19 +42,19 @@ final class CollectionEditTypeTest extends FormTestCase
             'limit' => 5,
         ];
 
-        $updatedStruct = new CollectionUpdateStruct();
-        $updatedStruct->limit = 5;
+        $struct = new CollectionUpdateStruct();
 
         $form = $this->factory->create(
             CollectionEditType::class,
-            new CollectionUpdateStruct(),
+            $struct,
             ['collection' => $this->collection]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(5, $struct->limit);
 
         $view = $form->createView();
         $children = $view->children;
@@ -64,7 +64,7 @@ final class CollectionEditTypeTest extends FormTestCase
         }
 
         $this->assertArrayHasKey('collection', $view->vars);
-        $this->assertEquals($this->collection, $view->vars['collection']);
+        $this->assertSame($this->collection, $view->vars['collection']);
     }
 
     /**
@@ -80,20 +80,20 @@ final class CollectionEditTypeTest extends FormTestCase
             'limit' => 5,
         ];
 
-        $updatedStruct = new CollectionUpdateStruct();
-        $updatedStruct->offset = 10;
-        $updatedStruct->limit = 5;
+        $struct = new CollectionUpdateStruct();
 
         $form = $this->factory->create(
             CollectionEditType::class,
-            new CollectionUpdateStruct(),
+            $struct,
             ['collection' => $this->collection]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(10, $struct->offset);
+        $this->assertSame(5, $struct->limit);
 
         $view = $form->createView();
         $children = $view->children;
@@ -103,7 +103,7 @@ final class CollectionEditTypeTest extends FormTestCase
         }
 
         $this->assertArrayHasKey('collection', $view->vars);
-        $this->assertEquals($this->collection, $view->vars['collection']);
+        $this->assertSame($this->collection, $view->vars['collection']);
     }
 
     /**
@@ -116,16 +116,18 @@ final class CollectionEditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new CollectionUpdateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'collection' => $this->collection,
-                'data' => new CollectionUpdateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->collection, $options['collection']);
-        $this->assertEquals(new CollectionUpdateStruct(), $options['data']);
-        $this->assertEquals('ngbm_forms', $options['translation_domain']);
+        $this->assertSame($this->collection, $options['collection']);
+        $this->assertSame($struct, $options['data']);
+        $this->assertSame('ngbm_forms', $options['translation_domain']);
     }
 
     /**

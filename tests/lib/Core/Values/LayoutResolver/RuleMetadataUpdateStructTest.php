@@ -17,6 +17,6 @@ final class RuleMetadataUpdateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $ruleUpdateStruct->priority);
+        $this->assertSame(42, $ruleUpdateStruct->priority);
     }
 }

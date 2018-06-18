@@ -46,9 +46,9 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals(5, $pager->getMaxPerPage());
-        $this->assertEquals(2, $pager->getCurrentPage());
-        $this->assertEquals(200, $pager->getNbPages());
+        $this->assertSame(5, $pager->getMaxPerPage());
+        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame(200, $pager->getNbPages());
     }
 
     /**
@@ -63,9 +63,9 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals(5, $pager->getMaxPerPage());
-        $this->assertEquals(2, $pager->getCurrentPage());
-        $this->assertEquals(5, $pager->getNbPages());
+        $this->assertSame(5, $pager->getMaxPerPage());
+        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame(5, $pager->getNbPages());
     }
 
     /**
@@ -80,9 +80,9 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals(5, $pager->getMaxPerPage());
-        $this->assertEquals(2, $pager->getCurrentPage());
-        $this->assertEquals(200, $pager->getNbPages());
+        $this->assertSame(5, $pager->getMaxPerPage());
+        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame(200, $pager->getNbPages());
     }
 
     /**
@@ -97,9 +97,9 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals(200, $pager->getMaxPerPage());
-        $this->assertEquals(2, $pager->getCurrentPage());
-        $this->assertEquals(5, $pager->getNbPages());
+        $this->assertSame(200, $pager->getMaxPerPage());
+        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame(5, $pager->getNbPages());
     }
 
     /**
@@ -114,9 +114,9 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals(200, $pager->getMaxPerPage());
-        $this->assertEquals(2, $pager->getCurrentPage());
-        $this->assertEquals(3, $pager->getNbPages());
+        $this->assertSame(200, $pager->getMaxPerPage());
+        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame(3, $pager->getNbPages());
     }
 
     /**
@@ -131,8 +131,8 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals(200, $pager->getMaxPerPage());
-        $this->assertEquals(2, $pager->getCurrentPage());
-        $this->assertEquals(5, $pager->getNbPages());
+        $this->assertSame(200, $pager->getMaxPerPage());
+        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame(5, $pager->getNbPages());
     }
 }

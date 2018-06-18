@@ -35,10 +35,7 @@ final class LayoutIdTest extends TestCase
             )
         );
 
-        $this->assertEquals(
-            42,
-            $this->provider->getValue($item)
-        );
+        $this->assertSame('42', $this->provider->getValue($item));
     }
 
     /**

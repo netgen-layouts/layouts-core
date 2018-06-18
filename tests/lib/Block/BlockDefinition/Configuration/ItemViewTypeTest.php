@@ -25,7 +25,7 @@ final class ItemViewTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('standard', $this->itemViewType->getIdentifier());
+        $this->assertSame('standard', $this->itemViewType->getIdentifier());
     }
 
     /**
@@ -33,6 +33,6 @@ final class ItemViewTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Standard', $this->itemViewType->getName());
+        $this->assertSame('Standard', $this->itemViewType->getName());
     }
 }

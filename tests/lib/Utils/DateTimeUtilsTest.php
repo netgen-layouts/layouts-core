@@ -23,8 +23,8 @@ final class DateTimeUtilsTest extends TestCase
         $dateTime = DateTimeUtils::createFromTimestamp();
 
         $this->assertInstanceOf(DateTimeImmutable::class, $dateTime);
-        $this->assertEquals(1521800000, $dateTime->getTimestamp());
-        $this->assertEquals(date_default_timezone_get(), $dateTime->getTimezone()->getName());
+        $this->assertSame(1521800000, $dateTime->getTimestamp());
+        $this->assertSame(date_default_timezone_get(), $dateTime->getTimezone()->getName());
 
         ClockMock::withClockMock(false);
     }
@@ -37,8 +37,8 @@ final class DateTimeUtilsTest extends TestCase
         $dateTime = DateTimeUtils::createFromTimestamp(123);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $dateTime);
-        $this->assertEquals(123, $dateTime->getTimestamp());
-        $this->assertEquals(date_default_timezone_get(), $dateTime->getTimezone()->getName());
+        $this->assertSame(123, $dateTime->getTimestamp());
+        $this->assertSame(date_default_timezone_get(), $dateTime->getTimezone()->getName());
     }
 
     /**
@@ -49,8 +49,8 @@ final class DateTimeUtilsTest extends TestCase
         $dateTime = DateTimeUtils::createFromTimestamp(123, 'Antarctica/Casey');
 
         $this->assertInstanceOf(DateTimeImmutable::class, $dateTime);
-        $this->assertEquals(123, $dateTime->getTimestamp());
-        $this->assertEquals('Antarctica/Casey', $dateTime->getTimezone()->getName());
+        $this->assertSame(123, $dateTime->getTimestamp());
+        $this->assertSame('Antarctica/Casey', $dateTime->getTimezone()->getName());
     }
 
     /**
@@ -59,7 +59,7 @@ final class DateTimeUtilsTest extends TestCase
      */
     public function testIsBetweenDates(DateTimeInterface $from = null, DateTimeInterface $to = null, bool $result = false): void
     {
-        $this->assertEquals($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
+        $this->assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
 
     public function isBetweenDatesProvider(): array
@@ -100,7 +100,7 @@ final class DateTimeUtilsTest extends TestCase
         }
 
         $this->assertInstanceOf(DateTimeImmutable::class, $dateTime);
-        $this->assertEquals($input['timezone'], $dateTime->getTimezone()->getName());
+        $this->assertSame($input['timezone'], $dateTime->getTimezone()->getName());
     }
 
     public function createFromArrayProvider(): array

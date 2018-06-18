@@ -21,10 +21,10 @@ final class ValueTest extends TestCase
     {
         $value = new Value(['status' => $status]);
 
-        $this->assertEquals($status, $value->getStatus());
-        $this->assertEquals($isDraft, $value->isDraft());
-        $this->assertEquals($isPublished, $value->isPublished());
-        $this->assertEquals($isArchived, $value->isArchived());
+        $this->assertSame($status, $value->getStatus());
+        $this->assertSame($isDraft, $value->isDraft());
+        $this->assertSame($isPublished, $value->isPublished());
+        $this->assertSame($isArchived, $value->isArchived());
     }
 
     public function statusProvider(): array

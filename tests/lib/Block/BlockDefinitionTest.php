@@ -34,6 +34,31 @@ final class BlockDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
+     */
+    private $form;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     */
+    private $collection;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     */
+    private $viewType1;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     */
+    private $viewType2;
+
+    /**
+     * @var ConfigDefinition
+     */
+    private $configDefinition;
+
     public function setUp(): void
     {
         $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
@@ -45,6 +70,13 @@ final class BlockDefinitionTest extends TestCase
 
         $this->handler = new BlockDefinitionHandler([], true);
 
+        $this->form = new Form(['identifier' => 'content']);
+        $this->collection = new Collection(['identifier' => 'collection']);
+        $this->configDefinition = new ConfigDefinition();
+
+        $this->viewType1 = new ViewType(['identifier' => 'large']);
+        $this->viewType2 = new ViewType(['identifier' => 'small']);
+
         $this->blockDefinition = new BlockDefinition(
             [
                 'identifier' => 'block_definition',
@@ -55,16 +87,16 @@ final class BlockDefinitionTest extends TestCase
                 'icon' => '/icon.svg',
                 'isTranslatable' => true,
                 'forms' => [
-                    'content' => new Form(['identifier' => 'content']),
+                    'content' => $this->form,
                 ],
                 'collections' => [
-                    'collection' => new Collection(['identifier' => 'collection']),
+                    'collection' => $this->collection,
                 ],
                 'viewTypes' => [
-                    'large' => new ViewType(['identifier' => 'large']),
-                    'small' => new ViewType(['identifier' => 'small']),
+                    'large' => $this->viewType1,
+                    'small' => $this->viewType2,
                 ],
-                'configDefinitions' => ['config' => new ConfigDefinition()],
+                'configDefinitions' => ['config' => $this->configDefinition],
             ]
         );
     }
@@ -74,7 +106,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
+        $this->assertSame('block_definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -82,7 +114,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Block definition', $this->blockDefinition->getName());
+        $this->assertSame('Block definition', $this->blockDefinition->getName());
     }
 
     /**
@@ -90,7 +122,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertEquals('/icon.svg', $this->blockDefinition->getIcon());
+        $this->assertSame('/icon.svg', $this->blockDefinition->getIcon());
     }
 
     /**
@@ -106,9 +138,9 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetForms(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'content' => new Form(['identifier' => 'content']),
+                'content' => $this->form,
             ],
             $this->blockDefinition->getForms()
         );
@@ -128,8 +160,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetForm(): void
     {
-        $this->assertEquals(
-            new Form(['identifier' => 'content']),
+        $this->assertSame(
+            $this->form,
             $this->blockDefinition->getForm('content')
         );
     }
@@ -149,9 +181,9 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetCollections(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'collection' => new Collection(['identifier' => 'collection']),
+                'collection' => $this->collection,
             ],
             $this->blockDefinition->getCollections()
         );
@@ -171,8 +203,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetCollection(): void
     {
-        $this->assertEquals(
-            new Collection(['identifier' => 'collection']),
+        $this->assertSame(
+            $this->collection,
             $this->blockDefinition->getCollection('collection')
         );
     }
@@ -192,10 +224,10 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetViewTypes(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'large' => new ViewType(['identifier' => 'large']),
-                'small' => new ViewType(['identifier' => 'small']),
+                'large' => $this->viewType1,
+                'small' => $this->viewType2,
             ],
             $this->blockDefinition->getViewTypes()
         );
@@ -206,7 +238,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetViewTypeIdentifiers(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['large', 'small'],
             $this->blockDefinition->getViewTypeIdentifiers()
         );
@@ -226,8 +258,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetViewType(): void
     {
-        $this->assertEquals(
-            new ViewType(['identifier' => 'large']),
+        $this->assertSame(
+            $this->viewType1,
             $this->blockDefinition->getViewType('large')
         );
     }
@@ -261,9 +293,9 @@ final class BlockDefinitionTest extends TestCase
         $this->assertArrayHasKey('closure_param', $dynamicParameters);
         $this->assertArrayHasKey('dynamic_param', $dynamicParameters);
 
-        $this->assertEquals('definition_value', $dynamicParameters['definition_param']);
-        $this->assertEquals('closure_value', $dynamicParameters['closure_param']);
-        $this->assertEquals('dynamic_value', $dynamicParameters['dynamic_param']);
+        $this->assertSame('definition_value', $dynamicParameters['definition_param']);
+        $this->assertSame('closure_value', $dynamicParameters['closure_param']);
+        $this->assertSame('dynamic_value', $dynamicParameters['dynamic_param']);
     }
 
     /**
@@ -287,8 +319,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions(): void
     {
-        $this->assertEquals(
-            ['config' => new ConfigDefinition()],
+        $this->assertSame(
+            ['config' => $this->configDefinition],
             $this->blockDefinition->getConfigDefinitions()
         );
     }

@@ -27,6 +27,6 @@ final class ViewTest extends TestCase
      */
     public function testGetVersion(): void
     {
-        $this->assertEquals(42, $this->value->getVersion());
+        $this->assertSame(42, $this->value->getVersion());
     }
 }

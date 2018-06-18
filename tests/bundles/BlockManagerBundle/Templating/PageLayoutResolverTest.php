@@ -25,6 +25,6 @@ final class PageLayoutResolverTest extends TestCase
      */
     public function testResolvePageLayout(): void
     {
-        $this->assertEquals('defaultPagelayout', $this->resolver->resolvePageLayout());
+        $this->assertSame('defaultPagelayout', $this->resolver->resolvePageLayout());
     }
 }

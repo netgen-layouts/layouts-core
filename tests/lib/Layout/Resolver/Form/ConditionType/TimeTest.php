@@ -58,21 +58,11 @@ final class TimeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ConditionCreateStruct();
-        $updatedStruct->value = [
-            'from' => [
-                'datetime' => '2018-02-15 13:00:00',
-                'timezone' => 'Antarctica/Casey',
-            ],
-            'to' => [
-                'datetime' => '2018-02-20 13:00:00',
-                'timezone' => 'Antarctica/Casey',
-            ],
-        ];
+        $struct = new ConditionCreateStruct();
 
         $form = $this->factory->create(
             ConditionType::class,
-            new ConditionCreateStruct(),
+            $struct,
             ['condition_type' => $this->conditionType]
         );
 
@@ -81,13 +71,26 @@ final class TimeTest extends FormTestCase
 
         $form->submit($submittedData);
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(
+            [
+                'from' => [
+                    'datetime' => '2018-02-15 13:00:00',
+                    'timezone' => 'Antarctica/Casey',
+                ],
+                'to' => [
+                    'datetime' => '2018-02-20 13:00:00',
+                    'timezone' => 'Antarctica/Casey',
+                ],
+            ],
+            $struct->value
+        );
 
         $formView = $form->createView();
 
         $this->assertArrayHasKey('value', $formView->children);
 
         $this->assertArrayHasKey('condition_type', $formView->vars);
-        $this->assertEquals($this->conditionType, $formView->vars['condition_type']);
+        $this->assertSame($this->conditionType, $formView->vars['condition_type']);
     }
 }

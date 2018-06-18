@@ -25,7 +25,7 @@ final class FormTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('content', $this->form->getIdentifier());
+        $this->assertSame('content', $this->form->getIdentifier());
     }
 
     /**
@@ -33,6 +33,6 @@ final class FormTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertEquals('form_type', $this->form->getType());
+        $this->assertSame('form_type', $this->form->getType());
     }
 }

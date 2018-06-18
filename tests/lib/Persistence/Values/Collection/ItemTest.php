@@ -24,12 +24,12 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $item->id);
-        $this->assertEquals(30, $item->collectionId);
-        $this->assertEquals(3, $item->position);
-        $this->assertEquals(Item::TYPE_OVERRIDE, $item->type);
-        $this->assertEquals(32, $item->value);
-        $this->assertEquals('my_value_type', $item->valueType);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $item->status);
+        $this->assertSame(42, $item->id);
+        $this->assertSame(30, $item->collectionId);
+        $this->assertSame(3, $item->position);
+        $this->assertSame(Item::TYPE_OVERRIDE, $item->type);
+        $this->assertSame(32, $item->value);
+        $this->assertSame('my_value_type', $item->valueType);
+        $this->assertSame(Value::STATUS_PUBLISHED, $item->status);
     }
 }

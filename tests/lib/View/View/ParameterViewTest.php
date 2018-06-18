@@ -51,7 +51,7 @@ final class ParameterViewTest extends TestCase
      */
     public function testGetParameter(): void
     {
-        $this->assertEquals($this->parameter, $this->view->getParameterValue());
+        $this->assertSame($this->parameter, $this->view->getParameterValue());
     }
 
     /**
@@ -59,10 +59,10 @@ final class ParameterViewTest extends TestCase
      */
     public function testGetParameters(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'param' => 'value',
                 'parameter' => $this->parameter,
+                'param' => 'value',
             ],
             $this->view->getParameters()
         );
@@ -73,6 +73,6 @@ final class ParameterViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('parameter_view', $this->view->getIdentifier());
+        $this->assertSame('parameter_view', $this->view->getIdentifier());
     }
 }

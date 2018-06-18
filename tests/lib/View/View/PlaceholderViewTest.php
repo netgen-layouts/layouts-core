@@ -21,14 +21,20 @@ final class PlaceholderViewTest extends TestCase
      */
     private $view;
 
+    /**
+     * @var \Netgen\BlockManager\API\Values\Block\Block
+     */
+    private $block;
+
     public function setUp(): void
     {
+        $this->block = new Block(['id' => 42]);
         $this->placeholder = new Placeholder(['identifier' => 'main']);
 
         $this->view = new PlaceholderView(
             [
                 'placeholder' => $this->placeholder,
-                'block' => new Block(['id' => 42]),
+                'block' => $this->block,
             ]
         );
 
@@ -43,7 +49,7 @@ final class PlaceholderViewTest extends TestCase
      */
     public function testGetPlaceholder(): void
     {
-        $this->assertEquals($this->placeholder, $this->view->getPlaceholder());
+        $this->assertSame($this->placeholder, $this->view->getPlaceholder());
     }
 
     /**
@@ -51,7 +57,7 @@ final class PlaceholderViewTest extends TestCase
      */
     public function testGetBlock(): void
     {
-        $this->assertEquals(new Block(['id' => 42]), $this->view->getBlock());
+        $this->assertSame($this->block, $this->view->getBlock());
     }
 
     /**
@@ -59,11 +65,11 @@ final class PlaceholderViewTest extends TestCase
      */
     public function testGetParameters(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'param' => 'value',
                 'placeholder' => $this->placeholder,
-                'block' => new Block(['id' => 42]),
+                'block' => $this->block,
+                'param' => 'value',
             ],
             $this->view->getParameters()
         );
@@ -74,6 +80,6 @@ final class PlaceholderViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('placeholder_view', $this->view->getIdentifier());
+        $this->assertSame('placeholder_view', $this->view->getIdentifier());
     }
 }

@@ -30,8 +30,8 @@ final class LayoutTest extends TestCase
     {
         $layout = new Layout();
 
-        $this->assertEquals([], $layout->getZones());
-        $this->assertEquals([], $layout->getAvailableLocales());
+        $this->assertSame([], $layout->getZones());
+        $this->assertSame([], $layout->getAvailableLocales());
     }
 
     /**
@@ -64,6 +64,8 @@ final class LayoutTest extends TestCase
         $modifiedDate = new DateTimeImmutable();
         $modifiedDate->setTimestamp(456);
 
+        $layoutType = new LayoutType(['identifier' => '4_zones_a']);
+
         $zones = [
             'left' => new Zone(['identifier' => 'left']),
             'right' => new Zone(['identifier' => 'right', 'linkedZone' => new Zone()]),
@@ -72,7 +74,7 @@ final class LayoutTest extends TestCase
         $layout = new Layout(
             [
                 'id' => 42,
-                'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
+                'layoutType' => $layoutType,
                 'name' => 'My layout',
                 'description' => 'My description',
                 'created' => $createdDate,
@@ -84,31 +86,31 @@ final class LayoutTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $layout->getId());
-        $this->assertEquals(new LayoutType(['identifier' => '4_zones_a']), $layout->getLayoutType());
-        $this->assertEquals('My layout', $layout->getName());
-        $this->assertEquals('My description', $layout->getDescription());
-        $this->assertEquals($createdDate, $layout->getCreated());
-        $this->assertEquals($modifiedDate, $layout->getModified());
+        $this->assertSame(42, $layout->getId());
+        $this->assertSame($layoutType, $layout->getLayoutType());
+        $this->assertSame('My layout', $layout->getName());
+        $this->assertSame('My description', $layout->getDescription());
+        $this->assertSame($createdDate, $layout->getCreated());
+        $this->assertSame($modifiedDate, $layout->getModified());
         $this->assertTrue($layout->isShared());
-        $this->assertEquals($zones, $layout->getZones());
+        $this->assertSame($zones, $layout->getZones());
         $this->assertNull($layout->getZone('test'));
         $this->assertFalse($layout->hasZone('test'));
-        $this->assertEquals($zones['right']->getLinkedZone(), $layout->getZone('right'));
-        $this->assertEquals($zones['right'], $layout->getZone('right', true));
+        $this->assertSame($zones['right']->getLinkedZone(), $layout->getZone('right'));
+        $this->assertSame($zones['right'], $layout->getZone('right', true));
         $this->assertTrue($layout->hasZone('right'));
-        $this->assertEquals('en', $layout->getMainLocale());
-        $this->assertEquals(['en'], $layout->getAvailableLocales());
+        $this->assertSame('en', $layout->getMainLocale());
+        $this->assertSame(['en'], $layout->getAvailableLocales());
         $this->assertTrue($layout->hasLocale('en'));
         $this->assertFalse($layout->hasLocale('hr'));
 
         $this->assertInstanceOf(Traversable::class, $layout->getIterator());
-        $this->assertEquals($zones, iterator_to_array($layout->getIterator()));
+        $this->assertSame($zones, iterator_to_array($layout->getIterator()));
 
         $this->assertCount(2, $layout);
 
         $this->assertTrue(isset($layout['left']));
-        $this->assertEquals($zones['left'], $layout['left']);
+        $this->assertSame($zones['left'], $layout['left']);
 
         try {
             $layout['left'] = new Zone();

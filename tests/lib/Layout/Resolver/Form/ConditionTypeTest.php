@@ -56,15 +56,17 @@ final class ConditionTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new ConditionCreateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'condition_type' => $this->conditionType,
-                'data' => new ConditionCreateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->conditionType, $options['condition_type']);
-        $this->assertEquals(new ConditionCreateStruct(), $options['data']);
+        $this->assertSame($this->conditionType, $options['condition_type']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

@@ -31,7 +31,7 @@ final class ExceptionNormalizerTest extends TestCase
     {
         $exception = new Exception('Exception message', 123);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -59,9 +59,9 @@ final class ExceptionNormalizerTest extends TestCase
         $this->assertArrayHasKey('file', $data['debug']);
         $this->assertArrayHasKey('trace', $data['debug']);
 
-        $this->assertEquals($exception->getCode(), $data['code']);
-        $this->assertEquals($exception->getMessage(), $data['message']);
-        $this->assertEquals(__FILE__, $data['debug']['file']);
+        $this->assertSame($exception->getCode(), $data['code']);
+        $this->assertSame($exception->getMessage(), $data['message']);
+        $this->assertSame(__FILE__, $data['debug']['file']);
         $this->assertGreaterThan(0, $data['debug']['line']);
         $this->assertNotEmpty($data['debug']['trace']);
     }
@@ -73,7 +73,7 @@ final class ExceptionNormalizerTest extends TestCase
     {
         $exception = new NotFoundHttpException('Exception message', null, 123);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -93,7 +93,7 @@ final class ExceptionNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->exceptionNormalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->exceptionNormalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

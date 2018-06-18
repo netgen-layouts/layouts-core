@@ -16,7 +16,7 @@ final class ParameterExceptionTest extends TestCase
     {
         $exception = ParameterException::noParameter('param');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter with "param" name does not exist.',
             $exception->getMessage()
         );

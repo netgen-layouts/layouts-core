@@ -10,12 +10,15 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterBuilderTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
      */
@@ -59,7 +62,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertEquals('test', $this->builder->get('test')->getName());
+        $this->assertSame('test', $this->builder->get('test')->getName());
     }
 
     /**
@@ -77,7 +80,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->registry->getParameterType('text'),
             $this->builder->get('test')->getType()
         );
@@ -99,7 +102,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             ['reverse' => true],
             $this->builder->get('test')->getOptions()
         );
@@ -181,8 +184,8 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('min', 42);
 
-        $this->assertEquals(42, $this->builder->get('test')->getOption('min'));
-        $this->assertEquals(100, $this->builder->get('test')->getOption('max'));
+        $this->assertSame(42, $this->builder->get('test')->getOption('min'));
+        $this->assertSame(100, $this->builder->get('test')->getOption('max'));
     }
 
     /**
@@ -218,7 +221,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('default_value', 'test2');
 
-        $this->assertEquals('test2', $this->builder->get('test')->getDefaultValue());
+        $this->assertSame('test2', $this->builder->get('test')->getDefaultValue());
     }
 
     /**
@@ -236,7 +239,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('label', 'test2');
 
-        $this->assertEquals('test2', $this->builder->get('test')->getLabel());
+        $this->assertSame('test2', $this->builder->get('test')->getLabel());
     }
 
     /**
@@ -254,7 +257,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('groups', ['test2']);
 
-        $this->assertEquals(['test2'], $this->builder->get('test')->getGroups());
+        $this->assertSame(['test2'], $this->builder->get('test')->getGroups());
     }
 
     /**
@@ -308,7 +311,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setDefaultValue(42);
 
-        $this->assertEquals(42, $this->builder->get('test')->getDefaultValue());
+        $this->assertSame(42, $this->builder->get('test')->getDefaultValue());
     }
 
     /**
@@ -335,7 +338,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setLabel('Custom label');
 
-        $this->assertEquals('Custom label', $this->builder->get('test')->getLabel());
+        $this->assertSame('Custom label', $this->builder->get('test')->getLabel());
     }
 
     /**
@@ -362,7 +365,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setGroups(['group']);
 
-        $this->assertEquals(['group'], $this->builder->get('test')->getGroups());
+        $this->assertSame(['group'], $this->builder->get('test')->getGroups());
     }
 
     /**
@@ -370,7 +373,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetGroupsWithoutParentBuilder(): void
     {
-        $this->assertEquals([], $this->builder->getGroups());
+        $this->assertSame([], $this->builder->getGroups());
     }
 
     /**
@@ -380,14 +383,16 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetSetConstraints(): void
     {
+        $constraints = [new NotBlank(), function (): void {}];
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class
         );
 
-        $this->builder->get('test')->setConstraints([new NotBlank(), function (): void {}]);
+        $this->builder->get('test')->setConstraints($constraints);
 
-        $this->assertEquals([new NotBlank(), function (): void {}], $this->builder->get('test')->getConstraints());
+        $this->assertSame($constraints, $this->builder->get('test')->getConstraints());
     }
 
     /**
@@ -395,7 +400,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetConstraintsWithoutParentBuilder(): void
     {
-        $this->assertEquals([], $this->builder->getConstraints());
+        $this->assertSame([], $this->builder->getConstraints());
     }
 
     /**
@@ -444,7 +449,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertEquals(['group'], $this->builder->get('test')->get('test2')->getGroups());
+        $this->assertSame(['group'], $this->builder->get('test')->get('test2')->getGroups());
     }
 
     /**
@@ -880,6 +885,8 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testBuildParameterDefinitionsAfterBuildingParameters(): void
     {
+        $constraints = [new NotBlank()];
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -888,7 +895,7 @@ final class ParameterBuilderTest extends TestCase
                 'default_value' => 'test value',
                 'label' => null,
                 'groups' => ['group'],
-                'constraints' => [new NotBlank()],
+                'constraints' => $constraints,
             ]
         );
 
@@ -896,22 +903,21 @@ final class ParameterBuilderTest extends TestCase
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
-        $this->assertEquals(
-            $parameterDefinitions,
+        $this->assertArrayHasKey('test', $parameterDefinitions);
+        $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
+
+        $this->assertSame(
             [
-                'test' => new ParameterDefinition(
-                    [
-                        'name' => 'test',
-                        'type' => $this->registry->getParameterType('text'),
-                        'options' => [],
-                        'isRequired' => true,
-                        'defaultValue' => 'test value',
-                        'label' => null,
-                        'groups' => ['group'],
-                        'constraints' => [new NotBlank()],
-                    ]
-                ),
-            ]
+                'name' => 'test',
+                'type' => $this->registry->getParameterType('text'),
+                'options' => [],
+                'isRequired' => true,
+                'defaultValue' => 'test value',
+                'label' => null,
+                'groups' => ['group'],
+                'constraints' => $constraints,
+            ],
+            $this->exportObjectVars($parameterDefinitions['test'])
         );
     }
 
@@ -928,22 +934,21 @@ final class ParameterBuilderTest extends TestCase
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
-        $this->assertEquals(
-            $parameterDefinitions,
+        $this->assertArrayHasKey('test', $parameterDefinitions);
+        $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
+
+        $this->assertSame(
             [
-                'test' => new ParameterDefinition(
-                    [
-                        'name' => 'test',
-                        'type' => $this->registry->getParameterType('text'),
-                        'options' => [],
-                        'isRequired' => false,
-                        'defaultValue' => null,
-                        'label' => null,
-                        'groups' => [],
-                        'constraints' => [],
-                    ]
-                ),
-            ]
+                'name' => 'test',
+                'type' => $this->registry->getParameterType('text'),
+                'options' => [],
+                'isRequired' => false,
+                'defaultValue' => null,
+                'label' => null,
+                'groups' => [],
+                'constraints' => [],
+            ],
+            $this->exportObjectVars($parameterDefinitions['test'])
         );
     }
 

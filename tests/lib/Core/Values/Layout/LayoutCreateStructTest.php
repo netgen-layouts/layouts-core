@@ -19,9 +19,11 @@ final class LayoutCreateStructTest extends TestCase
 
     public function testSetProperties(): void
     {
+        $layoutType = new LayoutType();
+
         $layoutCreateStruct = new LayoutCreateStruct(
             [
-                'layoutType' => new LayoutType(),
+                'layoutType' => $layoutType,
                 'name' => 'My layout',
                 'description' => 'My description',
                 'shared' => true,
@@ -29,10 +31,10 @@ final class LayoutCreateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(new LayoutType(), $layoutCreateStruct->layoutType);
-        $this->assertEquals('My layout', $layoutCreateStruct->name);
-        $this->assertEquals('My description', $layoutCreateStruct->description);
+        $this->assertSame($layoutType, $layoutCreateStruct->layoutType);
+        $this->assertSame('My layout', $layoutCreateStruct->name);
+        $this->assertSame('My description', $layoutCreateStruct->description);
         $this->assertTrue($layoutCreateStruct->shared);
-        $this->assertEquals('en', $layoutCreateStruct->mainLocale);
+        $this->assertSame('en', $layoutCreateStruct->mainLocale);
     }
 }

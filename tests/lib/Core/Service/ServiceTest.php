@@ -55,7 +55,7 @@ final class ServiceTest extends TestCase
             }
         );
 
-        $this->assertEquals(42, $return);
+        $this->assertSame(42, $return);
     }
 
     /**

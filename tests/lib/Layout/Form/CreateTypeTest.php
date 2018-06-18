@@ -79,27 +79,23 @@ final class CreateTypeTest extends FormTestCase
             'mainLocale' => 'en',
         ];
 
-        $updatedStruct = new LayoutCreateStruct();
-        $updatedStruct->name = 'My layout';
-        $updatedStruct->layoutType = new LayoutType(
-            [
-                'name' => '4 zones A',
-                'identifier' => '4_zones_a',
-                'isEnabled' => true,
-            ]
-        );
-        $updatedStruct->shared = true;
-        $updatedStruct->mainLocale = 'en';
+        $struct = new LayoutCreateStruct();
 
         $form = $this->factory->create(
             CreateType::class,
-            new LayoutCreateStruct()
+            $struct
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('My layout', $struct->name);
+        $this->assertTrue($struct->shared);
+        $this->assertSame('en', $struct->mainLocale);
+
+        $this->assertInstanceOf(LayoutType::class, $struct->layoutType);
+        $this->assertEquals('4_zones_a', $struct->layoutType->getIdentifier());
 
         $view = $form->createView();
         $children = $view->children;
@@ -108,14 +104,14 @@ final class CreateTypeTest extends FormTestCase
             $this->assertArrayHasKey($key, $children);
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->layoutTypeRegistry->getLayoutTypes(true),
             $form->get('layoutType')->getConfig()->getOption('choices')
         );
 
         $this->assertArrayHasKey('layout_types', $view['layoutType']->vars);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->layoutTypeRegistry->getLayoutTypes(true),
             $view['layoutType']->vars['layout_types']
         );
@@ -131,13 +127,15 @@ final class CreateTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new LayoutCreateStruct();
+
         $options = $optionsResolver->resolve(
             [
-                'data' => new LayoutCreateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals(new LayoutCreateStruct(), $options['data']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

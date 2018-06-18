@@ -30,7 +30,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('collection', $this->collection->getIdentifier());
+        $this->assertSame('collection', $this->collection->getIdentifier());
     }
 
     /**
@@ -38,7 +38,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetValidQueryTypes(): void
     {
-        $this->assertEquals(['query'], $this->collection->getValidQueryTypes());
+        $this->assertSame(['query'], $this->collection->getValidQueryTypes());
     }
 
     /**
@@ -85,7 +85,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetValidItemTypes(): void
     {
-        $this->assertEquals(['item'], $this->collection->getValidItemTypes());
+        $this->assertSame(['item'], $this->collection->getValidItemTypes());
     }
 
     /**

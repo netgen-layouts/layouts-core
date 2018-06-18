@@ -40,7 +40,7 @@ final class BlockViewTest extends TestCase
      */
     public function testGetBlock(): void
     {
-        $this->assertEquals($this->block, $this->view->getBlock());
+        $this->assertSame($this->block, $this->view->getBlock());
     }
 
     /**
@@ -48,10 +48,10 @@ final class BlockViewTest extends TestCase
      */
     public function testGetParameters(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'param' => 'value',
                 'block' => $this->block,
+                'param' => 'value',
             ],
             $this->view->getParameters()
         );
@@ -62,6 +62,6 @@ final class BlockViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('block_view', $this->view->getIdentifier());
+        $this->assertSame('block_view', $this->view->getIdentifier());
     }
 }

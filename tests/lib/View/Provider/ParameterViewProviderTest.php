@@ -36,10 +36,10 @@ final class ParameterViewProviderTest extends TestCase
 
         $this->assertInstanceOf(ParameterViewInterface::class, $view);
 
-        $this->assertEquals($parameter, $view->getParameterValue());
-        $this->assertEquals(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
+        $this->assertSame($parameter, $view->getParameterValue());
+        $this->assertSame(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'parameter' => $parameter,
             ],
@@ -56,7 +56,7 @@ final class ParameterViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->parameterViewProvider->supports($value));
+        $this->assertSame($supports, $this->parameterViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

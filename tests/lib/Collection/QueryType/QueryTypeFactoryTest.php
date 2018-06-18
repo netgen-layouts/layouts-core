@@ -54,10 +54,10 @@ final class QueryTypeFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
-        $this->assertEquals('type', $queryType->getType());
+        $this->assertSame('type', $queryType->getType());
 
         $this->assertFalse($queryType->isEnabled());
-        $this->assertEquals('Query type', $queryType->getName());
+        $this->assertSame('Query type', $queryType->getName());
     }
 
     /**
@@ -75,9 +75,9 @@ final class QueryTypeFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
-        $this->assertEquals('type', $queryType->getType());
+        $this->assertSame('type', $queryType->getType());
 
         $this->assertTrue($queryType->isEnabled());
-        $this->assertEquals('', $queryType->getName());
+        $this->assertSame('', $queryType->getName());
     }
 }

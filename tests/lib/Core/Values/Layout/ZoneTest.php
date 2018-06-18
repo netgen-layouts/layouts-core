@@ -24,17 +24,19 @@ final class ZoneTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $linkedZone = new Zone();
+
         $zone = new Zone(
             [
                 'identifier' => 'left',
                 'layoutId' => 84,
-                'linkedZone' => new Zone(),
+                'linkedZone' => $linkedZone,
             ]
         );
 
-        $this->assertEquals('left', $zone->getIdentifier());
-        $this->assertEquals(84, $zone->getLayoutId());
+        $this->assertSame('left', $zone->getIdentifier());
+        $this->assertSame(84, $zone->getLayoutId());
         $this->assertTrue($zone->hasLinkedZone());
-        $this->assertEquals(new Zone(), $zone->getLinkedZone());
+        $this->assertSame($linkedZone, $zone->getLinkedZone());
     }
 }

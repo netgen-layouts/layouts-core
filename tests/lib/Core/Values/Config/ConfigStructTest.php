@@ -26,9 +26,11 @@ final class ConfigStructTest extends TestCase
      */
     public function testGetConfigStruct(): void
     {
-        $this->struct->setConfigStruct('test', new ConfigStruct());
+        $struct = new ConfigStruct();
 
-        $this->assertEquals(new ConfigStruct(), $this->struct->getConfigStruct('test'));
+        $this->struct->setConfigStruct('test', $struct);
+
+        $this->assertSame($struct, $this->struct->getConfigStruct('test'));
     }
 
     /**
@@ -62,8 +64,10 @@ final class ConfigStructTest extends TestCase
      */
     public function testGetConfigStructs(): void
     {
-        $this->struct->setConfigStruct('test', new ConfigStruct());
+        $struct = new ConfigStruct();
 
-        $this->assertEquals(['test' => new ConfigStruct()], $this->struct->getConfigStructs());
+        $this->struct->setConfigStruct('test', $struct);
+
+        $this->assertSame(['test' => $struct], $this->struct->getConfigStructs());
     }
 }

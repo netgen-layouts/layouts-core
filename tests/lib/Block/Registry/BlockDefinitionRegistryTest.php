@@ -36,7 +36,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testAddBlockDefinition(): void
     {
-        $this->assertEquals(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
+        $this->assertSame(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
     }
 
     /**
@@ -44,7 +44,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testGetBlockDefinition(): void
     {
-        $this->assertEquals($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
+        $this->assertSame($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
     }
 
     /**
@@ -85,7 +85,7 @@ final class BlockDefinitionRegistryTest extends TestCase
             $blockDefinitions[$identifier] = $blockDefinition;
         }
 
-        $this->assertEquals($this->registry->getBlockDefinitions(), $blockDefinitions);
+        $this->assertSame($this->registry->getBlockDefinitions(), $blockDefinitions);
     }
 
     /**
@@ -110,7 +110,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->blockDefinition, $this->registry['block_definition']);
+        $this->assertSame($this->blockDefinition, $this->registry['block_definition']);
     }
 
     /**

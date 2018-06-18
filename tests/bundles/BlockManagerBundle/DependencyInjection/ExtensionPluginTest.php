@@ -28,7 +28,7 @@ final class ExtensionPluginTest extends TestCase
     public function testPreProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->preProcessConfiguration([]);
-        $this->assertEquals([], $processedConfig);
+        $this->assertSame([], $processedConfig);
     }
 
     /**
@@ -37,7 +37,7 @@ final class ExtensionPluginTest extends TestCase
     public function testPostProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->postProcessConfiguration([]);
-        $this->assertEquals([], $processedConfig);
+        $this->assertSame([], $processedConfig);
     }
 
     /**
@@ -89,7 +89,7 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testGetConfigurationNodes(): void
     {
-        $this->assertEquals([], $this->plugin->getConfigurationNodes());
+        $this->assertSame([], $this->plugin->getConfigurationNodes());
     }
 
     /**
@@ -97,6 +97,6 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testAppendConfigurationFiles(): void
     {
-        $this->assertEquals([], $this->plugin->appendConfigurationFiles());
+        $this->assertSame([], $this->plugin->appendConfigurationFiles());
     }
 }

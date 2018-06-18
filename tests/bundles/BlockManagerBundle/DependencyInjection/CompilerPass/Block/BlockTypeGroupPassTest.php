@@ -133,7 +133,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $blockTypeGroups = $this->container->getParameter('netgen_block_manager.block_type_groups');
         $this->assertArrayHasKey('custom', $blockTypeGroups);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'enabled' => true,
                 'block_types' => ['test2', 'test3'],
@@ -168,7 +168,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $blockTypeGroups = $this->container->getParameter('netgen_block_manager.block_type_groups');
         $this->assertArrayHasKey('test', $blockTypeGroups);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'enabled' => false,
                 'block_types' => [],

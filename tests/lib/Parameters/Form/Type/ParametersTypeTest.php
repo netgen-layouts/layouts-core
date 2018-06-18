@@ -56,15 +56,11 @@ final class ParametersTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
-        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
-        $updatedStruct->setParameterValue('compound', true);
-        $updatedStruct->setParameterValue('inner', 'Inner value');
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $compoundParameter = new CompoundParameterDefinition(
@@ -119,20 +115,29 @@ final class ParametersTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(
+            [
+                'css_class' => 'Some CSS class',
+                'css_id' => 'Some CSS ID',
+                'compound' => true,
+                'inner' => 'Inner value',
+            ],
+            $struct->getParameterValues()
+        );
 
         $this->assertCount(3, $parentForm->get('parameter_values')->all());
 
         foreach (array_keys($submittedData['parameter_values']) as $key) {
             $paramForm = $parentForm->get('parameter_values')->get($key);
 
-            $this->assertEquals('parameterValues[' . $key . ']', $paramForm->getPropertyPath());
+            $this->assertSame('parameterValues[' . $key . ']', (string) $paramForm->getPropertyPath());
             $this->assertInstanceOf(
                 $key === 'compound' ? CompoundBooleanType::class : TextType::class,
                 $paramForm->getConfig()->getType()->getInnerType()
             );
 
-            $this->assertEquals(
+            $this->assertSame(
                 $parameterDefinitions->getParameterDefinition($key)->getLabel() ?? 'label.' . $key,
                 $paramForm->getConfig()->getOption('label')
             );
@@ -162,12 +167,11 @@ final class ParametersTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $parameterDefinitions = new ParameterDefinitionCollection(
@@ -204,7 +208,8 @@ final class ParametersTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(['css_id' => 'Some CSS ID'], $struct->getParameterValues());
 
         $this->assertCount(1, $parentForm->get('parameter_values')->all());
         $this->assertTrue($parentForm->get('parameter_values')->has('css_id'));
@@ -221,19 +226,21 @@ final class ParametersTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $parameterDefinitions = new ParameterDefinitionCollection();
+
         $options = [
-            'parameter_definitions' => new ParameterDefinitionCollection(),
+            'parameter_definitions' => $parameterDefinitions,
             'label_prefix' => 'label',
         ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'parameter_definitions' => new ParameterDefinitionCollection(),
-                'label_prefix' => 'label',
-                'groups' => [],
                 'translation_domain' => 'ngbm',
+                'groups' => [],
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
             ],
             $resolvedOptions
         );

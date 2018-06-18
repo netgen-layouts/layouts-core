@@ -56,15 +56,17 @@ final class TargetTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new TargetCreateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'target_type' => $this->targetType,
-                'data' => new TargetCreateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->targetType, $options['target_type']);
-        $this->assertEquals(new TargetCreateStruct(), $options['data']);
+        $this->assertSame($this->targetType, $options['target_type']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

@@ -53,7 +53,7 @@ final class ItemDefinitionFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(ItemDefinitionInterface::class, $itemDefinition);
-        $this->assertEquals('value_type', $itemDefinition->getValueType());
+        $this->assertSame('value_type', $itemDefinition->getValueType());
 
         $configDefinitions = $itemDefinition->getConfigDefinitions();
         $this->assertArrayHasKey('test', $configDefinitions);

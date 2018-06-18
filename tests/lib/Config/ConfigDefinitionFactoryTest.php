@@ -57,6 +57,6 @@ final class ConfigDefinitionFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinition);
-        $this->assertEquals('definition', $configDefinition->getConfigKey());
+        $this->assertSame('definition', $configDefinition->getConfigKey());
     }
 }

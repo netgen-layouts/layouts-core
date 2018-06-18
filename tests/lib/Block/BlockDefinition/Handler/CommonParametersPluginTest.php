@@ -49,7 +49,7 @@ final class CommonParametersPluginTest extends TestCase
     {
         $plugin = $this->plugin;
 
-        $this->assertEquals([BlockDefinitionHandlerInterface::class], $plugin::getExtendedHandler());
+        $this->assertSame([BlockDefinitionHandlerInterface::class], $plugin::getExtendedHandler());
     }
 
     /**
@@ -64,17 +64,17 @@ final class CommonParametersPluginTest extends TestCase
 
         $this->assertTrue($builder->has('css_class'));
         $this->assertInstanceOf(ParameterType\TextLineType::class, $builder->get('css_class')->getType());
-        $this->assertEquals(['group'], $builder->get('css_class')->getGroups());
+        $this->assertSame(['group'], $builder->get('css_class')->getGroups());
         $this->assertFalse($builder->get('css_class')->getOption('translatable'));
 
         $this->assertTrue($builder->has('css_id'));
         $this->assertInstanceOf(ParameterType\TextLineType::class, $builder->get('css_id')->getType());
-        $this->assertEquals(['group'], $builder->get('css_id')->getGroups());
+        $this->assertSame(['group'], $builder->get('css_id')->getGroups());
         $this->assertFalse($builder->get('css_id')->getOption('translatable'));
 
         $this->assertTrue($builder->has('set_container'));
         $this->assertInstanceOf(ParameterType\BooleanType::class, $builder->get('set_container')->getType());
-        $this->assertEquals(['group'], $builder->get('set_container')->getGroups());
+        $this->assertSame(['group'], $builder->get('set_container')->getGroups());
         $this->assertFalse($builder->get('set_container')->getOption('translatable'));
     }
 }

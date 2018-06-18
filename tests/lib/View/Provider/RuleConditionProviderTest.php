@@ -35,9 +35,9 @@ final class RuleConditionProviderTest extends TestCase
 
         $this->assertInstanceOf(RuleConditionViewInterface::class, $view);
 
-        $this->assertEquals($condition, $view->getCondition());
+        $this->assertSame($condition, $view->getCondition());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'condition' => $condition,
             ],
@@ -54,7 +54,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->ruleConditionViewProvider->supports($value));
+        $this->assertSame($supports, $this->ruleConditionViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

@@ -45,7 +45,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
         $this->registry->addBlockTypeGroup('test', $this->blockTypeGroup);
 
         $this->assertTrue($this->registry->hasBlockTypeGroup('test'));
-        $this->assertEquals($this->blockTypeGroup, $this->registry->getBlockTypeGroup('test'));
+        $this->assertSame($this->blockTypeGroup, $this->registry->getBlockTypeGroup('test'));
     }
 
     /**
@@ -53,7 +53,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
      */
     public function testGetBlockTypeGroups(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'block_type_group' => $this->blockTypeGroup,
                 'block_type_group2' => $this->blockTypeGroup2,
@@ -67,7 +67,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
      */
     public function testGetEnabledBlockTypeGroups(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'block_type_group' => $this->blockTypeGroup,
             ],
@@ -96,7 +96,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
      */
     public function testGetBlockTypeGroup(): void
     {
-        $this->assertEquals($this->blockTypeGroup, $this->registry->getBlockTypeGroup('block_type_group'));
+        $this->assertSame($this->blockTypeGroup, $this->registry->getBlockTypeGroup('block_type_group'));
     }
 
     /**
@@ -121,7 +121,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
             $blockTypeGroups[$identifier] = $blockTypeGroup;
         }
 
-        $this->assertEquals($this->registry->getBlockTypeGroups(), $blockTypeGroups);
+        $this->assertSame($this->registry->getBlockTypeGroups(), $blockTypeGroups);
     }
 
     /**
@@ -146,7 +146,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->blockTypeGroup, $this->registry['block_type_group']);
+        $this->assertSame($this->blockTypeGroup, $this->registry['block_type_group']);
     }
 
     /**

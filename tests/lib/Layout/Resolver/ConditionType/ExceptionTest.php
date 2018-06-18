@@ -28,7 +28,7 @@ final class ExceptionTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertEquals('exception', $this->conditionType->getType());
+        $this->assertSame('exception', $this->conditionType->getType());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ExceptionTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -60,7 +60,7 @@ final class ExceptionTest extends TestCase
 
         $request->attributes->set('exception', FlattenException::create(new Exception(), 404));
 
-        $this->assertEquals($matches, $this->conditionType->matches($request, $value));
+        $this->assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
     /**

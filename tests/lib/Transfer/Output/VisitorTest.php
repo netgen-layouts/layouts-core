@@ -26,7 +26,7 @@ final class VisitorTest extends TestCase
      */
     public function testVisit(int $status, array $visitedValue): void
     {
-        $this->assertEquals($visitedValue, $this->visitor->visit(new Value(['status' => $status])));
+        $this->assertSame($visitedValue, $this->visitor->visit(new Value(['status' => $status])));
     }
 
     /**

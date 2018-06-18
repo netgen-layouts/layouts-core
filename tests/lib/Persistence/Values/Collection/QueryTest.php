@@ -22,10 +22,10 @@ final class QueryTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $query->id);
-        $this->assertEquals(30, $query->collectionId);
-        $this->assertEquals('my_query_type', $query->type);
-        $this->assertEquals(['param' => 'value'], $query->parameters);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $query->status);
+        $this->assertSame(42, $query->id);
+        $this->assertSame(30, $query->collectionId);
+        $this->assertSame('my_query_type', $query->type);
+        $this->assertSame(['param' => 'value'], $query->parameters);
+        $this->assertSame(Value::STATUS_PUBLISHED, $query->status);
     }
 }

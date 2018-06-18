@@ -35,7 +35,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetTypes(): void
     {
-        $this->assertEquals(['type' => $this->targetType], $this->registry->getTargetTypes());
+        $this->assertSame(['type' => $this->targetType], $this->registry->getTargetTypes());
     }
 
     /**
@@ -43,7 +43,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetType(): void
     {
-        $this->assertEquals($this->targetType, $this->registry->getTargetType('type'));
+        $this->assertSame($this->targetType, $this->registry->getTargetType('type'));
     }
 
     /**
@@ -84,7 +84,7 @@ final class TargetTypeRegistryTest extends TestCase
             $targetTypes[$identifier] = $targetType;
         }
 
-        $this->assertEquals($this->registry->getTargetTypes(), $targetTypes);
+        $this->assertSame($this->registry->getTargetTypes(), $targetTypes);
     }
 
     /**
@@ -109,7 +109,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->targetType, $this->registry['type']);
+        $this->assertSame($this->targetType, $this->registry['type']);
     }
 
     /**

@@ -34,7 +34,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertEquals('query_type', $this->queryType->getType());
+        $this->assertSame('query_type', $this->queryType->getType());
     }
 
     /**
@@ -50,7 +50,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Query type', $this->queryType->getName());
+        $this->assertSame('Query type', $this->queryType->getName());
     }
 
     /**
@@ -58,7 +58,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetValues(): void
     {
-        $this->assertEquals(['val1', 'val2'], $this->queryType->getValues(new Query()));
+        $this->assertSame(['val1', 'val2'], $this->queryType->getValues(new Query()));
     }
 
     /**
@@ -66,7 +66,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetCount(): void
     {
-        $this->assertEquals(2, $this->queryType->getCount(new Query()));
+        $this->assertSame(2, $this->queryType->getCount(new Query()));
     }
 
     /**

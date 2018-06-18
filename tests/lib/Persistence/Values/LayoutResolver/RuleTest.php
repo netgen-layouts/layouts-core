@@ -23,11 +23,11 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertEquals(43, $rule->id);
-        $this->assertEquals(25, $rule->layoutId);
+        $this->assertSame(43, $rule->id);
+        $this->assertSame(25, $rule->layoutId);
         $this->assertTrue($rule->enabled);
-        $this->assertEquals(3, $rule->priority);
-        $this->assertEquals('Comment', $rule->comment);
-        $this->assertEquals(Value::STATUS_DRAFT, $rule->status);
+        $this->assertSame(3, $rule->priority);
+        $this->assertSame('Comment', $rule->comment);
+        $this->assertSame(Value::STATUS_DRAFT, $rule->status);
     }
 }

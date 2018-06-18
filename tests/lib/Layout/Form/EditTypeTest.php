@@ -40,13 +40,11 @@ final class EditTypeTest extends FormTestCase
             'description' => 'New description',
         ];
 
-        $updatedStruct = new LayoutUpdateStruct();
-        $updatedStruct->name = 'New name';
-        $updatedStruct->description = 'New description';
+        $struct = new LayoutUpdateStruct();
 
         $form = $this->factory->create(
             EditType::class,
-            new LayoutUpdateStruct(),
+            $struct,
             [
                 'layout' => $this->layout,
             ]
@@ -55,7 +53,9 @@ final class EditTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame('New name', $struct->name);
+        $this->assertSame('New description', $struct->description);
 
         $view = $form->createView();
         $children = $view->children;
@@ -75,15 +75,17 @@ final class EditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new LayoutUpdateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'layout' => $this->layout,
-                'data' => new LayoutUpdateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->layout, $options['layout']);
-        $this->assertEquals(new LayoutUpdateStruct(), $options['data']);
+        $this->assertSame($this->layout, $options['layout']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

@@ -27,8 +27,8 @@ final class QueryTest extends TestCase
     {
         $query = new Query();
 
-        $this->assertEquals([], $query->getParameters());
-        $this->assertEquals([], $query->getAvailableLocales());
+        $this->assertSame([], $query->getParameters());
+        $this->assertSame([], $query->getAvailableLocales());
     }
 
     /**
@@ -47,38 +47,41 @@ final class QueryTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $queryType = new QueryType('query_type');
+        $parameter = new Parameter(['value' => 'value']);
+
         $query = new Query(
             [
                 'id' => 42,
                 'collectionId' => 30,
-                'queryType' => new QueryType('query_type'),
+                'queryType' => $queryType,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => [
-                    'param' => new Parameter(['value' => 'value']),
+                    'param' => $parameter,
                 ],
             ]
         );
 
-        $this->assertEquals(42, $query->getId());
-        $this->assertEquals(30, $query->getCollectionId());
-        $this->assertEquals(new QueryType('query_type'), $query->getQueryType());
-        $this->assertEquals(['param' => 'value'], $query->getParameters());
-        $this->assertEquals('value', $query->getParameter('param'));
+        $this->assertSame(42, $query->getId());
+        $this->assertSame(30, $query->getCollectionId());
+        $this->assertSame($queryType, $query->getQueryType());
+        $this->assertSame(['param' => $parameter], $query->getParameters());
+        $this->assertSame($parameter, $query->getParameter('param'));
         $this->assertFalse($query->hasParameter('test'));
         $this->assertTrue($query->hasParameter('param'));
         $this->assertTrue($query->isTranslatable());
-        $this->assertEquals('en', $query->getMainLocale());
+        $this->assertSame('en', $query->getMainLocale());
         $this->assertTrue($query->isAlwaysAvailable());
-        $this->assertEquals(['en'], $query->getAvailableLocales());
-        $this->assertEquals('en', $query->getLocale());
+        $this->assertSame(['en'], $query->getAvailableLocales());
+        $this->assertSame('en', $query->getLocale());
 
-        $this->assertEquals(
+        $this->assertSame(
             [
-                'param' => new Parameter(['value' => 'value']),
+                'param' => $parameter,
             ],
             $query->getParameters()
         );

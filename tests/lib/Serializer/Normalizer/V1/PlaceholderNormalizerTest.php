@@ -52,7 +52,7 @@ final class PlaceholderNormalizerTest extends TestCase
             ->with($this->equalTo([new View(new Block(), 1)]))
             ->will($this->returnValue(['normalized blocks']));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'identifier' => 'main',
                 'blocks' => ['normalized blocks'],
@@ -70,7 +70,7 @@ final class PlaceholderNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

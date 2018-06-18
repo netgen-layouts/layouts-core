@@ -33,14 +33,11 @@ final class CompoundBooleanTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('main_checkbox', true);
-        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
-        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $parentForm->add(
@@ -70,7 +67,15 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(
+            [
+                'main_checkbox' => true,
+                'css_class' => 'Some CSS class',
+                'css_id' => 'Some CSS ID',
+            ],
+            $struct->getParameterValues()
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -95,12 +100,11 @@ final class CompoundBooleanTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('main_checkbox', false);
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $parentForm->add(
@@ -130,7 +134,13 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(
+            [
+                'main_checkbox' => false,
+            ],
+            $struct->getParameterValues()
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -152,12 +162,11 @@ final class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox' => [],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('main_checkbox', false);
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $parentForm->add(
@@ -187,7 +196,13 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(
+            [
+                'main_checkbox' => false,
+            ],
+            $struct->getParameterValues()
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -213,12 +228,11 @@ final class CompoundBooleanTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('main_checkbox', true);
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $parentForm->add(
@@ -249,7 +263,13 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(
+            [
+                'main_checkbox' => true,
+            ],
+            $struct->getParameterValues()
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -274,14 +294,11 @@ final class CompoundBooleanTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new ParameterStruct();
-        $updatedStruct->setParameterValue('main_checkbox', false);
-        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
-        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            $struct
         );
 
         $parentForm->add(
@@ -312,7 +329,15 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $parentForm->submit($submittedData);
 
         $this->assertTrue($parentForm->isSynchronized());
-        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $this->assertSame(
+            [
+                'main_checkbox' => false,
+                'css_class' => 'Some CSS class',
+                'css_id' => 'Some CSS ID',
+            ],
+            $struct->getParameterValues()
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -348,6 +373,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertEquals('ngbm_compound_boolean', $this->formType->getBlockPrefix());
+        $this->assertSame('ngbm_compound_boolean', $this->formType->getBlockPrefix());
     }
 }

@@ -68,19 +68,19 @@ final class QueryEditTypeTest extends FormTestCase
             ],
         ];
 
-        $updatedStruct = new QueryUpdateStruct(['locale' => 'en']);
-        $updatedStruct->setParameterValue('param', 'Param value');
+        $struct = new QueryUpdateStruct(['locale' => 'en']);
 
         $form = $this->factory->create(
             QueryEditType::class,
-            new QueryUpdateStruct(['locale' => 'en']),
+            $struct,
             ['query' => $this->query]
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedStruct, $form->getData());
+
+        $this->assertSame(['param' => 'Param value'], $struct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
@@ -94,7 +94,7 @@ final class QueryEditTypeTest extends FormTestCase
         }
 
         $this->assertArrayHasKey('query', $view->vars);
-        $this->assertEquals($this->query, $view->vars['query']);
+        $this->assertSame($this->query, $view->vars['query']);
     }
 
     /**
@@ -155,15 +155,17 @@ final class QueryEditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $struct = new QueryUpdateStruct();
+
         $options = $optionsResolver->resolve(
             [
                 'query' => $this->query,
-                'data' => new QueryUpdateStruct(),
+                'data' => $struct,
             ]
         );
 
-        $this->assertEquals($this->query, $options['query']);
-        $this->assertEquals(new QueryUpdateStruct(), $options['data']);
+        $this->assertSame($this->query, $options['query']);
+        $this->assertSame($struct, $options['data']);
     }
 
     /**

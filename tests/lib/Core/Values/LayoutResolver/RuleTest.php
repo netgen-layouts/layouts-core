@@ -28,8 +28,8 @@ final class RuleTest extends TestCase
     {
         $rule = new Rule();
 
-        $this->assertEquals([], $rule->getTargets());
-        $this->assertEquals([], $rule->getConditions());
+        $this->assertSame([], $rule->getTargets());
+        $this->assertSame([], $rule->getConditions());
     }
 
     /**
@@ -44,10 +44,12 @@ final class RuleTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $layout = new Layout(['id' => 24]);
+
         $rule = new Rule(
             [
                 'id' => 42,
-                'layout' => new Layout(['id' => 24]),
+                'layout' => $layout,
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
@@ -56,11 +58,11 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertEquals(42, $rule->getId());
-        $this->assertEquals(new Layout(['id' => 24]), $rule->getLayout());
-        $this->assertEquals(13, $rule->getPriority());
+        $this->assertSame(42, $rule->getId());
+        $this->assertSame($layout, $rule->getLayout());
+        $this->assertSame(13, $rule->getPriority());
         $this->assertTrue($rule->isEnabled());
-        $this->assertEquals('Comment', $rule->getComment());
+        $this->assertSame('Comment', $rule->getComment());
         $this->assertCount(2, $rule->getTargets());
         $this->assertCount(1, $rule->getConditions());
     }

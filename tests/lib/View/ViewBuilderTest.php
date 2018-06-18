@@ -77,12 +77,13 @@ final class ViewBuilderTest extends TestCase
         $builtView = $viewBuilder->buildView($value, 'context', $viewParameters);
 
         $this->assertInstanceOf(View::class, $builtView);
-        $this->assertEquals('context', $builtView->getContext());
-        $this->assertEquals(
+        $this->assertSame('context', $builtView->getContext());
+        $this->assertSame(
             [
-                'value' => new Value(),
+                'value' => $value,
+                'some_param' => 'some_value',
                 'view_context' => $builtView->getContext(),
-            ] + $viewParameters,
+            ],
             $builtView->getParameters()
         );
     }

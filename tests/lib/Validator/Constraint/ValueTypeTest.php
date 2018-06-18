@@ -15,6 +15,6 @@ final class ValueTypeTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new ValueType();
-        $this->assertEquals('ngbm_value_type', $constraint->validatedBy());
+        $this->assertSame('ngbm_value_type', $constraint->validatedBy());
     }
 }

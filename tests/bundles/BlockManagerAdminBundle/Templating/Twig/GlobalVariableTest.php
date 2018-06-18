@@ -35,6 +35,6 @@ final class GlobalVariableTest extends TestCase
     {
         $this->globalVariable->setPageLayoutTemplate('template.html.twig');
 
-        $this->assertEquals('template.html.twig', $this->globalVariable->getPageLayoutTemplate());
+        $this->assertSame('template.html.twig', $this->globalVariable->getPageLayoutTemplate());
     }
 }

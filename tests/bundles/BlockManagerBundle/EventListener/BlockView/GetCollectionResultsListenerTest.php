@@ -54,7 +54,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
@@ -124,13 +124,17 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            [
-                'collection1' => new ResultSet(['collection' => $collection1, 'totalCount' => 0]),
-                'collection2' => new ResultSet(['collection' => $collection2, 'totalCount' => 0]),
-            ],
-            $event->getParameters()['collections']
-        );
+        $collections = $event->getParameters()['collections'];
+
+        $this->assertArrayHasKey('collection1', $collections);
+        $this->assertInstanceOf(ResultSet::class, $collections['collection1']);
+        $this->assertSame($collection1, $collections['collection1']->getCollection());
+        $this->assertSame(0, $collections['collection1']->getTotalCount());
+
+        $this->assertArrayHasKey('collection2', $collections);
+        $this->assertInstanceOf(ResultSet::class, $collections['collection2']);
+        $this->assertSame($collection2, $collections['collection2']->getCollection());
+        $this->assertSame(0, $collections['collection2']->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection1']);
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection2']);
@@ -187,15 +191,15 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            [
-                'collection' => new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            ],
-            $event->getParameters()['collections']
-        );
+        $collections = $event->getParameters()['collections'];
+
+        $this->assertArrayHasKey('collection', $collections);
+        $this->assertInstanceOf(ResultSet::class, $collections['collection']);
+        $this->assertSame($collection, $collections['collection']->getCollection());
+        $this->assertSame(1000, $collections['collection']->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
-        $this->assertEquals(10, $event->getParameters()['pagers']['collection']->getNbResults());
+        $this->assertSame(10, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
     /**
@@ -249,15 +253,15 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            [
-                'collection' => new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            ],
-            $event->getParameters()['collections']
-        );
+        $collections = $event->getParameters()['collections'];
+
+        $this->assertArrayHasKey('collection', $collections);
+        $this->assertInstanceOf(ResultSet::class, $collections['collection']);
+        $this->assertSame($collection, $collections['collection']->getCollection());
+        $this->assertSame(1000, $collections['collection']->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
-        $this->assertEquals(997, $event->getParameters()['pagers']['collection']->getNbResults());
+        $this->assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
     /**
@@ -310,15 +314,15 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            [
-                'collection' => new ResultSet(['totalCount' => 1000, 'collection' => $collection]),
-            ],
-            $event->getParameters()['collections']
-        );
+        $collections = $event->getParameters()['collections'];
+
+        $this->assertArrayHasKey('collection', $collections);
+        $this->assertInstanceOf(ResultSet::class, $collections['collection']);
+        $this->assertSame($collection, $collections['collection']->getCollection());
+        $this->assertSame(1000, $collections['collection']->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
-        $this->assertEquals(997, $event->getParameters()['pagers']['collection']->getNbResults());
+        $this->assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
     /**
@@ -362,12 +366,12 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals(
-            [
-                'collection1' => new ResultSet(['collection' => $collection1, 'totalCount' => 0]),
-            ],
-            $event->getParameters()['collections']
-        );
+        $collections = $event->getParameters()['collections'];
+
+        $this->assertArrayHasKey('collection1', $collections);
+        $this->assertInstanceOf(ResultSet::class, $collections['collection1']);
+        $this->assertSame($collection1, $collections['collection1']->getCollection());
+        $this->assertSame(0, $collections['collection1']->getTotalCount());
 
         $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection1']);
     }
@@ -381,7 +385,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 
     /**
@@ -395,6 +399,6 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertEquals([], $event->getParameters());
+        $this->assertSame([], $event->getParameters());
     }
 }

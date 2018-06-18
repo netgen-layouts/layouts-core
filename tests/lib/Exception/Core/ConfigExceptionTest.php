@@ -16,7 +16,7 @@ final class ConfigExceptionTest extends TestCase
     {
         $exception = ConfigException::noConfig('config');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Configuration with "config" config key does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ConfigExceptionTest extends TestCase
     {
         $exception = ConfigException::noConfigStruct('config');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Config struct with config key "config" does not exist.',
             $exception->getMessage()
         );

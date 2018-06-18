@@ -16,7 +16,7 @@ final class ConfigurationExceptionTest extends TestCase
     {
         $exception = ConfigurationException::noParameter('test');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Parameter "test" does not exist in configuration.',
             $exception->getMessage()
         );

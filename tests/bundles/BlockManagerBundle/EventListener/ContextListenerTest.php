@@ -56,7 +56,7 @@ final class ContextListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
@@ -108,7 +108,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(['var' => 'value'], $this->context->all());
+        $this->assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -132,7 +132,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(['var' => 'value'], $this->context->all());
+        $this->assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -161,7 +161,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(['var' => 'value'], $this->context->all());
+        $this->assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -189,7 +189,7 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals([], $this->context->all());
+        $this->assertSame([], $this->context->all());
     }
 
     /**
@@ -209,6 +209,6 @@ final class ContextListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals([], $this->context->all());
+        $this->assertSame([], $this->context->all());
     }
 }

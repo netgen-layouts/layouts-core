@@ -25,6 +25,6 @@ final class UrlMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertEquals(UrlType::class, $this->mapper->getFormType());
+        $this->assertSame(UrlType::class, $this->mapper->getFormType());
     }
 }

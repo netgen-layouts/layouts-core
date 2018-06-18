@@ -49,9 +49,9 @@ final class PositionHelperTest extends TestCase
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1);
 
-        $this->assertEquals(1, $newPosition);
+        $this->assertSame(1, $newPosition);
 
-        $this->assertEquals(
+        $this->assertSame(
             [0, 2, 3],
             $this->getPositionData()
         );
@@ -66,9 +66,9 @@ final class PositionHelperTest extends TestCase
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions());
 
-        $this->assertEquals(3, $newPosition);
+        $this->assertSame(3, $newPosition);
 
-        $this->assertEquals(
+        $this->assertSame(
             [0, 1, 2],
             $this->getPositionData()
         );
@@ -112,7 +112,7 @@ final class PositionHelperTest extends TestCase
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 0, 2);
 
-        $this->assertEquals(
+        $this->assertSame(
             [0, 0, 1],
             $this->getPositionData()
         );
@@ -126,7 +126,7 @@ final class PositionHelperTest extends TestCase
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 2, 0);
 
-        $this->assertEquals(
+        $this->assertSame(
             [1, 2, 2],
             $this->getPositionData()
         );
@@ -174,7 +174,7 @@ final class PositionHelperTest extends TestCase
 
         $this->positionHelper->removePosition($this->getPositionHelperConditions(), 1);
 
-        $this->assertEquals(
+        $this->assertSame(
             [0, 1],
             $this->getPositionData()
         );
@@ -186,7 +186,7 @@ final class PositionHelperTest extends TestCase
      */
     public function testGetNextPosition(): void
     {
-        $this->assertEquals(3, $this->positionHelper->getNextPosition($this->getPositionHelperConditions()));
+        $this->assertSame(3, $this->positionHelper->getNextPosition($this->getPositionHelperConditions()));
     }
 
     /**

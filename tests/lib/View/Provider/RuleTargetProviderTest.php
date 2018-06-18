@@ -35,9 +35,9 @@ final class RuleTargetProviderTest extends TestCase
 
         $this->assertInstanceOf(RuleTargetViewInterface::class, $view);
 
-        $this->assertEquals($target, $view->getTarget());
+        $this->assertSame($target, $view->getTarget());
         $this->assertNull($view->getTemplate());
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'target' => $target,
             ],
@@ -54,7 +54,7 @@ final class RuleTargetProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertEquals($supports, $this->ruleTargetViewProvider->supports($value));
+        $this->assertSame($supports, $this->ruleTargetViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

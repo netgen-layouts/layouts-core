@@ -35,7 +35,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertEquals(['blockId'], $this->paramConverter->getSourceAttributeNames());
+        $this->assertSame(['blockId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertEquals('block', $this->paramConverter->getDestinationAttributeName());
+        $this->assertSame('block', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertEquals(APIBlock::class, $this->paramConverter->getSupportedClass());
+        $this->assertSame(APIBlock::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -67,7 +67,7 @@ final class BlockParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($block));
 
-        $this->assertEquals(
+        $this->assertSame(
             $block,
             $this->paramConverter->loadValue(
                 [
@@ -91,7 +91,7 @@ final class BlockParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($block));
 
-        $this->assertEquals(
+        $this->assertSame(
             $block,
             $this->paramConverter->loadValue(
                 [

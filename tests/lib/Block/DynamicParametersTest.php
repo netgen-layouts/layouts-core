@@ -47,8 +47,8 @@ final class DynamicParametersTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals('some_value', $this->dynamicParams['test']);
-        $this->assertEquals('closure_value', $this->dynamicParams['closure']);
+        $this->assertSame('some_value', $this->dynamicParams['test']);
+        $this->assertSame('closure_value', $this->dynamicParams['closure']);
         $this->assertNull($this->dynamicParams['unknown']);
     }
 
@@ -63,9 +63,9 @@ final class DynamicParametersTest extends TestCase
             return 'closure_value2';
         };
 
-        $this->assertEquals('new_value', $this->dynamicParams['new']);
-        $this->assertEquals('value2', $this->dynamicParams['test']);
-        $this->assertEquals('closure_value2', $this->dynamicParams['closure']);
+        $this->assertSame('new_value', $this->dynamicParams['new']);
+        $this->assertSame('value2', $this->dynamicParams['test']);
+        $this->assertSame('closure_value2', $this->dynamicParams['closure']);
     }
 
     /**

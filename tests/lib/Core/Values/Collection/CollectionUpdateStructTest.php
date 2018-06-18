@@ -18,7 +18,7 @@ final class CollectionUpdateStructTest extends TestCase
             ]
         );
 
-        $this->assertEquals(6, $collectionUpdateStruct->offset);
-        $this->assertEquals(3, $collectionUpdateStruct->limit);
+        $this->assertSame(6, $collectionUpdateStruct->offset);
+        $this->assertSame(3, $collectionUpdateStruct->limit);
     }
 }

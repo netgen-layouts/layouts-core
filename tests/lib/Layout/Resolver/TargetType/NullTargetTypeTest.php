@@ -26,7 +26,7 @@ final class NullTargetTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertEquals('type', $this->targetType->getType());
+        $this->assertSame('type', $this->targetType->getType());
     }
 
     /**
@@ -34,7 +34,7 @@ final class NullTargetTypeTest extends TestCase
      */
     public function testGetConstraints(): void
     {
-        $this->assertEquals([], $this->targetType->getConstraints());
+        $this->assertSame([], $this->targetType->getConstraints());
     }
 
     /**

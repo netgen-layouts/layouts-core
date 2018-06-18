@@ -12,12 +12,14 @@ use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class LinkTypeTest extends TestCase
 {
+    use ExportObjectVarsTrait;
     use ParameterTypeTestTrait;
 
     /**
@@ -46,7 +48,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('link', $this->type->getIdentifier());
+        $this->assertSame('link', $this->type->getIdentifier());
     }
 
     /**
@@ -56,7 +58,7 @@ final class LinkTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -129,7 +131,7 @@ final class LinkTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() === 0);
+        $this->assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -192,7 +194,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue): void
     {
-        $this->assertEquals($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
+        $this->assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
     public function toHashProvider(): array
@@ -222,15 +224,18 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $convertedValue
+     * @param array $value
+     * @param array $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromHash
      * @dataProvider fromHashProvider
      */
-    public function testFromHash($value, $convertedValue): void
+    public function testFromHash($value, array $expectedValue): void
     {
-        $this->assertEquals($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
+        $convertedValue = $this->type->fromHash($this->getParameterDefinition(), $value);
+
+        $this->assertInstanceOf(LinkValue::class, $convertedValue);
+        $this->assertSame($expectedValue, $this->exportObjectVars($convertedValue));
     }
 
     public function fromHashProvider(): array
@@ -238,11 +243,21 @@ final class LinkTypeTest extends TestCase
         return [
             [
                 42,
-                new LinkValue(),
+                [
+                    'linkType' => null,
+                    'link' => null,
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
             [
                 [],
-                new LinkValue(),
+                [
+                    'linkType' => null,
+                    'link' => null,
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
             [
                 [
@@ -251,26 +266,24 @@ final class LinkTypeTest extends TestCase
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'url',
-                        'link' => 'http://www.google.com',
-                        'linkSuffix' => '?suffix',
-                        'newWindow' => true,
-                    ]
-                ),
+                [
+                    'linkType' => 'url',
+                    'link' => 'http://www.google.com',
+                    'linkSuffix' => '?suffix',
+                    'newWindow' => true,
+                ],
             ],
             [
                 [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'url',
-                        'link' => 'http://www.google.com',
-                    ]
-                ),
+                [
+                    'linkType' => 'url',
+                    'link' => 'http://www.google.com',
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
         ];
     }
@@ -301,7 +314,7 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertEquals($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
+        $this->assertSame($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
     }
 
     /**
@@ -316,7 +329,7 @@ final class LinkTypeTest extends TestCase
             ->with($this->equalTo('24'), $this->equalTo('my_value_type'))
             ->will($this->returnValue(new NullItem('my_value_type')));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'link_type' => 'internal',
                 'link' => 'null://0',
@@ -397,14 +410,14 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param mixed $convertedValue
+     * @param array  $convertedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      * @dataProvider importProvider
      */
-    public function testImport($value, $convertedValue): void
+    public function testImport($value, array $expectedValue): void
     {
         $this->itemLoaderMock
             ->expects($this->any())
@@ -421,7 +434,10 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertEquals($convertedValue, $this->type->import($this->getParameterDefinition(), $value));
+        $convertedValue = $this->type->import($this->getParameterDefinition(), $value);
+
+        $this->assertInstanceOf(LinkValue::class, $convertedValue);
+        $this->assertSame($expectedValue, $this->exportObjectVars($convertedValue));
     }
 
     /**
@@ -436,24 +452,26 @@ final class LinkTypeTest extends TestCase
             ->with($this->equalTo('def'), $this->equalTo('my_value_type'))
             ->will($this->returnValue(new NullItem('my_value_type')));
 
-        $this->assertEquals(
-            new LinkValue(
-                [
-                    'linkType' => 'internal',
-                    'link' => 'null://0',
-                    'linkSuffix' => '?suffix',
-                    'newWindow' => true,
-                ]
-            ),
-            $this->type->import(
-                $this->getParameterDefinition(),
-                [
-                    'link_type' => 'internal',
-                    'link' => 'my_value_type://def',
-                    'link_suffix' => '?suffix',
-                    'new_window' => true,
-                ]
-            )
+        $importedValue = $this->type->import(
+            $this->getParameterDefinition(),
+            [
+                'link_type' => 'internal',
+                'link' => 'my_value_type://def',
+                'link_suffix' => '?suffix',
+                'new_window' => true,
+            ]
+        );
+
+        $this->assertInstanceOf(LinkValue::class, $importedValue);
+
+        $this->assertSame(
+            [
+                'linkType' => 'internal',
+                'link' => 'null://0',
+                'linkSuffix' => '?suffix',
+                'newWindow' => true,
+            ],
+            $this->exportObjectVars($importedValue)
         );
     }
 
@@ -462,11 +480,21 @@ final class LinkTypeTest extends TestCase
         return [
             [
                 42,
-                new LinkValue(),
+                [
+                    'linkType' => null,
+                    'link' => null,
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
             [
                 [],
-                new LinkValue(),
+                [
+                    'linkType' => null,
+                    'link' => null,
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
             [
                 [
@@ -475,28 +503,24 @@ final class LinkTypeTest extends TestCase
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'url',
-                        'link' => 'http://www.google.com',
-                        'linkSuffix' => '?suffix',
-                        'newWindow' => true,
-                    ]
-                ),
+                [
+                    'linkType' => 'url',
+                    'link' => 'http://www.google.com',
+                    'linkSuffix' => '?suffix',
+                    'newWindow' => true,
+                ],
             ],
             [
                 [
                     'link_type' => 'url',
                     'link' => 'http://www.google.com',
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'url',
-                        'link' => 'http://www.google.com',
-                        'linkSuffix' => null,
-                        'newWindow' => false,
-                    ]
-                ),
+                [
+                    'linkType' => 'url',
+                    'link' => 'http://www.google.com',
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
             [
                 [
@@ -505,14 +529,12 @@ final class LinkTypeTest extends TestCase
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'internal',
-                        'link' => 'my-value-type://42',
-                        'linkSuffix' => '?suffix',
-                        'newWindow' => true,
-                    ]
-                ),
+                [
+                    'linkType' => 'internal',
+                    'link' => 'my-value-type://42',
+                    'linkSuffix' => '?suffix',
+                    'newWindow' => true,
+                ],
             ],
             [
                 [
@@ -521,27 +543,23 @@ final class LinkTypeTest extends TestCase
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'internal',
-                        'link' => 'null://0',
-                        'linkSuffix' => '?suffix',
-                        'newWindow' => true,
-                    ]
-                ),
+                [
+                    'linkType' => 'internal',
+                    'link' => 'null://0',
+                    'linkSuffix' => '?suffix',
+                    'newWindow' => true,
+                ],
             ],
             [
                 [
                     'link_type' => 'internal',
                 ],
-                new LinkValue(
-                    [
-                        'linkType' => 'internal',
-                        'link' => 'null://0',
-                        'linkSuffix' => null,
-                        'newWindow' => false,
-                    ]
-                ),
+                [
+                    'linkType' => 'internal',
+                    'link' => 'null://0',
+                    'linkSuffix' => null,
+                    'newWindow' => false,
+                ],
             ],
         ];
     }
@@ -555,7 +573,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

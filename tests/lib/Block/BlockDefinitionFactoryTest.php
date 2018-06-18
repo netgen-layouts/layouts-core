@@ -157,7 +157,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
-        $this->assertEquals('definition', $blockDefinition->getIdentifier());
+        $this->assertSame('definition', $blockDefinition->getIdentifier());
 
         $this->assertFalse($blockDefinition->isCacheable(new Block()));
 
@@ -258,7 +258,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
-        $this->assertEquals('definition', $blockDefinition->getIdentifier());
+        $this->assertSame('definition', $blockDefinition->getIdentifier());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -303,7 +303,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
-        $this->assertEquals('definition', $blockDefinition->getIdentifier());
+        $this->assertSame('definition', $blockDefinition->getIdentifier());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -315,7 +315,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
 
-        $this->assertEquals(['left', 'right'], $blockDefinition->getPlaceholders());
+        $this->assertSame(['left', 'right'], $blockDefinition->getPlaceholders());
     }
 
     /**

@@ -9,10 +9,13 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverMapperTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
      */
@@ -48,29 +51,31 @@ final class LayoutResolverMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Rule(
-                [
-                    'id' => 42,
-                    'layoutId' => 24,
-                    'enabled' => true,
-                    'priority' => 2,
-                    'comment' => 'Comment',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            new Rule(
-                [
-                    'id' => 43,
-                    'layoutId' => 25,
-                    'enabled' => false,
-                    'priority' => 3,
-                    'comment' => null,
-                    'status' => Value::STATUS_DRAFT,
-                ]
-            ),
+            [
+                'id' => 42,
+                'status' => Value::STATUS_PUBLISHED,
+                'layoutId' => 24,
+                'enabled' => true,
+                'priority' => 2,
+                'comment' => 'Comment',
+            ],
+            [
+                'id' => 43,
+                'status' => Value::STATUS_DRAFT,
+                'layoutId' => 25,
+                'enabled' => false,
+                'priority' => 3,
+                'comment' => null,
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapRules($data));
+        $rules = $this->mapper->mapRules($data);
+
+        foreach ($rules as $rule) {
+            $this->assertInstanceOf(Rule::class, $rule);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($rules));
     }
 
     /**
@@ -96,27 +101,29 @@ final class LayoutResolverMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Target(
-                [
-                    'id' => 42,
-                    'ruleId' => 1,
-                    'type' => 'target',
-                    'value' => '32',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            new Target(
-                [
-                    'id' => 43,
-                    'ruleId' => 2,
-                    'type' => 'target2',
-                    'value' => '42',
-                    'status' => Value::STATUS_DRAFT,
-                ]
-            ),
+            [
+                'id' => 42,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 1,
+                'type' => 'target',
+                'value' => '32',
+            ],
+            [
+                'id' => 43,
+                'status' => Value::STATUS_DRAFT,
+                'ruleId' => 2,
+                'type' => 'target2',
+                'value' => '42',
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapTargets($data));
+        $targets = $this->mapper->mapTargets($data);
+
+        foreach ($targets as $target) {
+            $this->assertInstanceOf(Target::class, $target);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($targets));
     }
 
     /**
@@ -142,28 +149,30 @@ final class LayoutResolverMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Condition(
-                [
-                    'id' => 42,
-                    'ruleId' => 1,
-                    'type' => 'condition',
-                    'value' => '24',
-                    'status' => Value::STATUS_PUBLISHED,
-                ]
-            ),
-            new Condition(
-                [
-                    'id' => 43,
-                    'ruleId' => 2,
-                    'type' => 'condition2',
-                    'value' => [
-                        'param' => 'value',
-                    ],
-                    'status' => Value::STATUS_DRAFT,
-                ]
-            ),
+            [
+                'id' => 42,
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleId' => 1,
+                'type' => 'condition',
+                'value' => 24,
+            ],
+            [
+                'id' => 43,
+                'status' => Value::STATUS_DRAFT,
+                'ruleId' => 2,
+                'type' => 'condition2',
+                'value' => [
+                    'param' => 'value',
+                ],
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapConditions($data));
+        $conditions = $this->mapper->mapConditions($data);
+
+        foreach ($conditions as $condition) {
+            $this->assertInstanceOf(Condition::class, $condition);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($conditions));
     }
 }

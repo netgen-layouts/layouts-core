@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item\ValueType;
 
-use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Item\ValueType\ValueTypeFactory;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class ValueTypeFactoryTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @covers \Netgen\BlockManager\Item\ValueType\ValueTypeFactory::buildValueType
      */
@@ -23,15 +25,13 @@ final class ValueTypeFactoryTest extends TestCase
             ]
         );
 
-        $this->assertEquals(
-            new ValueType(
-                [
-                    'identifier' => 'value',
-                    'isEnabled' => false,
-                    'name' => 'Value type',
-                ]
-            ),
-            $valueType
+        $this->assertSame(
+            [
+                'identifier' => 'value',
+                'isEnabled' => false,
+                'name' => 'Value type',
+            ],
+            $this->exportObjectVars($valueType)
         );
     }
 }

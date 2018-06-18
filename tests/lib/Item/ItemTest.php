@@ -20,6 +20,8 @@ final class ItemTest extends TestCase
      */
     public function testObject(): void
     {
+        $object = new stdClass();
+
         $value = new Item(
             [
                 'value' => 42,
@@ -27,15 +29,15 @@ final class ItemTest extends TestCase
                 'valueType' => 'type',
                 'name' => 'Value name',
                 'isVisible' => true,
-                'object' => new stdClass(),
+                'object' => $object,
             ]
         );
 
-        $this->assertEquals(42, $value->getValue());
-        $this->assertEquals('abc', $value->getRemoteId());
-        $this->assertEquals('type', $value->getValueType());
-        $this->assertEquals('Value name', $value->getName());
+        $this->assertSame(42, $value->getValue());
+        $this->assertSame('abc', $value->getRemoteId());
+        $this->assertSame('type', $value->getValueType());
+        $this->assertSame('Value name', $value->getName());
         $this->assertTrue($value->isVisible());
-        $this->assertEquals(new stdClass(), $value->getObject());
+        $this->assertSame($object, $value->getObject());
     }
 }

@@ -64,7 +64,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 
-        $this->assertEquals($totalCount, $collectionRunner->count($collection));
+        $this->assertSame($totalCount, $collectionRunner->count($collection));
 
         $this->assertIteratorValues(
             $expectedValues,

@@ -212,7 +212,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayHasKey('block_types', $config);
         $this->assertArrayHasKey('test_type', $config['block_types']);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'name' => 'Test type',
                 'definition_identifier' => 'title',

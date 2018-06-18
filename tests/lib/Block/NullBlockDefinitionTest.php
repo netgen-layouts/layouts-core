@@ -28,7 +28,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertEquals('definition', $this->blockDefinition->getIdentifier());
+        $this->assertSame('definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -36,7 +36,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertEquals('Invalid block definition', $this->blockDefinition->getName());
+        $this->assertSame('Invalid block definition', $this->blockDefinition->getName());
     }
 
     /**
@@ -44,7 +44,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertEquals('', $this->blockDefinition->getIcon());
+        $this->assertSame('', $this->blockDefinition->getIcon());
     }
 
     /**
@@ -60,7 +60,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetForms(): void
     {
-        $this->assertEquals([], $this->blockDefinition->getForms());
+        $this->assertSame([], $this->blockDefinition->getForms());
     }
 
     /**
@@ -86,7 +86,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetCollections(): void
     {
-        $this->assertEquals([], $this->blockDefinition->getCollections());
+        $this->assertSame([], $this->blockDefinition->getCollections());
     }
 
     /**
@@ -112,7 +112,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetViewTypes(): void
     {
-        $this->assertEquals([], $this->blockDefinition->getViewTypes());
+        $this->assertSame([], $this->blockDefinition->getViewTypes());
     }
 
     /**
@@ -120,7 +120,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetViewTypeIdentifiers(): void
     {
-        $this->assertEquals([], $this->blockDefinition->getViewTypeIdentifiers());
+        $this->assertSame([], $this->blockDefinition->getViewTypeIdentifiers());
     }
 
     /**
@@ -172,7 +172,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions(): void
     {
-        $this->assertEquals([], $this->blockDefinition->getConfigDefinitions());
+        $this->assertSame([], $this->blockDefinition->getConfigDefinitions());
     }
 
     /**

@@ -60,7 +60,7 @@ final class ItemRuntimeTest extends TestCase
 
         $itemPath = $this->runtime->getItemPath(42, 'value');
 
-        $this->assertEquals('/item/path', $itemPath);
+        $this->assertSame('/item/path', $itemPath);
     }
 
     /**
@@ -82,7 +82,7 @@ final class ItemRuntimeTest extends TestCase
 
         $itemPath = $this->runtime->getItemPath('value://42');
 
-        $this->assertEquals('/item/path', $itemPath);
+        $this->assertSame('/item/path', $itemPath);
     }
 
     /**
@@ -102,7 +102,7 @@ final class ItemRuntimeTest extends TestCase
 
         $itemPath = $this->runtime->getItemPath(new Item());
 
-        $this->assertEquals('/item/path', $itemPath);
+        $this->assertSame('/item/path', $itemPath);
     }
 
     /**
@@ -122,7 +122,7 @@ final class ItemRuntimeTest extends TestCase
 
         $itemPath = $this->runtime->getItemPath(new Item());
 
-        $this->assertEquals('', $itemPath);
+        $this->assertSame('', $itemPath);
     }
 
     /**
@@ -138,7 +138,7 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('generate');
 
-        $this->assertEquals('', $this->runtime->getItemPath('value'));
+        $this->assertSame('', $this->runtime->getItemPath('value'));
     }
 
     /**
@@ -154,6 +154,6 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('generate');
 
-        $this->assertEquals('', $this->runtime->getItemPath(42));
+        $this->assertSame('', $this->runtime->getItemPath(42));
     }
 }

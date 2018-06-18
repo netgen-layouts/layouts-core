@@ -64,19 +64,19 @@ final class MainMenuBuilderTest extends TestCase
         $this->assertCount(3, $menu);
 
         $this->assertInstanceOf(ItemInterface::class, $menu->getChild('layout_resolver'));
-        $this->assertEquals(
+        $this->assertSame(
             'ngbm_admin_layout_resolver_index',
             $menu->getChild('layout_resolver')->getUri()
         );
 
         $this->assertInstanceOf(ItemInterface::class, $menu->getChild('layouts'));
-        $this->assertEquals(
+        $this->assertSame(
             'ngbm_admin_layouts_index',
             $menu->getChild('layouts')->getUri()
         );
 
         $this->assertInstanceOf(ItemInterface::class, $menu->getChild('shared_layouts'));
-        $this->assertEquals(
+        $this->assertSame(
             'ngbm_admin_shared_layouts_index',
             $menu->getChild('shared_layouts')->getUri()
         );

@@ -8,10 +8,13 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockMapperTest extends TestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
      */
@@ -72,65 +75,67 @@ final class BlockMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new Block(
-                [
-                    'id' => 42,
-                    'layoutId' => 24,
-                    'depth' => 1,
-                    'path' => '/22/42/',
-                    'parentId' => 22,
-                    'placeholder' => 'root',
-                    'position' => 4,
-                    'definitionIdentifier' => 'text',
-                    'viewType' => 'default',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'mainLocale' => 'en',
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'status' => Value::STATUS_PUBLISHED,
-                    'parameters' => [
-                        'en' => [
-                            'param1' => 'param2',
-                        ],
+            [
+                'id' => 42,
+                'layoutId' => 24,
+                'depth' => 1,
+                'path' => '/22/42/',
+                'parentId' => 22,
+                'placeholder' => 'root',
+                'position' => 4,
+                'definitionIdentifier' => 'text',
+                'parameters' => [
+                    'en' => [
+                        'param1' => 'param2',
                     ],
-                    'config' => [
-                        'config1' => 'config2',
+                ],
+                'config' => [
+                    'config1' => 'config2',
+                ],
+                'viewType' => 'default',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            [
+                'id' => 84,
+                'layoutId' => 48,
+                'depth' => 1,
+                'path' => '/23/84/',
+                'parentId' => 23,
+                'placeholder' => 'root',
+                'position' => 3,
+                'definitionIdentifier' => 'title',
+                'parameters' => [
+                    'en' => [
+                        'param1' => 42,
                     ],
-                ]
-            ),
-            new Block(
-                [
-                    'id' => 84,
-                    'layoutId' => 48,
-                    'depth' => 1,
-                    'path' => '/23/84/',
-                    'parentId' => 23,
-                    'placeholder' => 'root',
-                    'position' => 3,
-                    'definitionIdentifier' => 'title',
-                    'viewType' => 'small',
-                    'itemViewType' => 'standard',
-                    'name' => 'My other block',
-                    'isTranslatable' => true,
-                    'mainLocale' => 'en',
-                    'alwaysAvailable' => true,
-                    'availableLocales' => ['en'],
-                    'status' => Value::STATUS_PUBLISHED,
-                    'parameters' => [
-                        'en' => [
-                            'param1' => 42,
-                        ],
-                    ],
-                    'config' => [
-                        'config1' => 42,
-                    ],
-                ]
-            ),
+                ],
+                'config' => [
+                    'config1' => 42,
+                ],
+                'viewType' => 'small',
+                'itemViewType' => 'standard',
+                'name' => 'My other block',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapBlocks($data));
+        $blocks = $this->mapper->mapBlocks($data);
+
+        foreach ($blocks as $block) {
+            $this->assertInstanceOf(Block::class, $block);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($blocks));
     }
 
     /**
@@ -156,26 +161,28 @@ final class BlockMapperTest extends TestCase
         ];
 
         $expectedData = [
-            new CollectionReference(
-                [
-                    'blockId' => 1,
-                    'blockStatus' => Value::STATUS_PUBLISHED,
-                    'collectionId' => 42,
-                    'collectionStatus' => Value::STATUS_PUBLISHED,
-                    'identifier' => 'default',
-                ]
-            ),
-            new CollectionReference(
-                [
-                    'blockId' => 2,
-                    'blockStatus' => Value::STATUS_PUBLISHED,
-                    'collectionId' => 43,
-                    'collectionStatus' => Value::STATUS_PUBLISHED,
-                    'identifier' => 'featured',
-                ]
-            ),
+            [
+                'blockId' => 1,
+                'blockStatus' => Value::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'collectionStatus' => Value::STATUS_PUBLISHED,
+                'identifier' => 'default',
+            ],
+            [
+                'blockId' => 2,
+                'blockStatus' => Value::STATUS_PUBLISHED,
+                'collectionId' => 43,
+                'collectionStatus' => Value::STATUS_PUBLISHED,
+                'identifier' => 'featured',
+            ],
         ];
 
-        $this->assertEquals($expectedData, $this->mapper->mapCollectionReferences($data));
+        $collectionReferences = $this->mapper->mapCollectionReferences($data);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $this->assertInstanceOf(CollectionReference::class, $collectionReference);
+        }
+
+        $this->assertSame($expectedData, $this->exportObjectArrayVars($collectionReferences));
     }
 }
