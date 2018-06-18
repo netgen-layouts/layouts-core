@@ -25,8 +25,6 @@ abstract class Visitor implements VisitorInterface
                 return 'ARCHIVED';
         }
 
-        $statusString = var_export($value->getStatus(), true);
-
-        throw new RuntimeException(sprintf("Unknown status '%s'", $statusString));
+        throw new RuntimeException(sprintf("Unknown status '%s'", var_export($value->getStatus(), true)));
     }
 }
