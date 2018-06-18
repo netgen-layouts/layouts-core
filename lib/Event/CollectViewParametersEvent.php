@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\Event;
 final class CollectViewParametersEvent extends Event
 {
     /**
-     * Copy of the view object that is being built.
+     * Returns the view object that is being built.
      *
      * @var \Netgen\BlockManager\View\ViewInterface
      */
@@ -30,7 +30,7 @@ final class CollectViewParametersEvent extends Event
 
     public function __construct(ViewInterface $view)
     {
-        $this->view = clone $view;
+        $this->view = $view;
     }
 
     /**
@@ -53,7 +53,7 @@ final class CollectViewParametersEvent extends Event
     }
 
     /**
-     * Returns the copy of the view object.
+     * Returns the view object.
      */
     public function getView(): ViewInterface
     {
