@@ -17,9 +17,12 @@ use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 
 abstract class CollectionStructBuilderTest extends ServiceTestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
      */
@@ -41,16 +44,17 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewCollectionCreateStruct(): void
     {
         $queryCreateStruct = new QueryCreateStruct();
+        $struct = $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
 
-        $this->assertEquals(
-            new CollectionCreateStruct(
-                [
-                    'offset' => 0,
-                    'limit' => null,
-                    'queryCreateStruct' => $queryCreateStruct,
-                ]
-            ),
-            $this->structBuilder->newCollectionCreateStruct($queryCreateStruct)
+        $this->assertInstanceOf(CollectionCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'offset' => 0,
+                'limit' => null,
+                'queryCreateStruct' => $queryCreateStruct,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -59,14 +63,16 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewCollectionUpdateStruct(): void
     {
-        $this->assertEquals(
-            new CollectionUpdateStruct(
-                [
-                    'offset' => null,
-                    'limit' => null,
-                ]
-            ),
-            $this->structBuilder->newCollectionUpdateStruct()
+        $struct = $this->structBuilder->newCollectionUpdateStruct();
+
+        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'offset' => null,
+                'limit' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -75,16 +81,18 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewCollectionUpdateStructWithCollection(): void
     {
-        $this->assertEquals(
-            new CollectionUpdateStruct(
-                [
-                    'offset' => 4,
-                    'limit' => 2,
-                ]
-            ),
-            $this->structBuilder->newCollectionUpdateStruct(
-                $this->collectionService->loadCollectionDraft(3)
-            )
+        $struct = $this->structBuilder->newCollectionUpdateStruct(
+            $this->collectionService->loadCollectionDraft(3)
+        );
+
+        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'offset' => 4,
+                'limit' => 2,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -93,16 +101,18 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
-        $this->assertEquals(
-            new CollectionUpdateStruct(
-                [
-                    'offset' => 0,
-                    'limit' => 0,
-                ]
-            ),
-            $this->structBuilder->newCollectionUpdateStruct(
-                $this->collectionService->loadCollectionDraft(1)
-            )
+        $struct = $this->structBuilder->newCollectionUpdateStruct(
+            $this->collectionService->loadCollectionDraft(1)
+        );
+
+        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'offset' => 0,
+                'limit' => 0,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -112,16 +122,18 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewItemCreateStruct(): void
     {
         $itemDefinition = new ItemDefinition();
+        $struct = $this->structBuilder->newItemCreateStruct($itemDefinition, Item::TYPE_OVERRIDE, '42');
 
-        $this->assertEquals(
-            new ItemCreateStruct(
-                [
-                    'definition' => $itemDefinition,
-                    'type' => Item::TYPE_OVERRIDE,
-                    'value' => '42',
-                ]
-            ),
-            $this->structBuilder->newItemCreateStruct($itemDefinition, Item::TYPE_OVERRIDE, '42')
+        $this->assertInstanceOf(ItemCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'definition' => $itemDefinition,
+                'value' => '42',
+                'type' => Item::TYPE_OVERRIDE,
+                'configStructs' => [],
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -130,11 +142,15 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewItemUpdateStruct(): void
     {
-        $itemUpdateStruct = new ItemUpdateStruct();
+        $struct = $this->structBuilder->newItemUpdateStruct();
 
-        $this->assertEquals(
-            $itemUpdateStruct,
-            $this->structBuilder->newItemUpdateStruct()
+        $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'configStructs' => [],
+            ],
+            $this->exportObjectVars($struct, true)
         );
     }
 
@@ -144,24 +160,26 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewItemUpdateStructFromItem(): void
     {
         $item = $this->collectionService->loadItemDraft(1);
+        $struct = $this->structBuilder->newItemUpdateStruct($item);
 
-        $this->assertEquals(
-            new ItemUpdateStruct(
-                [
-                    'configStructs' => [
-                        'visibility' => new ConfigStruct(
-                            [
-                                'parameterValues' => [
-                                    'visibility_status' => null,
-                                    'visible_from' => null,
-                                    'visible_to' => null,
-                                ],
-                            ]
-                        ),
+        $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
+
+        $this->assertArrayHasKey('visibility', $struct->getConfigStructs());
+        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('visibility'));
+
+        $this->assertSame(
+            [
+                'configStructs' => [
+                    'visibility' => [
+                        'parameterValues' => [
+                            'visibility_status' => null,
+                            'visible_from' => null,
+                            'visible_to' => null,
+                        ],
                     ],
-                ]
-            ),
-            $this->structBuilder->newItemUpdateStruct($item)
+                ],
+            ],
+            $this->exportObjectVars($struct, true)
         );
     }
 
@@ -172,19 +190,19 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $queryType = new QueryType('my_query_type');
 
-        $queryCreateStruct = $this->structBuilder->newQueryCreateStruct($queryType);
+        $struct = $this->structBuilder->newQueryCreateStruct($queryType);
 
-        $this->assertEquals(
-            new QueryCreateStruct(
-                [
-                    'queryType' => $queryType,
-                    'parameterValues' => [
-                        'param' => null,
-                        'param2' => null,
-                    ],
-                ]
-            ),
-            $queryCreateStruct
+        $this->assertInstanceOf(QueryCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'queryType' => $queryType,
+                'parameterValues' => [
+                    'param' => null,
+                    'param2' => null,
+                ],
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -193,13 +211,16 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewQueryUpdateStruct(): void
     {
-        $this->assertEquals(
-            new QueryUpdateStruct(
-                [
-                    'locale' => 'en',
-                ]
-            ),
-            $this->structBuilder->newQueryUpdateStruct('en')
+        $struct = $this->structBuilder->newQueryUpdateStruct('en');
+
+        $this->assertInstanceOf(QueryUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'locale' => 'en',
+                'parameterValues' => [],
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -209,18 +230,19 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewQueryUpdateStructFromQuery(): void
     {
         $query = $this->collectionService->loadQueryDraft(4);
+        $struct = $this->structBuilder->newQueryUpdateStruct('en', $query);
 
-        $this->assertEquals(
-            new QueryUpdateStruct(
-                [
-                    'locale' => 'en',
-                    'parameterValues' => [
-                        'param' => null,
-                        'param2' => 0,
-                    ],
-                ]
-            ),
-            $this->structBuilder->newQueryUpdateStruct('en', $query)
+        $this->assertInstanceOf(QueryUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'locale' => 'en',
+                'parameterValues' => [
+                    'param' => null,
+                    'param2' => null,
+                ],
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 }

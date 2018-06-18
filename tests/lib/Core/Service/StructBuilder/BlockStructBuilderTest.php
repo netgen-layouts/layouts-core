@@ -10,9 +10,12 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 
 abstract class BlockStructBuilderTest extends ServiceTestCase
 {
+    use ExportObjectVarsTrait;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
      */
@@ -37,21 +40,26 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
 
-        $this->assertEquals(
-            new BlockCreateStruct(
-                [
-                    'isTranslatable' => true,
-                    'alwaysAvailable' => true,
-                    'definition' => $blockDefinition,
-                    'viewType' => 'small',
-                    'itemViewType' => 'standard',
-                    'parameterValues' => [
-                        'css_class' => 'some-class',
-                        'css_id' => null,
-                    ],
-                ]
-            ),
-            $this->structBuilder->newBlockCreateStruct($blockDefinition)
+        $struct = $this->structBuilder->newBlockCreateStruct($blockDefinition);
+
+        $this->assertInstanceOf(BlockCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'definition' => $blockDefinition,
+                'viewType' => 'small',
+                'itemViewType' => 'standard',
+                'name' => null,
+                'isTranslatable' => true,
+                'alwaysAvailable' => true,
+                'collectionCreateStructs' => [],
+                'parameterValues' => [
+                    'css_class' => 'some-class',
+                    'css_id' => null,
+                ],
+                'configStructs' => [],
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -60,12 +68,21 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
      */
     public function testNewBlockUpdateStruct(): void
     {
-        $blockUpdateStruct = new BlockUpdateStruct();
-        $blockUpdateStruct->locale = 'en';
+        $struct = $this->structBuilder->newBlockUpdateStruct('en');
 
-        $this->assertEquals(
-            $blockUpdateStruct,
-            $this->structBuilder->newBlockUpdateStruct('en')
+        $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'locale' => 'en',
+                'viewType' => null,
+                'itemViewType' => null,
+                'name' => null,
+                'alwaysAvailable' => null,
+                'parameterValues' => [],
+                'configStructs' => [],
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -75,32 +92,34 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     public function testNewBlockUpdateStructFromBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(36);
+        $struct = $this->structBuilder->newBlockUpdateStruct('en', $block);
 
-        $this->assertEquals(
-            new BlockUpdateStruct(
-                [
-                    'locale' => 'en',
-                    'alwaysAvailable' => true,
-                    'viewType' => $block->getViewType(),
-                    'itemViewType' => $block->getItemViewType(),
-                    'name' => $block->getName(),
-                    'parameterValues' => [
-                        'css_class' => 'CSS class',
-                        'css_id' => null,
+        $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
+
+        $this->assertArrayHasKey('http_cache', $struct->getConfigStructs());
+        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('http_cache'));
+
+        $this->assertSame(
+            [
+                'locale' => 'en',
+                'viewType' => 'title',
+                'itemViewType' => 'standard',
+                'name' => 'My sixth block',
+                'alwaysAvailable' => true,
+                'parameterValues' => [
+                    'css_class' => 'CSS class',
+                    'css_id' => null,
+                ],
+                'configStructs' => [
+                    'http_cache' => [
+                        'parameterValues' => [
+                            'use_http_cache' => null,
+                            'shared_max_age' => null,
+                        ],
                     ],
-                    'configStructs' => [
-                        'http_cache' => new ConfigStruct(
-                            [
-                                'parameterValues' => [
-                                    'use_http_cache' => null,
-                                    'shared_max_age' => null,
-                                ],
-                            ]
-                        ),
-                    ],
-                ]
-            ),
-            $this->structBuilder->newBlockUpdateStruct('en', $block)
+                ],
+            ],
+            $this->exportObjectVars($struct, true)
         );
     }
 }

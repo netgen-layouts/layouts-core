@@ -12,9 +12,12 @@ use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 
 abstract class LayoutServiceTest extends ServiceTestCase
 {
+    use ExportObjectVarsTrait;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -1212,19 +1215,23 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layoutType = new LayoutType(['identifier' => '4_zones_a']);
 
-        $this->assertEquals(
-            new LayoutCreateStruct(
-                [
-                    'layoutType' => $layoutType,
-                    'name' => 'New layout',
-                    'mainLocale' => 'en',
-                ]
-            ),
-            $this->layoutService->newLayoutCreateStruct(
-                $layoutType,
-                'New layout',
-                'en'
-            )
+        $struct = $this->layoutService->newLayoutCreateStruct(
+            $layoutType,
+            'New layout',
+            'en'
+        );
+
+        $this->assertInstanceOf(LayoutCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'layoutType' => $layoutType,
+                'name' => 'New layout',
+                'description' => null,
+                'shared' => false,
+                'mainLocale' => 'en',
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -1233,16 +1240,18 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testNewLayoutUpdateStruct(): void
     {
-        $this->assertEquals(
-            new LayoutUpdateStruct(
-                [
-                    'name' => 'My layout',
-                    'description' => 'My layout description',
-                ]
-            ),
-            $this->layoutService->newLayoutUpdateStruct(
-                $this->layoutService->loadLayoutDraft(1)
-            )
+        $struct = $this->layoutService->newLayoutUpdateStruct(
+            $this->layoutService->loadLayoutDraft(1)
+        );
+
+        $this->assertInstanceOf(LayoutUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'name' => 'My layout',
+                'description' => 'My layout description',
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -1251,9 +1260,16 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testNewLayoutUpdateStructWithNoLayout(): void
     {
-        $this->assertEquals(
-            new LayoutUpdateStruct(),
-            $this->layoutService->newLayoutUpdateStruct()
+        $struct = $this->layoutService->newLayoutUpdateStruct();
+
+        $this->assertInstanceOf(LayoutUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'name' => null,
+                'description' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -1262,16 +1278,18 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testNewLayoutCopyStruct(): void
     {
-        $this->assertEquals(
-            new LayoutCopyStruct(
-                [
-                    'name' => 'My layout (copy)',
-                    'description' => null,
-                ]
-            ),
-            $this->layoutService->newLayoutCopyStruct(
-                $this->layoutService->loadLayoutDraft(1)
-            )
+        $struct = $this->layoutService->newLayoutCopyStruct(
+            $this->layoutService->loadLayoutDraft(1)
+        );
+
+        $this->assertInstanceOf(LayoutCopyStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'name' => 'My layout (copy)',
+                'description' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -1280,9 +1298,16 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testNewLayoutCopyStructWithNoLayout(): void
     {
-        $this->assertEquals(
-            new LayoutCopyStruct(),
-            $this->layoutService->newLayoutCopyStruct()
+        $struct = $this->layoutService->newLayoutCopyStruct();
+
+        $this->assertInstanceOf(LayoutCopyStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'name' => null,
+                'description' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 }

@@ -16,9 +16,12 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
 
 abstract class LayoutResolverServiceTest extends ServiceTestCase
 {
+    use ExportObjectVarsTrait;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -943,9 +946,18 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewRuleCreateStruct(): void
     {
-        $this->assertEquals(
-            new RuleCreateStruct(),
-            $this->layoutResolverService->newRuleCreateStruct()
+        $struct = $this->layoutResolverService->newRuleCreateStruct();
+
+        $this->assertInstanceOf(RuleCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'layoutId' => null,
+                'priority' => null,
+                'enabled' => false,
+                'comment' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -954,9 +966,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewRuleUpdateStruct(): void
     {
-        $this->assertEquals(
-            new RuleUpdateStruct(),
-            $this->layoutResolverService->newRuleUpdateStruct()
+        $struct = $this->layoutResolverService->newRuleUpdateStruct();
+
+        $this->assertInstanceOf(RuleUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'layoutId' => null,
+                'comment' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -965,9 +984,15 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewRuleMetadataUpdateStruct(): void
     {
-        $this->assertEquals(
-            new RuleMetadataUpdateStruct(),
-            $this->layoutResolverService->newRuleMetadataUpdateStruct()
+        $struct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
+
+        $this->assertInstanceOf(RuleMetadataUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'priority' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -976,17 +1001,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewTargetCreateStruct(): void
     {
-        $createStruct = $this->layoutResolverService->newTargetCreateStruct('target');
-        $createStruct->value = '42';
+        $struct = $this->layoutResolverService->newTargetCreateStruct('target');
 
-        $this->assertEquals(
-            new TargetCreateStruct(
-                [
-                    'type' => 'target',
-                    'value' => '42',
-                ]
-            ),
-            $createStruct
+        $this->assertInstanceOf(TargetCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'type' => 'target',
+                'value' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -995,16 +1019,15 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewTargetUpdateStruct(): void
     {
-        $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
-        $updateStruct->value = '42';
+        $struct = $this->layoutResolverService->newTargetUpdateStruct();
 
-        $this->assertEquals(
-            new TargetUpdateStruct(
-                [
-                    'value' => '42',
-                ]
-            ),
-            $updateStruct
+        $this->assertInstanceOf(TargetUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'value' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -1013,17 +1036,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewConditionCreateStruct(): void
     {
-        $createStruct = $this->layoutResolverService->newConditionCreateStruct('condition');
-        $createStruct->value = 42;
+        $struct = $this->layoutResolverService->newConditionCreateStruct('condition');
 
-        $this->assertEquals(
-            new ConditionCreateStruct(
-                [
-                    'type' => 'condition',
-                    'value' => '42',
-                ]
-            ),
-            $createStruct
+        $this->assertInstanceOf(ConditionCreateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'type' => 'condition',
+                'value' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 
@@ -1032,16 +1054,15 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testNewConditionUpdateStruct(): void
     {
-        $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();
-        $updateStruct->value = '42';
+        $struct = $this->layoutResolverService->newConditionUpdateStruct();
 
-        $this->assertEquals(
-            new ConditionUpdateStruct(
-                [
-                    'value' => '42',
-                ]
-            ),
-            $updateStruct
+        $this->assertInstanceOf(ConditionUpdateStruct::class, $struct);
+
+        $this->assertSame(
+            [
+                'value' => null,
+            ],
+            $this->exportObjectVars($struct)
         );
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use DateTimeImmutable;
-use DateTimeZone;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
@@ -287,10 +286,12 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $this->assertSame(APIItem::VISIBILITY_SCHEDULED, $visibilityConfig->getParameter('visibility_status')->getValue());
         $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
-        $this->assertEquals(
-            new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')),
-            $visibilityConfig->getParameter('visible_to')->getValue()
-        );
+
+        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $visibleTo);
+        $this->assertSame('2018-02-01 15:00:00', $visibleTo->format('Y-m-d H:i:s'));
+        $this->assertSame('Antarctica/Casey', $visibleTo->getTimezone()->getName());
     }
 
     /**
