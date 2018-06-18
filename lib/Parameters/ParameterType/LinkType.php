@@ -88,7 +88,7 @@ final class LinkType extends ParameterType
                 'linkType' => $value['link_type'],
                 'link' => $value['link'] ?? null,
                 'linkSuffix' => $value['link_suffix'] ?? null,
-                'newWindow' => $value['new_window'] ?? false,
+                'newWindow' => isset($value['new_window']) ? (bool) $value['new_window'] : false,
             ]
         );
     }
