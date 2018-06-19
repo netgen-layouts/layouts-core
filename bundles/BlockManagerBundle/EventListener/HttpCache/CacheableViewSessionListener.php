@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 use Netgen\BlockManager\View\CacheableViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\SessionListener;
 
@@ -38,6 +39,13 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event): void
     {
         $this->innerListener->onKernelRequest($event);
+    }
+
+    public function onFinishRequest(FinishRequestEvent $event): void
+    {
+        if (method_exists($this->innerListener, 'onFinishRequest')) {
+            $this->innerListener->onFinishRequest($event);
+        }
     }
 
     public function onKernelResponse(FilterResponseEvent $event): void
