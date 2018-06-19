@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Symfony\Component\Validator\Constraints;
@@ -172,6 +173,8 @@ final class LayoutValidator extends Validator
                 );
             }
 
+            $oldLayoutZones = [];
+
             foreach ($oldZones as $oldZone) {
                 if (in_array($oldZone, $seenZones, true)) {
                     throw ValidationException::validationFailed(
@@ -183,9 +186,8 @@ final class LayoutValidator extends Validator
                     );
                 }
 
-                $seenZones[] = $oldZone;
-
-                if (!$layout->hasZone($oldZone)) {
+                $layoutZone = $layout->getZone($oldZone, true);
+                if (!$layoutZone instanceof Zone) {
                     throw ValidationException::validationFailed(
                         'zoneMappings',
                         sprintf(
@@ -194,11 +196,14 @@ final class LayoutValidator extends Validator
                         )
                     );
                 }
+
+                $seenZones[] = $oldZone;
+                $oldLayoutZones[] = $layoutZone;
             }
 
-            if ($preserveSharedZones && count($oldZones) > 1) {
-                foreach ($oldZones as $oldZone) {
-                    if ($layout->getZone($oldZone, true)->hasLinkedZone()) {
+            if ($preserveSharedZones && count($oldLayoutZones) > 1) {
+                foreach ($oldLayoutZones as $oldZone) {
+                    if ($oldZone->getLinkedZone() instanceof Zone) {
                         throw ValidationException::validationFailed(
                             'zoneMappings',
                             sprintf(

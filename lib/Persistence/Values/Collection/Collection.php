@@ -25,7 +25,7 @@ final class Collection extends Value
     /**
      * The starting limit for the collection results.
      *
-     * @var int
+     * @var int|null
      */
     public $limit;
 

@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -51,7 +52,12 @@ class CsrfValidationListener implements EventSubscriberInterface
         $request = $event->getRequest();
 
         // Skip CSRF validation if no session is available
-        if (!$request->hasSession() || !$request->getSession()->isStarted()) {
+        if (!$request->hasSession()) {
+            return;
+        }
+
+        $session = $request->getSession();
+        if (!$session instanceof SessionInterface || !$session->isStarted()) {
             return;
         }
 
@@ -73,11 +79,13 @@ class CsrfValidationListener implements EventSubscriberInterface
             return false;
         }
 
+        $headerToken = $request->headers->get(self::$csrfTokenHeader);
+        if (!is_string($headerToken)) {
+            return false;
+        }
+
         return $this->csrfTokenManager->isTokenValid(
-            new CsrfToken(
-                $this->csrfTokenId,
-                $request->headers->get(self::$csrfTokenHeader)
-            )
+            new CsrfToken($this->csrfTokenId, $headerToken)
         );
     }
 }

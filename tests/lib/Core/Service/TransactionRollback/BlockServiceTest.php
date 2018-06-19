@@ -391,7 +391,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['isTranslatable' => false])));
+            ->will($this->returnValue(new PersistenceBlock(['isTranslatable' => false, 'parentId' => 42])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))

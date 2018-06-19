@@ -9,6 +9,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Value;
 
@@ -94,11 +95,12 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      */
     public function isContextual(): bool
     {
-        if (!$this->collection->hasQuery()) {
+        $collectionQuery = $this->collection->getQuery();
+        if (!$collectionQuery instanceof Query) {
             return false;
         }
 
-        return $this->collection->getQuery()->isContextual();
+        return $collectionQuery->isContextual();
     }
 
     /**

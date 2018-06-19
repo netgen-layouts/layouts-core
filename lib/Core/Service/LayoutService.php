@@ -473,7 +473,11 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
                 if ($preserveSharedZones) {
                     foreach ($zoneMappings as $newZone => $oldZones) {
-                        if (count($oldZones) === 1 && $layoutZones[$oldZones[0]]->linkedLayoutId !== null) {
+                        if (
+                            count($oldZones) === 1 &&
+                            $layoutZones[$oldZones[0]]->linkedLayoutId !== null &&
+                            $layoutZones[$oldZones[0]]->linkedZoneIdentifier !== null
+                        ) {
                             $this->layoutHandler->updateZone(
                                 $this->layoutHandler->loadZone($updatedLayout->id, Value::STATUS_DRAFT, $newZone),
                                 new ZoneUpdateStruct(

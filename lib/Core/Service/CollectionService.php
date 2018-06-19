@@ -224,7 +224,7 @@ final class CollectionService extends Service implements APICollectionService
                     foreach ($this->handler->loadCollectionItems($persistenceCollection) as $index => $item) {
                         $this->handler->moveItem($item, $index);
                     }
-                } elseif ($newType === Collection::TYPE_DYNAMIC) {
+                } elseif ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct !== null) {
                     $this->handler->createQuery(
                         $persistenceCollection,
                         new QueryCreateStruct(
@@ -473,7 +473,10 @@ final class CollectionService extends Service implements APICollectionService
             $localesToUpdate = $persistenceQuery->availableLocales;
 
             // Remove the main locale from the array, since we already updated that one
-            array_splice($localesToUpdate, array_search($persistenceQuery->mainLocale, $persistenceQuery->availableLocales, true), 1);
+            $mainLocaleOffset = array_search($persistenceQuery->mainLocale, $persistenceQuery->availableLocales, true);
+            if (is_int($mainLocaleOffset)) {
+                array_splice($localesToUpdate, $mainLocaleOffset, 1);
+            }
         }
 
         foreach ($localesToUpdate as $locale) {

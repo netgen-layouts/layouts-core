@@ -38,6 +38,7 @@ final class QueryParamConverter extends ParamConverter
 
     public function loadValue(array $values): Value
     {
+        /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         if ($values['status'] === self::$statusPublished) {

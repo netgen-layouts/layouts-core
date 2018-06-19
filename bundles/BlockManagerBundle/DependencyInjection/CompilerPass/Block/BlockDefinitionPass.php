@@ -46,7 +46,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
                     }
 
                     if ($tag['identifier'] === $handlerIdentifier) {
-                        $foundHandler = $blockDefinitionHandler;
+                        $foundHandler = (string) $blockDefinitionHandler;
                         break 2;
                     }
                 }

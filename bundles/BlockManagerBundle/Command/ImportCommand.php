@@ -52,7 +52,7 @@ final class ImportCommand extends Command
 
         $file = $input->getArgument('file');
 
-        $errorCount = $this->importData(file_get_contents($file));
+        $errorCount = $this->importData((string) file_get_contents($file));
 
         $errorCount > 0 ?
             $this->io->caution('Import completed with errors.') :

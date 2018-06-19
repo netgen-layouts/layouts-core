@@ -42,7 +42,7 @@ final class QueryTypePass implements CompilerPassInterface
                     }
 
                     if ($tag['type'] === $handlerIdentifier) {
-                        $foundHandler = $queryTypeHandler;
+                        $foundHandler = (string) $queryTypeHandler;
                         break 2;
                     }
                 }

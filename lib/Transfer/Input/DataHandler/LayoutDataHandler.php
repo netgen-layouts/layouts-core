@@ -250,7 +250,9 @@ final class LayoutDataHandler
         $linkedZoneLayout = $this->layoutService->loadLayout($zoneData['layout_id']);
         $linkedZone = $linkedZoneLayout->getZone($zoneData['identifier']);
 
-        $this->layoutService->linkZone($zone, $linkedZone);
+        if ($linkedZone instanceof Zone) {
+            $this->layoutService->linkZone($zone, $linkedZone);
+        }
     }
 
     /**
@@ -385,8 +387,13 @@ final class LayoutDataHandler
         foreach ($block->getCollections() as $identifier => $collection) {
             $collectionData = $collectionsData[$identifier];
 
-            if ($collection->hasQuery() && is_array($collectionData['query'])) {
-                $this->updateQueryTranslations($collection->getQuery(), $collectionData['query']['parameters']);
+            $collectionQuery = $collection->getQuery();
+
+            if ($collectionQuery instanceof Query && is_array($collectionData['query'])) {
+                $this->updateQueryTranslations(
+                    $collectionQuery,
+                    $collectionData['query']['parameters']
+                );
             }
 
             $this->createItems($collection, $collectionData['items']);

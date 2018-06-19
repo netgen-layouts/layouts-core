@@ -70,7 +70,7 @@ final class PagerFactory
      */
     private function getMaxPerPage(Collection $collection): int
     {
-        $limit = $collection->getLimit();
+        $limit = $collection->getLimit() ?? 0;
 
         return $limit > 0 && $limit < $this->maxLimit ? $limit : $this->maxLimit;
     }

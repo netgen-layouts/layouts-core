@@ -40,7 +40,7 @@ final class Importer implements ImporterInterface
 
     public function importData(string $data): Traversable
     {
-        $schema = file_get_contents(self::$schemaFile);
+        $schema = (string) file_get_contents(self::$schemaFile);
         $this->jsonValidator->validateJson($data, $schema);
 
         $data = json_decode($data, true);

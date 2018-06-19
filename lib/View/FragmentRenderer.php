@@ -75,7 +75,7 @@ final class FragmentRenderer implements RendererInterface
             return $this->viewRenderer->renderView($view);
         }
 
-        return $this->fragmentHandler->render($controller, 'esi');
+        return $this->fragmentHandler->render($controller, 'esi') ?? '';
     }
 
     /**

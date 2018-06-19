@@ -33,6 +33,11 @@ final class ViewRenderer implements ViewRendererInterface
         $this->eventDispatcher->dispatch(BlockManagerEvents::RENDER_VIEW, $event);
         $view->addParameters($event->getParameters());
 
-        return $this->twig->render($view->getTemplate(), $view->getParameters());
+        $viewTemplate = $view->getTemplate();
+        if ($viewTemplate === null) {
+            return '';
+        }
+
+        return $this->twig->render($viewTemplate, $view->getParameters());
     }
 }

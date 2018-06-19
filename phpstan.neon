@@ -7,10 +7,12 @@ parameters:
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
 
         # Doctrine DBAL
-        - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement|int#'
+        - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
+        - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
 
         # Compatibility with Symfony 2.8
         - '#Call to an undefined method Netgen\\Bundle\\BlockManagerDebugBundle\\DataCollector\\BlockManagerDataCollector::varToString\(\)#'
 
-        # Netgen Layouts specifics, we should probably fix these
-        - '#Accessing property $queryType on possibly null value of type Netgen\BlockManager\\API\\Values\\Collection\\QueryCreateStruct|null#'
+        # Netgen Layouts specifics
+        # - '#Parameter \#1 \$value of method Netgen\\BlockManager\\Item\\ItemLoaderInterface::load\(\) expects int\|string, bool\|float\|int\|string given.#'
+        - '#Property Netgen\\BlockManager\\Persistence\\Values\\.+::\$\w+ \(int\|string\) does not accept null.#'

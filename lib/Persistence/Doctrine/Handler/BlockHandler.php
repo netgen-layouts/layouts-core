@@ -361,14 +361,16 @@ final class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->moveBlock($block, $targetBlock, $placeholder, $position);
 
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperConditions(
-                $block->parentId,
-                $block->status,
-                $block->placeholder
-            ),
-            $block->position
-        );
+        if ($block->parentId !== null && $block->placeholder !== null && $block->position !== null) {
+            $this->positionHelper->removePosition(
+                $this->getPositionHelperConditions(
+                    $block->parentId,
+                    $block->status,
+                    $block->placeholder
+                ),
+                $block->position
+            );
+        }
 
         return $this->loadBlock($block->id, $block->status);
     }
@@ -376,6 +378,10 @@ final class BlockHandler implements BlockHandlerInterface
     public function moveBlockToPosition(Block $block, int $position): Block
     {
         $movedBlock = clone $block;
+
+        if ($block->parentId === null || $block->placeholder === null || $block->position === null) {
+            return $movedBlock;
+        }
 
         $movedBlock->position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperConditions(
@@ -438,7 +444,7 @@ final class BlockHandler implements BlockHandlerInterface
         $blockIds = $this->queryHandler->loadSubBlockIds($block->id, $block->status);
         $this->deleteBlocks($blockIds, $block->status);
 
-        if ($block->parentId !== null) {
+        if ($block->parentId !== null && $block->placeholder !== null && $block->position !== null) {
             $this->positionHelper->removePosition(
                 $this->getPositionHelperConditions(
                     $block->parentId,

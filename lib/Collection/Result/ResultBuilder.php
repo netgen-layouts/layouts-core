@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Query;
 
 /**
  * A builder generates the collection results. Note that in order to disable fetching unlimited
@@ -45,8 +46,10 @@ final class ResultBuilder implements ResultBuilderInterface
             $limit = $this->maxLimit;
         }
 
+        $collectionQuery = $collection->getQuery();
+
         $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
-        if ($collection->hasQuery() && $collection->getQuery()->isContextual() && $showContextualSlots) {
+        if ($collectionQuery instanceof Query && $collectionQuery->isContextual() && $showContextualSlots) {
             $limit = $limit > 0 && $limit < $this->contextualLimit ? $limit : $this->contextualLimit;
         }
 

@@ -32,6 +32,8 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isManual
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isOverride
      */
     public function testSetProperties(): void
     {
@@ -57,6 +59,8 @@ final class ItemTest extends TestCase
         $this->assertSame($definition, $item->getDefinition());
         $this->assertSame(3, $item->getPosition());
         $this->assertSame(Item::TYPE_OVERRIDE, $item->getType());
+        $this->assertFalse($item->isManual());
+        $this->assertTrue($item->isOverride());
         $this->assertSame(32, $item->getValue());
         $this->assertSame($cmsItem, $item->getCmsItem());
     }

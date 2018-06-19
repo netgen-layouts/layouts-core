@@ -41,11 +41,10 @@ abstract class QueryHandler
      */
     public function applyOffsetAndLimit(QueryBuilder $query, ?int $offset, ?int $limit): void
     {
-        $offset = is_int($offset) ? $offset : 0;
-        $limit = is_int($limit) && $limit > 0 ? $limit : null;
+        $query->setFirstResult($offset ?? 0);
 
-        $query
-            ->setFirstResult($offset)
-            ->setMaxResults($limit);
+        if (is_int($limit) && $limit > 0) {
+            $query->setMaxResults($limit);
+        }
     }
 }

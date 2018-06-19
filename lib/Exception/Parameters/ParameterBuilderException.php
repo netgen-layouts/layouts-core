@@ -19,8 +19,17 @@ final class ParameterBuilderException extends InvalidArgumentException implement
         );
     }
 
-    public static function noOption(string $option, string $parameter): self
+    public static function noOption(string $option, string $parameter = null): self
     {
+        if ($parameter === null) {
+            return new self(
+                sprintf(
+                    'Option "%s" does not exist in the builder.',
+                    $option
+                )
+            );
+        }
+
         return new self(
             sprintf(
                 'Option "%s" does not exist in the builder for "%s" parameter.',

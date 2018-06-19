@@ -53,7 +53,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
      *
      * @param \Netgen\BlockManager\Collection\Result\ResultSet $resultSet
      *
-     * @return \Netgen\BlockManager\Collection\Result\Result[]
+     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
     private function getOverflowItems(ResultSet $resultSet): array
     {

@@ -33,7 +33,7 @@ final class CacheableResolver implements CacheableResolverInterface
     {
         foreach ($this->voters as $voter) {
             $result = $voter->vote($block);
-            if ($result !== VoterInterface::ABSTAIN) {
+            if (is_bool($result)) {
                 return $result;
             }
         }

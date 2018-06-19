@@ -27,7 +27,7 @@ final class ResultBuilderAdapter implements AdapterInterface
     private $startingOffset;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $maxTotalCount;
 

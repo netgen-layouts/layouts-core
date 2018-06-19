@@ -52,13 +52,15 @@ final class Zone extends Visitor
      */
     private function visitLinkedZone(ZoneValue $zone): ?array
     {
-        if (!$zone->hasLinkedZone()) {
+        $linkedZone = $zone->getLinkedZone();
+
+        if (!$linkedZone instanceof ZoneValue) {
             return null;
         }
 
         return [
-            'identifier' => $zone->getLinkedZone()->getIdentifier(),
-            'layout_id' => $zone->getLinkedZone()->getLayoutId(),
+            'identifier' => $linkedZone->getIdentifier(),
+            'layout_id' => $linkedZone->getLayoutId(),
         ];
     }
 

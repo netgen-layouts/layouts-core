@@ -67,7 +67,7 @@ class TemplateResolver implements TemplateResolverInterface
             }
         }
 
-        throw TemplateResolverException::noTemplateMatch($view->getIdentifier(), $viewContext);
+        throw TemplateResolverException::noTemplateMatch($view->getIdentifier(), $viewContext ?? '');
     }
 
     /**

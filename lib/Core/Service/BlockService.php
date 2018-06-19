@@ -497,9 +497,11 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Block is already translatable.');
         }
 
-        $parentBlock = $this->blockHandler->loadBlock($persistenceBlock->parentId, Value::STATUS_DRAFT);
-        if ($parentBlock->depth > 0 && !$parentBlock->isTranslatable) {
-            throw new BadStateException('block', 'You can only enable translations if parent block is also translatable.');
+        if ($persistenceBlock->parentId !== null) {
+            $parentBlock = $this->blockHandler->loadBlock($persistenceBlock->parentId, Value::STATUS_DRAFT);
+            if ($parentBlock->depth > 0 && !$parentBlock->isTranslatable) {
+                throw new BadStateException('block', 'You can only enable translations if parent block is also translatable.');
+            }
         }
 
         $persistenceLayout = $this->layoutHandler->loadLayout($persistenceBlock->layoutId, Value::STATUS_DRAFT);
@@ -778,7 +780,10 @@ final class BlockService extends Service implements BlockServiceInterface
             $localesToUpdate = $persistenceBlock->availableLocales;
 
             // Remove the main locale from the array, since we already updated that one
-            array_splice($localesToUpdate, array_search($persistenceBlock->mainLocale, $persistenceBlock->availableLocales, true), 1);
+            $mainLocaleOffset = array_search($persistenceBlock->mainLocale, $persistenceBlock->availableLocales, true);
+            if (is_int($mainLocaleOffset)) {
+                array_splice($localesToUpdate, $mainLocaleOffset, 1);
+            }
         }
 
         foreach ($localesToUpdate as $locale) {

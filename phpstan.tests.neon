@@ -10,5 +10,5 @@ parameters:
         # Symfony Form component
         - '#Parameter \#2 \$dataClass of class Symfony\\Component\\Form\\FormConfigBuilder constructor expects string, null given.#'
 
-        # Layouts tests specifics
+        # Netgen Layouts tests specifics
         - '#on possibly null value of type#'

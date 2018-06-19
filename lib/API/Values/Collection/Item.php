@@ -54,6 +54,16 @@ interface Item extends Value, ConfigAwareValue
     public function getCollectionId();
 
     /**
+     * Returns if the item is a manual item.
+     */
+    public function isManual(): bool;
+
+    /**
+     * Returns if the item is an override item.
+     */
+    public function isOverride(): bool;
+
+    /**
      * Returns the item definition.
      */
     public function getDefinition(): ItemDefinitionInterface;

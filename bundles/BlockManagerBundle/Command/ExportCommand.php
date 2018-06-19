@@ -63,13 +63,13 @@ final class ExportCommand extends Command
                 throw new RuntimeException(sprintf('Unhandled type %s', $type));
         }
 
-        $json = json_encode($hash, JSON_PRETTY_PRINT);
+        $json = (string) json_encode($hash, JSON_PRETTY_PRINT);
 
         $file = $input->getArgument('file');
 
         $file !== null ?
             $this->fileSystem->dumpFile(trim($file), $json) :
-            $output->writeln((string) $json);
+            $output->writeln($json);
 
         return 0;
     }
