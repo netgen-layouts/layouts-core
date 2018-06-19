@@ -80,8 +80,8 @@ final class BlockController extends Controller
         $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,
             $block,
-            $request->request->get('placeholder'),
-            $request->request->get('position')
+            $request->request->get('parent_placeholder'),
+            $request->request->get('parent_position')
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -116,7 +116,7 @@ final class BlockController extends Controller
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $zone,
-            $request->request->get('position')
+            $request->request->get('parent_position')
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -133,14 +133,14 @@ final class BlockController extends Controller
     public function copy(Block $block, Request $request)
     {
         $targetBlock = $this->blockService->loadBlockDraft(
-            $request->request->get('block_id')
+            $request->request->get('parent_block_id')
         );
 
         $copiedBlock = $this->blockService->copyBlock(
             $block,
             $targetBlock,
-            $request->request->get('placeholder'),
-            $request->request->get('position')
+            $request->request->get('parent_placeholder'),
+            $request->request->get('parent_position')
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -164,7 +164,7 @@ final class BlockController extends Controller
         $copiedBlock = $this->blockService->copyBlockToZone(
             $block,
             $zone,
-            $request->request->get('position')
+            $request->request->get('parent_position')
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
@@ -181,14 +181,14 @@ final class BlockController extends Controller
     public function move(Block $block, Request $request)
     {
         $targetBlock = $this->blockService->loadBlockDraft(
-            $request->request->get('block_id')
+            $request->request->get('parent_block_id')
         );
 
         $this->blockService->moveBlock(
             $block,
             $targetBlock,
-            $request->request->get('placeholder'),
-            $request->request->get('position')
+            $request->request->get('parent_placeholder'),
+            $request->request->get('parent_position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -212,7 +212,7 @@ final class BlockController extends Controller
         $this->blockService->moveBlockToZone(
             $block,
             $zone,
-            $request->request->get('position')
+            $request->request->get('parent_position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);

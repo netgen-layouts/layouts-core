@@ -61,8 +61,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -92,8 +92,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'grid',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -123,8 +123,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'test_grid',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -154,7 +154,7 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'left',
+                'parent_placeholder' => 'left',
             ]
         );
 
@@ -183,8 +183,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -213,8 +213,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'column',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -243,8 +243,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 42,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -272,8 +272,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -302,8 +302,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'title',
-                'placeholder' => 42,
-                'position' => 0,
+                'parent_placeholder' => 42,
+                'parent_position' => 0,
             ]
         );
 
@@ -332,7 +332,7 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'title',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -361,8 +361,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'title',
-                'placeholder' => 'main',
-                'position' => '0',
+                'parent_placeholder' => 'main',
+                'parent_position' => '0',
             ]
         );
 
@@ -391,8 +391,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'unknown',
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -421,8 +421,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'title',
-                'placeholder' => 'unknown',
-                'position' => 0,
+                'parent_placeholder' => 'unknown',
+                'parent_position' => 0,
             ]
         );
 
@@ -451,8 +451,8 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'left',
-                'position' => 9999,
+                'parent_placeholder' => 'left',
+                'parent_position' => 9999,
             ]
         );
 
@@ -484,7 +484,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -546,7 +546,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 42,
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -576,7 +576,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -607,7 +607,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => [42],
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -637,7 +637,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'block_type' => 'title',
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -668,7 +668,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 1,
                 'zone_identifier' => 42,
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -698,7 +698,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'block_type' => 'title',
                 'layout_id' => 1,
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -729,7 +729,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => '0',
+                'parent_position' => '0',
             ]
         );
 
@@ -760,7 +760,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'unknown',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -791,7 +791,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 9999,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -822,7 +822,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 1,
                 'zone_identifier' => 'unknown',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -853,7 +853,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 9999,
+                'parent_position' => 9999,
             ]
         );
 
@@ -884,7 +884,7 @@ final class BlockControllerTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'layout_id' => 1,
                 'zone_identifier' => 'top',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -911,8 +911,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'left',
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'left',
             ]
         );
 
@@ -962,8 +962,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 9999,
-                'placeholder' => 'main',
+                'parent_block_id' => 9999,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -990,8 +990,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'unknown',
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'unknown',
             ]
         );
 
@@ -1018,8 +1018,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 37,
-                'placeholder' => 'main',
+                'parent_block_id' => 37,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -1046,8 +1046,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 38,
-                'placeholder' => 'main',
+                'parent_block_id' => 38,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -1074,8 +1074,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => [42],
-                'placeholder' => 'main',
+                'parent_block_id' => [42],
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -1102,8 +1102,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 42,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 42,
             ]
         );
 
@@ -1130,7 +1130,7 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'placeholder' => 'main',
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -1157,7 +1157,7 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
+                'parent_block_id' => 33,
             ]
         );
 
@@ -1429,9 +1429,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -1454,9 +1454,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'right',
-                'position' => 0,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'right',
+                'parent_position' => 0,
             ]
         );
 
@@ -1479,9 +1479,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 38,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_block_id' => 38,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -1527,9 +1527,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 9999,
-                'placeholder' => 'main',
-                'position' => 1,
+                'parent_block_id' => 9999,
+                'parent_placeholder' => 'main',
+                'parent_position' => 1,
             ]
         );
 
@@ -1556,9 +1556,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'unknown',
-                'position' => 1,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'unknown',
+                'parent_position' => 1,
             ]
         );
 
@@ -1585,9 +1585,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 32,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_block_id' => 32,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -1614,9 +1614,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'left',
-                'position' => 9999,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'left',
+                'parent_position' => 9999,
             ]
         );
 
@@ -1643,9 +1643,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 38,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_block_id' => 38,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -1672,9 +1672,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => [42],
-                'placeholder' => 'main',
-                'position' => 1,
+                'parent_block_id' => [42],
+                'parent_placeholder' => 'main',
+                'parent_position' => 1,
             ]
         );
 
@@ -1701,9 +1701,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 42,
-                'position' => 1,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 42,
+                'parent_position' => 1,
             ]
         );
 
@@ -1730,9 +1730,9 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'main',
-                'position' => '1',
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'main',
+                'parent_position' => '1',
             ]
         );
 
@@ -1759,8 +1759,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'placeholder' => 'main',
-                'position' => 1,
+                'parent_placeholder' => 'main',
+                'parent_position' => 1,
             ]
         );
 
@@ -1787,8 +1787,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'position' => 1,
+                'parent_block_id' => 33,
+                'parent_position' => 1,
             ]
         );
 
@@ -1815,8 +1815,8 @@ final class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'main',
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -1845,7 +1845,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'left',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -1893,7 +1893,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 9999,
                 'zone_identifier' => 'left',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -1922,7 +1922,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'unknown',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -1951,7 +1951,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'top',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -1980,7 +1980,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'left',
-                'position' => 9999,
+                'parent_position' => 9999,
             ]
         );
 
@@ -2009,7 +2009,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => [42],
                 'zone_identifier' => 'left',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -2038,7 +2038,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 42,
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -2067,7 +2067,7 @@ final class BlockControllerTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'left',
-                'position' => '1',
+                'parent_position' => '1',
             ]
         );
 
@@ -2095,7 +2095,7 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'zone_identifier' => 'left',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -2123,7 +2123,7 @@ final class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'layout_id' => 1,
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
