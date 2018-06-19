@@ -17,11 +17,11 @@ use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 abstract class CollectionStructBuilderTest extends ServiceTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
@@ -54,7 +54,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 'limit' => null,
                 'queryCreateStruct' => $queryCreateStruct,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -72,7 +72,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 'offset' => null,
                 'limit' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -92,7 +92,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 'offset' => 4,
                 'limit' => 2,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -112,7 +112,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 'offset' => 0,
                 'limit' => 0,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -133,7 +133,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'configStructs' => [],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -150,7 +150,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
             [
                 'configStructs' => [],
             ],
-            $this->exportObjectVars($struct, true)
+            $this->exportObject($struct, true)
         );
     }
 
@@ -179,7 +179,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     ],
                 ],
             ],
-            $this->exportObjectVars($struct, true)
+            $this->exportObject($struct, true)
         );
     }
 
@@ -202,7 +202,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -220,7 +220,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 'locale' => 'en',
                 'parameterValues' => [],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -242,7 +242,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 }

@@ -13,11 +13,11 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder
@@ -47,7 +47,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
                 'enabled' => false,
                 'comment' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -65,7 +65,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
                 'layoutId' => null,
                 'comment' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -82,7 +82,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
             [
                 'priority' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -100,7 +100,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
                 'type' => 'target',
                 'value' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -117,7 +117,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
             [
                 'value' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -135,7 +135,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
                 'type' => 'condition',
                 'value' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -152,7 +152,7 @@ abstract class LayoutResolverStructBuilderTest extends ServiceTestCase
             [
                 'value' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 }

@@ -17,13 +17,13 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverHandlerTest extends TestCase
 {
     use TestCaseTrait;
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
@@ -73,7 +73,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'priority' => 9,
                 'comment' => 'My comment',
             ],
-            $this->exportObjectVars($rule)
+            $this->exportObject($rule)
         );
     }
 
@@ -178,7 +178,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'type' => 'route',
                 'value' => 'my_cool_route',
             ],
-            $this->exportObjectVars($target)
+            $this->exportObject($target)
         );
     }
 
@@ -245,7 +245,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'parameter_values' => [1, 2],
                 ],
             ],
-            $this->exportObjectVars($condition)
+            $this->exportObject($condition)
         );
     }
 
@@ -528,7 +528,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'value' => 'my_third_cool_',
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->handler->loadRuleTargets($copiedRule)
             )
         );
@@ -543,7 +543,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'value' => ['some_value'],
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->handler->loadRuleConditions($copiedRule)
             )
         );
@@ -591,7 +591,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'value' => 'my_fifth_cool_route',
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->handler->loadRuleTargets($copiedRule)
             )
         );
@@ -619,7 +619,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     ],
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->handler->loadRuleConditions($copiedRule)
             )
         );
@@ -687,7 +687,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'type' => 'target',
                 'value' => '42',
             ],
-            $this->exportObjectVars($target)
+            $this->exportObject($target)
         );
     }
 
@@ -715,7 +715,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'type' => 'route',
                 'value' => 'my_new_route',
             ],
-            $this->exportObjectVars($target)
+            $this->exportObject($target)
         );
     }
 
@@ -759,7 +759,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'type' => 'condition',
                 'value' => ['param' => 'value'],
             ],
-            $this->exportObjectVars($condition)
+            $this->exportObject($condition)
         );
     }
 
@@ -787,7 +787,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'type' => 'route_parameter',
                 'value' => ['new_param' => 'new_value'],
             ],
-            $this->exportObjectVars($condition)
+            $this->exportObject($condition)
         );
     }
 

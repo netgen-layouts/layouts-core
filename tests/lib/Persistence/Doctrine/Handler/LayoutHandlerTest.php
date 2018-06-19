@@ -15,13 +15,13 @@ use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutHandlerTest extends TestCase
 {
     use TestCaseTrait;
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
@@ -81,7 +81,7 @@ final class LayoutHandlerTest extends TestCase
                 'availableLocales' => ['en', 'hr'],
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($layout)
+            $this->exportObject($layout)
         );
     }
 
@@ -116,7 +116,7 @@ final class LayoutHandlerTest extends TestCase
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'top',
             ],
-            $this->exportObjectVars($zone)
+            $this->exportObject($zone)
         );
     }
 
@@ -183,7 +183,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars($layouts)
+            $this->exportObjectList($layouts)
         );
     }
 
@@ -263,7 +263,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars($layouts)
+            $this->exportObjectList($layouts)
         );
     }
 
@@ -307,7 +307,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars($layouts)
+            $this->exportObjectList($layouts)
         );
     }
 
@@ -341,7 +341,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars($layouts)
+            $this->exportObjectList($layouts)
         );
     }
 
@@ -483,7 +483,7 @@ final class LayoutHandlerTest extends TestCase
                     'linkedZoneIdentifier' => 'top',
                 ],
             ],
-            $this->exportObjectArrayVars($zones)
+            $this->exportObjectList($zones)
         );
     }
 
@@ -516,7 +516,7 @@ final class LayoutHandlerTest extends TestCase
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'top',
             ],
-            $this->exportObjectVars($updatedZone)
+            $this->exportObject($updatedZone)
         );
     }
 
@@ -548,7 +548,7 @@ final class LayoutHandlerTest extends TestCase
                 'linkedLayoutId' => null,
                 'linkedZoneIdentifier' => null,
             ],
-            $this->exportObjectVars($updatedZone)
+            $this->exportObject($updatedZone)
         );
     }
 
@@ -719,7 +719,7 @@ final class LayoutHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($rootBlock)
+            $this->exportObject($rootBlock)
         );
     }
 
@@ -842,7 +842,7 @@ final class LayoutHandlerTest extends TestCase
                     'linkedZoneIdentifier' => null,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->layoutHandler->loadLayoutZones($copiedLayout)
             )
         );
@@ -881,7 +881,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
                     $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED)
                 )
@@ -942,7 +942,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
                     $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED)
                 )
@@ -1056,7 +1056,7 @@ final class LayoutHandlerTest extends TestCase
                     'linkedZoneIdentifier' => null,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->layoutHandler->loadLayoutZones($updatedLayout)
             )
         );
@@ -1149,7 +1149,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
                     $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
                 )
@@ -1246,7 +1246,7 @@ final class LayoutHandlerTest extends TestCase
                     'linkedZoneIdentifier' => null,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->layoutHandler->loadLayoutZones($copiedLayout)
             )
         );
@@ -1285,7 +1285,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
                     $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
                 )
@@ -1346,7 +1346,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
                     $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED)
                 )

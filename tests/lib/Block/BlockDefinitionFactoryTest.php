@@ -24,12 +24,12 @@ use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionFactoryTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -196,7 +196,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                     'validParameters' => ['param1', 'param2'],
                 ],
             ],
-            $this->exportObjectArrayVars($blockDefinition->getViewTypes(), true)
+            $this->exportObjectList($blockDefinition->getViewTypes(), true)
         );
 
         $this->assertArrayHasKey('form', $blockDefinition->getForms());
@@ -207,7 +207,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                 'identifier' => 'form',
                 'type' => 'form_type',
             ],
-            $this->exportObjectVars($blockDefinition->getForm('form'))
+            $this->exportObject($blockDefinition->getForm('form'))
         );
 
         $this->assertArrayHasKey('default', $blockDefinition->getCollections());
@@ -229,7 +229,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                     'validQueryTypes' => [],
                 ],
             ],
-            $this->exportObjectArrayVars($blockDefinition->getCollections())
+            $this->exportObjectList($blockDefinition->getCollections())
         );
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();

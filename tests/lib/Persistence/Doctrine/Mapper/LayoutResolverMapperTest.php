@@ -9,12 +9,12 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverMapperTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
@@ -75,7 +75,7 @@ final class LayoutResolverMapperTest extends TestCase
             $this->assertInstanceOf(Rule::class, $rule);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($rules));
+        $this->assertSame($expectedData, $this->exportObjectList($rules));
     }
 
     /**
@@ -123,7 +123,7 @@ final class LayoutResolverMapperTest extends TestCase
             $this->assertInstanceOf(Target::class, $target);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($targets));
+        $this->assertSame($expectedData, $this->exportObjectList($targets));
     }
 
     /**
@@ -173,6 +173,6 @@ final class LayoutResolverMapperTest extends TestCase
             $this->assertInstanceOf(Condition::class, $condition);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($conditions));
+        $this->assertSame($expectedData, $this->exportObjectList($conditions));
     }
 }

@@ -8,12 +8,12 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockMapperTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
@@ -135,7 +135,7 @@ final class BlockMapperTest extends TestCase
             $this->assertInstanceOf(Block::class, $block);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($blocks));
+        $this->assertSame($expectedData, $this->exportObjectList($blocks));
     }
 
     /**
@@ -183,6 +183,6 @@ final class BlockMapperTest extends TestCase
             $this->assertInstanceOf(CollectionReference::class, $collectionReference);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($collectionReferences));
+        $this->assertSame($expectedData, $this->exportObjectList($collectionReferences));
     }
 }

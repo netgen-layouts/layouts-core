@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Item\ValueType;
 
 use Netgen\BlockManager\Item\ValueType\ValueTypeFactory;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class ValueTypeFactoryTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @covers \Netgen\BlockManager\Item\ValueType\ValueTypeFactory::buildValueType
@@ -31,7 +31,7 @@ final class ValueTypeFactoryTest extends TestCase
                 'isEnabled' => false,
                 'name' => 'Value type',
             ],
-            $this->exportObjectVars($valueType)
+            $this->exportObject($valueType)
         );
     }
 }

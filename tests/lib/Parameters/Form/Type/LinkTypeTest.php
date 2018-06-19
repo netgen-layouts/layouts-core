@@ -12,7 +12,7 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
@@ -23,7 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class LinkTypeTest extends FormTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
@@ -95,7 +95,7 @@ final class LinkTypeTest extends FormTestCase
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
-            $this->exportObjectVars($formData)
+            $this->exportObject($formData)
         );
 
         // View test
@@ -145,7 +145,7 @@ final class LinkTypeTest extends FormTestCase
                 'linkSuffix' => null,
                 'newWindow' => false,
             ],
-            $this->exportObjectVars($formData)
+            $this->exportObject($formData)
         );
 
         // View test

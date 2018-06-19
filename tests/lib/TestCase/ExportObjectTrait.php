@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
-use Closure;
-
-trait ExportObjectVarsTrait
+trait ExportObjectTrait
 {
     /**
      * @param object $object
@@ -14,9 +12,9 @@ trait ExportObjectVarsTrait
      *
      * @return array
      */
-    private function exportObjectVars($object, bool $recursive = false): array
+    private function exportObject($object, bool $recursive = false): array
     {
-        $data = $this->getExporter()->call($object);
+        $data = (function (): array { return get_object_vars($this); })->call($object);
 
         if (!$recursive) {
             return $data;
@@ -25,7 +23,13 @@ trait ExportObjectVarsTrait
         return $this->exportArray($data, $recursive);
     }
 
-    private function exportObjectArrayVars(array $objects, bool $recursive = false): array
+    /**
+     * @param object[] $objects
+     * @param bool $recursive
+     *
+     * @return array
+     */
+    private function exportObjectList(array $objects, bool $recursive = false): array
     {
         $data = [];
 
@@ -34,7 +38,7 @@ trait ExportObjectVarsTrait
                 continue;
             }
 
-            $data[$key] = $this->exportObjectVars($object, $recursive);
+            $data[$key] = $this->exportObject($object, $recursive);
         }
 
         return $data;
@@ -52,7 +56,7 @@ trait ExportObjectVarsTrait
             }
 
             if ($recursive && is_object($value)) {
-                $exportedData[$key] = $this->exportObjectVars($value, $recursive);
+                $exportedData[$key] = $this->exportObject($value, $recursive);
 
                 continue;
             }
@@ -61,12 +65,5 @@ trait ExportObjectVarsTrait
         }
 
         return $exportedData;
-    }
-
-    private function getExporter(): Closure
-    {
-        return function (): array {
-            return get_object_vars($this);
-        };
     }
 }

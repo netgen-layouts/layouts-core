@@ -10,11 +10,11 @@ use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutStructBuilderTest extends ServiceTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
@@ -53,7 +53,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
                 'shared' => false,
                 'mainLocale' => 'en',
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -73,7 +73,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
                 'name' => 'My layout',
                 'description' => 'My layout description',
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -91,7 +91,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -111,7 +111,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
                 'name' => 'My layout (copy)',
                 'description' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -129,7 +129,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 }

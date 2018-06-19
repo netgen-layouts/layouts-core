@@ -9,12 +9,12 @@ use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class ItemBuilderTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
@@ -39,7 +39,7 @@ final class ItemBuilderTest extends TestCase
                 'isVisible' => true,
                 'object' => $value,
             ],
-            $this->exportObjectVars($builtItem)
+            $this->exportObject($builtItem)
         );
     }
 

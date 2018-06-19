@@ -14,11 +14,11 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 abstract class BlockServiceTest extends ServiceTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     public function setUp(): void
     {
@@ -1761,7 +1761,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 ],
                 'configStructs' => [],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -1784,7 +1784,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'parameterValues' => [],
                 'configStructs' => [],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -1821,7 +1821,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     ],
                 ],
             ],
-            $this->exportObjectVars($struct, true)
+            $this->exportObject($struct, true)
         );
     }
 }

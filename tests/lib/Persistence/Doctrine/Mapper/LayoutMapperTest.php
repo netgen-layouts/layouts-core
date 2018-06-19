@@ -8,12 +8,12 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutMapperTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
@@ -90,7 +90,7 @@ final class LayoutMapperTest extends TestCase
             $this->assertInstanceOf(Layout::class, $layout);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($layouts));
+        $this->assertSame($expectedData, $this->exportObjectList($layouts));
     }
 
     /**
@@ -142,6 +142,6 @@ final class LayoutMapperTest extends TestCase
             $this->assertInstanceOf(Zone::class, $zone);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($zones));
+        $this->assertSame($expectedData, $this->exportObjectList($zones));
     }
 }

@@ -10,14 +10,14 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterBuilderTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
@@ -860,7 +860,7 @@ final class ParameterBuilderTest extends TestCase
                 'groups' => ['group'],
                 'constraints' => $constraints,
             ],
-            $this->exportObjectVars($parameterDefinitions['test'])
+            $this->exportObject($parameterDefinitions['test'])
         );
 
         $this->assertSame(
@@ -875,7 +875,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'parameterDefinitions' => $innerDefinitions,
             ],
-            $this->exportObjectVars($parameterDefinitions['compound'])
+            $this->exportObject($parameterDefinitions['compound'])
         );
 
         $this->assertSame(
@@ -889,7 +889,7 @@ final class ParameterBuilderTest extends TestCase
                 'groups' => ['group 2'],
                 'constraints' => [],
             ],
-            $this->exportObjectVars($innerDefinitions['test2'])
+            $this->exportObject($innerDefinitions['test2'])
         );
     }
 
@@ -934,7 +934,7 @@ final class ParameterBuilderTest extends TestCase
                 'groups' => ['group'],
                 'constraints' => $constraints,
             ],
-            $this->exportObjectVars($parameterDefinitions['test'])
+            $this->exportObject($parameterDefinitions['test'])
         );
     }
 
@@ -965,7 +965,7 @@ final class ParameterBuilderTest extends TestCase
                 'groups' => [],
                 'constraints' => [],
             ],
-            $this->exportObjectVars($parameterDefinitions['test'])
+            $this->exportObject($parameterDefinitions['test'])
         );
     }
 

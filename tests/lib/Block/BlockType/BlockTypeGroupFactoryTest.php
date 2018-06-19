@@ -7,12 +7,12 @@ namespace Netgen\BlockManager\Tests\Block\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupFactoryTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory::buildBlockTypeGroup
@@ -39,7 +39,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
                 'name' => 'Simple blocks',
                 'blockTypes' => [$blockType],
             ],
-            $this->exportObjectVars($blockTypeGroup)
+            $this->exportObject($blockTypeGroup)
         );
     }
 }

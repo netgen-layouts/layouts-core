@@ -16,13 +16,13 @@ use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionHandlerTest extends TestCase
 {
     use TestCaseTrait;
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
@@ -68,7 +68,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($collection)
+            $this->exportObject($collection)
         );
     }
 
@@ -105,7 +105,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
     }
 
@@ -145,7 +145,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
     }
 
@@ -216,7 +216,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($query)
+            $this->exportObject($query)
         );
     }
 
@@ -268,7 +268,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($query)
+            $this->exportObject($query)
         );
     }
 
@@ -341,7 +341,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($createdCollection)
+            $this->exportObject($createdCollection)
         );
     }
 
@@ -371,7 +371,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($collection)
+            $this->exportObject($collection)
         );
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
@@ -407,7 +407,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($query)
+            $this->exportObject($query)
         );
     }
 
@@ -436,7 +436,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($collection)
+            $this->exportObject($collection)
         );
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
@@ -472,7 +472,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($query)
+            $this->exportObject($query)
         );
     }
 
@@ -501,7 +501,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($collection)
+            $this->exportObject($collection)
         );
     }
 
@@ -603,7 +603,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => false,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedCollection)
+            $this->exportObject($updatedCollection)
         );
     }
 
@@ -635,7 +635,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedCollection)
+            $this->exportObject($updatedCollection)
         );
     }
 
@@ -665,7 +665,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedCollection)
+            $this->exportObject($updatedCollection)
         );
     }
 
@@ -697,7 +697,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($copiedCollection)
+            $this->exportObject($copiedCollection)
         );
 
         $this->assertSame(
@@ -733,7 +733,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
             )
         );
@@ -765,7 +765,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($query)
+            $this->exportObject($query)
         );
     }
 
@@ -795,7 +795,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedCollection)
+            $this->exportObject($copiedCollection)
         );
 
         $this->assertSame(
@@ -831,7 +831,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
             )
         );
@@ -866,7 +866,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_ARCHIVED,
             ],
-            $this->exportObjectVars($copiedCollection)
+            $this->exportObject($copiedCollection)
         );
 
         $this->assertSame(
@@ -902,7 +902,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
             )
         );
@@ -932,7 +932,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_ARCHIVED,
             ],
-            $this->exportObjectVars(
+            $this->exportObject(
                 $this->collectionHandler->loadCollectionQuery($copiedCollection)
             )
         );
@@ -965,7 +965,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_ARCHIVED,
             ],
-            $this->exportObjectVars($copiedCollection)
+            $this->exportObject($copiedCollection)
         );
 
         $this->assertSame(
@@ -1001,7 +1001,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
             )
         );
@@ -1088,7 +1088,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($collection)
+            $this->exportObject($collection)
         );
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
@@ -1112,7 +1112,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($query)
+            $this->exportObject($query)
         );
     }
 
@@ -1140,7 +1140,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($collection)
+            $this->exportObject($collection)
         );
     }
 
@@ -1206,7 +1206,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
 
         $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
@@ -1247,7 +1247,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
 
         $secondItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
@@ -1294,7 +1294,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
 
         $secondItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
@@ -1334,7 +1334,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
     }
 
@@ -1438,7 +1438,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => ['new_config' => ['val' => 24]],
             ],
-            $this->exportObjectVars($item)
+            $this->exportObject($item)
         );
     }
 
@@ -1470,7 +1470,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(10, Value::STATUS_DRAFT);
@@ -1508,7 +1508,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
@@ -1546,7 +1546,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
@@ -1584,7 +1584,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
@@ -1619,7 +1619,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
@@ -1657,7 +1657,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
@@ -1695,7 +1695,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Value::STATUS_DRAFT,
                 'config' => [],
             ],
-            $this->exportObjectVars($movedItem)
+            $this->exportObject($movedItem)
         );
 
         $firstItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
@@ -1907,7 +1907,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($createdQuery)
+            $this->exportObject($createdQuery)
         );
     }
 
@@ -1975,7 +1975,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($updatedQuery)
+            $this->exportObject($updatedQuery)
         );
     }
 
@@ -2020,7 +2020,7 @@ final class CollectionHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($updatedQuery)
+            $this->exportObject($updatedQuery)
         );
     }
 

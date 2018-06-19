@@ -7,12 +7,12 @@ namespace Netgen\BlockManager\Tests\Layout\Type;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
 use Netgen\BlockManager\Layout\Type\Zone;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeFactoryTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutTypeFactory::buildLayoutType
@@ -53,7 +53,7 @@ final class LayoutTypeFactoryTest extends TestCase
                     ],
                 ],
             ],
-            $this->exportObjectVars($layoutType, true)
+            $this->exportObject($layoutType, true)
         );
     }
 }

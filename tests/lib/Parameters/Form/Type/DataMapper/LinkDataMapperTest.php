@@ -13,11 +13,11 @@ use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\Form\DataMapper\DataMapperTest;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 final class LinkDataMapperTest extends DataMapperTest
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper
@@ -119,7 +119,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
-            $this->exportObjectVars($data)
+            $this->exportObject($data)
         );
     }
 
@@ -147,7 +147,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'linkSuffix' => null,
                 'newWindow' => false,
             ],
-            $this->exportObjectVars($data)
+            $this->exportObject($data)
         );
     }
 }

@@ -9,12 +9,12 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionMapperTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
@@ -93,7 +93,7 @@ final class CollectionMapperTest extends TestCase
             $this->assertInstanceOf(Collection::class, $collection);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($collections));
+        $this->assertSame($expectedData, $this->exportObjectList($collections));
     }
 
     /**
@@ -157,7 +157,7 @@ final class CollectionMapperTest extends TestCase
             $this->assertInstanceOf(Item::class, $item);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($items));
+        $this->assertSame($expectedData, $this->exportObjectList($items));
     }
 
     /**
@@ -212,6 +212,6 @@ final class CollectionMapperTest extends TestCase
             $this->assertInstanceOf(Query::class, $query);
         }
 
-        $this->assertSame($expectedData, $this->exportObjectArrayVars($queries));
+        $this->assertSame($expectedData, $this->exportObjectList($queries));
     }
 }

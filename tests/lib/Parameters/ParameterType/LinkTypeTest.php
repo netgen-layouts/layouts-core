@@ -12,14 +12,14 @@ use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class LinkTypeTest extends TestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
     use ParameterTypeTestTrait;
 
     /**
@@ -235,7 +235,7 @@ final class LinkTypeTest extends TestCase
         $convertedValue = $this->type->fromHash($this->getParameterDefinition(), $value);
 
         $this->assertInstanceOf(LinkValue::class, $convertedValue);
-        $this->assertSame($expectedValue, $this->exportObjectVars($convertedValue));
+        $this->assertSame($expectedValue, $this->exportObject($convertedValue));
     }
 
     public function fromHashProvider(): array
@@ -437,7 +437,7 @@ final class LinkTypeTest extends TestCase
         $convertedValue = $this->type->import($this->getParameterDefinition(), $value);
 
         $this->assertInstanceOf(LinkValue::class, $convertedValue);
-        $this->assertSame($expectedValue, $this->exportObjectVars($convertedValue));
+        $this->assertSame($expectedValue, $this->exportObject($convertedValue));
     }
 
     /**
@@ -471,7 +471,7 @@ final class LinkTypeTest extends TestCase
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
-            $this->exportObjectVars($importedValue)
+            $this->exportObject($importedValue)
         );
     }
 

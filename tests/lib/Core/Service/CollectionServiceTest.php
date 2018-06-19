@@ -20,11 +20,11 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 abstract class CollectionServiceTest extends ServiceTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     public function setUp(): void
     {
@@ -665,7 +665,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'limit' => null,
                 'queryCreateStruct' => $queryCreateStruct,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -683,7 +683,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'offset' => null,
                 'limit' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -703,7 +703,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'offset' => 4,
                 'limit' => 2,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -723,7 +723,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'offset' => 0,
                 'limit' => 0,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -744,7 +744,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'configStructs' => [],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -761,7 +761,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             [
                 'configStructs' => [],
             ],
-            $this->exportObjectVars($struct, true)
+            $this->exportObject($struct, true)
         );
     }
 
@@ -790,7 +790,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                     ],
                 ],
             ],
-            $this->exportObjectVars($struct, true)
+            $this->exportObject($struct, true)
         );
     }
 
@@ -813,7 +813,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -831,7 +831,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'locale' => 'en',
                 'parameterValues' => [],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -853,7 +853,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 }

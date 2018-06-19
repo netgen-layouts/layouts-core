@@ -12,11 +12,11 @@ use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutServiceTest extends ServiceTestCase
 {
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     public function setUp(): void
     {
@@ -1231,7 +1231,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 'shared' => false,
                 'mainLocale' => 'en',
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -1251,7 +1251,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 'name' => 'My layout',
                 'description' => 'My layout description',
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -1269,7 +1269,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -1289,7 +1289,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 'name' => 'My layout (copy)',
                 'description' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 
@@ -1307,7 +1307,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObjectVars($struct)
+            $this->exportObject($struct)
         );
     }
 }

@@ -14,13 +14,13 @@ use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectVarsTrait;
+use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockHandlerTest extends TestCase
 {
     use TestCaseTrait;
-    use ExportObjectVarsTrait;
+    use ExportObjectTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
@@ -95,7 +95,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
     }
 
@@ -231,7 +231,7 @@ final class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectArrayVars($blocks)
+            $this->exportObjectList($blocks)
         );
     }
 
@@ -277,7 +277,7 @@ final class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                 ],
             ],
-            $this->exportObjectArrayVars($blocks)
+            $this->exportObjectList($blocks)
         );
     }
 
@@ -316,7 +316,7 @@ final class BlockHandlerTest extends TestCase
                 'collectionStatus' => Value::STATUS_DRAFT,
                 'identifier' => 'default',
             ],
-            $this->exportObjectVars($reference)
+            $this->exportObject($reference)
         );
     }
 
@@ -365,7 +365,7 @@ final class BlockHandlerTest extends TestCase
                     'identifier' => 'featured',
                 ],
             ],
-            $this->exportObjectArrayVars($references)
+            $this->exportObjectList($references)
         );
     }
 
@@ -434,7 +434,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($createdBlock)
+            $this->exportObject($createdBlock)
         );
 
         $secondBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -491,7 +491,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
     }
 
@@ -544,7 +544,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
     }
 
@@ -637,7 +637,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
     }
 
@@ -704,7 +704,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
     }
 
@@ -827,7 +827,7 @@ final class BlockHandlerTest extends TestCase
                 'collectionStatus' => $collection->status,
                 'identifier' => 'new',
             ],
-            $this->exportObjectVars($reference)
+            $this->exportObject($reference)
         );
     }
 
@@ -884,7 +884,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => false,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedBlock)
+            $this->exportObject($updatedBlock)
         );
     }
 
@@ -934,7 +934,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedBlock)
+            $this->exportObject($updatedBlock)
         );
     }
 
@@ -989,7 +989,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedBlock)
+            $this->exportObject($updatedBlock)
         );
     }
 
@@ -1040,7 +1040,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($updatedBlock)
+            $this->exportObject($updatedBlock)
         );
     }
 
@@ -1130,7 +1130,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
 
         $this->assertSame(
@@ -1150,7 +1150,7 @@ final class BlockHandlerTest extends TestCase
                     'identifier' => 'featured',
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadCollectionReferences($copiedBlock)
             )
         );
@@ -1205,7 +1205,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
     }
 
@@ -1258,7 +1258,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
     }
 
@@ -1311,7 +1311,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
     }
 
@@ -1358,7 +1358,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
     }
 
@@ -1432,7 +1432,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
 
         $copiedSubBlock = $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT);
@@ -1462,7 +1462,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedSubBlock)
+            $this->exportObject($copiedSubBlock)
         );
 
         $this->assertSame(
@@ -1475,7 +1475,7 @@ final class BlockHandlerTest extends TestCase
                     'identifier' => 'default',
                 ],
             ],
-            $this->exportObjectArrayVars(
+            $this->exportObjectList(
                 $this->blockHandler->loadCollectionReferences($copiedSubBlock)
             )
         );
@@ -1529,7 +1529,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($copiedBlock)
+            $this->exportObject($copiedBlock)
         );
 
         $this->assertSame(
@@ -1549,7 +1549,7 @@ final class BlockHandlerTest extends TestCase
                     'identifier' => 'featured',
                 ],
             ],
-            $this->exportObjectArrayVars($this->blockHandler->loadCollectionReferences($copiedBlock))
+            $this->exportObjectList($this->blockHandler->loadCollectionReferences($copiedBlock))
         );
     }
 
@@ -1620,7 +1620,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($movedBlock)
+            $this->exportObject($movedBlock)
         );
 
         $this->assertSame(
@@ -1648,7 +1648,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($this->blockHandler->loadBlock(37, Value::STATUS_DRAFT))
+            $this->exportObject($this->blockHandler->loadBlock(37, Value::STATUS_DRAFT))
         );
     }
 
@@ -1772,7 +1772,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($movedBlock)
+            $this->exportObject($movedBlock)
         );
 
         $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
@@ -1818,7 +1818,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($movedBlock)
+            $this->exportObject($movedBlock)
         );
 
         $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -1899,7 +1899,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
 
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
@@ -1961,7 +1961,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($restoredBlock)
+            $this->exportObject($restoredBlock)
         );
     }
 
@@ -2084,7 +2084,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObjectVars($block)
+            $this->exportObject($block)
         );
     }
 
