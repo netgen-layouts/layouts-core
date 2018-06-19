@@ -11,8 +11,4 @@ parameters:
         - '#Parameter \#2 \$dataClass of class Symfony\\Component\\Form\\FormConfigBuilder constructor expects string, null given.#'
 
         # Layouts tests specifics
-        - '#Call to an undefined method Netgen\\ContentBrowser\\Item\\ItemInterface::getLayout\(\).#'
         - '#on possibly null value of type#'
-
-        # Uncomment when upgrading to PHPStan 0.10
-        # - '#Call to method PHPUnit\\Framework\\Assert::assertInternalType\(\) with (.+) and callable will always evaluate to false.#'

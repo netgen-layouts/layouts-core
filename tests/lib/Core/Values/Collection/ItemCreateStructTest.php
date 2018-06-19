@@ -11,13 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemCreateStructTest extends TestCase
 {
-    public function testDefaultProperties(): void
-    {
-        $itemCreateStruct = new ItemCreateStruct();
-
-        $this->assertNull($itemCreateStruct->type);
-    }
-
     public function testSetProperties(): void
     {
         $itemDefinition = new ItemDefinition();

@@ -9,8 +9,6 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 
 final class ContextualQueryRunner implements QueryRunnerInterface
 {
-    private static $queryCount = (PHP_INT_MAX - 1) / 2;
-
     public function runQuery(Query $query, int $offset = 0, int $limit = null): Iterator
     {
         for ($i = 0; $i < $limit; ++$i) {
@@ -20,6 +18,6 @@ final class ContextualQueryRunner implements QueryRunnerInterface
 
     public function count(Query $query): int
     {
-        return self::$queryCount;
+        return intdiv(PHP_INT_MAX - 1, 2);
     }
 }

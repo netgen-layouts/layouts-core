@@ -27,6 +27,6 @@ final class ContextualQueryRunnerTest extends TestCase
 
         $this->assertSame(5, $count);
 
-        $this->assertSame((int) ((PHP_INT_MAX - 1) / 2), $queryRunner->count(new Query()));
+        $this->assertSame(intdiv(PHP_INT_MAX - 1, 2), $queryRunner->count(new Query()));
     }
 }

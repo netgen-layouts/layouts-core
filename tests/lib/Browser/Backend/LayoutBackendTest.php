@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Browser\Backend\LayoutBackend;
+use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -75,9 +76,11 @@ final class LayoutBackendTest extends TestCase
             ->with($this->equalTo(1))
             ->will($this->returnValue($layout));
 
+        /** @var \Netgen\BlockManager\Browser\Item\Layout\LayoutInterface $item */
         $item = $this->backend->loadItem(1);
 
         $this->assertInstanceOf(ItemInterface::class, $item);
+        $this->assertInstanceOf(LayoutInterface::class, $item);
         $this->assertSame($layout, $item->getLayout());
     }
 
