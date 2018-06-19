@@ -18,8 +18,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'left',
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'left',
             ]
         );
 
@@ -69,8 +69,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 9999,
-                'placeholder' => 'main',
+                'parent_block_id' => 9999,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -97,8 +97,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'unknown',
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'unknown',
             ]
         );
 
@@ -125,8 +125,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 37,
-                'placeholder' => 'main',
+                'parent_block_id' => 37,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -153,8 +153,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 38,
-                'placeholder' => 'main',
+                'parent_block_id' => 38,
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -181,8 +181,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => [42],
-                'placeholder' => 'main',
+                'parent_block_id' => [42],
+                'parent_placeholder' => 'main',
             ]
         );
 
@@ -209,7 +209,7 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'placeholder' => 'main',
+                'parent_placeholder' => 'main',
             ]
         );
 

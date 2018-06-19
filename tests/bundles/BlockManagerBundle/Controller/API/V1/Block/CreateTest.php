@@ -22,8 +22,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -53,8 +53,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'grid',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -84,8 +84,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'test_grid',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -115,7 +115,7 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'left',
+                'parent_placeholder' => 'left',
             ]
         );
 
@@ -144,8 +144,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -174,8 +174,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'column',
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -204,8 +204,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 42,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -233,8 +233,8 @@ final class CreateTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -263,8 +263,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'unknown',
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -293,8 +293,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'title',
-                'placeholder' => 'unknown',
-                'position' => 0,
+                'parent_placeholder' => 'unknown',
+                'parent_position' => 0,
             ]
         );
 
@@ -323,8 +323,8 @@ final class CreateTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'block_type' => 'list',
-                'placeholder' => 'left',
-                'position' => 9999,
+                'parent_placeholder' => 'left',
+                'parent_position' => 9999,
             ]
         );
 

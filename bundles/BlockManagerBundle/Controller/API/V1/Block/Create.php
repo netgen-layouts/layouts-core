@@ -73,8 +73,8 @@ final class Create extends Controller
         $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,
             $block,
-            $requestData->get('placeholder'),
-            $requestData->get('position')
+            $requestData->get('parent_placeholder'),
+            $requestData->get('parent_position')
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);

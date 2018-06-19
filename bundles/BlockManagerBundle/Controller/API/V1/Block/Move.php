@@ -30,14 +30,14 @@ final class Move extends Controller
         $requestData = $request->attributes->get('data');
 
         $targetBlock = $this->blockService->loadBlockDraft(
-            $requestData->get('block_id')
+            $requestData->get('parent_block_id')
         );
 
         $this->blockService->moveBlock(
             $block,
             $targetBlock,
-            $requestData->get('placeholder'),
-            $requestData->get('position')
+            $requestData->get('parent_placeholder'),
+            $requestData->get('parent_position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);

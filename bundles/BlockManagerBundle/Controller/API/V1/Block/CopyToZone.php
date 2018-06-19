@@ -46,7 +46,7 @@ final class CopyToZone extends Controller
         $copiedBlock = $this->blockService->copyBlockToZone(
             $block,
             $zone,
-            $requestData->get('position')
+            $requestData->get('parent_position')
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);

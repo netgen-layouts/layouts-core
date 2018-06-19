@@ -85,7 +85,7 @@ final class CreateInZone extends Controller
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $zone,
-            $requestData->get('position')
+            $requestData->get('parent_position')
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);

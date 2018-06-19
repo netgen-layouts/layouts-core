@@ -20,7 +20,7 @@ final class MoveToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'left',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -68,7 +68,7 @@ final class MoveToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 9999,
                 'zone_identifier' => 'left',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -97,7 +97,7 @@ final class MoveToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'unknown',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -126,7 +126,7 @@ final class MoveToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'top',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -155,7 +155,7 @@ final class MoveToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'left',
-                'position' => 9999,
+                'parent_position' => 9999,
             ]
         );
 
@@ -184,7 +184,7 @@ final class MoveToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => [42],
                 'zone_identifier' => 'left',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 
@@ -212,7 +212,7 @@ final class MoveToZoneTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'zone_identifier' => 'left',
-                'position' => 1,
+                'parent_position' => 1,
             ]
         );
 

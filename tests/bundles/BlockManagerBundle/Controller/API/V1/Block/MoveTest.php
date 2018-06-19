@@ -18,9 +18,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'left',
-                'position' => 0,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'left',
+                'parent_position' => 0,
             ]
         );
 
@@ -43,9 +43,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'right',
-                'position' => 0,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'right',
+                'parent_position' => 0,
             ]
         );
 
@@ -68,9 +68,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 38,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_block_id' => 38,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -116,9 +116,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 9999,
-                'placeholder' => 'main',
-                'position' => 1,
+                'parent_block_id' => 9999,
+                'parent_placeholder' => 'main',
+                'parent_position' => 1,
             ]
         );
 
@@ -145,9 +145,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'unknown',
-                'position' => 1,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'unknown',
+                'parent_position' => 1,
             ]
         );
 
@@ -174,9 +174,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 32,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_block_id' => 32,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -203,9 +203,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 33,
-                'placeholder' => 'left',
-                'position' => 9999,
+                'parent_block_id' => 33,
+                'parent_placeholder' => 'left',
+                'parent_position' => 9999,
             ]
         );
 
@@ -232,9 +232,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => 38,
-                'placeholder' => 'main',
-                'position' => 0,
+                'parent_block_id' => 38,
+                'parent_placeholder' => 'main',
+                'parent_position' => 0,
             ]
         );
 
@@ -261,9 +261,9 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_id' => [42],
-                'placeholder' => 'main',
-                'position' => 1,
+                'parent_block_id' => [42],
+                'parent_placeholder' => 'main',
+                'parent_position' => 1,
             ]
         );
 
@@ -290,8 +290,8 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'placeholder' => 'main',
-                'position' => 1,
+                'parent_placeholder' => 'main',
+                'parent_position' => 1,
             ]
         );
 

@@ -23,7 +23,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -85,7 +85,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 42,
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -115,7 +115,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -146,7 +146,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => [42],
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -176,7 +176,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             [
                 'block_type' => 'title',
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -207,7 +207,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'unknown',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -238,7 +238,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 9999,
                 'zone_identifier' => 'bottom',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -269,7 +269,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 1,
                 'zone_identifier' => 'unknown',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 
@@ -300,7 +300,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
-                'position' => 9999,
+                'parent_position' => 9999,
             ]
         );
 
@@ -331,7 +331,7 @@ final class CreateInZoneTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'layout_id' => 1,
                 'zone_identifier' => 'top',
-                'position' => 0,
+                'parent_position' => 0,
             ]
         );
 

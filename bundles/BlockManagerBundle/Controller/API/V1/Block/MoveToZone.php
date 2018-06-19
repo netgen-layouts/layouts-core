@@ -44,7 +44,7 @@ final class MoveToZone extends Controller
         $this->blockService->moveBlockToZone(
             $block,
             $zone,
-            $requestData->get('position')
+            $requestData->get('parent_position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
