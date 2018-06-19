@@ -50,7 +50,7 @@ final class RequestBodyListener implements EventSubscriberInterface
         }
 
         try {
-            $data = $this->decoder->decode($request->getContent(), 'json');
+            $data = $this->decoder->decode((string) $request->getContent(), 'json');
         } catch (UnexpectedValueException $e) {
             throw new BadRequestHttpException('Request body has an invalid format', $e);
         }

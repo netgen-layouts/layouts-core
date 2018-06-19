@@ -6,11 +6,7 @@ parameters:
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::addDefaultsIfNotSet\(\)#'
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
 
-        # Symfony Form component
-        - '#expects Symfony\\Component\\Form\\FormError, Symfony\\Component\\Form\\FormError|Symfony\\Component\\Form\\FormErrorIterator given#'
-
         # Doctrine DBAL
-        - '#expects string|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement|int#'
 
         # Compatibility with Symfony 2.8
