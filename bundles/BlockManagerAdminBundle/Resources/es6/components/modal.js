@@ -1,4 +1,4 @@
-import NetgenCore from 'netgen-core';
+import NetgenCore from '@netgen/layouts-core-ui';
 
 const $ = NetgenCore.$;
 

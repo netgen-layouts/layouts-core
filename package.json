@@ -21,8 +21,8 @@
         "uglifyify": "^5.0.0"
     },
     "dependencies": {
-        "netgen-core": "0.12.x",
-        "netgen-content-browser": "0.12.x",
+        "@netgen/layouts-core-ui": "0.12.x",
+        "@netgen/content-browser-ui": "0.12.x",
         "file-saver": "^1.3.8",
         "normalize-scss": "^7.0.1"
     }

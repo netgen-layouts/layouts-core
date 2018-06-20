@@ -1,5 +1,5 @@
-import Browser from 'netgen-content-browser';
-import NetgenCore from 'netgen-core';
+import Browser from '@netgen/content-browser-ui';
+import NetgenCore from '@netgen/layouts-core-ui';
 import NlModal from './modal';
 
 const $ = NetgenCore.$;

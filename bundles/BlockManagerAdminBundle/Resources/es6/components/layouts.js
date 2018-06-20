@@ -1,4 +1,4 @@
-import NetgenCore from 'netgen-core';
+import NetgenCore from '@netgen/layouts-core-ui';
 import FileSaver from 'file-saver';
 import NlLayout from './layout';
 
