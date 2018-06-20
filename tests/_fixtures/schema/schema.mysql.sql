@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_layout` (
   `shared` tinyint NOT NULL,
   `main_locale` varchar(255) NOT NULL,
   PRIMARY KEY (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_layout_translation` (
   `layout_id` int(11) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_layout_translation` (
   PRIMARY KEY (`layout_id`, `status`, `locale`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_block` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_block_translation` (
   `block_id` int(11) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_block_translation` (
   PRIMARY KEY (`block_id`, `status`, `locale`),
   FOREIGN KEY (`block_id`, `status`)
     REFERENCES ngbm_block (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_zone` (
   `identifier` varchar(255) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_zone` (
     REFERENCES ngbm_layout (`id`, `status`),
   FOREIGN KEY (`root_block_id`, `status`)
     REFERENCES ngbm_block (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection` (
   `main_locale` varchar(255) NOT NULL,
   `always_available` tinyint NOT NULL,
   PRIMARY KEY (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_collection_translation` (
   `collection_id` int(11) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_translation` (
   PRIMARY KEY (`collection_id`, `status`, `locale`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_collection_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_item` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_query` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_collection_query_translation` (
   `query_id` int(11) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_query_translation` (
   PRIMARY KEY (`query_id`, `status`, `locale`),
   FOREIGN KEY (`query_id`, `status`)
     REFERENCES ngbm_collection_query (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_block_collection` (
   `block_id` int(11) NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_block_collection` (
     REFERENCES ngbm_block (`id`, `status`),
   FOREIGN KEY (`collection_id`, `collection_status`)
     REFERENCES ngbm_collection (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -139,14 +139,14 @@ CREATE TABLE IF NOT EXISTS `ngbm_rule` (
   `layout_id` int(11) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_rule_data` (
   `rule_id` int(11) NOT NULL,
   `enabled` tinyint NOT NULL,
   `priority` int(11) NOT NULL,
   PRIMARY KEY (`rule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_rule_target` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `ngbm_rule` (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ngbm_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_rule_condition` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `ngbm_rule` (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB;
 
 DELETE FROM `ngbm_block_collection`;
 

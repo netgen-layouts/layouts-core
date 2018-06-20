@@ -6,7 +6,7 @@ doctrine:
         connections:
             default:
                 url: '%env(DATABASE)%'
-                charset: UTF8
+                charset: utf8mb4
 
 framework:
     secret: secret
