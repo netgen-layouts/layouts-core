@@ -10,6 +10,12 @@ use Netgen\BlockManager\View\ViewInterface;
 
 final class BlockViewProvider implements ViewProviderInterface
 {
+    /**
+     * @param \Netgen\BlockManager\API\Values\Block\Block $value
+     * @param array $parameters
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
+     */
     public function provideView($value, array $parameters = []): ViewInterface
     {
         $blockView = new BlockView($value);
