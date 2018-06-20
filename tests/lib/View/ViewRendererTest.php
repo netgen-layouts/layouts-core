@@ -88,4 +88,38 @@ final class ViewRendererTest extends TestCase
 
         $this->assertSame('rendered template', $renderedTemplate);
     }
+
+    /**
+     * @covers \Netgen\BlockManager\View\ViewRenderer::__construct
+     * @covers \Netgen\BlockManager\View\ViewRenderer::renderView
+     */
+    public function testRenderViewWithNoTemplate(): void
+    {
+        $view = new View(new Value());
+        $view->addParameter('some_param', 'some_value');
+
+        $this->eventDispatcherMock
+            ->expects($this->at(0))
+            ->method('dispatch')
+            ->with(
+                $this->equalTo(BlockManagerEvents::RENDER_VIEW),
+                $this->isInstanceOf(CollectViewParametersEvent::class)
+            );
+
+        $this->eventDispatcherMock
+            ->expects($this->at(1))
+            ->method('dispatch')
+            ->with(
+                $this->equalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+                $this->isInstanceOf(CollectViewParametersEvent::class)
+            );
+
+        $this->twigEnvironmentMock
+            ->expects($this->never())
+            ->method('render');
+
+        $renderedTemplate = $this->viewRenderer->renderView($view);
+
+        $this->assertSame('', $renderedTemplate);
+    }
 }

@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\SessionListener;
 use Symfony\Component\HttpKernel\Kernel;
@@ -69,6 +70,25 @@ final class CacheableViewSessionListenerTest extends TestCase
             ->with($this->equalTo($event));
 
         $this->listener->onKernelRequest($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener::onFinishRequest
+     */
+    public function testOnFinishRequest(): void
+    {
+        $event = new FinishRequestEvent(
+            $this->createMock(KernelInterface::class),
+            Request::create('/'),
+            KernelInterface::MASTER_REQUEST
+        );
+
+        $this->innerListenerMock
+            ->expects($this->once())
+            ->method('onFinishRequest')
+            ->with($this->equalTo($event));
+
+        $this->listener->onFinishRequest($event);
     }
 
     /**

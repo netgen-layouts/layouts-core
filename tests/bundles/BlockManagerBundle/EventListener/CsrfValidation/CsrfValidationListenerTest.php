@@ -121,6 +121,35 @@ final class CsrfValidationListenerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @expectedExceptionMessage Missing or invalid CSRF token
+     */
+    public function testOnKernelRequestThrowsAccessDeniedExceptionOnNonStringToken(): void
+    {
+        $this->csrfTokenManagerMock
+            ->expects($this->once())
+            ->method('isTokenValid')
+            ->with($this->equalTo(new CsrfToken('token_id', 'token')))
+            ->will($this->returnValue(false));
+
+        $this->sessionMock
+            ->expects($this->once())
+            ->method('isStarted')
+            ->will($this->returnValue(true));
+
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $request->setMethod(Request::METHOD_POST);
+        $request->headers->set('X-CSRF-Token', ['token']);
+        $request->setSession($this->sessionMock);
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelRequest($event);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
@@ -167,6 +196,26 @@ final class CsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoSession(): void
+    {
+        $this->csrfTokenManagerMock
+            ->expects($this->never())
+            ->method('isTokenValid');
+
+        $this->sessionMock
+            ->expects($this->never())
+            ->method('isStarted');
+
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelRequest($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     */
+    public function testOnKernelRequestWithNoStartedSession(): void
     {
         $this->csrfTokenManagerMock
             ->expects($this->never())

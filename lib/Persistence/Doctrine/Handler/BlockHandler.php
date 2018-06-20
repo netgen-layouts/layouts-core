@@ -377,11 +377,11 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function moveBlockToPosition(Block $block, int $position): Block
     {
-        $movedBlock = clone $block;
-
         if ($block->parentId === null || $block->placeholder === null || $block->position === null) {
-            return $movedBlock;
+            throw new BadStateException('position', 'Root blocks cannot be moved.');
         }
+
+        $movedBlock = clone $block;
 
         $movedBlock->position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperConditions(

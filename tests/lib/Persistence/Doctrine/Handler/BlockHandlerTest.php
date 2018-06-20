@@ -1826,6 +1826,21 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Root blocks cannot be moved.
+     */
+    public function testMoveBlockThrowsBadStateExceptionOnMovingRootBlock(): void
+    {
+        $this->blockHandler->moveBlockToPosition(
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+            1
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException

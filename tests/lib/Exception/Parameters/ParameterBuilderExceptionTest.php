@@ -36,6 +36,19 @@ final class ParameterBuilderExceptionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::noOption
+     */
+    public function testNoOptionWithoutParameterName(): void
+    {
+        $exception = ParameterBuilderException::noOption('opt');
+
+        $this->assertSame(
+            'Option "opt" does not exist in the builder.',
+            $exception->getMessage()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::subCompound
      */
     public function testSubCompound(): void
