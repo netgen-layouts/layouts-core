@@ -57,11 +57,9 @@ final class BlockViewRenderer implements ViewRendererInterface
         return $this->cacheableResolver->isCacheable($view->getBlock());
     }
 
-    public function getController(ViewInterface $view): ?ControllerReference
+    public function getController(ViewInterface $view): ControllerReference
     {
-        if (!$view instanceof BlockViewInterface) {
-            return null;
-        }
+        /* @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
 
         return new ControllerReference(
             $this->blockController,

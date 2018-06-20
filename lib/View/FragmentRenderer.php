@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\View\Fragment\ViewRendererInterface as FragmentViewRendererInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 /**
@@ -71,9 +70,6 @@ final class FragmentRenderer implements RendererInterface
         }
 
         $controller = $fragmentViewRenderer->getController($view);
-        if (!$controller instanceof ControllerReference) {
-            return $this->viewRenderer->renderView($view);
-        }
 
         return $this->fragmentHandler->render($controller, 'esi') ?? '';
     }

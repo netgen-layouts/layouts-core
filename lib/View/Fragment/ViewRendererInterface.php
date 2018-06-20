@@ -17,5 +17,5 @@ interface ViewRendererInterface
     /**
      * Returns the controller that will be used to render the fragment.
      */
-    public function getController(ViewInterface $view): ?ControllerReference;
+    public function getController(ViewInterface $view): ControllerReference;
 }
