@@ -29,12 +29,9 @@ final class CollectionIdentifierTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $view = new BlockView(
-            [
-                'block' => new Block(),
-                'collection_identifier' => 'default',
-            ]
-        );
+        $view = new BlockView(new Block());
+
+        $view->addParameter('collection_identifier', 'default');
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -55,7 +52,7 @@ final class CollectionIdentifierTest extends TestCase
      */
     public function testMatchWithNoBlockView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
     /**
@@ -63,6 +60,6 @@ final class CollectionIdentifierTest extends TestCase
      */
     public function testMatchWithNoCollectionIdentifier(): void
     {
-        $this->assertFalse($this->matcher->match(new BlockView(['block' => new Block()]), []));
+        $this->assertFalse($this->matcher->match(new BlockView(new Block()), []));
     }
 }

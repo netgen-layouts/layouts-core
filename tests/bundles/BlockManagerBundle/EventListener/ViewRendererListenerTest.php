@@ -56,7 +56,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testOnView(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');
@@ -94,7 +94,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testOnViewWithException(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');
@@ -132,7 +132,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testOnViewWithoutViewResponse(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
 
         $this->viewRendererMock
             ->expects($this->never())

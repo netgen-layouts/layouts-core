@@ -24,11 +24,7 @@ final class RuleTargetViewTest extends TestCase
     {
         $this->target = new Target(['id' => 42]);
 
-        $this->view = new RuleTargetView(
-            [
-                'target' => $this->target,
-            ]
-        );
+        $this->view = new RuleTargetView($this->target);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('target', 42);

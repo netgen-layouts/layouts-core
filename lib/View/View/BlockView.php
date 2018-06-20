@@ -12,6 +12,11 @@ final class BlockView extends View implements BlockViewInterface
 {
     use CacheableViewTrait;
 
+    public function __construct(Block $block)
+    {
+        $this->parameters['block'] = $block;
+    }
+
     public function getBlock(): Block
     {
         return $this->parameters['block'];

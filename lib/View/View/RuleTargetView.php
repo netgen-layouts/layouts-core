@@ -9,6 +9,11 @@ use Netgen\BlockManager\View\View;
 
 final class RuleTargetView extends View implements RuleTargetViewInterface
 {
+    public function __construct(Target $target)
+    {
+        $this->parameters['target'] = $target;
+    }
+
     public function getTarget(): Target
     {
         return $this->parameters['target'];

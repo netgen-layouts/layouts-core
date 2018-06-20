@@ -108,7 +108,7 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView')
             ->will(
                 $this->returnValue(
-                    new LayoutView(['layout' => $layout])
+                    new LayoutView($layout)
                 )
             );
 
@@ -157,7 +157,7 @@ final class GlobalVariableTest extends TestCase
         $this->requestStack->push($request);
 
         $layout = new Layout();
-        $layoutView = new LayoutView(['layout' => $layout]);
+        $layoutView = new LayoutView($layout);
 
         $this->layoutResolverMock
             ->expects($this->once())
@@ -208,7 +208,7 @@ final class GlobalVariableTest extends TestCase
         $this->requestStack->push($subRequest);
 
         $layout = new Layout();
-        $layoutView = new LayoutView(['layout' => $layout]);
+        $layoutView = new LayoutView($layout);
 
         $this->layoutResolverMock
             ->expects($this->once())
@@ -284,14 +284,13 @@ final class GlobalVariableTest extends TestCase
                 )
             );
 
+        $layoutView = new LayoutView($layout);
+        $layoutView->addParameter('rule', $rule);
+
         $this->viewBuilderMock
             ->expects($this->once())
             ->method('buildView')
-            ->will(
-                $this->returnValue(
-                    new LayoutView(['layout' => $layout, 'rule' => $rule])
-                )
-            );
+            ->will($this->returnValue($layoutView));
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -347,7 +346,7 @@ final class GlobalVariableTest extends TestCase
                 )
             );
 
-        $layoutView = new LayoutView(['layout' => new Layout()]);
+        $layoutView = new LayoutView(new Layout());
         $layoutView->setTemplate('layout.html.twig');
 
         $this->viewBuilderMock
@@ -371,7 +370,7 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithAlreadyExistingResolvedLayout(): void
     {
-        $layoutView = new LayoutView(['layout' => new Layout()]);
+        $layoutView = new LayoutView(new Layout());
         $layoutView->setTemplate('layout.html.twig');
 
         $request = Request::create('/');
@@ -437,7 +436,7 @@ final class GlobalVariableTest extends TestCase
                 )
             );
 
-        $layoutView = new LayoutView(['layout' => new Layout()]);
+        $layoutView = new LayoutView(new Layout());
         $layoutView->setTemplate('layout.html.twig');
 
         $this->viewBuilderMock
@@ -461,7 +460,7 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetLayoutTemplateWithExceptionWithAlreadyExistingResolvedLayout(): void
     {
-        $layoutView = new LayoutView(['layout' => new Layout()]);
+        $layoutView = new LayoutView(new Layout());
         $layoutView->setTemplate('layout.html.twig');
 
         $request = Request::create('/');

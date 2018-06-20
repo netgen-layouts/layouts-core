@@ -12,11 +12,7 @@ final class BlockViewProvider implements ViewProviderInterface
 {
     public function provideView($value, array $parameters = []): ViewInterface
     {
-        $blockView = new BlockView(
-            [
-                'block' => $value,
-            ]
-        );
+        $blockView = new BlockView($value);
 
         if ($value->hasConfig('http_cache')) {
             $httpCacheConfig = $value->getConfig('http_cache');

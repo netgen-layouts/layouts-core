@@ -29,12 +29,7 @@ final class FormViewTest extends TestCase
 
         $this->form = $formFactory->create(FormType::class);
 
-        $this->view = new FormView(
-            [
-                'form_object' => $this->form,
-                'form' => $this->form->createView(),
-            ]
-        );
+        $this->view = new FormView($this->form);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('form', 42);

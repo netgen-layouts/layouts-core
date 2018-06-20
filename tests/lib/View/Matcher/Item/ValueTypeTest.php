@@ -30,7 +30,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $view = new ItemView(['item' => new Item(['valueType' => 'value'])]);
+        $view = new ItemView(new Item(['valueType' => 'value']), 'view_type');
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -40,7 +40,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNullItem(): void
     {
-        $view = new ItemView(['item' => new NullItem('value')]);
+        $view = new ItemView(new NullItem('value'), 'view_type');
 
         $this->assertTrue($this->matcher->match($view, ['null']));
     }
@@ -50,7 +50,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNullItemReturnsFalse(): void
     {
-        $view = new ItemView(['item' => new NullItem('value')]);
+        $view = new ItemView(new NullItem('value'), 'view_type');
 
         $this->assertFalse($this->matcher->match($view, ['test']));
     }
@@ -71,6 +71,6 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNoItemView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

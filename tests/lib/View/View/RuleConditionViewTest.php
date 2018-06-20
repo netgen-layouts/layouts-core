@@ -24,11 +24,7 @@ final class RuleConditionViewTest extends TestCase
     {
         $this->condition = new Condition(['id' => 42]);
 
-        $this->view = new RuleConditionView(
-            [
-                'condition' => $this->condition,
-            ]
-        );
+        $this->view = new RuleConditionView($this->condition);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('condition', 42);

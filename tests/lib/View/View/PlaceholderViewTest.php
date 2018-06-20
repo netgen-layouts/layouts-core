@@ -31,12 +31,7 @@ final class PlaceholderViewTest extends TestCase
         $this->block = new Block(['id' => 42]);
         $this->placeholder = new Placeholder(['identifier' => 'main']);
 
-        $this->view = new PlaceholderView(
-            [
-                'placeholder' => $this->placeholder,
-                'block' => $this->block,
-            ]
-        );
+        $this->view = new PlaceholderView($this->placeholder, $this->block);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('placeholder', 42);

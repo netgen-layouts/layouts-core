@@ -50,7 +50,7 @@ final class ViewRendererTest extends TestCase
      */
     public function testRenderView(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 

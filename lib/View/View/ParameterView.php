@@ -9,6 +9,11 @@ use Netgen\BlockManager\View\View;
 
 final class ParameterView extends View implements ParameterViewInterface
 {
+    public function __construct(Parameter $parameter)
+    {
+        $this->parameters['parameter'] = $parameter;
+    }
+
     public function getParameterValue(): Parameter
     {
         return $this->parameters['parameter'];

@@ -59,7 +59,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmLayoutView', new LayoutView(['layout' => new Layout()]));
+        $request->attributes->set('ngbmLayoutView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -84,7 +84,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmLayoutView', new LayoutView(['layout' => new Layout()]));
+        $request->attributes->set('ngbmLayoutView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -133,7 +133,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(['layout' => new Layout()]));
+        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -168,7 +168,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(['layout' => new Layout()]));
+        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $kernelMock,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\CacheableView;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ final class CacheableViewTraitTest extends TestCase
 
     public function setUp(): void
     {
-        $this->view = new CacheableView();
+        $this->view = new CacheableView(new Value());
     }
 
     /**

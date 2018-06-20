@@ -24,11 +24,7 @@ final class LayoutViewTest extends TestCase
     {
         $this->layout = new Layout(['id' => 42]);
 
-        $this->view = new LayoutView(
-            [
-                'layout' => $this->layout,
-            ]
-        );
+        $this->view = new LayoutView($this->layout);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('layout', 42);

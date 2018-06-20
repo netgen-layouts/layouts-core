@@ -46,7 +46,7 @@ final class ViewBuilderTest extends TestCase
     public function testBuildView(): void
     {
         $value = new Value();
-        $view = new View(['value' => $value]);
+        $view = new View($value);
 
         $this->viewProviderMock
             ->expects($this->once())

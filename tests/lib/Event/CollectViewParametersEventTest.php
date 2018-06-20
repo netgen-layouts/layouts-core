@@ -23,7 +23,7 @@ final class CollectViewParametersEventTest extends TestCase
 
     public function setUp(): void
     {
-        $this->view = new View(['value' => new Value()]);
+        $this->view = new View(new Value());
 
         $this->event = new CollectViewParametersEvent($this->view);
     }

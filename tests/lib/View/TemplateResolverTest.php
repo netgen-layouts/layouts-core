@@ -26,7 +26,7 @@ final class TemplateResolverTest extends TestCase
     {
         $this->value = new Value();
 
-        $this->view = new View(['value' => $this->value]);
+        $this->view = new View($this->value);
         $this->view->setContext('context');
     }
 

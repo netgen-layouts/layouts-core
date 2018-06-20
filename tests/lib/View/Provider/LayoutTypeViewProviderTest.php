@@ -40,7 +40,7 @@ final class LayoutTypeViewProviderTest extends TestCase
         $this->assertNull($view->getTemplate());
         $this->assertSame(
             [
-                'layoutType' => $layoutType,
+                'layout_type' => $layoutType,
             ],
             $view->getParameters()
         );

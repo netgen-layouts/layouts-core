@@ -6,7 +6,9 @@ namespace Netgen\BlockManager\Tests\View\Fragment;
 
 use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Fragment\BlockViewRenderer;
 use Netgen\BlockManager\View\View\BlockView;
@@ -50,7 +52,7 @@ final class BlockViewRendererTest extends TestCase
      */
     public function testSupportsView(): void
     {
-        $view = new BlockView(['block' => new Block()]);
+        $view = new BlockView(new Block());
         $view->setContext('default');
 
         $this->cacheableResolverMock
@@ -67,7 +69,7 @@ final class BlockViewRendererTest extends TestCase
      */
     public function testSupportsViewWithNoBlockView(): void
     {
-        $view = new LayoutView();
+        $view = new LayoutView(new Layout());
 
         $this->cacheableResolverMock
             ->expects($this->never())
@@ -81,7 +83,7 @@ final class BlockViewRendererTest extends TestCase
      */
     public function testSupportsViewWithNonSupportedContext(): void
     {
-        $view = new BlockView();
+        $view = new BlockView(new Block());
         $view->setContext('unsupported');
 
         $this->cacheableResolverMock
@@ -108,7 +110,7 @@ final class BlockViewRendererTest extends TestCase
             ]
         );
 
-        $view = new BlockView(['block' => $block]);
+        $view = new BlockView($block);
         $view->setContext('default');
 
         $controller = $this->blockViewRenderer->getController($view);
@@ -133,6 +135,6 @@ final class BlockViewRendererTest extends TestCase
      */
     public function testGetControllerWithInvalidView(): void
     {
-        $this->assertNull($this->blockViewRenderer->getController(new View()));
+        $this->assertNull($this->blockViewRenderer->getController(new View(new Value())));
     }
 }

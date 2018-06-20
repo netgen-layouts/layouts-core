@@ -21,12 +21,7 @@ final class ItemViewProvider implements ViewProviderInterface
             throw ViewProviderException::invalidParameter('item', 'view_type', 'string');
         }
 
-        return new ItemView(
-            [
-                'item' => $value,
-                'view_type' => $parameters['view_type'],
-            ]
-        );
+        return new ItemView($value, $parameters['view_type']);
     }
 
     public function supports($value): bool

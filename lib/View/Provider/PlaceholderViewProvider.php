@@ -22,12 +22,7 @@ final class PlaceholderViewProvider implements ViewProviderInterface
             throw ViewProviderException::invalidParameter('placeholder', 'block', Block::class);
         }
 
-        return new PlaceholderView(
-            [
-                'placeholder' => $value,
-                'block' => $parameters['block'],
-            ]
-        );
+        return new PlaceholderView($value, $parameters['block']);
     }
 
     public function supports($value): bool

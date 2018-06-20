@@ -9,9 +9,14 @@ use Netgen\BlockManager\View\View;
 
 final class LayoutTypeView extends View implements LayoutTypeViewInterface
 {
+    public function __construct(LayoutTypeInterface $layoutType)
+    {
+        $this->parameters['layout_type'] = $layoutType;
+    }
+
     public function getLayoutType(): LayoutTypeInterface
     {
-        return $this->parameters['layoutType'];
+        return $this->parameters['layout_type'];
     }
 
     public function getIdentifier(): string

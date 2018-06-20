@@ -12,11 +12,7 @@ final class LayoutTypeViewProvider implements ViewProviderInterface
 {
     public function provideView($value, array $parameters = []): ViewInterface
     {
-        return new LayoutTypeView(
-            [
-                'layoutType' => $value,
-            ]
-        );
+        return new LayoutTypeView($value);
     }
 
     public function supports($value): bool

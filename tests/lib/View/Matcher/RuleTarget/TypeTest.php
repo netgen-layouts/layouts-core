@@ -37,7 +37,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new RuleTargetView(['target' => $target]);
+        $view = new RuleTargetView($target);
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -53,7 +53,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new RuleTargetView(['target' => $target]);
+        $view = new RuleTargetView($target);
 
         $this->assertTrue($this->matcher->match($view, ['null']));
     }
@@ -69,7 +69,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new RuleTargetView(['target' => $target]);
+        $view = new RuleTargetView($target);
 
         $this->assertFalse($this->matcher->match($view, ['test']));
     }
@@ -90,6 +90,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoRuleTargetView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

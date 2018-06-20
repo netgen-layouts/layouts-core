@@ -49,6 +49,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoFormView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

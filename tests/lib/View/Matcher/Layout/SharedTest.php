@@ -35,7 +35,7 @@ final class SharedTest extends TestCase
             ]
         );
 
-        $view = new LayoutView(['layout' => $layout]);
+        $view = new LayoutView($layout);
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -55,6 +55,6 @@ final class SharedTest extends TestCase
      */
     public function testMatchWithNoLayoutView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

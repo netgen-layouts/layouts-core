@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +46,7 @@ final class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $blockView = new BlockView();
+        $blockView = new BlockView(new Block());
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);
@@ -71,7 +72,7 @@ final class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $blockView = new BlockView();
+        $blockView = new BlockView(new Block());
         $blockView->setIsCacheable(false);
         $blockView->setSharedMaxAge(42);
 
@@ -98,7 +99,7 @@ final class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $blockView = new BlockView();
+        $blockView = new BlockView(new Block());
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);
@@ -126,7 +127,7 @@ final class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $blockView = new BlockView();
+        $blockView = new BlockView(new Block());
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);

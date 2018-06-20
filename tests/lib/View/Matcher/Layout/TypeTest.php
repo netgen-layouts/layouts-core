@@ -38,7 +38,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new LayoutView(['layout' => $layout]);
+        $view = new LayoutView($layout);
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -54,7 +54,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new LayoutView(['layout' => $layout]);
+        $view = new LayoutView($layout);
 
         $this->assertTrue($this->matcher->match($view, ['null']));
     }
@@ -70,7 +70,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new LayoutView(['layout' => $layout]);
+        $view = new LayoutView($layout);
 
         $this->assertFalse($this->matcher->match($view, ['test']));
     }
@@ -81,7 +81,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchLayoutType(array $config, bool $expected): void
     {
-        $view = new LayoutTypeView(['layoutType' => new LayoutType(['identifier' => '4_zones_a'])]);
+        $view = new LayoutTypeView(new LayoutType(['identifier' => '4_zones_a']));
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -113,6 +113,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoLayoutOrLayoutTypeView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

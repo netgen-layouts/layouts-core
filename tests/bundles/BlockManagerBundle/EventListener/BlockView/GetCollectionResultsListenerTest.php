@@ -84,17 +84,15 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(),
-                        'collectionReferences' => [
-                            'collection1' => $collectionReference1,
-                            'collection2' => $collectionReference2,
-                        ],
-                    ]
-                ),
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(),
+                    'collectionReferences' => [
+                        'collection1' => $collectionReference1,
+                        'collection2' => $collectionReference2,
+                    ],
+                ]
+            )
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -155,24 +153,22 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(
-                            [
-                                'handlerPlugins' => [new PagedCollectionsPlugin()],
-                            ]
-                        ),
-                        'parameters' => [
-                            'paged_collections:enabled' => new Parameter(['value' => true]),
-                            'paged_collections:max_pages' => new Parameter(['value' => 2]),
-                        ],
-                        'collectionReferences' => [
-                            'collection' => $collectionReference,
-                        ],
-                    ]
-                ),
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(
+                        [
+                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                        ]
+                    ),
+                    'parameters' => [
+                        'paged_collections:enabled' => new Parameter(['value' => true]),
+                        'paged_collections:max_pages' => new Parameter(['value' => 2]),
+                    ],
+                    'collectionReferences' => [
+                        'collection' => $collectionReference,
+                    ],
+                ]
+            )
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -217,24 +213,22 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(
-                            [
-                                'handlerPlugins' => [new PagedCollectionsPlugin()],
-                            ]
-                        ),
-                        'parameters' => [
-                            'paged_collections:enabled' => new Parameter(['value' => true]),
-                            'paged_collections:max_pages' => new Parameter(['value' => null]),
-                        ],
-                        'collectionReferences' => [
-                            'collection' => $collectionReference,
-                        ],
-                    ]
-                ),
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(
+                        [
+                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                        ]
+                    ),
+                    'parameters' => [
+                        'paged_collections:enabled' => new Parameter(['value' => true]),
+                        'paged_collections:max_pages' => new Parameter(['value' => null]),
+                    ],
+                    'collectionReferences' => [
+                        'collection' => $collectionReference,
+                    ],
+                ]
+            )
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -279,23 +273,21 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(
-                            [
-                                'handlerPlugins' => [new PagedCollectionsPlugin()],
-                            ]
-                        ),
-                        'parameters' => [
-                            'paged_collections:enabled' => new Parameter(['value' => false]),
-                        ],
-                        'collectionReferences' => [
-                            'collection' => $collectionReference,
-                        ],
-                    ]
-                ),
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(
+                        [
+                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                        ]
+                    ),
+                    'parameters' => [
+                        'paged_collections:enabled' => new Parameter(['value' => false]),
+                    ],
+                    'collectionReferences' => [
+                        'collection' => $collectionReference,
+                    ],
+                ]
+            )
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -340,14 +332,12 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(),
-                        'collectionReferences' => ['collection1' => $collectionReference1],
-                    ]
-                ),
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(),
+                    'collectionReferences' => ['collection1' => $collectionReference1],
+                ]
+            )
         );
 
         $view->setContext(ViewInterface::CONTEXT_API);
@@ -381,7 +371,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoBlockView(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
@@ -393,7 +383,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithWrongContext(): void
     {
-        $view = new BlockView(['block' => new Block()]);
+        $view = new BlockView(new Block());
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 

@@ -12,11 +12,7 @@ final class RuleTargetViewProvider implements ViewProviderInterface
 {
     public function provideView($value, array $parameters = []): ViewInterface
     {
-        return new RuleTargetView(
-            [
-                'target' => $value,
-            ]
-        );
+        return new RuleTargetView($value);
     }
 
     public function supports($value): bool

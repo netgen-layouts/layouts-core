@@ -35,11 +35,7 @@ final class ParameterViewTest extends TestCase
             ]
         );
 
-        $this->view = new ParameterView(
-            [
-                'parameter' => $this->parameter,
-            ]
-        );
+        $this->view = new ParameterView($this->parameter);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('parameter', 42);

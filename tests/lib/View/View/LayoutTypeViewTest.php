@@ -24,14 +24,10 @@ final class LayoutTypeViewTest extends TestCase
     {
         $this->layoutType = new LayoutType(['identifier' => 'layout']);
 
-        $this->view = new LayoutTypeView(
-            [
-                'layoutType' => $this->layoutType,
-            ]
-        );
+        $this->view = new LayoutTypeView($this->layoutType);
 
         $this->view->addParameter('param', 'value');
-        $this->view->addParameter('layoutType', 42);
+        $this->view->addParameter('layout_type', 42);
     }
 
     /**
@@ -43,7 +39,7 @@ final class LayoutTypeViewTest extends TestCase
         $this->assertSame($this->layoutType, $this->view->getLayoutType());
         $this->assertSame(
             [
-                'layoutType' => $this->layoutType,
+                'layout_type' => $this->layoutType,
                 'param' => 'value',
             ],
             $this->view->getParameters()

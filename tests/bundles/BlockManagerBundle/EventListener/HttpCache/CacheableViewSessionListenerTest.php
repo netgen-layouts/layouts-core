@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener;
@@ -114,7 +116,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     public function testOnKernelResponseWithCacheableBlockView(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('ngbmView', new BlockView());
+        $request->attributes->set('ngbmView', new BlockView(new Block()));
 
         $event = new FilterResponseEvent(
             $this->createMock(KernelInterface::class),
@@ -136,7 +138,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     public function testOnKernelResponseWithNonCacheableBlockView(): void
     {
         $request = Request::create('/');
-        $blockView = new BlockView();
+        $blockView = new BlockView(new Block());
         $blockView->setIsCacheable(false);
         $request->attributes->set('ngbmView', $blockView);
 
@@ -161,7 +163,7 @@ final class CacheableViewSessionListenerTest extends TestCase
     public function testOnKernelResponseWithNonCacheableView(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('ngbmView', new LayoutView());
+        $request->attributes->set('ngbmView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $this->createMock(KernelInterface::class),

@@ -35,11 +35,7 @@ final class ViewTypeTest extends TestCase
             ]
         );
 
-        $view = new BlockView(
-            [
-                'block' => $block,
-            ]
-        );
+        $view = new BlockView($block);
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -60,6 +56,6 @@ final class ViewTypeTest extends TestCase
      */
     public function testMatchWithNoBlockView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

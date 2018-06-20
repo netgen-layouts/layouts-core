@@ -29,12 +29,7 @@ final class ItemViewTest extends TestCase
             ]
         );
 
-        $this->view = new ItemView(
-            [
-                'item' => $this->item,
-                'view_type' => 'view_type',
-            ]
-        );
+        $this->view = new ItemView($this->item, 'view_type');
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('item', 42);

@@ -41,7 +41,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $view = new ParameterView(['parameter' => $parameter]);
+        $view = new ParameterView($parameter);
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -62,6 +62,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoParameterView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

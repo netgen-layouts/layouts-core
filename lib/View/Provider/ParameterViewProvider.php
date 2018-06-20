@@ -12,11 +12,7 @@ final class ParameterViewProvider implements ViewProviderInterface
 {
     public function provideView($value, array $parameters = []): ViewInterface
     {
-        $view = new ParameterView(
-            [
-                'parameter' => $value,
-            ]
-        );
+        $view = new ParameterView($value);
 
         $view->setFallbackContext(ParameterView::CONTEXT_DEFAULT);
 

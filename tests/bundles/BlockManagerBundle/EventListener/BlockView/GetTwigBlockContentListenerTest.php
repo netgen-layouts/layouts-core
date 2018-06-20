@@ -59,7 +59,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ]
         );
 
-        $blockView = new BlockView(['block' => $block]);
+        $blockView = new BlockView($block);
 
         $twigTemplateMock = $this->createMock(Template::class);
 
@@ -94,7 +94,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ]
         );
 
-        $blockView = new BlockView(['block' => $block]);
+        $blockView = new BlockView($block);
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
@@ -114,7 +114,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ]
         );
 
-        $blockView = new BlockView(['block' => $block]);
+        $blockView = new BlockView($block);
         $blockView->addParameter('twig_template', new stdClass());
 
         $event = new CollectViewParametersEvent($blockView);
@@ -137,7 +137,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ]
         );
 
-        $blockView = new BlockView(['block' => $block]);
+        $blockView = new BlockView($block);
 
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
@@ -151,7 +151,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoBlockView(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 

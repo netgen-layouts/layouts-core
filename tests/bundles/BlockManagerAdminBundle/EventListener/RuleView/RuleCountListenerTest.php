@@ -52,7 +52,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildView(): void
     {
-        $view = new RuleView(['rule' => new Rule(['layout' => new Layout(['status' => Layout::STATUS_PUBLISHED])])]);
+        $view = new RuleView(new Rule(['layout' => new Layout(['status' => Layout::STATUS_PUBLISHED])]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -77,7 +77,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithDraftLayout(): void
     {
-        $view = new RuleView(['rule' => new Rule(['layout' => new Layout(['status' => Layout::STATUS_DRAFT])])]);
+        $view = new RuleView(new Rule(['layout' => new Layout(['status' => Layout::STATUS_DRAFT])]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -100,7 +100,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoRuleView(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 

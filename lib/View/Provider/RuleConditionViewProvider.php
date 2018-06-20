@@ -12,11 +12,7 @@ final class RuleConditionViewProvider implements ViewProviderInterface
 {
     public function provideView($value, array $parameters = []): ViewInterface
     {
-        return new RuleConditionView(
-            [
-                'condition' => $value,
-            ]
-        );
+        return new RuleConditionView($value);
     }
 
     public function supports($value): bool

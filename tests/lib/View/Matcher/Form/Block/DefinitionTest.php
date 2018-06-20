@@ -53,7 +53,7 @@ final class DefinitionTest extends TestCase
             ]
         );
 
-        $this->assertSame($expected, $this->matcher->match(new FormView(['form_object' => $form]), $config));
+        $this->assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
     /**
@@ -74,7 +74,7 @@ final class DefinitionTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->matcher->match(new FormView(['form_object' => $form]), ['null']));
+        $this->assertTrue($this->matcher->match(new FormView($form), ['null']));
     }
 
     /**
@@ -95,7 +95,7 @@ final class DefinitionTest extends TestCase
             ]
         );
 
-        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['test']));
+        $this->assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
     public function matchProvider(): array
@@ -114,7 +114,7 @@ final class DefinitionTest extends TestCase
      */
     public function testMatchWithNoFormView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(['value' => new Value()]), []));
+        $this->assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
     /**
@@ -124,7 +124,7 @@ final class DefinitionTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['block']));
+        $this->assertFalse($this->matcher->match(new FormView($form), ['block']));
     }
 
     /**
@@ -134,6 +134,6 @@ final class DefinitionTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, ['block' => 'block']);
 
-        $this->assertFalse($this->matcher->match(new FormView(['form_object' => $form]), ['block']));
+        $this->assertFalse($this->matcher->match(new FormView($form), ['block']));
     }
 }

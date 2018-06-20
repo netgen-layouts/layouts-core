@@ -90,16 +90,15 @@ final class GetCollectionPagerListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(),
-                        'collectionReferences' => ['default' => $collectionReference],
-                    ]
-                ),
-                'collection_identifier' => 'default',
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(),
+                    'collectionReferences' => ['default' => $collectionReference],
+                ]
+            )
         );
+
+        $view->addParameter('collection_identifier', 'default');
 
         $view->setContext(ViewInterface::CONTEXT_AJAX);
         $event = new CollectViewParametersEvent($view);
@@ -159,24 +158,23 @@ final class GetCollectionPagerListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(
-                            [
-                                'handlerPlugins' => [new PagedCollectionsPlugin()],
-                            ]
-                        ),
-                        'parameters' => [
-                            'paged_collections:enabled' => new Parameter(['value' => true]),
-                            'paged_collections:max_pages' => new Parameter(['value' => 2]),
-                        ],
-                        'collectionReferences' => ['default' => $collectionReference],
-                    ]
-                ),
-                'collection_identifier' => 'default',
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(
+                        [
+                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                        ]
+                    ),
+                    'parameters' => [
+                        'paged_collections:enabled' => new Parameter(['value' => true]),
+                        'paged_collections:max_pages' => new Parameter(['value' => 2]),
+                    ],
+                    'collectionReferences' => ['default' => $collectionReference],
+                ]
+            )
         );
+
+        $view->addParameter('collection_identifier', 'default');
 
         $view->setContext(ViewInterface::CONTEXT_AJAX);
         $event = new CollectViewParametersEvent($view);
@@ -236,24 +234,23 @@ final class GetCollectionPagerListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(
-                            [
-                                'handlerPlugins' => [new PagedCollectionsPlugin()],
-                            ]
-                        ),
-                        'parameters' => [
-                            'paged_collections:enabled' => new Parameter(['value' => true]),
-                            'paged_collections:max_pages' => new Parameter(['value' => null]),
-                        ],
-                        'collectionReferences' => ['default' => $collectionReference],
-                    ]
-                ),
-                'collection_identifier' => 'default',
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(
+                        [
+                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                        ]
+                    ),
+                    'parameters' => [
+                        'paged_collections:enabled' => new Parameter(['value' => true]),
+                        'paged_collections:max_pages' => new Parameter(['value' => null]),
+                    ],
+                    'collectionReferences' => ['default' => $collectionReference],
+                ]
+            )
         );
+
+        $view->addParameter('collection_identifier', 'default');
 
         $view->setContext(ViewInterface::CONTEXT_AJAX);
         $event = new CollectViewParametersEvent($view);
@@ -313,23 +310,22 @@ final class GetCollectionPagerListenerTest extends TestCase
         );
 
         $view = new BlockView(
-            [
-                'block' => new Block(
-                    [
-                        'definition' => new BlockDefinition(
-                            [
-                                'handlerPlugins' => [new PagedCollectionsPlugin()],
-                            ]
-                        ),
-                        'parameters' => [
-                            'paged_collections:enabled' => new Parameter(['value' => false]),
-                        ],
-                        'collectionReferences' => ['default' => $collectionReference],
-                    ]
-                ),
-                'collection_identifier' => 'default',
-            ]
+            new Block(
+                [
+                    'definition' => new BlockDefinition(
+                        [
+                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                        ]
+                    ),
+                    'parameters' => [
+                        'paged_collections:enabled' => new Parameter(['value' => false]),
+                    ],
+                    'collectionReferences' => ['default' => $collectionReference],
+                ]
+            )
         );
+
+        $view->addParameter('collection_identifier', 'default');
 
         $view->setContext(ViewInterface::CONTEXT_AJAX);
         $event = new CollectViewParametersEvent($view);
@@ -373,7 +369,8 @@ final class GetCollectionPagerListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoCurrentRequest(): void
     {
-        $view = new BlockView(['block' => new Block(), 'collection_identifier' => 'default']);
+        $view = new BlockView(new Block());
+        $view->addParameter('collection_identifier', 'default');
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
@@ -387,7 +384,8 @@ final class GetCollectionPagerListenerTest extends TestCase
     {
         $this->requestStack->push(Request::create('/'));
 
-        $view = new View(['value' => new Value(), 'collection_identifier' => 'default']);
+        $view = new View(new Value());
+        $view->addParameter('collection_identifier', 'default');
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
@@ -401,7 +399,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     {
         $this->requestStack->push(Request::create('/'));
 
-        $view = new BlockView(['block' => new Block()]);
+        $view = new BlockView(new Block());
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
@@ -415,7 +413,8 @@ final class GetCollectionPagerListenerTest extends TestCase
     {
         $this->requestStack->push(Request::create('/'));
 
-        $view = new BlockView(['block' => new Block(), 'collection_identifier' => 'default']);
+        $view = new BlockView(new Block());
+        $view->addParameter('collection_identifier', 'default');
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 

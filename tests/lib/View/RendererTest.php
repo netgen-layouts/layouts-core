@@ -49,7 +49,7 @@ final class RendererTest extends TestCase
      */
     public function testRenderValue(): void
     {
-        $view = new View(['value' => new Value()]);
+        $view = new View(new Value());
         $view->setContext(ViewInterface::CONTEXT_API);
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');

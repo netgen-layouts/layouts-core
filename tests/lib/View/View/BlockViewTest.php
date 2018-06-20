@@ -24,11 +24,7 @@ final class BlockViewTest extends TestCase
     {
         $this->block = new Block(['id' => 42]);
 
-        $this->view = new BlockView(
-            [
-                'block' => $this->block,
-            ]
-        );
+        $this->view = new BlockView($this->block);
 
         $this->view->addParameter('param', 'value');
         $this->view->addParameter('block', 42);

@@ -9,6 +9,11 @@ use Netgen\BlockManager\View\View;
 
 final class RuleConditionView extends View implements RuleConditionViewInterface
 {
+    public function __construct(Condition $condition)
+    {
+        $this->parameters['condition'] = $condition;
+    }
+
     public function getCondition(): Condition
     {
         return $this->parameters['condition'];

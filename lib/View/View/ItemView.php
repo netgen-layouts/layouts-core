@@ -9,6 +9,12 @@ use Netgen\BlockManager\View\View;
 
 final class ItemView extends View implements ItemViewInterface
 {
+    public function __construct(ItemInterface $item, string $viewType)
+    {
+        $this->parameters['item'] = $item;
+        $this->parameters['view_type'] = $viewType;
+    }
+
     public function getItem(): ItemInterface
     {
         return $this->parameters['item'];
