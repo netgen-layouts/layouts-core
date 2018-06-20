@@ -27,6 +27,7 @@ final class NetgenBlockManagerFixturesExtension extends Extension implements Pre
     public function prepend(ContainerBuilder $container): void
     {
         $prependConfigs = [
+            'browser.yml' => 'netgen_content_browser',
             'layout_types.yml' => 'netgen_block_manager',
             'block_definitions.yml' => 'netgen_block_manager',
             'query_types.yml' => 'netgen_block_manager',

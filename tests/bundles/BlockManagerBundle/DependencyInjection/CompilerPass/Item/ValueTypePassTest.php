@@ -16,9 +16,12 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
      */
     public function testProcess(): void
     {
+        $this->setParameter('netgen_content_browser.item_types', ['test' => 'test']);
+
         $this->setParameter(
             'netgen_block_manager.items',
             [
@@ -48,6 +51,44 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Content Browser backend for "test" type does not exist.
+     */
+    public function testProcessWithInvalidBrowserType(): void
+    {
+        $this->setParameter('netgen_content_browser.item_types', ['other' => 'other']);
+
+        $this->setParameter(
+            'netgen_block_manager.items',
+            [
+                'value_types' => [
+                    'test' => [
+                        'enabled' => true,
+                    ],
+                ],
+            ]
+        );
+
+        $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition());
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.item.value_type.test');
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.item.registry.value_type',
+            'addValueType',
+            [
+                'test',
+                new Reference('netgen_block_manager.item.value_type.test'),
+            ]
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
      */
     public function testProcessWithNoItems(): void
     {
