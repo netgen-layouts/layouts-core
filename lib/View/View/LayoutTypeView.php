@@ -16,6 +16,6 @@ final class LayoutTypeView extends View implements LayoutTypeViewInterface
 
     public function getIdentifier(): string
     {
-        return 'layout_view';
+        return 'layout';
     }
 }

@@ -46,7 +46,7 @@ final class TemplateResolverTest extends TestCase
             ->will($this->returnValue(true));
 
         $viewConfiguration = [
-            'view' => [
+            'stub_view' => [
                 'context' => [
                     'text' => [
                         'template' => 'some_template.html.twig',
@@ -88,7 +88,7 @@ final class TemplateResolverTest extends TestCase
     public function testResolveTemplateWithEmptyMatchConfig(): void
     {
         $viewConfiguration = [
-            'view' => [
+            'stub_view' => [
                 'context' => [
                     'text' => [
                         'template' => 'some_template.html.twig',
@@ -121,7 +121,7 @@ final class TemplateResolverTest extends TestCase
     public function testResolveTemplateWithMultipleMatches(): void
     {
         $viewConfiguration = [
-            'view' => [
+            'stub_view' => [
                 'context' => [
                     'text' => [
                         'template' => 'some_template.html.twig',
@@ -158,7 +158,7 @@ final class TemplateResolverTest extends TestCase
         $this->view->setFallbackContext('fallback');
 
         $viewConfiguration = [
-            'view' => [
+            'stub_view' => [
                 'fallback' => [
                     'text' => [
                         'template' => 'some_template.html.twig',
@@ -182,24 +182,24 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template match could be found for "view" view and context "context".
+     * @expectedExceptionMessage No template match could be found for "stub_view" view and context "context".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext(): void
     {
-        $templateResolver = new TemplateResolver([], ['view' => []]);
+        $templateResolver = new TemplateResolver([], ['stub_view' => []]);
         $templateResolver->resolveTemplate($this->view);
     }
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template match could be found for "view" view and context "context".
+     * @expectedExceptionMessage No template match could be found for "stub_view" view and context "context".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext(): void
     {
         $templateResolver = new TemplateResolver(
             [],
-            ['view' => ['context' => []]]
+            ['stub_view' => ['context' => []]]
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -209,7 +209,7 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template match could be found for "view" view and context "context".
+     * @expectedExceptionMessage No template match could be found for "stub_view" view and context "context".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatch(): void
     {
@@ -221,7 +221,7 @@ final class TemplateResolverTest extends TestCase
             ->will($this->returnValue(false));
 
         $viewConfiguration = [
-            'view' => [
+            'stub_view' => [
                 'context' => [
                     'title' => [
                         'template' => 'some_template.html.twig',
@@ -252,7 +252,7 @@ final class TemplateResolverTest extends TestCase
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher(): void
     {
         $viewConfiguration = [
-            'view' => [
+            'stub_view' => [
                 'context' => [
                     'title' => [
                         'template' => 'some_template.html.twig',

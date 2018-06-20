@@ -16,6 +16,6 @@ final class RuleConditionView extends View implements RuleConditionViewInterface
 
     public function getIdentifier(): string
     {
-        return 'rule_condition_view';
+        return 'rule_condition';
     }
 }

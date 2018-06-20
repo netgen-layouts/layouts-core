@@ -16,6 +16,6 @@ final class ParameterView extends View implements ParameterViewInterface
 
     public function getIdentifier(): string
     {
-        return 'parameter_view';
+        return 'parameter';
     }
 }

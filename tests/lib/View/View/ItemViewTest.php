@@ -70,6 +70,6 @@ final class ItemViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('item_view', $this->view->getIdentifier());
+        $this->assertSame('item', $this->view->getIdentifier());
     }
 }

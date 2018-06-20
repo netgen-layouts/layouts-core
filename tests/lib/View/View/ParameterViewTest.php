@@ -73,6 +73,6 @@ final class ParameterViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('parameter_view', $this->view->getIdentifier());
+        $this->assertSame('parameter', $this->view->getIdentifier());
     }
 }

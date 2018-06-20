@@ -41,7 +41,7 @@ final class RuleCountListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         $this->assertSame(
-            [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
+            [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'rule') => 'onBuildView'],
             $this->listener::getSubscribedEvents()
         );
     }

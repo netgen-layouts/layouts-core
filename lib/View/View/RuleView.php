@@ -16,6 +16,6 @@ final class RuleView extends View implements RuleViewInterface
 
     public function getIdentifier(): string
     {
-        return 'rule_view';
+        return 'rule';
     }
 }

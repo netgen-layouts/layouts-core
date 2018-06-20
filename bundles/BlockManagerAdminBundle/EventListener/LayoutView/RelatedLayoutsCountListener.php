@@ -25,7 +25,7 @@ final class RelatedLayoutsCountListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [BlockManagerEvents::BUILD_VIEW => 'onBuildView'];
+        return [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'layout') => 'onBuildView'];
     }
 
     /**

@@ -40,7 +40,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         $this->assertSame(
-            [BlockManagerEvents::BUILD_VIEW => 'onBuildView'],
+            [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
             $this->listener::getSubscribedEvents()
         );
     }

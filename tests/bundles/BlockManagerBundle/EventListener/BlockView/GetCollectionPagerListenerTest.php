@@ -64,7 +64,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         $this->assertSame(
-            [BlockManagerEvents::RENDER_VIEW => 'onRenderView'],
+            [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
     }

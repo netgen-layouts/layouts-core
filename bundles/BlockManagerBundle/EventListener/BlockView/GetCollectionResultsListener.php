@@ -34,7 +34,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [BlockManagerEvents::RENDER_VIEW => 'onRenderView'];
+        return [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'];
     }
 
     /**

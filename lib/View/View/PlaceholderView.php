@@ -22,6 +22,6 @@ final class PlaceholderView extends View implements PlaceholderViewInterface
 
     public function getIdentifier(): string
     {
-        return 'placeholder_view';
+        return 'placeholder';
     }
 }

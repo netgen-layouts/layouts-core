@@ -60,6 +60,10 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->eventDispatcher->dispatch(BlockManagerEvents::BUILD_VIEW, $event);
         $view->addParameters($event->getParameters());
 
+        $event = new CollectViewParametersEvent($view);
+        $this->eventDispatcher->dispatch(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, $view->getIdentifier()), $event);
+        $view->addParameters($event->getParameters());
+
         return $view;
     }
 

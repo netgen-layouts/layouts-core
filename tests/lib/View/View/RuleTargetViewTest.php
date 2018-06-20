@@ -55,6 +55,6 @@ final class RuleTargetViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('rule_target_view', $this->view->getIdentifier());
+        $this->assertSame('rule_target', $this->view->getIdentifier());
     }
 }

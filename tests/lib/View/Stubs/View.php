@@ -10,6 +10,6 @@ class View extends BaseView
 {
     public function getIdentifier(): string
     {
-        return 'view';
+        return 'stub';
     }
 }

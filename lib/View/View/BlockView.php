@@ -19,6 +19,6 @@ final class BlockView extends View implements BlockViewInterface
 
     public function getIdentifier(): string
     {
-        return 'block_view';
+        return 'block';
     }
 }

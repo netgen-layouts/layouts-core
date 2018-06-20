@@ -62,6 +62,6 @@ final class BlockViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('block_view', $this->view->getIdentifier());
+        $this->assertSame('block', $this->view->getIdentifier());
     }
 }

@@ -21,6 +21,6 @@ final class ItemView extends View implements ItemViewInterface
 
     public function getIdentifier(): string
     {
-        return 'item_view';
+        return 'item';
     }
 }

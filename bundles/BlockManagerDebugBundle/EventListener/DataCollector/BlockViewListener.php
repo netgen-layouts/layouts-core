@@ -34,7 +34,7 @@ final class BlockViewListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [BlockManagerEvents::BUILD_VIEW => ['onBuildView', -65535]];
+        return [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'block') => ['onBuildView', -65535]];
     }
 
     /**

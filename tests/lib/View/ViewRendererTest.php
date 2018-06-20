@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Event\BlockManagerEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewRenderer;
@@ -53,8 +55,20 @@ final class ViewRendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->eventDispatcherMock
-            ->expects($this->once())
-            ->method('dispatch');
+            ->expects($this->at(0))
+            ->method('dispatch')
+            ->with(
+                $this->equalTo(BlockManagerEvents::RENDER_VIEW),
+                $this->isInstanceOf(CollectViewParametersEvent::class)
+            );
+
+        $this->eventDispatcherMock
+            ->expects($this->at(1))
+            ->method('dispatch')
+            ->with(
+                $this->equalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+                $this->isInstanceOf(CollectViewParametersEvent::class)
+            );
 
         $this->twigEnvironmentMock
             ->expects($this->once())

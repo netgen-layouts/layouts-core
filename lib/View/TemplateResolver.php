@@ -49,7 +49,7 @@ class TemplateResolver implements TemplateResolverInterface
             $contextList[] = $fallbackViewContext;
         }
 
-        $viewIdentifier = $view->getIdentifier();
+        $viewIdentifier = sprintf('%s_view', $view->getIdentifier());
         foreach ($contextList as $context) {
             if (!isset($this->viewConfig[$viewIdentifier][$context])) {
                 continue;
@@ -67,7 +67,7 @@ class TemplateResolver implements TemplateResolverInterface
             }
         }
 
-        throw TemplateResolverException::noTemplateMatch($view->getIdentifier(), $viewContext ?? '');
+        throw TemplateResolverException::noTemplateMatch($viewIdentifier, $viewContext ?? '');
     }
 
     /**

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Event\BlockManagerEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
@@ -64,8 +66,20 @@ final class ViewBuilderTest extends TestCase
             ->with($this->equalTo($view));
 
         $this->eventDispatcherMock
-            ->expects($this->once())
-            ->method('dispatch');
+            ->expects($this->at(0))
+            ->method('dispatch')
+            ->with(
+                $this->equalTo(BlockManagerEvents::BUILD_VIEW),
+                $this->isInstanceOf(CollectViewParametersEvent::class)
+            );
+
+        $this->eventDispatcherMock
+            ->expects($this->at(1))
+            ->method('dispatch')
+            ->with(
+                $this->equalTo(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'stub')),
+                $this->isInstanceOf(CollectViewParametersEvent::class)
+            );
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,

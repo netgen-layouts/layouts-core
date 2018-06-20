@@ -16,6 +16,6 @@ final class RuleTargetView extends View implements RuleTargetViewInterface
 
     public function getIdentifier(): string
     {
-        return 'rule_target_view';
+        return 'rule_target';
     }
 }

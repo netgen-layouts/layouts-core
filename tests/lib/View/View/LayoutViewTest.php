@@ -55,6 +55,6 @@ final class LayoutViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('layout_view', $this->view->getIdentifier());
+        $this->assertSame('layout', $this->view->getIdentifier());
     }
 }
