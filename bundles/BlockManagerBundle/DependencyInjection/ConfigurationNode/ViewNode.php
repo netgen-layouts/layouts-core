@@ -30,7 +30,7 @@ final class ViewNode implements ConfigurationNodeInterface
                             ->end()
                             ->arrayNode('match')
                                 ->isRequired()
-                                ->prototype('scalar')
+                                ->prototype('variable')
                                 ->end()
                             ->end()
                             ->arrayNode('parameters')
