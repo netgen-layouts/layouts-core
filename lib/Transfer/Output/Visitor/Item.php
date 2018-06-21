@@ -10,7 +10,7 @@ use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
- * Item value visitor.
+ * Collection item value visitor.
  *
  * @see \Netgen\BlockManager\API\Values\Collection\Item
  */
