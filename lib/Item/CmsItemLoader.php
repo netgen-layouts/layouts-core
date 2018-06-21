@@ -6,12 +6,12 @@ namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\Exception\Item\ItemException;
 
-final class ItemLoader implements ItemLoaderInterface
+final class CmsItemLoader implements CmsItemLoaderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface
      */
-    private $itemBuilder;
+    private $cmsItemBuilder;
 
     /**
      * @var \Netgen\BlockManager\Item\ValueLoaderInterface[]
@@ -19,12 +19,12 @@ final class ItemLoader implements ItemLoaderInterface
     private $valueLoaders;
 
     /**
-     * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
+     * @param \Netgen\BlockManager\Item\CmsItemBuilderInterface $cmsItemBuilder
      * @param \Netgen\BlockManager\Item\ValueLoaderInterface[] $valueLoaders
      */
-    public function __construct(ItemBuilderInterface $itemBuilder, array $valueLoaders = [])
+    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, array $valueLoaders = [])
     {
-        $this->itemBuilder = $itemBuilder;
+        $this->cmsItemBuilder = $cmsItemBuilder;
 
         $this->valueLoaders = array_filter(
             $valueLoaders,
@@ -34,7 +34,7 @@ final class ItemLoader implements ItemLoaderInterface
         );
     }
 
-    public function load($value, string $valueType): ItemInterface
+    public function load($value, string $valueType): CmsItemInterface
     {
         if (!isset($this->valueLoaders[$valueType])) {
             throw ItemException::noValueType($valueType);
@@ -43,13 +43,13 @@ final class ItemLoader implements ItemLoaderInterface
         try {
             $loadedValue = $this->valueLoaders[$valueType]->load($value);
         } catch (ItemException $e) {
-            return new NullItem($valueType);
+            return new NullCmsItem($valueType);
         }
 
-        return $this->itemBuilder->build($loadedValue);
+        return $this->cmsItemBuilder->build($loadedValue);
     }
 
-    public function loadByRemoteId($remoteId, string $valueType): ItemInterface
+    public function loadByRemoteId($remoteId, string $valueType): CmsItemInterface
     {
         if (!isset($this->valueLoaders[$valueType])) {
             throw ItemException::noValueType($valueType);
@@ -58,9 +58,9 @@ final class ItemLoader implements ItemLoaderInterface
         try {
             $loadedValue = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
         } catch (ItemException $e) {
-            return new NullItem($valueType);
+            return new NullCmsItem($valueType);
         }
 
-        return $this->itemBuilder->build($loadedValue);
+        return $this->cmsItemBuilder->build($loadedValue);
     }
 }

@@ -27,8 +27,8 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ValueTypePass());
-        $container->addCompilerPass(new CompilerPass\Item\ItemLoaderPass());
-        $container->addCompilerPass(new CompilerPass\Item\ItemBuilderPass());
+        $container->addCompilerPass(new CompilerPass\Item\CmsItemLoaderPass());
+        $container->addCompilerPass(new CompilerPass\Item\CmsItemBuilderPass());
         $container->addCompilerPass(new CompilerPass\Item\UrlGeneratorPass());
         $container->addCompilerPass(new CompilerPass\Collection\ItemDefinitionPass());
         $container->addCompilerPass(new CompilerPass\Collection\QueryTypePass());

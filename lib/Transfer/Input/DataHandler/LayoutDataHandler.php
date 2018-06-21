@@ -21,7 +21,7 @@ use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 
 /**
@@ -65,9 +65,9 @@ final class LayoutDataHandler
     private $queryTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
      */
-    private $itemLoader;
+    private $cmsItemLoader;
 
     public function __construct(
         BlockService $blockService,
@@ -77,7 +77,7 @@ final class LayoutDataHandler
         LayoutTypeRegistryInterface $layoutTypeRegistry,
         ItemDefinitionRegistryInterface $itemDefinitionRegistry,
         QueryTypeRegistryInterface $queryTypeRegistry,
-        ItemLoaderInterface $itemLoader
+        CmsItemLoaderInterface $cmsItemLoader
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
@@ -86,7 +86,7 @@ final class LayoutDataHandler
         $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->itemDefinitionRegistry = $itemDefinitionRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
-        $this->itemLoader = $itemLoader;
+        $this->cmsItemLoader = $cmsItemLoader;
     }
 
     /**
@@ -408,7 +408,7 @@ final class LayoutDataHandler
         foreach ($collectionItemsData as $collectionItemData) {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
 
-            $item = $this->itemLoader->loadByRemoteId(
+            $item = $this->cmsItemLoader->loadByRemoteId(
                 $collectionItemData['value'],
                 $collectionItemData['value_type']
             );

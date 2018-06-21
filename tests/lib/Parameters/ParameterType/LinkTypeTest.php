@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
@@ -30,16 +30,16 @@ final class LinkTypeTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
+    private $cmsItemLoaderMock;
 
     public function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
-        $this->type = new LinkType($this->valueTypeRegistry, new RemoteIdConverter($this->itemLoaderMock));
+        $this->type = new LinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
     }
 
     /**
@@ -299,13 +299,13 @@ final class LinkTypeTest extends TestCase
      */
     public function testExport($value, $convertedValue): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new Item(
+                    new CmsItem(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -321,13 +321,13 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      */
-    public function testExportWithNullItem(): void
+    public function testExportWithNullCmsItem(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('24'), $this->equalTo('my_value_type'))
-            ->will($this->returnValue(new NullItem('my_value_type')));
+            ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $this->assertSame(
             [
@@ -419,13 +419,13 @@ final class LinkTypeTest extends TestCase
      */
     public function testImport($value, array $expectedValue): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new Item(
+                    new CmsItem(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -444,13 +444,13 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      */
-    public function testImportWithNullItem(): void
+    public function testImportWithNullCmsItem(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('def'), $this->equalTo('my_value_type'))
-            ->will($this->returnValue(new NullItem('my_value_type')));
+            ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $importedValue = $this->type->import(
             $this->getParameterDefinition(),

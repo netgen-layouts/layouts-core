@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
@@ -66,12 +66,12 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
         }
 
         if ($name === 'ngbm_item_link') {
-            $itemLoader = $this->testCase
-                ->getMockBuilder(ItemLoaderInterface::class)
+            $cmsItemLoader = $this->testCase
+                ->getMockBuilder(CmsItemLoaderInterface::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 
-            return new Validator\Parameters\ItemLinkValidator($itemLoader);
+            return new Validator\Parameters\ItemLinkValidator($cmsItemLoader);
         }
 
         if ($name === 'ngbm_condition_type_time') {

@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Item;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemBuilderPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\CmsItemBuilderPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class ItemBuilderPassTest extends AbstractCompilerPassTestCase
+final class CmsItemBuilderPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemBuilderPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\CmsItemBuilderPass::process
      */
     public function testProcess(): void
     {
-        $itemBuilder = new Definition();
-        $itemBuilder->addArgument([]);
-        $itemBuilder->addArgument([]);
-        $this->setDefinition('netgen_block_manager.item.item_builder', $itemBuilder);
+        $cmsItemBuilder = new Definition();
+        $cmsItemBuilder->addArgument([]);
+        $cmsItemBuilder->addArgument([]);
+        $this->setDefinition('netgen_block_manager.item.item_builder', $cmsItemBuilder);
 
         $valueConverter = new Definition();
         $valueConverter->addTag('netgen_block_manager.item.value_converter');
@@ -44,7 +44,7 @@ final class ItemBuilderPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemBuilderPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\CmsItemBuilderPass::process
      */
     public function testProcessWithEmptyContainer(): void
     {
@@ -55,6 +55,6 @@ final class ItemBuilderPassTest extends AbstractCompilerPassTestCase
 
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new ItemBuilderPass());
+        $container->addCompilerPass(new CmsItemBuilderPass());
     }
 }

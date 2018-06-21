@@ -37,7 +37,7 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
@@ -142,13 +142,13 @@ abstract class ServiceTestCase extends TestCase
     protected $layoutResolverMapper;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $itemLoaderMock;
+    protected $cmsItemLoaderMock;
 
     public function setUp(): void
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
         $this->prepareRegistries();
         $this->preparePersistence();
@@ -505,7 +505,7 @@ abstract class ServiceTestCase extends TestCase
             $this->createConfigMapper(),
             $this->itemDefinitionRegistry,
             $this->queryTypeRegistry,
-            $this->itemLoaderMock
+            $this->cmsItemLoaderMock
         );
     }
 
@@ -540,7 +540,7 @@ abstract class ServiceTestCase extends TestCase
 
     protected function prepareParameterTypeRegistry(): void
     {
-        $remoteIdConverter = new RemoteIdConverter($this->itemLoaderMock);
+        $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());

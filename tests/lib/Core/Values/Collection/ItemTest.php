@@ -10,9 +10,9 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Item\Item as CmsItem;
-use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Parameters\Parameter;
 use PHPUnit\Framework\TestCase;
 
@@ -48,7 +48,7 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
-                'cmsItem' => function () use ($cmsItem): ItemInterface {
+                'cmsItem' => function () use ($cmsItem): CmsItemInterface {
                     return $cmsItem;
                 },
             ]
@@ -188,11 +188,11 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isValid
      * @dataProvider isValidProvider
      */
-    public function testIsValidWithNullItem(bool $itemVisible): void
+    public function testIsValidWithNullCmsItem(bool $itemVisible): void
     {
         $item = new Item(
             [
-                'cmsItem' => new NullItem('value'),
+                'cmsItem' => new NullCmsItem('value'),
                 'configs' => [
                     'visibility' => new Config(
                         [

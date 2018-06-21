@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType\ItemLink;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
+    private $cmsItemLoaderMock;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
@@ -24,9 +24,9 @@ final class RemoteIdConverterTest extends TestCase
 
     public function setUp(): void
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
-        $this->remoteIdConverter = new RemoteIdConverter($this->itemLoaderMock);
+        $this->remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
     }
 
     /**
@@ -35,13 +35,13 @@ final class RemoteIdConverterTest extends TestCase
      */
     public function testCovertToRemoteId(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new Item(
+                    new CmsItem(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -64,13 +64,13 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
-    public function testConvertToRemoteIdWithNullItem(): void
+    public function testConvertToRemoteIdWithNullCmsItem(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo(42), $this->equalTo('my_value_type'))
-            ->will($this->returnValue(new NullItem('my_value_type')));
+            ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $this->assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
     }
@@ -80,13 +80,13 @@ final class RemoteIdConverterTest extends TestCase
      */
     public function testConvertFromRemoteId(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new Item(
+                    new CmsItem(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -109,13 +109,13 @@ final class RemoteIdConverterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
-    public function testConvertFromRemoteIdWithNullItem(): void
+    public function testConvertFromRemoteIdWithNullCmsItem(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
-            ->will($this->returnValue(new NullItem('my_value_type')));
+            ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $this->assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
     }

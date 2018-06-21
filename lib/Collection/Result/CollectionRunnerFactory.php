@@ -6,18 +6,18 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 
 final class CollectionRunnerFactory
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface
      */
-    private $itemBuilder;
+    private $cmsItemBuilder;
 
-    public function __construct(ItemBuilderInterface $itemBuilder)
+    public function __construct(CmsItemBuilderInterface $cmsItemBuilder)
     {
-        $this->itemBuilder = $itemBuilder;
+        $this->cmsItemBuilder = $cmsItemBuilder;
     }
 
     /**
@@ -47,6 +47,6 @@ final class CollectionRunnerFactory
             return new ContextualQueryRunner();
         }
 
-        return new QueryRunner($this->itemBuilder);
+        return new QueryRunner($this->cmsItemBuilder);
     }
 }

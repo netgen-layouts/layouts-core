@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item;
 
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-final class ItemTest extends TestCase
+final class CmsItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\Item::getName
-     * @covers \Netgen\BlockManager\Item\Item::getObject
-     * @covers \Netgen\BlockManager\Item\Item::getRemoteId
-     * @covers \Netgen\BlockManager\Item\Item::getValue
-     * @covers \Netgen\BlockManager\Item\Item::getValueType
-     * @covers \Netgen\BlockManager\Item\Item::isVisible
+     * @covers \Netgen\BlockManager\Item\CmsItem::getName
+     * @covers \Netgen\BlockManager\Item\CmsItem::getObject
+     * @covers \Netgen\BlockManager\Item\CmsItem::getRemoteId
+     * @covers \Netgen\BlockManager\Item\CmsItem::getValue
+     * @covers \Netgen\BlockManager\Item\CmsItem::getValueType
+     * @covers \Netgen\BlockManager\Item\CmsItem::isVisible
      */
     public function testObject(): void
     {
         $object = new stdClass();
 
-        $value = new Item(
+        $value = new CmsItem(
             [
                 'value' => 42,
                 'remoteId' => 'abc',

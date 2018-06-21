@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
@@ -61,7 +61,7 @@ final class RenderingRuntime
     /**
      * Renders the provided item.
      */
-    public function renderItem(array $context, ItemInterface $item, string $viewType, array $parameters = [], string $viewContext = null): string
+    public function renderItem(array $context, CmsItemInterface $item, string $viewType, array $parameters = [], string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
@@ -34,7 +34,7 @@ final class LinkTypeTest extends FormTestCase
     {
         $this->parameterType = new LinkParameterType(
             new ValueTypeRegistry(),
-            new RemoteIdConverter($this->createMock(ItemLoaderInterface::class))
+            new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class))
         );
 
         parent::setUp();

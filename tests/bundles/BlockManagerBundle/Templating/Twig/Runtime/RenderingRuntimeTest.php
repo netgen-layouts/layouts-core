@@ -10,7 +10,7 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
@@ -518,7 +518,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item()),
+                $this->equalTo(new CmsItem()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -528,7 +528,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered item',
             $this->runtime->renderItem(
                 [],
-                new Item(),
+                new CmsItem(),
                 'view_type',
                 ['param' => 'value']
             )
@@ -544,7 +544,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item()),
+                $this->equalTo(new CmsItem()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -554,7 +554,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered item',
             $this->runtime->renderItem(
                 [],
-                new Item(),
+                new CmsItem(),
                 'view_type',
                 ['param' => 'value'],
                 ViewInterface::CONTEXT_API
@@ -571,7 +571,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item()),
+                $this->equalTo(new CmsItem()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -583,7 +583,7 @@ final class RenderingRuntimeTest extends TestCase
                 [
                     'view_context' => ViewInterface::CONTEXT_API,
                 ],
-                new Item(),
+                new CmsItem(),
                 'view_type',
                 ['param' => 'value']
             )
@@ -599,7 +599,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item(['valueType' => 'value_type'])),
+                $this->equalTo(new CmsItem(['valueType' => 'value_type'])),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -609,7 +609,7 @@ final class RenderingRuntimeTest extends TestCase
             '',
             $this->runtime->renderItem(
                 [],
-                new Item(['valueType' => 'value_type']),
+                new CmsItem(['valueType' => 'value_type']),
                 'view_type',
                 ['param' => 'value']
             )
@@ -629,7 +629,7 @@ final class RenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Item(['valueType' => 'value_type'])),
+                $this->equalTo(new CmsItem(['valueType' => 'value_type'])),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
@@ -637,7 +637,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->runtime->renderItem(
             [],
-            new Item(['valueType' => 'value_type']),
+            new CmsItem(['valueType' => 'value_type']),
             'view_type',
             ['param' => 'value']
         );

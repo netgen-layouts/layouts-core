@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 
 final class ResultTest extends TestCase
@@ -18,8 +18,8 @@ final class ResultTest extends TestCase
      */
     public function testObject(): void
     {
-        $item1 = new Item(['value' => 42]);
-        $item2 = new Item(['value' => 43]);
+        $item1 = new CmsItem(['value' => 42]);
+        $item2 = new CmsItem(['value' => 43]);
 
         $result = new Result(0, $item1, $item2);
 

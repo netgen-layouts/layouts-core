@@ -1,12 +1,12 @@
 services:
     netgen_block_manager.item.item_builder:
-        class: Netgen\BlockManager\Item\ItemBuilder
+        class: Netgen\BlockManager\Item\CmsItemBuilder
         public: true
         arguments:
             - []
 
     netgen_block_manager.item.item_loader:
-        class: Netgen\BlockManager\Item\ItemLoader
+        class: Netgen\BlockManager\Item\CmsItemLoader
         public: true
         arguments:
             - "@netgen_block_manager.item.item_builder"

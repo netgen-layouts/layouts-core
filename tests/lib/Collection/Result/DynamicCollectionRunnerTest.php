@@ -6,9 +6,9 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemBuilderInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -17,21 +17,21 @@ final class DynamicCollectionRunnerTest extends TestCase
     use IteratorTestTrait;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemBuilderMock;
+    private $cmsItemBuilderMock;
 
     public function setUp(): void
     {
-        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
-        $this->itemBuilderMock
+        $this->cmsItemBuilderMock
             ->expects($this->any())
             ->method('build')
             ->will(
                 $this->returnCallback(
-                    function ($value): ItemInterface {
-                        return new Item(['value' => $value, 'isVisible' => true]);
+                    function ($value): CmsItemInterface {
+                        return new CmsItem(['value' => $value, 'isVisible' => true]);
                     }
                 )
             );
@@ -60,7 +60,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         int $limit = 200
     ): void {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $factory = new CollectionRunnerFactory($this->itemBuilderMock);
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock);
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 
@@ -372,7 +372,7 @@ final class DynamicCollectionRunnerTest extends TestCase
     {
         $results = [];
         foreach ($values as $key => $value) {
-            $results[] = new Result($key, new Item(['value' => $value]));
+            $results[] = new Result($key, new CmsItem(['value' => $value]));
         }
 
         return $results;

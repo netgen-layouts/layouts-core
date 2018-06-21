@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Item;
 
 /**
- * NullItem represents a value from CMS which could not be
+ * NullCmsItem represents an item referencing a value from CMS which could not be
  * loaded (for example, if the value does not exist any more).
  */
-final class NullItem implements ItemInterface
+final class NullCmsItem implements CmsItemInterface
 {
     /**
      * @var string

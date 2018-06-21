@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class ItemBuilderPass implements CompilerPassInterface
+final class CmsItemBuilderPass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.item.item_builder';
     private static $tagName = 'netgen_block_manager.item.value_converter';
@@ -19,7 +19,7 @@ final class ItemBuilderPass implements CompilerPassInterface
             return;
         }
 
-        $itemBuilder = $container->findDefinition(self::$serviceName);
+        $cmsItemBuilder = $container->findDefinition(self::$serviceName);
         $valueConverterServices = array_keys($container->findTaggedServiceIds(self::$tagName));
 
         $valueConverters = [];
@@ -27,6 +27,6 @@ final class ItemBuilderPass implements CompilerPassInterface
             $valueConverters[] = new Reference($serviceName);
         }
 
-        $itemBuilder->replaceArgument(0, $valueConverters);
+        $cmsItemBuilder->replaceArgument(0, $valueConverters);
     }
 }

@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\CmsItem;
 
 final class Collection implements APICollection
 {

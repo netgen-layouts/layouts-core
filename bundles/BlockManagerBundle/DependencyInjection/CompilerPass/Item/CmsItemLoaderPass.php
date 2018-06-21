@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class ItemLoaderPass implements CompilerPassInterface
+final class CmsItemLoaderPass implements CompilerPassInterface
 {
     private static $serviceName = 'netgen_block_manager.item.item_loader';
     private static $tagName = 'netgen_block_manager.item.value_loader';
@@ -20,7 +20,7 @@ final class ItemLoaderPass implements CompilerPassInterface
             return;
         }
 
-        $itemLoader = $container->findDefinition(self::$serviceName);
+        $cmsItemLoader = $container->findDefinition(self::$serviceName);
 
         $valueLoaders = [];
         foreach ($container->findTaggedServiceIds(self::$tagName) as $serviceName => $tags) {
@@ -41,6 +41,6 @@ final class ItemLoaderPass implements CompilerPassInterface
             }
         }
 
-        $itemLoader->replaceArgument(1, $valueLoaders);
+        $cmsItemLoader->replaceArgument(1, $valueLoaders);
     }
 }

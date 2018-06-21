@@ -8,7 +8,7 @@ use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 
 interface Item extends Value, ConfigAwareValue
 {
@@ -91,7 +91,7 @@ interface Item extends Value, ConfigAwareValue
     /**
      * Returns the CMS item loaded from value and value type stored in this collection item.
      */
-    public function getCmsItem(): ItemInterface;
+    public function getCmsItem(): CmsItemInterface;
 
     /**
      * Returns if the item visibility is scheduled, as specified by item visibility/scheduling

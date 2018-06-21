@@ -7,8 +7,8 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -17,13 +17,13 @@ final class ManualCollectionRunnerTest extends TestCase
     use IteratorTestTrait;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemBuilderMock;
+    private $cmsItemBuilderMock;
 
     public function setUp(): void
     {
-        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
     }
 
     /**
@@ -35,7 +35,7 @@ final class ManualCollectionRunnerTest extends TestCase
     public function testCollectionResult(array $collectionItems, array $values, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
         $collection = new Collection($collectionItems);
-        $factory = new CollectionRunnerFactory($this->itemBuilderMock);
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock);
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 
@@ -213,7 +213,7 @@ final class ManualCollectionRunnerTest extends TestCase
     {
         $results = [];
         foreach ($values as $key => $value) {
-            $results[] = new Result($key, new Item(['value' => $value]));
+            $results[] = new Result($key, new CmsItem(['value' => $value]));
         }
 
         return $results;

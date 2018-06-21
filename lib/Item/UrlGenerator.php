@@ -26,9 +26,9 @@ final class UrlGenerator implements UrlGeneratorInterface
         );
     }
 
-    public function generate(ItemInterface $item): ?string
+    public function generate(CmsItemInterface $item): ?string
     {
-        if ($item instanceof NullItem) {
+        if ($item instanceof NullCmsItem) {
             return null;
         }
 

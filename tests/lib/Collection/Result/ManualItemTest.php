@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

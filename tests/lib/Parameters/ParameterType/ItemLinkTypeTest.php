@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
@@ -26,21 +26,21 @@ final class ItemLinkTypeTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
+    private $cmsItemLoaderMock;
 
     public function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new Item(
+                    new CmsItem(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -49,13 +49,13 @@ final class ItemLinkTypeTest extends TestCase
                 )
             );
 
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new Item(
+                    new CmsItem(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -64,7 +64,7 @@ final class ItemLinkTypeTest extends TestCase
                 )
             );
 
-        $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->itemLoaderMock));
+        $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
     }
 
     /**

@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\Value;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 
 final class Item extends Value implements APIItem
 {
@@ -46,7 +46,7 @@ final class Item extends Value implements APIItem
     protected $value;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemInterface
+     * @var \Netgen\BlockManager\Item\CmsItemInterface
      */
     protected $cmsItem;
 
@@ -95,7 +95,7 @@ final class Item extends Value implements APIItem
         return $this->value;
     }
 
-    public function getCmsItem(): ItemInterface
+    public function getCmsItem(): CmsItemInterface
     {
         return $this->cmsItem;
     }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\View\View\ItemView;
 use PHPUnit\Framework\TestCase;
 
 final class ItemViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemInterface
+     * @var \Netgen\BlockManager\Item\CmsItemInterface
      */
     private $item;
 
@@ -22,7 +22,7 @@ final class ItemViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->item = new Item(
+        $this->item = new CmsItem(
             [
                 'value' => 42,
                 'valueType' => 'type',

@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\Value;
 
-final class Item extends Value implements ItemInterface
+final class CmsItem extends Value implements CmsItemInterface
 {
     /**
      * @var int|string

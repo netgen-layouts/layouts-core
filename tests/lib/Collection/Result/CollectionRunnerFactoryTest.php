@@ -9,7 +9,7 @@ use Netgen\BlockManager\Collection\Result\DynamicCollectionRunner;
 use Netgen\BlockManager\Collection\Result\ManualCollectionRunner;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +18,7 @@ final class CollectionRunnerFactoryTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemBuilderMock;
+    private $cmsItemBuilderMock;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
@@ -27,9 +27,9 @@ final class CollectionRunnerFactoryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory($this->itemBuilderMock);
+        $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock);
     }
 
     /**

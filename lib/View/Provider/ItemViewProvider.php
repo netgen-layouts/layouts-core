@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\View\View\ItemView;
 use Netgen\BlockManager\View\ViewInterface;
 
@@ -26,6 +26,6 @@ final class ItemViewProvider implements ViewProviderInterface
 
     public function supports($value): bool
     {
-        return $value instanceof ItemInterface;
+        return $value instanceof CmsItemInterface;
     }
 }

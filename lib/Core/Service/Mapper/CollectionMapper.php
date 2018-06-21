@@ -18,8 +18,8 @@ use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
@@ -53,9 +53,9 @@ final class CollectionMapper
     private $queryTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
      */
-    private $itemLoader;
+    private $cmsItemLoader;
 
     public function __construct(
         CollectionHandlerInterface $collectionHandler,
@@ -63,14 +63,14 @@ final class CollectionMapper
         ConfigMapper $configMapper,
         ItemDefinitionRegistryInterface $itemDefinitionRegistry,
         QueryTypeRegistryInterface $queryTypeRegistry,
-        ItemLoaderInterface $itemLoader
+        CmsItemLoaderInterface $cmsItemLoader
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
         $this->itemDefinitionRegistry = $itemDefinitionRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
-        $this->itemLoader = $itemLoader;
+        $this->cmsItemLoader = $cmsItemLoader;
     }
 
     /**
@@ -150,10 +150,10 @@ final class CollectionMapper
             'type' => $item->type,
             'value' => $item->value,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
-            'cmsItem' => function () use ($item, $itemDefinition): ItemInterface {
+            'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
                 $valueType = $itemDefinition instanceof NullItemDefinition ? 'null' : $itemDefinition->getValueType();
 
-                return $this->itemLoader->load($item->value, $valueType);
+                return $this->cmsItemLoader->load($item->value, $valueType);
             },
         ];
 

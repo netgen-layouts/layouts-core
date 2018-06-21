@@ -6,9 +6,9 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 
-final class ManualItem implements ItemInterface
+final class ManualItem implements CmsItemInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item

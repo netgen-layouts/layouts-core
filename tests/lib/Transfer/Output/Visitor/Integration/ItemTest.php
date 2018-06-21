@@ -9,7 +9,7 @@ use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Collection\Item as ItemValue;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Transfer\Output\Visitor\Item;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -19,7 +19,7 @@ abstract class ItemTest extends VisitorTest
     {
         parent::setUp();
 
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->will($this->returnValue(new CmsItem(['remoteId' => 'abc'])));

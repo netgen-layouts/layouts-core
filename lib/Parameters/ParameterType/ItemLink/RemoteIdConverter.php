@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Parameters\ParameterType\ItemLink;
 
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 
 final class RemoteIdConverter
 {
     private static $nullLink = 'null://0';
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
      */
-    private $itemLoader;
+    private $cmsItemLoader;
 
-    public function __construct(ItemLoaderInterface $itemLoader)
+    public function __construct(CmsItemLoaderInterface $cmsItemLoader)
     {
-        $this->itemLoader = $itemLoader;
+        $this->cmsItemLoader = $cmsItemLoader;
     }
 
     /**
@@ -36,8 +36,8 @@ final class RemoteIdConverter
             return self::$nullLink;
         }
 
-        $item = $this->itemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
-        if ($item instanceof NullItem) {
+        $item = $this->cmsItemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
+        if ($item instanceof NullCmsItem) {
             return self::$nullLink;
         }
 
@@ -59,8 +59,8 @@ final class RemoteIdConverter
             return self::$nullLink;
         }
 
-        $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
-        if ($item instanceof NullItem) {
+        $item = $this->cmsItemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
+        if ($item instanceof NullCmsItem) {
             return self::$nullLink;
         }
 

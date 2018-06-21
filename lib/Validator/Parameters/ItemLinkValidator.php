@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Validator\Parameters;
 
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
@@ -18,13 +18,13 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class ItemLinkValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
      */
-    private $itemLoader;
+    private $cmsItemLoader;
 
-    public function __construct(ItemLoaderInterface $itemLoader)
+    public function __construct(CmsItemLoaderInterface $cmsItemLoader)
     {
-        $this->itemLoader = $itemLoader;
+        $this->cmsItemLoader = $cmsItemLoader;
     }
 
     public function validate($value, Constraint $constraint): void
@@ -72,8 +72,8 @@ final class ItemLinkValidator extends ConstraintValidator
                 }
             }
 
-            $item = $this->itemLoader->load($itemValue, $valueType);
-            if ($item instanceof NullItem) {
+            $item = $this->cmsItemLoader->load($itemValue, $valueType);
+            if ($item instanceof NullCmsItem) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }

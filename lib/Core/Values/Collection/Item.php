@@ -10,8 +10,8 @@ use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
-use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 
 final class Item extends Value implements APIItem
@@ -50,7 +50,7 @@ final class Item extends Value implements APIItem
     protected $value;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemInterface
+     * @var \Netgen\BlockManager\Item\CmsItemInterface
      */
     protected $cmsItem;
 
@@ -94,7 +94,7 @@ final class Item extends Value implements APIItem
         return $this->value;
     }
 
-    public function getCmsItem(): ItemInterface
+    public function getCmsItem(): CmsItemInterface
     {
         return $this->getLazyProperty($this->cmsItem);
     }
@@ -131,7 +131,7 @@ final class Item extends Value implements APIItem
 
     public function isValid(): bool
     {
-        if ($this->getCmsItem() instanceof NullItem) {
+        if ($this->getCmsItem() instanceof NullCmsItem) {
             return false;
         }
 

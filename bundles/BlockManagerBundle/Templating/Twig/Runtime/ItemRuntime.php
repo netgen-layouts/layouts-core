@@ -6,17 +6,17 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Throwable;
 
 final class ItemRuntime
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
      */
-    private $itemLoader;
+    private $cmsItemLoader;
 
     /**
      * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
@@ -29,11 +29,11 @@ final class ItemRuntime
     private $errorHandler;
 
     public function __construct(
-        ItemLoaderInterface $itemLoader,
+        CmsItemLoaderInterface $cmsItemLoader,
         UrlGeneratorInterface $urlGenerator,
         ErrorHandlerInterface $errorHandler
     ) {
-        $this->itemLoader = $itemLoader;
+        $this->cmsItemLoader = $cmsItemLoader;
         $this->urlGenerator = $urlGenerator;
         $this->errorHandler = $errorHandler;
     }
@@ -45,7 +45,7 @@ final class ItemRuntime
      *
      * 1) URI with value_type://value format, e.g. type://42
      * 2) ID and value type as separate arguments
-     * 3) \Netgen\BlockManager\Item\ItemInterface object
+     * 3) \Netgen\BlockManager\Item\CmsItemInterface object
      *
      * @param mixed $value
      * @param string|null $valueType
@@ -65,17 +65,17 @@ final class ItemRuntime
                     throw ItemException::invalidValue($value);
                 }
 
-                $item = $this->itemLoader->load(
+                $item = $this->cmsItemLoader->load(
                     $itemUri['host'],
                     str_replace('-', '_', $itemUri['scheme'])
                 );
             } elseif (is_scalar($value) && is_string($valueType)) {
-                $item = $this->itemLoader->load($value, $valueType);
-            } elseif ($value instanceof ItemInterface) {
+                $item = $this->cmsItemLoader->load($value, $valueType);
+            } elseif ($value instanceof CmsItemInterface) {
                 $item = $value;
             }
 
-            if (!$item instanceof ItemInterface) {
+            if (!$item instanceof CmsItemInterface) {
                 throw ItemException::canNotLoadItem();
             }
 

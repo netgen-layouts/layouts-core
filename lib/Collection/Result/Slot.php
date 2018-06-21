@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 
 /**
- * The slot represents a placeholder for an item when executing
+ * The slot represents a placeholder for a CMS item when executing
  * a context dependant query when there's no context.
  */
-final class Slot implements ItemInterface
+final class Slot implements CmsItemInterface
 {
     public function getValue()
     {

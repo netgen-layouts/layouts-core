@@ -9,7 +9,7 @@ use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Item\ItemInterface as CmsItem;
+use Netgen\BlockManager\Item\CmsItemInterface;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
 {
@@ -88,7 +88,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $queryValue = $this->getQueryValue($queryIterator);
 
         if (!$collectionItem->isValid()) {
-            if (!$queryValue instanceof CmsItem) {
+            if (!$queryValue instanceof CmsItemInterface) {
                 return null;
             }
 
@@ -108,7 +108,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         if (!$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
-            if (!$queryValue instanceof CmsItem) {
+            if (!$queryValue instanceof CmsItemInterface) {
                 return null;
             }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ItemViewProvider;
 use Netgen\BlockManager\View\View\ItemViewInterface;
@@ -28,7 +28,7 @@ final class ItemViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $item = new Item();
+        $item = new CmsItem();
 
         /** @var \Netgen\BlockManager\View\View\ItemViewInterface $view */
         $view = $this->itemViewProvider->provideView($item, ['view_type' => 'view_type']);
@@ -53,7 +53,7 @@ final class ItemViewProviderTest extends TestCase
      */
     public function testProvideViewThrowsViewProviderExceptionOnMissingViewType(): void
     {
-        $this->itemViewProvider->provideView(new Item());
+        $this->itemViewProvider->provideView(new CmsItem());
     }
 
     /**
@@ -63,7 +63,7 @@ final class ItemViewProviderTest extends TestCase
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType(): void
     {
-        $this->itemViewProvider->provideView(new Item(), ['view_type' => 42]);
+        $this->itemViewProvider->provideView(new CmsItem(), ['view_type' => 42]);
     }
 
     /**
@@ -82,7 +82,7 @@ final class ItemViewProviderTest extends TestCase
     {
         return [
             [new Value(), false],
-            [new Item(), true],
+            [new CmsItem(), true],
             [new Layout(), false],
         ];
     }

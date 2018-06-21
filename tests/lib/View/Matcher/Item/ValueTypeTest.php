@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Item;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Item\ValueType;
@@ -30,7 +30,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $view = new ItemView(new Item(['valueType' => 'value']), 'view_type');
+        $view = new ItemView(new CmsItem(['valueType' => 'value']), 'view_type');
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -38,9 +38,9 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
      */
-    public function testMatchWithNullItem(): void
+    public function testMatchWithNullCmsItem(): void
     {
-        $view = new ItemView(new NullItem('value'), 'view_type');
+        $view = new ItemView(new NullCmsItem('value'), 'view_type');
 
         $this->assertTrue($this->matcher->match($view, ['null']));
     }
@@ -48,9 +48,9 @@ final class ValueTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
      */
-    public function testMatchWithNullItemReturnsFalse(): void
+    public function testMatchWithNullCmsItemReturnsFalse(): void
     {
-        $view = new ItemView(new NullItem('value'), 'view_type');
+        $view = new ItemView(new NullCmsItem('value'), 'view_type');
 
         $this->assertFalse($this->matcher->match($view, ['test']));
     }

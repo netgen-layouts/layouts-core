@@ -4,38 +4,38 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemLoader;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemBuilderInterface;
+use Netgen\BlockManager\Item\CmsItemLoader;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
-final class ItemLoaderTest extends TestCase
+final class CmsItemLoaderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemBuilderMock;
+    private $cmsItemBuilderMock;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
      */
-    private $itemLoader;
+    private $cmsItemLoader;
 
     public function setUp(): void
     {
-        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::__construct
-     * @covers \Netgen\BlockManager\Item\ItemLoader::load
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::__construct
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
      */
     public function testLoad(): void
     {
-        $item = new Item(
+        $item = new CmsItem(
             [
                 'value' => 42,
                 'remoteId' => 'abc',
@@ -46,53 +46,53 @@ final class ItemLoaderTest extends TestCase
             ]
         );
 
-        $this->itemLoader = new ItemLoader(
-            $this->itemBuilderMock,
+        $this->cmsItemLoader = new CmsItemLoader(
+            $this->cmsItemBuilderMock,
             ['value' => new ValueLoader()]
         );
 
-        $this->itemBuilderMock
+        $this->cmsItemBuilderMock
             ->expects($this->any())
             ->method('build')
             ->will($this->returnValue($item));
 
-        $this->assertSame($item, $this->itemLoader->load(42, 'value'));
+        $this->assertSame($item, $this->cmsItemLoader->load(42, 'value'));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::load
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
      */
     public function testLoadItemWithNoItem(): void
     {
-        $this->itemLoader = new ItemLoader(
-            $this->itemBuilderMock,
+        $this->cmsItemLoader = new CmsItemLoader(
+            $this->cmsItemBuilderMock,
             ['value' => new ValueLoader(true)]
         );
 
-        $loadedValue = $this->itemLoader->load(42, 'value');
+        $loadedValue = $this->cmsItemLoader->load(42, 'value');
 
-        $this->assertInstanceOf(NullItem::class, $loadedValue);
+        $this->assertInstanceOf(NullCmsItem::class, $loadedValue);
         $this->assertSame('value', $loadedValue->getValueType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::load
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "value" does not exist.
      */
     public function testLoadItemThrowsItemException(): void
     {
-        $this->itemLoader = new ItemLoader($this->itemBuilderMock);
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock);
 
-        $this->itemLoader->load(42, 'value');
+        $this->cmsItemLoader->load(42, 'value');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteId(): void
     {
-        $item = new Item(
+        $item = new CmsItem(
             [
                 'value' => 42,
                 'remoteId' => 'abc',
@@ -103,44 +103,44 @@ final class ItemLoaderTest extends TestCase
             ]
         );
 
-        $this->itemLoader = new ItemLoader(
-            $this->itemBuilderMock,
+        $this->cmsItemLoader = new CmsItemLoader(
+            $this->cmsItemBuilderMock,
             ['value' => new ValueLoader()]
         );
 
-        $this->itemBuilderMock
+        $this->cmsItemBuilderMock
             ->expects($this->any())
             ->method('build')
             ->will($this->returnValue($item));
 
-        $this->assertSame($item, $this->itemLoader->loadByRemoteId(42, 'value'));
+        $this->assertSame($item, $this->cmsItemLoader->loadByRemoteId(42, 'value'));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem(): void
     {
-        $this->itemLoader = new ItemLoader(
-            $this->itemBuilderMock,
+        $this->cmsItemLoader = new CmsItemLoader(
+            $this->cmsItemBuilderMock,
             ['value' => new ValueLoader(true)]
         );
 
-        $loadedValue = $this->itemLoader->loadByRemoteId(42, 'value');
+        $loadedValue = $this->cmsItemLoader->loadByRemoteId(42, 'value');
 
-        $this->assertInstanceOf(NullItem::class, $loadedValue);
+        $this->assertInstanceOf(NullCmsItem::class, $loadedValue);
         $this->assertSame('value', $loadedValue->getValueType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
+     * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "value" does not exist.
      */
     public function testLoadByRemoteIdItemThrowsItemException(): void
     {
-        $this->itemLoader = new ItemLoader($this->itemBuilderMock);
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock);
 
-        $this->itemLoader->loadByRemoteId(42, 'value');
+        $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }
 }

@@ -12,8 +12,8 @@ use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
-use Netgen\BlockManager\Item\Item as CmsItem;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -261,7 +261,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $cmsItem = new CmsItem();
 
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('12'), $this->equalTo('my_value_type'))
@@ -321,9 +321,9 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $cmsItem = new NullItem('value');
+        $cmsItem = new NullCmsItem('value');
 
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('12'), $this->equalTo('null'))

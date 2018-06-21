@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer;
@@ -50,7 +50,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
                 'definition' => new ItemDefinition(['valueType' => 'my_value_type']),
-                'cmsItem' => new Item(
+                'cmsItem' => new CmsItem(
                     [
                         'name' => 'Value name',
                         'isVisible' => true,

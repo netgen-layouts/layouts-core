@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
@@ -28,7 +28,7 @@ final class LinkMapperTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
+    private $cmsItemLoaderMock;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
@@ -45,11 +45,11 @@ final class LinkMapperTest extends TestCase
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
 
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
         $this->type = new LinkParameterType(
             $this->valueTypeRegistry,
-            new RemoteIdConverter($this->itemLoaderMock)
+            new RemoteIdConverter($this->cmsItemLoaderMock)
         );
 
         $this->mapper = new LinkMapper();

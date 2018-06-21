@@ -17,8 +17,8 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Item\Item as CmsItem;
-use Netgen\BlockManager\Item\ItemBuilder;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemBuilder;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
@@ -28,9 +28,9 @@ use PHPUnit\Framework\TestCase;
 final class ResultBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface
      */
-    private $itemBuilder;
+    private $cmsItemBuilder;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
@@ -39,7 +39,7 @@ final class ResultBuilderTest extends TestCase
 
     public function setUp(): void
     {
-        $this->itemBuilder = new ItemBuilder(
+        $this->cmsItemBuilder = new CmsItemBuilder(
             [new ValueConverter()]
         );
 
@@ -179,7 +179,7 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder(int $maxLimit): ResultBuilderInterface
     {
         return new ResultBuilder(
-            new CollectionRunnerFactory($this->itemBuilder),
+            new CollectionRunnerFactory($this->cmsItemBuilder),
             12,
             $maxLimit
         );

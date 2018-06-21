@@ -17,8 +17,8 @@ use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver;
-use Netgen\BlockManager\Item\Item as CmsItem;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
@@ -63,12 +63,12 @@ abstract class ImporterTest extends ServiceTestCase
         $this->layoutService = $this->createLayoutService();
         $this->layoutResolverService = $this->createLayoutResolverService();
 
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->will(
                 $this->returnCallback(
-                    function ($remoteId): ItemInterface {
+                    function ($remoteId): CmsItemInterface {
                         return new CmsItem(
                             [
                                 'value' => $remoteId,
@@ -79,12 +79,12 @@ abstract class ImporterTest extends ServiceTestCase
                 )
             );
 
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->will(
                 $this->returnCallback(
-                    function ($value): ItemInterface {
+                    function ($value): CmsItemInterface {
                         return new CmsItem(
                             [
                                 'value' => $value,
@@ -105,7 +105,7 @@ abstract class ImporterTest extends ServiceTestCase
                 $this->layoutTypeRegistry,
                 $this->itemDefinitionRegistry,
                 $this->queryTypeRegistry,
-                $this->itemLoaderMock
+                $this->cmsItemLoaderMock
             )
         );
 

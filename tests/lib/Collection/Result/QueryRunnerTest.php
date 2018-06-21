@@ -6,30 +6,30 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\QueryRunner;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemBuilderInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryRunnerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemBuilderMock;
+    private $cmsItemBuilderMock;
 
     public function setUp(): void
     {
-        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
-        $this->itemBuilderMock
+        $this->cmsItemBuilderMock
             ->expects($this->any())
             ->method('build')
             ->will(
                 $this->returnCallback(
-                    function ($value): ItemInterface {
-                        return new Item(['value' => $value, 'isVisible' => true]);
+                    function ($value): CmsItemInterface {
+                        return new CmsItem(['value' => $value, 'isVisible' => true]);
                     }
                 )
             );
@@ -45,12 +45,12 @@ final class QueryRunnerTest extends TestCase
         $queryType = new QueryType('query', [40, 41, 42]);
         $query = new Query(['queryType' => $queryType]);
 
-        $queryRunner = new QueryRunner($this->itemBuilderMock);
+        $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
 
         $items = iterator_to_array($queryRunner->runQuery($query));
 
         foreach ($items as $item) {
-            $this->assertInstanceOf(Item::class, $item);
+            $this->assertInstanceOf(CmsItemInterface::class, $item);
             $this->assertTrue($item->isVisible());
         }
 

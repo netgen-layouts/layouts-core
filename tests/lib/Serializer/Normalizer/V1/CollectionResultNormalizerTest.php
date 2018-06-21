@@ -9,7 +9,7 @@ use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\Slot;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer;
@@ -47,7 +47,7 @@ final class CollectionResultNormalizerTest extends TestCase
             [
                 'id' => 42,
                 'collectionId' => 24,
-                'cmsItem' => new Item(
+                'cmsItem' => new CmsItem(
                     [
                         'name' => 'Value name',
                         'valueType' => 'value_type',
@@ -101,7 +101,7 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testNormalizeWithoutCollectionItem(): void
     {
-        $item = new Item(
+        $item = new CmsItem(
             [
                 'name' => 'Value name',
                 'valueType' => 'value_type',
@@ -177,7 +177,7 @@ final class CollectionResultNormalizerTest extends TestCase
             [
                 'id' => 42,
                 'collectionId' => 24,
-                'cmsItem' => new Item(
+                'cmsItem' => new CmsItem(
                     [
                         'name' => 'Value name',
                         'valueType' => 'value_type',
@@ -200,7 +200,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ]
         );
 
-        $item = new Item(
+        $item = new CmsItem(
             [
                 'name' => 'Value name',
                 'valueType' => 'value_type',
@@ -268,10 +268,10 @@ final class CollectionResultNormalizerTest extends TestCase
             [42, false],
             [42.12, false],
             [new APIValue(), false],
-            [new Result(0, new Item()), false],
+            [new Result(0, new CmsItem()), false],
             [new VersionedValue(new APIValue(), 1), false],
-            [new VersionedValue(new Result(0, new Item()), 2), false],
-            [new VersionedValue(new Result(0, new Item()), 1), true],
+            [new VersionedValue(new Result(0, new CmsItem()), 2), false],
+            [new VersionedValue(new Result(0, new CmsItem()), 1), true],
         ];
     }
 }

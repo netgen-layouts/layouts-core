@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\Slot;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -30,13 +30,13 @@ final class CollectionResultNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
 
-        $mainItem = $result->getSubItem() instanceof ItemInterface ? $result->getSubItem() : $result->getItem();
-        $overrideItem = $result->getSubItem() instanceof ItemInterface ? $result->getItem() : null;
+        $mainItem = $result->getSubItem() instanceof CmsItemInterface ? $result->getSubItem() : $result->getItem();
+        $overrideItem = $result->getSubItem() instanceof CmsItemInterface ? $result->getItem() : null;
 
         $data = $this->normalizeResultItem($mainItem);
         $data['position'] = $result->getPosition();
 
-        if ($overrideItem instanceof ItemInterface) {
+        if ($overrideItem instanceof CmsItemInterface) {
             $data['override_item'] = $this->normalizeResultItem($overrideItem);
         }
 
@@ -55,7 +55,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
     /**
      * Normalizes the provided result item into an array.
      */
-    private function normalizeResultItem(ItemInterface $resultItem): array
+    private function normalizeResultItem(CmsItemInterface $resultItem): array
     {
         $itemUrl = null;
         $collectionItem = null;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Validator\Parameters;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\CmsItemLoaderInterface;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Parameters\ItemLinkValidator;
@@ -18,7 +18,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
+    private $cmsItemLoaderMock;
 
     public function setUp(): void
     {
@@ -29,9 +29,9 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
     public function getValidator(): ConstraintValidatorInterface
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
-        return new ItemLinkValidator($this->itemLoaderMock);
+        return new ItemLinkValidator($this->cmsItemLoaderMock);
     }
 
     /**
@@ -44,10 +44,10 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->constraint->valueTypes = $valueTypes;
 
         if ($value !== null && $isValid) {
-            $this->itemLoaderMock
+            $this->cmsItemLoaderMock
                 ->expects($this->once())
                 ->method('load')
-                ->will($this->returnValue(new Item()));
+                ->will($this->returnValue(new CmsItem()));
         }
 
         $this->assertValid($isValid, $value);
@@ -58,10 +58,10 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      */
     public function testValidateWithInvalidItem(): void
     {
-        $this->itemLoaderMock
+        $this->cmsItemLoaderMock
             ->expects($this->once())
             ->method('load')
-            ->will($this->returnValue(new NullItem('value')));
+            ->will($this->returnValue(new NullCmsItem('value')));
 
         $this->assertValid(false, 'value://42');
     }

@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\Exception\Item\ValueException;
 
-final class ItemBuilder implements ItemBuilderInterface
+final class CmsItemBuilder implements CmsItemBuilderInterface
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
@@ -26,14 +26,14 @@ final class ItemBuilder implements ItemBuilderInterface
         );
     }
 
-    public function build($object): ItemInterface
+    public function build($object): CmsItemInterface
     {
         foreach ($this->valueConverters as $valueConverter) {
             if (!$valueConverter->supports($object)) {
                 continue;
             }
 
-            $value = new Item(
+            $value = new CmsItem(
                 [
                     'value' => $valueConverter->getId($object),
                     'remoteId' => $valueConverter->getRemoteId($object),

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item;
 
-use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Item\UrlGenerator;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlGenerator;
 use PHPUnit\Framework\TestCase;
@@ -33,7 +33,7 @@ final class UrlGeneratorTest extends TestCase
         $this->assertSame(
             '/item-url',
             $this->urlGenerator->generate(
-                new Item(['valueType' => 'value'])
+                new CmsItem(['valueType' => 'value'])
             )
         );
     }
@@ -42,11 +42,11 @@ final class UrlGeneratorTest extends TestCase
      * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
      * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
      */
-    public function testGenerateWithNullItem(): void
+    public function testGenerateWithNullCmsItem(): void
     {
         $this->assertNull(
             $this->urlGenerator->generate(
-                new NullItem('value')
+                new NullCmsItem('value')
             )
         );
     }
@@ -59,7 +59,7 @@ final class UrlGeneratorTest extends TestCase
     public function testGenerateWithNoUrlGenerator(): void
     {
         $this->urlGenerator->generate(
-            new Item(['valueType' => 'unknown'])
+            new CmsItem(['valueType' => 'unknown'])
         );
     }
 }

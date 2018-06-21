@@ -9,7 +9,7 @@ use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 use Traversable;
@@ -33,7 +33,7 @@ final class ResultSetTest extends TestCase
     {
         $collection = new Collection();
 
-        $resultItem = new Result(0, new Item());
+        $resultItem = new Result(0, new CmsItem());
 
         $result = new ResultSet(
             [
