@@ -47,6 +47,7 @@ final class CacheableViewListenerTest extends TestCase
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
+        $blockView->setIsCacheable(true);
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);
@@ -73,7 +74,6 @@ final class CacheableViewListenerTest extends TestCase
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
-        $blockView->setIsCacheable(false);
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);
@@ -100,6 +100,7 @@ final class CacheableViewListenerTest extends TestCase
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
+        $blockView->setIsCacheable(true);
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);
@@ -128,6 +129,7 @@ final class CacheableViewListenerTest extends TestCase
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
+        $blockView->setIsCacheable(true);
         $blockView->setSharedMaxAge(42);
 
         $request->attributes->set('ngbmView', $blockView);

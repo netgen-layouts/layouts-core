@@ -9,7 +9,7 @@ trait CacheableViewTrait
     /**
      * @var bool
      */
-    private $isCacheable = true;
+    private $isCacheable = false;
 
     /**
      * @var int

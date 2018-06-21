@@ -135,8 +135,11 @@ final class CacheableViewSessionListenerTest extends TestCase
      */
     public function testOnKernelResponseWithCacheableBlockView(): void
     {
+        $blockView = new BlockView(new Block());
+        $blockView->setIsCacheable(true);
+
         $request = Request::create('/');
-        $request->attributes->set('ngbmView', new BlockView(new Block()));
+        $request->attributes->set('ngbmView', $blockView);
 
         $event = new FilterResponseEvent(
             $this->createMock(KernelInterface::class),
@@ -159,7 +162,6 @@ final class CacheableViewSessionListenerTest extends TestCase
     {
         $request = Request::create('/');
         $blockView = new BlockView(new Block());
-        $blockView->setIsCacheable(false);
         $request->attributes->set('ngbmView', $blockView);
 
         $event = new FilterResponseEvent(

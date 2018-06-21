@@ -75,6 +75,7 @@ final class FragmentRendererTest extends TestCase
     public function testRenderValue(): void
     {
         $view = new BlockView(new Block());
+        $view->setIsCacheable(true);
 
         $this->viewBuilderMock
             ->expects($this->once())
@@ -133,7 +134,6 @@ final class FragmentRendererTest extends TestCase
     public function testRenderValueWithCacheableViewAndDisabledCache(): void
     {
         $view = new BlockView(new Block());
-        $view->setIsCacheable(false);
 
         $this->viewBuilderMock
             ->expects($this->once())
@@ -159,6 +159,7 @@ final class FragmentRendererTest extends TestCase
     public function testRenderValueWithNoSupportedFragmentRenderer(): void
     {
         $view = new BlockView(new Block());
+        $view->setIsCacheable(true);
 
         $this->viewBuilderMock
             ->expects($this->once())
@@ -189,6 +190,7 @@ final class FragmentRendererTest extends TestCase
     public function testRenderValueWithNoFragmentRenderers(): void
     {
         $view = new BlockView(new Block());
+        $view->setIsCacheable(true);
 
         $this->viewBuilderMock
             ->expects($this->once())
