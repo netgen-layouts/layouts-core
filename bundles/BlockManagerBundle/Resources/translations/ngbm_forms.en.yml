@@ -25,25 +25,6 @@ layout.edit.button.cancel: 'Cancel'
 layout.edit.button.save: 'Save'
 layout.edit.title: 'Edit layout name and description'
 
-layout.set_main_locale.title: 'Set main translation'
-layout.set_main_locale.button.cancel: 'Cancel'
-layout.set_main_locale.button.set: 'Set'
-
-layout.add_locale.title: 'New translation'
-layout.add_locale.locale: 'Select translation you want to add'
-layout.add_locale.source_locale: 'Translate based on'
-layout.add_locale.no_locales: 'There are no translations to add.'
-layout.add_locale.button.cancel: 'Cancel'
-layout.add_locale.button.create: 'Create translation'
-layout.add_locale.button.close: 'Close'
-
-layout.remove_locale.title: 'Remove translation(s)'
-layout.remove_locale.note: '<strong>Note</strong>: Main translation (%mainTranslation%) cannot be removed from the layout.'
-layout.remove_locale.no_locales: 'There are no translations to remove.'
-layout.remove_locale.button.cancel: 'Cancel'
-layout.remove_locale.button.remove: 'Remove'
-layout.remove_locale.button.close: 'Close'
-
 target_type.button.cancel: 'Cancel'
 target_type.button.save: 'Save target'
 
@@ -56,11 +37,6 @@ condition_type.query_parameter.parameter_name: 'Parameter name'
 condition_type.query_parameter.parameter_values: 'Parameter values'
 condition_type.time.from: 'From'
 condition_type.time.to: 'Until'
-
-block.configure_translation.title: 'Configure translation'
-block.configure_translation.translatable: 'Enable translation'
-block.configure_translation.button.cancel: 'Cancel'
-block.configure_translation.button.set: 'Set'
 
 config.block.http_cache.header: 'Configure cache'
 config.block.http_cache.definition: 'Definition'

@@ -6,7 +6,9 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Form\CreateType;
+use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,9 +22,15 @@ final class CreateForm extends Controller
      */
     private $layoutService;
 
-    public function __construct(LayoutService $layoutService)
+    /**
+     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
+     */
+    private $localeProvider;
+
+    public function __construct(LayoutService $layoutService, LocaleProviderInterface $localeProvider)
     {
         $this->layoutService = $layoutService;
+        $this->localeProvider = $localeProvider;
     }
 
     /**
@@ -32,7 +40,13 @@ final class CreateForm extends Controller
      */
     public function __invoke(Request $request)
     {
+        $availableLocales = $this->localeProvider->getAvailableLocales();
+        if (empty($availableLocales)) {
+            throw new RuntimeException('There are no available locales configured in the system.');
+        }
+
         $createStruct = new LayoutCreateStruct();
+        $createStruct->mainLocale = array_keys($availableLocales)[0];
 
         $form = $this->createForm(
             CreateType::class,

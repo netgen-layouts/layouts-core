@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,11 +18,6 @@ final class CreateTypeTest extends FormTestCase
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface&\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $localeProviderMock;
 
     public function setUp(): void
     {
@@ -51,18 +45,12 @@ final class CreateTypeTest extends FormTestCase
             )
         );
 
-        $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
-        $this->localeProviderMock
-            ->expects($this->any())
-            ->method('getAvailableLocales')
-            ->will($this->returnValue(['en' => 'English']));
-
         parent::setUp();
     }
 
     public function getMainType(): FormTypeInterface
     {
-        return new CreateType($this->layoutTypeRegistry, $this->localeProviderMock);
+        return new CreateType($this->layoutTypeRegistry);
     }
 
     /**
@@ -76,7 +64,6 @@ final class CreateTypeTest extends FormTestCase
             'name' => 'My layout',
             'layoutType' => '4_zones_a',
             'shared' => true,
-            'mainLocale' => 'en',
         ];
 
         $struct = new LayoutCreateStruct();
@@ -92,7 +79,6 @@ final class CreateTypeTest extends FormTestCase
 
         $this->assertSame('My layout', $struct->name);
         $this->assertTrue($struct->shared);
-        $this->assertSame('en', $struct->mainLocale);
 
         $this->assertInstanceOf(LayoutType::class, $struct->layoutType);
         $this->assertSame('4_zones_a', $struct->layoutType->getIdentifier());

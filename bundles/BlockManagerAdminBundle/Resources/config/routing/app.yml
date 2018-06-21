@@ -24,36 +24,11 @@ ngbm_app_layout_form_edit:
     defaults:
         _controller: "netgen_block_manager.controller.app.layout.edit_form"
 
-ngbm_app_layout_form_main_locale:
-    path: /app/layouts/{layoutId}/form/main_locale
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout.set_main_locale_form"
-
-ngbm_app_layout_form_add_locale:
-    path: /app/layouts/{layoutId}/form/add_locale
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout.add_locale_form"
-
-ngbm_app_layout_form_remove_locale:
-    path: /app/layouts/{layoutId}/form/remove_locale
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout.remove_locale_form"
-
 ngbm_app_block_edit:
     path: /app/{locale}/blocks/{blockId}/edit
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.block.edit"
-        _ngbm_status: draft
-
-ngbm_app_block_form_configure_translation:
-    path: /app/{locale}/blocks/{blockId}/form/configure_translation
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.block.configure_translation_form"
         _ngbm_status: draft
 
 ngbm_app_block_form_edit:

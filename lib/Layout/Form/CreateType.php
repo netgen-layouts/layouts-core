@@ -9,9 +9,7 @@ use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
-use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -31,17 +29,9 @@ final class CreateType extends AbstractType
      */
     private $layoutTypeRegistry;
 
-    /**
-     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
-     */
-    private $localeProvider;
-
-    public function __construct(
-        LayoutTypeRegistryInterface $layoutTypeRegistry,
-        LocaleProviderInterface $localeProvider
-    ) {
+    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
+    {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
-        $this->localeProvider = $localeProvider;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -85,22 +75,6 @@ final class CreateType extends AbstractType
                 ],
                 'property_path' => 'name',
             ]
-        );
-
-        $builder->add(
-            'mainLocale',
-            ChoiceType::class,
-            [
-                'label' => 'layout.main_locale',
-                'required' => true,
-                'choices' => array_flip($this->localeProvider->getAvailableLocales()),
-                'constraints' => [
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'string']),
-                    new LocaleConstraint(),
-                ],
-                'property_path' => 'mainLocale',
-            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(

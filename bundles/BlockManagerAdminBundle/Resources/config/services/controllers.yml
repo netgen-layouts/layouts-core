@@ -216,30 +216,10 @@ services:
         parent: netgen_block_manager.controller.app.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.locale.provider"
 
     netgen_block_manager.controller.app.layout.edit_form:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\EditForm
-        public: true
-        parent: netgen_block_manager.controller.app.base
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-
-    netgen_block_manager.controller.app.layout.set_main_locale_form:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\SetMainLocaleForm
-        public: true
-        parent: netgen_block_manager.controller.app.base
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-
-    netgen_block_manager.controller.app.layout.add_locale_form:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\AddLocaleForm
-        public: true
-        parent: netgen_block_manager.controller.app.base
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-
-    netgen_block_manager.controller.app.layout.remove_locale_form:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Layout\RemoveLocaleForm
         public: true
         parent: netgen_block_manager.controller.app.base
         arguments:
@@ -261,13 +241,6 @@ services:
 
     netgen_block_manager.controller.app.block.edit_config_form:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block\EditConfigForm
-        public: true
-        parent: netgen_block_manager.controller.app.base
-        arguments:
-            - "@netgen_block_manager.api.service.block"
-
-    netgen_block_manager.controller.app.block.configure_translation_form:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block\ConfigureTranslationForm
         public: true
         parent: netgen_block_manager.controller.app.base
         arguments:
