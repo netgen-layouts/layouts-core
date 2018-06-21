@@ -14,3 +14,4 @@ package-lock.json
 phpunit.phar
 studio.json
 yarn.lock
+yarn-error.log
