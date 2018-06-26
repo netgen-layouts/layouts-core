@@ -12,11 +12,6 @@ use Netgen\BlockManager\Item\ValueType\ValueType;
 interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a value type to registry.
-     */
-    public function addValueType(string $identifier, ValueType $valueType): void;
-
-    /**
      * Returns if registry has a value type.
      */
     public function hasValueType(string $identifier): bool;

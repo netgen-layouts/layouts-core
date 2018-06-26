@@ -16,9 +16,17 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
      */
     private $valueTypes = [];
 
-    public function addValueType(string $identifier, ValueType $valueType): void
+    /**
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[] $valueTypes
+     */
+    public function __construct(array $valueTypes)
     {
-        $this->valueTypes[$identifier] = $valueType;
+        $this->valueTypes = array_filter(
+            $valueTypes,
+            function (ValueType $valueType): bool {
+                return true;
+            }
+        );
     }
 
     public function hasValueType(string $identifier): bool

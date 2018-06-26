@@ -21,6 +21,8 @@ services:
     netgen_block_manager.item.registry.value_type:
         class: Netgen\BlockManager\Item\Registry\ValueTypeRegistry
         public: true
+        arguments:
+            - []
 
     netgen_block_manager.item.value_loader.null:
         class: Netgen\BlockManager\Item\ValueLoader\NullValueLoader

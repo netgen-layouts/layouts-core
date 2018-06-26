@@ -31,7 +31,7 @@ final class LinkDataMapperTest extends DataMapperTest
         $parameterDefinition = new ParameterDefinition(
             [
                 'type' => new LinkType(
-                    new ValueTypeRegistry(),
+                    new ValueTypeRegistry([]),
                     new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class))
                 ),
             ]

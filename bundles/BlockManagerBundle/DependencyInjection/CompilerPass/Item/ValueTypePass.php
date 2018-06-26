@@ -31,12 +31,7 @@ final class ValueTypePass implements CompilerPassInterface
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
-        foreach ($valueTypeServices as $identifier => $valueTypeService) {
-            $registry->addMethodCall(
-                'addValueType',
-                [$identifier, new Reference($valueTypeService)]
-            );
-        }
+        $registry->replaceArgument(0, $valueTypeServices);
     }
 
     /**
@@ -57,7 +52,7 @@ final class ValueTypePass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([ValueTypeFactory::class, 'buildValueType']);
 
-            $valueTypeServices[$identifier] = $serviceIdentifier;
+            $valueTypeServices[$identifier] = new Reference($serviceIdentifier);
         }
 
         return $valueTypeServices;

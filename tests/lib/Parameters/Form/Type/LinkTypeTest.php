@@ -33,7 +33,7 @@ final class LinkTypeTest extends FormTestCase
     public function setUp(): void
     {
         $this->parameterType = new LinkParameterType(
-            new ValueTypeRegistry(),
+            new ValueTypeRegistry([]),
             new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class))
         );
 

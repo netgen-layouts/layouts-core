@@ -28,27 +28,19 @@ final class ValueTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new ValueTypeRegistry();
-
         $this->valueType1 = new ValueType(['isEnabled' => true]);
         $this->valueType2 = new ValueType(['isEnabled' => false]);
 
-        $this->registry->addValueType('value1', $this->valueType1);
-        $this->registry->addValueType('value2', $this->valueType2);
+        $this->registry = new ValueTypeRegistry(
+            [
+                'value1' => $this->valueType1,
+                'value2' => $this->valueType2,
+            ]
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::addValueType
-     */
-    public function testAddValueType(): void
-    {
-        $this->registry->addValueType('test', $this->valueType1);
-
-        $this->assertTrue($this->registry->hasValueType('test'));
-        $this->assertSame($this->valueType1, $this->registry->getValueType('test'));
-    }
-
-    /**
+     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueTypes
      */
     public function testGetValueTypes(): void

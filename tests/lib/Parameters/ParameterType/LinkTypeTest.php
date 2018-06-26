@@ -34,8 +34,7 @@ final class LinkTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->valueTypeRegistry = new ValueTypeRegistry();
-        $this->valueTypeRegistry->addValueType('default', new ValueType(['isEnabled' => true]));
+        $this->valueTypeRegistry = new ValueTypeRegistry(['default' => new ValueType(['isEnabled' => true])]);
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
