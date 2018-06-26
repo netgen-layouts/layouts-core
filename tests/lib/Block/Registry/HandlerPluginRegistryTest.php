@@ -14,7 +14,7 @@ use stdClass;
 final class HandlerPluginRegistryTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
+     * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::__construct
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
      */
     public function testRegistry(): void
@@ -35,7 +35,6 @@ final class HandlerPluginRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
      */
     public function testRegistryWithInterface(): void
