@@ -28,6 +28,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
 
         $blockDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
         $blockDefinitionHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $blockDefinitionServices = [];
 
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
@@ -93,13 +94,9 @@ final class BlockDefinitionPass implements CompilerPassInterface
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 
-            $blockDefinitionRegistry->addMethodCall(
-                'addBlockDefinition',
-                [
-                    $identifier,
-                    new Reference($blockDefinitionServiceName),
-                ]
-            );
+            $blockDefinitionServices[$identifier] = new Reference($blockDefinitionServiceName);
         }
+
+        $blockDefinitionRegistry->replaceArgument(0, $blockDefinitionServices);
     }
 }

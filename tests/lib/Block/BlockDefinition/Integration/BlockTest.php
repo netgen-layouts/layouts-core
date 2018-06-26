@@ -10,6 +10,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -22,6 +23,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BlockTest extends ServiceTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
+     */
+    private $blockValidator;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -31,14 +37,15 @@ abstract class BlockTest extends ServiceTestCase
         $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($validator);
 
-        $blockValidator = new BlockValidator($collectionValidator);
-        $blockValidator->setValidator($validator);
-
         $layoutValidator = new LayoutValidator();
         $layoutValidator->setValidator($validator);
 
-        $this->blockService = $this->createBlockService($blockValidator);
         $this->layoutService = $this->createLayoutService($layoutValidator);
+
+        $this->blockValidator = new BlockValidator($collectionValidator);
+        $this->blockValidator->setValidator($validator);
+
+        $this->blockService = $this->createBlockService($this->blockValidator);
     }
 
     /**
@@ -52,6 +59,10 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fill($blockDefinition, $parameters);
 
+        // We need to recreate the service due to recreating the block definition
+        // registry in $this->createBlockDefinition() call
+        $this->blockService = $this->createBlockService($this->blockValidator);
+
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
@@ -60,7 +71,7 @@ abstract class BlockTest extends ServiceTestCase
             $createdParameters[$parameterName] = $parameter->getValue();
         }
 
-        $this->assertSame($expectedParameters, $createdParameters);
+        $this->assertEquals($expectedParameters, $createdParameters);
     }
 
     /**
@@ -76,6 +87,10 @@ abstract class BlockTest extends ServiceTestCase
         $blockDefinition = $this->createBlockDefinition(
             $testedParams ?? array_keys($parameters)
         );
+
+        // We need to recreate the service due to recreating the block definition
+        // registry in $this->createBlockDefinition() call
+        $this->blockService = $this->createBlockService($this->blockValidator);
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
@@ -150,7 +165,10 @@ abstract class BlockTest extends ServiceTestCase
             ]
         );
 
-        $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);
+        $allBlockDefinitions = $this->blockDefinitionRegistry->getBlockDefinitions();
+        $allBlockDefinitions['definition'] = $blockDefinition;
+
+        $this->blockDefinitionRegistry = new BlockDefinitionRegistry($allBlockDefinitions);
 
         return $blockDefinition;
     }

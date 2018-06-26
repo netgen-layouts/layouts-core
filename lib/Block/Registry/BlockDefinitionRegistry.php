@@ -16,9 +16,17 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
      */
     private $blockDefinitions = [];
 
-    public function addBlockDefinition(string $identifier, BlockDefinitionInterface $blockDefinition): void
+    /**
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface[] $blockDefinitions
+     */
+    public function __construct(array $blockDefinitions)
     {
-        $this->blockDefinitions[$identifier] = $blockDefinition;
+        $this->blockDefinitions = array_filter(
+            $blockDefinitions,
+            function (BlockDefinitionInterface $blockDefinition): bool {
+                return true;
+            }
+        );
     }
 
     public function hasBlockDefinition(string $identifier): bool

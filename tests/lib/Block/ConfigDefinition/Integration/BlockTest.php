@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
@@ -41,6 +41,9 @@ abstract class BlockTest extends ServiceTestCase
         $layoutValidator = new LayoutValidator();
         $layoutValidator->setValidator($validator);
 
+        $configDefinition = $this->createConfigDefinition();
+        $this->createBlockDefinition($configDefinition);
+
         $this->blockService = $this->createBlockService($blockValidator);
         $this->layoutService = $this->createLayoutService($layoutValidator);
     }
@@ -50,15 +53,13 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function testCreateBlock(array $config, array $expectedConfig): void
     {
-        $configDefinition = $this->createConfigDefinition();
-
-        $blockDefinition = $this->createBlockDefinition($configDefinition);
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('definition');
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 
         $configStruct = new ConfigStruct();
-        $configStruct->fill($configDefinition, $config);
+        $configStruct->fill($blockDefinition->getConfigDefinitions()['definition'], $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
@@ -88,15 +89,13 @@ abstract class BlockTest extends ServiceTestCase
             throw ValidationException::validationFailed('config', 'Invalid config');
         }
 
-        $configDefinition = $this->createConfigDefinition();
-
-        $blockDefinition = $this->createBlockDefinition($configDefinition);
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('definition');
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 
         $configStruct = new ConfigStruct();
-        $configStruct->fill($configDefinition, $config);
+        $configStruct->fill($blockDefinition->getConfigDefinitions()['definition'], $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
@@ -116,7 +115,7 @@ abstract class BlockTest extends ServiceTestCase
             ->getValidator();
     }
 
-    private function createBlockDefinition(ConfigDefinitionInterface $configDefinition): BlockDefinitionInterface
+    private function createBlockDefinition(ConfigDefinitionInterface $configDefinition): void
     {
         $handler = new BlockDefinitionHandler();
 
@@ -138,9 +137,10 @@ abstract class BlockTest extends ServiceTestCase
             ]
         );
 
-        $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);
+        $allBlockDefinitions = $this->blockDefinitionRegistry->getBlockDefinitions();
+        $allBlockDefinitions['definition'] = $blockDefinition;
 
-        return $blockDefinition;
+        $this->blockDefinitionRegistry = new BlockDefinitionRegistry($allBlockDefinitions);
     }
 
     private function createConfigDefinition(): ConfigDefinitionInterface

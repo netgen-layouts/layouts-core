@@ -19,6 +19,8 @@ services:
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
         public: true
+        arguments:
+            - []
 
     netgen_block_manager.block.registry.handler_plugin:
         class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry

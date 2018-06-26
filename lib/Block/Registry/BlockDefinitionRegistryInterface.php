@@ -12,11 +12,6 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 interface BlockDefinitionRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a block definition to registry.
-     */
-    public function addBlockDefinition(string $identifier, BlockDefinitionInterface $blockDefinition): void;
-
-    /**
      * Returns if registry has a block definition.
      */
     public function hasBlockDefinition(string $identifier): bool;

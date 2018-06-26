@@ -288,56 +288,49 @@ abstract class ImporterTest extends ServiceTestCase
             new CacheableResolver()
         );
 
-        $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
-
-        $this->blockDefinitionRegistry->addBlockDefinition(
+        $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
             'title',
-            $blockDefinitionFactory->buildBlockDefinition(
-                'title',
-                new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3']),
-                $data,
-                $configHandlers
-            )
+            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3']),
+            $data,
+            $configHandlers
         );
 
-        $this->blockDefinitionRegistry->addBlockDefinition(
+        $blockDefinition2 = $blockDefinitionFactory->buildBlockDefinition(
             'text',
-            $blockDefinitionFactory->buildBlockDefinition(
-                'text',
-                new TextHandler(),
-                $data,
-                $configHandlers
-            )
+            new TextHandler(),
+            $data,
+            $configHandlers
         );
 
-        $this->blockDefinitionRegistry->addBlockDefinition(
+        $blockDefinition3 = $blockDefinitionFactory->buildBlockDefinition(
             'list',
-            $blockDefinitionFactory->buildBlockDefinition(
-                'list',
-                new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
-                $data,
-                $configHandlers
-            )
+            new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
+            $data,
+            $configHandlers
         );
 
-        $this->blockDefinitionRegistry->addBlockDefinition(
+        $blockDefinition4 = $blockDefinitionFactory->buildContainerDefinition(
             'column',
-            $blockDefinitionFactory->buildContainerDefinition(
-                'column',
-                new ColumnHandler(),
-                $data,
-                $configHandlers
-            )
+            new ColumnHandler(),
+            $data,
+            $configHandlers
         );
 
-        $this->blockDefinitionRegistry->addBlockDefinition(
+        $blockDefinition5 = $blockDefinitionFactory->buildContainerDefinition(
             'two_columns',
-            $blockDefinitionFactory->buildContainerDefinition(
-                'two_columns',
-                new TwoColumnsHandler(),
-                $data,
-                $configHandlers
-            )
+            new TwoColumnsHandler(),
+            $data,
+            $configHandlers
+        );
+
+        $this->blockDefinitionRegistry = new BlockDefinitionRegistry(
+            [
+                'title' => $blockDefinition1,
+                'text' => $blockDefinition2,
+                'list' => $blockDefinition3,
+                'column' => $blockDefinition4,
+                'two_columns' => $blockDefinition5,
+            ]
         );
     }
 }

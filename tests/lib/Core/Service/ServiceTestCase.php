@@ -333,13 +333,16 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
-        $this->blockDefinitionRegistry->addBlockDefinition('title', $blockDefinition1);
-        $this->blockDefinitionRegistry->addBlockDefinition('text', $blockDefinition2);
-        $this->blockDefinitionRegistry->addBlockDefinition('gallery', $blockDefinition3);
-        $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
-        $this->blockDefinitionRegistry->addBlockDefinition('column', $blockDefinition5);
-        $this->blockDefinitionRegistry->addBlockDefinition('two_columns', $blockDefinition6);
+        $this->blockDefinitionRegistry = new BlockDefinitionRegistry(
+            [
+                'title' => $blockDefinition1,
+                'text' => $blockDefinition2,
+                'gallery' => $blockDefinition3,
+                'list' => $blockDefinition4,
+                'column' => $blockDefinition5,
+                'two_columns' => $blockDefinition6,
+            ]
+        );
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));

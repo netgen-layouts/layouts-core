@@ -23,18 +23,16 @@ final class BlockDefinitionRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new BlockDefinitionRegistry();
-
         $this->blockDefinition = new BlockDefinition();
 
-        $this->registry->addBlockDefinition('block_definition', $this->blockDefinition);
+        $this->registry = new BlockDefinitionRegistry(['block_definition' => $this->blockDefinition]);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::addBlockDefinition
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::__construct
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinitions
      */
-    public function testAddBlockDefinition(): void
+    public function testGetBlockDefinitions(): void
     {
         $this->assertSame(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
     }

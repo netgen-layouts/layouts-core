@@ -32,7 +32,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true]]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
 
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
@@ -52,12 +52,11 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             $definitionClass
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_definition',
-            'addBlockDefinition',
+            0,
             [
-                'block_definition',
-                new Reference('netgen_block_manager.block.block_definition.block_definition'),
+                'block_definition' => new Reference('netgen_block_manager.block.block_definition.block_definition'),
             ]
         );
     }
@@ -75,7 +74,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
 
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
@@ -95,12 +94,11 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             $definitionClass
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_definition',
-            'addBlockDefinition',
+            0,
             [
-                'block_definition',
-                new Reference('netgen_block_manager.block.block_definition.block_definition'),
+                'block_definition' => new Reference('netgen_block_manager.block.block_definition.block_definition'),
             ]
         );
     }
