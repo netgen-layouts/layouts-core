@@ -28,17 +28,19 @@ final class LayoutTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new LayoutTypeRegistry();
-
         $this->layoutType1 = new LayoutType(['identifier' => 'layout_type1', 'isEnabled' => true]);
         $this->layoutType2 = new LayoutType(['identifier' => 'layout_type2', 'isEnabled' => false]);
 
-        $this->registry->addLayoutType('layout_type1', $this->layoutType1);
-        $this->registry->addLayoutType('layout_type2', $this->layoutType2);
+        $this->registry = new LayoutTypeRegistry(
+            [
+                'layout_type1' => $this->layoutType1,
+                'layout_type2' => $this->layoutType2,
+            ]
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::addLayoutType
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
     public function testGetLayoutTypes(): void
@@ -53,7 +55,6 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::addLayoutType
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
     public function testGetEnabledLayoutTypes(): void

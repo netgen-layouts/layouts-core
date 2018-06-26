@@ -21,28 +21,27 @@ final class CreateTypeTest extends FormTestCase
 
     public function setUp(): void
     {
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-
-        $this->layoutTypeRegistry->addLayoutType(
-            '4_zones_a',
-            new LayoutType(
-                [
-                    'name' => '4 zones A',
-                    'identifier' => '4_zones_a',
-                    'isEnabled' => true,
-                ]
-            )
+        $layoutType1 = new LayoutType(
+            [
+                'name' => '4 zones A',
+                'identifier' => '4_zones_a',
+                'isEnabled' => true,
+            ]
         );
 
-        $this->layoutTypeRegistry->addLayoutType(
-            '4_zones_b',
-            new LayoutType(
-                [
-                    'name' => '4 zones B',
-                    'identifier' => '4_zones_b',
-                    'isEnabled' => false,
-                ]
-            )
+        $layoutType2 = new LayoutType(
+            [
+                'name' => '4 zones B',
+                'identifier' => '4_zones_b',
+                'isEnabled' => false,
+            ]
+        );
+
+        $this->layoutTypeRegistry = new LayoutTypeRegistry(
+            [
+                '4_zones_a' => $layoutType1,
+                '4_zones_b' => $layoutType2,
+            ]
         );
 
         parent::setUp();

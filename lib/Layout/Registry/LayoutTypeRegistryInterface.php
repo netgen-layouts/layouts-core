@@ -12,11 +12,6 @@ use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a layout type to registry.
-     */
-    public function addLayoutType(string $identifier, LayoutTypeInterface $layoutType): void;
-
-    /**
      * Returns if registry has a layout type.
      */
     public function hasLayoutType(string $identifier): bool;

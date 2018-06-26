@@ -29,12 +29,7 @@ final class LayoutTypePass implements CompilerPassInterface
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
-        foreach ($layoutTypeServices as $identifier => $layoutTypeService) {
-            $registry->addMethodCall(
-                'addLayoutType',
-                [$identifier, new Reference($layoutTypeService)]
-            );
-        }
+        $registry->replaceArgument(0, $layoutTypeServices);
     }
 
     /**
@@ -53,7 +48,7 @@ final class LayoutTypePass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([LayoutTypeFactory::class, 'buildLayoutType']);
 
-            $layoutTypeServices[$identifier] = $serviceIdentifier;
+            $layoutTypeServices[$identifier] = new Reference($serviceIdentifier);
         }
 
         return $layoutTypeServices;

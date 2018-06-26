@@ -31,17 +31,16 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->container->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition());
+        $this->container->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.registry.layout_type',
-            'addLayoutType',
+            0,
             [
-                'test',
-                new Reference('netgen_block_manager.layout.layout_type.test'),
+                'test' => new Reference('netgen_block_manager.layout.layout_type.test'),
             ]
         );
     }

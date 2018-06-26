@@ -2,3 +2,5 @@ services:
     netgen_block_manager.layout.registry.layout_type:
         class: Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry
         public: true
+        arguments:
+            - []

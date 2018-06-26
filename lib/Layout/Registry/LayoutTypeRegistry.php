@@ -12,13 +12,21 @@ use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 {
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[]
      */
     private $layoutTypes = [];
 
-    public function addLayoutType(string $identifier, LayoutTypeInterface $layoutType): void
+    /**
+     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[] $layoutTypes
+     */
+    public function __construct(array $layoutTypes)
     {
-        $this->layoutTypes[$identifier] = $layoutType;
+        $this->layoutTypes = array_filter(
+            $layoutTypes,
+            function (LayoutTypeInterface $layoutType): bool {
+                return true;
+            }
+        );
     }
 
     public function hasLayoutType(string $identifier): bool

@@ -188,9 +188,12 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType('4_zones_a', $layoutType1);
-        $this->layoutTypeRegistry->addLayoutType('4_zones_b', $layoutType2);
+        $this->layoutTypeRegistry = new LayoutTypeRegistry(
+            [
+                '4_zones_a' => $layoutType1,
+                '4_zones_b' => $layoutType2,
+            ]
+        );
 
         $itemVisibilityHandler = new VisibilityConfigHandler();
         $itemVisibilityDefinition = new ConfigDefinition(
