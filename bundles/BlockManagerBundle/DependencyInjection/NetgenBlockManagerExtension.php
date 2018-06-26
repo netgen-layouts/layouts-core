@@ -5,7 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
 use Jean85\PrettyVersions;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
+use Netgen\BlockManager\Context\ContextProviderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
+use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
@@ -92,6 +97,28 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             if ($key !== 'system') {
                 $container->setParameter($extensionAlias . '.' . $key, $value);
             }
+        }
+
+        if (Kernel::VERSION_ID >= 30400) {
+            $container
+                ->registerForAutoconfiguration(ContextProviderInterface::class)
+                ->addTag('netgen_block_manager.context.provider');
+
+            $container
+                ->registerForAutoconfiguration(ParameterTypeInterface::class)
+                ->addTag('netgen_block_manager.parameters.parameter_type');
+
+            $container
+                ->registerForAutoconfiguration(TargetTypeInterface::class)
+                ->addTag('netgen_block_manager.layout.resolver.target_type');
+
+            $container
+                ->registerForAutoconfiguration(ConditionTypeInterface::class)
+                ->addTag('netgen_block_manager.layout.resolver.condition_type');
+
+            $container
+                ->registerForAutoconfiguration(PluginInterface::class)
+                ->addTag('netgen_block_manager.block.block_definition_handler.plugin');
         }
     }
 
