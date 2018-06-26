@@ -84,6 +84,11 @@ final class AppKernel extends Kernel
     {
         parent::prepareContainer($container);
 
+        $database = (string) getenv('DATABASE');
+
+        $databaseCharset = mb_stripos($database, 'mysql://') === 0 ? 'utf8mb4' : 'utf8';
+        $container->setParameter('database_charset', $databaseCharset);
+
         if (Kernel::VERSION_ID < 30200) {
             /*
              * @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
@@ -95,7 +100,7 @@ final class AppKernel extends Kernel
              * @deprecated Symfony 2.8 does not support runtime environment variables,
              * so we need to set the database parameter to the container manually
              */
-            $container->setParameter('env(DATABASE)', getenv('DATABASE'));
+            $container->setParameter('env(DATABASE)', $database);
         }
     }
 }
