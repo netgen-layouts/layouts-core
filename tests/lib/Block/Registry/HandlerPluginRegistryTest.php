@@ -14,16 +14,6 @@ use stdClass;
 final class HandlerPluginRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
-     */
-    private $registry;
-
-    public function setUp(): void
-    {
-        $this->registry = new HandlerPluginRegistry();
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
      */
@@ -31,16 +21,16 @@ final class HandlerPluginRegistryTest extends TestCase
     {
         $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandler::class]);
 
-        $this->registry->addPlugin($handlerPlugin);
+        $registry = new HandlerPluginRegistry([$handlerPlugin]);
 
         $this->assertSame(
             [$handlerPlugin],
-            $this->registry->getPlugins(BlockDefinitionHandler::class)
+            $registry->getPlugins(BlockDefinitionHandler::class)
         );
 
         $this->assertSame(
             [],
-            $this->registry->getPlugins(stdClass::class)
+            $registry->getPlugins(stdClass::class)
         );
     }
 
@@ -52,16 +42,16 @@ final class HandlerPluginRegistryTest extends TestCase
     {
         $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]);
 
-        $this->registry->addPlugin($handlerPlugin);
+        $registry = new HandlerPluginRegistry([$handlerPlugin]);
 
         $this->assertSame(
             [$handlerPlugin],
-            $this->registry->getPlugins(BlockDefinitionHandler::class)
+            $registry->getPlugins(BlockDefinitionHandler::class)
         );
 
         $this->assertSame(
             [],
-            $this->registry->getPlugins(stdClass::class)
+            $registry->getPlugins(stdClass::class)
         );
     }
 }

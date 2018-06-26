@@ -13,9 +13,17 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
      */
     private $handlerPlugins = [];
 
-    public function addPlugin(PluginInterface $plugin): void
+    /**
+     * @param \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[] $handlerPlugins
+     */
+    public function __construct(array $handlerPlugins)
     {
-        $this->handlerPlugins[] = $plugin;
+        $this->handlerPlugins = array_filter(
+            $handlerPlugins,
+            function (PluginInterface $handlerPlugin): bool {
+                return true;
+            }
+        );
     }
 
     public function getPlugins(string $handlerClass): array

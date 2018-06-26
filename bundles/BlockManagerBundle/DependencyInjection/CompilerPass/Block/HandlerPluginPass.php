@@ -30,11 +30,6 @@ final class HandlerPluginPass implements CompilerPassInterface
         krsort($handlerPlugins);
         $handlerPlugins = array_merge(...$handlerPlugins);
 
-        foreach ($handlerPlugins as $handlerPlugin) {
-            $handlerPluginRegistry->addMethodCall(
-                'addPlugin',
-                [$handlerPlugin]
-            );
-        }
+        $handlerPluginRegistry->replaceArgument(0, $handlerPlugins);
     }
 }

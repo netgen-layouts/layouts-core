@@ -268,9 +268,12 @@ abstract class ImporterTest extends ServiceTestCase
         $data = ['translatable' => true, 'view_types' => ['view_type' => ['enabled' => true]]];
         $configHandlers = ['http_cache' => new HttpCacheConfigHandler()];
 
-        $handlerPluginRegistry = new HandlerPluginRegistry();
-        $handlerPluginRegistry->addPlugin(new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more']));
-        $handlerPluginRegistry->addPlugin(new CommonParametersPlugin());
+        $handlerPluginRegistry = new HandlerPluginRegistry(
+            [
+                new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more']),
+                new CommonParametersPlugin(),
+            ]
+        );
 
         $blockDefinitionFactory = new BlockDefinitionFactory(
             new TranslatableParameterBuilderFactory(

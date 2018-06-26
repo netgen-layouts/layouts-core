@@ -18,7 +18,7 @@ final class HandlerPluginPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_block_manager.block.registry.handler_plugin', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.handler_plugin', new Definition(null, [[]]));
 
         $handlerPlugin = new Definition();
         $handlerPlugin->addTag('netgen_block_manager.block.block_definition_handler.plugin');
@@ -26,9 +26,9 @@ final class HandlerPluginPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.handler_plugin',
-            'addPlugin',
+            0,
             [
                 new Reference('netgen_block_manager.block.block_definition_handler.plugin.test'),
             ]

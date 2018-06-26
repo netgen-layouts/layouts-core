@@ -4,15 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Block\Registry;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
-
 interface HandlerPluginRegistryInterface
 {
-    /**
-     * Adds a block definition handler plugin to registry.
-     */
-    public function addPlugin(PluginInterface $plugin): void;
-
     /**
      * Returns all handler plugins for the provided handler class.
      *

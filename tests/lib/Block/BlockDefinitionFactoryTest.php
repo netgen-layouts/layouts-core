@@ -69,11 +69,10 @@ final class BlockDefinitionFactoryTest extends TestCase
             $parameterTypeRegistry
         );
 
-        $this->handlerPluginRegistry = new HandlerPluginRegistry();
-        $this->handlerPluginRegistry->addPlugin(
-            HandlerPlugin::instance(
-                [BlockDefinitionHandlerInterface::class]
-            )
+        $this->handlerPluginRegistry = new HandlerPluginRegistry(
+            [
+                HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]),
+            ]
         );
 
         $this->configDefinitionFactory = new ConfigDefinitionFactory(
