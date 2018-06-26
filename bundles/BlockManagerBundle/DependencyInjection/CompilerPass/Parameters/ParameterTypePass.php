@@ -23,10 +23,7 @@ final class ParameterTypePass implements CompilerPassInterface
         $parameterTypeServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
 
         foreach ($parameterTypeServices as $parameterTypeService) {
-            $registry->addMethodCall(
-                'addParameterType',
-                [new Reference($parameterTypeService)]
-            );
+            $registry->addArgument(new Reference($parameterTypeService));
         }
     }
 }

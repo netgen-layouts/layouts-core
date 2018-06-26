@@ -12,11 +12,6 @@ use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 interface ParameterTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a parameter type to registry.
-     */
-    public function addParameterType(ParameterTypeInterface $parameterType): void;
-
-    /**
      * Returns if registry has a parameter type.
      */
     public function hasParameterType(string $identifier): bool;

@@ -32,11 +32,12 @@ final class PagedCollectionsPluginTest extends TestCase
     {
         $this->plugin = new PagedCollectionsPlugin(['load_more' => 'Load more'], ['group']);
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\ChoiceType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
+        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+            new ParameterType\ChoiceType(),
+            new ParameterType\IntegerType(),
+            new ParameterType\BooleanType(),
+            new ParameterType\Compound\BooleanType()
+        );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
             $this->parameterTypeRegistry

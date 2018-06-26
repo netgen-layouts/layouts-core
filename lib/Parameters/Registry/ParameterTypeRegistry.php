@@ -21,10 +21,12 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
      */
     private $parameterTypesByClass = [];
 
-    public function addParameterType(ParameterTypeInterface $parameterType): void
+    public function __construct(ParameterTypeInterface ...$parameterTypes)
     {
-        $this->parameterTypes[$parameterType->getIdentifier()] = $parameterType;
-        $this->parameterTypesByClass[get_class($parameterType)] = $parameterType;
+        foreach ($parameterTypes as $parameterType) {
+            $this->parameterTypes[$parameterType->getIdentifier()] = $parameterType;
+            $this->parameterTypesByClass[get_class($parameterType)] = $parameterType;
+        }
     }
 
     public function hasParameterType(string $identifier): bool

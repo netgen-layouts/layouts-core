@@ -20,18 +20,26 @@ final class ParameterTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_type', new Definition());
 
-        $parameterType = new Definition();
-        $parameterType->addTag('netgen_block_manager.parameters.parameter_type');
-        $this->setDefinition('netgen_block_manager.parameters.parameter_type.test', $parameterType);
+        $parameterType1 = new Definition();
+        $parameterType1->addTag('netgen_block_manager.parameters.parameter_type');
+        $this->setDefinition('netgen_block_manager.parameters.parameter_type.test1', $parameterType1);
+
+        $parameterType2 = new Definition();
+        $parameterType2->addTag('netgen_block_manager.parameters.parameter_type');
+        $this->setDefinition('netgen_block_manager.parameters.parameter_type.test2', $parameterType2);
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.parameters.registry.parameter_type',
-            'addParameterType',
-            [
-                new Reference('netgen_block_manager.parameters.parameter_type.test'),
-            ]
+            0,
+            new Reference('netgen_block_manager.parameters.parameter_type.test1')
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.parameters.registry.parameter_type',
+            1,
+            new Reference('netgen_block_manager.parameters.parameter_type.test2')
         );
     }
 

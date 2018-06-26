@@ -542,21 +542,22 @@ abstract class ServiceTestCase extends TestCase
     {
         $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\UrlType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\RangeType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\NumberType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\LinkType(new ValueTypeRegistry(), $remoteIdConverter));
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\ItemLinkType(new ValueTypeRegistry(), $remoteIdConverter));
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\IdentifierType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\HtmlType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\EmailType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\ChoiceType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\DateTimeType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
+        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+            new ParameterType\TextLineType(),
+            new ParameterType\TextType(),
+            new ParameterType\UrlType(),
+            new ParameterType\RangeType(),
+            new ParameterType\NumberType(),
+            new ParameterType\LinkType(new ValueTypeRegistry(), $remoteIdConverter),
+            new ParameterType\ItemLinkType(new ValueTypeRegistry(), $remoteIdConverter),
+            new ParameterType\IntegerType(),
+            new ParameterType\IdentifierType(),
+            new ParameterType\HtmlType(),
+            new ParameterType\EmailType(),
+            new ParameterType\ChoiceType(),
+            new ParameterType\BooleanType(),
+            new ParameterType\DateTimeType(),
+            new ParameterType\Compound\BooleanType()
+        );
     }
 }

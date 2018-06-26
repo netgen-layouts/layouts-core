@@ -28,9 +28,10 @@ final class TranslatableParameterBuilderTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new ParameterTypeRegistry();
-        $this->registry->addParameterType(new ParameterType\TextType());
-        $this->registry->addParameterType(new ParameterType\Compound\BooleanType());
+        $this->registry = new ParameterTypeRegistry(
+            new ParameterType\TextType(),
+            new ParameterType\Compound\BooleanType()
+        );
 
         $this->factory = new TranslatableParameterBuilderFactory($this->registry);
 

@@ -23,18 +23,18 @@ final class ParameterTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new ParameterTypeRegistry();
-
         $this->parameterType = new ParameterType();
 
-        $this->registry->addParameterType($this->parameterType);
+        $this->registry = new ParameterTypeRegistry(
+            $this->parameterType
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::addParameterType
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypes
      */
-    public function testAddParameterType(): void
+    public function testGetParameterTypes(): void
     {
         $this->assertSame(['type' => $this->parameterType], $this->registry->getParameterTypes());
     }

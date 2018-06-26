@@ -33,9 +33,10 @@ final class BlockDefinitionHandlerTest extends TestCase
     {
         $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
+        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+            new ParameterType\TextLineType(),
+            new ParameterType\BooleanType()
+        );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
             $this->parameterTypeRegistry

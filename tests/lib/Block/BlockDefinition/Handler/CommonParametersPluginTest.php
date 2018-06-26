@@ -32,9 +32,10 @@ final class CommonParametersPluginTest extends TestCase
     {
         $this->plugin = new CommonParametersPlugin(['group']);
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
+        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+            new ParameterType\TextLineType(),
+            new ParameterType\BooleanType()
+        );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
             $this->parameterTypeRegistry
