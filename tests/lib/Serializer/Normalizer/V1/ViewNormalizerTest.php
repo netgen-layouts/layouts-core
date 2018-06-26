@@ -12,7 +12,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ViewNormalizerTest extends TestCase
 {
@@ -24,7 +24,7 @@ final class ViewNormalizerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $serializerMock;
+    private $normalizerMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer
@@ -34,19 +34,20 @@ final class ViewNormalizerTest extends TestCase
     public function setUp(): void
     {
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
-        $this->serializerMock = $this->createMock(Serializer::class);
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
 
         $this->normalizer = new ViewNormalizer($this->viewRendererMock);
-        $this->normalizer->setSerializer($this->serializerMock);
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
     public function testNormalize(): void
     {
-        $this->serializerMock
+        $this->normalizerMock
             ->expects($this->once())
             ->method('normalize')
             ->with($this->equalTo(new VersionedValue(new Value(), 1)))

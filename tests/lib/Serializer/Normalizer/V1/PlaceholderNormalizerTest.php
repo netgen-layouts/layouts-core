@@ -12,14 +12,14 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class PlaceholderNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $serializerMock;
+    private $normalizerMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
@@ -28,13 +28,14 @@ final class PlaceholderNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->serializerMock = $this->createMock(Serializer::class);
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
 
         $this->normalizer = new PlaceholderNormalizer();
-        $this->normalizer->setSerializer($this->serializerMock);
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::normalize
      */
     public function testNormalize(): void
@@ -46,7 +47,7 @@ final class PlaceholderNormalizerTest extends TestCase
             ]
         );
 
-        $this->serializerMock
+        $this->normalizerMock
             ->expects($this->at(0))
             ->method('normalize')
             ->with($this->equalTo([new View(new Block(), 1)]))

@@ -14,14 +14,14 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionResultSetNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $serializerMock;
+    private $normalizerMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer
@@ -30,13 +30,14 @@ final class CollectionResultSetNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->serializerMock = $this->createMock(Serializer::class);
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
 
         $this->normalizer = new CollectionResultSetNormalizer();
-        $this->normalizer->setSerializer($this->serializerMock);
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::getOverflowItems
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::normalize
      */
@@ -63,7 +64,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ]
         );
 
-        $this->serializerMock
+        $this->normalizerMock
             ->expects($this->at(0))
             ->method('normalize')
             ->with(
@@ -76,7 +77,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
             )
             ->will($this->returnValue(['items']));
 
-        $this->serializerMock
+        $this->normalizerMock
             ->expects($this->at(1))
             ->method('normalize')
             ->with(

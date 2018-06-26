@@ -17,14 +17,14 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class BlockNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $serializerMock;
+    private $normalizerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -38,14 +38,15 @@ final class BlockNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->serializerMock = $this->createMock(Serializer::class);
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new BlockNormalizer($this->blockServiceMock);
-        $this->normalizer->setSerializer($this->serializerMock);
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalizeBlockCollections
@@ -111,12 +112,12 @@ final class BlockNormalizerTest extends TestCase
             'some_other_param' => 'some_other_value',
         ];
 
-        $this->serializerMock
+        $this->normalizerMock
             ->expects($this->at(0))
             ->method('normalize')
             ->will($this->returnValue($serializedParams));
 
-        $this->serializerMock
+        $this->normalizerMock
             ->expects($this->at(1))
             ->method('normalize')
             ->with($this->equalTo([new VersionedValue(new Placeholder(['identifier' => 'main']), 1)]))

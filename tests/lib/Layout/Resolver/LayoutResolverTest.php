@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class LayoutResolverTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\BlockManager\API\Service\LayoutResolverService
      */
     private $layoutResolverServiceMock;
 

@@ -7,16 +7,13 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Serializer\SerializerAwareTrait;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 
-final class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class BlockNormalizer extends Normalizer implements NormalizerInterface
 {
-    use SerializerAwareTrait;
-
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
@@ -49,7 +46,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'name' => $block->getName(),
             'parent_position' => $block->getParentPosition(),
-            'parameters' => $this->serializer->normalize($parameters, $format, $context),
+            'parameters' => $this->normalizer->normalize($parameters, $format, $context),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
             'published' => $block->isPublished(),
@@ -58,7 +55,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             'is_translatable' => $block->isTranslatable(),
             'always_available' => $block->isAlwaysAvailable(),
             'is_container' => false,
-            'placeholders' => $this->serializer->normalize($placeholders, $format, $context),
+            'placeholders' => $this->normalizer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizeBlockCollections($block),
         ];
 

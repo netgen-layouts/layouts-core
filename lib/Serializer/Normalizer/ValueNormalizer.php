@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Netgen\BlockManager\Serializer\SerializerAwareTrait;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 
-final class ValueNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class ValueNormalizer extends Normalizer implements NormalizerInterface
 {
-    use SerializerAwareTrait;
-
     /**
      * @param \Netgen\BlockManager\Serializer\Values\Value $object
      * @param string $format
@@ -22,7 +19,7 @@ final class ValueNormalizer implements NormalizerInterface, SerializerAwareInter
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        return $this->serializer->normalize($object->getValue(), $format, $context);
+        return $this->normalizer->normalize($object->getValue(), $format, $context);
     }
 
     public function supportsNormalization($data, $format = null): bool

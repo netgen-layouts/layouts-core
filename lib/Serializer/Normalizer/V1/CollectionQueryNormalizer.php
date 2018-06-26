@@ -5,16 +5,13 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Serializer\SerializerAwareTrait;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 
-final class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class CollectionQueryNormalizer extends Normalizer implements NormalizerInterface
 {
-    use SerializerAwareTrait;
-
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Query $query */
@@ -32,7 +29,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Serializer
             'locale' => $query->getLocale(),
             'is_translatable' => $query->isTranslatable(),
             'always_available' => $query->isAlwaysAvailable(),
-            'parameters' => $this->serializer->normalize($parameters, $format, $context),
+            'parameters' => $this->normalizer->normalize($parameters, $format, $context),
         ];
     }
 

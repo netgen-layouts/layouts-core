@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 
-final class CollectionNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class CollectionNormalizer implements NormalizerInterface
 {
-    use SerializerAwareTrait;
-
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */

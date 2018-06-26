@@ -6,16 +6,13 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Serializer\SerializerAwareTrait;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 
-final class CollectionResultSetNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class CollectionResultSetNormalizer extends Normalizer implements NormalizerInterface
 {
-    use SerializerAwareTrait;
-
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Collection\Result\ResultSet $resultSet */
@@ -32,8 +29,8 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
         }
 
         return [
-            'items' => $this->serializer->normalize($results, $format, $context),
-            'overflow_items' => $this->serializer->normalize($overflowItems, $format, $context),
+            'items' => $this->normalizer->normalize($results, $format, $context),
+            'overflow_items' => $this->normalizer->normalize($overflowItems, $format, $context),
         ];
     }
 

@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Serializer\SerializerAwareTrait;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 
-final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class ViewNormalizer extends Normalizer implements NormalizerInterface
 {
-    use SerializerAwareTrait;
-
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
      */
@@ -36,7 +33,8 @@ final class ViewNormalizer implements NormalizerInterface, SerializerAwareInterf
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $normalizedData = $this->serializer->normalize(
+        /** @var array $normalizedData */
+        $normalizedData = $this->normalizer->normalize(
             new VersionedValue(
                 $object->getValue(),
                 $object->getVersion(),
