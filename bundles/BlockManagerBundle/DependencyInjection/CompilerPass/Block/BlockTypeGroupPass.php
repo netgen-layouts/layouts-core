@@ -30,12 +30,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
-        foreach ($blockTypeGroupServices as $identifier => $blockTypeGroupService) {
-            $registry->addMethodCall(
-                'addBlockTypeGroup',
-                [$identifier, new Reference($blockTypeGroupService)]
-            );
-        }
+        $registry->replaceArgument(0, $blockTypeGroupServices);
     }
 
     /**
@@ -95,7 +90,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([BlockTypeGroupFactory::class, 'buildBlockTypeGroup']);
 
-            $blockTypeGroupServices[$identifier] = $serviceIdentifier;
+            $blockTypeGroupServices[$identifier] = new Reference($serviceIdentifier);
         }
 
         return $blockTypeGroupServices;

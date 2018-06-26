@@ -37,6 +37,8 @@ services:
     netgen_block_manager.block.registry.block_type_group:
         class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
         public: true
+        arguments:
+            - []
 
     # Various block plugins
 

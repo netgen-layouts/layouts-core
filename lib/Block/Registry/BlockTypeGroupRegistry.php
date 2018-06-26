@@ -12,13 +12,21 @@ use Netgen\BlockManager\Exception\RuntimeException;
 final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
 {
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup[]
      */
     private $blockTypeGroups = [];
 
-    public function addBlockTypeGroup(string $identifier, BlockTypeGroup $blockTypeGroup): void
+    /**
+     * @param \Netgen\BlockManager\Block\BlockType\BlockTypeGroup[] $blockTypeGroups
+     */
+    public function __construct(array $blockTypeGroups)
     {
-        $this->blockTypeGroups[$identifier] = $blockTypeGroup;
+        $this->blockTypeGroups = array_filter(
+            $blockTypeGroups,
+            function (BlockTypeGroup $blockTypeGroup): bool {
+                return true;
+            }
+        );
     }
 
     public function hasBlockTypeGroup(string $identifier): bool

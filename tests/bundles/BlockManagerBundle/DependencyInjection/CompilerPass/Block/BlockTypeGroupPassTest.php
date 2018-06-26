@@ -32,17 +32,16 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter('netgen_block_manager.block_types', []);
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type_group',
-            'addBlockTypeGroup',
+            0,
             [
-                'test',
-                new Reference('netgen_block_manager.block.block_type_group.test'),
+                'test' => new Reference('netgen_block_manager.block.block_type_group.test'),
             ]
         );
     }
@@ -73,7 +72,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -126,7 +125,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -161,7 +160,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter('netgen_block_manager.block_types', []);
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition(null, [[]]));
 
         $this->compile();
 

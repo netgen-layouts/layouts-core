@@ -17,7 +17,7 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
     private $valueTypes = [];
 
     /**
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[] $valueTypes
+     * @param \Netgen\BlockManager\Item\ValueType\ValueType[] $valueTypes
      */
     public function __construct(array $valueTypes)
     {
