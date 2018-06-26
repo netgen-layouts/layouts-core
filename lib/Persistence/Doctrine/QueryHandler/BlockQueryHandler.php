@@ -39,7 +39,7 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Loads all collection reference data.
      */
-    public function loadCollectionReferencesData(Block $block, string $identifier = null): array
+    public function loadCollectionReferencesData(Block $block, ?string $identifier = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier')
@@ -95,7 +95,7 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Loads all child block data from specified block, optionally filtered by placeholder.
      */
-    public function loadChildBlocksData(Block $block, string $placeholder = null): array
+    public function loadChildBlocksData(Block $block, ?string $placeholder = null): array
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -391,7 +391,7 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Deletes all blocks with provided IDs.
      */
-    public function deleteBlocks(array $blockIds, int $status = null): void
+    public function deleteBlocks(array $blockIds, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -411,7 +411,7 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Deletes block translations.
      */
-    public function deleteBlockTranslations(array $blockIds, int $status = null, string $locale = null): void
+    public function deleteBlockTranslations(array $blockIds, ?int $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -437,7 +437,7 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Deletes the collection reference.
      */
-    public function deleteCollectionReferences(array $blockIds, int $status = null): void
+    public function deleteCollectionReferences(array $blockIds, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -462,7 +462,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadSubBlockIds($blockId, int $status = null): array
+    public function loadSubBlockIds($blockId, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -494,7 +494,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutBlockIds($layoutId, int $status = null): array
+    public function loadLayoutBlockIds($layoutId, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -521,7 +521,7 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Loads all block collection IDs.
      */
-    public function loadBlockCollectionIds(array $blockIds, int $status = null): array
+    public function loadBlockCollectionIds(array $blockIds, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT bc.collection_id')

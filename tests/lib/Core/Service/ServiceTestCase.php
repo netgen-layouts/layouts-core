@@ -359,7 +359,7 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a layout service under test.
      */
-    protected function createLayoutService(LayoutValidator $layoutValidator = null): APILayoutService
+    protected function createLayoutService(?LayoutValidator $layoutValidator = null): APILayoutService
     {
         if ($layoutValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -383,7 +383,7 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a block service under test.
      */
-    protected function createBlockService(BlockValidator $blockValidator = null): APIBlockService
+    protected function createBlockService(?BlockValidator $blockValidator = null): APIBlockService
     {
         if ($blockValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -415,7 +415,7 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a collection service under test.
      */
-    protected function createCollectionService(CollectionValidator $collectionValidator = null): APICollectionService
+    protected function createCollectionService(?CollectionValidator $collectionValidator = null): APICollectionService
     {
         if ($collectionValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
@@ -443,7 +443,7 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a layout resolver service under test.
      */
-    protected function createLayoutResolverService(LayoutResolverValidator $layoutResolverValidator = null): APILayoutResolverService
+    protected function createLayoutResolverService(?LayoutResolverValidator $layoutResolverValidator = null): APILayoutResolverService
     {
         if ($layoutResolverValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);

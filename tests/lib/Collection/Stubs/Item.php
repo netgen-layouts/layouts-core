@@ -105,7 +105,7 @@ final class Item extends Value implements APIItem
         return false;
     }
 
-    public function isVisible(DateTimeInterface $reference = null): bool
+    public function isVisible(?DateTimeInterface $reference = null): bool
     {
         return true;
     }

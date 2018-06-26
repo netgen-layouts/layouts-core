@@ -43,7 +43,7 @@ final class LayoutContext implements Context
         $this->createLayout($layoutName, null, 'en', true);
     }
 
-    private function createLayout(string $layoutName, LayoutTypeInterface $layoutType = null, string $mainLocale = 'en', bool $shared = false): void
+    private function createLayout(string $layoutName, ?LayoutTypeInterface $layoutType = null, string $mainLocale = 'en', bool $shared = false): void
     {
         $layoutType = $layoutType ?? $this->getFirstLayoutType();
 

@@ -29,7 +29,7 @@ final class EditConfigForm extends Controller
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request, Block $block, string $locale, string $configKey = null)
+    public function __invoke(Request $request, Block $block, string $locale, ?string $configKey = null)
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 

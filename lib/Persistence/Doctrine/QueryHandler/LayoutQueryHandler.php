@@ -38,7 +38,7 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all data for layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
-    public function loadLayoutsData(bool $includeDrafts, bool $shared, int $offset = 0, int $limit = null): array
+    public function loadLayoutsData(bool $includeDrafts, bool $shared, int $offset = 0, ?int $limit = null): array
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -80,7 +80,7 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layouts related to provided shared layout.
      */
-    public function loadRelatedLayoutsData(Layout $sharedLayout, int $offset = 0, int $limit = null): array
+    public function loadRelatedLayoutsData(Layout $sharedLayout, int $offset = 0, ?int $limit = null): array
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -427,7 +427,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayoutZones($layoutId, int $status = null): void
+    public function deleteLayoutZones($layoutId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_zone')
@@ -449,7 +449,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayout($layoutId, int $status = null): void
+    public function deleteLayout($layoutId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_layout')
@@ -472,7 +472,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param string $zoneIdentifier
      * @param int $status
      */
-    public function deleteZone($layoutId, string $zoneIdentifier, int $status = null): void
+    public function deleteZone($layoutId, string $zoneIdentifier, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_zone')
@@ -499,7 +499,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int $status
      * @param string $locale
      */
-    public function deleteLayoutTranslations($layoutId, int $status = null, string $locale = null): void
+    public function deleteLayoutTranslations($layoutId, ?int $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 

@@ -27,7 +27,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
      */
     private $isContextual;
 
-    public function __construct(array $values = [], int $count = null, bool $isContextual = false)
+    public function __construct(array $values = [], ?int $count = null, bool $isContextual = false)
     {
         $this->values = $values;
         $this->count = $count;

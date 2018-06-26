@@ -85,7 +85,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->blockMapper->mapBlocks($data);
     }
 
-    public function loadChildBlocks(Block $block, string $placeholder = null): array
+    public function loadChildBlocks(Block $block, ?string $placeholder = null): array
     {
         $data = $this->queryHandler->loadChildBlocksData($block, $placeholder);
 
@@ -110,7 +110,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->blockMapper->mapCollectionReferences($data);
     }
 
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, string $placeholder = null): Block
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, ?Block $targetBlock = null, ?string $placeholder = null): Block
     {
         if ($targetBlock !== null && $targetBlock->layoutId !== $layout->id) {
             throw new BadStateException('targetBlock', 'Target block is not in the provided layout.');
@@ -298,7 +298,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block
     {
         if (mb_strpos($targetBlock->path, $block->path) === 0) {
             throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
@@ -481,13 +481,13 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->loadBlock($block->id, $block->status);
     }
 
-    public function deleteLayoutBlocks($layoutId, int $status = null): void
+    public function deleteLayoutBlocks($layoutId, ?int $status = null): void
     {
         $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
         $this->deleteBlocks($blockIds, $status);
     }
 
-    public function deleteBlocks(array $blockIds, int $status = null): void
+    public function deleteBlocks(array $blockIds, ?int $status = null): void
     {
         $this->deleteBlockCollections($blockIds, $status);
         $this->queryHandler->deleteBlockTranslations($blockIds, $status);
@@ -564,7 +564,7 @@ final class BlockHandler implements BlockHandlerInterface
      * This method does not delete block collections from sub-blocks,
      * so this should be used only when deleting the entire layout.
      */
-    private function deleteBlockCollections(array $blockIds, int $status = null): void
+    private function deleteBlockCollections(array $blockIds, ?int $status = null): void
     {
         $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
         foreach ($collectionIds as $collectionId) {

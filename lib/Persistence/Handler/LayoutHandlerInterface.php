@@ -45,7 +45,7 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -53,14 +53,14 @@ interface LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Loads all layouts related to provided shared layout.
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array;
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Loads the count of layouts related to provided shared layout.
@@ -161,7 +161,7 @@ interface LayoutHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayout($layoutId, int $status = null): void;
+    public function deleteLayout($layoutId, ?int $status = null): void;
 
     /**
      * Deletes provided layout translation.

@@ -71,8 +71,8 @@ final class ItemTest extends TestCase
      */
     public function testVisibility(
         string $visibilityStatus,
-        DateTimeInterface $visibleFrom = null,
-        DateTimeInterface $visibleTo = null,
+        ?DateTimeInterface $visibleFrom = null,
+        ?DateTimeInterface $visibleTo = null,
         bool $itemVisible = true
     ): void {
         $item = new Item(

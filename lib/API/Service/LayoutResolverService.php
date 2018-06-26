@@ -60,7 +60,7 @@ interface LayoutResolverService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function loadRules(Layout $layout = null, int $offset = 0, int $limit = null): array;
+    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Returns the number of published rules.
@@ -69,7 +69,7 @@ interface LayoutResolverService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
      */
-    public function getRuleCount(Layout $layout = null): int;
+    public function getRuleCount(?Layout $layout = null): int;
 
     /**
      * Returns all rules that match specified target type and value.

@@ -80,10 +80,10 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     public function __construct(
         ParameterBuilderFactoryInterface $builderFactory,
-        string $name = null,
-        ParameterTypeInterface $type = null,
+        ?string $name = null,
+        ?ParameterTypeInterface $type = null,
         array $options = [],
-        ParameterBuilderInterface $parentBuilder = null
+        ?ParameterBuilderInterface $parentBuilder = null
     ) {
         $this->builderFactory = $builderFactory;
 
@@ -270,7 +270,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->unresolvedChildren[$name];
     }
 
-    public function all(string $group = null): array
+    public function all(?string $group = null): array
     {
         if ($this->locked) {
             throw new BadMethodCallException('Accessing parameter builders is not possible after parameters have been built.');

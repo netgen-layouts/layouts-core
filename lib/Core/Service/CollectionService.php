@@ -84,7 +84,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->handler = $persistenceHandler->getCollectionHandler();
     }
 
-    public function loadCollection($collectionId, array $locales = null, bool $useMainLocale = true): Collection
+    public function loadCollection($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -98,7 +98,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadCollectionDraft($collectionId, array $locales = null, bool $useMainLocale = true): Collection
+    public function loadCollectionDraft($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -163,7 +163,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQuery($queryId, array $locales = null, bool $useMainLocale = true): Query
+    public function loadQuery($queryId, ?array $locales = null, bool $useMainLocale = true): Query
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -177,7 +177,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQueryDraft($queryId, array $locales = null, bool $useMainLocale = true): Query
+    public function loadQueryDraft($queryId, ?array $locales = null, bool $useMainLocale = true): Query
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -191,7 +191,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function changeCollectionType(Collection $collection, int $newType, APIQueryCreateStruct $queryCreateStruct = null): Collection
+    public function changeCollectionType(Collection $collection, int $newType, ?APIQueryCreateStruct $queryCreateStruct = null): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
@@ -246,7 +246,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapCollection($persistenceCollection, [$collection->getLocale()]);
     }
 
-    public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, int $position = null): Item
+    public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, ?int $position = null): Item
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
@@ -354,7 +354,7 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function deleteItems(Collection $collection, int $itemType = null): Collection
+    public function deleteItems(Collection $collection, ?int $itemType = null): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
@@ -406,12 +406,12 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapQuery($updatedQuery, [$query->getLocale()]);
     }
 
-    public function newCollectionCreateStruct(APIQueryCreateStruct $queryCreateStruct = null): APICollectionCreateStruct
+    public function newCollectionCreateStruct(?APIQueryCreateStruct $queryCreateStruct = null): APICollectionCreateStruct
     {
         return $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
     }
 
-    public function newCollectionUpdateStruct(Collection $collection = null): APICollectionUpdateStruct
+    public function newCollectionUpdateStruct(?Collection $collection = null): APICollectionUpdateStruct
     {
         return $this->structBuilder->newCollectionUpdateStruct($collection);
     }
@@ -421,7 +421,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->structBuilder->newItemCreateStruct($itemDefinition, $type, $value);
     }
 
-    public function newItemUpdateStruct(Item $item = null): APIItemUpdateStruct
+    public function newItemUpdateStruct(?Item $item = null): APIItemUpdateStruct
     {
         return $this->structBuilder->newItemUpdateStruct($item);
     }
@@ -431,7 +431,7 @@ final class CollectionService extends Service implements APICollectionService
         return $this->structBuilder->newQueryCreateStruct($queryType);
     }
 
-    public function newQueryUpdateStruct(string $locale, Query $query = null): APIQueryUpdateStruct
+    public function newQueryUpdateStruct(string $locale, ?Query $query = null): APIQueryUpdateStruct
     {
         return $this->structBuilder->newQueryUpdateStruct($locale, $query);
     }

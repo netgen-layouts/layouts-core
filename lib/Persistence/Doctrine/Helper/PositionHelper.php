@@ -28,7 +28,7 @@ final class PositionHelper
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      */
-    public function createPosition(array $conditions, int $position = null, int $endPosition = null, bool $allowOutOfRange = false): int
+    public function createPosition(array $conditions, ?int $position = null, ?int $endPosition = null, bool $allowOutOfRange = false): int
     {
         $nextPosition = $this->getNextPosition($conditions);
 
@@ -124,7 +124,7 @@ final class PositionHelper
     /**
      * Increments all positions in a table starting from provided position.
      */
-    private function incrementPositions(array $conditions, int $startPosition = null, int $endPosition = null): void
+    private function incrementPositions(array $conditions, ?int $startPosition = null, ?int $endPosition = null): void
     {
         $columnName = $conditions['column'];
 
@@ -152,7 +152,7 @@ final class PositionHelper
     /**
      * Decrements all positions in a table starting from provided position.
      */
-    private function decrementPositions(array $conditions, int $startPosition = null, int $endPosition = null): void
+    private function decrementPositions(array $conditions, ?int $startPosition = null, ?int $endPosition = null): void
     {
         $columnName = $conditions['column'];
 

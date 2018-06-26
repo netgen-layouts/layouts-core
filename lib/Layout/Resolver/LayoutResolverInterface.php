@@ -17,7 +17,7 @@ interface LayoutResolverInterface
      *
      * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
      */
-    public function resolveRule(Request $request = null, array $enabledConditions = null): ?Rule;
+    public function resolveRule(?Request $request = null, ?array $enabledConditions = null): ?Rule;
 
     /**
      * Resolves the rules based on the provided request.
@@ -36,12 +36,12 @@ interface LayoutResolverInterface
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveRules(Request $request = null, array $enabledConditions = null): array;
+    public function resolveRules(?Request $request = null, ?array $enabledConditions = null): array;
 
     /**
      * Returns true if the rule matches the provided request.
      *
      * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
      */
-    public function matches(Rule $rule, Request $request, array $enabledConditions = null): bool;
+    public function matches(Rule $rule, Request $request, ?array $enabledConditions = null): bool;
 }

@@ -105,7 +105,7 @@ interface Item extends Value, ConfigAwareValue
      *
      * If reference time is not provided, current time is used.
      */
-    public function isVisible(DateTimeInterface $reference = null): bool;
+    public function isVisible(?DateTimeInterface $reference = null): bool;
 
     /**
      * Returns if the item is valid. An item is valid if it is visible (both the collection item

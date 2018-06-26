@@ -31,7 +31,7 @@ final class JsonValidationException extends InvalidArgumentException implements 
         );
     }
 
-    public static function validationFailed(string $errorMessage, Throwable $previous = null): self
+    public static function validationFailed(string $errorMessage, ?Throwable $previous = null): self
     {
         return new self(
             sprintf(

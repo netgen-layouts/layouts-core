@@ -97,7 +97,7 @@ final class Collection extends Value implements APICollection
         return $this->limit;
     }
 
-    public function hasItem(int $position, int $type = null): bool
+    public function hasItem(int $position, ?int $type = null): bool
     {
         return $this->items->exists(
             function ($key, APIItem $item) use ($position, $type): bool {
@@ -110,7 +110,7 @@ final class Collection extends Value implements APICollection
         );
     }
 
-    public function getItem(int $position, int $type = null): ?APIItem
+    public function getItem(int $position, ?int $type = null): ?APIItem
     {
         foreach ($this->items as $item) {
             if ($item->getPosition() === $position) {

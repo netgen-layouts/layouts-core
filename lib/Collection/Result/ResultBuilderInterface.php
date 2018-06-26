@@ -14,5 +14,5 @@ interface ResultBuilderInterface
     /**
      * Builds the result set from the provided collection.
      */
-    public function build(Collection $collection, int $offset = 0, int $limit = null, int $flags = 0): ResultSet;
+    public function build(Collection $collection, int $offset = 0, ?int $limit = null, int $flags = 0): ResultSet;
 }

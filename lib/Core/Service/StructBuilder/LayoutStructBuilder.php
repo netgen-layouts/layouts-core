@@ -31,7 +31,7 @@ final class LayoutStructBuilder
      *
      * If the layout is provided, initial data is copied from the layout.
      */
-    public function newLayoutUpdateStruct(Layout $layout = null): LayoutUpdateStruct
+    public function newLayoutUpdateStruct(?Layout $layout = null): LayoutUpdateStruct
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
 
@@ -50,7 +50,7 @@ final class LayoutStructBuilder
      *
      * If the layout is provided, initial data is copied from the layout.
      */
-    public function newLayoutCopyStruct(Layout $layout = null): LayoutCopyStruct
+    public function newLayoutCopyStruct(?Layout $layout = null): LayoutCopyStruct
     {
         $layoutCopyStruct = new LayoutCopyStruct();
 

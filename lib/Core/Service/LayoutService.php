@@ -105,7 +105,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
@@ -123,7 +123,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $layouts;
     }
 
-    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
@@ -141,7 +141,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $layouts;
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, ?int $limit = null): array
     {
         if (!$sharedLayout->isPublished()) {
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
@@ -645,12 +645,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->structBuilder->newLayoutCreateStruct($layoutType, $name, $mainLocale);
     }
 
-    public function newLayoutUpdateStruct(Layout $layout = null): APILayoutUpdateStruct
+    public function newLayoutUpdateStruct(?Layout $layout = null): APILayoutUpdateStruct
     {
         return $this->structBuilder->newLayoutUpdateStruct($layout);
     }
 
-    public function newLayoutCopyStruct(Layout $layout = null): APILayoutCopyStruct
+    public function newLayoutCopyStruct(?Layout $layout = null): APILayoutCopyStruct
     {
         return $this->structBuilder->newLayoutCopyStruct($layout);
     }

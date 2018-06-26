@@ -42,7 +42,7 @@ abstract class Controller extends BaseController
         $value,
         string $context = ViewInterface::CONTEXT_DEFAULT,
         array $parameters = [],
-        Response $response = null
+        ?Response $response = null
     ): ViewInterface {
         /** @var \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder */
         $viewBuilder = $this->get('netgen_block_manager.view.view_builder');

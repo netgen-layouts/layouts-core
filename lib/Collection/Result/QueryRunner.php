@@ -20,7 +20,7 @@ final class QueryRunner implements QueryRunnerInterface
         $this->cmsItemBuilder = $cmsItemBuilder;
     }
 
-    public function runQuery(Query $query, int $offset = 0, int $limit = null): Iterator
+    public function runQuery(Query $query, int $offset = 0, ?int $limit = null): Iterator
     {
         $queryValues = $query->getQueryType()->getValues($query, $offset, $limit);
 

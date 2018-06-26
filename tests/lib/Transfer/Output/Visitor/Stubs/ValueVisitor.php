@@ -14,7 +14,7 @@ final class ValueVisitor extends Visitor
         return true;
     }
 
-    public function visit($value, VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         return [
             'status' => $this->getStatusString($value),

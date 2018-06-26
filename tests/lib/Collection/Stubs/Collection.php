@@ -30,7 +30,7 @@ final class Collection implements APICollection
     public function __construct(
         array $manualItems = [],
         array $overrideItems = [],
-        array $queryValues = null,
+        ?array $queryValues = null,
         int $queryCount = 0
     ) {
         foreach ($manualItems as $position => $value) {
@@ -110,12 +110,12 @@ final class Collection implements APICollection
         return null;
     }
 
-    public function hasItem(int $position, int $type = null): bool
+    public function hasItem(int $position, ?int $type = null): bool
     {
         return $this->hasManualItem($position) || $this->hasOverrideItem($position);
     }
 
-    public function getItem(int $position, int $type = null): ?APIItem
+    public function getItem(int $position, ?int $type = null): ?APIItem
     {
         $item = $this->getManualItem($position);
         if ($item !== null) {

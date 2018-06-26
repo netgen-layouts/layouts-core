@@ -27,7 +27,7 @@ final class Result
      */
     private $subItem;
 
-    public function __construct(int $position, CmsItemInterface $item, CmsItemInterface $subItem = null)
+    public function __construct(int $position, CmsItemInterface $item, ?CmsItemInterface $subItem = null)
     {
         $this->position = $position;
         $this->item = $item;

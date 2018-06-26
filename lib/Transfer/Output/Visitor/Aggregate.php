@@ -40,7 +40,7 @@ final class Aggregate extends Visitor
         return true;
     }
 
-    public function visit($value, VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         foreach ($this->visitors as $visitor) {
             if ($visitor->accept($value)) {

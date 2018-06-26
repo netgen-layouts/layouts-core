@@ -20,7 +20,7 @@ final class Parameter extends Visitor
         return $value instanceof ParameterValue;
     }
 
-    public function visit($parameter, VisitorInterface $subVisitor = null)
+    public function visit($parameter, ?VisitorInterface $subVisitor = null)
     {
         /** @var \Netgen\BlockManager\Parameters\Parameter $parameter */
         $parameterDefinition = $parameter->getParameterDefinition();

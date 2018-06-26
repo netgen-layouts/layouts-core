@@ -19,7 +19,7 @@ final class ParameterBuilderException extends InvalidArgumentException implement
         );
     }
 
-    public static function noOption(string $option, string $parameter = null): self
+    public static function noOption(string $option, ?string $parameter = null): self
     {
         if ($parameter === null) {
             return new self(

@@ -22,7 +22,7 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateId($id, string $propertyPath = null): void
+    public function validateId($id, ?string $propertyPath = null): void
     {
         $this->validate(
             $id,
@@ -43,7 +43,7 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateIdentifier(string $identifier, string $propertyPath = null): void
+    public function validateIdentifier(string $identifier, ?string $propertyPath = null): void
     {
         $constraints = [
             new Constraints\NotBlank(),
@@ -66,7 +66,7 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validatePosition(?int $position, string $propertyPath = null, bool $isRequired = false): void
+    public function validatePosition(?int $position, ?string $propertyPath = null, bool $isRequired = false): void
     {
         if (!$isRequired && $position === null) {
             return;
@@ -111,7 +111,7 @@ abstract class Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateLocale(string $locale, string $propertyPath = null): void
+    public function validateLocale(string $locale, ?string $propertyPath = null): void
     {
         $this->validate(
             $locale,

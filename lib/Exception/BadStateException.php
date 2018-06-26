@@ -12,7 +12,7 @@ final class BadStateException extends BaseException implements Exception
     /**
      * Creates a new bad state exception.
      */
-    public function __construct(string $argument, string $whatIsWrong, Throwable $previous = null)
+    public function __construct(string $argument, string $whatIsWrong, ?Throwable $previous = null)
     {
         parent::__construct(
             sprintf(

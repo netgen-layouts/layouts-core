@@ -57,7 +57,7 @@ final class DateTimeUtilsTest extends TestCase
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::isBetweenDates
      * @dataProvider isBetweenDatesProvider
      */
-    public function testIsBetweenDates(DateTimeInterface $from = null, DateTimeInterface $to = null, bool $result = false): void
+    public function testIsBetweenDates(?DateTimeInterface $from = null, ?DateTimeInterface $to = null, bool $result = false): void
     {
         $this->assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }

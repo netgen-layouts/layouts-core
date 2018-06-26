@@ -34,7 +34,7 @@ trait TestCaseTrait
     /**
      * Returns the persistence handler under test.
      */
-    private function createPersistenceHandler(Connection $connection = null): HandlerInterface
+    private function createPersistenceHandler(?Connection $connection = null): HandlerInterface
     {
         $this->databaseConnection = $connection ?? $this->createDatabaseConnection();
 

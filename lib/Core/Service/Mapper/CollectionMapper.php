@@ -84,7 +84,7 @@ final class CollectionMapper
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
      */
-    public function mapCollection(PersistenceCollection $collection, array $locales = null, bool $useMainLocale = true): APICollection
+    public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): APICollection
     {
         $locales = !empty($locales) ? $locales : [$collection->mainLocale];
         if ($useMainLocale && $collection->alwaysAvailable) {
@@ -171,7 +171,7 @@ final class CollectionMapper
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales
      */
-    public function mapQuery(PersistenceQuery $query, array $locales = null, bool $useMainLocale = true): APIQuery
+    public function mapQuery(PersistenceQuery $query, ?array $locales = null, bool $useMainLocale = true): APIQuery
     {
         try {
             $queryType = $this->queryTypeRegistry->getQueryType($query->type);

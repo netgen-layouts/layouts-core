@@ -54,7 +54,7 @@ final class ItemRuntime
      *
      * @return string
      */
-    public function getItemPath($value, string $valueType = null): string
+    public function getItemPath($value, ?string $valueType = null): string
     {
         try {
             $item = null;

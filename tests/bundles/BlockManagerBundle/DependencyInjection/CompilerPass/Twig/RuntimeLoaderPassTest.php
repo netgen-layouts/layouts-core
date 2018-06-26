@@ -83,7 +83,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
         string $serviceId,
         string $method,
         array $arguments = [],
-        int $index = null
+        ?int $index = null
     ): void {
         $this->assertThat(
             $this->container->findDefinition($serviceId),

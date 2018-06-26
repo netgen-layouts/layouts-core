@@ -19,7 +19,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         $this->throw = $throw;
     }
 
-    public function handleError(Throwable $throwable, string $message = null, array $context = []): void
+    public function handleError(Throwable $throwable, ?string $message = null, array $context = []): void
     {
         if ($this->throw) {
             throw $throwable;

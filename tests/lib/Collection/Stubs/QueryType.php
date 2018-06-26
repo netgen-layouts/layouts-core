@@ -27,7 +27,7 @@ final class QueryType implements QueryTypeInterface
      */
     private $handler;
 
-    public function __construct(string $type, array $values = [], int $count = null, bool $isContextual = false, bool $enabled = true)
+    public function __construct(string $type, array $values = [], ?int $count = null, bool $isContextual = false, bool $enabled = true)
     {
         $this->type = $type;
         $this->enabled = $enabled;

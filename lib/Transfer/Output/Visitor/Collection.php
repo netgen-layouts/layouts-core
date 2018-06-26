@@ -21,7 +21,7 @@ final class Collection extends Visitor
         return $value instanceof CollectionValue;
     }
 
-    public function visit($collection, VisitorInterface $subVisitor = null)
+    public function visit($collection, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

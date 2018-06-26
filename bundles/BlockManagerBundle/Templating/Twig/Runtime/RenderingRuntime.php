@@ -61,7 +61,7 @@ final class RenderingRuntime
     /**
      * Renders the provided item.
      */
-    public function renderItem(array $context, CmsItemInterface $item, string $viewType, array $parameters = [], string $viewContext = null): string
+    public function renderItem(array $context, CmsItemInterface $item, string $viewType, array $parameters = [], ?string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -92,7 +92,7 @@ final class RenderingRuntime
      *
      * @return string
      */
-    public function renderValue(array $context, $value, array $parameters = [], string $viewContext = null): string
+    public function renderValue(array $context, $value, array $parameters = [], ?string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -138,7 +138,7 @@ final class RenderingRuntime
     /**
      * Renders the provided block.
      */
-    public function renderBlock(array $context, Block $block, array $parameters = [], string $viewContext = null): string
+    public function renderBlock(array $context, Block $block, array $parameters = [], ?string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -160,7 +160,7 @@ final class RenderingRuntime
     /**
      * Renders the provided placeholder.
      */
-    public function renderPlaceholder(array $context, Block $block, string $placeholder, array $parameters = [], string $viewContext = null): string
+    public function renderPlaceholder(array $context, Block $block, string $placeholder, array $parameters = [], ?string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -188,7 +188,7 @@ final class RenderingRuntime
      * Returns the correct view context based on provided Twig context and view context
      * provided through function call.
      */
-    private function getViewContext(array $context, string $viewContext = null): string
+    private function getViewContext(array $context, ?string $viewContext = null): string
     {
         if ($viewContext !== null) {
             return $viewContext;

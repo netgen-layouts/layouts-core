@@ -21,7 +21,7 @@ final class Config extends Visitor
         return $value instanceof ConfigValue;
     }
 
-    public function visit($config, VisitorInterface $subVisitor = null)
+    public function visit($config, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

@@ -31,5 +31,5 @@ interface VisitorInterface
      *
      * @return mixed
      */
-    public function visit($value, self $subVisitor = null);
+    public function visit($value, ?self $subVisitor = null);
 }

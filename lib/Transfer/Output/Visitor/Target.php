@@ -20,7 +20,7 @@ final class Target extends Visitor
         return $value instanceof TargetValue;
     }
 
-    public function visit($target, VisitorInterface $subVisitor = null)
+    public function visit($target, ?VisitorInterface $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $target */
 

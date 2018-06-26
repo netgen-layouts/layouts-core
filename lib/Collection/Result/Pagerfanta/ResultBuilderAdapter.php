@@ -45,7 +45,7 @@ final class ResultBuilderAdapter implements AdapterInterface
         ResultBuilderInterface $resultBuilder,
         Collection $collection,
         int $startingOffset = 0,
-        int $maxTotalCount = null,
+        ?int $maxTotalCount = null,
         int $flags = 0
     ) {
         $this->resultBuilder = $resultBuilder;

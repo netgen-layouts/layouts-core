@@ -76,7 +76,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      * Asserts that response has a proper JSON exception content.
      * If statusCode is set, asserts that response has given status code.
      */
-    protected function assertException(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, string $message = null): void
+    protected function assertException(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
         if (($_SERVER['OPEN_ERROR_IN_BROWSER'] ?? false) === true) {
             $this->showErrorInBrowserIfOccurred($response);
@@ -90,7 +90,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Asserts that exception response has a correct response status text and code.
      */
-    protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, string $message = null): void
+    protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
         $responseContent = json_decode($response->getContent(), true);
         $this->assertInternalType('array', $responseContent);

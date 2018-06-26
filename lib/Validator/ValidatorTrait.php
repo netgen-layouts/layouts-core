@@ -29,7 +29,7 @@ trait ValidatorTrait
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validate($value, $constraints, string $propertyPath = null): void
+    public function validate($value, $constraints, ?string $propertyPath = null): void
     {
         try {
             $violations = $this->validator->validate($value, $constraints);

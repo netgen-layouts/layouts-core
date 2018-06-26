@@ -56,7 +56,7 @@ interface BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function loadChildBlocks(Block $block, string $placeholder = null): array;
+    public function loadChildBlocks(Block $block, ?string $placeholder = null): array;
 
     /**
      * Loads a collection reference.
@@ -78,7 +78,7 @@ interface BlockHandlerInterface
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *                                                          If target block does not belong to layout
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, string $placeholder = null): Block;
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, ?Block $targetBlock = null, ?string $placeholder = null): Block;
 
     /**
      * Creates a block translation.
@@ -118,7 +118,7 @@ interface BlockHandlerInterface
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      */
-    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block;
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
     /**
      * Moves a block to specified position in a specified target block and placeholder.
@@ -170,7 +170,7 @@ interface BlockHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayoutBlocks($layoutId, int $status = null): void;
+    public function deleteLayoutBlocks($layoutId, ?int $status = null): void;
 
     /**
      * Deletes provided blocks.
@@ -179,5 +179,5 @@ interface BlockHandlerInterface
      *
      * If you want to delete a block and all of its sub-blocks, use self::deleteBlock method.
      */
-    public function deleteBlocks(array $blockIds, int $status = null): void;
+    public function deleteBlocks(array $blockIds, ?int $status = null): void;
 }

@@ -31,7 +31,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId, array $locales = null, bool $useMainLocale = true): Block;
+    public function loadBlock($blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads a block draft with specified ID.
@@ -51,7 +51,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId, array $locales = null, bool $useMainLocale = true): Block;
+    public function loadBlockDraft($blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads all blocks belonging to provided zone.
@@ -65,7 +65,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone, array $locales = null, bool $useMainLocale = true): array;
+    public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): array;
 
     /**
      * Loads all blocks belonging to provided layout.
@@ -79,7 +79,7 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout, array $locales = null, bool $useMainLocale = true): array;
+    public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): array;
 
     /**
      * Returns if provided block has a published status.
@@ -99,7 +99,7 @@ interface BlockService extends Service
      *                                                          If new block is a container
      *                                                          If provided position is out of range
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, int $position = null): Block;
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
     /**
      * Creates a block in specified zone and at specified position.
@@ -110,7 +110,7 @@ interface BlockService extends Service
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      */
-    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, int $position = null): Block;
+    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, ?int $position = null): Block;
 
     /**
      * Updates a specified block.
@@ -133,7 +133,7 @@ interface BlockService extends Service
      *                                                          If new block is a container
      *                                                          If target block is within the provided block
      */
-    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block;
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
     /**
      * Copies a block to a specified zone.
@@ -147,7 +147,7 @@ interface BlockService extends Service
      *                                                              as specified by the list of blocks allowed within the zone
      *                                                          If provided position is out of range
      */
-    public function copyBlockToZone(Block $block, Zone $zone, int $position = null): Block;
+    public function copyBlockToZone(Block $block, Zone $zone, ?int $position = null): Block;
 
     /**
      * Moves a block to specified target block.
@@ -214,5 +214,5 @@ interface BlockService extends Service
      *
      * If block is provided, initial data is copied from the block.
      */
-    public function newBlockUpdateStruct(string $locale, Block $block = null): BlockUpdateStruct;
+    public function newBlockUpdateStruct(string $locale, ?Block $block = null): BlockUpdateStruct;
 }

@@ -50,7 +50,7 @@ final class BlockStructBuilder
      *
      * If block is provided, initial data is copied from the block.
      */
-    public function newBlockUpdateStruct(string $locale, Block $block = null): BlockUpdateStruct
+    public function newBlockUpdateStruct(string $locale, ?Block $block = null): BlockUpdateStruct
     {
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->locale = $locale;

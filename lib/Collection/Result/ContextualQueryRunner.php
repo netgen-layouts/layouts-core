@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 
 final class ContextualQueryRunner implements QueryRunnerInterface
 {
-    public function runQuery(Query $query, int $offset = 0, int $limit = null): Iterator
+    public function runQuery(Query $query, int $offset = 0, ?int $limit = null): Iterator
     {
         for ($i = 0; $i < $limit; ++$i) {
             yield new Slot();

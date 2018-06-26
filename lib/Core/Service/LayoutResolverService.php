@@ -113,7 +113,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRules(Layout $layout = null, int $offset = 0, int $limit = null): array
+    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): array
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
@@ -144,7 +144,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $rules;
     }
 
-    public function getRuleCount(Layout $layout = null): int
+    public function getRuleCount(?Layout $layout = null): int
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');

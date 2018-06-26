@@ -22,7 +22,7 @@ final class Rule extends Visitor
         return $value instanceof RuleValue;
     }
 
-    public function visit($rule, VisitorInterface $subVisitor = null)
+    public function visit($rule, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

@@ -39,7 +39,7 @@ final class ResultBuilder implements ResultBuilderInterface
         $this->maxLimit = $maxLimit;
     }
 
-    public function build(Collection $collection, int $offset = 0, int $limit = null, int $flags = 0): ResultSet
+    public function build(Collection $collection, int $offset = 0, ?int $limit = null, int $flags = 0): ResultSet
     {
         $offset = $offset >= 0 ? $offset : 0;
         if ($limit === null || $limit < 0 || $limit > $this->maxLimit) {

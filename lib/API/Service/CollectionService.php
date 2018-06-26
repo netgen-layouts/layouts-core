@@ -36,7 +36,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId, array $locales = null, bool $useMainLocale = true): Collection;
+    public function loadCollection($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Loads a collection draft with specified ID.
@@ -56,7 +56,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId, array $locales = null, bool $useMainLocale = true): Collection;
+    public function loadCollectionDraft($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Updates a collection.
@@ -105,7 +105,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQuery($queryId, array $locales = null, bool $useMainLocale = true): Query;
+    public function loadQuery($queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Loads a query with specified ID.
@@ -125,7 +125,7 @@ interface CollectionService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId, array $locales = null, bool $useMainLocale = true): Query;
+    public function loadQueryDraft($queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Changes the type of specified collection.
@@ -136,7 +136,7 @@ interface CollectionService extends Service
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If collection type cannot be changed
      */
-    public function changeCollectionType(Collection $collection, int $newType, QueryCreateStruct $queryCreateStruct = null): Collection;
+    public function changeCollectionType(Collection $collection, int $newType, ?QueryCreateStruct $queryCreateStruct = null): Collection;
 
     /**
      * Adds an item to collection at specified position.
@@ -146,7 +146,7 @@ interface CollectionService extends Service
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If position is out of range (for manual collections)
      */
-    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, int $position = null): Item;
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, ?int $position = null): Item;
 
     /**
      * Updates a specified item.
@@ -178,7 +178,7 @@ interface CollectionService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      */
-    public function deleteItems(Collection $collection, int $itemType = null): Collection;
+    public function deleteItems(Collection $collection, ?int $itemType = null): Collection;
 
     /**
      * Updates a query.
@@ -191,14 +191,14 @@ interface CollectionService extends Service
     /**
      * Creates a new collection create struct.
      */
-    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct;
+    public function newCollectionCreateStruct(?QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct;
 
     /**
      * Creates a new collection update struct.
      *
      * If collection is provided, initial data is copied from the collection.
      */
-    public function newCollectionUpdateStruct(Collection $collection = null): CollectionUpdateStruct;
+    public function newCollectionUpdateStruct(?Collection $collection = null): CollectionUpdateStruct;
 
     /**
      * Creates a new item create struct from provided values.
@@ -216,7 +216,7 @@ interface CollectionService extends Service
      *
      * If item is provided, initial data is copied from the item.
      */
-    public function newItemUpdateStruct(Item $item = null): ItemUpdateStruct;
+    public function newItemUpdateStruct(?Item $item = null): ItemUpdateStruct;
 
     /**
      * Creates a new query create struct from provided query type.
@@ -228,5 +228,5 @@ interface CollectionService extends Service
      *
      * If query is provided, initial data is copied from the query.
      */
-    public function newQueryUpdateStruct(string $locale, Query $query = null): QueryUpdateStruct;
+    public function newQueryUpdateStruct(string $locale, ?Query $query = null): QueryUpdateStruct;
 }

@@ -15,7 +15,7 @@ final class DateTimeUtils
      *
      * Current timestamp and timezones are used if not provided.
      */
-    public static function createFromTimestamp(int $timestamp = null, string $timeZone = null): DateTimeInterface
+    public static function createFromTimestamp(?int $timestamp = null, ?string $timeZone = null): DateTimeInterface
     {
         $timeZone = is_string($timeZone) ? new DateTimeZone($timeZone) : null;
         $timestamp = is_int($timestamp) ? $timestamp : time();
@@ -50,7 +50,7 @@ final class DateTimeUtils
     /**
      * Returns if the provided DateTime instance is between the provided dates.
      */
-    public static function isBetweenDates(DateTimeInterface $date = null, DateTimeInterface $from = null, DateTimeInterface $to = null): bool
+    public static function isBetweenDates(?DateTimeInterface $date = null, ?DateTimeInterface $from = null, ?DateTimeInterface $to = null): bool
     {
         $date = $date ?? self::createFromTimestamp();
 

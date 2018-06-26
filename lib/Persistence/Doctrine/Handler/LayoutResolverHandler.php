@@ -50,14 +50,14 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data)[0];
     }
 
-    public function loadRules(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array
+    public function loadRules(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array
     {
         $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
 
         return $this->mapper->mapRules($data);
     }
 
-    public function getRuleCount(Layout $layout = null): int
+    public function getRuleCount(?Layout $layout = null): int
     {
         return $this->queryHandler->getRuleCount(Value::STATUS_PUBLISHED, $layout);
     }
@@ -245,7 +245,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    public function deleteRule($ruleId, int $status = null): void
+    public function deleteRule($ruleId, ?int $status = null): void
     {
         $this->queryHandler->deleteRuleTargets($ruleId, $status);
         $this->queryHandler->deleteRuleConditions($ruleId, $status);

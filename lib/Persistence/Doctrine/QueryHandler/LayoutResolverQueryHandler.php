@@ -64,7 +64,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for all rules.
      */
-    public function loadRulesData(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array
+    public function loadRulesData(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array
     {
         $query = $this->getRuleSelectQuery();
 
@@ -86,7 +86,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns the number of rules.
      */
-    public function getRuleCount(int $ruleStatus, Layout $layout = null): int
+    public function getRuleCount(int $ruleStatus, ?Layout $layout = null): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -248,7 +248,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function ruleExists($ruleId, int $status = null): bool
+    public function ruleExists($ruleId, ?int $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -381,7 +381,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRuleTargets($ruleId, int $status = null): void
+    public function deleteRuleTargets($ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -404,7 +404,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRuleConditions($ruleId, int $status = null): void
+    public function deleteRuleConditions($ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -427,7 +427,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRule($ruleId, int $status = null): void
+    public function deleteRule($ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_rule')

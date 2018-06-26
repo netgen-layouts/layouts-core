@@ -123,7 +123,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionQueryIds($collectionId, int $status = null): array
+    public function loadCollectionQueryIds($collectionId, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -281,7 +281,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollection($collectionId, int $status = null): void
+    public function deleteCollection($collectionId, ?int $status = null): void
     {
         // Delete all connections between blocks and collections
 
@@ -322,7 +322,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int $status
      * @param string $locale
      */
-    public function deleteCollectionTranslations($collectionId, int $status = null, string $locale = null): void
+    public function deleteCollectionTranslations($collectionId, ?int $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -447,7 +447,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int $status
      * @param int $itemType
      */
-    public function deleteItems($collectionId, int $status, int $itemType = null): void
+    public function deleteItems($collectionId, int $status, ?int $itemType = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -475,7 +475,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollectionItems($collectionId, int $status = null): void
+    public function deleteCollectionItems($collectionId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -574,7 +574,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes the queries with provided IDs.
      */
-    public function deleteQuery(array $queryIds, int $status = null): void
+    public function deleteQuery(array $queryIds, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -594,7 +594,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes the query translations with provided query IDs.
      */
-    public function deleteQueryTranslations(array $queryIds, int $status = null, string $locale = null): void
+    public function deleteQueryTranslations(array $queryIds, ?int $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 

@@ -52,7 +52,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Loads all published shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -60,7 +60,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array;
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Loads all published layouts related to provided shared layout.
@@ -70,7 +70,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array;
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Returns the count of published layouts related to provided shared layout.
@@ -270,12 +270,12 @@ interface LayoutService extends Service
      *
      * If the layout is provided, initial data is copied from the layout.
      */
-    public function newLayoutUpdateStruct(Layout $layout = null): LayoutUpdateStruct;
+    public function newLayoutUpdateStruct(?Layout $layout = null): LayoutUpdateStruct;
 
     /**
      * Creates a new layout copy struct.
      *
      * If the layout is provided, initial data is copied from the layout.
      */
-    public function newLayoutCopyStruct(Layout $layout = null): LayoutCopyStruct;
+    public function newLayoutCopyStruct(?Layout $layout = null): LayoutCopyStruct;
 }

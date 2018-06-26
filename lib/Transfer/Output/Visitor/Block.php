@@ -32,7 +32,7 @@ final class Block extends Visitor
         return $value instanceof BlockValue;
     }
 
-    public function visit($block, VisitorInterface $subVisitor = null)
+    public function visit($block, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

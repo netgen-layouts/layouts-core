@@ -14,7 +14,7 @@ use Twig\Node\Node;
 
 final class RenderZone extends Node
 {
-    public function __construct(AbstractExpression $zone, AbstractExpression $context = null, int $line = 0, string $tag = null)
+    public function __construct(AbstractExpression $zone, ?AbstractExpression $context = null, int $line = 0, ?string $tag = null)
     {
         $nodes = ['zone' => $zone];
         if ($context instanceof AbstractExpression) {

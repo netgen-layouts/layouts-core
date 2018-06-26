@@ -466,7 +466,7 @@ final class BlockServiceTest extends ServiceTestCase
     /**
      * Creates a layout service under test.
      */
-    protected function createLayoutService(LayoutValidator $validator = null): LayoutService
+    protected function createLayoutService(?LayoutValidator $validator = null): LayoutService
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 

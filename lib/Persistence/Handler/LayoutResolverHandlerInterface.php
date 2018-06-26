@@ -37,14 +37,14 @@ interface LayoutResolverHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRules(int $status, Layout $layout = null, int $offset = 0, int $limit = null): array;
+    public function loadRules(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array;
 
     /**
      * Returns the number of published rules.
      *
      * If the layout is provided, the count of rules pointing to provided layout is returned.
      */
-    public function getRuleCount(Layout $layout = null): int;
+    public function getRuleCount(?Layout $layout = null): int;
 
     /**
      * Returns all rules that match specified target type and value.
@@ -140,7 +140,7 @@ interface LayoutResolverHandlerInterface
      * @param int|string $ruleId
      * @param int $status
      */
-    public function deleteRule($ruleId, int $status = null): void;
+    public function deleteRule($ruleId, ?int $status = null): void;
 
     /**
      * Adds a target to rule.

@@ -21,7 +21,7 @@ final class Layout extends Visitor
         return $value instanceof LayoutValue;
     }
 
-    public function visit($layout, VisitorInterface $subVisitor = null)
+    public function visit($layout, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

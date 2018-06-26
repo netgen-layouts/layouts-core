@@ -292,7 +292,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * @param int $offset
      * @param int|null $limit
      */
-    private function updateCollection($id, int $status, int $offset, int $limit = null): void
+    private function updateCollection($id, int $status, int $offset, ?int $limit = null): void
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder

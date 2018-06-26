@@ -13,7 +13,7 @@ final class VisitorStub implements VisitorInterface
         return true;
     }
 
-    public function visit($value, VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         return 'visited_value';
     }

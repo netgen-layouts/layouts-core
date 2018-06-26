@@ -32,7 +32,7 @@ final class Zone extends Visitor
         return $value instanceof ZoneValue;
     }
 
-    public function visit($zone, VisitorInterface $subVisitor = null)
+    public function visit($zone, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

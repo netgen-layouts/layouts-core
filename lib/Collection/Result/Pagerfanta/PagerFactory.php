@@ -32,7 +32,7 @@ final class PagerFactory
      *
      * The pager starting page will be set to $startPage.
      */
-    public function getPager(Collection $collection, int $startPage, int $maxPages = null, int $flags = 0): Pagerfanta
+    public function getPager(Collection $collection, int $startPage, ?int $maxPages = null, int $flags = 0): Pagerfanta
     {
         $maxTotalCount = null;
         if (is_int($maxPages) && $maxPages > 0) {

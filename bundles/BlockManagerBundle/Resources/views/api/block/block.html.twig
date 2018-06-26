@@ -22,7 +22,7 @@
         <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="material-icons">drag_handle</i></div>
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
-        {% if is_block_cacheable and cache_ttl is not same as(false) %}
+        {% if block.hasConfig('http_cache') and is_block_cacheable and cache_ttl is not same as(false) %}
             <div class="cache"><i class="material-icons">cached</i> {{ macros.ttl_label(cache_ttl) }}</div>
         {% endif %}
         <div class="dropdown">
@@ -34,7 +34,7 @@
                 <li class="js-revert"><a title="{{ 'layout.block.revert'|trans }}">{{ 'layout.block.revert'|trans }}<span class="note">{{ 'layout.block.revert_note'|trans }}</span></a></li>
                 <li class="js-copy"><a title="{{ 'layout.block.copy'|trans }}">{{ 'layout.block.copy'|trans }}</a></li>
                 <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
-                {% if is_block_cacheable %}
+                {% if block.hasConfig('http_cache') and is_block_cacheable %}
                     <li class="js-set-cache"><a title="{{ 'layout.block.set_cache'|trans }}">{{ 'layout.block.set_cache'|trans }}</a></li>
                 {% endif %}
             </ul>

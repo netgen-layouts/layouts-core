@@ -101,7 +101,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
 
-    public function loadBlock($blockId, array $locales = null, bool $useMainLocale = true): Block
+    public function loadBlock($blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -115,7 +115,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($block, $locales, $useMainLocale);
     }
 
-    public function loadBlockDraft($blockId, array $locales = null, bool $useMainLocale = true): Block
+    public function loadBlockDraft($blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -129,7 +129,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($block, $locales, $useMainLocale);
     }
 
-    public function loadZoneBlocks(Zone $zone, array $locales = null, bool $useMainLocale = true): array
+    public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): array
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
@@ -156,7 +156,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $blocks;
     }
 
-    public function loadLayoutBlocks(Layout $layout, array $locales = null, bool $useMainLocale = true): array
+    public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): array
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
@@ -188,7 +188,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->blockHandler->blockExists($block->getId(), Value::STATUS_PUBLISHED);
     }
 
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, int $position = null): Block
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, ?int $position = null): Block
     {
         if (!$targetBlock->isDraft()) {
             throw new BadStateException('targetBlock', 'Blocks can only be created in blocks in draft status.');
@@ -221,7 +221,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->internalCreateBlock($blockCreateStruct, $persistenceBlock, $placeholder, $position);
     }
 
-    public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, int $position = null): Block
+    public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, ?int $position = null): Block
     {
         if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
@@ -297,7 +297,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($updatedBlock, [$block->getLocale()]);
     }
 
-    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, int $position = null): Block
+    public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block
     {
         if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -340,7 +340,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
     }
 
-    public function copyBlockToZone(Block $block, Zone $zone, int $position = null): Block
+    public function copyBlockToZone(Block $block, Zone $zone, ?int $position = null): Block
     {
         if (!$block->isDraft()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -575,7 +575,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->structBuilder->newBlockCreateStruct($blockDefinition);
     }
 
-    public function newBlockUpdateStruct(string $locale, Block $block = null): APIBlockUpdateStruct
+    public function newBlockUpdateStruct(string $locale, ?Block $block = null): APIBlockUpdateStruct
     {
         return $this->structBuilder->newBlockUpdateStruct($locale, $block);
     }
@@ -591,7 +591,7 @@ final class BlockService extends Service implements BlockServiceInterface
         APIBlockCreateStruct $blockCreateStruct,
         PersistenceBlock $targetBlock,
         string $placeholder,
-        int $position = null
+        ?int $position = null
     ): Block {
         $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->layoutId, Value::STATUS_DRAFT);
 

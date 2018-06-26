@@ -47,13 +47,13 @@ interface Collection extends Value
      * Returns if the item with specified type (manual or override)
      * exists at specified position.
      */
-    public function hasItem(int $position, int $type = null): bool;
+    public function hasItem(int $position, ?int $type = null): bool;
 
     /**
      * Returns the item of specified type (manual or override)
      * at specified position.
      */
-    public function getItem(int $position, int $type = null): ?Item;
+    public function getItem(int $position, ?int $type = null): ?Item;
 
     /**
      * Returns all collection items.

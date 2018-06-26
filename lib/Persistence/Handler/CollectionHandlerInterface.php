@@ -124,7 +124,7 @@ interface CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollection($collectionId, int $status = null): void;
+    public function deleteCollection($collectionId, ?int $status = null): void;
 
     /**
      * Deletes provided collection translation.
@@ -172,7 +172,7 @@ interface CollectionHandlerInterface
      * If item type (one of Item::TYPE_* constants) is provided, only items
      * of that type are removed (manual or override).
      */
-    public function deleteItems(Collection $collection, int $itemType = null): Collection;
+    public function deleteItems(Collection $collection, ?int $itemType = null): Collection;
 
     /**
      * Adds a query to collection.

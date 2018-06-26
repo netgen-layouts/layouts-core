@@ -10,7 +10,7 @@ use Throwable;
 
 final class ValidationException extends BaseInvalidArgumentException implements Exception
 {
-    public static function validationFailed(string $propertyPath, string $message, Throwable $previous = null): self
+    public static function validationFailed(string $propertyPath, string $message, ?Throwable $previous = null): self
     {
         return new self(
             sprintf(

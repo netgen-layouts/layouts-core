@@ -68,21 +68,21 @@ final class LayoutHandler implements LayoutHandlerInterface
         return array_values($this->layoutMapper->mapZones($data))[0];
     }
 
-    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
     {
         $data = $this->queryHandler->loadLayoutsData($includeDrafts, false, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, int $limit = null): array
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
     {
         $data = $this->queryHandler->loadLayoutsData($includeDrafts, true, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, int $limit = null): array
+    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, ?int $limit = null): array
     {
         $data = $this->queryHandler->loadRelatedLayoutsData($sharedLayout, $offset, $limit);
 
@@ -422,7 +422,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function deleteLayout($layoutId, int $status = null): void
+    public function deleteLayout($layoutId, ?int $status = null): void
     {
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);

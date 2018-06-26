@@ -31,7 +31,7 @@ final class CollectionStructBuilder
     /**
      * Creates a new collection create struct.
      */
-    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct
+    public function newCollectionCreateStruct(?QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct
     {
         return new CollectionCreateStruct(
             [
@@ -45,7 +45,7 @@ final class CollectionStructBuilder
      *
      * If collection is provided, initial data is copied from the collection.
      */
-    public function newCollectionUpdateStruct(Collection $collection = null): CollectionUpdateStruct
+    public function newCollectionUpdateStruct(?Collection $collection = null): CollectionUpdateStruct
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
 
@@ -82,7 +82,7 @@ final class CollectionStructBuilder
      *
      * If item is provided, initial data is copied from the item.
      */
-    public function newItemUpdateStruct(Item $item = null): ItemUpdateStruct
+    public function newItemUpdateStruct(?Item $item = null): ItemUpdateStruct
     {
         $itemUpdateStruct = new ItemUpdateStruct();
 
@@ -116,7 +116,7 @@ final class CollectionStructBuilder
      *
      * If query is provided, initial data is copied from the query.
      */
-    public function newQueryUpdateStruct(string $locale, Query $query = null): QueryUpdateStruct
+    public function newQueryUpdateStruct(string $locale, ?Query $query = null): QueryUpdateStruct
     {
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->locale = $locale;

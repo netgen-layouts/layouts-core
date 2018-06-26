@@ -319,7 +319,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    public function deleteCollection($collectionId, int $status = null): void
+    public function deleteCollection($collectionId, ?int $status = null): void
     {
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
 
@@ -451,7 +451,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
     }
 
-    public function deleteItems(Collection $collection, int $itemType = null): Collection
+    public function deleteItems(Collection $collection, ?int $itemType = null): Collection
     {
         $this->queryHandler->deleteItems($collection->id, $collection->status, $itemType);
 
@@ -592,7 +592,7 @@ final class CollectionHandler implements CollectionHandlerInterface
      * below the new position, but only up until the first break in positions,
      * or up to $maxPosition if provided.
      */
-    private function incrementItemPositions(Collection $collection, int $startPosition, int $maxPosition = null): int
+    private function incrementItemPositions(Collection $collection, int $startPosition, ?int $maxPosition = null): int
     {
         $items = $this->loadCollectionItems($collection);
         $endPosition = $startPosition - 1;

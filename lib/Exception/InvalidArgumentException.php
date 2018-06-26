@@ -12,7 +12,7 @@ final class InvalidArgumentException extends BaseInvalidArgumentException implem
     /**
      * Creates a new invalid argument exception.
      */
-    public function __construct(string $argument, string $whatIsWrong, Throwable $previous = null)
+    public function __construct(string $argument, string $whatIsWrong, ?Throwable $previous = null)
     {
         parent::__construct(
             sprintf(
