@@ -30,7 +30,7 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.collection.registry.item_definition', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.item_definition', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -39,12 +39,11 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
             ItemDefinition::class
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.item_definition',
-            'addItemDefinition',
+            0,
             [
-                'value_type',
-                new Reference('netgen_block_manager.collection.item_definition.value_type'),
+                'value_type' => new Reference('netgen_block_manager.collection.item_definition.value_type'),
             ]
         );
     }

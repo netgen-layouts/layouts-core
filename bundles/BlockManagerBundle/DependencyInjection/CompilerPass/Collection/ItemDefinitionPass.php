@@ -27,6 +27,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
 
         $itemConfig = $container->getParameter('netgen_block_manager.items');
         $itemDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $itemDefinitions = [];
 
         foreach (array_keys($itemConfig['value_types']) as $valueType) {
             $itemDefinitionServiceName = sprintf('netgen_block_manager.collection.item_definition.%s', $valueType);
@@ -50,13 +51,9 @@ final class ItemDefinitionPass implements CompilerPassInterface
 
             $container->setDefinition($itemDefinitionServiceName, $itemDefinitionService);
 
-            $itemDefinitionRegistry->addMethodCall(
-                'addItemDefinition',
-                [
-                    $valueType,
-                    new Reference($itemDefinitionServiceName),
-                ]
-            );
+            $itemDefinitions[$valueType] = new Reference($itemDefinitionServiceName);
         }
+
+        $itemDefinitionRegistry->setArgument(0, $itemDefinitions);
     }
 }

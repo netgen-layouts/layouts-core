@@ -208,8 +208,7 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $this->itemDefinitionRegistry = new ItemDefinitionRegistry();
-        $this->itemDefinitionRegistry->addItemDefinition('my_value_type', $itemDefinition);
+        $this->itemDefinitionRegistry = new ItemDefinitionRegistry(['my_value_type' => $itemDefinition]);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('my_query_type', new QueryType('my_query_type'));

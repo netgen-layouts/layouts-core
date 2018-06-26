@@ -12,11 +12,6 @@ use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 interface ItemDefinitionRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a item definition to registry.
-     */
-    public function addItemDefinition(string $valueType, ItemDefinitionInterface $itemDefinition): void;
-
-    /**
      * Returns if registry has a item definition.
      */
     public function hasItemDefinition(string $valueType): bool;

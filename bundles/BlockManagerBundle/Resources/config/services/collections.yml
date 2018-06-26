@@ -44,6 +44,8 @@ services:
     netgen_block_manager.collection.registry.item_definition:
         class: Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry
         public: true
+        arguments:
+            - []
 
     netgen_block_manager.collection.registry.query_type:
         class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry

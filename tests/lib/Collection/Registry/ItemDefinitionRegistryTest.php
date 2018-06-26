@@ -23,18 +23,16 @@ final class ItemDefinitionRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new ItemDefinitionRegistry();
-
         $this->itemDefinition = new ItemDefinition(['valueType' => 'item_definition']);
 
-        $this->registry->addItemDefinition('item_definition', $this->itemDefinition);
+        $this->registry = new ItemDefinitionRegistry(['item_definition' => $this->itemDefinition]);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::addItemDefinition
+     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::__construct
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinitions
      */
-    public function testAddItemDefinition(): void
+    public function testGetItemDefinitions(): void
     {
         $this->assertSame(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
     }

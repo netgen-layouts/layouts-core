@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
+use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
@@ -28,6 +28,9 @@ abstract class ItemTest extends ServiceTestCase
 
         $validator = $this->getValidator();
 
+        $configDefinition = $this->createConfigDefinition();
+        $this->createItemDefinition($configDefinition);
+
         $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($validator);
 
@@ -39,13 +42,11 @@ abstract class ItemTest extends ServiceTestCase
      */
     public function testCreateItem(array $config, array $expectedConfig): void
     {
-        $configDefinition = $this->createConfigDefinition();
-
-        $itemDefinition = $this->createItemDefinition($configDefinition);
+        $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition('my_value_type');
         $itemCreateStruct = $this->collectionService->newItemCreateStruct($itemDefinition, Item::TYPE_MANUAL, 42);
 
         $configStruct = new ConfigStruct();
-        $configStruct->fill($configDefinition, $config);
+        $configStruct->fill($itemDefinition->getConfigDefinitions()['definition'], $config);
         $itemCreateStruct->setConfigStruct('definition', $configStruct);
 
         $collection = $this->collectionService->loadCollectionDraft(1);
@@ -75,13 +76,11 @@ abstract class ItemTest extends ServiceTestCase
             throw ValidationException::validationFailed('config', 'Invalid config');
         }
 
-        $configDefinition = $this->createConfigDefinition();
-
-        $itemDefinition = $this->createItemDefinition($configDefinition);
+        $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition('my_value_type');
         $itemCreateStruct = $this->collectionService->newItemCreateStruct($itemDefinition, Item::TYPE_MANUAL, 42);
 
         $configStruct = new ConfigStruct();
-        $configStruct->fill($configDefinition, $config);
+        $configStruct->fill($itemDefinition->getConfigDefinitions()['definition'], $config);
         $itemCreateStruct->setConfigStruct('definition', $configStruct);
 
         $collection = $this->collectionService->loadCollectionDraft(1);
@@ -101,7 +100,7 @@ abstract class ItemTest extends ServiceTestCase
             ->getValidator();
     }
 
-    private function createItemDefinition(ConfigDefinitionInterface $configDefinition): ItemDefinitionInterface
+    private function createItemDefinition(ConfigDefinitionInterface $configDefinition): void
     {
         $itemDefinition = new ItemDefinition(
             [
@@ -110,9 +109,10 @@ abstract class ItemTest extends ServiceTestCase
             ]
         );
 
-        $this->itemDefinitionRegistry->addItemDefinition('my_value_type', $itemDefinition);
+        $allItemDefinitions = $this->itemDefinitionRegistry->getItemDefinitions();
+        $allItemDefinitions['my_value_type'] = $itemDefinition;
 
-        return $itemDefinition;
+        $this->itemDefinitionRegistry = new ItemDefinitionRegistry($allItemDefinitions);
     }
 
     private function createConfigDefinition(): ConfigDefinitionInterface

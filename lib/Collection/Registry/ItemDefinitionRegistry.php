@@ -16,9 +16,17 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
      */
     private $itemDefinitions = [];
 
-    public function addItemDefinition(string $valueType, ItemDefinitionInterface $itemDefinition): void
+    /**
+     * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[] $itemDefinitions
+     */
+    public function __construct(array $itemDefinitions)
     {
-        $this->itemDefinitions[$valueType] = $itemDefinition;
+        $this->itemDefinitions = array_filter(
+            $itemDefinitions,
+            function (ItemDefinitionInterface $itemDefinition): bool {
+                return true;
+            }
+        );
     }
 
     public function hasItemDefinition(string $valueType): bool
