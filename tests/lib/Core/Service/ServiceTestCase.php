@@ -558,7 +558,7 @@ abstract class ServiceTestCase extends TestCase
             new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
             new ParameterType\IntegerType(),
             new ParameterType\IdentifierType(),
-            new ParameterType\HtmlType(),
+            new ParameterType\HtmlType(new ParameterType\Html\HtmlPurifier()),
             new ParameterType\EmailType(),
             new ParameterType\ChoiceType(),
             new ParameterType\BooleanType(),

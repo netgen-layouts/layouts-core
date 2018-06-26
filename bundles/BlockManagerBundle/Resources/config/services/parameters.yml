@@ -5,10 +5,6 @@ services:
         class: Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
         public: true
 
-    netgen_block_manager.parameters.registry.parameter_filter:
-        class: Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry
-        public: false
-
     # Builder factories
 
     netgen_block_manager.parameters.parameter_builder_factory:
@@ -22,14 +18,6 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.parameters.registry.parameter_type"
-
-    # Filters
-
-    netgen_block_manager.parameters.parameter_filter.html.html_purifier:
-        class: Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter
-        public: false
-        tags:
-            - { name: netgen_block_manager.parameters.parameter_filter, type: html, priority: 0 }
 
     # Parameter types
 
@@ -75,9 +63,15 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
+    netgen_block_manager.parameters.html.html_purifier:
+        class: Netgen\BlockManager\Parameters\ParameterType\Html\HtmlPurifier
+        public: false
+
     netgen_block_manager.parameters.parameter_type.html:
         class: Netgen\BlockManager\Parameters\ParameterType\HtmlType
         public: false
+        arguments:
+            - "@netgen_block_manager.parameters.html.html_purifier"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 

@@ -24,7 +24,6 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\View\FragmentRendererPass());
         $container->addCompilerPass(new CompilerPass\View\DefaultViewTemplatesPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParametersFormPass());
-        $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ValueTypePass());
         $container->addCompilerPass(new CompilerPass\Item\CmsItemLoaderPass());

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Parameters\ParameterType\Html\HtmlPurifier;
 use Netgen\BlockManager\Parameters\ParameterType\HtmlType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -14,7 +15,7 @@ final class HtmlTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->type = new HtmlType();
+        $this->type = new HtmlType(new HtmlPurifier());
     }
 
     /**

@@ -8,9 +8,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
@@ -62,16 +60,12 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
     public function getValidator(): ConstraintValidatorInterface
     {
-        $parameterFilterRegistry = new ParameterFilterRegistry();
-        $parameterFilterRegistry->addParameterFilter('text_line', new ParameterFilter());
-
-        return new ParameterStructValidator($parameterFilterRegistry);
+        return new ParameterStructValidator();
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterValues
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
@@ -91,7 +85,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterValues
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints

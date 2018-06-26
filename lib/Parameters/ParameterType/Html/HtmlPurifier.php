@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Filter\Html;
+namespace Netgen\BlockManager\Parameters\ParameterType\Html;
 
-use HTMLPurifier;
+use HTMLPurifier as BaseHTMLPurifier;
 use HTMLPurifier_Config;
-use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
 /**
  * Filter used to remove all unsafe HTML from the provided value.
  */
-final class HtmlPurifierFilter implements ParameterFilterInterface
+final class HtmlPurifier
 {
     /**
      * @var \HTMLPurifier_Config
@@ -27,10 +26,10 @@ final class HtmlPurifierFilter implements ParameterFilterInterface
     {
         $this->config = HTMLPurifier_Config::createDefault();
         $this->config->set('HTML.Doctype', 'XHTML 1.0 Strict');
-        $this->purifier = new HTMLPurifier($this->config);
+        $this->purifier = new BaseHTMLPurifier($this->config);
     }
 
-    public function filter($value)
+    public function purify($value)
     {
         return $this->purifier->purify($value);
     }

@@ -7,7 +7,6 @@ namespace Netgen\BlockManager\Tests\TestCase;
 use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Validator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
@@ -82,7 +81,7 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
         }
 
         if ($name === 'ngbm_parameter_struct') {
-            return new Validator\Structs\ParameterStructValidator(new ParameterFilterRegistry());
+            return new Validator\Structs\ParameterStructValidator();
         }
 
         if ($name === 'ngbm_block_create_struct') {
