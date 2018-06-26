@@ -16,9 +16,11 @@ final class TargetTypeRegistry implements TargetTypeRegistryInterface
      */
     private $targetTypes = [];
 
-    public function addTargetType(TargetTypeInterface $targetType): void
+    public function __construct(TargetTypeInterface ...$targetTypes)
     {
-        $this->targetTypes[$targetType->getType()] = $targetType;
+        foreach ($targetTypes as $targetType) {
+            $this->targetTypes[$targetType->getType()] = $targetType;
+        }
     }
 
     public function hasTargetType(string $type): bool

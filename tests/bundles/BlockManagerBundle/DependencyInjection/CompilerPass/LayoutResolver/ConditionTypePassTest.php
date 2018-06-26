@@ -20,18 +20,26 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('netgen_block_manager.layout.resolver.registry.condition_type', new Definition());
 
-        $conditionType = new Definition();
-        $conditionType->addTag('netgen_block_manager.layout.resolver.condition_type');
-        $this->setDefinition('netgen_block_manager.layout.resolver.condition_type.test', $conditionType);
+        $conditionType1 = new Definition();
+        $conditionType1->addTag('netgen_block_manager.layout.resolver.condition_type');
+        $this->setDefinition('netgen_block_manager.layout.resolver.condition_type.test1', $conditionType1);
+
+        $conditionType2 = new Definition();
+        $conditionType2->addTag('netgen_block_manager.layout.resolver.condition_type');
+        $this->setDefinition('netgen_block_manager.layout.resolver.condition_type.test2', $conditionType2);
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.resolver.registry.condition_type',
-            'addConditionType',
-            [
-                new Reference('netgen_block_manager.layout.resolver.condition_type.test'),
-            ]
+            0,
+            new Reference('netgen_block_manager.layout.resolver.condition_type.test1')
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.layout.resolver.registry.condition_type',
+            1,
+            new Reference('netgen_block_manager.layout.resolver.condition_type.test2')
         );
     }
 

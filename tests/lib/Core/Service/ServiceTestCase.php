@@ -344,18 +344,20 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $this->targetTypeRegistry = new TargetTypeRegistry();
-        $this->targetTypeRegistry->addTargetType(new TargetType('target'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('route'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('route_prefix'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('path_info'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('path_info_prefix'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('request_uri'));
-        $this->targetTypeRegistry->addTargetType(new TargetType('request_uri_prefix'));
+        $this->targetTypeRegistry = new TargetTypeRegistry(
+            new TargetType('target'),
+            new TargetType('route'),
+            new TargetType('route_prefix'),
+            new TargetType('path_info'),
+            new TargetType('path_info_prefix'),
+            new TargetType('request_uri'),
+            new TargetType('request_uri_prefix')
+        );
 
-        $this->conditionTypeRegistry = new ConditionTypeRegistry();
-        $this->conditionTypeRegistry->addConditionType(new ConditionType('my_condition'));
-        $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
+        $this->conditionTypeRegistry = new ConditionTypeRegistry(
+            new ConditionType('my_condition'),
+            new ConditionType('route_parameter')
+        );
 
         $this->prepareParameterTypeRegistry();
     }

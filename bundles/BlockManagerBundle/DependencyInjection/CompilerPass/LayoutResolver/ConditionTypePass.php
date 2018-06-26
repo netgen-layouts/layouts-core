@@ -20,13 +20,10 @@ final class ConditionTypePass implements CompilerPassInterface
         }
 
         $conditionTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
-
         $conditionTypeServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+
         foreach ($conditionTypeServices as $conditionTypeService) {
-            $conditionTypeRegistry->addMethodCall(
-                'addConditionType',
-                [new Reference($conditionTypeService)]
-            );
+            $conditionTypeRegistry->addArgument(new Reference($conditionTypeService));
         }
     }
 }

@@ -16,9 +16,11 @@ final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
      */
     private $conditionTypes = [];
 
-    public function addConditionType(ConditionTypeInterface $conditionType): void
+    public function __construct(ConditionTypeInterface ...$conditionTypes)
     {
-        $this->conditionTypes[$conditionType->getType()] = $conditionType;
+        foreach ($conditionTypes as $conditionType) {
+            $this->conditionTypes[$conditionType->getType()] = $conditionType;
+        }
     }
 
     public function hasConditionType(string $type): bool

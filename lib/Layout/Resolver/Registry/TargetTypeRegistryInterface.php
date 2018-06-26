@@ -12,11 +12,6 @@ use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 interface TargetTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a target type to registry.
-     */
-    public function addTargetType(TargetTypeInterface $targetType): void;
-
-    /**
      * Returns if registry has a target type.
      */
     public function hasTargetType(string $type): bool;

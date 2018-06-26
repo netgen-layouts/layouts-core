@@ -31,10 +31,7 @@ final class TargetTypePass implements CompilerPassInterface
         $targetTypes = array_merge(...$targetTypes);
 
         foreach ($targetTypes as $targetType) {
-            $targetTypeRegistry->addMethodCall(
-                'addTargetType',
-                [$targetType]
-            );
+            $targetTypeRegistry->addArgument($targetType);
         }
     }
 }

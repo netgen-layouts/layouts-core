@@ -23,14 +23,13 @@ final class ConditionTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new ConditionTypeRegistry();
-
         $this->conditionType = new ConditionType('type');
-        $this->registry->addConditionType($this->conditionType);
+
+        $this->registry = new ConditionTypeRegistry($this->conditionType);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::addConditionType
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionTypes
      */
     public function testGetConditionTypes(): void

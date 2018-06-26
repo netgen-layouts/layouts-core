@@ -20,18 +20,26 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('netgen_block_manager.layout.resolver.registry.target_type', new Definition());
 
-        $targetType = new Definition();
-        $targetType->addTag('netgen_block_manager.layout.resolver.target_type');
-        $this->setDefinition('netgen_block_manager.layout.resolver.target_type.test', $targetType);
+        $targetType1 = new Definition();
+        $targetType1->addTag('netgen_block_manager.layout.resolver.target_type');
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_type.test1', $targetType1);
+
+        $targetType2 = new Definition();
+        $targetType2->addTag('netgen_block_manager.layout.resolver.target_type');
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_type.test2', $targetType2);
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.resolver.registry.target_type',
-            'addTargetType',
-            [
-                new Reference('netgen_block_manager.layout.resolver.target_type.test'),
-            ]
+            0,
+            new Reference('netgen_block_manager.layout.resolver.target_type.test1')
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.layout.resolver.registry.target_type',
+            1,
+            new Reference('netgen_block_manager.layout.resolver.target_type.test2')
         );
     }
 

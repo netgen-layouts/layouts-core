@@ -23,14 +23,13 @@ final class TargetTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new TargetTypeRegistry();
-
         $this->targetType = new TargetType('type', 'value');
-        $this->registry->addTargetType($this->targetType);
+
+        $this->registry = new TargetTypeRegistry($this->targetType);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::addTargetType
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetTypes
      */
     public function testGetTargetTypes(): void

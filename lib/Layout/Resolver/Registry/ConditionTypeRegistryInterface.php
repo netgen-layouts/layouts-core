@@ -12,11 +12,6 @@ use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 interface ConditionTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a condition type to registry.
-     */
-    public function addConditionType(ConditionTypeInterface $conditionType): void;
-
-    /**
      * Returns if registry has a condition type.
      */
     public function hasConditionType(string $type): bool;
