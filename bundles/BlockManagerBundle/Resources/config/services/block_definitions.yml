@@ -31,6 +31,8 @@ services:
     netgen_block_manager.block.registry.block_type:
         class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
         public: true
+        arguments:
+            - []
 
     netgen_block_manager.block.registry.block_type_group:
         class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry

@@ -28,27 +28,19 @@ final class BlockTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new BlockTypeRegistry();
-
         $this->blockType = new BlockType(['isEnabled' => true, 'identifier' => 'block_type']);
         $this->blockType2 = new BlockType(['isEnabled' => false, 'identifier' => 'block_type2']);
 
-        $this->registry->addBlockType('block_type', $this->blockType);
-        $this->registry->addBlockType('block_type2', $this->blockType2);
+        $this->registry = new BlockTypeRegistry(
+            [
+                'block_type' => $this->blockType,
+                'block_type2' => $this->blockType2,
+            ]
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::addBlockType
-     */
-    public function testAddBlockType(): void
-    {
-        $this->registry->addBlockType('test', $this->blockType);
-
-        $this->assertTrue($this->registry->hasBlockType('test'));
-        $this->assertSame($this->blockType, $this->registry->getBlockType('test'));
-    }
-
-    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypes
      */
     public function testGetBlockTypes(): void

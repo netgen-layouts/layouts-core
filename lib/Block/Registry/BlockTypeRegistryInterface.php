@@ -12,11 +12,6 @@ use Netgen\BlockManager\Block\BlockType\BlockType;
 interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a block type to registry.
-     */
-    public function addBlockType(string $identifier, BlockType $blockType): void;
-
-    /**
      * Returns if registry has a block type.
      */
     public function hasBlockType(string $identifier): bool;
