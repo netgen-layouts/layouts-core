@@ -79,13 +79,15 @@ final class KeyValuesTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
+        $constraint = new Constraints\NotBlank();
+
         $options = [
             'key_name' => 'some_key',
             'key_label' => 'some_key_label',
             'values_name' => 'some_values',
             'values_label' => 'some_values_label',
             'values_type' => 'some_type',
-            'values_constraints' => ['constraint'],
+            'values_constraints' => [$constraint],
         ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
@@ -95,7 +97,30 @@ final class KeyValuesTypeTest extends FormTestCase
         $this->assertSame('some_values', $resolvedOptions['values_name']);
         $this->assertSame('some_values_label', $resolvedOptions['values_label']);
         $this->assertSame('some_type', $resolvedOptions['values_type']);
-        $this->assertSame(['constraint'], $resolvedOptions['values_constraints']);
+        $this->assertSame([$constraint], $resolvedOptions['values_constraints']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\KeyValuesType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "values_constraints" with value array is invalid.
+     */
+    public function testConfigureOptionsWithInvalidConstraint(): void
+    {
+        $optionsResolver = new OptionsResolver();
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $options = [
+            'key_name' => 'some_key',
+            'key_label' => 'some_key_label',
+            'values_name' => 'some_values',
+            'values_label' => 'some_values_label',
+            'values_type' => 'some_type',
+            'values_constraints' => ['constraint'],
+        ];
+
+        $optionsResolver->resolve($options);
     }
 
     /**

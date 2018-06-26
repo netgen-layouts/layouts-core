@@ -382,6 +382,20 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setAllowedTypes('groups', 'array');
         $optionsResolver->setAllowedTypes('constraints', 'array');
 
+        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
+        $optionsResolver->setAllowedValues(
+            'groups',
+            function (array $groups): bool {
+                foreach ($groups as $group) {
+                    if (!is_string($group)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
+
         $optionsResolver->setAllowedValues(
             'constraints',
             function (array $constraints): bool {

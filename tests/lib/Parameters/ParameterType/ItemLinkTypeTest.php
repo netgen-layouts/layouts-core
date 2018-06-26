@@ -125,6 +125,9 @@ final class ItemLinkTypeTest extends TestCase
                     'value_types' => 42,
                 ],
                 [
+                    'value_types' => [42],
+                ],
+                [
                     'allow_invalid' => 0,
                 ],
                 [

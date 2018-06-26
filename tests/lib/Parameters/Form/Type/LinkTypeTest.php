@@ -246,6 +246,20 @@ final class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
+     * @expectedException @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "value_types" with value array is invalid.
+     */
+    public function testConfigureOptionsWithInvalidValueType(): void
+    {
+        $optionsResolver = new OptionsResolver();
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(['value_types' => [42]]);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
      */
     public function testConfigureOptionsWithEmptyValueTypes(): void
     {

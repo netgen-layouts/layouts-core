@@ -30,6 +30,21 @@ final class LinkType extends AbstractType
 
         $resolver->setRequired(['value_types']);
         $resolver->setAllowedTypes('value_types', 'array');
+
+        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
+        $resolver->setAllowedValues(
+            'value_types',
+            function (array $valueTypes): bool {
+                foreach ($valueTypes as $valueType) {
+                    if (!is_string($valueType)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
+
         $resolver->setDefault('value_types', []);
     }
 

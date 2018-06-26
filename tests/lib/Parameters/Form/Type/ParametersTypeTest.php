@@ -280,4 +280,25 @@ final class ParametersTypeTest extends FormTestCase
             ]
         );
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "groups" with value array is invalid.
+     */
+    public function testConfigureOptionsWithInvalidGroup(): void
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            [
+                'parameter_definitions' => new ParameterDefinitionCollection(),
+                'label_prefix' => 'label',
+                'groups' => [42],
+            ]
+        );
+    }
 }

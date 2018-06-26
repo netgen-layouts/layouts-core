@@ -1021,6 +1021,28 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "groups" with value array is invalid.
+     */
+    public function testBuildParameterDefinitionsWithInvalidGroup(): void
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            [
+                'groups' => [42],
+            ]
+        );
+
+        $this->builder->buildParameterDefinitions();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "label" with value true is invalid.
      */
     public function testBuildParameterDefinitionsWithInvalidLabel(): void

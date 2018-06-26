@@ -24,6 +24,20 @@ final class ClearLayoutsCacheType extends AbstractType
 
         $resolver->setRequired(['layouts']);
         $resolver->setAllowedTypes('layouts', 'array');
+
+        // @deprecated Replace with "Layout[]" allowed type when support for Symfony 2.8 ends
+        $resolver->setAllowedValues(
+            'layouts',
+            function (array $layouts): bool {
+                foreach ($layouts as $layout) {
+                    if (!$layout instanceof Layout) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

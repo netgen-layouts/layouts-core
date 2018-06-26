@@ -30,7 +30,7 @@ final class NumberType extends ParameterType
 
         $optionsResolver->setAllowedTypes('min', ['numeric', 'null']);
         $optionsResolver->setAllowedTypes('max', ['numeric', 'null']);
-        $optionsResolver->setAllowedTypes('scale', ['int']);
+        $optionsResolver->setAllowedTypes('scale', 'int');
 
         $optionsResolver->setNormalizer(
             'max',

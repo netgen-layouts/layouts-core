@@ -24,6 +24,20 @@ final class ClearBlocksCacheType extends AbstractType
 
         $resolver->setRequired(['blocks']);
         $resolver->setAllowedTypes('blocks', 'array');
+
+        // @deprecated Replace with "Block[]" allowed type when support for Symfony 2.8 ends
+        $resolver->setAllowedValues(
+            'blocks',
+            function (array $blocks): bool {
+                foreach ($blocks as $block) {
+                    if (!$block instanceof Block) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

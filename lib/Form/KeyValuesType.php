@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
 final class KeyValuesType extends AbstractType
@@ -37,6 +38,20 @@ final class KeyValuesType extends AbstractType
         $resolver->setAllowedTypes('values_type', 'string');
         $resolver->setAllowedTypes('values_options', 'array');
         $resolver->setAllowedTypes('values_constraints', 'array');
+
+        // @deprecated Replace with "Constraint[]" allowed type when support for Symfony 2.8 ends
+        $resolver->setAllowedValues(
+            'values_constraints',
+            function (array $constraints): bool {
+                foreach ($constraints as $constraint) {
+                    if (!$constraint instanceof Constraint) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
 
         $resolver->setDefault('values_options', []);
         $resolver->setDefault('values_constraints', []);
