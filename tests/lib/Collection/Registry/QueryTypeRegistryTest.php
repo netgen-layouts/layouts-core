@@ -28,26 +28,14 @@ final class QueryTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry = new QueryTypeRegistry();
-
         $this->queryType1 = new QueryType('query_type1');
         $this->queryType2 = new QueryType('query_type2', [], null, false, false);
 
-        $this->registry->addQueryType('query_type1', $this->queryType1);
-        $this->registry->addQueryType('query_type2', $this->queryType2);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
-     */
-    public function testGetQueryTypes(): void
-    {
-        $this->assertSame(
+        $this->registry = new QueryTypeRegistry(
             [
                 'query_type1' => $this->queryType1,
                 'query_type2' => $this->queryType2,
-            ],
-            $this->registry->getQueryTypes()
+            ]
         );
     }
 
@@ -65,12 +53,18 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::addQueryType
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::__construct
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
      */
-    public function testAddQueryType(): void
+    public function testGetQueryTypes(): void
     {
-        $this->assertSame(['query_type1' => $this->queryType1, 'query_type2' => $this->queryType2], $this->registry->getQueryTypes());
+        $this->assertSame(
+            [
+                'query_type1' => $this->queryType1,
+                'query_type2' => $this->queryType2,
+            ],
+            $this->registry->getQueryTypes()
+        );
     }
 
     /**

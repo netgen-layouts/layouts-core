@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use RuntimeException;
@@ -60,7 +61,13 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $queryTypeRegistry = $this->clientContainer->get('netgen_block_manager.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchFixtures, count($searchFixtures));
-        $queryTypeRegistry->addQueryType('my_query_type', $queryType);
+        $allQueryTypes = $queryTypeRegistry->getQueryTypes();
+        $allQueryTypes['my_query_type'] = $queryType;
+
+        $this->clientContainer->mock(
+            'netgen_block_manager.collection.registry.query_type',
+            new QueryTypeRegistry($allQueryTypes)
+        );
     }
 
     /**

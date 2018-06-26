@@ -54,6 +54,6 @@ final class ItemDefinitionPass implements CompilerPassInterface
             $itemDefinitions[$valueType] = new Reference($itemDefinitionServiceName);
         }
 
-        $itemDefinitionRegistry->setArgument(0, $itemDefinitions);
+        $itemDefinitionRegistry->replaceArgument(0, $itemDefinitions);
     }
 }

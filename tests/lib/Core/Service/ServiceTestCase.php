@@ -210,8 +210,7 @@ abstract class ServiceTestCase extends TestCase
 
         $this->itemDefinitionRegistry = new ItemDefinitionRegistry(['my_value_type' => $itemDefinition]);
 
-        $this->queryTypeRegistry = new QueryTypeRegistry();
-        $this->queryTypeRegistry->addQueryType('my_query_type', new QueryType('my_query_type'));
+        $this->queryTypeRegistry = new QueryTypeRegistry(['my_query_type' => new QueryType('my_query_type')]);
 
         $httpCacheHandler = new HttpCacheConfigHandler();
         $httpCacheDefinition = new ConfigDefinition(

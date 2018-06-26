@@ -12,11 +12,6 @@ use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a query type to registry.
-     */
-    public function addQueryType(string $type, QueryTypeInterface $queryType): void;
-
-    /**
      * Returns if registry has a query type.
      */
     public function hasQueryType(string $type): bool;

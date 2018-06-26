@@ -16,9 +16,17 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
      */
     private $queryTypes = [];
 
-    public function addQueryType(string $type, QueryTypeInterface $queryType): void
+    /**
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[] $queryTypes
+     */
+    public function __construct(array $queryTypes)
     {
-        $this->queryTypes[$type] = $queryType;
+        $this->queryTypes = array_filter(
+            $queryTypes,
+            function (QueryTypeInterface $queryType): bool {
+                return true;
+            }
+        );
     }
 
     public function hasQueryType(string $type): bool

@@ -24,6 +24,7 @@ final class QueryTypePass implements CompilerPassInterface
 
         $queryTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
         $queryTypeHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $queryTypeServices = [];
 
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
         foreach ($queryTypes as $type => $queryType) {
@@ -69,13 +70,9 @@ final class QueryTypePass implements CompilerPassInterface
 
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 
-            $queryTypeRegistry->addMethodCall(
-                'addQueryType',
-                [
-                    $type,
-                    new Reference($queryTypeServiceName),
-                ]
-            );
+            $queryTypeServices[$type] = new Reference($queryTypeServiceName);
         }
+
+        $queryTypeRegistry->replaceArgument(0, $queryTypeServices);
     }
 }

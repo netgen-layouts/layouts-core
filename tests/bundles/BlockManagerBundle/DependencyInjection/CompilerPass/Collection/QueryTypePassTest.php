@@ -21,7 +21,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
-        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition(null, [[]]));
 
         $queryTypeHandler = new Definition();
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'query_type']);
@@ -33,12 +33,11 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.collection.query_type.query_type'
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.query_type',
-            'addQueryType',
+            0,
             [
-                'query_type',
-                new Reference('netgen_block_manager.collection.query_type.query_type'),
+                'query_type' => new Reference('netgen_block_manager.collection.query_type.query_type'),
             ]
         );
     }
@@ -51,7 +50,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $queryTypes = ['query_type' => ['handler' => 'custom']];
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
 
-        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition(null, [[]]));
 
         $queryTypeHandler = new Definition();
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'custom']);
@@ -63,12 +62,11 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.collection.query_type.query_type'
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.query_type',
-            'addQueryType',
+            0,
             [
-                'query_type',
-                new Reference('netgen_block_manager.collection.query_type.query_type'),
+                'query_type' => new Reference('netgen_block_manager.collection.query_type.query_type'),
             ]
         );
     }
