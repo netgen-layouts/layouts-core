@@ -47,8 +47,7 @@ final class LinkTypeTest extends FormTestCase
 
     public function getTypes(): array
     {
-        $backendRegistry = new BackendRegistry();
-        $backendRegistry->addBackend('value', $this->createMock(BackendInterface::class));
+        $backendRegistry = new BackendRegistry(['value' => $this->createMock(BackendInterface::class)]);
 
         return [
             new ContentBrowserDynamicType(
