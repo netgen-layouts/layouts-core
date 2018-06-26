@@ -17,12 +17,10 @@ final class RangeMapper extends Mapper
 
     public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
-        $options = $parameterDefinition->getOptions();
-
         return [
             'attr' => [
-                'min' => $options['min'],
-                'max' => $options['max'],
+                'min' => $parameterDefinition->getOption('min'),
+                'max' => $parameterDefinition->getOption('max'),
             ],
         ];
     }

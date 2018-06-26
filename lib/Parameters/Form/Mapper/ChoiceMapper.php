@@ -20,14 +20,12 @@ final class ChoiceMapper extends Mapper
 
     public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
-        $options = $parameterDefinition->getOptions();
+        $options = $parameterDefinition->getOption('options');
 
         return [
-            'multiple' => $options['multiple'],
-            'expanded' => $options['expanded'],
-            'choices' => is_callable($options['options']) ?
-                $options['options']() :
-                $options['options'],
+            'multiple' => $parameterDefinition->getOption('multiple'),
+            'expanded' => $parameterDefinition->getOption('expanded'),
+            'choices' => is_callable($options) ? $options() : $options,
         ] + $this->getChoicesAsValuesOption();
     }
 }
