@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 interface ConditionTypeInterface
 {
     /**
-     * Returns the condition type.
+     * Returns the condition type identifier.
      *
      * @return string
      */

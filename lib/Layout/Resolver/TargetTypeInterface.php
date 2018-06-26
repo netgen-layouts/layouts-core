@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 interface TargetTypeInterface
 {
     /**
-     * Returns the target type.
+     * Returns the target type identifier.
      *
      * @return string
      */
