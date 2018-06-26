@@ -8,22 +8,26 @@
     {% set view_type_name = block.definition.viewType(view_type_name).name %}
 {% endif %}
 
-{% set cache_ttl = false %}
-{% set cache_config = block.config('http_cache') %}
-{% set is_block_cacheable = block.cacheable %}
-{% if cache_config.parameter('use_http_cache').value %}
-    {% set cache_ttl = not cache_config.parameter('shared_max_age').empty ?
-        cache_config.parameter('shared_max_age').value :
-        0 %}
-{% endif %}
+{% set is_block_cacheable = block.hasConfig('http_cache') and block.cacheable %}
 
 {% block controls %}
     <div class="block-header">
         <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="material-icons">drag_handle</i></div>
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
-        {% if block.hasConfig('http_cache') and is_block_cacheable and cache_ttl is not same as(false) %}
-            <div class="cache"><i class="material-icons">cached</i> {{ macros.ttl_label(cache_ttl) }}</div>
+        {% if is_block_cacheable %}
+            {% set cache_ttl = false %}
+            {% set cache_config = block.config('http_cache') %}
+
+            {% if cache_config.parameter('use_http_cache').value %}
+                {% set cache_ttl = not cache_config.parameter('shared_max_age').empty ?
+                    cache_config.parameter('shared_max_age').value :
+                    0 %}
+            {% endif %}
+
+            {% if cache_ttl is not same as(false) %}
+                <div class="cache"><i class="material-icons">cached</i> {{ macros.ttl_label(cache_ttl) }}</div>
+            {% endif %}
         {% endif %}
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
@@ -34,7 +38,7 @@
                 <li class="js-revert"><a title="{{ 'layout.block.revert'|trans }}">{{ 'layout.block.revert'|trans }}<span class="note">{{ 'layout.block.revert_note'|trans }}</span></a></li>
                 <li class="js-copy"><a title="{{ 'layout.block.copy'|trans }}">{{ 'layout.block.copy'|trans }}</a></li>
                 <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
-                {% if block.hasConfig('http_cache') and is_block_cacheable %}
+                {% if is_block_cacheable %}
                     <li class="js-set-cache"><a title="{{ 'layout.block.set_cache'|trans }}">{{ 'layout.block.set_cache'|trans }}</a></li>
                 {% endif %}
             </ul>
