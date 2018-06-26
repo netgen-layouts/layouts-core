@@ -12,11 +12,11 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ItemDefinitionPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.collection.registry.item_definition';
+    private const SERVICE_NAME = 'netgen_block_manager.collection.registry.item_definition';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
@@ -26,7 +26,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
         }
 
         $itemConfig = $container->getParameter('netgen_block_manager.items');
-        $itemDefinitionRegistry = $container->findDefinition(self::$serviceName);
+        $itemDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
 
         foreach (array_keys($itemConfig['value_types']) as $valueType) {
             $itemDefinitionServiceName = sprintf('netgen_block_manager.collection.item_definition.%s', $valueType);

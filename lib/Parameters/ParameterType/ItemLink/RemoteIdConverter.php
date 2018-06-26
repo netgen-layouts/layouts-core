@@ -9,7 +9,7 @@ use Netgen\BlockManager\Item\NullCmsItem;
 
 final class RemoteIdConverter
 {
-    private static $nullLink = 'null://0';
+    private const NULL_LINK = 'null://0';
 
     /**
      * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
@@ -33,12 +33,12 @@ final class RemoteIdConverter
         $link = parse_url($link);
 
         if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
-            return self::$nullLink;
+            return self::NULL_LINK;
         }
 
         $item = $this->cmsItemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
         if ($item instanceof NullCmsItem) {
-            return self::$nullLink;
+            return self::NULL_LINK;
         }
 
         return $link['scheme'] . '://' . $item->getRemoteId();
@@ -56,12 +56,12 @@ final class RemoteIdConverter
         $link = parse_url($link);
 
         if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
-            return self::$nullLink;
+            return self::NULL_LINK;
         }
 
         $item = $this->cmsItemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
         if ($item instanceof NullCmsItem) {
-            return self::$nullLink;
+            return self::NULL_LINK;
         }
 
         return $link['scheme'] . '://' . $item->getValue();

@@ -15,12 +15,12 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class RuntimeLoaderPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.templating.twig.runtime.container_loader';
-    private static $tagName = 'netgen_block_manager.twig.runtime';
+    private const SERVICE_NAME = 'netgen_block_manager.templating.twig.runtime.container_loader';
+    private const TAG_NAME = 'netgen_block_manager.twig.runtime';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
@@ -30,9 +30,9 @@ final class RuntimeLoaderPass implements CompilerPassInterface
         }
 
         $twig = $container->findDefinition('twig');
-        $runtimeLoader = $container->findDefinition(self::$serviceName);
+        $runtimeLoader = $container->findDefinition(self::SERVICE_NAME);
 
-        $runtimes = array_keys($container->findTaggedServiceIds(self::$tagName));
+        $runtimes = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
         foreach ($runtimes as $runtime) {
             $runtimeLoader->addMethodCall(
                 'addRuntime',
@@ -46,7 +46,7 @@ final class RuntimeLoaderPass implements CompilerPassInterface
         $twig->addMethodCall(
             'addRuntimeLoader',
             [
-                new Reference(self::$serviceName),
+                new Reference(self::SERVICE_NAME),
             ]
         );
     }

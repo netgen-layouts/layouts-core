@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ParameterFilterPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.parameters.registry.parameter_filter';
-    private static $tagName = 'netgen_block_manager.parameters.parameter_filter';
+    private const SERVICE_NAME = 'netgen_block_manager.parameters.registry.parameter_filter';
+    private const TAG_NAME = 'netgen_block_manager.parameters.parameter_filter';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $parameterFilterRegistry = $container->findDefinition(self::$serviceName);
-        $parameterFilters = $container->findTaggedServiceIds(self::$tagName);
+        $parameterFilterRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $parameterFilters = $container->findTaggedServiceIds(self::TAG_NAME);
 
         uasort(
             $parameterFilters,

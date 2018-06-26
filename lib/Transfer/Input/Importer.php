@@ -16,6 +16,11 @@ use Traversable;
 final class Importer implements ImporterInterface
 {
     /**
+     * The path to the root schema directory.
+     */
+    private const SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
+
+    /**
      * @var \Netgen\BlockManager\Transfer\Input\JsonValidatorInterface
      */
     private $jsonValidator;
@@ -25,13 +30,6 @@ final class Importer implements ImporterInterface
      */
     private $layoutDataHandler;
 
-    /**
-     * The path to the root schema directory.
-     *
-     * @var string
-     */
-    private static $schemaFile = __DIR__ . '/../../../resources/schemas/import.json';
-
     public function __construct(JsonValidatorInterface $jsonValidator, LayoutDataHandler $layoutDataHandler)
     {
         $this->jsonValidator = $jsonValidator;
@@ -40,7 +38,7 @@ final class Importer implements ImporterInterface
 
     public function importData(string $data): Traversable
     {
-        $schema = (string) file_get_contents(self::$schemaFile);
+        $schema = (string) file_get_contents(self::SCHEMA_FILE);
         $this->jsonValidator->validateJson($data, $schema);
 
         $data = json_decode($data, true);

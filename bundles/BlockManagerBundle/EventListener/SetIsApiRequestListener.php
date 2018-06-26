@@ -12,7 +12,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 {
     public const API_FLAG_NAME = 'ngbm_is_api_request';
 
-    private static $apiRoutePrefix = 'ngbm_api_';
+    private const API_ROUTE_PREFIX = 'ngbm_api_';
 
     public static function getSubscribedEvents(): array
     {
@@ -30,7 +30,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
-        if (mb_stripos($currentRoute, self::$apiRoutePrefix) !== 0) {
+        if (mb_stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {
             return;
         }
 

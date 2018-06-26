@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class DateTimeValidator extends ConstraintValidator
 {
-    private static $dateFormat = 'Y-m-d H:i:s';
+    private const DATE_FORMAT = 'Y-m-d H:i:s';
 
     public function validate($value, Constraint $constraint): void
     {
@@ -55,7 +55,7 @@ final class DateTimeValidator extends ConstraintValidator
                 [
                     new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
-                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? ['format' => self::$dateFormat] : []),
+                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? ['format' => self::DATE_FORMAT] : []),
                 ]
             );
         }

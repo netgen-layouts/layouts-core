@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TemplateResolverPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.view.template_resolver';
-    private static $tagName = 'netgen_block_manager.view.template_matcher';
+    private const SERVICE_NAME = 'netgen_block_manager.view.template_resolver';
+    private const TAG_NAME = 'netgen_block_manager.view.template_matcher';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $templateResolver = $container->findDefinition(self::$serviceName);
-        $matcherServices = $container->findTaggedServiceIds(self::$tagName);
+        $templateResolver = $container->findDefinition(self::SERVICE_NAME);
+        $matcherServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $matchers = [];
         foreach ($matcherServices as $serviceName => $tags) {

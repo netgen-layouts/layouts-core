@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
-    protected static $statusPublished = 'published';
+    protected const STATUS_PUBLISHED = 'published';
 
-    protected static $statusDraft = 'draft';
+    protected const STATUS_DRAFT = 'draft';
 
-    protected static $statusArchived = 'archived';
+    protected const STATUS_ARCHIVED = 'archived';
 
-    private static $routeStatusParam = '_ngbm_status';
+    private const ROUTE_STATUS_PARAM = '_ngbm_status';
 
     public function apply(Request $request, ParamConverterConfiguration $configuration): bool
     {
@@ -45,14 +45,14 @@ abstract class ParamConverter implements ParamConverterInterface
             }
         }
 
-        $routeStatusParam = $request->attributes->get(self::$routeStatusParam);
+        $routeStatusParam = $request->attributes->get(self::ROUTE_STATUS_PARAM);
         $queryPublishedParam = $request->query->get('published');
 
-        $values['status'] = self::$statusDraft;
-        if (in_array($routeStatusParam, [self::$statusPublished, self::$statusDraft, self::$statusArchived], true)) {
+        $values['status'] = self::STATUS_DRAFT;
+        if (in_array($routeStatusParam, [self::STATUS_PUBLISHED, self::STATUS_DRAFT, self::STATUS_ARCHIVED], true)) {
             $values['status'] = $routeStatusParam;
         } elseif ($queryPublishedParam === 'true') {
-            $values['status'] = self::$statusPublished;
+            $values['status'] = self::STATUS_PUBLISHED;
         }
 
         if ($request->attributes->has('locale')) {

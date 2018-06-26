@@ -10,17 +10,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class FragmentRendererPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.view.renderer.fragment';
-    private static $tagName = 'netgen_block_manager.view.fragment_view_renderer';
+    private const SERVICE_NAME = 'netgen_block_manager.view.renderer.fragment';
+    private const TAG_NAME = 'netgen_block_manager.view.fragment_view_renderer';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $fragmentRenderer = $container->findDefinition(self::$serviceName);
-        $viewRendererServices = $container->findTaggedServiceIds(self::$tagName);
+        $fragmentRenderer = $container->findDefinition(self::SERVICE_NAME);
+        $viewRendererServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $viewRenderers = [];
         foreach (array_keys($viewRendererServices) as $serviceName) {

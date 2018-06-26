@@ -17,17 +17,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockDefinitionPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.block.registry.block_definition';
-    private static $tagName = 'netgen_block_manager.block.block_definition_handler';
+    private const SERVICE_NAME = 'netgen_block_manager.block.registry.block_definition';
+    private const TAG_NAME = 'netgen_block_manager.block.block_definition_handler';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $blockDefinitionRegistry = $container->findDefinition(self::$serviceName);
-        $blockDefinitionHandlers = $container->findTaggedServiceIds(self::$tagName);
+        $blockDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $blockDefinitionHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
         foreach ($blockDefinitions as $identifier => $blockDefinition) {

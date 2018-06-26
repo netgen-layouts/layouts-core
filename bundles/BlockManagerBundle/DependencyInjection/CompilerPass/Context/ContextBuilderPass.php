@@ -10,17 +10,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ContextBuilderPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.context.builder';
-    private static $tagName = 'netgen_block_manager.context.provider';
+    private const SERVICE_NAME = 'netgen_block_manager.context.builder';
+    private const TAG_NAME = 'netgen_block_manager.context.provider';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $contextBuilder = $container->findDefinition(self::$serviceName);
-        $contextProviders = array_keys($container->findTaggedServiceIds(self::$tagName));
+        $contextBuilder = $container->findDefinition(self::SERVICE_NAME);
+        $contextProviders = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
 
         foreach ($contextProviders as $contextProvider) {
             $contextBuilder->addMethodCall(

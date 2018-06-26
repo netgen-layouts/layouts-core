@@ -41,7 +41,7 @@ final class BlockParamConverter extends ParamConverter
         /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
-        if ($values['status'] === self::$statusPublished) {
+        if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->blockService->loadBlock($values['blockId'], $locales);
         }
 

@@ -10,17 +10,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ParameterTypePass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.parameters.registry.parameter_type';
-    private static $tagName = 'netgen_block_manager.parameters.parameter_type';
+    private const SERVICE_NAME = 'netgen_block_manager.parameters.registry.parameter_type';
+    private const TAG_NAME = 'netgen_block_manager.parameters.parameter_type';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $registry = $container->findDefinition(self::$serviceName);
-        $parameterTypeServices = array_keys($container->findTaggedServiceIds(self::$tagName));
+        $registry = $container->findDefinition(self::SERVICE_NAME);
+        $parameterTypeServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
 
         foreach ($parameterTypeServices as $parameterTypeService) {
             $registry->addMethodCall(

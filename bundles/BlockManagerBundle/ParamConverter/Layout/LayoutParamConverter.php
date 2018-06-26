@@ -38,11 +38,11 @@ final class LayoutParamConverter extends ParamConverter
 
     public function loadValue(array $values): Value
     {
-        if ($values['status'] === self::$statusPublished) {
+        if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->layoutService->loadLayout($values['layoutId']);
         }
 
-        if ($values['status'] === self::$statusArchived) {
+        if ($values['status'] === self::STATUS_ARCHIVED) {
             return $this->layoutService->loadLayoutArchive($values['layoutId']);
         }
 

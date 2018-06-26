@@ -15,7 +15,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
     public const ADMIN_FLAG_NAME = 'ngbm_is_admin_request';
 
-    private static $adminRoutePrefix = 'ngbm_admin_';
+    private const ADMIN_ROUTE_PREFIX = 'ngbm_admin_';
 
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
@@ -43,7 +43,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
-        if (mb_stripos($currentRoute, self::$adminRoutePrefix) !== 0) {
+        if (mb_stripos($currentRoute, self::ADMIN_ROUTE_PREFIX) !== 0) {
             return;
         }
 

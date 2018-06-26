@@ -11,19 +11,19 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class CmsItemLoaderPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.item.item_loader';
-    private static $tagName = 'netgen_block_manager.item.value_loader';
+    private const SERVICE_NAME = 'netgen_block_manager.item.item_loader';
+    private const TAG_NAME = 'netgen_block_manager.item.value_loader';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $cmsItemLoader = $container->findDefinition(self::$serviceName);
+        $cmsItemLoader = $container->findDefinition(self::SERVICE_NAME);
 
         $valueLoaders = [];
-        foreach ($container->findTaggedServiceIds(self::$tagName) as $serviceName => $tags) {
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {
                     throw new RuntimeException(

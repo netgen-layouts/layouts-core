@@ -13,11 +13,11 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class LayoutTypePass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_block_manager.layout.registry.layout_type';
+    private const SERVICE_NAME = 'netgen_block_manager.layout.registry.layout_type';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
@@ -27,7 +27,7 @@ final class LayoutTypePass implements CompilerPassInterface
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
         $layoutTypeServices = $this->buildLayoutTypes($container, $layoutTypes);
 
-        $registry = $container->findDefinition(self::$serviceName);
+        $registry = $container->findDefinition(self::SERVICE_NAME);
 
         foreach ($layoutTypeServices as $identifier => $layoutTypeService) {
             $registry->addMethodCall(
