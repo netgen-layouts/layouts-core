@@ -14,7 +14,6 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -99,10 +98,7 @@ final class ContentEditTypeTest extends FormTestCase
 
     public function getTypes(): array
     {
-        $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
-
-        return [new ParametersType($formMapperRegistry)];
+        return [new ParametersType(['text_line' => new TextLineMapper()])];
     }
 
     /**

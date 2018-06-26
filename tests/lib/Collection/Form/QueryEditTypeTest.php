@@ -10,7 +10,6 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -49,11 +48,12 @@ final class QueryEditTypeTest extends FormTestCase
 
     public function getTypes(): array
     {
-        $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new Mapper\TextLineMapper());
-        $formMapperRegistry->addFormMapper('integer', new Mapper\IntegerMapper());
+        $formMappers = [
+            'text_line' => new Mapper\TextLineMapper(),
+            'integer' => new Mapper\IntegerMapper(),
+        ];
 
-        return [new ParametersType($formMapperRegistry)];
+        return [new ParametersType($formMappers)];
     }
 
     /**

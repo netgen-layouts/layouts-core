@@ -10,7 +10,6 @@ use Netgen\BlockManager\Config\Form\EditType;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
@@ -61,10 +60,7 @@ final class EditTypeTest extends FormTestCase
 
     public function getTypes(): array
     {
-        $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new FormMapper());
-
-        return [new ParametersType($formMapperRegistry)];
+        return [new ParametersType(['text_line' => new FormMapper()])];
     }
 
     /**

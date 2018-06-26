@@ -9,7 +9,6 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Form\Stubs\TranslatableTypeStub;
@@ -31,11 +30,12 @@ final class TranslatableTypeTest extends FormTestCase
 
     public function getTypes(): array
     {
-        $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new FormMapper());
-        $formMapperRegistry->addFormMapper('compound_boolean', new FormMapper(true));
+        $formMappers = [
+            'text_line' => new FormMapper(),
+            'compound_boolean' => new FormMapper(true),
+        ];
 
-        return [new ParametersType($formMapperRegistry)];
+        return [new ParametersType($formMappers)];
     }
 
     /**

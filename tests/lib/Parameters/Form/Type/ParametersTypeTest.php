@@ -12,7 +12,6 @@ use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
@@ -25,11 +24,12 @@ final class ParametersTypeTest extends FormTestCase
 {
     public function getMainType(): FormTypeInterface
     {
-        $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
-        $formMapperRegistry->addFormMapper('compound_boolean', new BooleanMapper());
-
-        return new ParametersType($formMapperRegistry);
+        return new ParametersType(
+            [
+                'text_line' => new TextLineMapper(),
+                'compound_boolean' => new BooleanMapper(),
+            ]
+        );
     }
 
     public function getTypeExtensions(): array

@@ -5,24 +5,33 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
+use Netgen\BlockManager\Parameters\Form\MapperInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface
+     * @var \Netgen\BlockManager\Parameters\Form\MapperInterface[]
      */
-    private $formMapperRegistry;
+    private $mappers;
 
-    public function __construct(FormMapperRegistryInterface $formMapperRegistry)
+    /**
+     * @param \Netgen\BlockManager\Parameters\Form\MapperInterface[] $mappers
+     */
+    public function __construct(array $mappers = [])
     {
-        $this->formMapperRegistry = $formMapperRegistry;
+        $this->mappers = array_filter(
+            $mappers,
+            function (MapperInterface $mapper): bool {
+                return true;
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -58,10 +67,13 @@ final class ParametersType extends AbstractType
 
             $parameterName = $parameterDefinition->getName();
             $parameterLabel = $parameterDefinition->getLabel();
+            $parameterType = $parameterDefinition->getType()->getIdentifier();
 
-            $mapper = $this->formMapperRegistry->getFormMapper(
-                $parameterDefinition->getType()->getIdentifier()
-            );
+            if (!isset($this->mappers[$parameterType])) {
+                throw ParameterTypeException::noFormMapper($parameterType);
+            }
+
+            $mapper = $this->mappers[$parameterType];
 
             $defaultOptions = [
                 'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,

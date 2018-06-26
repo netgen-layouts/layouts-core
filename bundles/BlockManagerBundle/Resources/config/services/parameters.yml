@@ -5,10 +5,6 @@ services:
         class: Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
         public: true
 
-    netgen_block_manager.parameters.registry.form_mapper:
-        class: Netgen\BlockManager\Parameters\Registry\FormMapperRegistry
-        public: false
-
     netgen_block_manager.parameters.registry.parameter_filter:
         class: Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry
         public: false
@@ -237,7 +233,7 @@ services:
         class: Netgen\BlockManager\Parameters\Form\Type\ParametersType
         # public: false
         arguments:
-            - "@netgen_block_manager.parameters.registry.form_mapper"
+            - []
         tags:
             - { name: form.type }
 
