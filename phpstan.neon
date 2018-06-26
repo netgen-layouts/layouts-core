@@ -14,7 +14,6 @@ parameters:
         - '#Call to an undefined method Netgen\\Bundle\\BlockManagerDebugBundle\\DataCollector\\BlockManagerDataCollector::varToString\(\)#'
 
         # Netgen Layouts specifics
-        # - '#Parameter \#1 \$value of method Netgen\\BlockManager\\Item\\CmsItemLoaderInterface::load\(\) expects int\|string, bool\|float\|int\|string given.#'
+        - '#Parameter \#1 \$value of method Netgen\\BlockManager\\Item\\CmsItemLoaderInterface::load\(\) expects int\|string, bool\|float\|int\|string given.#'
         - '#Call to an undefined method Netgen\\BlockManager\\View\\ViewInterface::getBlock\(\).#'
-        - '#Call to an undefined method Symfony\\Component\\HttpKernel\\EventListener\\SessionListener::onFinishRequest\(\).#'
         - '#Property Netgen\\BlockManager\\Persistence\\Values\\.+::\$\w+ \(int\|string\) does not accept null.#'
