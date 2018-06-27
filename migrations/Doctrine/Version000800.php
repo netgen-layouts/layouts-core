@@ -41,7 +41,7 @@ final class Version000800 extends AbstractMigration
         $collectionTable->addColumn('shared', 'boolean');
         $collectionTable->addColumn('name', 'string', ['length' => 255, 'notnull' => false]);
 
-        $collectionTable->addIndex(['name']);
+        $collectionTable->addIndex(['name'], 'idx_ngl_collection_name');
 
         $this->addSql('ALTER TABLE ngbm_collection_query ADD COLUMN position int(11) NOT NULL AFTER collection_id');
         $this->addSql('ALTER TABLE ngbm_collection_query ADD COLUMN identifier varchar(255) NOT NULL AFTER position');

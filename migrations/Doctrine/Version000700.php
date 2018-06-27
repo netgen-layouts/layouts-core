@@ -25,7 +25,7 @@ final class Version000700 extends AbstractMigration
 
         $layoutTable->setPrimaryKey(['id', 'status']);
 
-        $layoutTable->addIndex(['name']);
+        $layoutTable->addIndex(['name'], 'idx_ngl_layout_name');
 
         // ngbm_block table
 
@@ -47,9 +47,10 @@ final class Version000700 extends AbstractMigration
         $blockTable->addColumn('parameters', 'text', ['length' => 65535]);
 
         $blockTable->setPrimaryKey(['id', 'status']);
-        $blockTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status']);
+        $blockTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status'], [], 'fk_ngl_block_layout');
 
-        $blockTable->addIndex(['parent_id', 'placeholder', 'status']);
+        $blockTable->addIndex(['layout_id', 'status'], 'idx_ngl_layout');
+        $blockTable->addIndex(['parent_id', 'placeholder', 'status'], 'idx_ngl_parent_block');
 
         // ngbm_zone table
 
@@ -63,8 +64,11 @@ final class Version000700 extends AbstractMigration
         $zoneTable->addColumn('linked_zone_identifier', 'string', ['length' => 255, 'notnull' => false]);
 
         $zoneTable->setPrimaryKey(['identifier', 'layout_id', 'status']);
-        $zoneTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status']);
-        $zoneTable->addForeignKeyConstraint('ngbm_block', ['root_block_id', 'status'], ['id', 'status']);
+        $zoneTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status'], [], 'fk_ngl_zone_layout');
+        $zoneTable->addForeignKeyConstraint('ngbm_block', ['root_block_id', 'status'], ['id', 'status'], [], 'fk_ngl_zone_block');
+
+        $zoneTable->addIndex(['layout_id', 'status'], 'idx_ngl_layout');
+        $zoneTable->addIndex(['root_block_id', 'status'], 'idx_ngl_root_block');
 
         // ngbm_rule table
 
@@ -77,7 +81,7 @@ final class Version000700 extends AbstractMigration
 
         $ruleTable->setPrimaryKey(['id', 'status']);
 
-        $ruleTable->addIndex(['layout_id']);
+        $ruleTable->addIndex(['layout_id'], 'idx_ngl_related_layout');
 
         // ngbm_rule_data table
 
@@ -100,10 +104,10 @@ final class Version000700 extends AbstractMigration
         $ruleTargetTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
 
         $ruleTargetTable->setPrimaryKey(['id', 'status']);
-        $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status']);
+        $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status'], [], 'fk_ngl_target_rule');
 
-        $ruleTargetTable->addIndex(['rule_id', 'status']);
-        $ruleTargetTable->addIndex(['type']);
+        $ruleTargetTable->addIndex(['rule_id', 'status'], 'idx_ngl_rule');
+        $ruleTargetTable->addIndex(['type'], 'idx_ngl_target_type');
 
         // ngbm_rule_condition table
 
@@ -116,9 +120,9 @@ final class Version000700 extends AbstractMigration
         $ruleConditionTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
 
         $ruleConditionTable->setPrimaryKey(['id', 'status']);
-        $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status']);
+        $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status'], [], 'fk_ngl_condition_rule');
 
-        $ruleConditionTable->addIndex(['rule_id', 'status']);
+        $ruleConditionTable->addIndex(['rule_id', 'status'], 'idx_ngl_rule');
 
         // ngbm_collection table
 
@@ -132,7 +136,7 @@ final class Version000700 extends AbstractMigration
 
         $collectionTable->setPrimaryKey(['id', 'status']);
 
-        $collectionTable->addIndex(['name']);
+        $collectionTable->addIndex(['name'], 'idx_ngl_collection_name');
 
         // ngbm_collection_item table
 
@@ -147,9 +151,9 @@ final class Version000700 extends AbstractMigration
         $collectionItemTable->addColumn('value_type', 'string', ['length' => 255]);
 
         $collectionItemTable->setPrimaryKey(['id', 'status']);
-        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status']);
+        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status'], [], 'fk_ngl_item_collection');
 
-        $collectionItemTable->addIndex(['collection_id', 'status']);
+        $collectionItemTable->addIndex(['collection_id', 'status'], 'idx_ngl_collection');
 
         // ngbm_collection_query table
 
@@ -164,10 +168,10 @@ final class Version000700 extends AbstractMigration
         $collectionQueryTable->addColumn('parameters', 'text', ['length' => 65535]);
 
         $collectionQueryTable->setPrimaryKey(['id', 'status']);
-        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status']);
+        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status'], [], 'fk_ngl_query_collection');
 
-        $collectionQueryTable->addIndex(['collection_id', 'status']);
-        $collectionQueryTable->addIndex(['collection_id', 'status', 'identifier']);
+        $collectionQueryTable->addIndex(['collection_id', 'status'], 'idx_ngl_collection');
+        $collectionQueryTable->addIndex(['collection_id', 'status', 'identifier'], 'idx_ngl_collection_identifier');
 
         // ngbm_block_collection table
 
@@ -182,8 +186,11 @@ final class Version000700 extends AbstractMigration
         $blockCollectionTable->addColumn('length', 'integer', ['notnull' => false]);
 
         $blockCollectionTable->setPrimaryKey(['block_id', 'block_status', 'identifier']);
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', ['block_id', 'block_status'], ['id', 'status']);
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'collection_status'], ['id', 'status']);
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', ['block_id', 'block_status'], ['id', 'status'], [], 'fk_ngl_block_collection_block');
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'collection_status'], ['id', 'status'], [], 'fk_ngl_block_collection_collection');
+
+        $blockCollectionTable->addIndex(['block_id', 'block_status'], 'idx_ngl_block');
+        $blockCollectionTable->addIndex(['collection_id', 'collection_status'], 'idx_ngl_collection');
     }
 
     public function down(Schema $schema): void

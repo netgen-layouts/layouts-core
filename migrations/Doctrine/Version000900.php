@@ -38,7 +38,7 @@ CREATE TABLE `ngbm_layout_translation` (
   `status` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
   PRIMARY KEY (`layout_id`, `status`, `locale`),
-  FOREIGN KEY (`layout_id`, `status`)
+  CONSTRAINT `fk_ngl_layout_translation_layout` FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
 )
 EOT
@@ -61,7 +61,7 @@ CREATE TABLE `ngbm_block_translation` (
   `locale` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`block_id`, `status`, `locale`),
-  FOREIGN KEY (`block_id`, `status`)
+  CONSTRAINT `fk_ngl_block_translation_block` FOREIGN KEY (`block_id`, `status`)
     REFERENCES ngbm_block (`id`, `status`)
 )
 EOT
@@ -86,7 +86,7 @@ CREATE TABLE `ngbm_collection_translation` (
   `status` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
   PRIMARY KEY (`collection_id`, `status`, `locale`),
-  FOREIGN KEY (`collection_id`, `status`)
+  CONSTRAINT `fk_ngl_collection_translation_collection` FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
 )
 EOT
@@ -106,7 +106,7 @@ CREATE TABLE `ngbm_collection_query_translation` (
   `locale` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`query_id`, `status`, `locale`),
-  FOREIGN KEY (`query_id`, `status`)
+  CONSTRAINT `fk_ngl_query_translation_query` FOREIGN KEY (`query_id`, `status`)
     REFERENCES ngbm_collection_query (`id`, `status`)
 )
 EOT
