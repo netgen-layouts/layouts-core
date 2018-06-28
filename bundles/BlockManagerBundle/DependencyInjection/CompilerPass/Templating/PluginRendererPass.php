@@ -25,15 +25,17 @@ final class PluginRendererPass implements CompilerPassInterface
 
         $pluginsByName = [];
 
-        foreach ($pluginServices as $serviceName => $tag) {
-            if (!isset($tag[0]['plugin'])) {
-                throw new RuntimeException(
-                    "Template plugin service definition must have an 'plugin' attribute in its' tag."
-                );
-            }
+        foreach ($pluginServices as $serviceName => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['plugin'])) {
+                    throw new RuntimeException(
+                        "Template plugin service definition must have an 'plugin' attribute in its' tag."
+                    );
+                }
 
-            $priority = (int) ($tag[0]['priority'] ?? 0);
-            $pluginsByName[$tag[0]['plugin']][$priority][] = new Reference($serviceName);
+                $priority = (int) ($tag['priority'] ?? 0);
+                $pluginsByName[$tag['plugin']][$priority][] = new Reference($serviceName);
+            }
         }
 
         foreach ($pluginsByName as $pluginName => $plugins) {
