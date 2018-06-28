@@ -45,7 +45,6 @@ final class ViewListenerTest extends TestCase
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
-        $blockView->setSharedMaxAge(42);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,
@@ -69,7 +68,6 @@ final class ViewListenerTest extends TestCase
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
-        $blockView->setSharedMaxAge(42);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,

@@ -18,7 +18,6 @@ use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
@@ -35,11 +34,6 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $handlerMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cacheableResolverMock;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
@@ -78,18 +72,10 @@ final class BlockDefinitionFactoryTest extends TestCase
             $this->parameterBuilderFactory
         );
 
-        $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(false));
-
         $this->factory = new BlockDefinitionFactory(
             $this->parameterBuilderFactory,
             $this->handlerPluginRegistry,
-            $this->configDefinitionFactory,
-            $this->cacheableResolverMock
+            $this->configDefinitionFactory
         );
     }
 
@@ -159,8 +145,6 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertSame('definition', $blockDefinition->getIdentifier());
-
-        $this->assertFalse($blockDefinition->isCacheable(new Block()));
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));

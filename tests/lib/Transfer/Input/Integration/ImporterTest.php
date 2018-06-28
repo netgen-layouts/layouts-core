@@ -16,7 +16,6 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\HttpCache\Block\CacheableResolver;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
@@ -284,8 +283,7 @@ abstract class ImporterTest extends ServiceTestCase
                 new ParameterBuilderFactory(
                     $this->parameterTypeRegistry
                 )
-            ),
-            new CacheableResolver()
+            )
         );
 
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(

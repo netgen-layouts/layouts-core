@@ -160,14 +160,6 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::isCacheable
-     */
-    public function testIsCacheable(): void
-    {
-        $this->assertFalse($this->blockDefinition->isCacheable(new Block()));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getConfigDefinitions
      */
     public function testGetConfigDefinitions(): void
