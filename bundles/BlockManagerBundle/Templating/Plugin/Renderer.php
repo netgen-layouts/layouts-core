@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Plugin;
 
-use Netgen\BlockManager\Exception\RuntimeException;
 use Throwable;
 use Twig\Environment;
 
@@ -37,9 +36,7 @@ final class Renderer implements RendererInterface
     public function renderPlugins(string $pluginName, array $parameters = []): string
     {
         if (!isset($this->pluginCollections[$pluginName])) {
-            throw new RuntimeException(
-                sprintf('Template plugin "%s" does not exist', $pluginName)
-            );
+            return '';
         }
 
         $level = ob_get_level();
