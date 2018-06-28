@@ -205,10 +205,6 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         $loader->load('services/param_converters.yml');
         $loader->load('services/event_listeners.yml');
 
-        if (Kernel::VERSION_ID >= 30400 && Kernel::VERSION_ID < 40100) {
-            $loader->load('services/event_listeners_sf34.yml');
-        }
-
         $loader->load('services/configuration.yml');
         $loader->load('services/controllers.yml');
         $loader->load('services/normalizers.yml');

@@ -15,35 +15,12 @@ services:
             - []
 
     netgen_block_manager.view.renderer:
-        alias: netgen_block_manager.view.renderer.default
-        public: true
-
-    netgen_block_manager.view.renderer.default:
         class: Netgen\BlockManager\View\Renderer
-        public: false
+        public: true
         lazy: true
         arguments:
             - "@netgen_block_manager.view.view_builder"
             - "@netgen_block_manager.view.view_renderer"
-
-    netgen_block_manager.view.renderer.fragment:
-        class: Netgen\BlockManager\View\FragmentRenderer
-        public: false
-        arguments:
-            - "@netgen_block_manager.view.view_builder"
-            - "@netgen_block_manager.view.view_renderer"
-            - "@fragment.handler"
-            - []
-
-    netgen_block_manager.view.renderer.fragment.block_view_renderer:
-        class: Netgen\BlockManager\View\Fragment\BlockViewRenderer
-        public: false
-        arguments:
-            - "@netgen_block_manager.context"
-            - "@netgen_block_manager.http_cache.block.cacheable_resolver"
-            - "%netgen_block_manager.controller.block_controller%"
-        tags:
-            - { name: netgen_block_manager.view.fragment_view_renderer }
 
     netgen_block_manager.view.template_resolver:
         class: Netgen\BlockManager\View\TemplateResolver

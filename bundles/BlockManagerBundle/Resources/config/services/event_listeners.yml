@@ -104,12 +104,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_block_manager.event_listener.http_cache.cacheable_view:
-        class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener
-        # public: false
-        tags:
-            - { name: kernel.event_subscriber }
-
     netgen_block_manager.event_listener.http_cache.layout_response:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener
         # public: false

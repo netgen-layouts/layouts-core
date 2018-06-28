@@ -8,25 +8,12 @@ services:
 
     # Frontend controllers
 
-    ## Block controllers
-
-    netgen_block_manager.controller.block.view_block:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\Block\ViewBlock
-        public: true
-        parent: netgen_block_manager.controller.base
-        arguments:
-            - "@netgen_block_manager.error.handler"
-
     netgen_block_manager.controller.block.view_ajax_block:
         class: Netgen\Bundle\BlockManagerBundle\Controller\Block\ViewAjaxBlock
         public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.error.handler"
-
-    ngbm_block:
-        alias: netgen_block_manager.controller.block.view_block
-        public: true
 
     ngbm_ajax_block:
         alias: netgen_block_manager.controller.block.view_ajax_block

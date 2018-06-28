@@ -21,7 +21,6 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\LayoutResolver\Form\TargetTypePass());
         $container->addCompilerPass(new CompilerPass\View\TemplateResolverPass());
         $container->addCompilerPass(new CompilerPass\View\ViewBuilderPass());
-        $container->addCompilerPass(new CompilerPass\View\FragmentRendererPass());
         $container->addCompilerPass(new CompilerPass\View\DefaultViewTemplatesPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParametersFormPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypePass());
@@ -36,7 +35,6 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Block\BlockTypeGroupPass());
         $container->addCompilerPass(new CompilerPass\HttpCache\CacheManagerPass());
         $container->addCompilerPass(new CompilerPass\HttpCache\ConfigureHttpCachePass());
-        $container->addCompilerPass(new CompilerPass\HttpCache\Block\CacheableResolverPass());
         $container->addCompilerPass(new CompilerPass\Context\ContextBuilderPass());
         $container->addCompilerPass(new CompilerPass\Transfer\SerializationVisitorPass());
         $container->addCompilerPass(new CompilerPass\Twig\RuntimeLoaderPass());

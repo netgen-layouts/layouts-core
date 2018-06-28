@@ -168,14 +168,6 @@ services:
         arguments:
             - "@netgen_block_manager.http_cache.client"
 
-    netgen_block_manager.controller.admin.layouts.clear_blocks_cache:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts\ClearBlocksCache
-        public: true
-        parent: netgen_block_manager.controller.admin.base
-        arguments:
-            - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.http_cache.client"
-
     ## Shared layouts controllers
 
     netgen_block_manager.controller.admin.shared_layouts.index:

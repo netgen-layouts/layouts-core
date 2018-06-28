@@ -46,10 +46,6 @@ view:
                 template: "@NetgenBlockManagerAdmin/admin/layouts/form/copy_layout.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\CopyType
-            layout\blocks_cache:
-                template: "@NetgenBlockManagerAdmin/admin/layouts/form/clear_blocks_cache.html.twig"
-                match:
-                    form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType
             shared_layout\related_layouts_cache:
                 template: "@NetgenBlockManagerAdmin/admin/shared_layouts/form/clear_related_layouts_cache.html.twig"
                 match:

@@ -107,11 +107,6 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function isContextual(): bool;
 
     /**
-     * Returns if the block is is cacheable or not.
-     */
-    public function isCacheable(): bool;
-
-    /**
      * Returns the list of all available locales in the block.
      *
      * @return string[]

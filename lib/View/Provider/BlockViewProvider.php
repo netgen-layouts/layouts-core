@@ -10,29 +10,9 @@ use Netgen\BlockManager\View\ViewInterface;
 
 final class BlockViewProvider implements ViewProviderInterface
 {
-    /**
-     * @param \Netgen\BlockManager\API\Values\Block\Block $value
-     * @param array $parameters
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
-     */
     public function provideView($value, array $parameters = []): ViewInterface
     {
-        $blockView = new BlockView($value);
-
-        if ($value->hasConfig('http_cache')) {
-            $httpCacheConfig = $value->getConfig('http_cache');
-
-            $blockView->setIsCacheable(
-                $httpCacheConfig->getParameter('use_http_cache')->getValue() ?? false
-            );
-
-            $blockView->setSharedMaxAge(
-                $httpCacheConfig->getParameter('shared_max_age')->getValue() ?? 0
-            );
-        }
-
-        return $blockView;
+        return new BlockView($value);
     }
 
     public function supports($value): bool

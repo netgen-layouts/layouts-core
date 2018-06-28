@@ -1,6 +1,3 @@
-parameters:
-    netgen_block_manager.controller.block_controller: "ngbm_block"
-
 services:
     netgen_block_manager.templating.twig.runtime.container_loader:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader
@@ -30,7 +27,7 @@ services:
         # public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.view.renderer.fragment"
+            - "@netgen_block_manager.view.renderer"
             - "@netgen_block_manager.locale.provider"
             - "@request_stack"
             - "@netgen_block_manager.error.handler"

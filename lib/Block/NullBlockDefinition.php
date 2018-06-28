@@ -111,9 +111,4 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     {
         return false;
     }
-
-    public function isCacheable(Block $block): bool
-    {
-        return false;
-    }
 }

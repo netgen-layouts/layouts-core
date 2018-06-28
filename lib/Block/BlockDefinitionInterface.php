@@ -116,9 +116,4 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      * Returns if the block definition has a plugin with provided FQCN.
      */
     public function hasPlugin(string $className): bool;
-
-    /**
-     * Returns if the provided block is cacheable.
-     */
-    public function isCacheable(Block $block): bool;
 }

@@ -17,7 +17,7 @@ final class ViewListener implements EventSubscriberInterface
     }
 
     /**
-     * Adds the caching headers for the view provided by the event.
+     * Sets the Netgen Layouts view provided by the controller to the request.
      */
     public function onView(GetResponseForControllerResultEvent $event): void
     {
