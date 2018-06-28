@@ -157,6 +157,43 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
+     * @expectedExceptionMessage Form mapper for "text" parameter type does not exist.
+     */
+    public function testBuildFormWithNoMapper(): void
+    {
+        $parentForm = $this->factory->create(
+            FormType::class,
+            new ParameterStruct()
+        );
+
+        $parameterDefinitions = new ParameterDefinitionCollection(
+            [
+                'test' => new ParameterDefinition(
+                    [
+                        'name' => 'test',
+                        'type' => new ParameterType\TextType(),
+                    ]
+                ),
+            ]
+        );
+
+        $parentForm->add(
+            'parameter_values',
+            ParametersType::class,
+            [
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
+            ]
+        );
+
+        $parentForm->submit([]);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::includeParameter
      */
     public function testSubmitValidDataWithGroups(): void

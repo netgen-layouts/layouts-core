@@ -19,11 +19,31 @@ final class HtmlTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
         $this->assertSame('html', $this->type->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::toHash
+     */
+    public function testToHash(): void
+    {
+        $unsafeHtml = <<<'HTML'
+<h1>Title</h1>
+<script src="https://cool-hacker.com/cool-hacking-script.js"></script>
+<a onclick="alert('Haw-haw!');" href="http://www.google.com">Google</a>
+HTML;
+
+        $safeHtml = <<<'HTML'
+<h1>Title</h1>
+<a href="http://www.google.com">Google</a>
+HTML;
+
+        $this->assertSame($safeHtml, $this->type->toHash($this->getParameterDefinition(), $unsafeHtml));
     }
 
     /**
