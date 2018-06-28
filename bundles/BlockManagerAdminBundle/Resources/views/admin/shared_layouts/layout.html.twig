@@ -69,13 +69,9 @@
                             {{ 'shared_layouts.layout.clear_related_layouts_caches'|trans }}
                         </button>
                     </li>
-
-                    <li>
-                        <button class="js-layout-clear-block-caches" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
-                            {{ 'layouts.layout.clear_block_caches'|trans }} <span class="note">{{ 'layouts.layout.clear_block_caches.note'|trans }}</span>
-                        </button>
-                    </li>
                 {% endif %}
+
+                {{ ngbm_template_plugin('admin.shared_layout.controls') }}
             </ul>
         </div>
     </div>
