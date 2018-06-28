@@ -80,9 +80,6 @@ class CsrfValidationListener implements EventSubscriberInterface
         }
 
         $headerToken = $request->headers->get(self::CSRF_TOKEN_HEADER);
-        if (!is_string($headerToken)) {
-            return false;
-        }
 
         return $this->csrfTokenManager->isTokenValid(
             new CsrfToken($this->csrfTokenId, $headerToken)
