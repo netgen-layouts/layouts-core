@@ -36,14 +36,12 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        return $this->innerListener->onKernelRequest($event);
+        $this->innerListener->onKernelRequest($event);
     }
 
     public function onFinishRequest(FinishRequestEvent $event)
     {
-        if (method_exists($this->innerListener, 'onFinishRequest')) {
-            $this->innerListener->onFinishRequest($event);
-        }
+        $this->innerListener->onFinishRequest($event);
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
