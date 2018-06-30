@@ -88,7 +88,6 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             $config = $plugin->postProcessConfiguration($config);
         }
 
-        $this->processHttpCacheConfiguration($config['http_cache'], $container);
         $this->validateCurrentDesign($config['design'], array_keys($config['design_list']));
 
         $this->loadConfigFiles($container);
@@ -135,7 +134,6 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             'framework/twig.yml' => 'twig',
             'framework/security.yml' => 'security',
             'design.yml' => 'netgen_block_manager',
-            'http_cache.yml' => 'netgen_block_manager',
             'block_type_groups.yml' => 'netgen_block_manager',
             'view/block_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
@@ -219,22 +217,6 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         $loader->load('services/transfer/services.yml');
 
         $loader->load('services/api.yml');
-    }
-
-    /**
-     * Processes configuration for HTTP cache.
-     */
-    private function processHttpCacheConfiguration(array $config, ContainerBuilder $container): void
-    {
-        $container->setParameter(
-            'netgen_block_manager.http_cache.ttl.default.block',
-            $config['ttl']['default']['block']
-        );
-
-        $container->setParameter(
-            'netgen_block_manager.http_cache.ttl.block_definition',
-            $config['ttl']['block_definition']
-        );
     }
 
     /**

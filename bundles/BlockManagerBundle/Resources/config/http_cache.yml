@@ -1,5 +1,0 @@
-http_cache:
-    ttl:
-        default:
-            block:
-                shared_max_age: 300
