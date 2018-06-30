@@ -11,7 +11,7 @@ interface RendererInterface
      *
      * Provided parameters are injected into every plugin template.
      *
-     * Templates provided by plugins themselves override any parameters
+     * Parameters provided by plugins themselves override any parameters
      * specified here.
      */
     public function renderPlugins(string $pluginName, array $parameters = []): string;
