@@ -199,6 +199,8 @@ services:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Index
         public: true
         parent: netgen_block_manager.controller.app.base
+        arguments:
+            - "%netgen_block_manager.app.pagelayout%"
 
     ## Layout controllers
 
