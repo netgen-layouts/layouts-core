@@ -19,11 +19,6 @@ collection.pager.previous: 'Previous'
 collection.pager.next: 'Next'
 collection.pager.load_more: 'Load more'
 
-config.collection_item.visibility: 'Visibility'
-config.collection_item.visibility.visibility_status: 'Visibility status'
-config.collection_item.visibility.visible_from: 'Visible from'
-config.collection_item.visibility.visible_to: 'Visible until'
-
 layout_resolver.target.path_info: 'Path info'
 layout_resolver.target.path_info_prefix: 'Path info prefix'
 layout_resolver.target.request_uri: 'Request URI'

@@ -164,17 +164,16 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
 
         $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
 
-        $this->assertArrayHasKey('visibility', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('visibility'));
+        $this->assertArrayHasKey('key', $struct->getConfigStructs());
+        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
 
         $this->assertSame(
             [
                 'configStructs' => [
-                    'visibility' => [
+                    'key' => [
                         'parameterValues' => [
-                            'visibility_status' => null,
-                            'visible_from' => null,
-                            'visible_to' => null,
+                            'param1' => null,
+                            'param2' => null,
                         ],
                     ],
                 ],

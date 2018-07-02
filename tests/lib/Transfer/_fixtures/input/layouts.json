@@ -138,10 +138,9 @@
                                             "value": "72",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         },
@@ -152,10 +151,9 @@
                                             "value": "73",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         },
@@ -166,10 +164,9 @@
                                             "value": "74",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         }
@@ -215,10 +212,9 @@
                                             "value": "72",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         },
@@ -229,10 +225,9 @@
                                             "value": "73",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         },
@@ -243,10 +238,9 @@
                                             "value": "74",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         }
@@ -325,10 +319,9 @@
                                             "value": "72",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         },
@@ -339,10 +332,9 @@
                                             "value": "73",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         },
@@ -353,10 +345,9 @@
                                             "value": "74",
                                             "value_type": "my_value_type",
                                             "configuration": {
-                                                "visibility": {
-                                                    "visibility_status": "visible",
-                                                    "visible_from": null,
-                                                    "visible_to": null
+                                                "key": {
+                                                    "param1": null,
+                                                    "param2": null
                                                 }
                                             }
                                         }

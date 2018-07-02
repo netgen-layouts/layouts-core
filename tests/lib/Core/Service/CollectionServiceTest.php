@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
@@ -385,13 +383,10 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
 
-        $dateTime = new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'));
+        $configStruct = new ConfigStruct();
+        $configStruct->setParameterValue('param2', 42);
 
-        $visibilityConfigStruct = new ConfigStruct();
-        $visibilityConfigStruct->setParameterValue('visibility_status', Item::VISIBILITY_SCHEDULED);
-        $visibilityConfigStruct->setParameterValue('visible_to', $dateTime);
-
-        $itemUpdateStruct->setConfigStruct('visibility', $visibilityConfigStruct);
+        $itemUpdateStruct->setConfigStruct('key', $configStruct);
 
         $item = $this->collectionService->loadItemDraft(1);
 
@@ -400,18 +395,12 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertTrue($updatedItem->isDraft());
         $this->assertInstanceOf(Item::class, $updatedItem);
 
-        $this->assertTrue($updatedItem->hasConfig('visibility'));
-        $visibilityConfig = $updatedItem->getConfig('visibility');
+        $this->assertTrue($updatedItem->hasConfig('key'));
+        $itemConfig = $updatedItem->getConfig('key');
 
-        $this->assertInstanceOf(Config::class, $visibilityConfig);
-        $this->assertSame(Item::VISIBILITY_SCHEDULED, $visibilityConfig->getParameter('visibility_status')->getValue());
-        $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
-
-        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
-
-        $this->assertInstanceOf(DateTimeImmutable::class, $visibleTo);
-        $this->assertSame('2018-02-01 15:00:00', $visibleTo->format('Y-m-d H:i:s'));
-        $this->assertSame('Antarctica/Casey', $visibleTo->getTimezone()->getName());
+        $this->assertInstanceOf(Config::class, $itemConfig);
+        $this->assertNull($itemConfig->getParameter('param1')->getValue());
+        $this->assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
     /**
@@ -775,17 +764,16 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
 
-        $this->assertArrayHasKey('visibility', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('visibility'));
+        $this->assertArrayHasKey('key', $struct->getConfigStructs());
+        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
 
         $this->assertSame(
             [
                 'configStructs' => [
-                    'visibility' => [
+                    'key' => [
                         'parameterValues' => [
-                            'visibility_status' => null,
-                            'visible_from' => null,
-                            'visible_to' => null,
+                            'param1' => null,
+                            'param2' => null,
                         ],
                     ],
                 ],

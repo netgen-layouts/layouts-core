@@ -51,8 +51,8 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler;
-use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\VisibilityConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
@@ -195,10 +195,10 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $itemVisibilityHandler = new VisibilityConfigHandler();
-        $itemVisibilityDefinition = new ConfigDefinition(
+        $itemConfigHandler = new ItemConfigHandler();
+        $itemConfigDefinition = new ConfigDefinition(
             [
-                'parameterDefinitions' => $itemVisibilityHandler->getParameterDefinitions(),
+                'parameterDefinitions' => $itemConfigHandler->getParameterDefinitions(),
             ]
         );
 
@@ -206,7 +206,7 @@ abstract class ServiceTestCase extends TestCase
             [
                 'valueType' => 'my_value_type',
                 'configDefinitions' => [
-                    'visibility' => $itemVisibilityDefinition,
+                    'key' => $itemConfigDefinition,
                 ],
             ]
         );
@@ -215,7 +215,7 @@ abstract class ServiceTestCase extends TestCase
 
         $this->queryTypeRegistry = new QueryTypeRegistry(['my_query_type' => new QueryType('my_query_type')]);
 
-        $configHandler = new ConfigHandler();
+        $configHandler = new BlockConfigHandler();
         $configDefinition = new ConfigDefinition(
             [
                 'parameterDefinitions' => $configHandler->getParameterDefinitions(),

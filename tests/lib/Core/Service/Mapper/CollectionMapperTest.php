@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
@@ -247,13 +246,9 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'value' => '12',
                 'valueType' => 'my_value_type',
                 'config' => [
-                    'visibility' => [
-                        'visibility_status' => APIItem::VISIBILITY_SCHEDULED,
-                        'visible_from' => null,
-                        'visible_to' => [
-                            'datetime' => '2018-02-01 15:00:00.000000',
-                            'timezone' => 'Antarctica/Casey',
-                        ],
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 42,
                     ],
                 ],
             ]
@@ -279,19 +274,13 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertSame($cmsItem, $item->getCmsItem());
         $this->assertTrue($item->isPublished());
 
-        $this->assertTrue($item->hasConfig('visibility'));
-        $this->assertInstanceOf(Config::class, $item->getConfig('visibility'));
+        $this->assertTrue($item->hasConfig('key'));
+        $this->assertInstanceOf(Config::class, $item->getConfig('key'));
 
-        $visibilityConfig = $item->getConfig('visibility');
+        $itemConfig = $item->getConfig('key');
 
-        $this->assertSame(APIItem::VISIBILITY_SCHEDULED, $visibilityConfig->getParameter('visibility_status')->getValue());
-        $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
-
-        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
-
-        $this->assertInstanceOf(DateTimeImmutable::class, $visibleTo);
-        $this->assertSame('2018-02-01 15:00:00', $visibleTo->format('Y-m-d H:i:s'));
-        $this->assertSame('Antarctica/Casey', $visibleTo->getTimezone()->getName());
+        $this->assertTrue($itemConfig->getParameter('param1')->getValue());
+        $this->assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
     /**
@@ -309,13 +298,9 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'value' => '12',
                 'valueType' => 'unknown',
                 'config' => [
-                    'visibility' => [
-                        'visibility_status' => APIItem::VISIBILITY_SCHEDULED,
-                        'visible_from' => null,
-                        'visible_to' => [
-                            'datetime' => '2018-02-01 15:00:00.000000',
-                            'timezone' => 'Antarctica/Casey',
-                        ],
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 42,
                     ],
                 ],
             ]
@@ -341,7 +326,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertSame($cmsItem, $item->getCmsItem());
         $this->assertTrue($item->isPublished());
 
-        $this->assertFalse($item->hasConfig('visibility'));
+        $this->assertFalse($item->hasConfig('key'));
     }
 
     /**

@@ -118,7 +118,7 @@ final class CollectionValidatorTest extends TestCase
                     'definition' => new ItemDefinition(
                         [
                             'configDefinitions' => [
-                                'visibility' => new ConfigDefinition(),
+                                'key' => new ConfigDefinition(),
                             ],
                         ]
                     ),
@@ -144,7 +144,7 @@ final class CollectionValidatorTest extends TestCase
             [
                 [
                     'configStructs' => [
-                        'visibility' => new ConfigStruct(),
+                        'key' => new ConfigStruct(),
                     ],
                 ],
                 true,
