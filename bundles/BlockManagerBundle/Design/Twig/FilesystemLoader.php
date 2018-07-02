@@ -40,6 +40,8 @@ final class FilesystemLoader implements LoaderInterface
      * @deprecated Used for compatibility with Twig 1.x
      *
      * @param mixed $name
+     *
+     * @return string
      */
     public function getSource($name): string
     {

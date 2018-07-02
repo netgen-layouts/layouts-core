@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
@@ -16,18 +15,12 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
 final class LoadLayoutBlocks extends Controller
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    private $layoutService;
-
-    /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     private $blockService;
 
-    public function __construct(LayoutService $layoutService, BlockService $blockService)
+    public function __construct(BlockService $blockService)
     {
-        $this->layoutService = $layoutService;
         $this->blockService = $blockService;
     }
 

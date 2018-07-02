@@ -48,11 +48,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
      */
     private $layoutHandler;
 
-    /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
-     */
-    private $blockHandler;
-
     public function __construct(
         HandlerInterface $persistenceHandler,
         LayoutValidator $validator,
@@ -66,7 +61,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $this->structBuilder = $structBuilder;
 
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
-        $this->blockHandler = $persistenceHandler->getBlockHandler();
     }
 
     public function loadLayout($layoutId): Layout
@@ -509,10 +503,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_PUBLISHED);
 
-        if ($this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_DRAFT)) {
-            if (!$discardExisting) {
-                throw new BadStateException('layout', 'The provided layout already has a draft.');
-            }
+        if (!$discardExisting && $this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_DRAFT)) {
+            throw new BadStateException('layout', 'The provided layout already has a draft.');
         }
 
         $layoutDraft = $this->transaction(

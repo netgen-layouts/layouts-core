@@ -13,23 +13,18 @@ use HTMLPurifier_Config;
 final class HtmlPurifier
 {
     /**
-     * @var \HTMLPurifier_Config
-     */
-    private $config;
-
-    /**
      * @var \HTMLPurifier
      */
     private $purifier;
 
     public function __construct()
     {
-        $this->config = HTMLPurifier_Config::createDefault();
-        $this->config->set('HTML.Doctype', 'XHTML 1.0 Strict');
-        $this->purifier = new BaseHTMLPurifier($this->config);
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Doctype', 'XHTML 1.0 Strict');
+        $this->purifier = new BaseHTMLPurifier($config);
     }
 
-    public function purify($value)
+    public function purify(string $value): string
     {
         return $this->purifier->purify($value);
     }

@@ -29,11 +29,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                         ->defaultValue(null)
                         ->validate()
                             ->ifTrue(function ($v): bool {
-                                if ($v === null || (is_string($v) && !empty($v))) {
-                                    return false;
-                                }
-
-                                return true;
+                                return !($v === null || (is_string($v) && !empty($v)));
                             })
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()

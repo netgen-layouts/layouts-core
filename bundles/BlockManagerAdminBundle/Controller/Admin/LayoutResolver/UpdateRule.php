@@ -63,9 +63,10 @@ final class UpdateRule extends Controller
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->comment = $comment;
-        $ruleUpdateStruct->layoutId = $layoutId !== null ?
-            (!empty($layoutId) ? $layoutId : 0) :
-            null;
+
+        if ($layoutId !== null) {
+            $ruleUpdateStruct->layoutId = !empty($layoutId) ? $layoutId : 0;
+        }
 
         $updatedRule = $this->layoutResolverService->updateRule(
             $rule,

@@ -161,7 +161,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $manualItemsCount = 0;
 
         foreach ($collection->getManualItems() as $item) {
-            if ($item->getPosition() < $startOffset || $item->getPosition() >= $endOffset) {
+            $itemPosition = $item->getPosition();
+            if ($itemPosition < $startOffset || $itemPosition >= $endOffset) {
                 continue;
             }
 

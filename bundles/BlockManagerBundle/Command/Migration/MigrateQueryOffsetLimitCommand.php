@@ -16,7 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class MigrateQueryOffsetLimitCommand extends Command
 {
-    private $knownQueryTypes = [
+    private const KNOWN_QUERY_TYPES = [
         'ezcontent_search' => [
             'offset' => 'offset',
             'limit' => 'limit',
@@ -119,8 +119,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
         foreach ($queryTypes as $queryType) {
             $queryTypeIdentifier = $queryType->getType();
-            if (isset($this->knownQueryTypes[$queryTypeIdentifier])) {
-                $queryTypeParameters[$queryTypeIdentifier] = $this->knownQueryTypes[$queryTypeIdentifier];
+            if (isset(self::KNOWN_QUERY_TYPES[$queryTypeIdentifier])) {
+                $queryTypeParameters[$queryTypeIdentifier] = self::KNOWN_QUERY_TYPES[$queryTypeIdentifier];
 
                 continue;
             }

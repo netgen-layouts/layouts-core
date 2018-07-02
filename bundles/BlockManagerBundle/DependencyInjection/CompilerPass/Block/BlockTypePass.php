@@ -68,7 +68,7 @@ final class BlockTypePass implements CompilerPassInterface
                 $blockTypes[$identifier]['enabled'] = true;
             }
 
-            $blockTypes[$identifier] = $blockTypes[$identifier] + [
+            $blockTypes[$identifier] += [
                 'name' => $blockDefinition['name'],
                 'icon' => $blockDefinition['icon'],
                 'definition_identifier' => $identifier,

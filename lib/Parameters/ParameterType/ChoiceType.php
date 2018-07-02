@@ -45,12 +45,10 @@ final class ChoiceType extends ParameterType
         $optionsResolver->setDefault(
             'default_value',
             function (Options $options, $previousValue) {
-                if ($options['required'] === true) {
-                    if (!is_callable($options['options']) && !empty($options['options'])) {
-                        $defaultValue = array_values($options['options'])[0];
+                if ($options['required'] === true && !empty($options['options']) && !is_callable($options['options'])) {
+                    $defaultValue = array_values($options['options'])[0];
 
-                        return $options['multiple'] === true ? [$defaultValue] : $defaultValue;
-                    }
+                    return $options['multiple'] === true ? [$defaultValue] : $defaultValue;
                 }
 
                 return $previousValue;

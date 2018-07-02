@@ -33,7 +33,7 @@ final class HtmlType extends ParameterType
 
     public function toHash(ParameterDefinition $parameterDefinition, $value)
     {
-        return $this->htmlPurifier->purify($value);
+        return $this->htmlPurifier->purify($value ?? '');
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array

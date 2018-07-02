@@ -247,7 +247,7 @@ final class BlockDefinitionFactory
                         'identifier' => $viewTypeIdentifier,
                         'name' => $viewTypeConfig['name'] ?? '',
                         'itemViewTypes' => $itemViewTypes,
-                        'validParameters' => array_key_exists('valid_parameters', $viewTypeConfig) ? $viewTypeConfig['valid_parameters'] : null,
+                        'validParameters' => $viewTypeConfig['valid_parameters'] ?? null,
                     ]
                 );
             }

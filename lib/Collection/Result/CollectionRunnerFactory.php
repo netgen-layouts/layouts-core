@@ -43,7 +43,7 @@ final class CollectionRunnerFactory
     {
         $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
 
-        if ($query->isContextual() && $showContextualSlots) {
+        if ($showContextualSlots && $query->isContextual()) {
             return new ContextualQueryRunner();
         }
 

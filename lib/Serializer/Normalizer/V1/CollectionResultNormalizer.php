@@ -72,7 +72,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
             'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
-            'is_dynamic' => $resultItem instanceof ManualItem ? false : true,
+            'is_dynamic' => !$resultItem instanceof ManualItem,
             'value' => $resultItem->getValue(),
             'value_type' => $resultItem->getValueType(),
             'name' => $resultItem->getName(),

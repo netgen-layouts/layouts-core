@@ -360,10 +360,8 @@ final class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
         }
 
-        if ($itemType !== null) {
-            if (!in_array($itemType, [Item::TYPE_MANUAL, Item::TYPE_OVERRIDE], true)) {
-                throw new BadStateException('itemType', 'Provided item type is not valid.');
-            }
+        if ($itemType !== null && !in_array($itemType, [Item::TYPE_MANUAL, Item::TYPE_OVERRIDE], true)) {
+            throw new BadStateException('itemType', 'Provided item type is not valid.');
         }
 
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);

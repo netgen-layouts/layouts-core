@@ -32,7 +32,7 @@ final class RemoteIdConverter
     {
         $link = parse_url($link);
 
-        if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
+        if (!is_array($link) || !isset($link['host'], $link['scheme'])) {
             return self::NULL_LINK;
         }
 
@@ -55,7 +55,7 @@ final class RemoteIdConverter
     {
         $link = parse_url($link);
 
-        if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
+        if (!is_array($link) || !isset($link['host'], $link['scheme'])) {
             return self::NULL_LINK;
         }
 

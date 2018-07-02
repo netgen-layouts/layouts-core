@@ -15,19 +15,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class CacheEnabledListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\ClientInterface
-     */
-    private $httpCacheClient;
-
-    /**
      * @var bool
      */
     private $cacheEnabled = true;
 
     public function __construct(ClientInterface $httpCacheClient)
     {
-        $this->httpCacheClient = $httpCacheClient;
-        $this->cacheEnabled = !$this->httpCacheClient instanceof NullClient;
+        $this->cacheEnabled = !$httpCacheClient instanceof NullClient;
     }
 
     public static function getSubscribedEvents(): array

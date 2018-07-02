@@ -318,10 +318,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
-        if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_DRAFT)) {
-            if (!$discardExisting) {
-                throw new BadStateException('rule', 'The provided rule already has a draft.');
-            }
+        if (!$discardExisting && $this->handler->ruleExists($persistenceRule->id, Value::STATUS_DRAFT)) {
+            throw new BadStateException('rule', 'The provided rule already has a draft.');
         }
 
         $ruleDraft = $this->transaction(

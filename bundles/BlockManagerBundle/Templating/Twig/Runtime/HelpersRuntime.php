@@ -25,8 +25,6 @@ final class HelpersRuntime
      */
     public function getLocaleName(string $locale, ?string $displayLocale = null): ?string
     {
-        $localeBundle = Intl::getLocaleBundle();
-
-        return $localeBundle->getLocaleName($locale, $displayLocale);
+        return $this->localeBundle->getLocaleName($locale, $displayLocale);
     }
 }

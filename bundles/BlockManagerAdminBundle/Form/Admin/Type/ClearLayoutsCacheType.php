@@ -68,6 +68,7 @@ final class ClearLayoutsCacheType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $layouts = [];
+
         foreach ($options['layouts'] as $layout) {
             $layouts[$layout->getId()] = $layout;
         }
