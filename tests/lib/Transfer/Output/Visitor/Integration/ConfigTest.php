@@ -46,7 +46,7 @@ abstract class ConfigTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): APIConfig { return $this->blockService->loadBlock(31)->getConfig('http_cache'); }, 'config/block_31.json'],
+            [function (): APIConfig { return $this->blockService->loadBlock(31)->getConfig('key'); }, 'config/block_31.json'],
         ];
     }
 }

@@ -29,12 +29,6 @@ view:
                 template: "@NetgenBlockManagerAdmin/app/form/query/edit/full.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Collection\Form\QueryEditType
-            block\config\http_cache\edit:
-                template: "@NetgenBlockManagerAdmin/app/form/block/config/edit/http_cache.html.twig"
-                match:
-                    form\type: Netgen\BlockManager\Config\Form\EditType
-                    form\config\value_type: Netgen\BlockManager\API\Values\Block\Block
-                    form\config\config_key: http_cache
             collection\item\config\visibility\edit:
                 template: "@NetgenBlockManagerAdmin/app/form/collection/item/config/edit/visibility.html.twig"
                 match:

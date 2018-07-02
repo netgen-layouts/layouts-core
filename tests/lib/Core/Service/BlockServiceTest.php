@@ -326,13 +326,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $httpCacheConfigStruct = new ConfigStruct();
-        $httpCacheConfigStruct->setParameterValue('use_http_cache', true);
-        $httpCacheConfigStruct->setParameterValue('shared_max_age', 400);
+        $configStruct = new ConfigStruct();
+        $configStruct->setParameterValue('param1', true);
+        $configStruct->setParameterValue('param2', 400);
 
         $blockCreateStruct->setConfigStruct(
-            'http_cache',
-            $httpCacheConfigStruct
+            'key',
+            $configStruct
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
@@ -341,12 +341,12 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
-        $this->assertTrue($block->hasConfig('http_cache'));
-        $httpCacheConfig = $block->getConfig('http_cache');
+        $this->assertTrue($block->hasConfig('key'));
+        $blockConfig = $block->getConfig('key');
 
-        $this->assertInstanceOf(Config::class, $httpCacheConfig);
-        $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
-        $this->assertSame(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
+        $this->assertInstanceOf(Config::class, $blockConfig);
+        $this->assertTrue($blockConfig->getParameter('param1')->getValue());
+        $this->assertSame(400, $blockConfig->getParameter('param2')->getValue());
 
         $this->assertFalse($block->isTranslatable());
         $this->assertContains('en', $block->getAvailableLocales());
@@ -765,23 +765,23 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
 
-        $httpCacheConfigStruct = new ConfigStruct();
-        $httpCacheConfigStruct->setParameterValue('use_http_cache', true);
-        $httpCacheConfigStruct->setParameterValue('shared_max_age', 400);
+        $configStruct = new ConfigStruct();
+        $configStruct->setParameterValue('param1', true);
+        $configStruct->setParameterValue('param2', 400);
 
-        $blockUpdateStruct->setConfigStruct('http_cache', $httpCacheConfigStruct);
+        $blockUpdateStruct->setConfigStruct('key', $configStruct);
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         $this->assertTrue($block->isDraft());
         $this->assertInstanceOf(Block::class, $block);
 
-        $this->assertTrue($block->hasConfig('http_cache'));
-        $httpCacheConfig = $block->getConfig('http_cache');
+        $this->assertTrue($block->hasConfig('key'));
+        $blockConfig = $block->getConfig('key');
 
-        $this->assertInstanceOf(Config::class, $httpCacheConfig);
-        $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
-        $this->assertSame(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
+        $this->assertInstanceOf(Config::class, $blockConfig);
+        $this->assertTrue($blockConfig->getParameter('param1')->getValue());
+        $this->assertSame(400, $blockConfig->getParameter('param2')->getValue());
     }
 
     /**
@@ -1798,8 +1798,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
 
-        $this->assertArrayHasKey('http_cache', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('http_cache'));
+        $this->assertArrayHasKey('key', $struct->getConfigStructs());
+        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
 
         $this->assertSame(
             [
@@ -1813,10 +1813,10 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'css_id' => null,
                 ],
                 'configStructs' => [
-                    'http_cache' => [
+                    'key' => [
                         'parameterValues' => [
-                            'use_http_cache' => null,
-                            'shared_max_age' => null,
+                            'param1' => null,
+                            'param2' => null,
                         ],
                     ],
                 ],

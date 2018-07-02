@@ -51,7 +51,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\VisibilityConfigHandler;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
@@ -215,10 +215,10 @@ abstract class ServiceTestCase extends TestCase
 
         $this->queryTypeRegistry = new QueryTypeRegistry(['my_query_type' => new QueryType('my_query_type')]);
 
-        $httpCacheHandler = new HttpCacheConfigHandler();
-        $httpCacheDefinition = new ConfigDefinition(
+        $configHandler = new ConfigHandler();
+        $configDefinition = new ConfigDefinition(
             [
-                'parameterDefinitions' => $httpCacheHandler->getParameterDefinitions(),
+                'parameterDefinitions' => $configHandler->getParameterDefinitions(),
             ]
         );
 
@@ -229,7 +229,7 @@ abstract class ServiceTestCase extends TestCase
             [
                 'identifier' => 'title',
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
-                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
+                'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => true,
                 'viewTypes' => [
                     'small' => new ViewType(
@@ -247,7 +247,7 @@ abstract class ServiceTestCase extends TestCase
             [
                 'identifier' => 'text',
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
-                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
+                'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
                 'viewTypes' => [
                     'standard' => new ViewType(
@@ -265,7 +265,7 @@ abstract class ServiceTestCase extends TestCase
             [
                 'identifier' => 'gallery',
                 'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
-                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
+                'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
                 'collections' => ['default' => new Collection()],
                 'viewTypes' => [
@@ -284,7 +284,7 @@ abstract class ServiceTestCase extends TestCase
             [
                 'identifier' => 'list',
                 'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
-                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
+                'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
                 'collections' => ['default' => new Collection()],
                 'viewTypes' => [
@@ -302,7 +302,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition5 = new ContainerDefinition(
             [
                 'identifier' => 'column',
-                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
+                'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
                 'viewTypes' => [
                     'column' => new ViewType(
@@ -319,7 +319,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition6 = new ContainerDefinition(
             [
                 'identifier' => 'two_columns',
-                'configDefinitions' => ['http_cache' => $httpCacheDefinition],
+                'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
                 'viewTypes' => [
                     'two_columns_50_50' => new ViewType(

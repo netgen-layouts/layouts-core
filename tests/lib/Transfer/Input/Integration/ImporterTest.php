@@ -11,7 +11,6 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
-use Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
@@ -25,6 +24,7 @@ use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\Container\TwoColu
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\ListHandler;
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TextHandler;
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TitleHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\BlockManager\Transfer\Input\Importer;
@@ -265,7 +265,7 @@ abstract class ImporterTest extends ServiceTestCase
     private function prepareBlockDefinitionRegistry(): void
     {
         $data = ['translatable' => true, 'view_types' => ['view_type' => ['enabled' => true]]];
-        $configHandlers = ['http_cache' => new HttpCacheConfigHandler()];
+        $configHandlers = ['key' => new ConfigHandler()];
 
         $handlerPluginRegistry = new HandlerPluginRegistry(
             [

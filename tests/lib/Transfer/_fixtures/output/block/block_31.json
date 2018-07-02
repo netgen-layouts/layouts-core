@@ -23,7 +23,7 @@
         }
     },
     "configuration": {
-        "http_cache": ["sub_visit_value"]
+        "key": ["sub_visit_value"]
     },
     "collections": {
         "default": ["sub_visit_value"],

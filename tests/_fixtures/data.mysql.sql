@@ -72,8 +72,8 @@ INSERT INTO `ngbm_block` VALUES (28,0,7,0,'/28/',NULL,NULL,NULL,'','','','','',0
 INSERT INTO `ngbm_block` VALUES (29,0,7,0,'/29/',NULL,NULL,NULL,'','','','','',0,'en',1);
 INSERT INTO `ngbm_block` VALUES (31,0,1,1,'/3/31/',3,'root',0,'list','list','standard','My block','',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (31,1,1,1,'/3/31/',3,'root',0,'list','grid','standard_with_intro','My published block','',1,'en',1);
-INSERT INTO `ngbm_block` VALUES (32,0,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"http_cache\": {\"use_http_cache\": false}}',1,'en',1);
-INSERT INTO `ngbm_block` VALUES (32,1,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"http_cache\": {\"use_http_cache\": false}}',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (32,0,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"key\": {\"param1\": false}}',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (32,1,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"key\": {\"param1\": false}}',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (33,0,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (33,1,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (33,2,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',1,'en',1);

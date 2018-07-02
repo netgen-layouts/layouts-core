@@ -68,9 +68,9 @@
                                 }
                             },
                             "configuration": {
-                                "http_cache": {
-                                    "use_http_cache": false,
-                                    "shared_max_age": null
+                                "key": {
+                                    "param1": false,
+                                    "param2": null
                                 }
                             },
                             "collections": {

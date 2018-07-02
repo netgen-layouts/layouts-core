@@ -5,12 +5,6 @@ services:
         arguments:
             - "@netgen_block_manager.parameters.parameter_builder_factory"
 
-    netgen_block_manager.block.config_definition.handler.http_cache:
-        class: Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler
-        public: false
-        tags:
-            - { name: netgen_block_manager.block.block_config_handler, config_key: http_cache }
-
     netgen_block_manager.collection.item.config_definition.handler.visibility:
         class: Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler\VisibilityConfigHandler
         public: false

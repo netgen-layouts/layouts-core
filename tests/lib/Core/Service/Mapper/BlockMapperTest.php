@@ -50,9 +50,9 @@ abstract class BlockMapperTest extends ServiceTestCase
                     ],
                 ],
                 'config' => [
-                    'http_cache' => [
-                        'use_http_cache' => true,
-                        'shared_max_age' => 400,
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 400,
                     ],
                 ],
             ]
@@ -77,13 +77,13 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertSame('test', $block->getParameter('css_class')->getValue());
         $this->assertNull($block->getParameter('css_id')->getValue());
 
-        $this->assertTrue($block->hasConfig('http_cache'));
-        $this->assertInstanceOf(Config::class, $block->getConfig('http_cache'));
+        $this->assertTrue($block->hasConfig('key'));
+        $this->assertInstanceOf(Config::class, $block->getConfig('key'));
 
-        $httpCacheConfig = $block->getConfig('http_cache');
+        $blockConfig = $block->getConfig('key');
 
-        $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
-        $this->assertSame(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
+        $this->assertTrue($blockConfig->getParameter('param1')->getValue());
+        $this->assertSame(400, $blockConfig->getParameter('param2')->getValue());
 
         $this->assertTrue($block->isTranslatable());
         $this->assertSame('en', $block->getMainLocale());
@@ -243,9 +243,9 @@ abstract class BlockMapperTest extends ServiceTestCase
                     ],
                 ],
                 'config' => [
-                    'http_cache' => [
-                        'use_http_cache' => true,
-                        'shared_max_age' => 400,
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 400,
                     ],
                 ],
             ]
@@ -267,7 +267,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertFalse($block->hasParameter('css_class'));
         $this->assertFalse($block->hasParameter('css_id'));
 
-        $this->assertFalse($block->hasConfig('http_cache'));
+        $this->assertFalse($block->hasConfig('key'));
 
         $this->assertTrue($block->isTranslatable());
         $this->assertSame('en', $block->getMainLocale());
@@ -295,9 +295,9 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'availableLocales' => ['en'],
                 'parameters' => ['en' => []],
                 'config' => [
-                    'http_cache' => [
-                        'use_http_cache' => true,
-                        'shared_max_age' => 400,
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 400,
                     ],
                 ],
             ]
@@ -352,9 +352,9 @@ abstract class BlockMapperTest extends ServiceTestCase
                     ],
                 ],
                 'config' => [
-                    'http_cache' => [
-                        'use_http_cache' => true,
-                        'shared_max_age' => 400,
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 400,
                     ],
                 ],
             ]

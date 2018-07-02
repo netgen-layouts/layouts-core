@@ -867,8 +867,8 @@ final class LayoutHandlerTest extends TestCase
                         ],
                     ],
                     'config' => [
-                        'http_cache' => [
-                            'use_http_cache' => false,
+                        'key' => [
+                            'param1' => false,
                         ],
                     ],
                     'viewType' => 'grid',
@@ -1081,8 +1081,8 @@ final class LayoutHandlerTest extends TestCase
                         ],
                     ],
                     'config' => [
-                        'http_cache' => [
-                            'use_http_cache' => false,
+                        'key' => [
+                            'param1' => false,
                         ],
                     ],
                     'viewType' => 'grid',
@@ -1271,8 +1271,8 @@ final class LayoutHandlerTest extends TestCase
                         ],
                     ],
                     'config' => [
-                        'http_cache' => [
-                            'use_http_cache' => false,
+                        'key' => [
+                            'param1' => false,
                         ],
                     ],
                     'viewType' => 'grid',

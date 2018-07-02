@@ -9,20 +9,20 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
+final class ConfigHandler implements ConfigDefinitionHandlerInterface
 {
     public function getParameterDefinitions(): array
     {
         return [
-            'use_http_cache' => new ParameterDefinition(
+            'param1' => new ParameterDefinition(
                 [
-                    'name' => 'use_http_cache',
+                    'name' => 'param1',
                     'type' => new ParameterType\BooleanType(),
                 ]
             ),
-            'shared_max_age' => new ParameterDefinition(
+            'param2' => new ParameterDefinition(
                 [
-                    'name' => 'shared_max_age',
+                    'name' => 'param2',
                     'type' => new ParameterType\IntegerType(),
                 ]
             ),
@@ -31,5 +31,7 @@ final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 
     public function buildParameters(ParameterBuilderInterface $builder): void
     {
+        $builder->add('param1', ParameterType\BooleanType::class);
+        $builder->add('param2', ParameterType\IntegerType::class);
     }
 }

@@ -96,8 +96,8 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
 
         $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
 
-        $this->assertArrayHasKey('http_cache', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('http_cache'));
+        $this->assertArrayHasKey('key', $struct->getConfigStructs());
+        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
 
         $this->assertSame(
             [
@@ -111,10 +111,10 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
                     'css_id' => null,
                 ],
                 'configStructs' => [
-                    'http_cache' => [
+                    'key' => [
                         'parameterValues' => [
-                            'use_http_cache' => null,
-                            'shared_max_age' => null,
+                            'param1' => null,
+                            'param2' => null,
                         ],
                     ],
                 ],

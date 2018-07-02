@@ -38,13 +38,6 @@ condition_type.query_parameter.parameter_values: 'Parameter values'
 condition_type.time.from: 'From'
 condition_type.time.to: 'Until'
 
-config.block.http_cache.header: 'Configure cache'
-config.block.http_cache.definition: 'Definition'
-config.block.http_cache.view_type: 'View type'
-config.block.http_cache.shared_max_age.placeholder: 'Enter TTL in seconds'
-config.block.http_cache.cancel: 'Cancel'
-config.block.http_cache.submit: 'Set cache'
-
 config.collection_item.visibility.header: 'Configure visibility'
 config.collection_item.visibility.info: 'This item is <strong>hidden</strong> within the CMS. Following settings <strong>will not apply</strong> if the item is not visible in the CMS.'
 config.collection_item.visibility.warning: '<strong>Warning:</strong> Please make sure to set proper caching policy on this block.'
