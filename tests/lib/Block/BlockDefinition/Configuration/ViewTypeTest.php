@@ -28,7 +28,7 @@ final class ViewTypeTest extends TestCase
     public function setUp(): void
     {
         $this->itemViewType1 = new ItemViewType(['identifier' => 'standard']);
-        $this->itemViewType1 = new ItemViewType(['identifier' => 'standard_with_intro']);
+        $this->itemViewType2 = new ItemViewType(['identifier' => 'standard_with_intro']);
 
         $this->viewType = new ViewType(
             [
