@@ -11,7 +11,7 @@ parameters:
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
 
         # Compatibility with Symfony 2.8
-        - '#Call to an undefined method Netgen\\Bundle\\BlockManagerDebugBundle\\DataCollector\\BlockManagerDataCollector::varToString\(\)#'
+        - '#Call to function method_exists\(\) with .* will always evaluate to false.#'
 
         # Netgen Layouts specifics
         - '#Parameter \#1 \$value of method Netgen\\BlockManager\\Item\\CmsItemLoaderInterface::load\(\) expects int\|string, bool\|float\|int\|string given.#'
