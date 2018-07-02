@@ -6,19 +6,15 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\BlockManager\Tests\Kernel\MockerContainer;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     use DatabaseTrait;
-
-    /**
-     * @var \Netgen\BlockManager\Tests\Kernel\MockerContainer
-     */
-    protected $clientContainer;
 
     public function setUp(): void
     {
@@ -40,14 +36,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     {
         parent::setUpClient();
 
-        // We're using the container from kernel to bypass injection of
-        // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
-
-        /** @var \Netgen\BlockManager\Tests\Kernel\MockerContainer $clientContainer */
-        $clientContainer = self::$kernel->getContainer();
-
-        $this->clientContainer = $clientContainer;
-
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
         $this->client->setServerParameter('PHP_AUTH_USER', (string) getenv('SF_USERNAME'));
         $this->client->setServerParameter('PHP_AUTH_PW', (string) getenv('SF_PASSWORD'));
@@ -55,16 +43,21 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function mockQueryType(): void
     {
+        $clientContainer = $this->client->getContainer();
+        if (!$clientContainer instanceof MockerContainer) {
+            throw new RuntimeException('Symfony kernel is not configured yet.');
+        }
+
         $searchFixtures = require __DIR__ . '/_fixtures/search.php';
 
         /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
-        $queryTypeRegistry = $this->clientContainer->get('netgen_block_manager.collection.registry.query_type');
+        $queryTypeRegistry = $clientContainer->get('netgen_block_manager.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchFixtures, count($searchFixtures));
         $allQueryTypes = $queryTypeRegistry->getQueryTypes();
         $allQueryTypes['my_query_type'] = $queryType;
 
-        $this->clientContainer->mock(
+        $clientContainer->mock(
             'netgen_block_manager.collection.registry.query_type',
             new QueryTypeRegistry($allQueryTypes)
         );
@@ -116,7 +109,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Pretty encodes the provided array.
      *
-     * @throws \RuntimeException If encoding failed
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If encoding failed
      */
     protected function jsonEncode(array $content): string
     {

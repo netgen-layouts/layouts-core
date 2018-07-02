@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
+use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Tests\Kernel\MockerContainer;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +19,14 @@ final class LoadConfigTest extends JsonApiTestCase
      */
     public function testLoadConfig(): void
     {
+        $clientContainer = $this->client->getContainer();
+        if (!$clientContainer instanceof MockerContainer) {
+            throw new RuntimeException('Symfony kernel is not configured yet.');
+        }
+
         /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
-        $tokenManager = $this->clientContainer->get('security.csrf.token_manager');
-        $tokenId = $this->clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
+        $tokenManager = $clientContainer->get('security.csrf.token_manager');
+        $tokenId = $clientContainer->getParameter('netgen_block_manager.api.csrf_token_id');
 
         $currentToken = $tokenManager->getToken($tokenId);
 
