@@ -77,20 +77,16 @@ final class BlockDefinitionPass implements CompilerPassInterface
             }
 
             $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
+
             $blockDefinitionService = new Definition($definitionClass);
+            $blockDefinitionService->setFactory([new Reference('netgen_block_manager.block.block_definition_factory'), $factoryMethod]);
 
             $blockDefinitionService->setLazy(true);
             $blockDefinitionService->setPublic(true);
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument($blockDefinition);
-            $blockDefinitionService->addArgument(
-                [
-                    'http_cache' => new Reference('netgen_block_manager.block.config_definition.handler.http_cache'),
-                ]
-            );
-
-            $blockDefinitionService->setFactory([new Reference('netgen_block_manager.block.block_definition_factory'), $factoryMethod]);
+            $blockDefinitionService->addArgument($this->getConfigHandlers($container));
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 
@@ -98,5 +94,25 @@ final class BlockDefinitionPass implements CompilerPassInterface
         }
 
         $blockDefinitionRegistry->replaceArgument(0, $blockDefinitionServices);
+    }
+
+    private function getConfigHandlers(ContainerBuilder $container): array
+    {
+        $configHandlers = [];
+
+        $configHandlerServices = $container->findTaggedServiceIds('netgen_block_manager.block.block_config_handler');
+        foreach ($configHandlerServices as $configHandlerService => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['config_key'])) {
+                    throw new RuntimeException(
+                        "Block config handler definition must have an 'config_key' attribute in its' tag."
+                    );
+                }
+
+                $configHandlers[$tag['config_key']] = new Reference($configHandlerService);
+            }
+        }
+
+        return $configHandlers;
     }
 }
