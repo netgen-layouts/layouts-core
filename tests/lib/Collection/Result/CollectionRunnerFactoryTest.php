@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\DynamicCollectionRunner;
 use Netgen\BlockManager\Collection\Result\ManualCollectionRunner;
@@ -29,7 +30,7 @@ final class CollectionRunnerFactoryTest extends TestCase
     {
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock);
+        $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
     }
 
     /**

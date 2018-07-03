@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
@@ -35,7 +36,7 @@ final class ManualCollectionRunnerTest extends TestCase
     public function testCollectionResult(array $collectionItems, array $values, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
         $collection = new Collection($collectionItems);
-        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock);
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 

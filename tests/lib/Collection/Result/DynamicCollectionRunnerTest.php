@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Item\CmsItem;
@@ -60,7 +61,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         int $limit = 200
     ): void {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock);
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 

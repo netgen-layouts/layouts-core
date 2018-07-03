@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Values\Collection;
 
-use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
@@ -12,7 +11,6 @@ use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Utils\DateTimeUtils;
 
 final class Item extends Value implements APIItem
 {
@@ -99,42 +97,12 @@ final class Item extends Value implements APIItem
         return $this->getLazyProperty($this->cmsItem);
     }
 
-    public function isScheduled(): bool
-    {
-        if (!$this->hasConfig('visibility')) {
-            return false;
-        }
-
-        $visibilityConfig = $this->getConfig('visibility');
-
-        return $visibilityConfig->getParameter('visibility_status')->getValue() === self::VISIBILITY_SCHEDULED;
-    }
-
-    public function isVisible(?DateTimeInterface $reference = null): bool
-    {
-        if (!$this->hasConfig('visibility')) {
-            return true;
-        }
-
-        $visibilityConfig = $this->getConfig('visibility');
-        $visibilityStatus = $visibilityConfig->getParameter('visibility_status')->getValue();
-
-        if ($visibilityStatus !== self::VISIBILITY_SCHEDULED) {
-            return $visibilityStatus !== self::VISIBILITY_HIDDEN;
-        }
-
-        $visibleFrom = $visibilityConfig->getParameter('visible_from')->getValue();
-        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
-
-        return DateTimeUtils::isBetweenDates($reference, $visibleFrom, $visibleTo);
-    }
-
     public function isValid(): bool
     {
         if ($this->getCmsItem() instanceof NullCmsItem) {
             return false;
         }
 
-        return $this->isVisible() && $this->getCmsItem()->isVisible();
+        return $this->getCmsItem()->isVisible();
     }
 }

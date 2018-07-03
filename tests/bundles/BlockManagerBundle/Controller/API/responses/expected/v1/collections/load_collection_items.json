@@ -10,7 +10,8 @@
         "value_type": "my_value_type",
         "name": "Value with ID #72",
         "cms_visible": true,
-        "cms_url": "/value/72/some/url"
+        "cms_url": "/value/72/some/url",
+        "config": []
     },
     {
         "id": 8,
@@ -23,7 +24,8 @@
         "value_type": "my_value_type",
         "name": "Value with ID #73",
         "cms_visible": true,
-        "cms_url": "/value/73/some/url"
+        "cms_url": "/value/73/some/url",
+        "config": []
     },
     {
         "id": 9,
@@ -36,6 +38,7 @@
         "value_type": "my_value_type",
         "name": "Value with ID #74",
         "cms_visible": true,
-        "cms_url": "/value/74/some/url"
+        "cms_url": "/value/74/some/url",
+        "config": []
     }
 ]

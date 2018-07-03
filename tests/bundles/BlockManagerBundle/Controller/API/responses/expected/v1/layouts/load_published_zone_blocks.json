@@ -39,7 +39,8 @@
                 "offset": 4,
                 "limit": 2
             }
-        ]
+        ],
+        "config": []
     },
     {
         "id": 35,
@@ -74,6 +75,7 @@
                 "offset": 0,
                 "limit": null
             }
-        ]
+        ],
+        "config": []
     }
 ]

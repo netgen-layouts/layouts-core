@@ -35,6 +35,13 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
             $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
         }
 
+        $configuration = [];
+        foreach ($block->getConfigs() as $configKey => $config) {
+            foreach ($config->getParameters() as $parameter) {
+                $configuration[$configKey][$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
+            }
+        }
+
         $placeholders = [];
         foreach ($block->getPlaceholders() as $placeholder) {
             $placeholders[] = new VersionedValue($placeholder, $object->getVersion());
@@ -57,6 +64,7 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
             'is_container' => false,
             'placeholders' => $this->normalizer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizeBlockCollections($block),
+            'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];
 
         if ($blockDefinition instanceof ContainerDefinitionInterface) {

@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 
 final class CollectionRunnerFactory
@@ -15,9 +16,15 @@ final class CollectionRunnerFactory
      */
     private $cmsItemBuilder;
 
-    public function __construct(CmsItemBuilderInterface $cmsItemBuilder)
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
+    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, VisibilityResolverInterface $visibilityResolver)
     {
         $this->cmsItemBuilder = $cmsItemBuilder;
+        $this->visibilityResolver = $visibilityResolver;
     }
 
     /**
@@ -30,10 +37,10 @@ final class CollectionRunnerFactory
         if ($collectionQuery instanceof Query) {
             $queryRunner = $this->getQueryRunner($collectionQuery, $flags);
 
-            return new DynamicCollectionRunner($queryRunner);
+            return new DynamicCollectionRunner($queryRunner, $this->visibilityResolver);
         }
 
-        return new ManualCollectionRunner();
+        return new ManualCollectionRunner($this->visibilityResolver);
     }
 
     /**

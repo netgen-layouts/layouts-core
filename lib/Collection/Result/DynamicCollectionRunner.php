@@ -9,6 +9,7 @@ use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Item\CmsItemInterface;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
@@ -18,9 +19,15 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      */
     private $queryRunner;
 
-    public function __construct(QueryRunnerInterface $queryRunner)
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
+    public function __construct(QueryRunnerInterface $queryRunner, VisibilityResolverInterface $visibilityResolver)
     {
         $this->queryRunner = $queryRunner;
+        $this->visibilityResolver = $visibilityResolver;
     }
 
     public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator
@@ -63,7 +70,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             }
 
             if ($item->getType() !== CollectionItem::TYPE_OVERRIDE || $item->getPosition() === $totalCount) {
-                if ($item->isValid()) {
+                if ($this->visibilityResolver->isVisible($item) && $item->isValid()) {
                     ++$totalCount;
                 }
             }
@@ -87,7 +94,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         $queryValue = $this->getQueryValue($queryIterator);
 
-        if (!$collectionItem->isValid()) {
+        if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
             if (!$queryValue instanceof CmsItemInterface) {
                 return null;
             }
@@ -106,7 +113,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      */
     private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
-        if (!$collectionItem->isValid()) {
+        if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItemInterface) {
                 return null;
@@ -166,7 +173,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 continue;
             }
 
-            if ($item->isValid()) {
+            if ($this->visibilityResolver->isVisible($item) && $item->isValid()) {
                 ++$manualItemsCount;
             }
         }

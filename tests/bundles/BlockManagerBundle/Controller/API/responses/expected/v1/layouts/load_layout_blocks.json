@@ -24,7 +24,8 @@
         "always_available": true,
         "is_container": false,
         "placeholders": [],
-        "collections": []
+        "collections": [],
+        "config": []
     },
     {
         "id": 31,
@@ -66,7 +67,8 @@
                 "offset": 4,
                 "limit": 2
             }
-        ]
+        ],
+        "config": []
     },
     {
         "id": 35,
@@ -101,6 +103,7 @@
                 "offset": 0,
                 "limit": null
             }
-        ]
+        ],
+        "config": []
     }
 ]

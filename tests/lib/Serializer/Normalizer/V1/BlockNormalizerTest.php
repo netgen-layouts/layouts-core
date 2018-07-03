@@ -11,7 +11,6 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
@@ -90,20 +89,6 @@ final class BlockNormalizerTest extends TestCase
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',
-                'parameters' => [
-                    'some_param' => new Parameter(
-                        [
-                            'name' => 'some_param',
-                            'value' => 'some_value',
-                        ]
-                    ),
-                    'some_other_param' => new Parameter(
-                        [
-                            'name' => 'some_other_param',
-                            'value' => 'some_other_value',
-                        ]
-                    ),
-                ],
             ]
         );
 
@@ -122,6 +107,18 @@ final class BlockNormalizerTest extends TestCase
             ->method('normalize')
             ->with($this->equalTo([new VersionedValue(new Placeholder(['identifier' => 'main']), 1)]))
             ->will($this->returnValue(['normalized placeholders']));
+
+        $serializedConfig = [
+            'key' => [
+                'param1' => 'value1',
+                'param2' => 'value2',
+            ],
+        ];
+
+        $this->normalizerMock
+            ->expects($this->at(2))
+            ->method('normalize')
+            ->will($this->returnValue($serializedConfig));
 
         $this->blockServiceMock
             ->expects($this->once())
@@ -155,6 +152,7 @@ final class BlockNormalizerTest extends TestCase
                         'limit' => $collection->getLimit(),
                     ],
                 ],
+                'config' => $serializedConfig,
             ],
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

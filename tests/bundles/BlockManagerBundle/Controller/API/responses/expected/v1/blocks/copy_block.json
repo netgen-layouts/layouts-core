@@ -22,5 +22,6 @@
     "always_available": true,
     "is_container": false,
     "placeholders": [],
-    "collections": []
+    "collections": [],
+    "config": []
 }

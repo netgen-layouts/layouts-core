@@ -9,5 +9,6 @@
     "value_type": "my_value_type",
     "name": "Value with ID #72",
     "cms_visible": true,
-    "cms_url": "/value/72/some/url"
+    "cms_url": "/value/72/some/url",
+    "config": []
 }

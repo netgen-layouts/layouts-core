@@ -11,6 +11,7 @@
             "value": 140,
             "value_type": "my_value_type",
             "name": "Value with ID #140",
+            "config": [],
             "position": 0
         },
         {
@@ -24,6 +25,7 @@
             "value": 79,
             "value_type": "my_value_type",
             "name": "Value with ID #79",
+            "config": [],
             "position": 1
         },
         {
@@ -37,6 +39,7 @@
             "value": 72,
             "value_type": "my_value_type",
             "name": "Value with ID #72",
+            "config": [],
             "position": 2
         },
         {
@@ -50,6 +53,7 @@
             "value": 73,
             "value_type": "my_value_type",
             "name": "Value with ID #73",
+            "config": [],
             "position": 3
         },
         {
@@ -63,6 +67,7 @@
             "value": 78,
             "value_type": "my_value_type",
             "name": "Value with ID #78",
+            "config": [],
             "position": 4
         },
         {
@@ -76,6 +81,7 @@
             "value": 74,
             "value_type": "my_value_type",
             "name": "Value with ID #74",
+            "config": [],
             "position": 5
         }
     ],

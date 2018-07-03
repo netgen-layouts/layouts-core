@@ -38,5 +38,6 @@
             "offset": 4,
             "limit": 2
         }
-    ]
+    ],
+    "config": []
 }

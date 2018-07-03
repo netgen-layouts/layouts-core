@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 
 /**
  * Manual collection behaves as a list where invisible or invalid items
@@ -15,6 +16,16 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
  */
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
+    public function __construct(VisibilityResolverInterface $visibilityResolver)
+    {
+        $this->visibilityResolver = $visibilityResolver;
+    }
+
     public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator
     {
         $itemCount = 0;
@@ -26,10 +37,10 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
             }
 
             $includeResult = false;
-            $itemValid = $collectionItem->isValid();
+            $itemValid = $this->visibilityResolver->isVisible($collectionItem) && $collectionItem->isValid();
 
             if ($itemValid && $skippedCount >= $offset) {
-                // We're always including valid items once we skip up to offset visible items
+                // We're always including valid items once we skip up to $offset visible items
                 // These are the items that are actually displayed on the frontend.
                 $includeResult = true;
             }
@@ -59,7 +70,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $totalCount = 0;
 
         foreach ($collection->getItems() as $collectionItem) {
-            if (!$collectionItem->isValid()) {
+            if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
                 continue;
             }
 

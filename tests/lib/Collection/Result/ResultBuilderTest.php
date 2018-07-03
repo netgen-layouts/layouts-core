@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
+use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
@@ -16,10 +17,8 @@ use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilder;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
@@ -179,7 +178,7 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder(int $maxLimit): ResultBuilderInterface
     {
         return new ResultBuilder(
-            new CollectionRunnerFactory($this->cmsItemBuilder),
+            new CollectionRunnerFactory($this->cmsItemBuilder, new VisibilityResolver()),
             12,
             $maxLimit
         );
@@ -205,19 +204,6 @@ final class ResultBuilderTest extends TestCase
                     'value' => $id,
                     'definition' => new ItemDefinition(['valueType' => 'value']),
                     'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
-                    'configs' => [
-                        'visibility' => new Config(
-                            [
-                                'parameters' => [
-                                    'visibility_status' => new Parameter(
-                                        [
-                                            'value' => Item::VISIBILITY_VISIBLE,
-                                        ]
-                                    ),
-                                ],
-                            ]
-                        ),
-                    ],
                 ]
             );
         }
@@ -230,19 +216,6 @@ final class ResultBuilderTest extends TestCase
                     'value' => $id,
                     'definition' => new ItemDefinition(['valueType' => 'value']),
                     'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
-                    'configs' => [
-                        'visibility' => new Config(
-                            [
-                                'parameters' => [
-                                    'visibility_status' => new Parameter(
-                                        [
-                                            'value' => Item::VISIBILITY_VISIBLE,
-                                        ]
-                                    ),
-                                ],
-                            ]
-                        ),
-                    ],
                 ]
             );
         }

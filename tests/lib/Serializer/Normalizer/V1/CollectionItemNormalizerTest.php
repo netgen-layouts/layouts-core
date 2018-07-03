@@ -5,18 +5,23 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
+use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionItemNormalizerTest extends TestCase
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $normalizerMock;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -29,11 +34,11 @@ final class CollectionItemNormalizerTest extends TestCase
 
     public function setUp(): void
     {
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
-        $this->normalizer = new CollectionItemNormalizer(
-            $this->urlGeneratorMock
-        );
+        $this->normalizer = new CollectionItemNormalizer($this->urlGeneratorMock, new VisibilityResolver());
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
@@ -58,21 +63,20 @@ final class CollectionItemNormalizerTest extends TestCase
                         'valueType' => 'my_value_type',
                     ]
                 ),
-                'configs' => [
-                    'visibility' => new Config(
-                        [
-                            'parameters' => [
-                                'visibility_status' => new Parameter(
-                                    [
-                                        'value' => CollectionItem::VISIBILITY_VISIBLE,
-                                    ]
-                                ),
-                            ],
-                        ]
-                    ),
-                ],
             ]
         );
+
+        $serializedConfig = [
+            'key' => [
+                'param1' => 'value1',
+                'param2' => 'value2',
+            ],
+        ];
+
+        $this->normalizerMock
+            ->expects($this->at(0))
+            ->method('normalize')
+            ->will($this->returnValue($serializedConfig));
 
         $this->urlGeneratorMock
             ->expects($this->any())
@@ -86,13 +90,14 @@ final class CollectionItemNormalizerTest extends TestCase
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
-                'visible' => $item->isVisible(),
-                'scheduled' => $item->isScheduled(),
+                'visible' => true,
+                'scheduled' => false,
                 'value' => $item->getValue(),
                 'value_type' => $item->getDefinition()->getValueType(),
                 'name' => 'Value name',
                 'cms_visible' => true,
                 'cms_url' => '/some/url',
+                'config' => $serializedConfig,
             ],
             $this->normalizer->normalize(new VersionedValue($item, 1))
         );

@@ -7,8 +7,10 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\CmsItem;
+use Netgen\BlockManager\Item\NullCmsItem;
 
 final class Collection implements APICollection
 {
@@ -38,9 +40,10 @@ final class Collection implements APICollection
                 [
                     'type' => Item::TYPE_MANUAL,
                     'value' => $value,
-                    'cmsItem' => new CmsItem(['value' => $value]),
+                    'cmsItem' => $value !== null ?
+                        new CmsItem(['value' => $value, 'isVisible' => true]) :
+                        new NullCmsItem('value'),
                     'position' => $position,
-                    'isValid' => $value !== null,
                 ]
             );
         }
@@ -50,9 +53,10 @@ final class Collection implements APICollection
                 [
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $value,
-                    'cmsItem' => new CmsItem(['value' => $value]),
+                    'cmsItem' => $value !== null ?
+                        new CmsItem(['value' => $value, 'isVisible' => true]) :
+                        new NullCmsItem('value'),
                     'position' => $position,
-                    'isValid' => $value !== null,
                 ]
             );
         }
