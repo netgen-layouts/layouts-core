@@ -27,8 +27,10 @@ final class TargetTypePass implements CompilerPassInterface
             $targetTypes[$priority][] = new Reference($targetType);
         }
 
-        krsort($targetTypes);
-        $targetTypes = array_merge(...$targetTypes);
+        if (!empty($targetTypes)) {
+            krsort($targetTypes);
+            $targetTypes = array_merge(...$targetTypes);
+        }
 
         foreach ($targetTypes as $targetType) {
             $targetTypeRegistry->addArgument($targetType);
