@@ -28,6 +28,7 @@ final class ManualCollectionRunnerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::count
      * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::runCollection
      *

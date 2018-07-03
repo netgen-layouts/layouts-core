@@ -16,6 +16,8 @@ final class VisibilityResolver implements VisibilityResolverInterface
     /**
      * Sets the available voters.
      *
+     * @todo Replace with constructor injection and IteratorArgument when support for Symfony 2.8 ends.
+     *
      * @param \Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[] $voters
      */
     public function setVoters(array $voters = []): void

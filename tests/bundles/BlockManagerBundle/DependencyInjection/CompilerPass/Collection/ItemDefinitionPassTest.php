@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
 {
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
      */
     public function testProcess(): void

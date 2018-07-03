@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 {
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @dataProvider processDataProvider
      */
@@ -62,6 +63,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @dataProvider processDataProvider
      */

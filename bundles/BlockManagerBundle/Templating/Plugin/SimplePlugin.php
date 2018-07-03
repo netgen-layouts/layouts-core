@@ -11,9 +11,15 @@ final class SimplePlugin implements PluginInterface
      */
     private $templateName;
 
-    public function __construct(string $templateName)
+    /**
+     * @var array
+     */
+    private $parameters;
+
+    public function __construct(string $templateName, array $parameters = [])
     {
         $this->templateName = $templateName;
+        $this->parameters = $parameters;
     }
 
     public function getTemplateName(): string
@@ -23,6 +29,6 @@ final class SimplePlugin implements PluginInterface
 
     public function getParameters(): array
     {
-        return [];
+        return $this->parameters;
     }
 }
