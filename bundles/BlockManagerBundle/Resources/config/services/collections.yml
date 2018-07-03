@@ -5,6 +5,10 @@ services:
         arguments:
             - "@netgen_block_manager.config.config_definition_factory"
 
+    netgen_block_manager.collection.item_visibility_resolver:
+        class: Netgen\BlockManager\Collection\Item\VisibilityResolver
+        public: false
+
     netgen_block_manager.collection.collection_runner_factory:
         class: Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
         public: false
