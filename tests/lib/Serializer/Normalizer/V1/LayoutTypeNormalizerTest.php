@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
-use Netgen\BlockManager\Layout\Type\Zone;
 use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -51,21 +50,21 @@ final class LayoutTypeNormalizerTest extends TestCase
 
         $this->assertSame(
             [
-                'identifier' => $layoutType->getIdentifier(),
-                'name' => $layoutType->getName(),
-                'icon' => $layoutType->getIcon(),
-                'zones' => array_map(
-                    function (Zone $zone): array {
-                        return [
-                            'identifier' => $zone->getIdentifier(),
-                            'name' => $zone->getName(),
-                            'allowed_block_definitions' => !empty($zone->getAllowedBlockDefinitions()) ?
-                                $zone->getAllowedBlockDefinitions() :
-                                true,
-                        ];
-                    },
-                    array_values($layoutType->getZones())
-                ),
+                'identifier' => '4_zones_a',
+                'name' => 'Layout type',
+                'icon' => '/icon.svg',
+                'zones' => [
+                    [
+                        'identifier' => 'zone1',
+                        'name' => 'Zone 1',
+                        'allowed_block_definitions' => ['title'],
+                    ],
+                    [
+                        'identifier' => 'zone2',
+                        'name' => 'Zone 2',
+                        'allowed_block_definitions' => true,
+                    ],
+                ],
             ],
             $this->normalizer->normalize(new VersionedValue($layoutType, 1))
         );
