@@ -142,6 +142,62 @@ final class GetCollectionPagerListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
      */
+    public function testOnRenderViewWithoutPageParameter(): void
+    {
+        $request = Request::create('/');
+
+        $this->requestStack->push($request);
+
+        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
+        $collectionReference = new CollectionReference(
+            [
+                'collection' => $collection,
+                'identifier' => 'default',
+            ]
+        );
+
+        $view = new BlockView(
+            new Block(
+                [
+                    'definition' => new BlockDefinition(),
+                    'collectionReferences' => ['default' => $collectionReference],
+                ]
+            )
+        );
+
+        $view->addParameter('collection_identifier', 'default');
+
+        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->resultBuilderMock
+            ->expects($this->at(0))
+            ->method('build')
+            ->with(
+                $this->equalTo($collection),
+                $this->equalTo(3),
+                $this->equalTo(5),
+                $this->equalTo(0)
+            )
+            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+
+        $this->listener->onRenderView($event);
+
+        $result = $event->getParameters()['collection'];
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertSame($collection, $result->getCollection());
+        $this->assertSame(1000, $result->getTotalCount());
+
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        $this->assertSame(1, $event->getParameters()['pager']->getCurrentPage());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
+     */
     public function testOnRenderViewWithPagedCollection(): void
     {
         $request = Request::create('/');

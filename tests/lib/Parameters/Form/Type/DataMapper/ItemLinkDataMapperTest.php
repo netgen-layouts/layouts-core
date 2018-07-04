@@ -102,11 +102,28 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataWithInvalidFormData(): void
+    public function testMapFormsToDataWithInvalidItemIdFormData(): void
     {
         $forms = new ArrayIterator(
             [
                 'item_id' => $this->getForm('item_id'),
+                'item_type' => $this->getForm('item_type', 'value'),
+            ]
+        );
+
+        $this->mapper->mapFormsToData($forms, $data);
+
+        $this->assertNull($data);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
+     */
+    public function testMapFormsToDataWithInvalidItemTypeFormData(): void
+    {
+        $forms = new ArrayIterator(
+            [
+                'item_id' => $this->getForm('item_id', '42'),
                 'item_type' => $this->getForm('item_type'),
             ]
         );

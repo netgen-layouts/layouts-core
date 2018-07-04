@@ -33,13 +33,13 @@ final class BlockMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
-                'layout_id' => 24,
-                'depth' => 1,
+                'id' => '42',
+                'layout_id' => '24',
+                'depth' => '1',
                 'path' => '/22/42/',
-                'parent_id' => 22,
+                'parent_id' => '22',
                 'placeholder' => 'root',
-                'position' => 4,
+                'position' => '4',
                 'definition_identifier' => 'text',
                 'parameters' => '{"param1": "param2"}',
                 'config' => '{"config1": "config2"}',
@@ -47,9 +47,9 @@ final class BlockMapperTest extends TestCase
                 'item_view_type' => 'standard',
                 'name' => 'My block',
                 'locale' => 'en',
-                'translatable' => false,
+                'translatable' => '0',
                 'main_locale' => 'en',
-                'always_available' => true,
+                'always_available' => '1',
                 'status' => Value::STATUS_PUBLISHED,
             ],
             [
@@ -145,10 +145,10 @@ final class BlockMapperTest extends TestCase
     {
         $data = [
             [
-                'block_id' => 1,
-                'block_status' => Value::STATUS_PUBLISHED,
-                'collection_id' => 42,
-                'collection_status' => Value::STATUS_PUBLISHED,
+                'block_id' => '1',
+                'block_status' => '1',
+                'collection_id' => '42',
+                'collection_status' => '1',
                 'identifier' => 'default',
             ],
             [

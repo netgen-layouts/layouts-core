@@ -94,16 +94,20 @@ final class BlockDefinitionFactoryTest extends TestCase
             $this->handlerMock,
             [
                 'view_types' => [
+                    'disabled' => [
+                        'enabled' => false,
+                        'item_view_types' => [],
+                    ],
                     'view_type' => [
                         'enabled' => true,
                         'name' => 'View type',
                         'item_view_types' => [
-                            'item_view_type' => [
-                                'enabled' => true,
-                                'name' => 'Item view type',
-                            ],
                             'disabled' => [
                                 'enabled' => false,
+                                'name' => 'Item view type',
+                            ],
+                            'item_view_type' => [
+                                'enabled' => true,
                                 'name' => 'Item view type',
                             ],
                         ],
@@ -111,18 +115,14 @@ final class BlockDefinitionFactoryTest extends TestCase
                             'param1', 'param2',
                         ],
                     ],
-                    'disabled' => [
-                        'enabled' => false,
-                        'item_view_types' => [],
-                    ],
                 ],
                 'forms' => [
-                    'form' => [
-                        'enabled' => true,
-                        'type' => 'form_type',
-                    ],
                     'disabled' => [
                         'enabled' => false,
+                        'type' => 'form_type',
+                    ],
+                    'form' => [
+                        'enabled' => true,
                         'type' => 'form_type',
                     ],
                 ],
@@ -145,6 +145,7 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertSame('definition', $blockDefinition->getIdentifier());
+        $this->assertFalse($blockDefinition->isTranslatable());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -235,6 +236,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             'definition',
             $this->handlerMock,
             [
+                'translatable' => true,
                 'view_types' => [
                     'view_type' => [
                         'enabled' => true,
@@ -250,6 +252,7 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
         $this->assertSame('definition', $blockDefinition->getIdentifier());
+        $this->assertTrue($blockDefinition->isTranslatable());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -280,6 +283,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             'definition',
             $this->handlerMock,
             [
+                'translatable' => false,
                 'view_types' => [
                     'view_type' => [
                         'enabled' => true,
@@ -295,6 +299,7 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertSame('definition', $blockDefinition->getIdentifier());
+        $this->assertFalse($blockDefinition->isTranslatable());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));

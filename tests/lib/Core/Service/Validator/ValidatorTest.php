@@ -91,6 +91,17 @@ final class ValidatorTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
+     */
+    public function testValidatePositionWithDefaultRequiredValue(): void
+    {
+        $this->validator->validatePosition(null);
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+    }
+
+    /**
      * @param mixed $offset
      * @param mixed $limit
      * @param bool $isValid
@@ -158,6 +169,8 @@ final class ValidatorTest extends TestCase
         return [
             [-5, false, false],
             [-5, true, false],
+            [-1, false, false],
+            [-1, true, false],
             [0, false, true],
             [0, true, true],
             [24, false, true],

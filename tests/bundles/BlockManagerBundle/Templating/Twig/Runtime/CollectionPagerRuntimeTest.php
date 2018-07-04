@@ -31,7 +31,7 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function setUp(): void
     {
         $this->routeGenerator = function (APIBlock $block, string $collectionIdentifier, int $page): string {
-            return '/generated/uri';
+            return '/generated/uri' . '?page=' . $page;
         };
 
         $this->pagerfantaViewMock = $this->createMock(ViewInterface::class);
@@ -119,15 +119,16 @@ final class CollectionPagerRuntimeTest extends TestCase
             'default'
         );
 
-        $this->assertSame('/generated/uri', $uri);
+        $this->assertSame('/generated/uri?page=1', $uri);
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Argument "page" has an invalid value. Page -5 is out of bounds
+     * @expectedExceptionMessageRegExp /^Argument "page" has an invalid value\. Page -?\d+ is out of bounds$/
+     * @dataProvider invalidPageProvider
      */
-    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithTooLowPage(): void
+    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects($this->any())
@@ -138,27 +139,18 @@ final class CollectionPagerRuntimeTest extends TestCase
             $pagerfanta,
             new Block(),
             'default',
-            -5
+            $page
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Argument "page" has an invalid value. Page 10 is out of bounds
-     */
-    public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithTooLargePage(): void
+    public function invalidPageProvider(): array
     {
-        $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta->expects($this->any())
-            ->method('getNbPages')
-            ->will($this->returnValue(5));
-
-        $this->runtime->getCollectionPageUrl(
-            $pagerfanta,
-            new Block(),
-            'default',
-            10
-        );
+        return [
+            [-5],
+            [-1],
+            [0],
+            [6],
+            [10],
+        ];
     }
 }

@@ -49,8 +49,9 @@ final class RouteGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
+     * @dataProvider invokeProvider
      */
-    public function testInvoke(): void
+    public function testInvoke(int $page, string $signedUri, string $signedUriSuffix): void
     {
         $block = new Block(
             [
@@ -81,53 +82,29 @@ final class RouteGeneratorTest extends TestCase
         $this->uriSignerMock->expects($this->once())
             ->method('sign')
             ->with($this->equalTo('/generated/uri'))
-            ->will($this->returnValue('/signed/uri'));
+            ->will($this->returnValue($signedUri));
 
         $routeGenerator = $this->routeGenerator;
-        $url = $routeGenerator($block, 'default', 5);
+        $url = $routeGenerator($block, 'default', $page);
 
-        $this->assertSame('/signed/uri?page=5', $url);
+        $this->assertSame($signedUri . $signedUriSuffix, $url);
     }
 
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
-     */
-    public function testInvokeWithFirstPage(): void
+    public function invokeProvider(): array
     {
-        $block = new Block(
-            [
-                'id' => 42,
-                'locale' => 'en',
-            ]
-        );
-
-        $this->contextMock->expects($this->once())
-            ->method('all')
-            ->will($this->returnValue(['var' => 'value']));
-
-        $this->urlGeneratorMock->expects($this->once())
-            ->method('generate')
-            ->with(
-                $this->equalTo('ngbm_ajax_block'),
-                $this->equalTo(
-                    [
-                        'blockId' => 42,
-                        'locale' => 'en',
-                        'collectionIdentifier' => 'default',
-                        'ngbmContext' => ['var' => 'value'],
-                    ]
-                )
-            )
-            ->will($this->returnValue('/generated/uri'));
-
-        $this->uriSignerMock->expects($this->once())
-            ->method('sign')
-            ->with($this->equalTo('/generated/uri'))
-            ->will($this->returnValue('/signed/uri'));
-
-        $routeGenerator = $this->routeGenerator;
-        $url = $routeGenerator($block, 'default', 1);
-
-        $this->assertSame('/signed/uri', $url);
+        return [
+            [-5, '/signed/uri', ''],
+            [-1, '/signed/uri', ''],
+            [0, '/signed/uri', ''],
+            [1, '/signed/uri', ''],
+            [2, '/signed/uri', '?page=2'],
+            [5, '/signed/uri', '?page=5'],
+            [-5, '/signed/uri?foo', ''],
+            [-1, '/signed/uri?foo', ''],
+            [0, '/signed/uri?foo', ''],
+            [1, '/signed/uri?foo', ''],
+            [2, '/signed/uri?foo', '&page=2'],
+            [5, '/signed/uri?foo', '&page=5'],
+        ];
     }
 }

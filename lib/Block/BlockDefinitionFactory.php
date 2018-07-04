@@ -208,7 +208,7 @@ final class BlockDefinitionFactory
 
                 $itemViewTypes = [];
 
-                if (!isset($viewTypeConfig['item_view_types']) || !is_array($viewTypeConfig['item_view_types'])) {
+                if (!is_array($viewTypeConfig['item_view_types'] ?? [])) {
                     $viewTypeConfig['item_view_types'] = [];
                 }
 

@@ -63,7 +63,10 @@ final class ExportCommand extends Command
                 throw new RuntimeException(sprintf('Unhandled type %s', $type));
         }
 
-        $json = (string) json_encode($hash, JSON_PRETTY_PRINT);
+        $json = json_encode($hash, JSON_PRETTY_PRINT);
+        if (!is_string($json)) {
+            throw new RuntimeException('Serialization failed.');
+        }
 
         $file = $input->getArgument('file');
 

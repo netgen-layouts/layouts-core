@@ -100,9 +100,12 @@ final class ItemLinkType extends ParameterType
             return true;
         }
 
-        $parsedValue = parse_url($value);
+        $value = parse_url($value);
+        if (!is_array($value)) {
+            return true;
+        }
 
-        return empty($parsedValue['scheme']) || (empty($parsedValue['host'] && $parsedValue['host'] !== '0'));
+        return empty($value['scheme']) || !isset($value['host']);
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array

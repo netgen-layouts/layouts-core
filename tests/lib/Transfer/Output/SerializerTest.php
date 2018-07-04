@@ -103,14 +103,14 @@ final class SerializerTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->with($this->equalTo(42))
-            ->will($this->returnValue(new Layout(['id' => 42])));
+            ->with($this->equalTo(24))
+            ->will($this->throwException(new NotFoundException('layout', 24)));
 
         $this->layoutServiceMock
             ->expects($this->at(1))
             ->method('loadLayout')
-            ->with($this->equalTo(24))
-            ->will($this->throwException(new NotFoundException('layout', 24)));
+            ->with($this->equalTo(42))
+            ->will($this->returnValue(new Layout(['id' => 42])));
 
         $this->visitorMock
             ->expects($this->at(0))
@@ -125,7 +125,7 @@ final class SerializerTest extends TestCase
                     'serialized_layout_42',
                 ],
             ],
-            $this->serializer->serializeLayouts([42, 24])
+            $this->serializer->serializeLayouts([24, 42])
         );
     }
 
@@ -182,14 +182,14 @@ final class SerializerTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->at(0))
             ->method('loadRule')
-            ->with($this->equalTo(42))
-            ->will($this->returnValue(new Rule(['id' => 42])));
+            ->with($this->equalTo(24))
+            ->will($this->throwException(new NotFoundException('rule', 24)));
 
         $this->layoutResolverServiceMock
             ->expects($this->at(1))
             ->method('loadRule')
-            ->with($this->equalTo(24))
-            ->will($this->throwException(new NotFoundException('rule', 24)));
+            ->with($this->equalTo(42))
+            ->will($this->returnValue(new Rule(['id' => 42])));
 
         $this->visitorMock
             ->expects($this->at(0))
@@ -204,7 +204,7 @@ final class SerializerTest extends TestCase
                     'serialized_rule_42',
                 ],
             ],
-            $this->serializer->serializeRules([42, 24])
+            $this->serializer->serializeRules([24, 42])
         );
     }
 }

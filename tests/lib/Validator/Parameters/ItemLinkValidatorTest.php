@@ -90,8 +90,22 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public function validateDataProvider(): array
     {
         return [
+            ['', null, false],
+            ['', null, false],
+            ['value', null, false],
+            ['other', null, false],
+            ['value:', null, false],
+            ['other:', null, false],
+            ['value:/', null, false],
+            ['other:/', null, false],
+            ['value://', null, false],
+            ['other://', null, false],
             ['value://42', null, true],
             ['other://42', null, false],
+            ['value://null', null, true],
+            ['other://null', null, false],
+            ['value://0', null, true],
+            ['other://0', null, false],
             ['value://42', [], true],
             ['other://42', [], false],
             ['value://42', ['value'], true],

@@ -10,6 +10,7 @@ use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class ItemRuntimeTest extends TestCase
 {
@@ -24,6 +25,11 @@ final class ItemRuntimeTest extends TestCase
     private $urlGeneratorMock;
 
     /**
+     * @var \Netgen\BlockManager\Tests\Stubs\ErrorHandler
+     */
+    private $errorHandler;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
      */
     private $runtime;
@@ -32,11 +38,12 @@ final class ItemRuntimeTest extends TestCase
     {
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
+        $this->errorHandler = new ErrorHandler();
 
         $this->runtime = new ItemRuntime(
             $this->cmsItemLoaderMock,
             $this->urlGeneratorMock,
-            new ErrorHandler()
+            $this->errorHandler
         );
     }
 
@@ -155,5 +162,61 @@ final class ItemRuntimeTest extends TestCase
             ->method('generate');
 
         $this->assertSame('', $this->runtime->getItemPath(42));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
+     */
+    public function testGetItemPathWithObjectAndValueType(): void
+    {
+        $this->cmsItemLoaderMock
+            ->expects($this->never())
+            ->method('load');
+
+        $this->urlGeneratorMock
+            ->expects($this->never())
+            ->method('generate');
+
+        $this->assertSame('', $this->runtime->getItemPath(new stdClass(), 'valuen'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
+     * @expectedExceptionMessage Item "value" is not valid.
+     */
+    public function testGetItemPathWithInvalidValueThrowsItemExceptionInDebugMode(): void
+    {
+        $this->errorHandler->setThrow(true);
+
+        $this->cmsItemLoaderMock
+            ->expects($this->never())
+            ->method('load');
+
+        $this->urlGeneratorMock
+            ->expects($this->never())
+            ->method('generate');
+
+        $this->runtime->getItemPath('value');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
+     * @expectedExceptionMessage Item could not be loaded.
+     */
+    public function testGetItemPathWithUnsupportedValueThrowsItemExceptionInDebugMode(): void
+    {
+        $this->errorHandler->setThrow(true);
+
+        $this->cmsItemLoaderMock
+            ->expects($this->never())
+            ->method('load');
+
+        $this->urlGeneratorMock
+            ->expects($this->never())
+            ->method('generate');
+
+        $this->runtime->getItemPath(new stdClass());
     }
 }

@@ -32,16 +32,16 @@ final class LayoutMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
+                'id' => '42',
                 'type' => '4_zones_a',
                 'name' => 'My layout',
                 'description' => 'My layout description',
-                'created' => 123,
-                'modified' => 456,
-                'status' => Value::STATUS_PUBLISHED,
+                'created' => '123',
+                'modified' => '456',
+                'status' => '1',
                 'main_locale' => 'en',
                 'locale' => 'en',
-                'shared' => true,
+                'shared' => '1',
             ],
             [
                 'id' => 84,
@@ -101,10 +101,10 @@ final class LayoutMapperTest extends TestCase
         $data = [
             [
                 'identifier' => 'left',
-                'layout_id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
-                'root_block_id' => 3,
-                'linked_layout_id' => 3,
+                'layout_id' => '1',
+                'status' => '1',
+                'root_block_id' => '3',
+                'linked_layout_id' => '3',
                 'linked_zone_identifier' => 'top',
             ],
             [

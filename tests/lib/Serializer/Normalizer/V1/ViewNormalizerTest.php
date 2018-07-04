@@ -71,6 +71,60 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
+     */
+    public function testNormalizeWithoutRendering(): void
+    {
+        $this->normalizerMock
+            ->expects($this->once())
+            ->method('normalize')
+            ->with($this->equalTo(new VersionedValue(new Value(), 1)))
+            ->will($this->returnValue(['id' => 42]));
+
+        $this->viewRendererMock
+            ->expects($this->never())
+            ->method('renderValue');
+
+        $view = new View(new Value(), 1);
+
+        $data = $this->normalizer->normalize($view, null, ['disable_html' => true]);
+
+        $this->assertSame(['id' => 42], $data);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
+     */
+    public function testNormalizeWithInvalidDisableRenderingValue(): void
+    {
+        $this->normalizerMock
+            ->expects($this->once())
+            ->method('normalize')
+            ->with($this->equalTo(new VersionedValue(new Value(), 1)))
+            ->will($this->returnValue(['id' => 42]));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValue')
+            ->with(
+                $this->equalTo(new Value()),
+                $this->equalTo(ViewInterface::CONTEXT_API),
+                $this->equalTo(['api_version' => 1])
+            )
+            ->will($this->returnValue('rendered view'));
+
+        $view = new View(new Value(), 1);
+
+        $data = $this->normalizer->normalize($view, null, ['disable_html' => 'true']);
+
+        $this->assertSame(['id' => 42, 'html' => 'rendered view'], $data);
+    }
+
+    /**
      * @param mixed $data
      * @param bool $expected
      *

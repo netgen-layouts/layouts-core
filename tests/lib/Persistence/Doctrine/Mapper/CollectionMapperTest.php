@@ -33,14 +33,14 @@ final class CollectionMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
-                'start' => 5,
-                'length' => 10,
+                'id' => '42',
+                'status' => '1',
+                'start' => '5',
+                'length' => '10',
                 'locale' => 'en',
-                'translatable' => false,
+                'translatable' => '0',
                 'main_locale' => 'en',
-                'always_available' => true,
+                'always_available' => '1',
             ],
             [
                 'id' => 43,
@@ -103,13 +103,13 @@ final class CollectionMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
-                'collection_id' => 1,
-                'position' => 2,
-                'type' => Item::TYPE_MANUAL,
+                'id' => '42',
+                'collection_id' => '1',
+                'position' => '2',
+                'type' => '0',
                 'value' => '32',
                 'value_type' => 'my_value_type',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => '1',
                 'config' => '{"config_item":{"id":42}}',
             ],
             [
@@ -168,6 +168,14 @@ final class CollectionMapperTest extends TestCase
     {
         $data = [
             [
+                'id' => '43',
+                'collection_id' => '1',
+                'type' => 'my_query_type',
+                'locale' => 'en',
+                'parameters' => '{"param":"value"}',
+                'status' => '1',
+            ],
+            [
                 'id' => 42,
                 'collection_id' => 1,
                 'type' => 'my_query_type',
@@ -186,6 +194,21 @@ final class CollectionMapperTest extends TestCase
         ];
 
         $expectedData = [
+            [
+                'id' => 43,
+                'collectionId' => 1,
+                'type' => 'my_query_type',
+                'parameters' => [
+                    'en' => [
+                        'param' => 'value',
+                    ],
+                ],
+                'isTranslatable' => null,
+                'mainLocale' => null,
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => null,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
             [
                 'id' => 42,
                 'collectionId' => 1,

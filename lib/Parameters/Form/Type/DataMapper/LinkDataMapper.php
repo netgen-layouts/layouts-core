@@ -51,7 +51,7 @@ final class LinkDataMapper implements DataMapperInterface
                 'link_type' => $linkType,
                 'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : null,
                 'link_suffix' => $forms['link_suffix']->getData(),
-                'new_window' => $forms['new_window']->getData(),
+                'new_window' => (bool) $forms['new_window']->getData(),
             ];
         }
 

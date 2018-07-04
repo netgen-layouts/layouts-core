@@ -78,7 +78,8 @@ abstract class VisitorTest extends ServiceTestCase
         $matchResult = $matcher->match($visitedData, json_decode($expectedData, true));
 
         if (!$matchResult) {
-            $diff = new Diff(explode(PHP_EOL, (string) json_encode($visitedData, JSON_PRETTY_PRINT)), explode(PHP_EOL, $expectedData));
+            $visitedData = json_encode($visitedData, JSON_PRETTY_PRINT);
+            $diff = new Diff(explode(PHP_EOL, is_string($visitedData) ? $visitedData : ''), explode(PHP_EOL, $expectedData));
 
             $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
         }

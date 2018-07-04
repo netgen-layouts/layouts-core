@@ -59,7 +59,7 @@ final class PagerFactory
 
         $pager->setNormalizeOutOfRangePages(true);
         $pager->setMaxPerPage($this->getMaxPerPage($collection));
-        $pager->setCurrentPage($startPage);
+        $pager->setCurrentPage($startPage > 0 ? $startPage : 1);
 
         return $pager;
     }

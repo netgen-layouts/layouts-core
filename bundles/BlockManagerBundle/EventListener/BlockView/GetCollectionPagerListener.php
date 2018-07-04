@@ -67,12 +67,11 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
 
         $block = $view->getBlock();
 
-        $currentPage = $currentRequest->query->getInt('page', 1);
         $collectionIdentifier = $view->getParameter('collection_identifier');
 
         $resultPager = $this->pagerFactory->getPager(
             $block->getCollection($collectionIdentifier),
-            $currentPage > 0 ? $currentPage : 1,
+            $currentRequest->query->getInt('page', 1),
             $this->getMaxPages($block)
         );
 

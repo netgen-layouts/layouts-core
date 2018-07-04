@@ -24,7 +24,7 @@ final class CmsItemBuilderTest extends TestCase
     {
         $value = new Value(42, 'abc');
 
-        $builder = new CmsItemBuilder([new ValueConverter()]);
+        $builder = new CmsItemBuilder([new UnsupportedValueConverter(), new ValueConverter()]);
 
         $builtItem = $builder->build($value);
 

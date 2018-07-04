@@ -25,7 +25,7 @@ final class DebugErrorHandlerTest extends TestCase
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
-        $this->errorHandler = new DebugErrorHandler($this->loggerMock, false);
+        $this->errorHandler = new DebugErrorHandler($this->loggerMock);
     }
 
     /**

@@ -165,9 +165,12 @@ abstract class ImporterTest extends ServiceTestCase
             $matchResult = $matcher->match($exportedLayoutData, $layoutData);
 
             if (!$matchResult) {
-                $prettyLayoutData = (string) json_encode($layoutData, JSON_PRETTY_PRINT);
-                $prettyExportedLayoutData = (string) json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
-                $diff = new Diff(explode(PHP_EOL, $prettyExportedLayoutData), explode(PHP_EOL, $prettyLayoutData));
+                $prettyLayoutData = json_encode($layoutData, JSON_PRETTY_PRINT);
+                $prettyExportedLayoutData = json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
+                $diff = new Diff(
+                    explode(PHP_EOL, is_string($prettyExportedLayoutData) ? $prettyExportedLayoutData : ''),
+                    explode(PHP_EOL, is_string($prettyLayoutData) ? $prettyLayoutData : '')
+                );
 
                 $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
             }

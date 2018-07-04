@@ -39,16 +39,28 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @dataProvider getPagerProvider
      */
-    public function testGetPager(): void
+    public function testGetPager(int $startPage, int $currentPage): void
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2);
+        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), $startPage);
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
         $this->assertSame(5, $pager->getMaxPerPage());
-        $this->assertSame(2, $pager->getCurrentPage());
+        $this->assertSame($currentPage, $pager->getCurrentPage());
         $this->assertSame(200, $pager->getNbPages());
+    }
+
+    public function getPagerProvider(): array
+    {
+        return [
+            [-5, 1],
+            [-1, 1],
+            [0, 1],
+            [1, 1],
+            [5, 5],
+        ];
     }
 
     /**

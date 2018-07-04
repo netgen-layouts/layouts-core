@@ -19,7 +19,7 @@ final class ItemLinkDataMapper implements DataMapperInterface
         }
 
         $parsedData = parse_url($data);
-        if (is_array($parsedData) && !empty($parsedData['scheme']) && (!empty($parsedData['host']) || $parsedData['host'] === '0')) {
+        if (is_array($parsedData) && !empty($parsedData['scheme']) && isset($parsedData['host'])) {
             $forms = iterator_to_array($forms);
             $forms['item_id']->setData($parsedData['host']);
             $forms['item_type']->setData(str_replace('-', '_', $parsedData['scheme']));

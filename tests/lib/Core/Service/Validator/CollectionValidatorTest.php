@@ -469,6 +469,7 @@ final class CollectionValidatorTest extends TestCase
             [['definition' => new ItemDefinition(), 'value' => 42, 'type' => 23], false],
             [['definition' => new ItemDefinition(), 'value' => 42, 'type' => 'type'], false],
             [['definition' => new ItemDefinition(), 'value' => 42, 'type' => null], false],
+            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => '0'], false],
         ];
     }
 

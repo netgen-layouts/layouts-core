@@ -34,7 +34,12 @@ final class LinkTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->valueTypeRegistry = new ValueTypeRegistry(['default' => new ValueType(['isEnabled' => true])]);
+        $this->valueTypeRegistry = new ValueTypeRegistry(
+            [
+                'default' => new ValueType(['isEnabled' => true]),
+                'disabled' => new ValueType(['isEnabled' => false]),
+            ]
+        );
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
@@ -101,6 +106,9 @@ final class LinkTypeTest extends TestCase
                 ],
                 [
                     'value_types' => [42],
+                ],
+                [
+                    'value_types' => ['disabled'],
                 ],
                 [
                     'allow_invalid_internal' => 1,

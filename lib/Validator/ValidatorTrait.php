@@ -34,7 +34,7 @@ trait ValidatorTrait
         try {
             $violations = $this->validator->validate($value, $constraints);
         } catch (Throwable $t) {
-            throw ValidationException::validationFailed((string) $propertyPath, $t->getMessage(), $t);
+            throw ValidationException::validationFailed($propertyPath ?? '', $t->getMessage(), $t);
         }
 
         if (count($violations) === 0) {

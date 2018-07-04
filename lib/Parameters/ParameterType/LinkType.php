@@ -103,7 +103,7 @@ final class LinkType extends ParameterType
                 'linkType' => $value['link_type'],
                 'link' => $value['link'] ?? null,
                 'linkSuffix' => $value['link_suffix'] ?? null,
-                'newWindow' => isset($value['new_window']) ? (bool) $value['new_window'] : false,
+                'newWindow' => $value['new_window'] ?? false,
             ]
         );
     }
@@ -119,7 +119,7 @@ final class LinkType extends ParameterType
         // If the link is internal, we need to convert the format
         // from value_type://value to value_type://remote_id
         if ($value->getLinkType() === LinkValue::LINK_TYPE_INTERNAL) {
-            $valueLink = $this->remoteIdConverter->convertToRemoteId((string) $valueLink);
+            $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink ?? '');
         }
 
         return [

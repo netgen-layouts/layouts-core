@@ -21,7 +21,7 @@ final class DebugErrorHandler implements ErrorHandlerInterface
     /**
      * @var bool
      */
-    private $debug = false;
+    private $debug;
 
     public function __construct(?LoggerInterface $logger = null, bool $debug = false)
     {

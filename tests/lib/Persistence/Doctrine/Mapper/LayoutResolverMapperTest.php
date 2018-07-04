@@ -33,18 +33,18 @@ final class LayoutResolverMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
-                'layout_id' => 24,
-                'enabled' => true,
-                'priority' => 2,
+                'id' => '42',
+                'layout_id' => '24',
+                'enabled' => '1',
+                'priority' => '2',
                 'comment' => 'Comment',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => '1',
             ],
             [
-                'id' => 43,
-                'layout_id' => 25,
-                'enabled' => false,
-                'priority' => 3,
+                'id' => '43',
+                'layout_id' => '25',
+                'enabled' => '0',
+                'priority' => '3',
                 'comment' => null,
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -85,11 +85,11 @@ final class LayoutResolverMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
-                'rule_id' => 1,
+                'id' => '42',
+                'rule_id' => '1',
                 'type' => 'target',
                 'value' => '32',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => '1',
             ],
             [
                 'id' => 43,
@@ -133,11 +133,11 @@ final class LayoutResolverMapperTest extends TestCase
     {
         $data = [
             [
-                'id' => 42,
-                'rule_id' => 1,
+                'id' => '42',
+                'rule_id' => '1',
                 'type' => 'condition',
                 'value' => '24',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => '1',
             ],
             [
                 'id' => 43,

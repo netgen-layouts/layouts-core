@@ -46,7 +46,7 @@ final class ItemLinkValidator extends ConstraintValidator
 
         $parsedValue = parse_url($value);
 
-        if (empty($parsedValue['scheme']) || (empty($parsedValue['host']) && $parsedValue['host'] !== '0')) {
+        if (!is_array($parsedValue) || empty($parsedValue['scheme']) || !isset($parsedValue['host'])) {
             $this->context->buildViolation($constraint->invalidItemMessage)
                 ->addViolation();
 
@@ -59,6 +59,8 @@ final class ItemLinkValidator extends ConstraintValidator
 
             $validator->validate($valueType, new ValueType());
             if (count($validator->getViolations()) > 0) {
+                // Validation constraint is already added to the validator
+                // by the ValueTypeValidator
                 return;
             }
 
