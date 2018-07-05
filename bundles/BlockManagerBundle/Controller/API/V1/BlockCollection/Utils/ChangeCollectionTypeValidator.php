@@ -7,13 +7,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Uti
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Validator\StrictChoiceValidatorTrait;
 use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
 final class ChangeCollectionTypeValidator
 {
-    use StrictChoiceValidatorTrait;
     use ValidatorTrait;
 
     /**
@@ -33,7 +31,8 @@ final class ChangeCollectionTypeValidator
                             Collection::TYPE_MANUAL,
                             Collection::TYPE_DYNAMIC,
                         ],
-                    ] + $this->getStrictChoiceValidatorOption()
+                        'strict' => true,
+                    ]
                 ),
             ],
             'new_type'
