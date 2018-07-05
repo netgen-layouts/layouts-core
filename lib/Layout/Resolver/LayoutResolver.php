@@ -38,7 +38,7 @@ final class LayoutResolver implements LayoutResolverInterface
         $this->requestStack = $requestStack;
     }
 
-    public function resolveRule(?Request $request = null, ?array $enabledConditions = null): ?Rule
+    public function resolveRule(?Request $request = null, array $enabledConditions = []): ?Rule
     {
         $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
 
@@ -51,7 +51,7 @@ final class LayoutResolver implements LayoutResolverInterface
         return null;
     }
 
-    public function resolveRules(?Request $request = null, ?array $enabledConditions = null): array
+    public function resolveRules(?Request $request = null, array $enabledConditions = []): array
     {
         $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
 
@@ -65,12 +65,12 @@ final class LayoutResolver implements LayoutResolverInterface
         );
     }
 
-    public function matches(Rule $rule, Request $request, ?array $enabledConditions = null): bool
+    public function matches(Rule $rule, Request $request, array $enabledConditions = []): bool
     {
         foreach ($rule->getConditions() as $condition) {
             $conditionType = $condition->getConditionType();
 
-            if ($enabledConditions !== null && !in_array($conditionType->getType(), $enabledConditions, true)) {
+            if (!empty($enabledConditions) && !in_array($conditionType->getType(), $enabledConditions, true)) {
                 continue;
             }
 
@@ -82,7 +82,7 @@ final class LayoutResolver implements LayoutResolverInterface
         return true;
     }
 
-    private function innerResolveRules(?Request $request = null, ?array $enabledConditions = null): array
+    private function innerResolveRules(?Request $request = null, array $enabledConditions = []): array
     {
         if (!$request instanceof Request) {
             $request = $this->requestStack->getCurrentRequest();
