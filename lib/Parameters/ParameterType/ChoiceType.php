@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Validator\StrictChoiceValidatorTrait;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -17,6 +18,8 @@ use Symfony\Component\Validator\Constraints;
  */
 final class ChoiceType extends ParameterType
 {
+    use StrictChoiceValidatorTrait;
+
     public function getIdentifier(): string
     {
         return 'choice';
@@ -87,8 +90,7 @@ final class ChoiceType extends ParameterType
                             $options['options']
                         ),
                     'multiple' => $options['multiple'],
-                    'strict' => true,
-                ]
+                ] + $this->getStrictChoiceValidatorOption()
             ),
         ];
     }

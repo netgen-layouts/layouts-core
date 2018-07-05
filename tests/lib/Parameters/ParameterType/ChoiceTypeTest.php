@@ -276,11 +276,14 @@ final class ChoiceTypeTest extends TestCase
     {
         return [
             [1, true],
+            ['1', false],
             ['One', false],
             [2, true],
+            ['2', false],
             ['Two', false],
             ['123abc.ASD', false],
             [0, false],
+            ['0', false],
         ];
     }
 

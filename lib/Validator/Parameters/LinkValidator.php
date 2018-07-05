@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Validator\Parameters;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
+use Netgen\BlockManager\Validator\StrictChoiceValidatorTrait;
 use Netgen\BlockManager\Validator\StrictEmailValidatorTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
@@ -20,6 +21,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class LinkValidator extends ConstraintValidator
 {
     use StrictEmailValidatorTrait;
+    use StrictChoiceValidatorTrait;
 
     public function validate($value, Constraint $constraint): void
     {
@@ -51,8 +53,7 @@ final class LinkValidator extends ConstraintValidator
                             LinkValue::LINK_TYPE_PHONE,
                             LinkValue::LINK_TYPE_INTERNAL,
                         ],
-                        'strict' => true,
-                    ]
+                    ] + $this->getStrictChoiceValidatorOption()
                 ),
             ]
         );

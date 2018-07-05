@@ -18,10 +18,13 @@ use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
+use Netgen\BlockManager\Validator\StrictChoiceValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
 final class CollectionValidator extends Validator
 {
+    use StrictChoiceValidatorTrait;
+
     /**
      * Validates the provided collection create struct.
      *
@@ -130,8 +133,7 @@ final class CollectionValidator extends Validator
                         'choices' => [
                             Item::TYPE_MANUAL,
                         ],
-                        'strict' => true,
-                    ]
+                    ] + $this->getStrictChoiceValidatorOption()
                 ),
             ],
             'type'

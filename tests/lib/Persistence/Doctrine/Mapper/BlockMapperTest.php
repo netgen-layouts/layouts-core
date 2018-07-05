@@ -50,7 +50,7 @@ final class BlockMapperTest extends TestCase
                 'translatable' => '0',
                 'main_locale' => 'en',
                 'always_available' => '1',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => '1',
             ],
             [
                 'id' => 84,
