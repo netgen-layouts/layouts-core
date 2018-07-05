@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\LayoutResolver;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Templating;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Templating\PluginRendererPass;
