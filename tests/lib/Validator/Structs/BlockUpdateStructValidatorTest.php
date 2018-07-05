@@ -346,7 +346,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
                         'css_id' => 'id',
                     ],
                 ],
-                true,
+                false,
             ],
             [
                 [
@@ -360,7 +360,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
                         'css_id' => 'id',
                     ],
                 ],
-                true,
+                false,
             ],
             [
                 [

@@ -39,22 +39,39 @@ final class TemplateResolverTest extends TestCase
     public function testResolveTemplate(): void
     {
         $matcherMock = $this->createMock(MatcherInterface::class);
+
         $matcherMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(['text']))
+            ->with($this->equalTo($this->view), $this->equalTo(['value']))
+            ->will($this->returnValue(false));
+
+        $matcherMock
+            ->expects($this->at(1))
+            ->method('match')
+            ->with($this->equalTo($this->view), $this->equalTo(['value2']))
             ->will($this->returnValue(true));
 
         $viewConfiguration = [
             'stub_view' => [
                 'context' => [
-                    'text' => [
-                        'template' => 'some_template.html.twig',
+                    'value' => [
+                        'template' => 'template.html.twig',
                         'match' => [
-                            'definition_identifier' => 'text',
+                            'matcher' => 'value',
                         ],
                         'parameters' => [
                             'param' => 'value',
+                            'param2' => '@=value',
+                        ],
+                    ],
+                    'value2' => [
+                        'template' => 'template2.html.twig',
+                        'match' => [
+                            'matcher' => 'value2',
+                        ],
+                        'parameters' => [
+                            'param' => 'value2',
                             'param2' => '@=value',
                         ],
                     ],
@@ -64,17 +81,17 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             [
-                'definition_identifier' => $matcherMock,
+                'matcher' => $matcherMock,
             ],
             $viewConfiguration
         );
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('template2.html.twig', $this->view->getTemplate());
 
         $this->assertTrue($this->view->hasParameter('param'));
-        $this->assertSame('value', $this->view->getParameter('param'));
+        $this->assertSame('value2', $this->view->getParameter('param'));
 
         $this->assertTrue($this->view->hasParameter('param2'));
         $this->assertSame($this->value, $this->view->getParameter('param2'));
@@ -90,8 +107,8 @@ final class TemplateResolverTest extends TestCase
         $viewConfiguration = [
             'stub_view' => [
                 'context' => [
-                    'text' => [
-                        'template' => 'some_template.html.twig',
+                    'value' => [
+                        'template' => 'template.html.twig',
                         'match' => [],
                         'parameters' => [
                             'param' => 'value',
@@ -108,7 +125,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('template.html.twig', $this->view->getTemplate());
         $this->assertTrue($this->view->hasParameter('param'));
         $this->assertSame('value', $this->view->getParameter('param'));
     }
@@ -123,13 +140,13 @@ final class TemplateResolverTest extends TestCase
         $viewConfiguration = [
             'stub_view' => [
                 'context' => [
-                    'text' => [
-                        'template' => 'some_template.html.twig',
+                    'value' => [
+                        'template' => 'template.html.twig',
                         'match' => [],
                         'parameters' => [],
                     ],
                     'text_other' => [
-                        'template' => 'some_other_template.html.twig',
+                        'template' => 'template2.html.twig',
                         'match' => [],
                         'parameters' => [],
                     ],
@@ -144,7 +161,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -160,8 +177,8 @@ final class TemplateResolverTest extends TestCase
         $viewConfiguration = [
             'stub_view' => [
                 'fallback' => [
-                    'text' => [
-                        'template' => 'some_template.html.twig',
+                    'value' => [
+                        'template' => 'template.html.twig',
                         'match' => [],
                         'parameters' => [],
                     ],
@@ -176,7 +193,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('some_template.html.twig', $this->view->getTemplate());
+        $this->assertSame('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -217,16 +234,16 @@ final class TemplateResolverTest extends TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(['title']))
+            ->with($this->equalTo($this->view), $this->equalTo(['value']))
             ->will($this->returnValue(false));
 
         $viewConfiguration = [
             'stub_view' => [
                 'context' => [
-                    'title' => [
-                        'template' => 'some_template.html.twig',
+                    'value' => [
+                        'template' => 'template.html.twig',
                         'match' => [
-                            'definition_identifier' => 'title',
+                            'matcher' => 'value',
                         ],
                     ],
                 ],
@@ -235,7 +252,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             [
-                'definition_identifier' => $matcherMock,
+                'matcher' => $matcherMock,
             ],
             $viewConfiguration
         );
@@ -247,17 +264,17 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template matcher could be found with identifier "definition_identifier".
+     * @expectedExceptionMessage No template matcher could be found with identifier "matcher".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher(): void
     {
         $viewConfiguration = [
             'stub_view' => [
                 'context' => [
-                    'title' => [
-                        'template' => 'some_template.html.twig',
+                    'value' => [
+                        'template' => 'template.html.twig',
                         'match' => [
-                            'definition_identifier' => 'title',
+                            'matcher' => 'value',
                         ],
                     ],
                 ],

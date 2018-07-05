@@ -723,7 +723,7 @@ final class BlockValidatorTest extends TestCase
                         'css_id' => 'id',
                     ],
                 ],
-                true,
+                false,
             ],
             [
                 [
@@ -737,7 +737,7 @@ final class BlockValidatorTest extends TestCase
                         'css_id' => 'id',
                     ],
                 ],
-                true,
+                false,
             ],
             [
                 [
