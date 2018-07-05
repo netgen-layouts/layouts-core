@@ -43,5 +43,12 @@ final class ExceptionTest extends TestCase
         $this->assertTrue($options['multiple']);
         $this->assertFalse($options['required']);
         $this->assertInternalType('array', $options['choices']);
+
+        foreach ($options['choices'] as $choiceLabel => $choice) {
+            $this->assertInternalType('string', $choiceLabel);
+            $this->assertInternalType('int', $choice);
+            $this->assertGreaterThanOrEqual(400, $choice);
+            $this->assertLessThan(600, $choice);
+        }
     }
 }

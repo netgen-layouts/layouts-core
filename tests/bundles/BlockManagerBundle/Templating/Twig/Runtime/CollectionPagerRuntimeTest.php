@@ -116,10 +116,11 @@ final class CollectionPagerRuntimeTest extends TestCase
         $uri = $this->runtime->getCollectionPageUrl(
             $pagerfanta,
             new Block(),
-            'default'
+            'default',
+            5
         );
 
-        $this->assertSame('/generated/uri?page=1', $uri);
+        $this->assertSame('/generated/uri?page=5', $uri);
     }
 
     /**

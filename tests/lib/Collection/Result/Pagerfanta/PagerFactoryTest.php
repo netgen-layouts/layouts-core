@@ -59,6 +59,7 @@ final class PagerFactoryTest extends TestCase
             [-1, 1],
             [0, 1],
             [1, 1],
+            [2, 2],
             [5, 5],
         ];
     }
@@ -68,16 +69,33 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @dataProvider getMaxPagesPagerProvider
      */
-    public function testGetPagerWithMaxPages(): void
+    public function testGetPagerWithMaxPages(int $maxPages, int $currentPage, int $nbPages): void
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2, 5);
+        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2, $maxPages);
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
         $this->assertSame(5, $pager->getMaxPerPage());
-        $this->assertSame(2, $pager->getCurrentPage());
-        $this->assertSame(5, $pager->getNbPages());
+        $this->assertSame($currentPage, $pager->getCurrentPage());
+        $this->assertSame($nbPages, $pager->getNbPages());
+    }
+
+    public function getMaxPagesPagerProvider(): array
+    {
+        return [
+            [-2, 2, 200],
+            [-1, 2, 200],
+            [0, 2, 200],
+            [1, 1, 1],
+            [2, 2, 2],
+            [3, 2, 3],
+            [4, 2, 4],
+            [5, 2, 5],
+            [200, 2, 200],
+            [250, 2, 200],
+        ];
     }
 
     /**
@@ -85,66 +103,37 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @dataProvider getPagerWithCollectionLimitProvider
      */
-    public function testGetPagerWithMaxPagesLargerThanTotalCount(): void
+    public function testGetPagerWithCollectionLimit(int $limit, ?int $maxPages, int $maxPerPage, int $nbPages): void
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2, 250);
+        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => $limit]), 2, $maxPages);
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame(5, $pager->getMaxPerPage());
+        $this->assertSame($maxPerPage, $pager->getMaxPerPage());
         $this->assertSame(2, $pager->getCurrentPage());
-        $this->assertSame(200, $pager->getNbPages());
+        $this->assertSame($nbPages, $pager->getNbPages());
     }
 
-    /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
-     */
-    public function testGetPagerWithLimitLargerThanMaxLimit(): void
+    public function getPagerWithCollectionLimitProvider(): array
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 500]), 2);
-
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame(200, $pager->getMaxPerPage());
-        $this->assertSame(2, $pager->getCurrentPage());
-        $this->assertSame(5, $pager->getNbPages());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
-     */
-    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPages(): void
-    {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 500]), 2, 3);
-
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame(200, $pager->getMaxPerPage());
-        $this->assertSame(2, $pager->getCurrentPage());
-        $this->assertSame(3, $pager->getNbPages());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
-     */
-    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPagesLargerThanTotalCount(): void
-    {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 500]), 2, 10);
-
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame(200, $pager->getMaxPerPage());
-        $this->assertSame(2, $pager->getCurrentPage());
-        $this->assertSame(5, $pager->getNbPages());
+        return [
+            [100, null, 100, 10],
+            [100, 3, 100, 3],
+            [100, 10, 100, 10],
+            [199, null, 199, 6],
+            [199, 3, 199, 3],
+            [199, 10, 199, 6],
+            [200, null, 200, 5],
+            [200, 3, 200, 3],
+            [200, 10, 200, 5],
+            [201, null, 200, 5],
+            [201, 3, 200, 3],
+            [201, 10, 200, 5],
+            [500, null, 200, 5],
+            [500, 3, 200, 3],
+            [500, 10, 200, 5],
+        ];
     }
 }

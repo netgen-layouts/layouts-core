@@ -88,12 +88,18 @@ final class ExceptionTest extends TestCase
     public function validationProvider(): array
     {
         return [
+            [[200], false],
+            [[399], false],
+            [[400], true],
+            [[401], true],
             [[404], true],
             [[404, 403], true],
             [[403, 700], false],
             [[403, 200], false],
+            [[599], true],
+            [[600], false],
+            [[601], false],
             [[700], false],
-            [[200], false],
             [[], true],
             [null, false],
         ];
