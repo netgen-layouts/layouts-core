@@ -9,11 +9,6 @@ use Netgen\BlockManager\Value as BaseValue;
 final class Value extends BaseValue
 {
     /**
-     * @var int
-     */
-    public $status;
-
-    /**
      * @var mixed
      */
     public $someProperty;
