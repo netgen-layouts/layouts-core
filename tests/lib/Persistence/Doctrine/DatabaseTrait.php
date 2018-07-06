@@ -34,6 +34,30 @@ trait DatabaseTrait
     private $databaseConnection;
 
     /**
+     * Inserts database fixtures.
+     */
+    protected function insertDatabaseFixtures(string $fixturesPath): void
+    {
+        $data = require $fixturesPath . '/data.php';
+
+        foreach ($data as $tableName => $tableData) {
+            if (!empty($tableData)) {
+                foreach ($tableData as $tableRow) {
+                    $this->databaseConnection
+                        ->createQueryBuilder()
+                        ->insert($tableName)
+                        ->values(array_fill_keys(array_keys($tableRow), '?'))
+                        ->setParameters(
+                            array_values($tableRow),
+                            array_fill_keys(array_keys($tableRow), Type::STRING)
+                        )
+                        ->execute();
+                }
+            }
+        }
+    }
+
+    /**
      * Sets up the database connection.
      */
     private function createDatabaseConnection(): Connection
@@ -127,29 +151,5 @@ trait DatabaseTrait
         $migration = new Migration($configuration);
         $migration->migrate('0');
         $migration->migrate();
-    }
-
-    /**
-     * Inserts database fixtures.
-     */
-    private function insertDatabaseFixtures(string $fixturesPath): void
-    {
-        $data = require $fixturesPath . '/data.php';
-
-        foreach ($data as $tableName => $tableData) {
-            if (!empty($tableData)) {
-                foreach ($tableData as $tableRow) {
-                    $this->databaseConnection
-                        ->createQueryBuilder()
-                        ->insert($tableName)
-                        ->values(array_fill_keys(array_keys($tableRow), '?'))
-                        ->setParameters(
-                            array_values($tableRow),
-                            array_fill_keys(array_keys($tableRow), Type::STRING)
-                        )
-                        ->execute();
-                }
-            }
-        }
     }
 }

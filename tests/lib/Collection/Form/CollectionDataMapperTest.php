@@ -18,8 +18,6 @@ final class CollectionDataMapperTest extends DataMapperTest
 
     public function setUp(): void
     {
-        parent::setUp();
-
         $this->mapper = new CollectionDataMapper();
     }
 

@@ -62,6 +62,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class ServiceTestCase extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $cmsItemLoaderMock;
+
+    /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
@@ -120,31 +125,6 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
     protected $layoutResolverService;
-
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
-     */
-    protected $blockMapper;
-
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
-     */
-    protected $collectionMapper;
-
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
-     */
-    protected $layoutMapper;
-
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
-     */
-    protected $layoutResolverMapper;
-
-    /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $cmsItemLoaderMock;
 
     public function setUp(): void
     {

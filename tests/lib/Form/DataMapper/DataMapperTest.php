@@ -13,16 +13,6 @@ use Symfony\Component\Form\FormInterface;
 abstract class DataMapperTest extends TestCase
 {
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $dispatcherMock;
-
-    public function setUp(): void
-    {
-        $this->dispatcherMock = $this->createMock(EventDispatcherInterface::class);
-    }
-
-    /**
      * @param string $formName
      * @param mixed $formData
      *
@@ -30,7 +20,7 @@ abstract class DataMapperTest extends TestCase
      */
     protected function getForm(string $formName, $formData = null): FormInterface
     {
-        $config = new FormConfigBuilder($formName, null, $this->dispatcherMock);
+        $config = new FormConfigBuilder($formName, null, $this->createMock(EventDispatcherInterface::class));
 
         $form = new Form($config);
         $form->setData($formData);

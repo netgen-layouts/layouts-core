@@ -17,8 +17,6 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
     public function setUp(): void
     {
-        parent::setUp();
-
         $this->mapper = new ItemLinkDataMapper();
     }
 

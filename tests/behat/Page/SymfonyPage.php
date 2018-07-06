@@ -13,7 +13,7 @@ abstract class SymfonyPage extends Page
     /**
      * @var \Symfony\Component\Routing\RouterInterface
      */
-    protected $router;
+    private $router;
 
     public function __construct(Session $session, array $parameters, RouterInterface $router)
     {

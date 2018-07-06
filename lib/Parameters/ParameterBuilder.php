@@ -14,69 +14,68 @@ use Symfony\Component\Validator\Constraint;
 class ParameterBuilder implements ParameterBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
-     */
-    protected $builderFactory;
-
-    /**
      * @var string|null
      */
     protected $name;
 
     /**
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface|null
+     */
+    protected $parentBuilder;
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     */
+    private $builderFactory;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface|null
      */
-    protected $type;
+    private $type;
 
     /**
      * @var array
      */
-    protected $options = [];
+    private $options = [];
 
     /**
      * @var bool
      */
-    protected $isRequired = false;
+    private $isRequired = false;
 
     /**
      * @var mixed
      */
-    protected $defaultValue;
+    private $defaultValue;
 
     /**
      * @var string|null
      */
-    protected $label;
+    private $label;
 
     /**
      * @var array
      */
-    protected $groups = [];
+    private $groups = [];
 
     /**
      * @var \Symfony\Component\Validator\Constraint[]
      */
-    protected $constraints = [];
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface|null
-     */
-    protected $parentBuilder;
+    private $constraints = [];
 
     /**
      * @var array
      */
-    protected $unresolvedChildren = [];
+    private $unresolvedChildren = [];
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
-    protected $resolvedChildren = [];
+    private $resolvedChildren = [];
 
     /**
      * @var bool
      */
-    protected $locked = false;
+    private $locked = false;
 
     public function __construct(
         ParameterBuilderFactoryInterface $builderFactory,
@@ -329,9 +328,16 @@ class ParameterBuilder implements ParameterBuilderInterface
     }
 
     /**
+     * Configures the parameter options.
+     */
+    protected function configureOptions(OptionsResolver $optionsResolver): void
+    {
+    }
+
+    /**
      * Builds the parameter definition.
      */
-    protected function buildParameterDefinition(ParameterBuilderInterface $builder): ParameterDefinition
+    private function buildParameterDefinition(ParameterBuilderInterface $builder): ParameterDefinition
     {
         $data = [
             'name' => $builder->getName(),
@@ -359,7 +365,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * Resolves the parameter options.
      */
-    protected function resolveOptions(array $options): array
+    private function resolveOptions(array $options): array
     {
         $optionsResolver = new OptionsResolver();
 
@@ -446,13 +452,6 @@ class ParameterBuilder implements ParameterBuilderInterface
         );
 
         return $resolvedOptions;
-    }
-
-    /**
-     * Configures the parameter options.
-     */
-    protected function configureOptions(OptionsResolver $optionsResolver): void
-    {
     }
 
     /**

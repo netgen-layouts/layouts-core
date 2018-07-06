@@ -26,8 +26,6 @@ final class LinkDataMapperTest extends DataMapperTest
 
     public function setUp(): void
     {
-        parent::setUp();
-
         $parameterDefinition = new ParameterDefinition(
             [
                 'type' => new LinkType(

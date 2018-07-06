@@ -16,29 +16,28 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class FormTestCase extends TestCase
 {
     /**
-     * @var \Symfony\Component\Form\FormBuilder
-     */
-    protected $builder;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $dispatcher;
-
-    /**
      * @var \Symfony\Component\Form\FormTypeInterface
      */
     protected $formType;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $validatorMock;
-
-    /**
      * @var \Symfony\Component\Form\FormFactoryInterface
      */
     protected $factory;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $validatorMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $dispatcherMock;
+
+    /**
+     * @var \Symfony\Component\Form\FormBuilder
+     */
+    private $builder;
 
     public function setUp(): void
     {
@@ -63,8 +62,8 @@ abstract class FormTestCase extends TestCase
 
         $this->factory = $factoryBuilder->getFormFactory();
 
-        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
-        $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
+        $this->dispatcherMock = $this->createMock(EventDispatcherInterface::class);
+        $this->builder = new FormBuilder(null, null, $this->dispatcherMock, $this->factory);
     }
 
     abstract public function getMainType(): FormTypeInterface;

@@ -13,19 +13,18 @@ use Symfony\Component\Validator\Validation;
 abstract class ValidatorTestCase extends TestCase
 {
     /**
+     * @var mixed
+     */
+    protected $constraint;
+    /**
      * @var \Symfony\Component\Validator\Context\ExecutionContextInterface
      */
-    protected $executionContext;
+    private $executionContext;
 
     /**
      * @var \Symfony\Component\Validator\ConstraintValidatorInterface
      */
-    protected $validator;
-
-    /**
-     * @var mixed
-     */
-    protected $constraint;
+    private $validator;
 
     public function setUp(): void
     {

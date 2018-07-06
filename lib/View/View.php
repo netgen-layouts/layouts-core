@@ -10,34 +10,33 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class View implements ViewInterface
 {
     /**
+     * @var array
+     */
+    protected $parameters = [];
+    /**
      * @var string
      */
-    protected $context;
+    private $context;
 
     /**
      * @var string
      */
-    protected $fallbackContext;
+    private $fallbackContext;
 
     /**
      * @var string|null
      */
-    protected $template;
+    private $template;
 
     /**
      * @var \Symfony\Component\HttpFoundation\Response
      */
-    protected $response;
+    private $response;
 
     /**
      * @var array
      */
-    protected $parameters = [];
-
-    /**
-     * @var array
-     */
-    protected $customParameters = [];
+    private $customParameters = [];
 
     public function getContext(): ?string
     {
