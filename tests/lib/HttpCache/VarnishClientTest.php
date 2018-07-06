@@ -47,20 +47,20 @@ final class VarnishClientTest extends TestCase
         $this->idProviderMock
             ->expects($this->at(0))
             ->method('provideIds')
-            ->with($this->equalTo(24))
+            ->with($this->identicalTo(24))
             ->will($this->returnValue([24, 25, 26]));
 
         $this->idProviderMock
             ->expects($this->at(1))
             ->method('provideIds')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue([42]));
 
         $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(
-                $this->equalTo(
+                $this->identicalTo(
                     [
                         'X-Layout-Id' => '^(24|25|26|42)$',
                     ]
@@ -99,7 +99,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->once())
             ->method('invalidate')
             ->with(
-                $this->equalTo(
+                $this->identicalTo(
                     [
                         'X-Layout-Id' => '.*',
                     ]
@@ -118,7 +118,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->once())
             ->method('invalidate')
             ->with(
-                $this->equalTo(
+                $this->identicalTo(
                     [
                         'X-Block-Id' => '^(24|42)$',
                     ]
@@ -149,7 +149,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->once())
             ->method('invalidate')
             ->with(
-                $this->equalTo(
+                $this->identicalTo(
                     [
                         'X-Origin-Layout-Id' => '^(24|42)$',
                     ]
@@ -180,7 +180,7 @@ final class VarnishClientTest extends TestCase
             ->expects($this->once())
             ->method('invalidate')
             ->with(
-                $this->equalTo(
+                $this->identicalTo(
                     [
                         'X-Block-Id' => '.*',
                     ]

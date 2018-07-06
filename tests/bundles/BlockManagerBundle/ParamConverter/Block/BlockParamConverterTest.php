@@ -64,7 +64,7 @@ final class BlockParamConverterTest extends TestCase
         $this->blockServiceMock
             ->expects($this->once())
             ->method('loadBlock')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($block));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class BlockParamConverterTest extends TestCase
         $this->blockServiceMock
             ->expects($this->once())
             ->method('loadBlockDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($block));
 
         $this->assertSame(

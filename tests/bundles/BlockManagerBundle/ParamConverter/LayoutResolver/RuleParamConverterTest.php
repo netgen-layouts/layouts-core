@@ -64,7 +64,7 @@ final class RuleParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadRule')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($rule));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class RuleParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadRuleArchive')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($rule));
 
         $this->assertSame(
@@ -112,7 +112,7 @@ final class RuleParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadRuleDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($rule));
 
         $this->assertSame(

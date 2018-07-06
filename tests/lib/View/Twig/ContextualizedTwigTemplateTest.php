@@ -22,13 +22,13 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $templateMock
             ->expects($this->any())
             ->method('hasBlock')
-            ->with($this->equalTo('block_name'))
+            ->with($this->identicalTo('block_name'))
             ->will($this->returnValue(true));
 
         $templateMock
             ->expects($this->any())
             ->method('displayBlock')
-            ->with($this->equalTo('block_name'))
+            ->with($this->identicalTo('block_name'))
             ->will(
                 $this->returnCallback(
                     function (string $blockName): void {
@@ -53,7 +53,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $templateMock
             ->expects($this->any())
             ->method('hasBlock')
-            ->with($this->equalTo('block_name'))
+            ->with($this->identicalTo('block_name'))
             ->will($this->returnValue(false));
 
         $templateMock
@@ -77,13 +77,13 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $templateMock
             ->expects($this->any())
             ->method('hasBlock')
-            ->with($this->equalTo('block_name'))
+            ->with($this->identicalTo('block_name'))
             ->will($this->returnValue(true));
 
         $templateMock
             ->expects($this->any())
             ->method('displayBlock')
-            ->with($this->equalTo('block_name'))
+            ->with($this->identicalTo('block_name'))
             ->will($this->throwException(new Exception('Test exception text')));
 
         $template = new ContextualizedTwigTemplate($templateMock);

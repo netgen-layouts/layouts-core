@@ -40,17 +40,18 @@ final class PlaceholderNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
+        $block = new Block();
         $placeholder = new Placeholder(
             [
                 'identifier' => 'main',
-                'blocks' => new ArrayCollection([new Block()]),
+                'blocks' => new ArrayCollection([$block]),
             ]
         );
 
         $this->normalizerMock
             ->expects($this->at(0))
             ->method('normalize')
-            ->with($this->equalTo([new View(new Block(), 1)]))
+            ->with($this->equalTo([new View($block, 1)]))
             ->will($this->returnValue(['normalized blocks']));
 
         $this->assertSame(

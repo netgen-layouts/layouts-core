@@ -259,7 +259,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('12'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('12'), $this->identicalTo('my_value_type'))
             ->will($this->returnValue($cmsItem));
 
         $item = $this->collectionMapper->mapItem($persistenceItem);
@@ -311,7 +311,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('12'), $this->equalTo('null'))
+            ->with($this->identicalTo('12'), $this->identicalTo('null'))
             ->will($this->returnValue($cmsItem));
 
         $item = $this->collectionMapper->mapItem($persistenceItem);

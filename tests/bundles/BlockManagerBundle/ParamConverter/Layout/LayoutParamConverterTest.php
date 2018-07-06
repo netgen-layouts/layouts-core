@@ -64,7 +64,7 @@ final class LayoutParamConverterTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($layout));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class LayoutParamConverterTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayoutArchive')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($layout));
 
         $this->assertSame(
@@ -112,7 +112,7 @@ final class LayoutParamConverterTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayoutDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($layout));
 
         $this->assertSame(

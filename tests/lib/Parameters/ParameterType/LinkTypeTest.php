@@ -312,7 +312,7 @@ final class LinkTypeTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new CmsItem(
@@ -336,7 +336,7 @@ final class LinkTypeTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('24'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('24'), $this->identicalTo('my_value_type'))
             ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $this->assertSame(
@@ -432,7 +432,7 @@ final class LinkTypeTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new CmsItem(
@@ -459,7 +459,7 @@ final class LinkTypeTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('def'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('def'), $this->identicalTo('my_value_type'))
             ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $importedValue = $this->type->import(

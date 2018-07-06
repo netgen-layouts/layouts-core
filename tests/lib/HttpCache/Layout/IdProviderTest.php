@@ -38,7 +38,7 @@ final class IdProviderTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will(
                 $this->returnValue(
                     new Layout(
@@ -63,7 +63,7 @@ final class IdProviderTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will(
                 $this->throwException(
                     new NotFoundException('layout', 42)
@@ -90,13 +90,13 @@ final class IdProviderTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($sharedLayout));
 
         $this->layoutServiceMock
             ->expects($this->at(1))
             ->method('loadRelatedLayouts')
-            ->with($this->equalTo($sharedLayout))
+            ->with($this->identicalTo($sharedLayout))
             ->will(
                 $this->returnValue(
                     [

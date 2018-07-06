@@ -43,13 +43,13 @@ final class TemplateResolverTest extends TestCase
         $matcherMock
             ->expects($this->at(0))
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(['value']))
+            ->with($this->identicalTo($this->view), $this->identicalTo(['value']))
             ->will($this->returnValue(false));
 
         $matcherMock
             ->expects($this->at(1))
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(['value2']))
+            ->with($this->identicalTo($this->view), $this->identicalTo(['value2']))
             ->will($this->returnValue(true));
 
         $viewConfiguration = [
@@ -234,7 +234,7 @@ final class TemplateResolverTest extends TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(['value']))
+            ->with($this->identicalTo($this->view), $this->identicalTo(['value']))
             ->will($this->returnValue(false));
 
         $viewConfiguration = [

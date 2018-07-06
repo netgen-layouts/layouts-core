@@ -38,19 +38,18 @@ final class ValueNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
+        $value = new StubValue();
         $this->normalizerMock
             ->expects($this->at(0))
             ->method('normalize')
             ->with(
-                $this->equalTo(new StubValue()),
-                $this->equalTo('json'),
-                $this->equalTo(['context'])
+                $this->identicalTo($value),
+                $this->identicalTo('json'),
+                $this->identicalTo(['context'])
             )
             ->will($this->returnValue(['serialized']));
 
-        $value = new Value(new StubValue());
-
-        $data = $this->normalizer->normalize($value, 'json', ['context']);
+        $data = $this->normalizer->normalize(new Value($value), 'json', ['context']);
 
         $this->assertSame(['serialized'], $data);
     }

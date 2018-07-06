@@ -47,8 +47,8 @@ final class RendererTest extends TestCase
             ->expects($this->at(0))
             ->method('display')
             ->with(
-                $this->equalTo('template1.html.twig'),
-                $this->equalTo(['param' => 'value'])
+                $this->identicalTo('template1.html.twig'),
+                $this->identicalTo(['param' => 'value'])
             )
             ->will(
                 $this->returnCallback(
@@ -62,8 +62,8 @@ final class RendererTest extends TestCase
             ->expects($this->at(1))
             ->method('display')
             ->with(
-                $this->equalTo('template2.html.twig'),
-                $this->equalTo(['param2' => 'value2', 'param' => 'value3'])
+                $this->identicalTo('template2.html.twig'),
+                $this->identicalTo(['param2' => 'value2', 'param' => 'value3'])
             )
             ->will(
                 $this->returnCallback(

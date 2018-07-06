@@ -73,7 +73,7 @@ final class ContextListenerTest extends TestCase
         $this->contextBuilderMock
             ->expects($this->once())
             ->method('buildContext')
-            ->with($this->equalTo($this->context));
+            ->with($this->identicalTo($this->context));
 
         $this->uriSignerMock
             ->expects($this->never())
@@ -102,7 +102,7 @@ final class ContextListenerTest extends TestCase
         $this->uriSignerMock
             ->expects($this->once())
             ->method('check')
-            ->with($this->equalTo($request->getRequestUri()))
+            ->with($this->identicalTo($request->getRequestUri()))
             ->will($this->returnValue(true));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -155,7 +155,7 @@ final class ContextListenerTest extends TestCase
         $this->uriSignerMock
             ->expects($this->once())
             ->method('check')
-            ->with($this->equalTo($request->attributes->get('ngbmContextUri')))
+            ->with($this->identicalTo($request->attributes->get('ngbmContextUri')))
             ->will($this->returnValue(true));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -183,7 +183,7 @@ final class ContextListenerTest extends TestCase
         $this->uriSignerMock
             ->expects($this->once())
             ->method('check')
-            ->with($this->equalTo($request->getRequestUri()))
+            ->with($this->identicalTo($request->getRequestUri()))
             ->will($this->returnValue(false));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);

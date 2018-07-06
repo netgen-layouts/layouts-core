@@ -58,9 +58,9 @@ final class SerializerListenerTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                $this->equalTo($value),
-                $this->equalTo('json'),
-                $this->equalTo([])
+                $this->identicalTo($value),
+                $this->identicalTo('json'),
+                $this->identicalTo([])
             )
             ->will(
                 $this->returnValue('serialized content')
@@ -101,9 +101,9 @@ final class SerializerListenerTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                $this->equalTo($value),
-                $this->equalTo('json'),
-                $this->equalTo(['disable_html' => true])
+                $this->identicalTo($value),
+                $this->identicalTo('json'),
+                $this->identicalTo(['disable_html' => true])
             )
             ->will(
                 $this->returnValue('serialized content')

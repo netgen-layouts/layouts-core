@@ -64,7 +64,7 @@ final class ConditionParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadCondition')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($condition));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class ConditionParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadConditionDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($condition));
 
         $this->assertSame(

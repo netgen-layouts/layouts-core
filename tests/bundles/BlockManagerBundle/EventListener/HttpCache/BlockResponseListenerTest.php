@@ -54,19 +54,21 @@ final class BlockResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmView', new BlockView(new Block()));
+        $block = new Block();
+        $request->attributes->set('ngbmView', new BlockView($block));
 
+        $response = new Response();
         $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            $response
         );
 
         $this->taggerMock
             ->expects($this->once())
             ->method('tagBlock')
-            ->with($this->equalTo(new Response()), $this->equalTo(new Block()));
+            ->with($this->identicalTo($response), $this->identicalTo($block));
 
         $this->listener->onKernelResponse($event);
     }

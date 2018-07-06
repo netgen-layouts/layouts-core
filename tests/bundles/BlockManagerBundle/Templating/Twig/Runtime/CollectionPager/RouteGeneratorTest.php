@@ -67,8 +67,8 @@ final class RouteGeneratorTest extends TestCase
         $this->urlGeneratorMock->expects($this->once())
             ->method('generate')
             ->with(
-                $this->equalTo('ngbm_ajax_block'),
-                $this->equalTo(
+                $this->identicalTo('ngbm_ajax_block'),
+                $this->identicalTo(
                     [
                         'blockId' => 42,
                         'locale' => 'en',
@@ -81,7 +81,7 @@ final class RouteGeneratorTest extends TestCase
 
         $this->uriSignerMock->expects($this->once())
             ->method('sign')
-            ->with($this->equalTo('/generated/uri'))
+            ->with($this->identicalTo('/generated/uri'))
             ->will($this->returnValue($signedUri));
 
         $routeGenerator = $this->routeGenerator;

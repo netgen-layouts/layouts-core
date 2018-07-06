@@ -81,7 +81,7 @@ final class CollectionItemNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects($this->any())
             ->method('generate')
-            ->with($this->equalTo($item->getCmsItem()))
+            ->with($this->identicalTo($item->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
         $this->assertSame(

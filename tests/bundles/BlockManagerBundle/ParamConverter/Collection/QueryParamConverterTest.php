@@ -64,7 +64,7 @@ final class QueryParamConverterTest extends TestCase
         $this->collectionServiceMock
             ->expects($this->once())
             ->method('loadQuery')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($query));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class QueryParamConverterTest extends TestCase
         $this->collectionServiceMock
             ->expects($this->once())
             ->method('loadQueryDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($query));
 
         $this->assertSame(

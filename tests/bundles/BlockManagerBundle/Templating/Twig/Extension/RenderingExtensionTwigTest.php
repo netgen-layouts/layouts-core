@@ -139,7 +139,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             $this->localeProviderMock
                 ->expects($this->any())
                 ->method('getRequestLocales')
-                ->with($this->equalTo($request))
+                ->with($this->identicalTo($request))
                 ->will($this->returnValue(['en'])) :
             $this->localeProviderMock
                 ->expects($this->never())
@@ -150,7 +150,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->method('loadZoneBlocks')
             ->with(
                 $this->isInstanceOf(Zone::class),
-                $this->equalTo($request instanceof Request ? ['en'] : null)
+                $this->identicalTo($request instanceof Request ? ['en'] : null)
             )
             ->will(
                 $this->returnValue(

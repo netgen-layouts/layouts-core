@@ -41,7 +41,7 @@ final class ItemLinkTypeTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new CmsItem(
@@ -56,7 +56,7 @@ final class ItemLinkTypeTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new CmsItem(

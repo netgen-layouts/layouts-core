@@ -64,7 +64,7 @@ final class TargetParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadTarget')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($target));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class TargetParamConverterTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('loadTargetDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($target));
 
         $this->assertSame(

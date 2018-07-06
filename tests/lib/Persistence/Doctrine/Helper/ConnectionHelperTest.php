@@ -68,7 +68,7 @@ final class ConnectionHelperTest extends TestCase
         $this->databasePlatformMock
             ->expects($this->once())
             ->method('getIdentitySequenceName')
-            ->with($this->equalTo('table'), $this->equalTo('id'))
+            ->with($this->identicalTo('table'), $this->identicalTo('id'))
             ->will($this->returnValue('s_table_id'));
 
         $this->assertSame("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
@@ -88,7 +88,7 @@ final class ConnectionHelperTest extends TestCase
         $this->databaseConnectionMock
             ->expects($this->any())
             ->method('lastInsertId')
-            ->with($this->equalTo('table'))
+            ->with($this->identicalTo('table'))
             ->will($this->returnValue(42));
 
         $this->assertSame(42, $this->connectionHelper->lastInsertId('table'));
@@ -109,13 +109,13 @@ final class ConnectionHelperTest extends TestCase
         $this->databasePlatformMock
             ->expects($this->once())
             ->method('getIdentitySequenceName')
-            ->with($this->equalTo('table'), $this->equalTo('id'))
+            ->with($this->identicalTo('table'), $this->identicalTo('id'))
             ->will($this->returnValue('s_table_id'));
 
         $this->databaseConnectionMock
             ->expects($this->any())
             ->method('lastInsertId')
-            ->with($this->equalTo('s_table_id'))
+            ->with($this->identicalTo('s_table_id'))
             ->will($this->returnValue(43));
 
         $this->assertSame(43, $this->connectionHelper->lastInsertId('table'));

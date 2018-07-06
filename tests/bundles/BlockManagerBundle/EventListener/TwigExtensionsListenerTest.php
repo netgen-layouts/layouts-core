@@ -56,24 +56,24 @@ final class TwigExtensionsListenerTest extends TestCase
         $this->twigMock
             ->expects($this->at(0))
             ->method('hasExtension')
-            ->with($this->equalTo(IntlExtension::class))
+            ->with($this->identicalTo(IntlExtension::class))
             ->will($this->returnValue(false));
 
         $this->twigMock
             ->expects($this->at(1))
             ->method('addExtension')
-            ->with($this->equalTo(new IntlExtension()));
+            ->with($this->isInstanceOf(IntlExtension::class));
 
         $this->twigMock
             ->expects($this->at(2))
             ->method('hasExtension')
-            ->with($this->equalTo(VersionExtension::class))
+            ->with($this->identicalTo(VersionExtension::class))
             ->will($this->returnValue(false));
 
         $this->twigMock
             ->expects($this->at(3))
             ->method('addExtension')
-            ->with($this->equalTo(new VersionExtension()));
+            ->with($this->isInstanceOf(VersionExtension::class));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -90,13 +90,13 @@ final class TwigExtensionsListenerTest extends TestCase
         $this->twigMock
             ->expects($this->at(0))
             ->method('hasExtension')
-            ->with($this->equalTo(IntlExtension::class))
+            ->with($this->identicalTo(IntlExtension::class))
             ->will($this->returnValue(true));
 
         $this->twigMock
             ->expects($this->at(1))
             ->method('hasExtension')
-            ->with($this->equalTo(VersionExtension::class))
+            ->with($this->identicalTo(VersionExtension::class))
             ->will($this->returnValue(true));
 
         $this->twigMock

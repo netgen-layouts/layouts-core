@@ -29,17 +29,18 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetNbResults(): void
     {
+        $collection = new Collection();
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 3])));
 
-        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection());
+        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
         $this->assertSame(3, $adapter->getNbResults());
     }
@@ -51,17 +52,18 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetNbResultsWithMaxTotalCount(): void
     {
+        $collection = new Collection();
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 50])));
 
-        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 0, 10);
+        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 0, 10);
 
         $this->assertSame(10, $adapter->getNbResults());
     }
@@ -72,17 +74,18 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetNbResultsWithStartingOffset(): void
     {
+        $collection = new Collection();
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 6])));
 
-        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3);
+        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 
         $this->assertSame(3, $adapter->getNbResults());
     }
@@ -93,17 +96,18 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetNbResultsWithStartingOffsetAndMaxTotalCount(): void
     {
+        $collection = new Collection();
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 10])));
 
-        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3, 5);
+        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3, 5);
 
         $this->assertSame(5, $adapter->getNbResults());
     }
@@ -114,19 +118,20 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetSlice(): void
     {
+        $collection = new Collection();
         $resultSet = new ResultSet(['results' => [1, 2, 3], 'totalCount' => 3]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(0),
-                $this->equalTo(10),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(10),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue($resultSet));
 
-        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection());
+        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
         $this->assertSame($resultSet, $adapter->getSlice(0, 10));
     }
@@ -137,19 +142,20 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     public function testGetSliceWithStartingOffset(): void
     {
+        $collection = new Collection();
         $resultSet = new ResultSet(['results' => [1, 2, 3], 'totalCount' => 3]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(3),
-                $this->equalTo(10),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(3),
+                $this->identicalTo(10),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue($resultSet));
 
-        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, new Collection(), 3);
+        $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 
         $this->assertSame($resultSet, $adapter->getSlice(0, 10));
     }

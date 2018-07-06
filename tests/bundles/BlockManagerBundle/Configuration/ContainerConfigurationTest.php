@@ -34,7 +34,7 @@ final class ContainerConfigurationTest extends TestCase
         $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
-            ->with($this->equalTo('netgen_block_manager.some_param'))
+            ->with($this->identicalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(true));
 
         $this->assertTrue($this->configuration->hasParameter('some_param'));
@@ -62,7 +62,7 @@ final class ContainerConfigurationTest extends TestCase
         $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
-            ->with($this->equalTo('netgen_block_manager.some_param'))
+            ->with($this->identicalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(false));
 
         $this->assertFalse($this->configuration->hasParameter('some_param'));
@@ -76,13 +76,13 @@ final class ContainerConfigurationTest extends TestCase
         $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
-            ->with($this->equalTo('netgen_block_manager.some_param'))
+            ->with($this->identicalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(true));
 
         $this->containerMock
             ->expects($this->once())
             ->method('getParameter')
-            ->with($this->equalTo('netgen_block_manager.some_param'))
+            ->with($this->identicalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue('some_param_value'));
 
         $this->assertSame('some_param_value', $this->configuration->getParameter('some_param'));
@@ -116,7 +116,7 @@ final class ContainerConfigurationTest extends TestCase
         $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
-            ->with($this->equalTo('netgen_block_manager.some_param'))
+            ->with($this->identicalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(false));
 
         $this->configuration->getParameter('some_param');

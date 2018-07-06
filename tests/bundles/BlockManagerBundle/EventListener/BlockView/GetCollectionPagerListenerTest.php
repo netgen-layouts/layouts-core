@@ -107,10 +107,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -118,10 +118,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(1))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(13),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(13),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -183,10 +183,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -194,10 +194,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(1))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(8),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(8),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -259,10 +259,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -270,10 +270,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(1))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(13),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(13),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -334,10 +334,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(0),
-                $this->equalTo(0),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(0),
+                $this->identicalTo(0),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -345,10 +345,10 @@ final class GetCollectionPagerListenerTest extends TestCase
             ->expects($this->at(1))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(13),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(13),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 

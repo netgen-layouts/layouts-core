@@ -43,7 +43,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
             $this->layoutServiceMock
                 ->expects($this->once())
                 ->method('layoutNameExists')
-                ->with($this->equalTo($value))
+                ->with($this->identicalTo($value))
                 ->will($this->returnValue(!$isValid));
         }
 

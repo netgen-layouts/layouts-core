@@ -48,23 +48,21 @@ final class CollectionPagerRuntimeTest extends TestCase
      */
     public function testRenderCollectionPager(): void
     {
+        $block = new Block();
         $pagerfanta = $this->createMock(Pagerfanta::class);
 
         $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
             ->with(
-                $this->equalTo($pagerfanta),
-                $this->equalTo($this->routeGenerator),
-                [
-                    'block' => new Block(),
-                    'collection_identifier' => 'default',
-                ]
+                $this->identicalTo($pagerfanta),
+                $this->identicalTo($this->routeGenerator),
+                $this->identicalTo(['block' => $block, 'collection_identifier' => 'default'])
             )
             ->will($this->returnValue('rendered view'));
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
-            new Block(),
+            $block,
             'default'
         );
 
@@ -76,24 +74,27 @@ final class CollectionPagerRuntimeTest extends TestCase
      */
     public function testRenderCollectionPagerWithOptions(): void
     {
+        $block = new Block();
         $pagerfanta = $this->createMock(Pagerfanta::class);
 
         $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
             ->with(
-                $this->equalTo($pagerfanta),
-                $this->equalTo($this->routeGenerator),
-                [
-                    'block' => new Block(),
-                    'collection_identifier' => 'default',
-                    'var' => 'value',
-                ]
+                $this->identicalTo($pagerfanta),
+                $this->identicalTo($this->routeGenerator),
+                $this->identicalTo(
+                    [
+                        'var' => 'value',
+                        'block' => $block,
+                        'collection_identifier' => 'default',
+                    ]
+                )
             )
             ->will($this->returnValue('rendered view'));
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
-            new Block(),
+            $block,
             'default',
             [
                 'var' => 'value',

@@ -65,7 +65,7 @@ final class ViewRendererListenerTest extends TestCase
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderView')
-            ->with($this->equalTo($view))
+            ->with($this->identicalTo($view))
             ->will($this->returnValue('rendered content'));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -103,7 +103,7 @@ final class ViewRendererListenerTest extends TestCase
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderView')
-            ->with($this->equalTo($view))
+            ->with($this->identicalTo($view))
             ->will($this->throwException(new Exception()));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);

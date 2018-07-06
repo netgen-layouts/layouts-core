@@ -43,16 +43,17 @@ final class CollectionViewTest extends TestCase
      */
     public function testRender(): void
     {
+        $block = new Block();
         $pagerMock = $this->createMock(Pagerfanta::class);
 
         $this->twigMock->expects($this->once())
             ->method('render')
             ->with(
-                $this->equalTo('default_template.html.twig'),
-                $this->equalTo(
+                $this->identicalTo('default_template.html.twig'),
+                $this->identicalTo(
                     [
                         'pager' => $pagerMock,
-                        'block' => new Block(),
+                        'block' => $block,
                         'collection_identifier' => 'default',
                     ]
                 )
@@ -63,7 +64,7 @@ final class CollectionViewTest extends TestCase
             $pagerMock,
             $this->getRouteGenerator(),
             [
-                'block' => new Block(),
+                'block' => $block,
                 'collection_identifier' => 'default',
             ]
         );
@@ -76,16 +77,17 @@ final class CollectionViewTest extends TestCase
      */
     public function testRenderWithOverridenTemplate(): void
     {
+        $block = new Block();
         $pagerMock = $this->createMock(Pagerfanta::class);
 
         $this->twigMock->expects($this->once())
             ->method('render')
             ->with(
-                $this->equalTo('template.html.twig'),
-                $this->equalTo(
+                $this->identicalTo('template.html.twig'),
+                $this->identicalTo(
                     [
                         'pager' => $pagerMock,
-                        'block' => new Block(),
+                        'block' => $block,
                         'collection_identifier' => 'default',
                     ]
                 )
@@ -96,7 +98,7 @@ final class CollectionViewTest extends TestCase
             $pagerMock,
             $this->getRouteGenerator(),
             [
-                'block' => new Block(),
+                'block' => $block,
                 'collection_identifier' => 'default',
                 'template' => 'template.html.twig',
             ]

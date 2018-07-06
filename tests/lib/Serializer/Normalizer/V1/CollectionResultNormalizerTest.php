@@ -80,7 +80,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects($this->any())
             ->method('generate')
-            ->with($this->equalTo($collectionItem->getCmsItem()))
+            ->with($this->identicalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
         $this->assertSame(
@@ -126,7 +126,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects($this->any())
             ->method('generate')
-            ->with($this->equalTo($item))
+            ->with($this->identicalTo($item))
             ->will($this->returnValue('/some/url'));
 
         $this->assertSame(
@@ -192,25 +192,19 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testNormalizeWithSubItem(): void
     {
-        $collectionItem = new CollectionItem(
-            [
-                'id' => 42,
-                'collectionId' => 24,
-                'cmsItem' => new CmsItem(
-                    [
-                        'name' => 'Value name',
-                        'valueType' => 'value_type',
-                        'isVisible' => true,
-                    ]
-                ),
-            ]
-        );
-
         $item = new CmsItem(
             [
                 'name' => 'Value name',
                 'valueType' => 'value_type',
                 'isVisible' => true,
+            ]
+        );
+
+        $collectionItem = new CollectionItem(
+            [
+                'id' => 42,
+                'collectionId' => 24,
+                'cmsItem' => $item,
             ]
         );
 
@@ -235,7 +229,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects($this->any())
             ->method('generate')
-            ->with($this->equalTo($collectionItem->getCmsItem()))
+            ->with($this->identicalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
         $this->assertSame(

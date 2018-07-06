@@ -47,23 +47,24 @@ final class ViewNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
+        $value = new Value();
         $this->normalizerMock
             ->expects($this->once())
             ->method('normalize')
-            ->with($this->equalTo(new VersionedValue(new Value(), 1)))
+            ->with($this->equalTo(new VersionedValue($value, 1)))
             ->will($this->returnValue(['id' => 42]));
 
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Value()),
-                $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(['api_version' => 1])
+                $this->identicalTo($value),
+                $this->identicalTo(ViewInterface::CONTEXT_API),
+                $this->identicalTo(['api_version' => 1])
             )
             ->will($this->returnValue('rendered view'));
 
-        $view = new View(new Value(), 1);
+        $view = new View($value, 1);
 
         $data = $this->normalizer->normalize($view);
 
@@ -77,17 +78,18 @@ final class ViewNormalizerTest extends TestCase
      */
     public function testNormalizeWithoutRendering(): void
     {
+        $value = new Value();
         $this->normalizerMock
             ->expects($this->once())
             ->method('normalize')
-            ->with($this->equalTo(new VersionedValue(new Value(), 1)))
+            ->with($this->equalTo(new VersionedValue($value, 1)))
             ->will($this->returnValue(['id' => 42]));
 
         $this->viewRendererMock
             ->expects($this->never())
             ->method('renderValue');
 
-        $view = new View(new Value(), 1);
+        $view = new View($value, 1);
 
         $data = $this->normalizer->normalize($view, null, ['disable_html' => true]);
 
@@ -101,23 +103,25 @@ final class ViewNormalizerTest extends TestCase
      */
     public function testNormalizeWithInvalidDisableRenderingValue(): void
     {
+        $value = new Value();
+
         $this->normalizerMock
             ->expects($this->once())
             ->method('normalize')
-            ->with($this->equalTo(new VersionedValue(new Value(), 1)))
+            ->with($this->equalTo(new VersionedValue($value, 1)))
             ->will($this->returnValue(['id' => 42]));
 
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValue')
             ->with(
-                $this->equalTo(new Value()),
-                $this->equalTo(ViewInterface::CONTEXT_API),
-                $this->equalTo(['api_version' => 1])
+                $this->identicalTo($value),
+                $this->identicalTo(ViewInterface::CONTEXT_API),
+                $this->identicalTo(['api_version' => 1])
             )
             ->will($this->returnValue('rendered view'));
 
-        $view = new View(new Value(), 1);
+        $view = new View($value, 1);
 
         $data = $this->normalizer->normalize($view, null, ['disable_html' => 'true']);
 

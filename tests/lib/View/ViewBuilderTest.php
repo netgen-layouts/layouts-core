@@ -51,25 +51,25 @@ final class ViewBuilderTest extends TestCase
         $this->viewProviderMock
             ->expects($this->once())
             ->method('supports')
-            ->with($this->equalTo($value))
+            ->with($this->identicalTo($value))
             ->will($this->returnValue(true));
 
         $this->viewProviderMock
             ->expects($this->once())
             ->method('provideView')
-            ->with($this->equalTo($value))
+            ->with($this->identicalTo($value))
             ->will($this->returnValue($view));
 
         $this->templateResolverMock
             ->expects($this->once())
             ->method('resolveTemplate')
-            ->with($this->equalTo($view));
+            ->with($this->identicalTo($view));
 
         $this->eventDispatcherMock
             ->expects($this->at(0))
             ->method('dispatch')
             ->with(
-                $this->equalTo(BlockManagerEvents::BUILD_VIEW),
+                $this->identicalTo(BlockManagerEvents::BUILD_VIEW),
                 $this->isInstanceOf(CollectViewParametersEvent::class)
             );
 
@@ -77,7 +77,7 @@ final class ViewBuilderTest extends TestCase
             ->expects($this->at(1))
             ->method('dispatch')
             ->with(
-                $this->equalTo(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'stub')),
+                $this->identicalTo(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'stub')),
                 $this->isInstanceOf(CollectViewParametersEvent::class)
             );
 
@@ -137,7 +137,7 @@ final class ViewBuilderTest extends TestCase
         $this->viewProviderMock
             ->expects($this->once())
             ->method('supports')
-            ->with($this->equalTo($value))
+            ->with($this->identicalTo($value))
             ->will($this->returnValue(false));
 
         $this->viewProviderMock

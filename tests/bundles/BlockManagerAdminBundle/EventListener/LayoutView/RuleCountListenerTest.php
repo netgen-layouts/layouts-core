@@ -51,14 +51,15 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildView(): void
     {
-        $view = new LayoutView(new Layout(['status' => Layout::STATUS_PUBLISHED]));
+        $layout = new Layout(['status' => Layout::STATUS_PUBLISHED]);
+        $view = new LayoutView($layout);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('getRuleCount')
-            ->with($this->equalTo(new Layout(['status' => Layout::STATUS_PUBLISHED])))
+            ->with($this->identicalTo($layout))
             ->will($this->returnValue(3));
 
         $this->listener->onBuildView($event);

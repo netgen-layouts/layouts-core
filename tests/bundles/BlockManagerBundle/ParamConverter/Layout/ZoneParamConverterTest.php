@@ -64,7 +64,7 @@ final class ZoneParamConverterTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadZone')
-            ->with($this->equalTo(42), $this->equalTo('left'))
+            ->with($this->identicalTo(42), $this->identicalTo('left'))
             ->will($this->returnValue($zone));
 
         $this->assertSame(
@@ -89,7 +89,7 @@ final class ZoneParamConverterTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadZoneDraft')
-            ->with($this->equalTo(42), $this->equalTo('left'))
+            ->with($this->identicalTo(42), $this->identicalTo('left'))
             ->will($this->returnValue($zone));
 
         $this->assertSame(

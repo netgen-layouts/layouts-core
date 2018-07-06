@@ -38,7 +38,7 @@ final class RemoteIdConverterTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo('42'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new CmsItem(
@@ -69,7 +69,7 @@ final class RemoteIdConverterTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->with($this->equalTo(42), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $this->assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
@@ -83,7 +83,7 @@ final class RemoteIdConverterTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
                     new CmsItem(
@@ -114,7 +114,7 @@ final class RemoteIdConverterTest extends TestCase
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
-            ->with($this->equalTo('abc'), $this->equalTo('my_value_type'))
+            ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will($this->returnValue(new NullCmsItem('my_value_type')));
 
         $this->assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));

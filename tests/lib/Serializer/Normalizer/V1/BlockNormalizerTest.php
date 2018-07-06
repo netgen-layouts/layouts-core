@@ -68,6 +68,8 @@ final class BlockNormalizerTest extends TestCase
             ]
         );
 
+        $placeholder = new Placeholder(['identifier' => 'main']);
+
         $block = new Block(
             [
                 'id' => 42,
@@ -79,7 +81,7 @@ final class BlockNormalizerTest extends TestCase
                 'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
                 'placeholders' => [
-                    'main' => new Placeholder(['identifier' => 'main']),
+                    'main' => $placeholder,
                 ],
                 'collectionReferences' => [
                     'default' => $collectionReference,
@@ -105,7 +107,7 @@ final class BlockNormalizerTest extends TestCase
         $this->normalizerMock
             ->expects($this->at(1))
             ->method('normalize')
-            ->with($this->equalTo([new VersionedValue(new Placeholder(['identifier' => 'main']), 1)]))
+            ->with($this->equalTo([new VersionedValue($placeholder, 1)]))
             ->will($this->returnValue(['normalized placeholders']));
 
         $serializedConfig = [
@@ -123,7 +125,7 @@ final class BlockNormalizerTest extends TestCase
         $this->blockServiceMock
             ->expects($this->once())
             ->method('hasPublishedState')
-            ->with($this->equalTo($block))
+            ->with($this->identicalTo($block))
             ->will($this->returnValue(true));
 
         $this->assertSame(

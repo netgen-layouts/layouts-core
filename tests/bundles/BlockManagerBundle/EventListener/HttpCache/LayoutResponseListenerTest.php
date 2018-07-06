@@ -59,19 +59,22 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmLayoutView', new LayoutView(new Layout()));
+        $layout = new Layout();
 
+        $request->attributes->set('ngbmLayoutView', new LayoutView($layout));
+
+        $response = new Response();
         $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            $response
         );
 
         $this->taggerMock
             ->expects($this->once())
             ->method('tagLayout')
-            ->with($this->equalTo(new Response()), $this->equalTo(new Layout()));
+            ->with($this->identicalTo($response), $this->identicalTo($layout));
 
         $this->listener->onKernelResponse($event);
     }
@@ -133,19 +136,21 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(new Layout()));
+        $layout = new Layout();
+        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView($layout));
 
+        $response = new Response();
         $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            $response
         );
 
         $this->taggerMock
             ->expects($this->once())
             ->method('tagLayout')
-            ->with($this->equalTo(new Response()), $this->equalTo(new Layout()));
+            ->with($this->identicalTo($response), $this->identicalTo($layout));
 
         $this->listener->onKernelException(
             new GetResponseForExceptionEvent(

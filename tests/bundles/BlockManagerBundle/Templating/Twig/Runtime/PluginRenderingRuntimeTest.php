@@ -48,8 +48,8 @@ final class PluginRenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderPlugins')
             ->with(
-                $this->equalTo('plugin_name'),
-                $this->equalTo(['param' => 'value'])
+                $this->identicalTo('plugin_name'),
+                $this->identicalTo(['param' => 'value'])
             )
             ->will($this->returnValue('rendered plugin'));
 
@@ -75,8 +75,8 @@ final class PluginRenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderPlugins')
             ->with(
-                $this->equalTo('plugin_name'),
-                $this->equalTo(['param' => 'value'])
+                $this->identicalTo('plugin_name'),
+                $this->identicalTo(['param' => 'value'])
             )
             ->will($this->throwException(new Exception('Test exception text')));
 
@@ -95,8 +95,8 @@ final class PluginRenderingRuntimeTest extends TestCase
             ->expects($this->once())
             ->method('renderPlugins')
             ->with(
-                $this->equalTo('plugin_name'),
-                $this->equalTo(['param' => 'value'])
+                $this->identicalTo('plugin_name'),
+                $this->identicalTo(['param' => 'value'])
             )
             ->will($this->throwException(new Exception('Test exception text')));
 

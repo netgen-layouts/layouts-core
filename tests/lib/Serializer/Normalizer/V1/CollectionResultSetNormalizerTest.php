@@ -43,24 +43,22 @@ final class CollectionResultSetNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
+        $item1 = new Item(['position' => 0]);
+        $item2 = new Item(['position' => 1]);
+        $item3 = new Item(['position' => 2]);
+        $item4 = new Item(['position' => 3]);
+
+        $result1 = new Result(1, new ManualItem($item2));
+        $result2 = new Result(2, new ManualItem($item3));
+
         $result = new ResultSet(
             [
                 'collection' => new Collection(
                     [
-                        'items' => new ArrayCollection(
-                            [
-                                new Item(['position' => 0]),
-                                new Item(['position' => 1]),
-                                new Item(['position' => 2]),
-                                new Item(['position' => 3]),
-                            ]
-                        ),
+                        'items' => new ArrayCollection([$item1, $item2, $item3, $item4]),
                     ]
                 ),
-                'results' => [
-                    new Result(1, new ManualItem(new Item(['position' => 1]))),
-                    new Result(2, new ManualItem(new Item(['position' => 2]))),
-                ],
+                'results' => [$result1, $result2],
             ]
         );
 
@@ -70,8 +68,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ->with(
                 $this->equalTo(
                     [
-                        new VersionedValue(new Result(1, new ManualItem(new Item(['position' => 1]))), 1),
-                        new VersionedValue(new Result(2, new ManualItem(new Item(['position' => 2]))), 1),
+                        new VersionedValue($result1, 1),
+                        new VersionedValue($result2, 1),
                     ]
                 )
             )
@@ -83,8 +81,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ->with(
                 $this->equalTo(
                     [
-                        new VersionedValue(new Item(['position' => 0]), 1),
-                        new VersionedValue(new Item(['position' => 3]), 1),
+                        new VersionedValue($item1, 1),
+                        new VersionedValue($item4, 1),
                     ]
                 )
             )

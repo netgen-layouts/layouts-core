@@ -102,10 +102,10 @@ final class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection1),
-                $this->equalTo(3),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection1),
+                $this->identicalTo(3),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['collection' => $collection1, 'totalCount' => 0])));
 
@@ -113,10 +113,10 @@ final class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(1))
             ->method('build')
             ->with(
-                $this->equalTo($collection2),
-                $this->equalTo(5),
-                $this->equalTo(10),
-                $this->equalTo(0)
+                $this->identicalTo($collection2),
+                $this->identicalTo(5),
+                $this->identicalTo(10),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['collection' => $collection2, 'totalCount' => 0])));
 
@@ -178,10 +178,10 @@ final class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(3),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(3),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -238,10 +238,10 @@ final class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(3),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(3),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -297,10 +297,10 @@ final class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection),
-                $this->equalTo(3),
-                $this->equalTo(5),
-                $this->equalTo(0)
+                $this->identicalTo($collection),
+                $this->identicalTo(3),
+                $this->identicalTo(5),
+                $this->identicalTo(0)
             )
             ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
 
@@ -347,10 +347,10 @@ final class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo($collection1),
-                $this->equalTo(3),
-                $this->equalTo(5),
-                $this->equalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
+                $this->identicalTo($collection1),
+                $this->identicalTo(3),
+                $this->identicalTo(5),
+                $this->identicalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
             )
             ->will($this->returnValue(new ResultSet(['collection' => $collection1, 'totalCount' => 0])));
 

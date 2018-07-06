@@ -68,8 +68,8 @@ final class ExceptionSerializerListenerTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                $this->equalTo($exception),
-                $this->equalTo('json')
+                $this->identicalTo($exception),
+                $this->identicalTo('json')
             )
             ->will(
                 $this->returnValue('serialized content')
@@ -116,8 +116,8 @@ final class ExceptionSerializerListenerTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                $this->equalTo($exception),
-                $this->equalTo('json')
+                $this->identicalTo($exception),
+                $this->identicalTo('json')
             )
             ->will(
                 $this->returnValue('serialized content')

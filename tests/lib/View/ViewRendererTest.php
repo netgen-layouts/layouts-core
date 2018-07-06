@@ -50,7 +50,8 @@ final class ViewRendererTest extends TestCase
      */
     public function testRenderView(): void
     {
-        $view = new View(new Value());
+        $value = new Value();
+        $view = new View($value);
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 
@@ -58,7 +59,7 @@ final class ViewRendererTest extends TestCase
             ->expects($this->at(0))
             ->method('dispatch')
             ->with(
-                $this->equalTo(BlockManagerEvents::RENDER_VIEW),
+                $this->identicalTo(BlockManagerEvents::RENDER_VIEW),
                 $this->isInstanceOf(CollectViewParametersEvent::class)
             );
 
@@ -66,7 +67,7 @@ final class ViewRendererTest extends TestCase
             ->expects($this->at(1))
             ->method('dispatch')
             ->with(
-                $this->equalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+                $this->identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
                 $this->isInstanceOf(CollectViewParametersEvent::class)
             );
 
@@ -74,11 +75,11 @@ final class ViewRendererTest extends TestCase
             ->expects($this->once())
             ->method('render')
             ->with(
-                $this->equalTo('some_template.html.twig'),
-                $this->equalTo(
+                $this->identicalTo('some_template.html.twig'),
+                $this->identicalTo(
                     [
+                        'value' => $value,
                         'some_param' => 'some_value',
-                        'value' => new Value(),
                     ]
                 )
             )
@@ -102,7 +103,7 @@ final class ViewRendererTest extends TestCase
             ->expects($this->at(0))
             ->method('dispatch')
             ->with(
-                $this->equalTo(BlockManagerEvents::RENDER_VIEW),
+                $this->identicalTo(BlockManagerEvents::RENDER_VIEW),
                 $this->isInstanceOf(CollectViewParametersEvent::class)
             );
 
@@ -110,7 +111,7 @@ final class ViewRendererTest extends TestCase
             ->expects($this->at(1))
             ->method('dispatch')
             ->with(
-                $this->equalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+                $this->identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
                 $this->isInstanceOf(CollectViewParametersEvent::class)
             );
 

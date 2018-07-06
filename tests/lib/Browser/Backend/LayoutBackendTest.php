@@ -73,7 +73,7 @@ final class LayoutBackendTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
-            ->with($this->equalTo(1))
+            ->with($this->identicalTo(1))
             ->will($this->returnValue($layout));
 
         /** @var \Netgen\BlockManager\Browser\Item\Layout\LayoutInterface $item */
@@ -94,7 +94,7 @@ final class LayoutBackendTest extends TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
-            ->with($this->equalTo(1))
+            ->with($this->identicalTo(1))
             ->will($this->throwException(new NotFoundException('layout', 1)));
 
         $this->backend->loadItem(1);
@@ -131,9 +131,9 @@ final class LayoutBackendTest extends TestCase
             ->expects($this->once())
             ->method('loadLayouts')
             ->with(
-                $this->equalTo(false),
-                $this->equalTo(0),
-                $this->equalTo(25)
+                $this->identicalTo(false),
+                $this->identicalTo(0),
+                $this->identicalTo(25)
             )
             ->will($this->returnValue([new Layout(), new Layout()]));
 
@@ -156,9 +156,9 @@ final class LayoutBackendTest extends TestCase
             ->expects($this->once())
             ->method('loadLayouts')
             ->with(
-                $this->equalTo(false),
-                $this->equalTo(5),
-                $this->equalTo(10)
+                $this->identicalTo(false),
+                $this->identicalTo(5),
+                $this->identicalTo(10)
             )
             ->will($this->returnValue([new Layout(), new Layout()]));
 

@@ -64,7 +64,7 @@ final class CollectionParamConverterTest extends TestCase
         $this->collectionServiceMock
             ->expects($this->once())
             ->method('loadCollection')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($collection));
 
         $this->assertSame(
@@ -88,7 +88,7 @@ final class CollectionParamConverterTest extends TestCase
         $this->collectionServiceMock
             ->expects($this->once())
             ->method('loadCollectionDraft')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($collection));
 
         $this->assertSame(

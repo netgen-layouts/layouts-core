@@ -37,16 +37,17 @@ final class ValidatorTraitTest extends TestCase
      */
     public function testValidate(): void
     {
+        $constraints = [new Constraints\NotBlank()];
         $this->validatorMock
             ->expects($this->once())
             ->method('validate')
             ->with(
-                $this->equalTo('some value'),
-                $this->equalTo([new Constraints\NotBlank()])
+                $this->identicalTo('some value'),
+                $this->identicalTo($constraints)
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $this->validator->validate('some value', [new Constraints\NotBlank()]);
+        $this->validator->validate('some value', $constraints);
     }
 
     /**
@@ -56,12 +57,13 @@ final class ValidatorTraitTest extends TestCase
      */
     public function testValidateThrowsValidationException(): void
     {
+        $constraints = [new Constraints\NotBlank()];
         $this->validatorMock
             ->expects($this->once())
             ->method('validate')
             ->with(
-                $this->equalTo('some value'),
-                $this->equalTo([new Constraints\NotBlank()])
+                $this->identicalTo('some value'),
+                $this->identicalTo($constraints)
             )->will(
                 $this->returnValue(
                     new ConstraintViolationList(
@@ -75,7 +77,7 @@ final class ValidatorTraitTest extends TestCase
                 )
             );
 
-        $this->validator->validate('some value', [new Constraints\NotBlank()], 'value');
+        $this->validator->validate('some value', $constraints, 'value');
     }
 
     /**
