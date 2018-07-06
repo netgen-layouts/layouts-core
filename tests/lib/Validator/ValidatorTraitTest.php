@@ -47,7 +47,7 @@ final class ValidatorTraitTest extends TestCase
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $this->validator->validate('some value', $constraints);
+        $this->validator->validateValue('some value', $constraints);
     }
 
     /**
@@ -77,7 +77,7 @@ final class ValidatorTraitTest extends TestCase
                 )
             );
 
-        $this->validator->validate('some value', $constraints, 'value');
+        $this->validator->validateValue('some value', $constraints, 'value');
     }
 
     /**
@@ -94,6 +94,6 @@ final class ValidatorTraitTest extends TestCase
                 $this->throwException(new Exception('Test exception text'))
             );
 
-        $this->validator->validate('some value', [new Constraints\NotBlank()]);
+        $this->validator->validateValue('some value', [new Constraints\NotBlank()]);
     }
 }

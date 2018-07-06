@@ -9,4 +9,9 @@ use Netgen\BlockManager\Validator\ValidatorTrait;
 final class ValidatorValue
 {
     use ValidatorTrait;
+
+    public function validateValue($value, $constraints, ?string $propertyPath = null): void
+    {
+        $this->validate($value, $constraints, $propertyPath);
+    }
 }

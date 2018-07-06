@@ -16,27 +16,27 @@ trait DatabaseTrait
     /**
      * @var string
      */
-    protected $inMemoryDsn = 'sqlite:///:memory:';
+    private $inMemoryDsn = 'sqlite:///:memory:';
 
     /**
      * @var string
      */
-    protected $databaseUri;
+    private $databaseUri;
 
     /**
      * @var string
      */
-    protected $databaseServer;
+    private $databaseServer;
 
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $databaseConnection;
+    private $databaseConnection;
 
     /**
      * Sets up the database connection.
      */
-    protected function createDatabaseConnection(): Connection
+    private function createDatabaseConnection(): Connection
     {
         $this->databaseUri = $this->inMemoryDsn;
 
@@ -60,7 +60,7 @@ trait DatabaseTrait
     /**
      * Sets up the database connection.
      */
-    protected function createDatabase(string $fixturesPath = __DIR__ . '/../../../_fixtures'): void
+    private function createDatabase(string $fixturesPath = __DIR__ . '/../../../_fixtures'): void
     {
         if ($this->databaseConnection === null) {
             $this->createDatabaseConnection();
@@ -84,7 +84,7 @@ trait DatabaseTrait
     /**
      * Closes the database connection.
      */
-    protected function closeDatabase(): void
+    private function closeDatabase(): void
     {
         if ($this->databaseUri !== $this->inMemoryDsn) {
             $this->databaseConnection->close();
@@ -94,7 +94,7 @@ trait DatabaseTrait
     /**
      * Creates the database schema.
      */
-    protected function executeStatements(string $schemaPath, string $fileName = 'schema'): void
+    private function executeStatements(string $schemaPath, string $fileName = 'schema'): void
     {
         $fullPath = $schemaPath . '/' . $fileName . '.' . $this->databaseServer . '.sql';
         if (!file_exists($fullPath)) {
@@ -119,7 +119,7 @@ trait DatabaseTrait
     /**
      * Creates the database schema from all available Doctrine migrations.
      */
-    protected function executeMigrations(): void
+    private function executeMigrations(): void
     {
         $configuration = new YamlConfiguration($this->databaseConnection);
         $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');
@@ -132,7 +132,7 @@ trait DatabaseTrait
     /**
      * Inserts database fixtures.
      */
-    protected function insertDatabaseFixtures(string $fixturesPath): void
+    private function insertDatabaseFixtures(string $fixturesPath): void
     {
         $data = require $fixturesPath . '/data.php';
 
