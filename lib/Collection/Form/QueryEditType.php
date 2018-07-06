@@ -6,7 +6,8 @@ namespace Netgen\BlockManager\Collection\Form;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Form\TranslatableType;
+use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\TranslatableTypeTrait;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,8 +16,10 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class QueryEditType extends TranslatableType
+final class QueryEditType extends AbstractType
 {
+    use TranslatableTypeTrait;
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

@@ -16,7 +16,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
-final class TranslatableTypeTest extends FormTestCase
+final class TranslatableTypeTraitTest extends FormTestCase
 {
     public function getMainType(): FormTypeInterface
     {
@@ -39,7 +39,7 @@ final class TranslatableTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\TranslatableType::disableUntranslatableForms
+     * @covers \Netgen\BlockManager\Form\TranslatableTypeTrait::disableUntranslatableForms
      */
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void
     {
@@ -73,7 +73,7 @@ final class TranslatableTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\TranslatableType::disableUntranslatableForms
+     * @covers \Netgen\BlockManager\Form\TranslatableTypeTrait::disableUntranslatableForms
      */
     public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter(): void
     {

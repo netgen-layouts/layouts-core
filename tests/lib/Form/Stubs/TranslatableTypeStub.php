@@ -6,14 +6,17 @@ namespace Netgen\BlockManager\Tests\Form\Stubs;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Form\TranslatableType;
+use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\TranslatableTypeTrait;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class TranslatableTypeStub extends TranslatableType
+final class TranslatableTypeStub extends AbstractType
 {
+    use TranslatableTypeTrait;
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

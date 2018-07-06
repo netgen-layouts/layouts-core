@@ -7,8 +7,9 @@ namespace Netgen\BlockManager\Block\Form;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
-use Netgen\BlockManager\Form\TranslatableType;
+use Netgen\BlockManager\Form\TranslatableTypeTrait;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,8 +20,9 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class EditType extends TranslatableType
+abstract class EditType extends AbstractType
 {
+    use TranslatableTypeTrait;
     use ChoicesAsValuesTrait;
 
     /**

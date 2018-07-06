@@ -6,7 +6,8 @@ namespace Netgen\BlockManager\Collection\Form;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Form\TranslatableType;
+use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\TranslatableTypeTrait;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -14,8 +15,10 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-final class CollectionEditType extends TranslatableType
+final class CollectionEditType extends AbstractType
 {
+    use TranslatableTypeTrait;
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
