@@ -22,77 +22,77 @@ final class Block extends Value implements APIBlock
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int|string
      */
-    protected $layoutId;
+    private $layoutId;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $definition;
+    private $definition;
 
     /**
      * @var string
      */
-    protected $viewType;
+    private $viewType;
 
     /**
      * @var string
      */
-    protected $itemViewType;
+    private $itemViewType;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var int
      */
-    protected $parentPosition;
+    private $parentPosition;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
-    protected $placeholders = [];
+    private $placeholders = [];
 
     /**
      * @var \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    protected $collectionReferences = [];
+    private $collectionReferences = [];
 
     /**
      * @var \Netgen\BlockManager\Block\DynamicParameters
      */
-    protected $dynamicParameters;
+    private $dynamicParameters;
 
     /**
      * @var string[]
      */
-    protected $availableLocales = [];
+    private $availableLocales = [];
 
     /**
      * @var string
      */
-    protected $mainLocale;
+    private $mainLocale;
 
     /**
      * @var bool
      */
-    protected $isTranslatable;
+    private $isTranslatable;
 
     /**
      * @var bool
      */
-    protected $alwaysAvailable;
+    private $alwaysAvailable;
 
     /**
      * @var string
      */
-    protected $locale;
+    private $locale;
 
     public function getId()
     {

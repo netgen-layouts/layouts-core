@@ -13,22 +13,22 @@ final class Target extends Value implements APITarget
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int|string
      */
-    protected $ruleId;
+    private $ruleId;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    protected $targetType;
+    private $targetType;
 
     /**
      * @var int|string|float
      */
-    protected $value;
+    private $value;
 
     public function getId()
     {

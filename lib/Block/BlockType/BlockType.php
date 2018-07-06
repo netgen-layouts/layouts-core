@@ -20,32 +20,32 @@ class BlockType extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var bool
      */
-    protected $isEnabled;
+    private $isEnabled;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $icon;
+    private $icon;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $definition;
+    private $definition;
 
     /**
      * @var array
      */
-    protected $defaults = [];
+    private $defaults = [];
 
     /**
      * Returns the block type identifier.

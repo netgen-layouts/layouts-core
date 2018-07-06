@@ -12,7 +12,7 @@ trait ParameterBasedValueTrait
     /**
      * @var \Netgen\BlockManager\Parameters\Parameter[]
      */
-    protected $parameters = [];
+    private $parameters = [];
 
     /**
      * Returns all parameters.

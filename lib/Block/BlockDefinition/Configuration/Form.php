@@ -11,12 +11,12 @@ final class Form extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * Returns the form identifier.

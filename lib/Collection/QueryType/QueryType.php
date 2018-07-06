@@ -18,22 +18,22 @@ class QueryType extends Value implements QueryTypeInterface
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var bool
      */
-    protected $isEnabled;
+    private $isEnabled;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
-    protected $handler;
+    private $handler;
 
     public function getType(): string
     {

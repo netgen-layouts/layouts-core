@@ -16,12 +16,12 @@ final class Config extends Value implements APIConfig
     /**
      * @var string
      */
-    protected $configKey;
+    private $configKey;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    protected $definition;
+    private $definition;
 
     public function getConfigKey(): string
     {

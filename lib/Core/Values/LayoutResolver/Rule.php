@@ -17,41 +17,41 @@ final class Rule extends Value implements APIRule
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout|null
      */
-    protected $layout;
+    private $layout;
 
     /**
      * @var bool
      */
-    protected $enabled;
+    private $enabled;
 
     /**
      * @var int
      */
-    protected $priority;
+    private $priority;
 
     /**
      * @var string
      */
-    protected $comment;
+    private $comment;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $targets;
+    private $targets;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $conditions;
+    private $conditions;
 
-    public function __construct(array $properties = [])
+    public function __construct(array $data = [])
     {
-        parent::__construct($properties);
+        parent::__construct($data);
 
         $this->targets = $this->targets ?? new ArrayCollection();
         $this->conditions = $this->conditions ?? new ArrayCollection();

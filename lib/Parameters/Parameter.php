@@ -11,22 +11,22 @@ final class Parameter extends Value
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterDefinition
      */
-    protected $parameterDefinition;
+    private $parameterDefinition;
 
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 
     /**
      * @var bool
      */
-    protected $isEmpty = true;
+    private $isEmpty = true;
 
     /**
      * Returns the string representation of the parameter value.

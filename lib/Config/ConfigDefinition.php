@@ -17,12 +17,12 @@ class ConfigDefinition extends Value implements ConfigDefinitionInterface
     /**
      * @var string
      */
-    protected $configKey;
+    private $configKey;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
-    protected $handler;
+    private $handler;
 
     public function getConfigKey(): string
     {

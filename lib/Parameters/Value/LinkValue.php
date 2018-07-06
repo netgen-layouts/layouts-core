@@ -19,22 +19,22 @@ final class LinkValue extends Value
     /**
      * @var string
      */
-    protected $linkType;
+    private $linkType;
 
     /**
      * @var string
      */
-    protected $link;
+    private $link;
 
     /**
      * @var string
      */
-    protected $linkSuffix;
+    private $linkSuffix;
 
     /**
      * @var bool
      */
-    protected $newWindow = false;
+    private $newWindow = false;
 
     /**
      * Returns the link type.

@@ -11,12 +11,12 @@ final class Value extends BaseValue
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      */
-    protected $locale;
+    private $locale;
 
     public function getId(): int
     {

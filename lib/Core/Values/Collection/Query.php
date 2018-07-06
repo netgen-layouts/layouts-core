@@ -16,42 +16,42 @@ final class Query extends Value implements APIQuery
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int|string
      */
-    protected $collectionId;
+    private $collectionId;
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
-    protected $queryType;
+    private $queryType;
 
     /**
      * @var string[]
      */
-    protected $availableLocales = [];
+    private $availableLocales = [];
 
     /**
      * @var string
      */
-    protected $mainLocale;
+    private $mainLocale;
 
     /**
      * @var bool
      */
-    protected $isTranslatable;
+    private $isTranslatable;
 
     /**
      * @var bool
      */
-    protected $alwaysAvailable;
+    private $alwaysAvailable;
 
     /**
      * @var string
      */
-    protected $locale;
+    private $locale;
 
     public function getId()
     {

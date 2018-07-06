@@ -17,56 +17,56 @@ final class Layout extends Value implements APILayout
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
      */
-    protected $layoutType;
+    private $layoutType;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $description;
+    private $description;
 
     /**
      * @var \DateTimeInterface
      */
-    protected $created;
+    private $created;
 
     /**
      * @var \DateTimeInterface
      */
-    protected $modified;
+    private $modified;
 
     /**
      * @var bool
      */
-    protected $shared;
+    private $shared;
 
     /**
      * @var string
      */
-    protected $mainLocale;
+    private $mainLocale;
 
     /**
      * @var string[]
      */
-    protected $availableLocales = [];
+    private $availableLocales = [];
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $zones;
+    private $zones;
 
-    public function __construct(array $properties = [])
+    public function __construct(array $data = [])
     {
-        parent::__construct($properties);
+        parent::__construct($data);
 
         $this->zones = $this->zones ?? new ArrayCollection();
     }

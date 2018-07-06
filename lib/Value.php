@@ -4,30 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 abstract class Value
 {
-    /**
-     * Creates the object and hydrates it with property values provided in $properties array.
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If one of the properties does not exist in the value
-     */
-    public function __construct(array $properties = [])
-    {
-        foreach ($properties as $property => $value) {
-            if (!property_exists($this, $property)) {
-                throw new InvalidArgumentException(
-                    'properties',
-                    sprintf(
-                        'Property "%s" does not exist in "%s" class.',
-                        $property,
-                        get_class($this)
-                    )
-                );
-            }
+    use HydratorTrait;
 
-            $this->{$property} = $value;
-        }
+    /**
+     * Creates the object and hydrates it with property values provided in $data array.
+     */
+    public function __construct(array $data = [])
+    {
+        $this->hydrate($data);
     }
 }

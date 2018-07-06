@@ -11,17 +11,17 @@ final class Collection extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var array|null
      */
-    protected $validItemTypes;
+    private $validItemTypes;
 
     /**
      * @var array|null
      */
-    protected $validQueryTypes;
+    private $validQueryTypes;
 
     /**
      * Returns the collection identifier.

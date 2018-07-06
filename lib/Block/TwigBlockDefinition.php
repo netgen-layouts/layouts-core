@@ -11,11 +11,6 @@ use Netgen\BlockManager\API\Values\Block\Block;
  */
 class TwigBlockDefinition extends BlockDefinition implements TwigBlockDefinitionInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface
-     */
-    protected $handler;
-
     public function getTwigBlockName(Block $block): string
     {
         return $this->handler->getTwigBlockName($block);

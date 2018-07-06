@@ -11,32 +11,32 @@ final class CmsItem extends Value implements CmsItemInterface
     /**
      * @var int|string
      */
-    protected $value;
+    private $value;
 
     /**
      * @var int|string
      */
-    protected $remoteId;
+    private $remoteId;
 
     /**
      * @var string
      */
-    protected $valueType;
+    private $valueType;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var bool
      */
-    protected $isVisible;
+    private $isVisible;
 
     /**
      * @var mixed
      */
-    protected $object;
+    private $object;
 
     public function getValue()
     {

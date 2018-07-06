@@ -17,7 +17,7 @@ class ItemDefinition extends Value implements ItemDefinitionInterface
     /**
      * @var string
      */
-    protected $valueType;
+    private $valueType;
 
     public function getValueType(): string
     {

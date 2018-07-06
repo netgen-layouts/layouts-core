@@ -42,27 +42,27 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    protected $collection;
+    private $collection;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\Result[]
      */
-    protected $results;
+    private $results;
 
     /**
      * @var int
      */
-    protected $totalCount;
+    private $totalCount;
 
     /**
      * @var int
      */
-    protected $offset;
+    private $offset;
 
     /**
      * @var int
      */
-    protected $limit;
+    private $limit;
 
     /**
      * Returns the collection from which was this result generated.

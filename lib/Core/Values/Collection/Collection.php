@@ -18,56 +18,56 @@ final class Collection extends Value implements APICollection
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int
      */
-    protected $offset;
+    private $offset;
 
     /**
      * @var int|null
      */
-    protected $limit;
+    private $limit;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $items;
+    private $items;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query|null
      */
-    protected $query;
+    private $query;
 
     /**
      * @var string[]
      */
-    protected $availableLocales = [];
+    private $availableLocales = [];
 
     /**
      * @var string
      */
-    protected $mainLocale;
+    private $mainLocale;
 
     /**
      * @var bool
      */
-    protected $isTranslatable;
+    private $isTranslatable;
 
     /**
      * @var bool
      */
-    protected $alwaysAvailable;
+    private $alwaysAvailable;
 
     /**
      * @var string
      */
-    protected $locale;
+    private $locale;
 
-    public function __construct(array $properties = [])
+    public function __construct(array $data = [])
     {
-        parent::__construct($properties);
+        parent::__construct($data);
 
         $this->items = $this->items ?? new ArrayCollection();
     }

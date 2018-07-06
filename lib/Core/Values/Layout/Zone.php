@@ -15,17 +15,17 @@ final class Zone extends Value implements APIZone
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var int|string
      */
-    protected $layoutId;
+    private $layoutId;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Zone|null
      */
-    protected $linkedZone;
+    private $linkedZone;
 
     public function getIdentifier(): string
     {

@@ -16,27 +16,27 @@ class LayoutType extends Value implements LayoutTypeInterface
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var bool
      */
-    protected $isEnabled;
+    private $isEnabled;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string|null
      */
-    protected $icon;
+    private $icon;
 
     /**
      * @var \Netgen\BlockManager\Layout\Type\Zone[]
      */
-    protected $zones = [];
+    private $zones = [];
 
     public function getIdentifier(): string
     {

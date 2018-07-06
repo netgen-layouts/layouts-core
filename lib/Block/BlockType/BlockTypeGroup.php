@@ -17,22 +17,22 @@ class BlockTypeGroup extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var bool
      */
-    protected $isEnabled;
+    private $isEnabled;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
-    protected $blockTypes = [];
+    private $blockTypes = [];
 
     /**
      * Returns the block type group identifier.

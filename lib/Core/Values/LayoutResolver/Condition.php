@@ -13,22 +13,22 @@ final class Condition extends Value implements APICondition
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int|string
      */
-    protected $ruleId;
+    private $ruleId;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    protected $conditionType;
+    private $conditionType;
 
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 
     public function getId()
     {

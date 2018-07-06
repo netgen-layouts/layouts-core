@@ -76,7 +76,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      *
      * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
      */
-    protected $collectionCreateStructs = [];
+    private $collectionCreateStructs = [];
 
     /**
      * Adds a collection create struct with specified identifier to the struct.

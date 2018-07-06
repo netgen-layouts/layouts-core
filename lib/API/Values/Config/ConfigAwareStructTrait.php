@@ -11,7 +11,7 @@ trait ConfigAwareStructTrait
     /**
      * @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
      */
-    protected $configStructs = [];
+    private $configStructs = [];
 
     /**
      * Sets the config struct to this struct.

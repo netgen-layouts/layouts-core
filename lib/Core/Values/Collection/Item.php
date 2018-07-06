@@ -20,37 +20,37 @@ final class Item extends Value implements APIItem
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int|string
      */
-    protected $collectionId;
+    private $collectionId;
 
     /**
      * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
-    protected $definition;
+    private $definition;
 
     /**
      * @var int
      */
-    protected $position;
+    private $position;
 
     /**
      * @var int
      */
-    protected $type;
+    private $type;
 
     /**
      * @var int|string
      */
-    protected $value;
+    private $value;
 
     /**
      * @var \Netgen\BlockManager\Item\CmsItemInterface
      */
-    protected $cmsItem;
+    private $cmsItem;
 
     public function getId()
     {

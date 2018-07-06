@@ -11,12 +11,12 @@ final class ItemViewType extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * Returns the item view type identifier.

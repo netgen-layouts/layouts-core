@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
+use Netgen\BlockManager\Utils\Hydrator;
+
 trait ExportObjectTrait
 {
     /**
@@ -14,7 +16,7 @@ trait ExportObjectTrait
      */
     private function exportObject($object, bool $recursive = false): array
     {
-        $data = (function (): array { return get_object_vars($this); })->call($object);
+        $data = (new Hydrator())->extract($object);
 
         if (!$recursive) {
             return $data;

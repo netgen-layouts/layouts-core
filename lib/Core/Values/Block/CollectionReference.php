@@ -16,12 +16,12 @@ final class CollectionReference extends Value implements APICollectionReference
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    protected $collection;
+    private $collection;
 
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     public function getCollection(): Collection
     {

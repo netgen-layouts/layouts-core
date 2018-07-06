@@ -20,17 +20,17 @@ class ValueType extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var bool
      */
-    protected $isEnabled;
+    private $isEnabled;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * Returns the value type identifier.

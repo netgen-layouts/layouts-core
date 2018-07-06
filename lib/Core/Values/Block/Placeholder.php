@@ -20,16 +20,16 @@ final class Placeholder extends Value implements APIPlaceholder
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $blocks;
+    private $blocks;
 
-    public function __construct(array $properties = [])
+    public function __construct(array $data = [])
     {
-        parent::__construct($properties);
+        parent::__construct($data);
 
         $this->blocks = $this->blocks ?? new ArrayCollection();
     }

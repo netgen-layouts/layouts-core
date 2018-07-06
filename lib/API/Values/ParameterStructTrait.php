@@ -12,7 +12,7 @@ trait ParameterStructTrait
     /**
      * @var array
      */
-    protected $parameterValues = [];
+    private $parameterValues = [];
 
     /**
      * Sets the provided parameter values to the struct.

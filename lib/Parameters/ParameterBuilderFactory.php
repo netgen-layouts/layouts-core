@@ -13,7 +13,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
      */
-    protected $parameterTypeRegistry;
+    private $parameterTypeRegistry;
 
     public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry)
     {

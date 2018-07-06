@@ -12,22 +12,22 @@ final class ViewType extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[]
      */
-    protected $itemViewTypes = [];
+    private $itemViewTypes = [];
 
     /**
      * @var array|null
      */
-    protected $validParameters;
+    private $validParameters;
 
     /**
      * Returns the view type identifier.

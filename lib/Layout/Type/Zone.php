@@ -11,17 +11,17 @@ final class Zone extends Value
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var array
      */
-    protected $allowedBlockDefinitions = [];
+    private $allowedBlockDefinitions = [];
 
     /**
      * Returns the zone identifier.

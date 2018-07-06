@@ -9,11 +9,6 @@ namespace Netgen\BlockManager\Block;
  */
 class ContainerDefinition extends BlockDefinition implements ContainerDefinitionInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface
-     */
-    protected $handler;
-
     public function getPlaceholders(): array
     {
         return $this->handler->getPlaceholderIdentifiers();
