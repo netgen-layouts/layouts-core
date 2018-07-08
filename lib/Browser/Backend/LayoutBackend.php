@@ -36,13 +36,13 @@ final class LayoutBackend implements BackendInterface
         return new RootLocation();
     }
 
-    public function loadItem($id): ItemInterface
+    public function loadItem($value): ItemInterface
     {
         try {
-            $layout = $this->layoutService->loadLayout($id);
+            $layout = $this->layoutService->loadLayout($value);
         } catch (BaseNotFoundException $e) {
             throw new NotFoundException(
-                sprintf('Item with ID %s not found.', $id),
+                sprintf('Item with value "%s" not found.', $value),
                 0,
                 $e
             );

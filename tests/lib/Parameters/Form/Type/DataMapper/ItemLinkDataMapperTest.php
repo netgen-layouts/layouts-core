@@ -27,14 +27,14 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     {
         $forms = new ArrayIterator(
             [
-                'item_id' => $this->getForm('item_id'),
+                'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type'),
             ]
         );
 
         $this->mapper->mapDataToForms('value://42', $forms);
 
-        $this->assertSame('42', $forms['item_id']->getData());
+        $this->assertSame('42', $forms['item_value']->getData());
         $this->assertSame('value', $forms['item_type']->getData());
     }
 
@@ -45,14 +45,14 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     {
         $forms = new ArrayIterator(
             [
-                'item_id' => $this->getForm('item_id'),
+                'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type'),
             ]
         );
 
         $this->mapper->mapDataToForms('value://', $forms);
 
-        $this->assertNull($forms['item_id']->getData());
+        $this->assertNull($forms['item_value']->getData());
         $this->assertNull($forms['item_type']->getData());
     }
 
@@ -63,14 +63,14 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     {
         $forms = new ArrayIterator(
             [
-                'item_id' => $this->getForm('item_id'),
+                'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type'),
             ]
         );
 
         $this->mapper->mapDataToForms(42, $forms);
 
-        $this->assertNull($forms['item_id']->getData());
+        $this->assertNull($forms['item_value']->getData());
         $this->assertNull($forms['item_type']->getData());
     }
 
@@ -81,7 +81,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     {
         $forms = new ArrayIterator(
             [
-                'item_id' => $this->getForm('item_id', '42'),
+                'item_value' => $this->getForm('item_value', '42'),
                 'item_type' => $this->getForm('item_type', 'value'),
             ]
         );
@@ -94,11 +94,11 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
-    public function testMapFormsToDataWithInvalidItemIdFormData(): void
+    public function testMapFormsToDataWithInvalidItemValueFormData(): void
     {
         $forms = new ArrayIterator(
             [
-                'item_id' => $this->getForm('item_id'),
+                'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type', 'value'),
             ]
         );
@@ -115,7 +115,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     {
         $forms = new ArrayIterator(
             [
-                'item_id' => $this->getForm('item_id', '42'),
+                'item_value' => $this->getForm('item_value', '42'),
                 'item_type' => $this->getForm('item_type'),
             ]
         );
