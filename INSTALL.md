@@ -75,20 +75,6 @@ netgen_content_browser:
     prefix: "%netgen_content_browser.route_prefix%"
 ```
 
-Disable short alias in JMS Serializer
--------------------------------------
-
-If using JMS Serializer, you will need to disable aliasing its' serializer
-service to Symfony's `@serializer` service.
-
-Place the following config in your `app/config/config.yml` file to disable the
-alias:
-
-```
-jms_serializer:
-    enable_short_alias: false
-```
-
 Adjusting your full views
 -------------------------
 
