@@ -478,12 +478,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(
-            function (array $row) {
-                return $row['id'];
-            },
-            $result
-        );
+        return array_column($result, 'id');
     }
 
     /**
@@ -510,12 +505,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(
-            function (array $row) {
-                return $row['id'];
-            },
-            $result
-        );
+        return array_column($result, 'id');
     }
 
     /**
@@ -537,12 +527,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(
-            function (array $row) {
-                return $row['collection_id'];
-            },
-            $result
-        );
+        return array_column($result, 'collection_id');
     }
 
     /**

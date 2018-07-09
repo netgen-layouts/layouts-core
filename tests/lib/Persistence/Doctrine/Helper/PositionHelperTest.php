@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use PDO;
 use PHPUnit\Framework\TestCase;
 
 final class PositionHelperTest extends TestCase
@@ -222,11 +223,8 @@ final class PositionHelperTest extends TestCase
             ->setParameter('status', Value::STATUS_DRAFT, Type::INTEGER)
             ->orderBy('position', 'ASC');
 
-        return array_map(
-            function (array $dataRow): int {
-                return (int) $dataRow['position'];
-            },
-            $query->execute()->fetchAll()
-        );
+        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map('intval', array_column($result, 'position'));
     }
 }

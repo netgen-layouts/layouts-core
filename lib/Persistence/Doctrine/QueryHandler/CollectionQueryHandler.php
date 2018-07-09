@@ -139,12 +139,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(
-            function (array $row) {
-                return $row['id'];
-            },
-            $result
-        );
+        return array_column($result, 'id');
     }
 
     /**
