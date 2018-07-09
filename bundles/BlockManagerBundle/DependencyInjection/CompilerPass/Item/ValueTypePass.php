@@ -61,16 +61,17 @@ final class ValueTypePass implements CompilerPassInterface
     /**
      * Validates that the provided Content Browser item type exists in the system.
      */
-    private function validateBrowserType(ContainerBuilder $containerBuilder, string $browserType): void
+    private function validateBrowserType(ContainerBuilder $container, string $valueType): void
     {
-        $validBrowserTypes = $containerBuilder->getParameter('netgen_content_browser.item_types');
-
-        if (is_array($validBrowserTypes) && array_key_exists($browserType, $validBrowserTypes)) {
+        if ($container->has(sprintf('netgen_content_browser.config.%s', $valueType))) {
             return;
         }
 
         throw new RuntimeException(
-            sprintf('Content Browser backend for "%s" type does not exist.', $browserType)
+            sprintf(
+                'Netgen Content Browser backend for "%s" value type does not exist.',
+                $valueType
+            )
         );
     }
 }

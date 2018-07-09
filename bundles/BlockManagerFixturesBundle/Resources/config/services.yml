@@ -1,4 +1,10 @@
 services:
+    netgen_block_manager.fixtures.brower.my_value_type:
+        class: Netgen\Bundle\BlockManagerFixturesBundle\Browser\MyValueTypeBackend
+        public: false
+        tags:
+            - { name: netgen_content_browser.backend, item_type: my_value_type }
+
     netgen_block_manager.fixtures.item.value_converter.my_value_type:
         class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueConverter\MyValueTypeValueConverter
         public: false

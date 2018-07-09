@@ -15,8 +15,10 @@ use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
+use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,12 +50,10 @@ final class LinkTypeTest extends FormTestCase
     public function getTypes(): array
     {
         $backendRegistry = new BackendRegistry(['value' => $this->createMock(BackendInterface::class)]);
+        $configRegistry = new ConfigRegistry(['value' => new Configuration('value', 'Value')]);
 
         return [
-            new ContentBrowserDynamicType(
-                $backendRegistry,
-                ['value']
-            ),
+            new ContentBrowserDynamicType($backendRegistry, $configRegistry),
         ];
     }
 

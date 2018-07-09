@@ -20,7 +20,7 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setParameter('netgen_content_browser.item_types', ['test' => 'test']);
+        $this->setDefinition('netgen_content_browser.config.test', new Definition());
 
         $this->setParameter(
             'netgen_block_manager.items',
@@ -52,11 +52,11 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Content Browser backend for "test" type does not exist.
+     * @expectedExceptionMessage Netgen Content Browser backend for "test" value type does not exist.
      */
     public function testProcessWithInvalidBrowserType(): void
     {
-        $this->setParameter('netgen_content_browser.item_types', ['other' => 'other']);
+        $this->setDefinition('netgen_content_browser.config.other', new Definition());
 
         $this->setParameter(
             'netgen_block_manager.items',
