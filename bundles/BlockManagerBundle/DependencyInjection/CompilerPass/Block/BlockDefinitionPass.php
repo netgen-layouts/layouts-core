@@ -47,13 +47,13 @@ final class BlockDefinitionPass implements CompilerPassInterface
                     }
 
                     if ($tag['identifier'] === $handlerIdentifier) {
-                        $foundHandler = (string) $blockDefinitionHandler;
+                        $foundHandler = $blockDefinitionHandler;
                         break 2;
                     }
                 }
             }
 
-            if ($foundHandler === null) {
+            if (!is_string($foundHandler)) {
                 throw new RuntimeException(
                     sprintf(
                         'Block definition handler for "%s" block definition does not exist.',

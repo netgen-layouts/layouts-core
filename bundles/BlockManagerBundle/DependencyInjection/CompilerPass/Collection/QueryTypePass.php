@@ -43,13 +43,13 @@ final class QueryTypePass implements CompilerPassInterface
                     }
 
                     if ($tag['type'] === $handlerIdentifier) {
-                        $foundHandler = (string) $queryTypeHandler;
+                        $foundHandler = $queryTypeHandler;
                         break 2;
                     }
                 }
             }
 
-            if ($foundHandler === null) {
+            if (!is_string($foundHandler)) {
                 throw new RuntimeException(
                     sprintf(
                         'Query type handler for "%s" query type does not exist.',
