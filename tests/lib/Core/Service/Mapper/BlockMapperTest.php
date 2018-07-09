@@ -15,11 +15,16 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class BlockMapperTest extends ServiceTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
+     */
+    private $mapper;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->blockMapper = $this->createBlockMapper();
+        $this->mapper = $this->createBlockMapper();
     }
 
     /**
@@ -58,7 +63,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock);
+        $block = $this->mapper->mapBlock($persistenceBlock);
 
         $this->assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
@@ -113,7 +118,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr']);
+        $block = $this->mapper->mapBlock($persistenceBlock, ['hr']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
         $this->assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
@@ -137,7 +142,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr', 'en']);
+        $block = $this->mapper->mapBlock($persistenceBlock, ['hr', 'en']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
         $this->assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
@@ -162,7 +167,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
+        $block = $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
 
         $this->assertInstanceOf(APIBlock::class, $block);
         $this->assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
@@ -190,7 +195,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
+        $this->mapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
     }
 
     /**
@@ -214,7 +219,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
+        $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
     }
 
     /**
@@ -251,7 +256,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock);
+        $block = $this->mapper->mapBlock($persistenceBlock);
 
         $this->assertInstanceOf(NullBlockDefinition::class, $block->getDefinition());
 
@@ -303,7 +308,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock);
+        $block = $this->mapper->mapBlock($persistenceBlock);
 
         $this->assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
@@ -360,7 +365,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             ]
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock);
+        $block = $this->mapper->mapBlock($persistenceBlock);
 
         $this->assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),

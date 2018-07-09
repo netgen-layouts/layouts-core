@@ -16,6 +16,11 @@ abstract class ServiceTestCase extends BaseServiceTestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
+    protected $persistenceHandler;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
     protected $blockHandlerMock;
 
     /**

@@ -20,11 +20,16 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class CollectionMapperTest extends ServiceTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
+     */
+    private $mapper;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->collectionMapper = $this->createCollectionMapper();
+        $this->mapper = $this->createCollectionMapper();
     }
 
     /**
@@ -46,7 +51,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
+        $collection = $this->mapper->mapCollection($persistenceCollection);
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(2, $collection->getId());
@@ -92,7 +97,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['hr']);
+        $collection = $this->mapper->mapCollection($persistenceCollection, ['hr']);
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
@@ -112,7 +117,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['hr', 'en']);
+        $collection = $this->mapper->mapCollection($persistenceCollection, ['hr', 'en']);
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
@@ -133,7 +138,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no']);
+        $collection = $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
@@ -157,7 +162,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
+        $this->mapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
     }
 
     /**
@@ -177,7 +182,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no']);
+        $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
     }
 
     /**
@@ -198,7 +203,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
+        $collection = $this->mapper->mapCollection($persistenceCollection);
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(1, $collection->getId());
@@ -262,7 +267,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ->with($this->identicalTo('12'), $this->identicalTo('my_value_type'))
             ->will($this->returnValue($cmsItem));
 
-        $item = $this->collectionMapper->mapItem($persistenceItem);
+        $item = $this->mapper->mapItem($persistenceItem);
 
         $this->assertInstanceOf(APIItem::class, $item);
         $this->assertSame(1, $item->getId());
@@ -314,7 +319,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ->with($this->identicalTo('12'), $this->identicalTo('null'))
             ->will($this->returnValue($cmsItem));
 
-        $item = $this->collectionMapper->mapItem($persistenceItem);
+        $item = $this->mapper->mapItem($persistenceItem);
 
         $this->assertInstanceOf(APIItem::class, $item);
         $this->assertSame(1, $item->getId());
@@ -352,7 +357,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery);
+        $query = $this->mapper->mapQuery($persistenceQuery);
 
         $this->assertSame(
             $this->queryTypeRegistry->getQueryType('my_query_type'),
@@ -392,7 +397,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['hr']);
+        $query = $this->mapper->mapQuery($persistenceQuery, ['hr']);
 
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
@@ -414,7 +419,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['hr', 'en']);
+        $query = $this->mapper->mapQuery($persistenceQuery, ['hr', 'en']);
 
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
@@ -437,7 +442,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
+        $query = $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
 
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
@@ -463,7 +468,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
+        $this->mapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
     }
 
     /**
@@ -485,7 +490,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
+        $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
     }
 
     /**
@@ -511,7 +516,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             ]
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery);
+        $query = $this->mapper->mapQuery($persistenceQuery);
 
         $this->assertInstanceOf(NullQueryType::class, $query->getQueryType());
 

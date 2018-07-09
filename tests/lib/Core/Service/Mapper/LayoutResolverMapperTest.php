@@ -18,11 +18,16 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class LayoutResolverMapperTest extends ServiceTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
+     */
+    private $mapper;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->layoutResolverMapper = $this->createLayoutResolverMapper();
+        $this->mapper = $this->createLayoutResolverMapper();
     }
 
     /**
@@ -42,7 +47,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             ]
         );
 
-        $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
+        $rule = $this->mapper->mapRule($persistenceRule);
 
         $this->assertInstanceOf(APIRule::class, $rule);
         $this->assertSame(3, $rule->getId());
@@ -77,7 +82,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             ]
         );
 
-        $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
+        $rule = $this->mapper->mapRule($persistenceRule);
 
         $this->assertInstanceOf(APIRule::class, $rule);
         $this->assertNull($rule->getLayout());
@@ -98,7 +103,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             ]
         );
 
-        $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
+        $target = $this->mapper->mapTarget($persistenceTarget);
 
         $this->assertSame(
             $this->targetTypeRegistry->getTargetType('target'),
@@ -127,7 +132,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             ]
         );
 
-        $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
+        $target = $this->mapper->mapTarget($persistenceTarget);
 
         $this->assertInstanceOf(NullTargetType::class, $target->getTargetType());
 
@@ -153,7 +158,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             ]
         );
 
-        $condition = $this->layoutResolverMapper->mapCondition($persistenceCondition);
+        $condition = $this->mapper->mapCondition($persistenceCondition);
 
         $this->assertSame(
             $this->conditionTypeRegistry->getConditionType('my_condition'),
@@ -182,7 +187,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
             ]
         );
 
-        $condition = $this->layoutResolverMapper->mapCondition($persistenceCondition);
+        $condition = $this->mapper->mapCondition($persistenceCondition);
 
         $this->assertInstanceOf(NullConditionType::class, $condition->getConditionType());
 

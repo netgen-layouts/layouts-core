@@ -15,11 +15,16 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class LayoutMapperTest extends ServiceTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+     */
+    private $mapper;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->layoutMapper = $this->createLayoutMapper();
+        $this->mapper = $this->createLayoutMapper();
     }
 
     /**
@@ -39,7 +44,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
             ]
         );
 
-        $zone = $this->layoutMapper->mapZone($persistenceZone);
+        $zone = $this->mapper->mapZone($persistenceZone);
 
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertSame('right', $zone->getIdentifier());
@@ -67,7 +72,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
             ]
         );
 
-        $zone = $this->layoutMapper->mapZone($persistenceZone);
+        $zone = $this->mapper->mapZone($persistenceZone);
 
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertSame('right', $zone->getIdentifier());
@@ -92,7 +97,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
             ]
         );
 
-        $zone = $this->layoutMapper->mapZone($persistenceZone);
+        $zone = $this->mapper->mapZone($persistenceZone);
 
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertSame('right', $zone->getIdentifier());
@@ -119,7 +124,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
             ]
         );
 
-        $layout = $this->layoutMapper->mapLayout($persistenceLayout);
+        $layout = $this->mapper->mapLayout($persistenceLayout);
 
         $this->assertSame(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
@@ -162,7 +167,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
             ]
         );
 
-        $layout = $this->layoutMapper->mapLayout($persistenceLayout);
+        $layout = $this->mapper->mapLayout($persistenceLayout);
 
         $this->assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
 
