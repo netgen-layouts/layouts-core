@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Migrations\Doctrine;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Type;
+use PDO;
 use RuntimeException;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -163,10 +164,10 @@ EOT
     private function hasLayouts(): bool
     {
         $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('count(id) as count')
+        $queryBuilder->select('COUNT(id) as count')
             ->from('ngbm_layout');
 
-        $result = $queryBuilder->execute()->fetchAll();
+        $result = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return (int) $result[0]['count'] > 0;
     }
