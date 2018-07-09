@@ -1,7 +1,7 @@
 services:
     netgen_block_manager.error.handler:
         alias: netgen_block_manager.error.handler.debug
-        public: true
+        public: false
 
     netgen_block_manager.error.handler.debug:
         class: Netgen\BlockManager\Error\DebugErrorHandler
