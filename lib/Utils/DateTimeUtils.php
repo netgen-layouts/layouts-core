@@ -111,7 +111,7 @@ final class DateTimeUtils
         $offset = self::createFromTimestamp(null, $timeZone)->getOffset();
 
         $hours = intdiv($offset, 3600);
-        $minutes = (int) (($offset % 3600) / 60);
+        $minutes = intdiv($offset % 3600, 60);
 
         return sprintf('%s%02d:%02d', $offset >= 0 ? '+' : '-', abs($hours), abs($minutes));
     }
