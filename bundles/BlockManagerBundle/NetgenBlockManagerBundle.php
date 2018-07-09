@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -41,5 +42,6 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Transfer\SerializationVisitorPass());
         $container->addCompilerPass(new CompilerPass\Twig\RuntimeLoaderPass());
         $container->addCompilerPass(new CompilerPass\Design\ThemePass());
+        $container->addCompilerPass(new CompilerPass\CleanupConfigPass(), PassConfig::TYPE_REMOVE);
     }
 }
