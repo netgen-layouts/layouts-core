@@ -33,7 +33,7 @@ final class Hydrator implements HydratorInterface
             foreach ($data as $property => $value) {
                 if (!property_exists($this, $property)) {
                     throw new InvalidArgumentException(
-                        'properties',
+                        'data',
                         sprintf(
                             'Property "%s" does not exist in "%s" class.',
                             $property,
