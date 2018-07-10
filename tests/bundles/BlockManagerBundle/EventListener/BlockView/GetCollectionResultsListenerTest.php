@@ -157,7 +157,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 [
                     'definition' => new BlockDefinition(
                         [
-                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                            'handlerPlugins' => [new PagedCollectionsPlugin([])],
                         ]
                     ),
                     'parameters' => [
@@ -217,7 +217,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 [
                     'definition' => new BlockDefinition(
                         [
-                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                            'handlerPlugins' => [new PagedCollectionsPlugin([])],
                         ]
                     ),
                     'parameters' => [
@@ -277,7 +277,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 [
                     'definition' => new BlockDefinition(
                         [
-                            'handlerPlugins' => [new PagedCollectionsPlugin()],
+                            'handlerPlugins' => [new PagedCollectionsPlugin([])],
                         ]
                     ),
                     'parameters' => [
