@@ -15,6 +15,8 @@ final class PagedCollectionsPlugin extends Plugin
     /**
      * The list of pager types available in the plugin.
      *
+     * Keys should be pager identifiers, and values should be human readable names.
+     *
      * @var array
      */
     private $pagerTypes = [];
@@ -24,9 +26,9 @@ final class PagedCollectionsPlugin extends Plugin
      */
     private $defaultGroups = [];
 
-    public function __construct(array $pagerTypes = [], array $defaultGroups = [])
+    public function __construct(array $pagerTypes, array $defaultGroups = [])
     {
-        $this->pagerTypes = array_flip($pagerTypes);
+        $this->pagerTypes = $pagerTypes;
         $this->defaultGroups = $defaultGroups;
     }
 
@@ -50,7 +52,7 @@ final class PagedCollectionsPlugin extends Plugin
             'paged_collections:type',
             ParameterType\ChoiceType::class,
             [
-                'options' => $this->pagerTypes,
+                'options' => array_flip($this->pagerTypes),
                 'label' => 'block.plugin.paged_collections.type',
                 'groups' => $this->defaultGroups,
             ]
