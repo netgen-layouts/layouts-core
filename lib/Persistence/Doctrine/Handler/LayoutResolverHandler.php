@@ -140,9 +140,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $updatedRule = clone $rule;
 
-        if (is_int($ruleUpdateStruct->layoutId)) {
+        if (is_scalar($ruleUpdateStruct->layoutId)) {
             // Layout ID can be 0, to indicate removal of the linked layout
-            $updatedRule->layoutId = $ruleUpdateStruct->layoutId !== 0 ?
+            $updatedRule->layoutId = !empty($ruleUpdateStruct->layoutId) ?
                 $ruleUpdateStruct->layoutId :
                 null;
         }

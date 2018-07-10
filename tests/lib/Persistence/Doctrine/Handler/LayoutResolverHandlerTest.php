@@ -411,10 +411,54 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
+    public function testUpdateRuleWithStringLayoutId(): void
+    {
+        $ruleUpdateStruct = new RuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = '15';
+        $ruleUpdateStruct->comment = 'New comment';
+
+        $updatedRule = $this->handler->updateRule(
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            $ruleUpdateStruct
+        );
+
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+
+        $this->assertSame(3, $updatedRule->id);
+        $this->assertSame('15', $updatedRule->layoutId);
+        $this->assertSame('New comment', $updatedRule->comment);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     */
     public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 0;
+
+        $updatedRule = $this->handler->updateRule(
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            $ruleUpdateStruct
+        );
+
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+
+        $this->assertSame(3, $updatedRule->id);
+        $this->assertNull($updatedRule->layoutId);
+        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     */
+    public function testUpdateRuleWithRemovalOfLinkedLayoutAndStringLayoutId(): void
+    {
+        $ruleUpdateStruct = new RuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = '0';
 
         $updatedRule = $this->handler->updateRule(
             $this->handler->loadRule(3, Value::STATUS_PUBLISHED),

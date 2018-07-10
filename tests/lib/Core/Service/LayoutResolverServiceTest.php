@@ -313,6 +313,27 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
      */
+    public function testUpdateRuleWithStringLayoutId(): void
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
+
+        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = '3';
+        $ruleUpdateStruct->comment = 'Updated comment';
+
+        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+
+        $this->assertTrue($updatedRule->isDraft());
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertInstanceOf(Layout::class, $updatedRule->getLayout());
+        $this->assertTrue($updatedRule->getLayout()->isPublished());
+        $this->assertSame(3, $updatedRule->getLayout()->getId());
+        $this->assertSame('Updated comment', $updatedRule->getComment());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     */
     public function testUpdateRuleWithNoLayout(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(5);
@@ -339,6 +360,25 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 0;
+        $ruleUpdateStruct->comment = 'Updated comment';
+
+        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+
+        $this->assertTrue($updatedRule->isDraft());
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertNull($updatedRule->getLayout());
+        $this->assertSame('Updated comment', $updatedRule->getComment());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     */
+    public function testUpdateRuleWithEmptyLayoutAndStringLayoutId(): void
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
+
+        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = '0';
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
