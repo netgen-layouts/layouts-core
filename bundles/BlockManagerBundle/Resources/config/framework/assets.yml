@@ -3,24 +3,20 @@ assets:
         ngbm_css:
             base_path: '/bundles/netgenblockmanager/css'
             version: '%ngbm.asset.version%'
-            # version_format: 'v%%2$s/%%1$s'
             version_format: '%%s?%%s'
         ngbm_js:
             base_path: '/bundles/netgenblockmanager/js'
             version: '%ngbm.asset.version%'
-            # version_format: 'v%%2$s/%%1$s'
             version_format: '%%s?%%s'
         ngbm_dev_css:
             base_path: '/bundles/netgenblockmanager/dev/css'
             version: '%ngbm.asset.version%'
-            # version_format: 'v%%2$s/%%1$s'
             version_format: '%%s?%%s'
         ngbm_dev_js:
             base_path: '/bundles/netgenblockmanager/dev/js'
             version: '%ngbm.asset.version%'
-            # version_format: 'v%%2$s/%%1$s'
             version_format: '%%s?%%s'
         ngbm:
             base_path: '/bundles/netgenblockmanager'
-            version: ~
-            version_format: ~
+            version: '%ngbm.asset.version%'
+            version_format: '%%s?%%s'
