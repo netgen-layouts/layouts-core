@@ -2,4 +2,6 @@
     <script src="{{ javascript }}"></script>
 {% endfor %}
 
+{{ ngbm_template_plugin('admin.javascripts') }}
+
 <script src="{{ asset('app.js', 'ngbm_admin_' ~ (ngbm.debug ? 'dev_' : '') ~ 'js') }}"></script>

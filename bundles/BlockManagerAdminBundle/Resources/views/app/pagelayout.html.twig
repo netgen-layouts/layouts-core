@@ -35,6 +35,8 @@
             <link rel="stylesheet" href="{{ stylesheet }}">
         {% endfor %}
     {% endblock %}
+
+    {{ ngbm_template_plugin('app.stylesheets') }}
 </head>
 
 <body>
@@ -58,6 +60,8 @@
             <script src="{{ javascript }}" defer></script>
         {% endfor %}
     {% endblock %}
+
+    {{ ngbm_template_plugin('app.javascripts') }}
 
     {% block javascripts %}
         {% if debug %}
