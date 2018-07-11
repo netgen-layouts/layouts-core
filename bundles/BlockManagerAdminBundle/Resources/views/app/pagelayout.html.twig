@@ -24,9 +24,9 @@
 
     {% block stylesheets %}
         {% if debug %}
-            <link rel="stylesheet" href="{{ asset('dev/css/netgen-layouts-app.css', 'ngbm_app') }}">
+            <link rel="stylesheet" href="{{ asset('dev/css/netgen-layouts.css', 'ngbm_app') }}">
         {% else %}
-            <link rel="stylesheet" href="{{ asset('netgen-layouts-app.css', 'ngbm_app_css') }}">
+            <link rel="stylesheet" href="{{ asset('netgen-layouts.css', 'ngbm_app_css') }}">
         {% endif %}
     {% endblock %}
 
@@ -65,9 +65,9 @@
 
     {% block javascripts %}
         {% if debug %}
-            <script src="{{ asset('dev/js/netgen-layouts-app.js', 'ngbm_app') }}" defer></script>
+            <script src="{{ asset('dev/js/netgen-layouts.js', 'ngbm_app') }}" defer></script>
         {% else %}
-            <script src="{{ asset('netgen-layouts-app.js', 'ngbm_app_js') }}" defer></script>
+            <script src="{{ asset('netgen-layouts.js', 'ngbm_app_js') }}" defer></script>
         {% endif %}
     {% endblock %}
 </body>
