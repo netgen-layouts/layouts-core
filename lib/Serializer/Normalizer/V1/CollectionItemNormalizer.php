@@ -49,7 +49,6 @@ final class CollectionItemNormalizer extends Normalizer implements NormalizerInt
             'position' => $collectionItem->getPosition(),
             'type' => $collectionItem->getType(),
             'visible' => $this->visibilityResolver->isVisible($collectionItem),
-            'scheduled' => false,
             'value' => $cmsItem->getValue(),
             'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),

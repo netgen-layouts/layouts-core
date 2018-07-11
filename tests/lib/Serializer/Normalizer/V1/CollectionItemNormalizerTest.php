@@ -91,7 +91,6 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
                 'visible' => true,
-                'scheduled' => false,
                 'value' => $item->getValue(),
                 'value_type' => $item->getDefinition()->getValueType(),
                 'name' => 'Value name',

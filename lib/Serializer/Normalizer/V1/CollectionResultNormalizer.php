@@ -90,7 +90,6 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
             'visible' => $collectionItem !== null ?
                 $this->visibilityResolver->isVisible($collectionItem) :
                 true,
-            'scheduled' => false,
             'is_dynamic' => !$resultItem instanceof ManualItem,
             'value' => $resultItem->getValue(),
             'value_type' => $resultItem->getValueType(),
