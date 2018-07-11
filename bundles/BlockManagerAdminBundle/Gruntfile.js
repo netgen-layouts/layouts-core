@@ -77,6 +77,7 @@ module.exports = function (grunt) {
         // Compiles Sass to CSS and generates necessary files if requested
         sass: {
             options: {
+                implementation: require('node-sass'),
                 sourceMap: true,
                 sourceMapEmbed: true,
                 sourceMapContents: true,
