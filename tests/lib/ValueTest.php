@@ -27,7 +27,7 @@ final class ValueTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Value::__construct
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Property "someNonExistingProperty" does not exist in "Netgen\BlockManager\Tests\Stubs\Value" class.
      */
     public function testSetNonExistingProperties(): void

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Utils;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Zend\Hydrator\HydratorInterface;
 
@@ -32,8 +31,7 @@ final class Hydrator implements HydratorInterface
         (function () use ($data): void {
             foreach ($data as $property => $value) {
                 if (!property_exists($this, $property)) {
-                    throw new InvalidArgumentException(
-                        'data',
+                    throw new RuntimeException(
                         sprintf(
                             'Property "%s" does not exist in "%s" class.',
                             $property,
