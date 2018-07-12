@@ -26,12 +26,9 @@ final class SetAdminPageLayoutListenerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->globalVariable = new GlobalVariable();
+        $this->globalVariable = new GlobalVariable('default.html.twig');
 
-        $this->listener = new SetAdminPageLayoutListener(
-            $this->globalVariable,
-            'default.html.twig'
-        );
+        $this->listener = new SetAdminPageLayoutListener($this->globalVariable);
     }
 
     /**

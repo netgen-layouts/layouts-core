@@ -16,15 +16,9 @@ final class SetAdminPageLayoutListener implements EventSubscriberInterface
      */
     private $globalVariable;
 
-    /**
-     * @var string
-     */
-    private $defaultTemplate;
-
-    public function __construct(GlobalVariable $globalVariable, string $defaultTemplate)
+    public function __construct(GlobalVariable $globalVariable)
     {
         $this->globalVariable = $globalVariable;
-        $this->defaultTemplate = $defaultTemplate;
     }
 
     public static function getSubscribedEvents(): array
@@ -37,7 +31,11 @@ final class SetAdminPageLayoutListener implements EventSubscriberInterface
      */
     public function onAdminMatch(AdminMatchEvent $event): void
     {
-        $pageLayoutTemplate = $event->getPageLayoutTemplate() ?? $this->defaultTemplate;
+        $pageLayoutTemplate = $event->getPageLayoutTemplate();
+
+        if ($pageLayoutTemplate === null) {
+            return;
+        }
 
         $this->globalVariable->setPageLayoutTemplate($pageLayoutTemplate);
     }

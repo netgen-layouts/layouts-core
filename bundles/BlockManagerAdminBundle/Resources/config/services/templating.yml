@@ -2,3 +2,5 @@ services:
     netgen_block_manager.templating.admin_global_variable:
         class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
         public: false
+        arguments:
+            - "%netgen_block_manager.admin.pagelayout%"

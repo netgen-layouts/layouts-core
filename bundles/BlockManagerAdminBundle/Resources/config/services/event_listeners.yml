@@ -50,7 +50,6 @@ services:
         # public: false
         arguments:
             - "@netgen_block_manager.templating.admin_global_variable"
-            - "%netgen_block_manager.admin.pagelayout%"
         tags:
             - { name: kernel.event_subscriber }
 

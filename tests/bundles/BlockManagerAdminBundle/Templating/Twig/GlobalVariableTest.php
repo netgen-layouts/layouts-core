@@ -16,15 +16,16 @@ final class GlobalVariableTest extends TestCase
 
     public function setUp(): void
     {
-        $this->globalVariable = new GlobalVariable();
+        $this->globalVariable = new GlobalVariable('default.html.twig');
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable::getPageLayoutTemplate
      */
     public function testGetPageLayoutTemplate(): void
     {
-        $this->assertNull($this->globalVariable->getPageLayoutTemplate());
+        $this->assertSame('default.html.twig', $this->globalVariable->getPageLayoutTemplate());
     }
 
     /**
