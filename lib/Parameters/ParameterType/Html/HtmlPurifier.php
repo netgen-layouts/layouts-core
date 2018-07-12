@@ -19,7 +19,7 @@ final class HtmlPurifier
 
     public function __construct()
     {
-        $config = HTMLPurifier_Config::createDefault();
+        $config = HTMLPurifier_Config::create(['Cache.DefinitionImpl' => null]);
         $config->set('HTML.Doctype', 'XHTML 1.0 Strict');
         $this->purifier = new BaseHTMLPurifier($config);
     }
