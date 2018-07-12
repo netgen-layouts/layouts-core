@@ -4,7 +4,6 @@ module.exports = function (grunt) {
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
-    // Automatically load required grunt tasks
     require('jit-grunt')(grunt, {
         lockfile: 'grunt-lock',
     });
@@ -13,9 +12,9 @@ module.exports = function (grunt) {
 
     // Configurable paths
     var config = {
-        resources_dir: 'Resources',
-        public_dir: 'Resources/public',
-        dev_dir: 'Resources/public/dev',
+        dev: 'Resources/public/dev',
+        dist: 'Resources/public',
+        resources: 'Resources'
     };
 
     // Define the configuration for all the tasks
@@ -39,8 +38,8 @@ module.exports = function (grunt) {
                 },
             },
             sass: {
-                files: ['<%= config.resources_dir %>/sass/{,*/}*.{scss,sass}'],
-                tasks: ['sass', 'postcss'],
+                files: ['<%= config.resources %>/sass/{,*/}*.{scss,sass}'],
+                tasks: ['sass:dist', 'postcss:dist'],
             },
         },
 
@@ -57,10 +56,11 @@ module.exports = function (grunt) {
                     ],
                 },
                 files: {
-                    '<%= config.dev_dir %>/js/app.js': ['<%= config.resources_dir %>/es6/app.js'],
+                    '<%= config.dev %>/js/app.js': ['<%= config.resources %>/es6/app.js'],
                 },
             },
-            prod: {
+
+            dist: {
                 options: {
                     transform: [
                         ['babelify', { presets: ['env', 'es2015', 'stage-0'] }],
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
                     plugin: [collapse],
                 },
                 files: {
-                    '<%= config.public_dir %>/js/app.js': ['<%= config.resources_dir %>/es6/app.js'],
+                    '<%= config.dist %>/js/app.js': ['<%= config.resources %>/es6/app.js'],
                 },
             },
         },
@@ -83,10 +83,11 @@ module.exports = function (grunt) {
                 sourceMapContents: true,
                 includePaths: ['.'],
             },
+
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= config.resources_dir %>/sass',
+                    cwd: '<%= config.resources %>/sass',
                     src: ['*.{scss,sass}'],
                     dest: '.tmp/css',
                     ext: '.css',
@@ -104,46 +105,44 @@ module.exports = function (grunt) {
                     }),
                 ],
             },
+
             dist: {
                 files: [{
                     expand: true,
                     cwd: '.tmp/css/',
                     src: '{,*/}*.css',
-                    dest: '<%= config.public_dir %>/css',
+                    dest: '<%= config.dist %>/css',
                 }],
             },
         },
 
         uglify: {
-            my_target: {
+            dist: {
                 files: {
-                    '<%= config.public_dir %>/js/app.js': ['<%= config.public_dir %>/js/app.js'],
+                    '<%= config.dist %>/js/app.js': ['<%= config.dist %>/js/app.js'],
                 },
             },
         },
     });
 
-    grunt.registerTask('serve', 'Start the server and preview your app', function () {
+    grunt.registerTask('server', function () {
         grunt.task.run([
             'lockfile',
             'sass:dist',
-            'postcss',
+            'postcss:dist',
             'browserify:dev',
             'watch',
         ]);
     });
 
-    grunt.registerTask('default', [
-        'serve',
-    ]);
-
-    grunt.registerTask('build', 'Build production assets', function () {
+    grunt.registerTask('build', function () {
         grunt.task.run([
-            'lockfile',
             'sass:dist',
-            'postcss',
-            'browserify:prod',
-            'uglify',
+            'postcss:dist',
+            'browserify:dist',
+            'uglify:dist',
         ]);
     });
+
+    grunt.registerTask('default', ['server']);
 };
