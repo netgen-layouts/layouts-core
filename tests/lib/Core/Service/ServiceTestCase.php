@@ -55,6 +55,7 @@ use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHan
 use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -538,7 +539,7 @@ abstract class ServiceTestCase extends TestCase
             new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
             new ParameterType\IntegerType(),
             new ParameterType\IdentifierType(),
-            new ParameterType\HtmlType(new ParameterType\Html\HtmlPurifier()),
+            new ParameterType\HtmlType(new HtmlPurifier()),
             new ParameterType\EmailType(),
             new ParameterType\ChoiceType(),
             new ParameterType\BooleanType(),

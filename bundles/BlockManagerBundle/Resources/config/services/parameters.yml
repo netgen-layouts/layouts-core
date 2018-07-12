@@ -63,15 +63,11 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
-    netgen_block_manager.parameters.html.html_purifier:
-        class: Netgen\BlockManager\Parameters\ParameterType\Html\HtmlPurifier
-        public: false
-
     netgen_block_manager.parameters.parameter_type.html:
         class: Netgen\BlockManager\Parameters\ParameterType\HtmlType
         public: false
         arguments:
-            - "@netgen_block_manager.parameters.html.html_purifier"
+            - "@netgen_block_manager.utils.html_purifier"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 

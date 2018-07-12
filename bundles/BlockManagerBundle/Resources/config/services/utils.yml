@@ -1,0 +1,4 @@
+services:
+    netgen_block_manager.utils.html_purifier:
+        class: Netgen\BlockManager\Utils\HtmlPurifier
+        public: false
