@@ -13,16 +13,16 @@ final class ParameterMapper
     /**
      * Maps the parameter values based on provided collection of parameters.
      */
-    public function mapParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues): array
+    public function mapParameters(ParameterDefinitionCollectionInterface $definitions, array $values): array
     {
         $mappedValues = [];
 
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
             $parameterType = $parameterDefinition->getType();
 
-            $value = array_key_exists($parameterName, $parameterValues) ?
-                $parameterType->fromHash($parameterDefinition, $parameterValues[$parameterName]) :
+            $value = array_key_exists($parameterName, $values) ?
+                $parameterType->fromHash($parameterDefinition, $values[$parameterName]) :
                 $parameterDefinition->getDefaultValue();
 
             $mappedValues[$parameterName] = new Parameter(
@@ -37,7 +37,7 @@ final class ParameterMapper
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $mappedValues = array_merge(
                     $mappedValues,
-                    $this->mapParameters($parameterDefinition, $parameterValues)
+                    $this->mapParameters($parameterDefinition, $values)
                 );
             }
         }
@@ -48,25 +48,25 @@ final class ParameterMapper
     /**
      * Serializes the parameter values based on provided collection of parameters.
      */
-    public function serializeValues(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues, array $fallbackValues = []): array
+    public function serializeValues(ParameterDefinitionCollectionInterface $definitions, array $values, array $fallbackValues = []): array
     {
         $serializedValues = [];
 
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $parameterName = $parameterDefinition->getName();
-            if (!array_key_exists($parameterName, $parameterValues)) {
+            if (!array_key_exists($parameterName, $values)) {
                 continue;
             }
 
             $serializedValues[$parameterName] = $parameterDefinition->getType()->toHash(
                 $parameterDefinition,
-                $parameterValues[$parameterName]
+                $values[$parameterName]
             );
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $serializedValues = array_merge(
                     $serializedValues,
-                    $this->serializeValues($parameterDefinition, $parameterValues)
+                    $this->serializeValues($parameterDefinition, $values)
                 );
             }
         }
@@ -74,20 +74,20 @@ final class ParameterMapper
         return $serializedValues + $fallbackValues;
     }
 
-    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $parameterDefinitions, array $parameterValues): array
+    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $definitions, array $values): array
     {
         $untranslatableParams = [];
 
-        foreach ($parameterDefinitions->getParameterDefinitions() as $paramName => $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $paramName => $parameterDefinition) {
             if ($parameterDefinition->getOption('translatable') === true) {
                 continue;
             }
 
-            $untranslatableParams[$paramName] = $parameterValues[$paramName] ?? null;
+            $untranslatableParams[$paramName] = $values[$paramName] ?? null;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParamName => $subParameterDefinition) {
-                    $untranslatableParams[$subParamName] = $parameterValues[$subParamName] ?? null;
+                    $untranslatableParams[$subParamName] = $values[$subParamName] ?? null;
                 }
             }
         }
