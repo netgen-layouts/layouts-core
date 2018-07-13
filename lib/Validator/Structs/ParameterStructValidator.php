@@ -48,12 +48,14 @@ final class ParameterStructValidator extends ConstraintValidator
         // Then we validate with runtime constraints coming from parameter definition
         // allowing for validation of values dependent on other parameter struct values
         foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+            $parameterValue = $value->getParameterValue($parameterDefinition->getName());
+
             $validator->atPath('[' . $parameterDefinition->getName() . ']')->validate(
-                $value->getParameterValue($parameterDefinition->getName()),
+                $parameterValue,
                 $this->getRuntimeParameterConstraints(
-                    $constraint->parameterDefinitions,
                     $parameterDefinition,
-                    $value
+                    $parameterValue,
+                    $this->getAllValues($constraint->parameterDefinitions, $value)
                 )
             );
         }
@@ -119,21 +121,19 @@ final class ParameterStructValidator extends ConstraintValidator
 
     /**
      * Returns all constraints applied on a parameter coming from the parameter definition.
+     *
+     * @param mixed $parameterValue
      */
     private function getRuntimeParameterConstraints(
-        ParameterDefinitionCollectionInterface $parameterDefinitions,
         ParameterDefinition $parameterDefinition,
-        ParameterStruct $parameterStruct
+        $parameterValue,
+        array $allParameterValues
     ): array {
         $constraints = [];
 
         foreach ($parameterDefinition->getConstraints() as $constraint) {
             if ($constraint instanceof Closure) {
-                $constraint = $constraint(
-                    $parameterStruct->getParameterValue($parameterDefinition->getName()),
-                    $this->getParameterValues($parameterDefinitions, $parameterStruct),
-                    $parameterDefinition
-                );
+                $constraint = $constraint($parameterValue, $allParameterValues, $parameterDefinition);
             }
 
             if ($constraint instanceof Constraint) {
@@ -144,13 +144,13 @@ final class ParameterStructValidator extends ConstraintValidator
         return $constraints;
     }
 
-    private function getParameterValues(
-        ParameterDefinitionCollectionInterface $parameterDefinitions,
+    private function getAllValues(
+        ParameterDefinitionCollectionInterface $definitions,
         ParameterStruct $parameterStruct
     ): array {
         $emptyValues = [];
 
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $emptyValues[$parameterDefinition->getName()] = null;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
