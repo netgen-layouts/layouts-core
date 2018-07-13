@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 {% for choice in form %}
-                    {% set related_layout = form.parent.vars.layouts[choice.vars.value] %}
+                    {% set related_layout = choice.vars.layout %}
 
                     <tr>
                         <td>{{ form_widget(choice) }}{{ form_label(choice) }}</td>

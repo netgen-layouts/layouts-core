@@ -48,6 +48,7 @@ final class ClearLayoutsCacheType extends AbstractType
             [
                 'choices' => $options['layouts'],
                 'choice_value' => 'id',
+                'choice_name' => 'id',
                 'choice_label' => 'name',
                 'translation_domain' => false,
                 'choice_translation_domain' => false,
@@ -61,14 +62,12 @@ final class ClearLayoutsCacheType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $layouts = [];
+        $layoutsView = $view->children['layouts'];
 
-        foreach ($options['layouts'] as $layout) {
-            $layouts[$layout->getId()] = $layout;
+        foreach ($layoutsView->children as $name => $child) {
+            $child->vars['layout'] = $layoutsView->vars['choices'][$name]->data;
         }
-
-        $view->vars['layouts'] = $layouts;
     }
 }

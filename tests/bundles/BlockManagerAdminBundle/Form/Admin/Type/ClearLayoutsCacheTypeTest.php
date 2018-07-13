@@ -34,7 +34,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildForm
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildView
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::finishView
      */
     public function testSubmitValidData(): void
     {
@@ -55,8 +55,16 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('layouts', $view->vars);
-        $this->assertSame($this->layouts, $view->vars['layouts']);
+        $childViews = $view->children['layouts']->children;
+
+        $this->assertCount(2, $childViews);
+
+        foreach ($this->layouts as $id => $layout) {
+            $this->assertArrayHasKey($id, $childViews);
+
+            $this->assertArrayHasKey('layout', $childViews[$id]->vars);
+            $this->assertSame($layout, $childViews[$id]->vars['layout']);
+        }
     }
 
     /**
