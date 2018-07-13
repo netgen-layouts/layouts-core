@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Block\Placeholder as PlaceholderValue;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -14,7 +13,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\API\Values\Block\Placeholder
  */
-final class Placeholder extends Visitor
+final class Placeholder implements VisitorInterface
 {
     public function accept($value): bool
     {

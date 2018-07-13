@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Aggregate implementation of the Visitor.
  */
-final class Aggregate extends Visitor
+final class Aggregate implements VisitorInterface
 {
     /**
      * Internal collection of visitors.

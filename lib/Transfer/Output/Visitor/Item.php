@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Item as ItemValue;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -14,7 +13,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\API\Values\Collection\Item
  */
-final class Item extends Visitor
+final class Item implements VisitorInterface
 {
     public function accept($value): bool
     {

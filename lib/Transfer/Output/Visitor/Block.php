@@ -7,7 +7,6 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block as BlockValue;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -15,7 +14,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\API\Values\Block\Block
  */
-final class Block extends Visitor
+final class Block implements VisitorInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

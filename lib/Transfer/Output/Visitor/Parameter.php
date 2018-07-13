@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\Parameters\Parameter as ParameterValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -13,7 +12,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\Parameters\Parameter
  */
-final class Parameter extends Visitor
+final class Parameter implements VisitorInterface
 {
     public function accept($value): bool
     {

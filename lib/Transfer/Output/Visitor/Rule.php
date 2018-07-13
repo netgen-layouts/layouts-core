@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as RuleValue;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\StatusStringTrait;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -15,8 +15,10 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\API\Values\LayoutResolver\Rule
  */
-final class Rule extends Visitor
+final class Rule implements VisitorInterface
 {
+    use StatusStringTrait;
+
     public function accept($value): bool
     {
         return $value instanceof RuleValue;

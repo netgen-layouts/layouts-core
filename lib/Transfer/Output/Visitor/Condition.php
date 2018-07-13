@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as ConditionValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -13,7 +12,7 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\API\Values\LayoutResolver\Condition
  */
-final class Condition extends Visitor
+final class Condition implements VisitorInterface
 {
     public function accept($value): bool
     {

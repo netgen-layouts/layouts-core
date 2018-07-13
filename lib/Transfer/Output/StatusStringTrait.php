@@ -7,14 +7,14 @@ namespace Netgen\BlockManager\Transfer\Output;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-abstract class Visitor implements VisitorInterface
+trait StatusStringTrait
 {
     /**
-     * Return status string representation for the given $layout.
+     * Return status string representation for the given $value.
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
      */
-    protected function getStatusString(Value $value): string
+    private function getStatusString(Value $value): string
     {
         switch ($value->getStatus()) {
             case Value::STATUS_DRAFT:

@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\StatusStringTrait;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -14,8 +14,10 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
  *
  * @see \Netgen\BlockManager\API\Values\Layout\Layout
  */
-final class Layout extends Visitor
+final class Layout implements VisitorInterface
 {
+    use StatusStringTrait;
+
     public function accept($value): bool
     {
         return $value instanceof LayoutValue;
