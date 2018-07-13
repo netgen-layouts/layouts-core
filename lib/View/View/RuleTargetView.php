@@ -19,7 +19,7 @@ final class RuleTargetView extends View implements RuleTargetViewInterface
         return $this->parameters['target'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'rule_target';
     }

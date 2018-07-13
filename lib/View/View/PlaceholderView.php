@@ -26,7 +26,7 @@ final class PlaceholderView extends View implements PlaceholderViewInterface
         return $this->parameters['block'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'placeholder';
     }

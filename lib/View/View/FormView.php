@@ -31,7 +31,7 @@ final class FormView extends View implements FormViewInterface
         return $this->parameters['form'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'form';
     }

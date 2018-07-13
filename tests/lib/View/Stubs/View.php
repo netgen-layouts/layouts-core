@@ -14,7 +14,7 @@ class View extends BaseView
         $this->parameters['value'] = $value;
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'stub';
     }

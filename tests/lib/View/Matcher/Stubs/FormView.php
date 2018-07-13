@@ -24,7 +24,7 @@ final class FormView extends View implements FormViewInterface
     {
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'form';
     }

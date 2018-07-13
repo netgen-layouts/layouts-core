@@ -56,6 +56,6 @@ final class FormViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('form', $this->view->getIdentifier());
+        $this->assertSame('form', $this->view::getIdentifier());
     }
 }

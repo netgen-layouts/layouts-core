@@ -19,7 +19,7 @@ final class ParameterView extends View implements ParameterViewInterface
         return $this->parameters['parameter'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'parameter';
     }

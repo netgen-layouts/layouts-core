@@ -75,6 +75,6 @@ final class PlaceholderViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('placeholder', $this->view->getIdentifier());
+        $this->assertSame('placeholder', $this->view::getIdentifier());
     }
 }

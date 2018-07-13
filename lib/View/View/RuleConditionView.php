@@ -19,7 +19,7 @@ final class RuleConditionView extends View implements RuleConditionViewInterface
         return $this->parameters['condition'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'rule_condition';
     }

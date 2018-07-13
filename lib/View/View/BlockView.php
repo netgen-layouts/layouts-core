@@ -19,7 +19,7 @@ final class BlockView extends View implements BlockViewInterface
         return $this->parameters['block'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'block';
     }

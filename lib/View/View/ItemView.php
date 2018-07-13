@@ -25,7 +25,7 @@ final class ItemView extends View implements ItemViewInterface
         return $this->parameters['view_type'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'item';
     }

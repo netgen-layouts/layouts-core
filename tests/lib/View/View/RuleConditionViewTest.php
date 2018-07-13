@@ -51,6 +51,6 @@ final class RuleConditionViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('rule_condition', $this->view->getIdentifier());
+        $this->assertSame('rule_condition', $this->view::getIdentifier());
     }
 }

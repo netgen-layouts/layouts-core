@@ -19,7 +19,7 @@ final class RuleView extends View implements RuleViewInterface
         return $this->parameters['rule'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'rule';
     }

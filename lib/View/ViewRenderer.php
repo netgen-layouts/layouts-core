@@ -34,7 +34,7 @@ final class ViewRenderer implements ViewRendererInterface
         $view->addParameters($event->getParameters());
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, $view->getIdentifier()), $event);
+        $this->eventDispatcher->dispatch(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, $view::getIdentifier()), $event);
         $view->addParameters($event->getParameters());
 
         $viewTemplate = $view->getTemplate();

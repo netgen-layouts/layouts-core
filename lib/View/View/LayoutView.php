@@ -19,7 +19,7 @@ final class LayoutView extends View implements LayoutViewInterface
         return $this->parameters['layout'];
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'layout';
     }

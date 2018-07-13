@@ -31,7 +31,7 @@ interface ViewInterface
     /**
      * Returns the view identifier.
      */
-    public function getIdentifier(): string;
+    public static function getIdentifier(): string;
 
     /**
      * Returns the view context.
