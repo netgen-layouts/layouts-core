@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
@@ -62,7 +61,7 @@ final class Block extends Value implements APIBlock
     private $placeholders = [];
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\CollectionReference[]
+     * @var \Netgen\BlockManager\Core\Values\Block\CollectionReference[]
      */
     private $collectionReferences = [];
 
@@ -153,7 +152,7 @@ final class Block extends Value implements APIBlock
     public function getCollections(): array
     {
         return array_map(
-            function (APICollectionReference $collectionReference): Collection {
+            function (CollectionReference $collectionReference): Collection {
                 return $collectionReference->getCollection();
             },
             $this->collectionReferences

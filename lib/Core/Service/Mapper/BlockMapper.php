@@ -132,9 +132,9 @@ final class BlockMapper
     }
 
     /**
-     * Builds the API collection reference values for the provided block.
+     * Builds the collection reference values for the provided block.
      *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
+     * @return \Netgen\BlockManager\Core\Values\Block\CollectionReference[]
      */
     private function mapCollectionReferences(PersistenceBlock $block, ?array $locales = null): array
     {
