@@ -72,9 +72,9 @@ trait ParameterStructTrait
      *
      * The values need to be in the domain format of the value for the parameter.
      */
-    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []): void
+    public function fill(ParameterDefinitionCollectionInterface $definitions, array $values = []): void
     {
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
                 $values[$parameterDefinition->getName()] :
                 $parameterDefinition->getDefaultValue();
@@ -90,13 +90,13 @@ trait ParameterStructTrait
     /**
      * Fills the struct values based on provided value.
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue): void
+    public function fillFromValue(ParameterDefinitionCollectionInterface $definitions, ParameterCollection $parameters): void
     {
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $value = null;
 
-            if ($parameterBasedValue->hasParameter($parameterDefinition->getName())) {
-                $parameter = $parameterBasedValue->getParameter($parameterDefinition->getName());
+            if ($parameters->hasParameter($parameterDefinition->getName())) {
+                $parameter = $parameters->getParameter($parameterDefinition->getName());
                 if ($parameter->getParameterDefinition()->getType()->getIdentifier() === $parameterDefinition->getType()->getIdentifier()) {
                     $value = $parameter->getValue();
                     $value = is_object($value) ? clone $value : $value;
@@ -106,7 +106,7 @@ trait ParameterStructTrait
             $this->setParameterValue($parameterDefinition->getName(), $value);
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $this->fillFromValue($parameterDefinition, $parameterBasedValue);
+                $this->fillFromValue($parameterDefinition, $parameters);
             }
         }
     }
@@ -121,11 +121,11 @@ trait ParameterStructTrait
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [], bool $doImport = false): void
+    public function fillFromHash(ParameterDefinitionCollectionInterface $definitions, array $values = [], bool $doImport = false): void
     {
         $importMethod = $doImport ? 'import' : 'fromHash';
 
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $value = array_key_exists($parameterDefinition->getName(), $values) ?
                 $parameterDefinition->getType()->{$importMethod}($parameterDefinition, $values[$parameterDefinition->getName()]) :
                 $parameterDefinition->getDefaultValue();

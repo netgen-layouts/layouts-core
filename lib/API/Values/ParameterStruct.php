@@ -47,12 +47,12 @@ interface ParameterStruct
      *
      * The values need to be in the domain format of the value for the parameter.
      */
-    public function fill(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = []): void;
+    public function fill(ParameterDefinitionCollectionInterface $definitions, array $values = []): void;
 
     /**
      * Fills the struct values based on provided value.
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $parameterDefinitions, ParameterBasedValue $parameterBasedValue): void;
+    public function fillFromValue(ParameterDefinitionCollectionInterface $definitions, ParameterCollection $parameters): void;
 
     /**
      * Fills the struct values based on provided array of values.
@@ -60,5 +60,5 @@ interface ParameterStruct
      * The values in the array need to be in hash format of the value
      * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
      */
-    public function fillFromHash(ParameterDefinitionCollectionInterface $parameterDefinitions, array $values = [], bool $doImport = false): void;
+    public function fillFromHash(ParameterDefinitionCollectionInterface $definitions, array $values = [], bool $doImport = false): void;
 }

@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
+use Netgen\BlockManager\Tests\Core\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use PHPUnit\Framework\TestCase;
@@ -184,7 +184,7 @@ final class ParameterStructTraitTest extends TestCase
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $parameterDefinitions->getParameterDefinition('compound');
 
-        $value = new ParameterBasedValue(
+        $value = new ParameterCollection(
             [
                 'parameters' => [
                     'css_class' => new Parameter(

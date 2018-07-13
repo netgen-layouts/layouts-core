@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Parameters\Parameter;
 
-interface ParameterBasedValue
+interface ParameterCollection
 {
     /**
      * Returns all parameters.

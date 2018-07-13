@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\ParameterBasedValue;
+use Netgen\BlockManager\API\Values\ParameterCollection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 
-interface Query extends Value, ParameterBasedValue
+interface Query extends Value, ParameterCollection
 {
     /**
      * Returns the query ID.

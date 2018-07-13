@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\ParameterBasedValue;
+use Netgen\BlockManager\API\Values\ParameterCollection;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 
-interface Config extends ParameterBasedValue
+interface Config extends ParameterCollection
 {
     /**
      * Returns the config key.

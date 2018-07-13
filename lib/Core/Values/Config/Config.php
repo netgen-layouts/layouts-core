@@ -6,12 +6,12 @@ namespace Netgen\BlockManager\Core\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
+use Netgen\BlockManager\Core\Values\ParameterCollectionTrait;
 use Netgen\BlockManager\Value;
 
 final class Config extends Value implements APIConfig
 {
-    use ParameterBasedValueTrait;
+    use ParameterCollectionTrait;
 
     /**
      * @var string
