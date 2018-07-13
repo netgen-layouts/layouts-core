@@ -6,10 +6,12 @@ namespace Netgen\BlockManager\Core\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
+use Netgen\BlockManager\Value;
 
 final class Zone extends Value implements APIZone
 {
+    use ValueStatusTrait;
     use LazyPropertyTrait;
 
     /**

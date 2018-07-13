@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
 use PHPUnit\Framework\TestCase;
 
-final class VisitorTest extends TestCase
+final class StatusStringTraitTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor
@@ -21,7 +21,7 @@ final class VisitorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor::getStatusString
+     * @covers \Netgen\BlockManager\Transfer\Output\StatusStringTrait::getStatusString
      * @dataProvider visitProvider
      */
     public function testVisit(int $status, array $visitedValue): void
@@ -30,7 +30,7 @@ final class VisitorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor::getStatusString
+     * @covers \Netgen\BlockManager\Transfer\Output\StatusStringTrait::getStatusString
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Unknown status '9999'
      */

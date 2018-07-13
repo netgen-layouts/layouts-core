@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Values;
 
-use Netgen\BlockManager\API\Values\Value as APIValue;
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\API\Values\Value;
 
-abstract class Value extends BaseValue implements APIValue
+trait ValueStatusTrait
 {
     /**
      * @var int
      */
-    protected $status;
+    private $status;
 
     public function getStatus(): int
     {
@@ -21,16 +20,16 @@ abstract class Value extends BaseValue implements APIValue
 
     public function isDraft(): bool
     {
-        return $this->status === self::STATUS_DRAFT;
+        return $this->status === Value::STATUS_DRAFT;
     }
 
     public function isPublished(): bool
     {
-        return $this->status === self::STATUS_PUBLISHED;
+        return $this->status === Value::STATUS_PUBLISHED;
     }
 
     public function isArchived(): bool
     {
-        return $this->status === self::STATUS_ARCHIVED;
+        return $this->status === Value::STATUS_ARCHIVED;
     }
 }

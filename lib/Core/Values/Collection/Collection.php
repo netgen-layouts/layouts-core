@@ -9,10 +9,12 @@ use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
+use Netgen\BlockManager\Value;
 
 final class Collection extends Value implements APICollection
 {
+    use ValueStatusTrait;
     use LazyPropertyTrait;
 
     /**

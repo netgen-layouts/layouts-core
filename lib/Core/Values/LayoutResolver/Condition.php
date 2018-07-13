@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Netgen\BlockManager\Value;
 
 final class Condition extends Value implements APICondition
 {
+    use ValueStatusTrait;
+
     /**
      * @var int|string
      */

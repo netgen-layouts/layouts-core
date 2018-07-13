@@ -8,12 +8,15 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\BlockManager\Value;
 
 final class Layout extends Value implements APILayout
 {
+    use ValueStatusTrait;
+
     /**
      * @var int|string
      */

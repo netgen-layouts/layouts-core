@@ -7,13 +7,13 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
-final class ValueTest extends TestCase
+final class ValueStatusTraitTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Value::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Value::isArchived
-     * @covers \Netgen\BlockManager\Core\Values\Value::isDraft
-     * @covers \Netgen\BlockManager\Core\Values\Value::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\ValueStatusTrait::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\ValueStatusTrait::isArchived
+     * @covers \Netgen\BlockManager\Core\Values\ValueStatusTrait::isDraft
+     * @covers \Netgen\BlockManager\Core\Values\ValueStatusTrait::isPublished
      *
      * @dataProvider statusProvider
      */

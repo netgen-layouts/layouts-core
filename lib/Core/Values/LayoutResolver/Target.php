@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
+use Netgen\BlockManager\Value;
 
 final class Target extends Value implements APITarget
 {
+    use ValueStatusTrait;
+
     /**
      * @var int|string
      */

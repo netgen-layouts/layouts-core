@@ -8,10 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
+use Netgen\BlockManager\Value;
 
 final class Rule extends Value implements APIRule
 {
+    use ValueStatusTrait;
     use LazyPropertyTrait;
 
     /**

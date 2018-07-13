@@ -8,12 +8,14 @@ use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\NullCmsItem;
+use Netgen\BlockManager\Value;
 
 final class Item extends Value implements APIItem
 {
+    use ValueStatusTrait;
     use ConfigAwareValueTrait;
     use LazyPropertyTrait;
 
