@@ -48,11 +48,7 @@ final class ClearLayoutsCacheType extends AbstractType
             [
                 'choices' => $options['layouts'],
                 'choice_value' => 'id',
-                'choice_label' => function (Layout $layout): string {
-                    $layoutName = $layout->getName();
-
-                    return !empty($layoutName) ? $layoutName : ' ';
-                },
+                'choice_label' => 'name',
                 'translation_domain' => false,
                 'choice_translation_domain' => false,
                 'required' => true,
