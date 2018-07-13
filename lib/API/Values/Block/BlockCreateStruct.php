@@ -97,13 +97,12 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
     }
 
     /**
-     * Sets the provided parameter values to the struct.
-     *
-     * The values need to be in the domain format of the value for the parameter.
+     * Fills the struct with the default parameter values as defined in provided
+     * block definition.
      */
-    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = []): void
+    public function fillDefaultParameters(BlockDefinitionInterface $blockDefinition): void
     {
-        $this->fill($blockDefinition, $values);
+        $this->fillDefault($blockDefinition);
     }
 
     /**
@@ -111,7 +110,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      */
     public function fillParametersFromBlock(Block $block): void
     {
-        $this->fillFromValue($block->getDefinition(), $block);
+        $this->fillFromCollection($block->getDefinition(), $block);
     }
 
     /**

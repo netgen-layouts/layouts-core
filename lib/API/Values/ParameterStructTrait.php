@@ -69,29 +69,24 @@ trait ParameterStructTrait
     }
 
     /**
-     * Sets the provided parameter values to the struct.
-     *
-     * The values need to be in the domain format of the value for the parameter.
+     * Fills the struct with the default parameter values as defined in provided
+     * parameter definition collection.
      */
-    public function fill(ParameterDefinitionCollectionInterface $definitions, array $values = []): void
+    public function fillDefault(ParameterDefinitionCollectionInterface $definitions): void
     {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            $value = array_key_exists($parameterDefinition->getName(), $values) ?
-                $values[$parameterDefinition->getName()] :
-                $parameterDefinition->getDefaultValue();
-
-            $this->setParameterValue($parameterDefinition->getName(), $value);
+            $this->setParameterValue($parameterDefinition->getName(), $parameterDefinition->getDefaultValue());
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $this->fill($parameterDefinition, $values);
+                $this->fillDefault($parameterDefinition);
             }
         }
     }
 
     /**
-     * Fills the struct values based on provided value.
+     * Fills the struct values based on provided parameter collection.
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void
+    public function fillFromCollection(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void
     {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $value = null;
@@ -107,7 +102,7 @@ trait ParameterStructTrait
             $this->setParameterValue($parameterDefinition->getName(), $value);
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $this->fillFromValue($parameterDefinition, $parameters);
+                $this->fillFromCollection($parameterDefinition, $parameters);
             }
         }
     }

@@ -106,7 +106,7 @@ final class CollectionStructBuilder
             ]
         );
 
-        $queryCreateStruct->fillParameters($queryType);
+        $queryCreateStruct->fillDefaultParameters($queryType);
 
         return $queryCreateStruct;
     }

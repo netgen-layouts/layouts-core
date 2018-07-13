@@ -123,68 +123,36 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fill
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillDefault
      */
-    public function testFill(): void
+    public function testFillDefault(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
-        $initialValues = [
-            'css_class' => 'css',
-            'css_id' => 'id',
-            'compound' => false,
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fill($parameterDefinitions, $initialValues);
+        $this->struct->fillDefault($parameterDefinitions);
 
         $this->assertSame(
             [
-                'css_class' => 'css',
-                'css_id' => 'id',
-                'compound' => false,
-                'inner' => 'inner',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fill
-     */
-    public function testFillWithMissingValues(): void
-    {
-        $parameterDefinitions = $this->buildParameterDefinitionCollection();
-
-        $initialValues = [
-            'css_class' => 'css',
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fill($parameterDefinitions, $initialValues);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css',
+                'css_class' => 'css_default',
                 'css_id' => 'id_default',
                 'compound' => true,
-                'inner' => 'inner',
+                'inner' => 'inner_default',
             ],
             $this->struct->getParameterValues()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromCollection
      */
-    public function testFillFromValue(): void
+    public function testFillFromCollection(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $parameterDefinitions->getParameterDefinition('compound');
 
-        $value = new ParameterCollection(
+        $parameters = new ParameterCollection(
             [
                 'parameters' => [
                     'css_class' => new Parameter(
@@ -203,7 +171,7 @@ final class ParameterStructTraitTest extends TestCase
             ]
         );
 
-        $this->struct->fillFromValue($parameterDefinitions, $value);
+        $this->struct->fillFromCollection($parameterDefinitions, $parameters);
 
         $this->assertSame(
             [

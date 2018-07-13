@@ -44,16 +44,15 @@ interface ParameterStruct
     public function hasParameterValue(string $parameterName): bool;
 
     /**
-     * Sets the provided parameter values to the struct.
-     *
-     * The values need to be in the domain format of the value for the parameter.
+     * Fills the struct with the default parameter values as defined in provided
+     * parameter definition collection.
      */
-    public function fill(ParameterDefinitionCollectionInterface $definitions, array $values = []): void;
+    public function fillDefault(ParameterDefinitionCollectionInterface $definitions): void;
 
     /**
-     * Fills the struct values based on provided value.
+     * Fills the struct values based on provided parameter collection.
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void;
+    public function fillFromCollection(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void;
 
     /**
      * Fills the struct values based on provided array of values.

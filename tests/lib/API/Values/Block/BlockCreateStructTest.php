@@ -73,52 +73,20 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParameters
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillDefaultParameters
      */
-    public function testFillParameters(): void
+    public function testFillDefaultParameters(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        $initialValues = [
-            'css_class' => 'css',
-            'css_id' => 'id',
-            'compound' => false,
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fillParameters($blockDefinition, $initialValues);
+        $this->struct->fillDefaultParameters($blockDefinition);
 
         $this->assertSame(
             [
-                'css_class' => 'css',
-                'css_id' => 'id',
-                'compound' => false,
-                'inner' => 'inner',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParameters
-     */
-    public function testFillParametersWithMissingValues(): void
-    {
-        $blockDefinition = $this->buildBlockDefinition();
-
-        $initialValues = [
-            'css_class' => 'css',
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fillParameters($blockDefinition, $initialValues);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css',
+                'css_class' => 'css_default',
                 'css_id' => 'id_default',
                 'compound' => true,
-                'inner' => 'inner',
+                'inner' => 'inner_default',
             ],
             $this->struct->getParameterValues()
         );

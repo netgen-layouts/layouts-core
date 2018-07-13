@@ -27,52 +27,20 @@ final class ConfigStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParameters
+     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillDefaultParameters
      */
-    public function testFillParameters(): void
+    public function testFillDefaultParameters(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
-        $initialValues = [
-            'css_class' => 'css',
-            'css_id' => 'id',
-            'compound' => false,
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fillParameters($configDefinition, $initialValues);
+        $this->struct->fillDefaultParameters($configDefinition);
 
         $this->assertSame(
             [
-                'css_class' => 'css',
-                'css_id' => 'id',
-                'compound' => false,
-                'inner' => 'inner',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParameters
-     */
-    public function testFillParametersWithMissingValues(): void
-    {
-        $configDefinition = $this->buildConfigDefinition();
-
-        $initialValues = [
-            'css_class' => 'css',
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fillParameters($configDefinition, $initialValues);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css',
+                'css_class' => 'css_default',
                 'css_id' => 'id_default',
                 'compound' => true,
-                'inner' => 'inner',
+                'inner' => 'inner_default',
             ],
             $this->struct->getParameterValues()
         );

@@ -27,52 +27,20 @@ final class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParameters
+     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillDefaultParameters
      */
-    public function testFillParameters(): void
+    public function testFillDefaultParameters(): void
     {
         $queryType = $this->buildQueryType();
 
-        $initialValues = [
-            'css_class' => 'css',
-            'css_id' => 'id',
-            'compound' => false,
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fillParameters($queryType, $initialValues);
+        $this->struct->fillDefaultParameters($queryType);
 
         $this->assertSame(
             [
-                'css_class' => 'css',
-                'css_id' => 'id',
-                'compound' => false,
-                'inner' => 'inner',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParameters
-     */
-    public function testFillParametersWithMissingValues(): void
-    {
-        $queryType = $this->buildQueryType();
-
-        $initialValues = [
-            'css_class' => 'css',
-            'inner' => 'inner',
-        ];
-
-        $this->struct->fillParameters($queryType, $initialValues);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css',
+                'css_class' => 'css_default',
                 'css_id' => 'id_default',
                 'compound' => true,
-                'inner' => 'inner',
+                'inner' => 'inner_default',
             ],
             $this->struct->getParameterValues()
         );

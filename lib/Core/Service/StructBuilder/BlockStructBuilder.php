@@ -40,7 +40,7 @@ final class BlockStructBuilder
             ]
         );
 
-        $blockCreateStruct->fillParameters($blockDefinition);
+        $blockCreateStruct->fillDefaultParameters($blockDefinition);
 
         return $blockCreateStruct;
     }

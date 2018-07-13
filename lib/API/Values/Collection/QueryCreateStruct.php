@@ -23,13 +23,12 @@ final class QueryCreateStruct extends Value implements ParameterStruct
     public $queryType;
 
     /**
-     * Sets the provided parameter values to the struct.
-     *
-     * The values need to be in the domain format of the value for the parameter.
+     * Fills the struct with the default parameter values as defined in provided
+     * query type.
      */
-    public function fillParameters(QueryTypeInterface $queryType, array $values = []): void
+    public function fillDefaultParameters(QueryTypeInterface $queryType): void
     {
-        $this->fill($queryType, $values);
+        $this->fillDefault($queryType);
     }
 
     /**
@@ -37,7 +36,7 @@ final class QueryCreateStruct extends Value implements ParameterStruct
      */
     public function fillParametersFromQuery(Query $query): void
     {
-        $this->fillFromValue($query->getQueryType(), $query);
+        $this->fillFromCollection($query->getQueryType(), $query);
     }
 
     /**
