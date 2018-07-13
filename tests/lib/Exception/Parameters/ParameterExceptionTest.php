@@ -10,6 +10,19 @@ use PHPUnit\Framework\TestCase;
 final class ParameterExceptionTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameter
+     */
+    public function testNoParameter(): void
+    {
+        $exception = ParameterException::noParameter('param');
+
+        $this->assertSame(
+            'Parameter with "param" name does not exist.',
+            $exception->getMessage()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameterDefinition
      */
     public function testNoParameterDefinition(): void
@@ -17,7 +30,7 @@ final class ParameterExceptionTest extends TestCase
         $exception = ParameterException::noParameterDefinition('param');
 
         $this->assertSame(
-            'Parameter definition with "param" name does not exist in the object.',
+            'Parameter definition with "param" name does not exist.',
             $exception->getMessage()
         );
     }

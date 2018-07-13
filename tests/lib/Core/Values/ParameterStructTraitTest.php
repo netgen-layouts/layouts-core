@@ -9,8 +9,8 @@ use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Core\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterStruct;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use PHPUnit\Framework\TestCase;
 

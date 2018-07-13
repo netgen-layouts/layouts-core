@@ -6,8 +6,8 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Core\Values\ParameterCollectionTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\Value;
 
 final class Query extends Value implements APIQuery

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Values;
+namespace Netgen\BlockManager\Parameters;
 
-use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Exception\Parameters\ParameterException;
 
 trait ParameterCollectionTrait
 {
@@ -27,7 +26,7 @@ trait ParameterCollectionTrait
     /**
      * Returns the specified parameter.
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter does not exist
      */
     public function getParameter(string $parameterName): Parameter
     {

@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values;
+namespace Netgen\BlockManager\Parameters;
 
-use Netgen\BlockManager\Parameters\Parameter;
-
-interface ParameterCollection
+interface ParameterCollectionInterface
 {
     /**
      * Returns all parameters.
@@ -18,7 +16,7 @@ interface ParameterCollection
     /**
      * Returns the specified parameter.
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter does not exist
      */
     public function getParameter(string $parameter): Parameter;
 

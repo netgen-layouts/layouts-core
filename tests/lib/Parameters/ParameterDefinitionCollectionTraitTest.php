@@ -27,7 +27,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterException
-     * @expectedExceptionMessage Parameter definition with "test" name does not exist in the object.
+     * @expectedExceptionMessage Parameter definition with "test" name does not exist.
      */
     public function testGetParameterDefinitionWithNonExistingDefinition(): void
     {

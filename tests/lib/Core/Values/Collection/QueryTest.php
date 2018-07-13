@@ -6,8 +6,6 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -21,13 +19,11 @@ final class QueryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      */
     public function testDefaultProperties(): void
     {
         $query = new Query();
 
-        $this->assertSame([], $query->getParameters());
         $this->assertSame([], $query->getAvailableLocales());
     }
 
@@ -38,17 +34,13 @@ final class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      */
     public function testSetProperties(): void
     {
         $queryType = new QueryType('query_type');
-        $parameter = new Parameter(['value' => 'value']);
 
         $query = new Query(
             [
@@ -60,37 +52,18 @@ final class QueryTest extends TestCase
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'locale' => 'en',
-                'parameters' => [
-                    'param' => $parameter,
-                ],
+                'parameters' => [],
             ]
         );
 
         $this->assertSame(42, $query->getId());
         $this->assertSame(30, $query->getCollectionId());
         $this->assertSame($queryType, $query->getQueryType());
-        $this->assertSame(['param' => $parameter], $query->getParameters());
-        $this->assertSame($parameter, $query->getParameter('param'));
-        $this->assertFalse($query->hasParameter('test'));
-        $this->assertTrue($query->hasParameter('param'));
         $this->assertTrue($query->isTranslatable());
         $this->assertSame('en', $query->getMainLocale());
         $this->assertTrue($query->isAlwaysAvailable());
         $this->assertSame(['en'], $query->getAvailableLocales());
         $this->assertSame('en', $query->getLocale());
-
-        $this->assertSame(
-            [
-                'param' => $parameter,
-            ],
-            $query->getParameters()
-        );
-
-        try {
-            $query->getParameter('test');
-        } catch (ParameterException $e) {
-            // Do nothing
-        }
     }
 
     /**

@@ -10,9 +10,9 @@ use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\Core\Values\ParameterCollectionTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Exception\Core\BlockException;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\Value;
 
 final class Block extends Value implements APIBlock

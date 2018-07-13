@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
 
 trait ParameterStructTrait
@@ -90,7 +91,7 @@ trait ParameterStructTrait
     /**
      * Fills the struct values based on provided value.
      */
-    public function fillFromValue(ParameterDefinitionCollectionInterface $definitions, ParameterCollection $parameters): void
+    public function fillFromValue(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void
     {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $value = null;

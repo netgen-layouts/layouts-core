@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Parameters;
 interface ParameterDefinitionCollectionInterface
 {
     /**
-     * Returns the list of parameter definitions in the object.
+     * Returns the list of parameter definitions.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */

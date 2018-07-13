@@ -11,8 +11,6 @@ use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Core\BlockException;
-use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -27,14 +25,12 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      */
     public function testDefaultProperties(): void
     {
         $block = new Block();
 
-        $this->assertSame([], $block->getParameters());
         $this->assertSame([], $block->getPlaceholders());
         $this->assertSame([], $block->getCollections());
         $this->assertSame([], $block->getAvailableLocales());
@@ -52,14 +48,10 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLocale
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
@@ -67,9 +59,6 @@ final class BlockTest extends TestCase
     public function testSetProperties(): void
     {
         $definition = new BlockDefinition();
-
-        $parameter1 = new Parameter(['value' => 'some_value']);
-        $parameter2 = new Parameter(['value' => 'some_other_value']);
 
         $placeholder = new Placeholder(['identifier' => 'main']);
 
@@ -96,19 +85,13 @@ final class BlockTest extends TestCase
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'locale' => 'en',
-                'parameters' => [
-                    'some_param' => $parameter1,
-                    'some_other_param' => $parameter2,
-                ],
+                'parameters' => [],
             ]
         );
 
         $this->assertSame(42, $block->getId());
         $this->assertSame(24, $block->getLayoutId());
         $this->assertSame($definition, $block->getDefinition());
-        $this->assertSame($parameter1, $block->getParameter('some_param'));
-        $this->assertFalse($block->hasParameter('test'));
-        $this->assertTrue($block->hasParameter('some_param'));
         $this->assertSame($placeholder, $block->getPlaceholder('main'));
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertTrue($block->hasPlaceholder('main'));
@@ -124,20 +107,6 @@ final class BlockTest extends TestCase
         $this->assertTrue($block->isAlwaysAvailable());
         $this->assertSame(['en'], $block->getAvailableLocales());
         $this->assertSame('en', $block->getLocale());
-
-        $this->assertSame(
-            [
-                'some_param' => $parameter1,
-                'some_other_param' => $parameter2,
-            ],
-            $block->getParameters()
-        );
-
-        try {
-            $block->getParameter('test');
-        } catch (ParameterException $e) {
-            // Do nothing
-        }
 
         $this->assertSame(
             [
