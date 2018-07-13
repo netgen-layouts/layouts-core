@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
+use Netgen\BlockManager\Tests\Core\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
