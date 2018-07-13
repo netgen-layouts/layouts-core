@@ -44,7 +44,7 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     /**
      * Returns the human readable name of the block.
      */
-    public function getName(): ?string;
+    public function getName(): string;
 
     /**
      * Returns the position of the block in the parent block or zone.

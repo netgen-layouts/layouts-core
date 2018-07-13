@@ -119,7 +119,7 @@ final class Block extends Value implements APIBlock
         return $this->itemViewType;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
