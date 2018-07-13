@@ -10,8 +10,6 @@ use Symfony\Component\Validator\Constraints;
 
 abstract class ParameterType implements ParameterTypeInterface
 {
-    abstract public function getIdentifier();
-
     public function configureOptions(OptionsResolver $optionsResolver)
     {
     }
