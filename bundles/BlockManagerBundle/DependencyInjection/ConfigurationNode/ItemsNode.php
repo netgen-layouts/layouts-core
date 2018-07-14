@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 final class ItemsNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('items');
+        $treeBuilder = new TreeBuilder('items');
+        $node = $treeBuilder->getRootNode();
 
         $node
             ->children()

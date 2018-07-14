@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder as BaseTreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
@@ -19,11 +19,11 @@ final class Configuration implements ConfigurationInterface
         $this->extension = $extension;
     }
 
-    public function getConfigTreeBuilder(): TreeBuilder
+    public function getConfigTreeBuilder(): BaseTreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder($this->extension->getAlias());
 
-        $rootNode = $treeBuilder->root($this->extension->getAlias());
+        $rootNode = $treeBuilder->getRootNode();
         $children = $rootNode->children();
 
         foreach ($this->getNodes() as $node) {

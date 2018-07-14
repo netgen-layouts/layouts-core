@@ -8,16 +8,16 @@ use Netgen\BlockManager\Block\Form\ContentEditType;
 use Netgen\BlockManager\Block\Form\DesignEditType;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 final class BlockDefinitionNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('block_definitions');
+        $treeBuilder = new TreeBuilder('block_definitions');
+        $node = $treeBuilder->getRootNode();
 
         $node
             ->requiresAtLeastOneElement()
