@@ -79,12 +79,13 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      * @param mixed $templates
      * @param mixed $exception
      * @param mixed $outputs
+     * @param mixed $deprecation
      */
-    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs): void
+    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
     {
         $this->configureMocks();
 
-        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
+        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
     /**
@@ -97,15 +98,16 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      * @param mixed $templates
      * @param mixed $exception
      * @param mixed $outputs
+     * @param mixed $deprecation
      */
-    public function testIntegrationWithLocale($file, $message, $condition, $templates, $exception, $outputs): void
+    public function testIntegrationWithLocale($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
     {
         $request = Request::create('');
         $this->requestStack->push($request);
 
         $this->configureMocks();
 
-        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
+        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
     protected function getExtensions(): array
