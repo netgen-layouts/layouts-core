@@ -64,7 +64,7 @@ final class ClearLayoutsCacheType extends AbstractType
     {
         foreach ($options['layouts'] as $layout) {
             /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
-            $view->children['layouts'][$layout->getId()]->vars['layout'] = $layout;
+            $view['layouts'][$layout->getId()]->vars['layout'] = $layout;
         }
     }
 }
