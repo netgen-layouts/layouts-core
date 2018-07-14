@@ -55,19 +55,16 @@ final class ClearLayoutsCacheType extends AbstractType
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
-                'constraints' => [
-                    new NotBlank(),
-                ],
+                'constraints' => [new NotBlank()],
             ] + $this->getChoicesAsValuesOption()
         );
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $layoutsView = $view->children['layouts'];
-
-        foreach ($layoutsView->children as $name => $child) {
-            $child->vars['layout'] = $layoutsView->vars['choices'][$name]->data;
+        foreach ($options['layouts'] as $layout) {
+            /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
+            $view->children['layouts'][$layout->getId()]->vars['layout'] = $layout;
         }
     }
 }
