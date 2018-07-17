@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 final class ParameterStructTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\ParameterStruct
+     * @var \Netgen\BlockManager\Tests\Core\Stubs\ParameterStruct
      */
     private $struct;
 
@@ -129,7 +129,7 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
-        $this->struct->fillDefault($parameterDefinitions);
+        $this->struct->fillDefaultParameters($parameterDefinitions);
 
         $this->assertSame(
             [
@@ -171,7 +171,7 @@ final class ParameterStructTraitTest extends TestCase
             ]
         );
 
-        $this->struct->fillFromCollection($parameterDefinitions, $parameters);
+        $this->struct->fillParametersFromCollection($parameterDefinitions, $parameters);
 
         $this->assertSame(
             [
@@ -198,7 +198,7 @@ final class ParameterStructTraitTest extends TestCase
             'inner' => 'inner',
         ];
 
-        $this->struct->fillFromHash($parameterDefinitions, $initialValues);
+        $this->struct->fillParametersFromHash($parameterDefinitions, $initialValues);
 
         $this->assertSame(
             [
@@ -223,7 +223,7 @@ final class ParameterStructTraitTest extends TestCase
             'inner' => 'inner',
         ];
 
-        $this->struct->fillFromHash($parameterDefinitions, $initialValues);
+        $this->struct->fillParametersFromHash($parameterDefinitions, $initialValues);
 
         $this->assertSame(
             [

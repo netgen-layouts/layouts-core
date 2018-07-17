@@ -57,7 +57,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
-        $blockCreateStruct->fillFromHash($blockDefinition, $parameters);
+        $blockCreateStruct->fillParametersFromHash($parameters);
 
         // We need to recreate the service due to recreating the block definition
         // registry in $this->createBlockDefinition() call
@@ -95,7 +95,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
-        $blockCreateStruct->fillFromHash($blockDefinition, $parameters);
+        $blockCreateStruct->fillParametersFromHash($parameters);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);

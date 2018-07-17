@@ -72,7 +72,7 @@ trait ParameterStructTrait
      * Fills the struct with the default parameter values as defined in provided
      * parameter definition collection.
      */
-    public function fillDefault(ParameterDefinitionCollectionInterface $definitions): void
+    private function fillDefault(ParameterDefinitionCollectionInterface $definitions): void
     {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $this->setParameterValue($parameterDefinition->getName(), $parameterDefinition->getDefaultValue());
@@ -86,7 +86,7 @@ trait ParameterStructTrait
     /**
      * Fills the struct values based on provided parameter collection.
      */
-    public function fillFromCollection(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void
+    private function fillFromCollection(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void
     {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             $value = null;
@@ -120,7 +120,7 @@ trait ParameterStructTrait
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillFromHash(ParameterDefinitionCollectionInterface $definitions, array $values = [], bool $doImport = false): void
+    private function fillFromHash(ParameterDefinitionCollectionInterface $definitions, array $values = [], bool $doImport = false): void
     {
         $importMethod = $doImport ? 'import' : 'fromHash';
 
