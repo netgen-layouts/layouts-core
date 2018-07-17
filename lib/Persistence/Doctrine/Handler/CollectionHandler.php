@@ -248,8 +248,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionItems as $collectionItem) {
             $newItem = clone $collectionItem;
-
             $newItem->id = null;
+
             $newItem->collectionId = $newCollection->id;
 
             $this->queryHandler->addItem($newItem);
@@ -264,8 +264,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         if ($collectionQuery instanceof Query) {
             $newQuery = clone $collectionQuery;
-
             $newQuery->id = null;
+
             $newQuery->collectionId = $newCollection->id;
 
             $this->queryHandler->createQuery($newQuery);

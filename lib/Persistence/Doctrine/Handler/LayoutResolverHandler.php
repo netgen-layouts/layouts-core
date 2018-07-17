@@ -188,8 +188,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleTargets as $ruleTarget) {
             $copiedTarget = clone $ruleTarget;
-
             $copiedTarget->id = null;
+
             $copiedTarget->ruleId = $copiedRule->id;
 
             $this->queryHandler->addTarget($copiedTarget);
@@ -201,8 +201,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleConditions as $ruleCondition) {
             $copiedCondition = clone $ruleCondition;
-
             $copiedCondition->id = null;
+
             $copiedCondition->ruleId = $copiedRule->id;
 
             $this->queryHandler->addCondition($copiedCondition);
