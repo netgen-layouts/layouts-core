@@ -19,9 +19,27 @@ final class QueryCreateStructTest extends TestCase
      */
     private $struct;
 
+    /**
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     */
+    private $queryType;
+
     public function setUp(): void
     {
-        $this->struct = new QueryCreateStruct($this->buildQueryType());
+        $this->queryType = $this->buildQueryType();
+
+        $this->struct = new QueryCreateStruct($this->queryType);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::getQueryType
+     */
+    public function testGetQueryType(): void
+    {
+        $queryCreateStruct = new QueryCreateStruct($this->queryType);
+
+        $this->assertSame($this->queryType, $queryCreateStruct->getQueryType());
     }
 
     /**

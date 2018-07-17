@@ -21,16 +21,31 @@ final class BlockCreateStructTest extends TestCase
     private $struct;
 
     /**
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    private $blockDefinition;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
     private $collectionStruct;
 
     public function setUp(): void
     {
+        $this->blockDefinition = $this->buildBlockDefinition();
         $this->collectionStruct = new CollectionCreateStruct(['offset' => 0]);
 
-        $this->struct = new BlockCreateStruct($this->buildBlockDefinition());
+        $this->struct = new BlockCreateStruct($this->blockDefinition);
         $this->struct->addCollectionCreateStruct('default', $this->collectionStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getDefinition
+     */
+    public function testGetDefinition(): void
+    {
+        $this->assertSame($this->blockDefinition, $this->struct->getDefinition());
     }
 
     /**
