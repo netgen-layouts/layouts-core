@@ -63,11 +63,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlock(
-            new BlockCreateStruct(
-                [
-                    'definition' => new BlockDefinition(['identifier' => 'definition']),
-                ]
-            ),
+            new BlockCreateStruct(new BlockDefinition(['identifier' => 'definition'])),
             new Block(
                 [
                     'status' => Value::STATUS_DRAFT,
@@ -129,11 +125,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlockInZone(
-            new BlockCreateStruct(
-                [
-                    'definition' => new BlockDefinition(['identifier' => 'definition']),
-                ]
-            ),
+            new BlockCreateStruct(new BlockDefinition(['identifier' => 'definition'])),
             new Zone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
         );
     }

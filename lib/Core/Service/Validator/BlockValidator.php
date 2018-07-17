@@ -41,7 +41,7 @@ final class BlockValidator extends Validator
             $blockCreateStruct,
             new ConfigAwareStructConstraint(
                 [
-                    'payload' => $blockCreateStruct->definition,
+                    'payload' => $blockCreateStruct->getDefinition(),
                 ]
             )
         );

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
@@ -75,10 +76,10 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     {
         $this->constraint->allowMissingFields = !$required;
 
-        $this->assertValid(
-            $isValid,
-            new BlockCreateStruct(['parameterValues' => $value])
-        );
+        $blockCreateStruct = new BlockCreateStruct(new BlockDefinition());
+        $blockCreateStruct->setParameterValues($value);
+
+        $this->assertValid($isValid, $blockCreateStruct);
     }
 
     /**
@@ -133,10 +134,10 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
         $this->constraint->allowMissingFields = !$required;
 
-        $this->assertValid(
-            $isValid,
-            new BlockCreateStruct(['parameterValues' => $value])
-        );
+        $blockCreateStruct = new BlockCreateStruct(new BlockDefinition());
+        $blockCreateStruct->setParameterValues($value);
+
+        $this->assertValid($isValid, $blockCreateStruct);
     }
 
     /**
@@ -147,7 +148,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, new BlockCreateStruct());
+        $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
     /**

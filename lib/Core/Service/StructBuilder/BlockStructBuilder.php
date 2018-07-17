@@ -30,17 +30,13 @@ final class BlockStructBuilder
         $viewType = $blockDefinition->getViewType($viewTypeIdentifier);
         $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
 
-        $blockCreateStruct = new BlockCreateStruct(
-            [
-                'definition' => $blockDefinition,
-                'viewType' => $viewTypeIdentifier,
-                'itemViewType' => $itemViewTypeIdentifier,
-                'isTranslatable' => $blockDefinition->isTranslatable(),
-                'alwaysAvailable' => true,
-            ]
-        );
+        $blockCreateStruct = new BlockCreateStruct($blockDefinition);
+        $blockCreateStruct->viewType = $viewTypeIdentifier;
+        $blockCreateStruct->itemViewType = $itemViewTypeIdentifier;
+        $blockCreateStruct->isTranslatable = $blockDefinition->isTranslatable();
+        $blockCreateStruct->alwaysAvailable = true;
 
-        $blockCreateStruct->fillDefaultParameters($blockDefinition);
+        $blockCreateStruct->fillDefaultParameters();
 
         return $blockCreateStruct;
     }

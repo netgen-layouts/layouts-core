@@ -10,26 +10,16 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockCreateStructTest extends TestCase
 {
-    public function testSetProperties(): void
+    /**
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getDefinition
+     */
+    public function testConstructor(): void
     {
         $blockDefinition = new BlockDefinition();
 
-        $blockCreateStruct = new BlockCreateStruct(
-            [
-                'definition' => $blockDefinition,
-                'viewType' => 'default',
-                'itemViewType' => 'standard',
-                'name' => 'My block',
-                'isTranslatable' => true,
-                'alwaysAvailable' => false,
-            ]
-        );
+        $blockCreateStruct = new BlockCreateStruct($blockDefinition);
 
-        $this->assertSame($blockDefinition, $blockCreateStruct->definition);
-        $this->assertSame('default', $blockCreateStruct->viewType);
-        $this->assertSame('standard', $blockCreateStruct->itemViewType);
-        $this->assertSame('My block', $blockCreateStruct->name);
-        $this->assertTrue($blockCreateStruct->isTranslatable);
-        $this->assertFalse($blockCreateStruct->alwaysAvailable);
+        $this->assertSame($blockDefinition, $blockCreateStruct->getDefinition());
     }
 }

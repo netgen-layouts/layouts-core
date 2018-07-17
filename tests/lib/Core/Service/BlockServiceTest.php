@@ -1748,12 +1748,12 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertSame(
             [
-                'definition' => $blockDefinition,
                 'viewType' => 'small',
                 'itemViewType' => 'standard',
                 'name' => null,
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
+                'definition' => $blockDefinition,
                 'collectionCreateStructs' => [],
                 'parameterValues' => [
                     'css_class' => 'some-class',

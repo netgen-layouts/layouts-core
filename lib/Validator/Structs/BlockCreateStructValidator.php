@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
@@ -30,19 +29,17 @@ final class BlockCreateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, BlockCreateStruct::class);
         }
 
-        if (!$value->definition instanceof BlockDefinitionInterface) {
-            throw new UnexpectedTypeException($value->definition, BlockDefinitionInterface::class);
-        }
-
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
+
+        $blockDefinition = $value->getDefinition();
 
         $validator->atPath('viewType')->validate(
             $value->viewType,
             [
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
-                new BlockViewType(['definition' => $value->definition]),
+                new BlockViewType(['definition' => $blockDefinition]),
             ]
         );
 
@@ -54,7 +51,7 @@ final class BlockCreateStructValidator extends ConstraintValidator
                 new BlockItemViewType(
                     [
                         'viewType' => $value->viewType,
-                        'definition' => $value->definition,
+                        'definition' => $blockDefinition,
                     ]
                 ),
             ]
@@ -90,7 +87,7 @@ final class BlockCreateStructValidator extends ConstraintValidator
             [
                 new ParameterStruct(
                     [
-                        'parameterDefinitions' => $value->definition,
+                        'parameterDefinitions' => $blockDefinition,
                     ]
                 ),
             ]

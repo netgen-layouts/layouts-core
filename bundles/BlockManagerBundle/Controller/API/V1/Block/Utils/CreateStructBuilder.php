@@ -30,7 +30,7 @@ final class CreateStructBuilder
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->name = $blockType->getDefaultName();
-        $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockType->getDefaultParameters());
+        $blockCreateStruct->fillParametersFromHash($blockType->getDefaultParameters());
 
         if ($blockDefinition->hasViewType($blockType->getDefaultViewType())) {
             $viewType = $blockDefinition->getViewType($blockType->getDefaultViewType());

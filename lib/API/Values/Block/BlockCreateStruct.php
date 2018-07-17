@@ -10,21 +10,11 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Value;
 
-final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAwareStruct
+final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
 {
     use ParameterStructTrait;
     use ConfigAwareStructTrait;
-
-    /**
-     * Block definition to create the new block from.
-     *
-     * Required.
-     *
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    public $definition;
 
     /**
      * View type of the new block.
@@ -70,6 +60,13 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
     public $alwaysAvailable;
 
     /**
+     * Block definition to create the new block from.
+     *
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    private $definition;
+
+    /**
      * The list of collections to create in the block.
      *
      * The keys are collection identifiers, while the values are instances of CollectionCreateStruct objects.
@@ -77,6 +74,19 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
      */
     private $collectionCreateStructs = [];
+
+    public function __construct(BlockDefinitionInterface $definition)
+    {
+        $this->definition = $definition;
+    }
+
+    /**
+     * Returns the block definition that will be used to create a block with this struct.
+     */
+    public function getDefinition(): BlockDefinitionInterface
+    {
+        return $this->definition;
+    }
 
     /**
      * Adds a collection create struct with specified identifier to the struct.
@@ -97,12 +107,11 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
     }
 
     /**
-     * Fills the struct with the default parameter values as defined in provided
-     * block definition.
+     * Fills the struct with the default parameter values as defined in the block definition.
      */
-    public function fillDefaultParameters(BlockDefinitionInterface $blockDefinition): void
+    public function fillDefaultParameters(): void
     {
-        $this->fillDefault($blockDefinition);
+        $this->fillDefault($this->definition);
     }
 
     /**
@@ -110,7 +119,7 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      */
     public function fillParametersFromBlock(Block $block): void
     {
-        $this->fillFromCollection($block->getDefinition(), $block);
+        $this->fillFromCollection($this->definition, $block);
     }
 
     /**
@@ -126,8 +135,8 @@ final class BlockCreateStruct extends Value implements ParameterStruct, ConfigAw
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], bool $doImport = false): void
+    public function fillParametersFromHash(array $values = [], bool $doImport = false): void
     {
-        $this->fillFromHash($blockDefinition, $values, $doImport);
+        $this->fillFromHash($this->definition, $values, $doImport);
     }
 }

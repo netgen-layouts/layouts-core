@@ -31,13 +31,8 @@ final class BlockCreateStructTest extends TestCase
     {
         $this->collectionStruct = new CollectionCreateStruct(['offset' => 0]);
 
-        $this->struct = new BlockCreateStruct(
-            [
-                'collectionCreateStructs' => [
-                    'default' => $this->collectionStruct,
-                ],
-            ]
-        );
+        $this->struct = new BlockCreateStruct($this->buildBlockDefinition());
+        $this->struct->addCollectionCreateStruct('default', $this->collectionStruct);
     }
 
     /**
@@ -77,9 +72,7 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testFillDefaultParameters(): void
     {
-        $blockDefinition = $this->buildBlockDefinition();
-
-        $this->struct->fillDefaultParameters($blockDefinition);
+        $this->struct->fillDefaultParameters();
 
         $this->assertSame(
             [
@@ -97,7 +90,7 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testFillParametersFromBlock(): void
     {
-        $blockDefinition = $this->buildBlockDefinition();
+        $blockDefinition = $this->struct->getDefinition();
 
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $blockDefinition->getParameterDefinition('compound');
@@ -140,8 +133,6 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testFillParametersFromHash(): void
     {
-        $blockDefinition = $this->buildBlockDefinition();
-
         $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
@@ -149,7 +140,7 @@ final class BlockCreateStructTest extends TestCase
             'inner' => 'inner',
         ];
 
-        $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
+        $this->struct->fillParametersFromHash($initialValues);
 
         $this->assertSame(
             [
@@ -167,14 +158,12 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {
-        $blockDefinition = $this->buildBlockDefinition();
-
         $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
         ];
 
-        $this->struct->fillParametersFromHash($blockDefinition, $initialValues);
+        $this->struct->fillParametersFromHash($initialValues);
 
         $this->assertSame(
             [

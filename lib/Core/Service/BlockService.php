@@ -208,7 +208,7 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
-        if ($blockCreateStruct->definition instanceof ContainerDefinitionInterface) {
+        if ($blockCreateStruct->getDefinition() instanceof ContainerDefinitionInterface) {
             throw new BadStateException('blockCreateStruct', 'Containers cannot be placed inside containers.');
         }
 
@@ -236,7 +236,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         if (
             !$layout->getLayoutType()->isBlockAllowedInZone(
-                $blockCreateStruct->definition,
+                $blockCreateStruct->getDefinition(),
                 $persistenceZone->identifier
             )
         ) {
@@ -597,24 +597,26 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $createdBlock = $this->transaction(
             function () use ($blockCreateStruct, $persistenceLayout, $targetBlock, $placeholder, $position): PersistenceBlock {
+                $blockDefinition = $blockCreateStruct->getDefinition();
+
                 $createdBlock = $this->blockHandler->createBlock(
                     new BlockCreateStruct(
                         [
                             'status' => $targetBlock->status,
                             'position' => $position,
-                            'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
+                            'definitionIdentifier' => $blockDefinition->getIdentifier(),
                             'viewType' => $blockCreateStruct->viewType,
                             'itemViewType' => $blockCreateStruct->itemViewType,
                             'name' => $blockCreateStruct->name,
                             'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                             'isTranslatable' => $blockCreateStruct->isTranslatable,
                             'parameters' => $this->parameterMapper->serializeValues(
-                                $blockCreateStruct->definition,
+                                $blockDefinition,
                                 $blockCreateStruct->getParameterValues()
                             ),
                             'config' => $this->configMapper->serializeValues(
                                 $blockCreateStruct->getConfigStructs(),
-                                $blockCreateStruct->definition->getConfigDefinitions()
+                                $blockDefinition->getConfigDefinitions()
                             ),
                         ]
                     ),

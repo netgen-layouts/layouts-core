@@ -60,10 +60,23 @@ final class BlockValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $blockCreateStruct = new BlockCreateStruct($params['definition']);
+        $blockCreateStruct->setParameterValues($params['parameterValues'] ?? []);
+
+        foreach ($params['collectionCreateStructs'] ?? [] as $identifier => $struct) {
+            $blockCreateStruct->addCollectionCreateStruct($identifier, $struct);
+        }
+
+        unset($params['definition'], $params['parameterValues'], $params['collectionCreateStructs']);
+
+        foreach ($params as $propertyName => $propertyValue) {
+            $blockCreateStruct->{$propertyName} = $propertyValue;
+        }
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->blockValidator->validateBlockCreateStruct(new BlockCreateStruct($params));
+        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
     }
 
     /**
@@ -108,36 +121,6 @@ final class BlockValidatorTest extends TestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'definition' => null,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => 42,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [

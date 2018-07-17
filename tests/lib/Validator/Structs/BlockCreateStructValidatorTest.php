@@ -39,7 +39,16 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
      */
     public function testValidate(array $value, bool $isValid): void
     {
-        $this->assertValid($isValid, new BlockCreateStruct($value));
+        $blockCreateStruct = new BlockCreateStruct($value['definition']);
+        $blockCreateStruct->setParameterValues($value['parameterValues'] ?? []);
+
+        unset($value['definition'], $value['parameterValues']);
+
+        foreach ($value as $propertyName => $propertyValue) {
+            $blockCreateStruct->{$propertyName} = $propertyValue;
+        }
+
+        $this->assertValid($isValid, $blockCreateStruct);
     }
 
     /**
@@ -50,7 +59,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, new BlockCreateStruct());
+        $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
     /**
@@ -61,16 +70,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->assertValid(true, 42);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Block\BlockDefinitionInterface", "integer" given
-     */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
-    {
-        $this->assertValid(true, new BlockCreateStruct(['definition' => 42]));
     }
 
     public function validateDataProvider(): array
