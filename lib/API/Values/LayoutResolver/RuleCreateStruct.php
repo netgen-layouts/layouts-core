@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\Value;
-
-final class RuleCreateStruct extends Value
+final class RuleCreateStruct
 {
     /**
      * The ID of the layout to which the rule will be mapped.

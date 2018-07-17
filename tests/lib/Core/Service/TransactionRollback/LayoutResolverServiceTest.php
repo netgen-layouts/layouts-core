@@ -354,9 +354,12 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $targetCreateStruct = new TargetCreateStruct();
+        $targetCreateStruct->type = 'route';
+
         $this->layoutResolverService->addTarget(
             new Rule(['status' => Value::STATUS_DRAFT]),
-            new TargetCreateStruct(['type' => 'route'])
+            $targetCreateStruct
         );
     }
 
@@ -432,9 +435,12 @@ final class LayoutResolverServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $conditionCreateStruct = new ConditionCreateStruct();
+        $conditionCreateStruct->type = 'route_parameter';
+
         $this->layoutResolverService->addCondition(
             new Rule(['status' => Value::STATUS_DRAFT]),
-            new ConditionCreateStruct(['type' => 'route_parameter'])
+            $conditionCreateStruct
         );
     }
 

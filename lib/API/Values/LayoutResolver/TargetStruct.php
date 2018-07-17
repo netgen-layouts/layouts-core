@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\Value;
-
-abstract class TargetStruct extends Value
+abstract class TargetStruct
 {
     /**
      * The value of the target.

@@ -33,11 +33,10 @@ final class CollectionStructBuilder
      */
     public function newCollectionCreateStruct(?QueryCreateStruct $queryCreateStruct = null): CollectionCreateStruct
     {
-        return new CollectionCreateStruct(
-            [
-                'queryCreateStruct' => $queryCreateStruct,
-            ]
-        );
+        $struct = new CollectionCreateStruct();
+        $struct->queryCreateStruct = $queryCreateStruct;
+
+        return $struct;
     }
 
     /**
@@ -68,13 +67,12 @@ final class CollectionStructBuilder
      */
     public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): ItemCreateStruct
     {
-        return new ItemCreateStruct(
-            [
-                'definition' => $itemDefinition,
-                'type' => $type,
-                'value' => $value,
-            ]
-        );
+        $struct = new ItemCreateStruct();
+        $struct->definition = $itemDefinition;
+        $struct->type = $type;
+        $struct->value = $value;
+
+        return $struct;
     }
 
     /**

@@ -20,6 +20,7 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\BlockManager\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Validation;
@@ -56,12 +57,13 @@ final class CollectionValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new CollectionCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->collectionValidator->validateCollectionCreateStruct(
-            new CollectionCreateStruct($params)
-        );
+        $this->collectionValidator->validateCollectionCreateStruct($struct);
     }
 
     /**
@@ -74,12 +76,15 @@ final class CollectionValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new CollectionUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
             new Collection(['query' => $isDynamic ? new Query() : null]),
-            new CollectionUpdateStruct($params)
+            $struct
         );
     }
 
@@ -93,10 +98,13 @@ final class CollectionValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new ItemCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params));
+        $this->collectionValidator->validateItemCreateStruct($struct);
     }
 
     /**
@@ -108,6 +116,9 @@ final class CollectionValidatorTest extends TestCase
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        $struct = new ItemUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
@@ -124,7 +135,7 @@ final class CollectionValidatorTest extends TestCase
                     ),
                 ]
             ),
-            new ItemUpdateStruct($params)
+            $struct
         );
     }
 
@@ -171,7 +182,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $queryCreateStruct = new QueryCreateStruct($params['queryType']);
-        $queryCreateStruct->setParameterValues($params['parameterValues'] ?? []);
+        (new Hydrator())->hydrate($params, $queryCreateStruct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
@@ -189,12 +200,15 @@ final class CollectionValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $queryUpdateStruct = new QueryUpdateStruct();
+        (new Hydrator())->hydrate($params, $queryUpdateStruct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
         $this->collectionValidator->validateQueryUpdateStruct(
             new Query(['queryType' => new QueryType('query_type')]),
-            new QueryUpdateStruct($params)
+            $queryUpdateStruct
         );
     }
 

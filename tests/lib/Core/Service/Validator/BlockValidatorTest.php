@@ -21,6 +21,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\BlockManager\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -61,17 +62,7 @@ final class BlockValidatorTest extends TestCase
         }
 
         $blockCreateStruct = new BlockCreateStruct($params['definition']);
-        $blockCreateStruct->setParameterValues($params['parameterValues'] ?? []);
-
-        foreach ($params['collectionCreateStructs'] ?? [] as $identifier => $struct) {
-            $blockCreateStruct->addCollectionCreateStruct($identifier, $struct);
-        }
-
-        unset($params['definition'], $params['parameterValues'], $params['collectionCreateStructs']);
-
-        foreach ($params as $propertyName => $propertyValue) {
-            $blockCreateStruct->{$propertyName} = $propertyValue;
-        }
+        (new Hydrator())->hydrate($params, $blockCreateStruct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
@@ -89,6 +80,9 @@ final class BlockValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $blockUpdateStruct = new BlockUpdateStruct();
+        (new Hydrator())->hydrate($params, $blockUpdateStruct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
@@ -100,7 +94,7 @@ final class BlockValidatorTest extends TestCase
                     'definition' => $this->getBlockDefinition(false),
                 ]
             ),
-            new BlockUpdateStruct($params)
+            $blockUpdateStruct
         );
     }
 

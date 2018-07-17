@@ -110,7 +110,8 @@ final class FullEditTypeTest extends FormTestCase
             'name' => 'My block',
         ];
 
-        $struct = new BlockUpdateStruct(['locale' => 'en']);
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'en';
 
         $form = $this->factory->create(
             FullEditType::class,
@@ -158,9 +159,12 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'hr';
+
         $form = $this->factory->create(
             FullEditType::class,
-            new BlockUpdateStruct(['locale' => 'hr']),
+            $struct,
             [
                 'block' => new Block(
                     [
@@ -190,9 +194,12 @@ final class FullEditTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'en';
+
         $form = $this->factory->create(
             FullEditType::class,
-            new BlockUpdateStruct(['locale' => 'en']),
+            $struct,
             [
                 'block' => new Block(
                     [

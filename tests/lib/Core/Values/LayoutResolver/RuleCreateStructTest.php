@@ -15,21 +15,4 @@ final class RuleCreateStructTest extends TestCase
 
         $this->assertFalse($ruleCreateStruct->enabled);
     }
-
-    public function testSetProperties(): void
-    {
-        $ruleCreateStruct = new RuleCreateStruct(
-            [
-                'layoutId' => 42,
-                'priority' => 13,
-                'enabled' => true,
-                'comment' => 'Comment',
-            ]
-        );
-
-        $this->assertSame(42, $ruleCreateStruct->layoutId);
-        $this->assertSame(13, $ruleCreateStruct->priority);
-        $this->assertTrue($ruleCreateStruct->enabled);
-        $this->assertSame('Comment', $ruleCreateStruct->comment);
-    }
 }

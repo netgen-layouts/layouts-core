@@ -111,15 +111,12 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createLayout(
-            new LayoutCreateStruct(
-                [
-                    'name' => 'Name',
-                    'mainLocale' => 'en',
-                    'layoutType' => new LayoutType(['identifier' => 'layout_type']),
-                ]
-            )
-        );
+        $layoutCreateStruct = new LayoutCreateStruct();
+        $layoutCreateStruct->name = 'Name';
+        $layoutCreateStruct->mainLocale = 'en';
+        $layoutCreateStruct->layoutType = new LayoutType(['identifier' => 'layout_type']);
+
+        $this->layoutService->createLayout($layoutCreateStruct);
     }
 
     /**
@@ -214,9 +211,12 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $layoutUpdateStruct = new LayoutUpdateStruct();
+        $layoutUpdateStruct->name = 'New name';
+
         $this->layoutService->updateLayout(
             new Layout(['status' => Value::STATUS_DRAFT]),
-            new LayoutUpdateStruct(['name' => 'New name'])
+            $layoutUpdateStruct
         );
     }
 
@@ -246,9 +246,12 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $layoutCopyStruct = new LayoutCopyStruct();
+        $layoutCopyStruct->name = 'Name';
+
         $this->layoutService->copyLayout(
             new Layout(['id' => 42, 'status' => Layout::STATUS_DRAFT]),
-            new LayoutCopyStruct(['name' => 'Name'])
+            $layoutCopyStruct
         );
     }
 

@@ -20,6 +20,7 @@ use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\BlockManager\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -74,10 +75,13 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new RuleCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutResolverValidator->validateRuleCreateStruct(new RuleCreateStruct($params));
+        $this->layoutResolverValidator->validateRuleCreateStruct($struct);
     }
 
     /**
@@ -90,10 +94,13 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new RuleUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params));
+        $this->layoutResolverValidator->validateRuleUpdateStruct($struct);
     }
 
     /**
@@ -106,12 +113,13 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new RuleMetadataUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
-            new RuleMetadataUpdateStruct($params)
-        );
+        $this->layoutResolverValidator->validateRuleMetadataUpdateStruct($struct);
     }
 
     /**
@@ -124,10 +132,13 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new TargetCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutResolverValidator->validateTargetCreateStruct(new TargetCreateStruct($params));
+        $this->layoutResolverValidator->validateTargetCreateStruct($struct);
     }
 
     /**
@@ -140,12 +151,15 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new TargetUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
             new Target(['targetType' => new TargetType('target')]),
-            new TargetUpdateStruct($params)
+            $struct
         );
     }
 
@@ -159,10 +173,13 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new ConditionCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutResolverValidator->validateConditionCreateStruct(new ConditionCreateStruct($params));
+        $this->layoutResolverValidator->validateConditionCreateStruct($struct);
     }
 
     /**
@@ -175,12 +192,15 @@ final class LayoutResolverValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new ConditionUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
             new Condition(['conditionType' => new ConditionType('condition')]),
-            new ConditionUpdateStruct($params)
+            $struct
         );
     }
 

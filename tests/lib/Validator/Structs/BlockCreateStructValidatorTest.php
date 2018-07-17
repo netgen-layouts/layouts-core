@@ -14,6 +14,7 @@ use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
+use Netgen\BlockManager\Utils\Hydrator;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -40,13 +41,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidate(array $value, bool $isValid): void
     {
         $blockCreateStruct = new BlockCreateStruct($value['definition']);
-        $blockCreateStruct->setParameterValues($value['parameterValues'] ?? []);
-
-        unset($value['definition'], $value['parameterValues']);
-
-        foreach ($value as $propertyName => $propertyValue) {
-            $blockCreateStruct->{$propertyName} = $propertyValue;
-        }
+        (new Hydrator())->hydrate($value, $blockCreateStruct);
 
         $this->assertValid($isValid, $blockCreateStruct);
     }

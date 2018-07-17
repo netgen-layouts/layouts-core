@@ -68,7 +68,8 @@ final class QueryEditTypeTest extends FormTestCase
             ],
         ];
 
-        $struct = new QueryUpdateStruct(['locale' => 'en']);
+        $struct = new QueryUpdateStruct();
+        $struct->locale = 'en';
 
         $form = $this->factory->create(
             QueryEditType::class,
@@ -103,9 +104,12 @@ final class QueryEditTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
+        $struct = new QueryUpdateStruct();
+        $struct->locale = 'hr';
+
         $form = $this->factory->create(
             QueryEditType::class,
-            new QueryUpdateStruct(['locale' => 'hr']),
+            $struct,
             [
                 'query' => new Query(
                     [
@@ -127,9 +131,12 @@ final class QueryEditTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
+        $struct = new QueryUpdateStruct();
+        $struct->locale = 'en';
+
         $form = $this->factory->create(
             QueryEditType::class,
-            new QueryUpdateStruct(['locale' => 'en']),
+            $struct,
             [
                 'query' => new Query(
                     [

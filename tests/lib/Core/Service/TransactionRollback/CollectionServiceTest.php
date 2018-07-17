@@ -83,14 +83,13 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->definition = new ItemDefinition(['valueType' => 'value_type']);
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
+
         $this->collectionService->addItem(
             new Collection(['status' => Value::STATUS_DRAFT]),
-            new ItemCreateStruct(
-                [
-                    'definition' => new ItemDefinition(['valueType' => 'value_type']),
-                    'type' => Item::TYPE_MANUAL,
-                ]
-            )
+            $itemCreateStruct
         );
     }
 
@@ -226,6 +225,9 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $struct = new QueryUpdateStruct();
+        $struct->locale = 'en';
+
         $this->collectionService->updateQuery(
             new Query(
                 [
@@ -233,11 +235,7 @@ final class CollectionServiceTest extends ServiceTestCase
                     'queryType' => new QueryType('type'),
                 ]
             ),
-            new QueryUpdateStruct(
-                [
-                    'locale' => 'en',
-                ]
-            )
+            $struct
         );
     }
 }

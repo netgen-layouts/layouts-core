@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\Layout;
 
-use Netgen\BlockManager\Value;
-
-final class LayoutCopyStruct extends Value
+final class LayoutCopyStruct
 {
     /**
      * Human readable name of the copied layout.

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\Value;
-
-abstract class ConditionStruct extends Value
+abstract class ConditionStruct
 {
     /**
      * The value of the condition.

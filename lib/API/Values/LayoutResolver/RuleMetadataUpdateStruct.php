@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\Value;
-
-final class RuleMetadataUpdateStruct extends Value
+final class RuleMetadataUpdateStruct
 {
     /**
      * New priority of the layout.

@@ -17,6 +17,7 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\BlockManager\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -52,10 +53,13 @@ final class LayoutValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new LayoutCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params));
+        $this->layoutValidator->validateLayoutCreateStruct($struct);
     }
 
     /**
@@ -68,12 +72,13 @@ final class LayoutValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new LayoutUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutValidator->validateLayoutUpdateStruct(
-            new LayoutUpdateStruct($params)
-        );
+        $this->layoutValidator->validateLayoutUpdateStruct($struct);
     }
 
     /**
@@ -86,12 +91,13 @@ final class LayoutValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $struct = new LayoutCopyStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->layoutValidator->validateLayoutCopyStruct(
-            new LayoutCopyStruct($params)
-        );
+        $this->layoutValidator->validateLayoutCopyStruct($struct);
     }
 
     /**

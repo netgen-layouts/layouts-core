@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\Value;
-
-final class CollectionCreateStruct extends Value
+final class CollectionCreateStruct
 {
     /**
      * The offset for the collection.

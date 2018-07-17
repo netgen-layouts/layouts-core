@@ -11,6 +11,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
+use Netgen\BlockManager\Utils\Hydrator;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
 use stdClass;
@@ -59,7 +60,10 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
      */
     public function testValidate(array $value, bool $isValid): void
     {
-        $this->assertValid($isValid, new BlockUpdateStruct($value));
+        $blockUpdateStruct = new BlockUpdateStruct();
+        (new Hydrator())->hydrate($value, $blockUpdateStruct);
+
+        $this->assertValid($isValid, $blockUpdateStruct);
     }
 
     /**

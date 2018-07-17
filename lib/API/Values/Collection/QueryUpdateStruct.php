@@ -7,9 +7,8 @@ namespace Netgen\BlockManager\API\Values\Collection;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Value;
 
-final class QueryUpdateStruct extends Value implements ParameterStruct
+final class QueryUpdateStruct implements ParameterStruct
 {
     use ParameterStructTrait;
 

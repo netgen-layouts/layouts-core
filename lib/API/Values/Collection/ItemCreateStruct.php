@@ -6,9 +6,8 @@ namespace Netgen\BlockManager\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
-use Netgen\BlockManager\Value;
 
-final class ItemCreateStruct extends Value implements ConfigAwareStruct
+final class ItemCreateStruct implements ConfigAwareStruct
 {
     use ConfigAwareStructTrait;
 

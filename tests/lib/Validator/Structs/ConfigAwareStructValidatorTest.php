@@ -11,6 +11,7 @@ use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionAware;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
+use Netgen\BlockManager\Utils\Hydrator;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator;
@@ -51,7 +52,10 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
      */
     public function testValidate(array $value, bool $isValid): void
     {
-        $this->assertValid($isValid, new BlockUpdateStruct($value));
+        $blockUpdateStruct = new BlockUpdateStruct();
+        (new Hydrator())->hydrate($value, $blockUpdateStruct);
+
+        $this->assertValid($isValid, $blockUpdateStruct);
     }
 
     /**
@@ -93,19 +97,21 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'configStructs' => [
-                        'config' => new ConfigStruct(
+                        'config' => (new Hydrator())->hydrate(
                             [
                                 'parameterValues' => [
                                     'param' => 'value',
                                 ],
-                            ]
+                            ],
+                            new ConfigStruct()
                         ),
-                        'other' => new ConfigStruct(
+                        'other' => (new Hydrator())->hydrate(
                             [
                                 'parameterValues' => [
                                     'param' => null,
                                 ],
-                            ]
+                            ],
+                            new ConfigStruct()
                         ),
                     ],
                 ],
@@ -114,12 +120,13 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'configStructs' => [
-                        'config' => new ConfigStruct(
+                        'config' => (new Hydrator())->hydrate(
                             [
                                 'parameterValues' => [
                                     'param' => 'value',
                                 ],
-                            ]
+                            ],
+                            new ConfigStruct()
                         ),
                     ],
                 ],
@@ -128,12 +135,13 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'configStructs' => [
-                        'config' => new ConfigStruct(
+                        'config' => (new Hydrator())->hydrate(
                             [
                                 'parameterValues' => [
                                     'param' => null,
                                 ],
-                            ]
+                            ],
+                            new ConfigStruct()
                         ),
                     ],
                 ],
@@ -142,12 +150,13 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'configStructs' => [
-                        'config' => new ConfigStruct(
+                        'config' => (new Hydrator())->hydrate(
                             [
                                 'parameterValues' => [
                                     'param' => 42,
                                 ],
-                            ]
+                            ],
+                            new ConfigStruct()
                         ),
                     ],
                 ],
@@ -156,10 +165,11 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'configStructs' => [
-                        'config' => new ConfigStruct(
+                        'config' => (new Hydrator())->hydrate(
                             [
                                 'parameterValues' => [],
-                            ]
+                            ],
+                            new ConfigStruct()
                         ),
                     ],
                 ],

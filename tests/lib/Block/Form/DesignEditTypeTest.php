@@ -124,7 +124,8 @@ final class DesignEditTypeTest extends FormTestCase
             'item_view_type' => 'standard',
         ];
 
-        $struct = new BlockUpdateStruct(['locale' => 'en']);
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'en';
 
         $form = $this->factory->create(
             DesignEditType::class,
@@ -162,9 +163,12 @@ final class DesignEditTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'hr';
+
         $form = $this->factory->create(
             DesignEditType::class,
-            new BlockUpdateStruct(['locale' => 'hr']),
+            $struct,
             [
                 'block' => new Block(
                     [
@@ -193,9 +197,12 @@ final class DesignEditTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'en';
+
         $form = $this->factory->create(
             DesignEditType::class,
-            new BlockUpdateStruct(['locale' => 'en']),
+            $struct,
             [
                 'block' => new Block(
                     [

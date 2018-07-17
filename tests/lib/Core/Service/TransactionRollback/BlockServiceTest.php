@@ -160,6 +160,9 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
+        $struct = new BlockUpdateStruct();
+        $struct->locale = 'en';
+
         $this->blockService->updateBlock(
             new Block(
                 [
@@ -168,7 +171,7 @@ final class BlockServiceTest extends ServiceTestCase
                     'configs' => [],
                 ]
             ),
-            new BlockUpdateStruct(['locale' => 'en'])
+            $struct
         );
     }
 

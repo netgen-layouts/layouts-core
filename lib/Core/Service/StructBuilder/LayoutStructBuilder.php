@@ -17,13 +17,12 @@ final class LayoutStructBuilder
      */
     public function newLayoutCreateStruct(LayoutTypeInterface $layoutType, string $name, string $mainLocale): LayoutCreateStruct
     {
-        return new LayoutCreateStruct(
-            [
-                'layoutType' => $layoutType,
-                'name' => $name,
-                'mainLocale' => $mainLocale,
-            ]
-        );
+        $struct = new LayoutCreateStruct();
+        $struct->layoutType = $layoutType;
+        $struct->name = $name;
+        $struct->mainLocale = $mainLocale;
+
+        return $struct;
     }
 
     /**

@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
+use Netgen\BlockManager\Utils\Hydrator;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
 use stdClass;
@@ -40,7 +41,10 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
      */
     public function testValidate(array $value, bool $isValid): void
     {
-        $this->assertValid($isValid, new QueryUpdateStruct($value));
+        $queryUpdateStruct = new QueryUpdateStruct();
+        (new Hydrator())->hydrate($value, $queryUpdateStruct);
+
+        $this->assertValid($isValid, $queryUpdateStruct);
     }
 
     /**

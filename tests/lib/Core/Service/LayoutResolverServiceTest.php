@@ -412,13 +412,12 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         $rule = $this->layoutResolverService->loadRule(4);
 
+        $struct = new RuleMetadataUpdateStruct();
+        $struct->priority = 50;
+
         $updatedRule = $this->layoutResolverService->updateRuleMetadata(
             $rule,
-            new RuleMetadataUpdateStruct(
-                [
-                    'priority' => 50,
-                ]
-            )
+            $struct
         );
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
@@ -435,14 +434,10 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         $rule = $this->layoutResolverService->loadRuleDraft(7);
 
-        $this->layoutResolverService->updateRuleMetadata(
-            $rule,
-            new RuleMetadataUpdateStruct(
-                [
-                    'priority' => 50,
-                ]
-            )
-        );
+        $struct = new RuleMetadataUpdateStruct();
+        $struct->priority = 50;
+
+        $this->layoutResolverService->updateRuleMetadata($rule, $struct);
     }
 
     /**
@@ -559,11 +554,11 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      */
     public function testPublishRuleWithNoLayout(): void
     {
+        $struct = new RuleUpdateStruct();
+        $struct->layoutId = 0;
+
         $rule = $this->layoutResolverService->loadRuleDraft(5);
-        $this->layoutResolverService->updateRule(
-            $rule,
-            new RuleUpdateStruct(['layoutId' => 0])
-        );
+        $this->layoutResolverService->updateRule($rule, $struct);
 
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 

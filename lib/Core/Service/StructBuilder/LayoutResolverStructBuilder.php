@@ -43,11 +43,10 @@ final class LayoutResolverStructBuilder
      */
     public function newTargetCreateStruct(string $type): TargetCreateStruct
     {
-        return new TargetCreateStruct(
-            [
-                'type' => $type,
-            ]
-        );
+        $struct = new TargetCreateStruct();
+        $struct->type = $type;
+
+        return $struct;
     }
 
     /**
@@ -63,11 +62,10 @@ final class LayoutResolverStructBuilder
      */
     public function newConditionCreateStruct(string $type): ConditionCreateStruct
     {
-        return new ConditionCreateStruct(
-            [
-                'type' => $type,
-            ]
-        );
+        $struct = new ConditionCreateStruct();
+        $struct->type = $type;
+
+        return $struct;
     }
 
     /**

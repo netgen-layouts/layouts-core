@@ -33,7 +33,7 @@ final class BlockCreateStructTest extends TestCase
     public function setUp(): void
     {
         $this->blockDefinition = $this->buildBlockDefinition();
-        $this->collectionStruct = new CollectionCreateStruct(['offset' => 0]);
+        $this->collectionStruct = new CollectionCreateStruct();
 
         $this->struct = new BlockCreateStruct($this->blockDefinition);
         $this->struct->addCollectionCreateStruct('default', $this->collectionStruct);
@@ -65,8 +65,8 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testAddCollectionCreateStruct(): void
     {
-        $collectionStruct1 = new CollectionCreateStruct(['offset' => 5]);
-        $collectionStruct2 = new CollectionCreateStruct(['offset' => 10]);
+        $collectionStruct1 = new CollectionCreateStruct();
+        $collectionStruct2 = new CollectionCreateStruct();
 
         $this->struct->addCollectionCreateStruct('default', $collectionStruct1);
         $this->struct->addCollectionCreateStruct('featured', $collectionStruct2);

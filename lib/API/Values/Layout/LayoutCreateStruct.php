@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\Layout;
 
-use Netgen\BlockManager\Value;
-
-final class LayoutCreateStruct extends Value
+final class LayoutCreateStruct
 {
     /**
      * Layout type from which the new layout will be created.

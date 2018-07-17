@@ -7,9 +7,8 @@ namespace Netgen\BlockManager\API\Values\Config;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Value;
 
-final class ConfigStruct extends Value implements ParameterStruct
+final class ConfigStruct implements ParameterStruct
 {
     use ParameterStructTrait;
 
