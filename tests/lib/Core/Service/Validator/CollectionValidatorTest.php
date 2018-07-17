@@ -170,10 +170,13 @@ final class CollectionValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
+        $queryCreateStruct = new QueryCreateStruct($params['queryType']);
+        $queryCreateStruct->setParameterValues($params['parameterValues'] ?? []);
+
         // Fake assertion to fix coverage on tests which do not perform assertions
         $this->assertTrue(true);
 
-        $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params));
+        $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
     }
 
     /**
@@ -197,6 +200,9 @@ final class CollectionValidatorTest extends TestCase
 
     public function validateCollectionCreateStructProvider(): array
     {
+        $queryCreateStruct = new QueryCreateStruct(new QueryType('test'));
+        $queryCreateStruct->setParameterValues(['param' => 'value']);
+
         return [
             [
                 [
@@ -277,14 +283,7 @@ final class CollectionValidatorTest extends TestCase
                 [
                     'offset' => 0,
                     'limit' => null,
-                    'queryCreateStruct' => new QueryCreateStruct(
-                        [
-                            'queryType' => new QueryType('test'),
-                            'parameterValues' => [
-                                'param' => 'value',
-                            ],
-                        ]
-                    ),
+                    'queryCreateStruct' => $queryCreateStruct,
                 ],
                 true,
             ],
@@ -484,24 +483,6 @@ final class CollectionValidatorTest extends TestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'queryType' => null,
-                    'parameterValues' => [
-                        'param' => 'value',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'queryType' => 42,
-                    'parameterValues' => [
-                        'param' => 'value',
-                    ],
-                ],
-                false,
             ],
             [
                 [

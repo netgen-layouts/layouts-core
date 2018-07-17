@@ -225,13 +225,15 @@ final class CollectionService extends Service implements APICollectionService
                         $this->handler->moveItem($item, $index);
                     }
                 } elseif ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct !== null) {
+                    $queryType = $queryCreateStruct->getQueryType();
+
                     $this->handler->createQuery(
                         $persistenceCollection,
                         new QueryCreateStruct(
                             [
-                                'type' => $queryCreateStruct->queryType->getType(),
+                                'type' => $queryType->getType(),
                                 'parameters' => $this->parameterMapper->serializeValues(
-                                    $queryCreateStruct->queryType,
+                                    $queryType,
                                     $queryCreateStruct->getParameterValues()
                                 ),
                             ]

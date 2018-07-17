@@ -14,7 +14,6 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
@@ -183,20 +182,11 @@ final class CollectionValidator extends Validator
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct): void
     {
         $this->validate(
-            $queryCreateStruct->queryType,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => QueryTypeInterface::class]),
-            ],
-            'queryType'
-        );
-
-        $this->validate(
             $queryCreateStruct,
             [
                 new ParameterStruct(
                     [
-                        'parameterDefinitions' => $queryCreateStruct->queryType,
+                        'parameterDefinitions' => $queryCreateStruct->getQueryType(),
                     ]
                 ),
             ],

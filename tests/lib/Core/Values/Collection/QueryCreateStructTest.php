@@ -10,16 +10,16 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryCreateStructTest extends TestCase
 {
-    public function testSetProperties(): void
+    /**
+     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::getQueryType
+     */
+    public function testConstructor(): void
     {
         $queryType = new QueryType();
 
-        $queryCreateStruct = new QueryCreateStruct(
-            [
-                'queryType' => $queryType,
-            ]
-        );
+        $queryCreateStruct = new QueryCreateStruct($queryType);
 
-        $this->assertSame($queryType, $queryCreateStruct->queryType);
+        $this->assertSame($queryType, $queryCreateStruct->getQueryType());
     }
 }

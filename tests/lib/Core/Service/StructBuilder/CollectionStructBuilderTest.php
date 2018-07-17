@@ -43,7 +43,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     public function testNewCollectionCreateStruct(): void
     {
-        $queryCreateStruct = new QueryCreateStruct();
+        $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
         $struct = $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
 
         $this->assertInstanceOf(CollectionCreateStruct::class, $struct);

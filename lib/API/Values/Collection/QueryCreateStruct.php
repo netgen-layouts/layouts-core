@@ -7,28 +7,37 @@ namespace Netgen\BlockManager\API\Values\Collection;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Value;
 
-final class QueryCreateStruct extends Value implements ParameterStruct
+final class QueryCreateStruct implements ParameterStruct
 {
     use ParameterStructTrait;
 
     /**
      * Query type for which the new query will be created.
      *
-     * Required.
-     *
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
      */
-    public $queryType;
+    private $queryType;
+
+    public function __construct(QueryTypeInterface $queryType)
+    {
+        $this->queryType = $queryType;
+    }
 
     /**
-     * Fills the struct with the default parameter values as defined in provided
-     * query type.
+     * Returns the query  type that will be used to create a query with this struct.
      */
-    public function fillDefaultParameters(QueryTypeInterface $queryType): void
+    public function getQueryType(): QueryTypeInterface
     {
-        $this->fillDefault($queryType);
+        return $this->queryType;
+    }
+
+    /**
+     * Fills the struct with the default parameter values as defined in the query type.
+     */
+    public function fillDefaultParameters(): void
+    {
+        $this->fillDefault($this->queryType);
     }
 
     /**
@@ -36,7 +45,7 @@ final class QueryCreateStruct extends Value implements ParameterStruct
      */
     public function fillParametersFromQuery(Query $query): void
     {
-        $this->fillFromCollection($query->getQueryType(), $query);
+        $this->fillFromCollection($this->queryType, $query);
     }
 
     /**
@@ -52,8 +61,8 @@ final class QueryCreateStruct extends Value implements ParameterStruct
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillParametersFromHash(QueryTypeInterface $queryType, array $values = [], bool $doImport = false): void
+    public function fillParametersFromHash(array $values = [], bool $doImport = false): void
     {
-        $this->fillFromHash($queryType, $values, $doImport);
+        $this->fillFromHash($this->queryType, $values, $doImport);
     }
 }

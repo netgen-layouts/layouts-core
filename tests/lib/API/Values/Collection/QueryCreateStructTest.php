@@ -23,7 +23,7 @@ final class QueryCreateStructTest extends TestCase
 
     public function setUp(): void
     {
-        $this->struct = new QueryCreateStruct();
+        $this->struct = new QueryCreateStruct($this->buildQueryType());
     }
 
     /**
@@ -31,9 +31,7 @@ final class QueryCreateStructTest extends TestCase
      */
     public function testFillDefaultParameters(): void
     {
-        $queryType = $this->buildQueryType();
-
-        $this->struct->fillDefaultParameters($queryType);
+        $this->struct->fillDefaultParameters();
 
         $this->assertSame(
             [
@@ -94,8 +92,6 @@ final class QueryCreateStructTest extends TestCase
      */
     public function testFillParametersFromHash(): void
     {
-        $queryType = $this->buildQueryType();
-
         $initialValues = [
             'css_class' => 'css',
             'css_id' => 'id',
@@ -103,7 +99,7 @@ final class QueryCreateStructTest extends TestCase
             'inner' => 'inner',
         ];
 
-        $this->struct->fillParametersFromHash($queryType, $initialValues);
+        $this->struct->fillParametersFromHash($initialValues);
 
         $this->assertSame(
             [
@@ -121,14 +117,12 @@ final class QueryCreateStructTest extends TestCase
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {
-        $queryType = $this->buildQueryType();
-
         $initialValues = [
             'css_class' => 'css',
             'inner' => 'inner',
         ];
 
-        $this->struct->fillParametersFromHash($queryType, $initialValues);
+        $this->struct->fillParametersFromHash($initialValues);
 
         $this->assertSame(
             [

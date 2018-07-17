@@ -221,8 +221,9 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $blockCreateStruct->isTranslatable = true;
 
-        $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->queryType = $this->queryTypeRegistry->getQueryType('my_query_type');
+        $queryCreateStruct = new QueryCreateStruct(
+            $this->queryTypeRegistry->getQueryType('my_query_type')
+        );
 
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->queryCreateStruct = $queryCreateStruct;

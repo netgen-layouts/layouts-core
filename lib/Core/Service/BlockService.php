@@ -642,7 +642,7 @@ final class BlockService extends Service implements BlockServiceInterface
                         );
 
                         if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
-                            $queryType = $collectionCreateStruct->queryCreateStruct->queryType;
+                            $queryType = $collectionCreateStruct->queryCreateStruct->getQueryType();
                             $this->collectionHandler->createQuery(
                                 $createdCollection,
                                 new QueryCreateStruct(
