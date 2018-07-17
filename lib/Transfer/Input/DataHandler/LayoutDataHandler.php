@@ -350,7 +350,6 @@ final class LayoutDataHandler
 
                 $queryType = $this->queryTypeRegistry->getQueryType($collectionData['query']['query_type']);
                 $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
-
                 $queryCreateStruct->fillParametersFromHash($queryType, $collectionData['query']['parameters'][$collectionData['main_locale']], true);
             }
 
