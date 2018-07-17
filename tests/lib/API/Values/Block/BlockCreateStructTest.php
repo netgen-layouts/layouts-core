@@ -8,9 +8,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use PHPUnit\Framework\TestCase;
@@ -64,49 +62,6 @@ final class BlockCreateStructTest extends TestCase
                 'featured' => $collectionStruct2,
             ],
             $this->struct->getCollectionCreateStructs()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromBlock
-     */
-    public function testFillParametersFromBlock(): void
-    {
-        $blockDefinition = $this->struct->getDefinition();
-
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
-        $compoundDefinition = $blockDefinition->getParameterDefinition('compound');
-
-        $block = new Block(
-            [
-                'definition' => $blockDefinition,
-                'parameters' => [
-                    'css_class' => new Parameter(
-                        [
-                            'value' => 'css',
-                            'parameterDefinition' => $blockDefinition->getParameterDefinition('css_class'),
-                        ]
-                    ),
-                    'inner' => new Parameter(
-                        [
-                            'value' => 'inner',
-                            'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
-                        ]
-                    ),
-                ],
-            ]
-        );
-
-        $this->struct->fillParametersFromBlock($block);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css',
-                'css_id' => null,
-                'compound' => null,
-                'inner' => 'inner',
-            ],
-            $this->struct->getParameterValues()
         );
     }
 

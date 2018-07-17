@@ -108,14 +108,6 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     }
 
     /**
-     * Fills the parameter values based on provided block.
-     */
-    public function fillParametersFromBlock(Block $block): void
-    {
-        $this->fillFromCollection($this->definition, $block);
-    }
-
-    /**
      * Fills the parameter values based on provided array of values.
      *
      * If any of the parameters is missing from the input array, the default value

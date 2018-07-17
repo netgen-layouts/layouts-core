@@ -34,14 +34,6 @@ final class QueryCreateStruct implements ParameterStruct
     }
 
     /**
-     * Fills the parameter values based on provided query.
-     */
-    public function fillParametersFromQuery(Query $query): void
-    {
-        $this->fillFromCollection($this->queryType, $query);
-    }
-
-    /**
      * Fills the parameter values based on provided array of values.
      *
      * If any of the parameters is missing from the input array, the default value
