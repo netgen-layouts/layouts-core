@@ -197,7 +197,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
             [
                 'queryType' => $queryType,
                 'parameterValues' => [
-                    'param' => null,
+                    'param' => 'value',
                     'param2' => null,
                 ],
             ],
