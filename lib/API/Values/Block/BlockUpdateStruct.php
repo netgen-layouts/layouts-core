@@ -54,15 +54,6 @@ final class BlockUpdateStruct extends Value implements ParameterStruct, ConfigAw
     public $alwaysAvailable;
 
     /**
-     * Fills the struct with the default parameter values as defined in provided
-     * block definition.
-     */
-    public function fillDefaultParameters(BlockDefinitionInterface $blockDefinition): void
-    {
-        $this->fillDefault($blockDefinition);
-    }
-
-    /**
      * Fills the parameter values based on provided block.
      */
     public function fillParametersFromBlock(Block $block): void

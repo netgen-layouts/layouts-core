@@ -23,15 +23,6 @@ final class QueryUpdateStruct extends Value implements ParameterStruct
     public $locale;
 
     /**
-     * Fills the struct with the default parameter values as defined in provided
-     * query type.
-     */
-    public function fillDefaultParameters(QueryTypeInterface $queryType): void
-    {
-        $this->fillDefault($queryType);
-    }
-
-    /**
      * Fills the parameter values based on provided query.
      */
     public function fillParametersFromQuery(Query $query): void

@@ -27,24 +27,6 @@ final class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillDefaultParameters
-     */
-    public function testFillDefaultParameters(): void
-    {
-        $this->struct->fillDefaultParameters();
-
-        $this->assertSame(
-            [
-                'css_class' => 'css_default',
-                'css_id' => 'id_default',
-                'compound' => true,
-                'inner' => 'inner_default',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParametersFromQuery
      */
     public function testFillParametersFromQuery(): void

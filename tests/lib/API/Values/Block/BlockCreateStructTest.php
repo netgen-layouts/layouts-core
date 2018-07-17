@@ -68,24 +68,6 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillDefaultParameters
-     */
-    public function testFillDefaultParameters(): void
-    {
-        $this->struct->fillDefaultParameters();
-
-        $this->assertSame(
-            [
-                'css_class' => 'css_default',
-                'css_id' => 'id_default',
-                'compound' => true,
-                'inner' => 'inner_default',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromBlock
      */
     public function testFillParametersFromBlock(): void

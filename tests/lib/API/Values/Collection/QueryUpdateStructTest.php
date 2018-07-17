@@ -27,26 +27,6 @@ final class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct::fillDefaultParameters
-     */
-    public function testFillDefaultParameters(): void
-    {
-        $queryType = $this->buildQueryType();
-
-        $this->struct->fillDefaultParameters($queryType);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css_default',
-                'css_id' => 'id_default',
-                'compound' => true,
-                'inner' => 'inner_default',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct::fillParametersFromQuery
      */
     public function testFillParametersFromQuery(): void

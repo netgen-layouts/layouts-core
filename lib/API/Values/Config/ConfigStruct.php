@@ -14,15 +14,6 @@ final class ConfigStruct extends Value implements ParameterStruct
     use ParameterStructTrait;
 
     /**
-     * Fills the struct with the default parameter values as defined in provided
-     * config definition.
-     */
-    public function fillDefaultParameters(ConfigDefinitionInterface $configDefinition): void
-    {
-        $this->fillDefault($configDefinition);
-    }
-
-    /**
      * Fills the parameter values based on provided config.
      */
     public function fillParametersFromConfig(Config $config): void

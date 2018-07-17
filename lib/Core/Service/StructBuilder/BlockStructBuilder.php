@@ -36,8 +36,6 @@ final class BlockStructBuilder
         $blockCreateStruct->isTranslatable = $blockDefinition->isTranslatable();
         $blockCreateStruct->alwaysAvailable = true;
 
-        $blockCreateStruct->fillDefaultParameters();
-
         return $blockCreateStruct;
     }
 

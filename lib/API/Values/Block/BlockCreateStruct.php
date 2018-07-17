@@ -78,6 +78,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     public function __construct(BlockDefinitionInterface $definition)
     {
         $this->definition = $definition;
+        $this->fillDefault($this->definition);
     }
 
     /**
@@ -104,14 +105,6 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     public function getCollectionCreateStructs(): array
     {
         return $this->collectionCreateStructs;
-    }
-
-    /**
-     * Fills the struct with the default parameter values as defined in the block definition.
-     */
-    public function fillDefaultParameters(): void
-    {
-        $this->fillDefault($this->definition);
     }
 
     /**

@@ -22,6 +22,7 @@ final class QueryCreateStruct implements ParameterStruct
     public function __construct(QueryTypeInterface $queryType)
     {
         $this->queryType = $queryType;
+        $this->fillDefault($this->queryType);
     }
 
     /**
@@ -30,14 +31,6 @@ final class QueryCreateStruct implements ParameterStruct
     public function getQueryType(): QueryTypeInterface
     {
         return $this->queryType;
-    }
-
-    /**
-     * Fills the struct with the default parameter values as defined in the query type.
-     */
-    public function fillDefaultParameters(): void
-    {
-        $this->fillDefault($this->queryType);
     }
 
     /**

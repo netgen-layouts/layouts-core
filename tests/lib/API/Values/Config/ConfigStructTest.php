@@ -27,26 +27,6 @@ final class ConfigStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillDefaultParameters
-     */
-    public function testFillDefaultParameters(): void
-    {
-        $configDefinition = $this->buildConfigDefinition();
-
-        $this->struct->fillDefaultParameters($configDefinition);
-
-        $this->assertSame(
-            [
-                'css_class' => 'css_default',
-                'css_id' => 'id_default',
-                'compound' => true,
-                'inner' => 'inner_default',
-            ],
-            $this->struct->getParameterValues()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromConfig
      */
     public function testFillParametersFromConfig(): void

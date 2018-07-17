@@ -100,10 +100,7 @@ final class CollectionStructBuilder
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType): QueryCreateStruct
     {
-        $queryCreateStruct = new QueryCreateStruct($queryType);
-        $queryCreateStruct->fillDefaultParameters();
-
-        return $queryCreateStruct;
+        return new QueryCreateStruct($queryType);
     }
 
     /**
