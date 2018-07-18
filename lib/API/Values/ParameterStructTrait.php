@@ -72,13 +72,13 @@ trait ParameterStructTrait
      * Fills the struct with the default parameter values as defined in provided
      * parameter definition collection.
      */
-    private function fillDefault(ParameterDefinitionCollectionInterface $definitions): void
+    private function fillDefault(ParameterDefinitionCollectionInterface $definitionCollection): void
     {
-        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            $this->setParameterValue($parameterDefinition->getName(), $parameterDefinition->getDefaultValue());
+        foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
+            $this->setParameterValue($name, $definition->getDefaultValue());
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $this->fillDefault($parameterDefinition);
+            if ($definition instanceof CompoundParameterDefinition) {
+                $this->fillDefault($definition);
             }
         }
     }
@@ -86,23 +86,25 @@ trait ParameterStructTrait
     /**
      * Fills the struct values based on provided parameter collection.
      */
-    private function fillFromCollection(ParameterDefinitionCollectionInterface $definitions, ParameterCollectionInterface $parameters): void
-    {
-        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
+    private function fillFromCollection(
+        ParameterDefinitionCollectionInterface $definitionCollection,
+        ParameterCollectionInterface $parameters
+    ): void {
+        foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
             $value = null;
 
-            if ($parameters->hasParameter($parameterDefinition->getName())) {
-                $parameter = $parameters->getParameter($parameterDefinition->getName());
-                if ($parameter->getParameterDefinition()->getType()->getIdentifier() === $parameterDefinition->getType()->getIdentifier()) {
+            if ($parameters->hasParameter($name)) {
+                $parameter = $parameters->getParameter($name);
+                if ($parameter->getParameterDefinition()->getType()->getIdentifier() === $definition->getType()->getIdentifier()) {
                     $value = $parameter->getValue();
                     $value = is_object($value) ? clone $value : $value;
                 }
             }
 
-            $this->setParameterValue($parameterDefinition->getName(), $value);
+            $this->setParameterValue($name, $value);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $this->fillFromCollection($parameterDefinition, $parameters);
+            if ($definition instanceof CompoundParameterDefinition) {
+                $this->fillFromCollection($definition, $parameters);
             }
         }
     }
@@ -120,19 +122,22 @@ trait ParameterStructTrait
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    private function fillFromHash(ParameterDefinitionCollectionInterface $definitions, array $values = [], bool $doImport = false): void
-    {
+    private function fillFromHash(
+        ParameterDefinitionCollectionInterface $definitionCollection,
+        array $values,
+        bool $doImport = false
+    ): void {
         $importMethod = $doImport ? 'import' : 'fromHash';
 
-        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            $value = array_key_exists($parameterDefinition->getName(), $values) ?
-                $parameterDefinition->getType()->{$importMethod}($parameterDefinition, $values[$parameterDefinition->getName()]) :
-                $parameterDefinition->getDefaultValue();
+        foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
+            $value = array_key_exists($name, $values) ?
+                $definition->getType()->{$importMethod}($definition, $values[$name]) :
+                $definition->getDefaultValue();
 
-            $this->setParameterValue($parameterDefinition->getName(), $value);
+            $this->setParameterValue($name, $value);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                $this->fillFromHash($parameterDefinition, $values, $doImport);
+            if ($definition instanceof CompoundParameterDefinition) {
+                $this->fillFromHash($definition, $values, $doImport);
             }
         }
     }

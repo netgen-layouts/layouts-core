@@ -46,7 +46,7 @@ final class QueryCreateStruct implements ParameterStruct
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillParametersFromHash(array $values = [], bool $doImport = false): void
+    public function fillParametersFromHash(array $values, bool $doImport = false): void
     {
         $this->fillFromHash($this->queryType, $values, $doImport);
     }

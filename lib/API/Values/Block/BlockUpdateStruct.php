@@ -73,7 +73,7 @@ final class BlockUpdateStruct implements ParameterStruct, ConfigAwareStruct
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = [], bool $doImport = false): void
+    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values, bool $doImport = false): void
     {
         $this->fillFromHash($blockDefinition, $values, $doImport);
     }

@@ -33,7 +33,7 @@ final class ConfigStruct implements ParameterStruct
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
      */
-    public function fillParametersFromHash(ConfigDefinitionInterface $configDefinition, array $values = [], bool $doImport = false): void
+    public function fillParametersFromHash(ConfigDefinitionInterface $configDefinition, array $values, bool $doImport = false): void
     {
         $this->fillFromHash($configDefinition, $values, $doImport);
     }

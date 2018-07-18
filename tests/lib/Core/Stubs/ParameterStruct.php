@@ -24,7 +24,7 @@ final class ParameterStruct extends BaseValue implements APIParameterStruct
         $this->fillFromCollection($definitions, $parameters);
     }
 
-    public function fillParametersFromHash(ParameterDefinitionCollectionInterface $definitions, array $values = [], bool $doImport = false): void
+    public function fillParametersFromHash(ParameterDefinitionCollectionInterface $definitions, array $values, bool $doImport = false): void
     {
         $this->fillFromHash($definitions, $values, $doImport);
     }
