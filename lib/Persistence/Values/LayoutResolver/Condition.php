@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 final class Condition extends Value
 {
+    use HydratorTrait;
+
     /**
      * Condition ID.
      *

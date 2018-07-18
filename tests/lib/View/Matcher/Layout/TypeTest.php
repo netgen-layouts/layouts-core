@@ -32,9 +32,9 @@ final class TypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
-                'layoutType' => new LayoutType(['identifier' => '4_zones_a']),
+                'layoutType' => LayoutType::fromArray(['identifier' => '4_zones_a']),
             ]
         );
 
@@ -48,7 +48,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullLayoutType(): void
     {
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'layoutType' => new NullLayoutType('type'),
             ]
@@ -64,7 +64,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullLayoutTypeReturnsFalse(): void
     {
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'layoutType' => new NullLayoutType('type'),
             ]
@@ -81,7 +81,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchLayoutType(array $config, bool $expected): void
     {
-        $view = new LayoutTypeView(new LayoutType(['identifier' => '4_zones_a']));
+        $view = new LayoutTypeView(LayoutType::fromArray(['identifier' => '4_zones_a']));
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }

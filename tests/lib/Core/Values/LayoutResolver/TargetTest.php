@@ -27,7 +27,7 @@ final class TargetTest extends TestCase
     {
         $targetType = new TargetType('target');
 
-        $target = new Target(
+        $target = Target::fromArray(
             [
                 'id' => 42,
                 'ruleId' => 30,

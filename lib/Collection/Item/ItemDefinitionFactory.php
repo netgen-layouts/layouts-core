@@ -36,7 +36,7 @@ final class ItemDefinitionFactory
             );
         }
 
-        return new ItemDefinition(
+        return ItemDefinition::fromArray(
             [
                 'valueType' => $valueType,
                 'configDefinitions' => $configDefinitions,

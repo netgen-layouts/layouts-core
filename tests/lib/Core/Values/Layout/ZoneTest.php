@@ -26,7 +26,7 @@ final class ZoneTest extends TestCase
     {
         $linkedZone = new Zone();
 
-        $zone = new Zone(
+        $zone = Zone::fromArray(
             [
                 'identifier' => 'left',
                 'layoutId' => 84,

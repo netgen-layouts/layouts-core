@@ -53,9 +53,9 @@ final class CollectionRunnerFactoryTest extends TestCase
     public function testGetCollectionRunnerWithDynamicCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(
-            new Collection(
+            Collection::fromArray(
                 [
-                    'query' => new Query(
+                    'query' => Query::fromArray(
                         [
                             'queryType' => new QueryType('type'),
                         ]
@@ -75,9 +75,9 @@ final class CollectionRunnerFactoryTest extends TestCase
     public function testGetCollectionRunnerWithDynamicContextualCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(
-            new Collection(
+            Collection::fromArray(
                 [
-                    'query' => new Query(
+                    'query' => Query::fromArray(
                         [
                             'queryType' => new QueryType('type', [], null, true),
                         ]

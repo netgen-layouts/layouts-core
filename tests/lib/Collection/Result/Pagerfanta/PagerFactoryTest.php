@@ -29,7 +29,7 @@ final class PagerFactoryTest extends TestCase
 
         $this->resultBuilderMock->expects($this->any())
             ->method('build')
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000])));
 
         $this->pagerFactory = new PagerFactory($this->resultBuilderMock, 200);
     }
@@ -43,7 +43,7 @@ final class PagerFactoryTest extends TestCase
      */
     public function testGetPager(int $startPage, int $currentPage): void
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), $startPage);
+        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), $startPage);
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
@@ -73,7 +73,7 @@ final class PagerFactoryTest extends TestCase
      */
     public function testGetPagerWithMaxPages(int $maxPages, int $currentPage, int $nbPages): void
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => 5]), 2, $maxPages);
+        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), 2, $maxPages);
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
@@ -107,7 +107,7 @@ final class PagerFactoryTest extends TestCase
      */
     public function testGetPagerWithCollectionLimit(int $limit, ?int $maxPages, int $maxPerPage, int $nbPages): void
     {
-        $pager = $this->pagerFactory->getPager(new Collection(['offset' => 0, 'limit' => $limit]), 2, $maxPages);
+        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => $limit]), 2, $maxPages);
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());

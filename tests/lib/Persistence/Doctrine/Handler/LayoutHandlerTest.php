@@ -498,7 +498,7 @@ final class LayoutHandlerTest extends TestCase
 
         $updatedZone = $this->layoutHandler->updateZone(
             $zone,
-            new ZoneUpdateStruct(
+            ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $linkedZone,
                 ]
@@ -530,7 +530,7 @@ final class LayoutHandlerTest extends TestCase
 
         $updatedZone = $this->layoutHandler->updateZone(
             $zone,
-            new ZoneUpdateStruct(
+            ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => false,
                 ]
@@ -779,7 +779,7 @@ final class LayoutHandlerTest extends TestCase
         // Link the zone before copying, to make sure those are copied too
         $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
-            new ZoneUpdateStruct(
+            ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
                 ]
@@ -990,7 +990,7 @@ final class LayoutHandlerTest extends TestCase
         // Link the zone before copying, to make sure those are removed
         $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'left'),
-            new ZoneUpdateStruct(
+            ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
                 ]
@@ -1184,7 +1184,7 @@ final class LayoutHandlerTest extends TestCase
         // Link the zone before copying, to make sure those are copied too
         $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
-            new ZoneUpdateStruct(
+            ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
                 ]

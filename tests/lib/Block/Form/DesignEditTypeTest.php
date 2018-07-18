@@ -37,12 +37,12 @@ final class DesignEditTypeTest extends FormTestCase
 
         $handler = new BlockDefinitionHandler(['design']);
 
-        $this->definition = new BlockDefinition(
+        $this->definition = BlockDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
                 'handler' => $handler,
                 'forms' => [
-                    'design' => new Form(
+                    'design' => Form::fromArray(
                         [
                             'identifier' => 'design',
                             'type' => DesignEditType::class,
@@ -50,18 +50,18 @@ final class DesignEditTypeTest extends FormTestCase
                     ),
                 ],
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'identifier' => 'large',
                             'name' => 'Large',
                             'itemViewTypes' => [
-                                'standard' => new ItemViewType(
+                                'standard' => ItemViewType::fromArray(
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
                                     ]
                                 ),
-                                'other' => new ItemViewType(
+                                'other' => ItemViewType::fromArray(
                                     [
                                         'identifier' => 'other',
                                         'name' => 'Other',
@@ -70,12 +70,12 @@ final class DesignEditTypeTest extends FormTestCase
                             ],
                         ]
                     ),
-                    'small' => new ViewType(
+                    'small' => ViewType::fromArray(
                         [
                             'identifier' => 'large',
                             'name' => 'Large',
                             'itemViewTypes' => [
-                                'standard' => new ItemViewType(
+                                'standard' => ItemViewType::fromArray(
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
@@ -89,7 +89,7 @@ final class DesignEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->block = new Block(['definition' => $this->definition, 'mainLocale' => 'en']);
+        $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -170,7 +170,7 @@ final class DesignEditTypeTest extends FormTestCase
             DesignEditType::class,
             $struct,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
@@ -204,7 +204,7 @@ final class DesignEditTypeTest extends FormTestCase
             DesignEditType::class,
             $struct,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',

@@ -6,9 +6,10 @@ namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class ParameterCollection extends BaseValue implements ParameterCollectionInterface
+final class ParameterCollection implements ParameterCollectionInterface
 {
+    use HydratorTrait;
     use ParameterCollectionTrait;
 }

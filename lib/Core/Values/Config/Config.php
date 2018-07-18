@@ -7,10 +7,11 @@ namespace Netgen\BlockManager\Core\Values\Config;
 use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Config extends Value implements APIConfig
+final class Config implements APIConfig
 {
+    use HydratorTrait;
     use ParameterCollectionTrait;
 
     /**

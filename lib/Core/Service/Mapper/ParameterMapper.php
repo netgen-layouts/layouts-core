@@ -25,7 +25,7 @@ final class ParameterMapper
                 $parameterType->fromHash($parameterDefinition, $values[$parameterName]) :
                 $parameterDefinition->getDefaultValue();
 
-            $mappedValues[$parameterName] = new Parameter(
+            $mappedValues[$parameterName] = Parameter::fromArray(
                 [
                     'name' => $parameterName,
                     'parameterDefinition' => $parameterDefinition,

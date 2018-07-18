@@ -34,22 +34,22 @@ final class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(['shared' => false])));
+            ->will($this->returnValue(PersistenceLayout::fromArray(['shared' => false])));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['layoutId' => 1])));
+            ->will($this->returnValue(PersistenceZone::fromArray(['layoutId' => 1])));
 
         $this->layoutHandlerMock
             ->expects($this->at(2))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(['shared' => true])));
+            ->will($this->returnValue(PersistenceLayout::fromArray(['shared' => true])));
 
         $this->layoutHandlerMock
             ->expects($this->at(3))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['layoutId' => 2])));
+            ->will($this->returnValue(PersistenceZone::fromArray(['layoutId' => 2])));
 
         $this->layoutHandlerMock
             ->expects($this->at(4))
@@ -61,8 +61,8 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            new Zone(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]),
-            new Zone(['identifier' => 'left', 'status' => Value::STATUS_PUBLISHED])
+            Zone::fromArray(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]),
+            Zone::fromArray(['identifier' => 'left', 'status' => Value::STATUS_PUBLISHED])
         );
     }
 
@@ -87,7 +87,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(new Zone(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]));
+        $this->layoutService->unlinkZone(Zone::fromArray(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -114,7 +114,7 @@ final class LayoutServiceTest extends ServiceTestCase
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->name = 'Name';
         $layoutCreateStruct->mainLocale = 'en';
-        $layoutCreateStruct->layoutType = new LayoutType(['identifier' => 'layout_type']);
+        $layoutCreateStruct->layoutType = LayoutType::fromArray(['identifier' => 'layout_type']);
 
         $this->layoutService->createLayout($layoutCreateStruct);
     }
@@ -131,7 +131,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('loadLayout')
             ->will(
                 $this->returnValue(
-                    new PersistenceLayout(
+                    PersistenceLayout::fromArray(
                         [
                             'mainLocale' => 'en',
                             'availableLocales' => ['en'],
@@ -149,7 +149,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->addTranslation(new Layout(['status' => Value::STATUS_DRAFT]), 'hr', 'en');
+        $this->layoutService->addTranslation(Layout::fromArray(['status' => Value::STATUS_DRAFT]), 'hr', 'en');
     }
 
     /**
@@ -164,7 +164,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('loadLayout')
             ->will(
                 $this->returnValue(
-                    new PersistenceLayout(
+                    PersistenceLayout::fromArray(
                         [
                             'mainLocale' => 'en',
                             'availableLocales' => ['en', 'hr'],
@@ -182,7 +182,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->removeTranslation(new Layout(['status' => Value::STATUS_DRAFT]), 'hr');
+        $this->layoutService->removeTranslation(Layout::fromArray(['status' => Value::STATUS_DRAFT]), 'hr');
     }
 
     /**
@@ -215,7 +215,7 @@ final class LayoutServiceTest extends ServiceTestCase
         $layoutUpdateStruct->name = 'New name';
 
         $this->layoutService->updateLayout(
-            new Layout(['status' => Value::STATUS_DRAFT]),
+            Layout::fromArray(['status' => Value::STATUS_DRAFT]),
             $layoutUpdateStruct
         );
     }
@@ -250,7 +250,7 @@ final class LayoutServiceTest extends ServiceTestCase
         $layoutCopyStruct->name = 'Name';
 
         $this->layoutService->copyLayout(
-            new Layout(['id' => 42, 'status' => Layout::STATUS_DRAFT]),
+            Layout::fromArray(['id' => 42, 'status' => Layout::STATUS_DRAFT]),
             $layoutCopyStruct
         );
     }
@@ -282,8 +282,8 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->changeLayoutType(
-            new Layout(['status' => Layout::STATUS_DRAFT]),
-            new LayoutType(['identifier' => '4_zones_a'])
+            Layout::fromArray(['status' => Layout::STATUS_DRAFT]),
+            LayoutType::fromArray(['identifier' => '4_zones_a'])
         );
     }
 
@@ -313,7 +313,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(new Layout(['status' => Value::STATUS_PUBLISHED]));
+        $this->layoutService->createDraft(Layout::fromArray(['status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -337,7 +337,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->discardDraft(new Layout(['status' => Value::STATUS_DRAFT]));
+        $this->layoutService->discardDraft(Layout::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -361,7 +361,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(new Layout(['status' => Value::STATUS_DRAFT]));
+        $this->layoutService->publishLayout(Layout::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -395,7 +395,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->restoreFromArchive(new Layout(['status' => Layout::STATUS_ARCHIVED]));
+        $this->layoutService->restoreFromArchive(Layout::fromArray(['status' => Layout::STATUS_ARCHIVED]));
     }
 
     /**
@@ -419,6 +419,6 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->deleteLayout(new Layout(['id' => 42, 'status' => Layout::STATUS_DRAFT]));
+        $this->layoutService->deleteLayout(Layout::fromArray(['id' => 42, 'status' => Layout::STATUS_DRAFT]));
     }
 }

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class QueryCreateStruct extends Value
+final class QueryCreateStruct
 {
+    use HydratorTrait;
+
     /**
      * Identifier of the type of new query.
      *

@@ -29,9 +29,9 @@ final class TypeTest extends TestCase
     public function testGetValue(): void
     {
         $item = new Item(
-            new Layout(
+            Layout::fromArray(
                 [
-                    'layoutType' => new LayoutType(
+                    'layoutType' => LayoutType::fromArray(
                         [
                             'name' => '4 zones A',
                         ]

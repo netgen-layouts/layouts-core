@@ -32,8 +32,8 @@ final class ItemLinkTypeTest extends TestCase
     {
         $this->valueTypeRegistry = new ValueTypeRegistry(
             [
-                'default' => new ValueType(['isEnabled' => true]),
-                'disabled' => new ValueType(['isEnabled' => false]),
+                'default' => ValueType::fromArray(['isEnabled' => true]),
+                'disabled' => ValueType::fromArray(['isEnabled' => false]),
             ]
         );
 
@@ -44,7 +44,7 @@ final class ItemLinkTypeTest extends TestCase
             ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new CmsItem(
+                    CmsItem::fromArray(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -59,7 +59,7 @@ final class ItemLinkTypeTest extends TestCase
             ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new CmsItem(
+                    CmsItem::fromArray(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',

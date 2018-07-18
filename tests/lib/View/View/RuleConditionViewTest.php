@@ -22,7 +22,7 @@ final class RuleConditionViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->condition = new Condition(['id' => 42]);
+        $this->condition = Condition::fromArray(['id' => 42]);
 
         $this->view = new RuleConditionView($this->condition);
 

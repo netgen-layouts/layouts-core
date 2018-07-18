@@ -63,7 +63,7 @@ final class ResultBuilder implements ResultBuilderInterface
             );
         }
 
-        return new ResultSet(
+        return ResultSet::fromArray(
             [
                 'collection' => $collection,
                 'results' => $results,

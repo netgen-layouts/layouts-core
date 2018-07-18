@@ -12,7 +12,7 @@ final class RuleTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
                 'id' => 43,
                 'layoutId' => 25,

@@ -99,7 +99,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(['layout' => $layout])
+                    Rule::fromArray(['layout' => $layout])
                 )
             );
 
@@ -164,7 +164,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(['layout' => $layout])
+                    Rule::fromArray(['layout' => $layout])
                 )
             );
 
@@ -215,7 +215,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(['layout' => $layout])
+                    Rule::fromArray(['layout' => $layout])
                 )
             );
 
@@ -273,14 +273,14 @@ final class GlobalVariableTest extends TestCase
         $this->requestStack->push($request);
 
         $layout = new Layout();
-        $rule = new Rule(['layout' => $layout]);
+        $rule = Rule::fromArray(['layout' => $layout]);
 
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(['layout' => $layout])
+                    Rule::fromArray(['layout' => $layout])
                 )
             );
 
@@ -343,7 +343,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(['layout' => $layout])
+                    Rule::fromArray(['layout' => $layout])
                 )
             );
 
@@ -436,7 +436,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    new Rule(['layout' => $layout])
+                    Rule::fromArray(['layout' => $layout])
                 )
             );
 

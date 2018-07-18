@@ -34,7 +34,7 @@ final class CreatedTest extends TestCase
         $date = $date->setTime(18, 15, 42);
 
         $item = new Item(
-            new Layout(
+            Layout::fromArray(
                 [
                     'created' => $date,
                 ]

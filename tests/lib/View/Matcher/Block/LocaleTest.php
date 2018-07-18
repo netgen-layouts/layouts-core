@@ -29,7 +29,7 @@ final class LocaleTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'locale' => 'en',
             ]

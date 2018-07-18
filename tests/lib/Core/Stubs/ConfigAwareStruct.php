@@ -6,9 +6,10 @@ namespace Netgen\BlockManager\Tests\Core\Stubs;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct as APIConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class ConfigAwareStruct extends BaseValue implements APIConfigAwareStruct
+final class ConfigAwareStruct implements APIConfigAwareStruct
 {
+    use HydratorTrait;
     use ConfigAwareStructTrait;
 }

@@ -23,10 +23,10 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 
     public function setUp(): void
     {
-        $this->blockDefinition = new BlockDefinition(
+        $this->blockDefinition = BlockDefinition::fromArray(
             [
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),

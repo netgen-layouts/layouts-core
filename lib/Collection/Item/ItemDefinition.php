@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Collection\Item;
 
 use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * @final
  */
-class ItemDefinition extends Value implements ItemDefinitionInterface
+class ItemDefinition implements ItemDefinitionInterface
 {
+    use HydratorTrait;
     use ConfigDefinitionAwareTrait;
 
     /**

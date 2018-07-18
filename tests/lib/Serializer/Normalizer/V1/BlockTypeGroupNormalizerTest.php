@@ -28,14 +28,14 @@ final class BlockTypeGroupNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $blockTypeGroup = new BlockTypeGroup(
+        $blockTypeGroup = BlockTypeGroup::fromArray(
             [
                 'identifier' => 'identifier',
                 'isEnabled' => true,
                 'name' => 'Block group',
                 'blockTypes' => [
-                    new BlockType(['isEnabled' => false, 'identifier' => 'type1']),
-                    new BlockType(['isEnabled' => true, 'identifier' => 'type2']),
+                    BlockType::fromArray(['isEnabled' => false, 'identifier' => 'type1']),
+                    BlockType::fromArray(['isEnabled' => true, 'identifier' => 'type2']),
                 ],
             ]
         );

@@ -28,7 +28,7 @@ final class BlockViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
             ]

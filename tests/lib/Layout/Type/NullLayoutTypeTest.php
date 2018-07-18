@@ -92,6 +92,6 @@ final class NullLayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZone(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'left'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'left'));
     }
 }

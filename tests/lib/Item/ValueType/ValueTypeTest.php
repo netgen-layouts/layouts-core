@@ -16,7 +16,7 @@ final class ValueTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->valueType = new ValueType(
+        $this->valueType = ValueType::fromArray(
             [
                 'identifier' => 'value',
                 'isEnabled' => false,

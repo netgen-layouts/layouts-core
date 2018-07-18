@@ -29,7 +29,7 @@ final class TaggerTest extends TestCase
     {
         $response = new Response();
         $response->setVary('Cookie');
-        $layout = new Layout(['id' => 42]);
+        $layout = Layout::fromArray(['id' => 42]);
 
         $this->tagger->tagLayout($response, $layout);
 
@@ -46,7 +46,7 @@ final class TaggerTest extends TestCase
     public function testTagBlock(): void
     {
         $response = new Response();
-        $block = new Block(['id' => 42, 'layoutId' => 24]);
+        $block = Block::fromArray(['id' => 42, 'layoutId' => 24]);
 
         $this->tagger->tagBlock($response, $block);
 

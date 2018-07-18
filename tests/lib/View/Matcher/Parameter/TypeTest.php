@@ -31,9 +31,9 @@ final class TypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $parameter = new Parameter(
+        $parameter = Parameter::fromArray(
             [
-                'parameterDefinition' => new ParameterDefinition(
+                'parameterDefinition' => ParameterDefinition::fromArray(
                     [
                         'type' => new TextType(),
                     ]

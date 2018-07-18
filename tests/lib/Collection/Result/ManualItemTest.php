@@ -26,9 +26,9 @@ final class ManualItemTest extends TestCase
     {
         $object = new stdClass();
 
-        $collectionItem = new Item(
+        $collectionItem = Item::fromArray(
             [
-                'cmsItem' => new CmsItem(
+                'cmsItem' => CmsItem::fromArray(
                     [
                         'value' => 42,
                         'remoteId' => 'abc',

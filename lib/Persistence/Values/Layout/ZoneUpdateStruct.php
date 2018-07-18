@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Layout;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class ZoneUpdateStruct extends Value
+final class ZoneUpdateStruct
 {
+    use HydratorTrait;
+
     /**
      * New linked zone.
      *

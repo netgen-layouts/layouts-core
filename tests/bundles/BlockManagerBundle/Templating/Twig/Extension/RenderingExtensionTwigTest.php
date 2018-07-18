@@ -157,18 +157,18 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->will(
                 $this->returnValue(
                     [
-                        new Block(
+                        Block::fromArray(
                             [
-                                'definition' => new BlockDefinition(
+                                'definition' => BlockDefinition::fromArray(
                                     [
                                         'identifier' => 'block_definition',
                                     ]
                                 ),
                             ]
                         ),
-                        new Block(
+                        Block::fromArray(
                             [
-                                'definition' => new BlockDefinition(
+                                'definition' => BlockDefinition::fromArray(
                                     [
                                         'identifier' => 'twig_block',
                                     ]
@@ -176,7 +176,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                                 'availableLocales' => ['en'],
                                 'locale' => 'en',
                                 'parameters' => [
-                                    'block_name' => new Parameter(
+                                    'block_name' => Parameter::fromArray(
                                         [
                                             'name' => 'block_name',
                                             'value' => 'my_block',
@@ -185,9 +185,9 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                                 ],
                             ]
                         ),
-                        new Block(
+                        Block::fromArray(
                             [
-                                'definition' => new BlockDefinition(
+                                'definition' => BlockDefinition::fromArray(
                                     [
                                         'identifier' => 'block_definition',
                                     ]

@@ -28,8 +28,8 @@ final class BlockTypeGroupRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->blockTypeGroup = new BlockTypeGroup(['isEnabled' => true, 'identifier' => 'block_type_group']);
-        $this->blockTypeGroup2 = new BlockTypeGroup(['isEnabled' => false, 'identifier' => 'block_type_group2']);
+        $this->blockTypeGroup = BlockTypeGroup::fromArray(['isEnabled' => true, 'identifier' => 'block_type_group']);
+        $this->blockTypeGroup2 = BlockTypeGroup::fromArray(['isEnabled' => false, 'identifier' => 'block_type_group2']);
 
         $this->registry = new BlockTypeGroupRegistry(
             [

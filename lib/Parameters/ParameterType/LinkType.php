@@ -98,7 +98,7 @@ final class LinkType extends ParameterType
             return new LinkValue();
         }
 
-        return new LinkValue(
+        return LinkValue::fromArray(
             [
                 'linkType' => $value['link_type'],
                 'link' => $value['link'] ?? null,
@@ -144,7 +144,7 @@ final class LinkType extends ParameterType
             $valueLink = $this->remoteIdConverter->convertFromRemoteId((string) $valueLink);
         }
 
-        return new LinkValue(
+        return LinkValue::fromArray(
             [
                 'linkType' => $value['link_type'],
                 'link' => $valueLink,

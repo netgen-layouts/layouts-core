@@ -139,19 +139,19 @@ abstract class BlockTest extends ServiceTestCase
 
         $collections = [];
         if ($this->hasCollection()) {
-            $collections['default'] = new Collection(
+            $collections['default'] = Collection::fromArray(
                 [
                     'identifier' => 'default',
                 ]
             );
         }
 
-        $blockDefinition = new BlockDefinition(
+        $blockDefinition = BlockDefinition::fromArray(
             [
                 'identifier' => 'definition',
                 'handler' => $handler,
                 'viewTypes' => [
-                    'default' => new ViewType(
+                    'default' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),

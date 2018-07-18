@@ -27,7 +27,7 @@ final class ConditionTest extends TestCase
     {
         $conditionType = new ConditionType('condition');
 
-        $condition = new Condition(
+        $condition = Condition::fromArray(
             [
                 'id' => 42,
                 'ruleId' => 30,

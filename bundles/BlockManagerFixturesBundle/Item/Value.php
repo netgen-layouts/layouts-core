@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerFixturesBundle\Item;
 
-use Netgen\BlockManager\Value as BaseValue;
-
-final class Value extends BaseValue
+final class Value
 {
     /**
      * @var int
      */
     public $id;
+
+    public function __construct(int $id)
+    {
+        $this->id = $id;
+    }
 }

@@ -490,13 +490,13 @@ final class LayoutValidatorTest extends TestCase
 
     private function getLayout(): APILayout
     {
-        return new Layout(
+        return Layout::fromArray(
             [
                 'zones' => new ArrayCollection(
                     [
                         'top' => new Zone(),
                         'bottom' => new Zone(),
-                        'shared' => new Zone(['linkedZone' => new Zone()]),
+                        'shared' => Zone::fromArray(['linkedZone' => new Zone()]),
                     ]
                 ),
             ]
@@ -505,7 +505,7 @@ final class LayoutValidatorTest extends TestCase
 
     private function getLayoutType(): LayoutTypeInterface
     {
-        return new LayoutType(
+        return LayoutType::fromArray(
             [
                 'identifier' => 'type',
                 'zones' => [

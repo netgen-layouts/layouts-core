@@ -24,7 +24,7 @@ final class ItemDefinitionTest extends TestCase
     {
         $this->configDefinition = new ConfigDefinition();
 
-        $this->itemDefinition = new ItemDefinition(
+        $this->itemDefinition = ItemDefinition::fromArray(
             [
                 'valueType' => 'value_type',
                 'configDefinitions' => ['config' => $this->configDefinition],

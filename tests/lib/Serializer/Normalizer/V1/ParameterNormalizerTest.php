@@ -29,9 +29,9 @@ final class ParameterNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $parameter = new Parameter(
+        $parameter = Parameter::fromArray(
             [
-                'parameterDefinition' => new ParameterDefinition(
+                'parameterDefinition' => ParameterDefinition::fromArray(
                     [
                         'type' => new TextType(),
                     ]

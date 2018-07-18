@@ -30,7 +30,7 @@ final class QueryTypeFactory
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
-        return new QueryType(
+        return QueryType::fromArray(
             [
                 'type' => $type,
                 'isEnabled' => $config['enabled'],

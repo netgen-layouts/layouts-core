@@ -17,7 +17,7 @@ final class BlockTypeGroupFactory
      */
     public static function buildBlockTypeGroup(string $identifier, array $config, array $blockTypes = []): BlockTypeGroup
     {
-        return new BlockTypeGroup(
+        return BlockTypeGroup::fromArray(
             [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],

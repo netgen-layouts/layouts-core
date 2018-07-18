@@ -36,7 +36,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      */
     public function testMapRule(): void
     {
-        $persistenceRule = new Rule(
+        $persistenceRule = Rule::fromArray(
             [
                 'id' => 3,
                 'status' => Value::STATUS_PUBLISHED,
@@ -76,7 +76,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      */
     public function testMapRuleWithNonExistingLayout(): void
     {
-        $persistenceRule = new Rule(
+        $persistenceRule = Rule::fromArray(
             [
                 'layoutId' => 99999,
             ]
@@ -93,7 +93,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      */
     public function testMapTarget(): void
     {
-        $persistenceTarget = new Target(
+        $persistenceTarget = Target::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
@@ -122,7 +122,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      */
     public function testMapTargetWithInvalidTargetType(): void
     {
-        $persistenceTarget = new Target(
+        $persistenceTarget = Target::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
@@ -148,7 +148,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      */
     public function testMapCondition(): void
     {
-        $persistenceCondition = new Condition(
+        $persistenceCondition = Condition::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
@@ -177,7 +177,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
      */
     public function testMapConditionWithInvalidConditionType(): void
     {
-        $persistenceCondition = new Condition(
+        $persistenceCondition = Condition::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,

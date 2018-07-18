@@ -126,7 +126,7 @@ final class CollectionService extends Service implements APICollectionService
             function () use ($persistenceCollection, $collectionUpdateStruct): PersistenceCollection {
                 return $this->handler->updateCollection(
                     $persistenceCollection,
-                    new CollectionUpdateStruct(
+                    CollectionUpdateStruct::fromArray(
                         [
                             'offset' => $collectionUpdateStruct->offset,
                             'limit' => $collectionUpdateStruct->limit,
@@ -214,7 +214,7 @@ final class CollectionService extends Service implements APICollectionService
                 if ($newType === Collection::TYPE_MANUAL) {
                     $persistenceCollection = $this->handler->updateCollection(
                         $persistenceCollection,
-                        new CollectionUpdateStruct(
+                        CollectionUpdateStruct::fromArray(
                             [
                                 'offset' => 0,
                             ]
@@ -229,7 +229,7 @@ final class CollectionService extends Service implements APICollectionService
 
                     $this->handler->createQuery(
                         $persistenceCollection,
-                        new QueryCreateStruct(
+                        QueryCreateStruct::fromArray(
                             [
                                 'type' => $queryType->getType(),
                                 'parameters' => $this->parameterMapper->serializeValues(
@@ -268,7 +268,7 @@ final class CollectionService extends Service implements APICollectionService
             function () use ($persistenceCollection, $position, $itemCreateStruct): PersistenceItem {
                 return $this->handler->addItem(
                     $persistenceCollection,
-                    new ItemCreateStruct(
+                    ItemCreateStruct::fromArray(
                         [
                             'position' => $position,
                             'value' => $itemCreateStruct->value,
@@ -303,7 +303,7 @@ final class CollectionService extends Service implements APICollectionService
             function () use ($itemDefinition, $persistenceItem, $itemUpdateStruct): PersistenceItem {
                 return $this->handler->updateItem(
                     $persistenceItem,
-                    new ItemUpdateStruct(
+                    ItemUpdateStruct::fromArray(
                         [
                             'config' => $this->configMapper->serializeValues(
                                 $itemUpdateStruct->getConfigStructs(),
@@ -451,7 +451,7 @@ final class CollectionService extends Service implements APICollectionService
             $persistenceQuery = $this->handler->updateQueryTranslation(
                 $persistenceQuery,
                 $queryUpdateStruct->locale,
-                new QueryTranslationUpdateStruct(
+                QueryTranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $this->parameterMapper->serializeValues(
                             $queryType,
@@ -493,7 +493,7 @@ final class CollectionService extends Service implements APICollectionService
             $persistenceQuery = $this->handler->updateQueryTranslation(
                 $persistenceQuery,
                 $locale,
-                new QueryTranslationUpdateStruct(
+                QueryTranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $untranslatableParams + $params,
                     ]

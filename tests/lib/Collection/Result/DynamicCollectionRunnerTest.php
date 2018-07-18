@@ -32,7 +32,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             ->will(
                 $this->returnCallback(
                     function ($value): CmsItemInterface {
-                        return new CmsItem(['value' => $value, 'isVisible' => true]);
+                        return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
                     }
                 )
             );
@@ -373,7 +373,7 @@ final class DynamicCollectionRunnerTest extends TestCase
     {
         $results = [];
         foreach ($values as $key => $value) {
-            $results[] = new Result($key, new CmsItem(['value' => $value]));
+            $results[] = new Result($key, CmsItem::fromArray(['value' => $value]));
         }
 
         return $results;

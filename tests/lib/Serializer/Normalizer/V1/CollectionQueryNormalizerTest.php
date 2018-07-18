@@ -39,7 +39,7 @@ final class CollectionQueryNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $query = new Query(
+        $query = Query::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 24,
@@ -50,13 +50,13 @@ final class CollectionQueryNormalizerTest extends TestCase
                 'mainLocale' => 'en',
                 'locale' => 'en',
                 'parameters' => [
-                    'param' => new Parameter(
+                    'param' => Parameter::fromArray(
                         [
                             'name' => 'param',
                             'value' => 'value',
                         ]
                     ),
-                    'param2' => new Parameter(
+                    'param2' => Parameter::fromArray(
                         [
                             'name' => 'param2',
                             'value' => [

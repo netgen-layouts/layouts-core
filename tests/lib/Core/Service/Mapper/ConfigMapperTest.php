@@ -29,7 +29,7 @@ final class ConfigMapperTest extends TestCase
     {
         $handler = new ConfigDefinitionHandler();
 
-        $this->configDefinition = new ConfigDefinition(
+        $this->configDefinition = ConfigDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
             ]

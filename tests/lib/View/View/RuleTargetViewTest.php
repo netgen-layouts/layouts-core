@@ -22,7 +22,7 @@ final class RuleTargetViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->target = new Target(['id' => 42]);
+        $this->target = Target::fromArray(['id' => 42]);
 
         $this->view = new RuleTargetView($this->target);
 

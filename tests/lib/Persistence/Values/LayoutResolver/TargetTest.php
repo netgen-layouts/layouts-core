@@ -12,7 +12,7 @@ final class TargetTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $target = new Target(
+        $target = Target::fromArray(
             [
                 'id' => 42,
                 'ruleId' => 30,

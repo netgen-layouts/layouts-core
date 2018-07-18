@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class ItemViewType extends Value
+final class ItemViewType
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

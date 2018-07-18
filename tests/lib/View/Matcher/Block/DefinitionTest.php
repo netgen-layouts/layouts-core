@@ -32,9 +32,9 @@ final class DefinitionTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
-                'definition' => new BlockDefinition(['identifier' => 'text']),
+                'definition' => BlockDefinition::fromArray(['identifier' => 'text']),
             ]
         );
 
@@ -49,7 +49,7 @@ final class DefinitionTest extends TestCase
      */
     public function testMatchWithNullDefinition(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'definition' => new NullBlockDefinition('definition'),
             ]
@@ -66,7 +66,7 @@ final class DefinitionTest extends TestCase
      */
     public function testMatchWithNullDefinitionReturnsFalse(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'definition' => new NullBlockDefinition('definition'),
             ]

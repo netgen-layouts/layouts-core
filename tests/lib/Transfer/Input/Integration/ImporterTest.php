@@ -68,7 +68,7 @@ abstract class ImporterTest extends ServiceTestCase
             ->will(
                 $this->returnCallback(
                     function ($remoteId): CmsItemInterface {
-                        return new CmsItem(
+                        return CmsItem::fromArray(
                             [
                                 'value' => $remoteId,
                                 'remoteId' => $remoteId,
@@ -84,7 +84,7 @@ abstract class ImporterTest extends ServiceTestCase
             ->will(
                 $this->returnCallback(
                     function ($value): CmsItemInterface {
-                        return new CmsItem(
+                        return CmsItem::fromArray(
                             [
                                 'value' => $value,
                                 'remoteId' => $value,

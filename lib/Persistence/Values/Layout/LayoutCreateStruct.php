@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Layout;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class LayoutCreateStruct extends Value
+final class LayoutCreateStruct
 {
+    use HydratorTrait;
+
     /**
      * Identifier of the layout type for the new layout.
      *

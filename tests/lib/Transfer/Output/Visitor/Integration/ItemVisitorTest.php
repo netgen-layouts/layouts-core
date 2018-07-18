@@ -22,7 +22,7 @@ abstract class ItemVisitorTest extends VisitorTest
         $this->cmsItemLoaderMock
             ->expects($this->any())
             ->method('load')
-            ->will($this->returnValue(new CmsItem(['remoteId' => 'abc'])));
+            ->will($this->returnValue(CmsItem::fromArray(['remoteId' => 'abc'])));
 
         $this->collectionService = $this->createCollectionService();
     }
@@ -43,7 +43,7 @@ abstract class ItemVisitorTest extends VisitorTest
     public function testVisitThrowsRuntimeExceptionWithInvalidItemType(): void
     {
         $this->getVisitor()->visit(
-            new Item(
+            Item::fromArray(
                 [
                     'type' => 9999,
                     'position' => 42,
@@ -59,11 +59,11 @@ abstract class ItemVisitorTest extends VisitorTest
     {
         // Implemented manually since we don't have override items in the fixtures
         $visitedData = $this->getVisitor()->visit(
-            new Item(
+            Item::fromArray(
                 [
                     'type' => Item::TYPE_OVERRIDE,
                     'position' => 42,
-                    'definition' => new ItemDefinition(['valueType' => 'value_type']),
+                    'definition' => ItemDefinition::fromArray(['valueType' => 'value_type']),
                     'cmsItem' => new CmsItem(),
                 ]
             ),

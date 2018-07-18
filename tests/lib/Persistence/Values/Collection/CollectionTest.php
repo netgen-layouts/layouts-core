@@ -12,7 +12,7 @@ final class CollectionTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $collection = new Collection(
+        $collection = Collection::fromArray(
             [
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,

@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Core\Values\Block;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * Placeholder represents a set of blocks inside a container block.
@@ -15,8 +15,10 @@ use Netgen\BlockManager\Value;
  * Each container block can have multiple placeholders, allowing to render
  * each block set separately.
  */
-final class Placeholder extends Value implements APIPlaceholder
+final class Placeholder implements APIPlaceholder
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */
@@ -27,10 +29,8 @@ final class Placeholder extends Value implements APIPlaceholder
      */
     private $blocks;
 
-    public function __construct(array $data = [])
+    public function __construct()
     {
-        parent::__construct($data);
-
         $this->blocks = $this->blocks ?? new ArrayCollection();
     }
 

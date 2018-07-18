@@ -53,7 +53,7 @@ final class BlockMapper
                     ksort($blockData['parameters']);
                     sort($blockData['availableLocales']);
 
-                    return new Block($blockData);
+                    return Block::fromArray($blockData);
                 },
                 $blocks
             )
@@ -70,7 +70,7 @@ final class BlockMapper
         $collectionReferences = [];
 
         foreach ($data as $dataItem) {
-            $collectionReferences[] = new CollectionReference(
+            $collectionReferences[] = CollectionReference::fromArray(
                 [
                     'blockId' => (int) $dataItem['block_id'],
                     'blockStatus' => (int) $dataItem['block_status'],

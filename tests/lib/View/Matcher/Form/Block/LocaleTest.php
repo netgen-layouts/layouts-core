@@ -43,7 +43,7 @@ final class LocaleTest extends TestCase
             Form::class,
             null,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'locale' => 'en',
                     ]

@@ -37,7 +37,7 @@ final class ConfigMapper
                 $config[$configKey] ?? []
             );
 
-            $configs[$configKey] = new Config(
+            $configs[$configKey] = Config::fromArray(
                 [
                     'configKey' => $configKey,
                     'definition' => $configDefinition,

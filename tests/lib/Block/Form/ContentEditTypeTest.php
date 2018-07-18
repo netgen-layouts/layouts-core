@@ -37,12 +37,12 @@ final class ContentEditTypeTest extends FormTestCase
 
         $handler = new BlockDefinitionHandler(['content']);
 
-        $this->definition = new BlockDefinition(
+        $this->definition = BlockDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
                 'handler' => $handler,
                 'forms' => [
-                    'content' => new Form(
+                    'content' => Form::fromArray(
                         [
                             'identifier' => 'content',
                             'type' => ContentEditType::class,
@@ -50,12 +50,12 @@ final class ContentEditTypeTest extends FormTestCase
                     ),
                 ],
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'identifier' => 'large',
                             'name' => 'Large',
                             'itemViewTypes' => [
-                                'standard' => new ItemViewType(
+                                'standard' => ItemViewType::fromArray(
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
@@ -64,12 +64,12 @@ final class ContentEditTypeTest extends FormTestCase
                             ],
                         ]
                     ),
-                    'small' => new ViewType(
+                    'small' => ViewType::fromArray(
                         [
                             'identifier' => 'large',
                             'name' => 'Large',
                             'itemViewTypes' => [
-                                'standard' => new ItemViewType(
+                                'standard' => ItemViewType::fromArray(
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
@@ -83,7 +83,7 @@ final class ContentEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->block = new Block(['definition' => $this->definition, 'mainLocale' => 'en']);
+        $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -160,7 +160,7 @@ final class ContentEditTypeTest extends FormTestCase
             ContentEditType::class,
             $struct,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
@@ -193,7 +193,7 @@ final class ContentEditTypeTest extends FormTestCase
             ContentEditType::class,
             $struct,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',

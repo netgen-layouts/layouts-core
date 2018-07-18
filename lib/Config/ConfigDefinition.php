@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Config;
 
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * @final
  */
-class ConfigDefinition extends Value implements ConfigDefinitionInterface
+class ConfigDefinition implements ConfigDefinitionInterface
 {
+    use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
     /**

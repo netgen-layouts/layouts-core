@@ -11,10 +11,11 @@ use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Item extends Value implements APIItem
+final class Item implements APIItem
 {
+    use HydratorTrait;
     use ValueStatusTrait;
     use ConfigAwareValueTrait;
     use LazyPropertyTrait;

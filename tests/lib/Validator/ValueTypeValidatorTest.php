@@ -23,7 +23,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
 
     public function getValidator(): ConstraintValidatorInterface
     {
-        $valueTypeRegistry = new ValueTypeRegistry(['value' => new ValueType(['isEnabled' => true])]);
+        $valueTypeRegistry = new ValueTypeRegistry(['value' => ValueType::fromArray(['isEnabled' => true])]);
 
         return new ValueTypeValidator($valueTypeRegistry);
     }

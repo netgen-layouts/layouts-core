@@ -38,7 +38,7 @@ abstract class ParameterVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [new Parameter(['parameterDefinition' => new ParameterDefinition(['type' => new ParameterTypeWithExportImport()])]), 'parameter/parameter.json'],
+            [Parameter::fromArray(['parameterDefinition' => ParameterDefinition::fromArray(['type' => new ParameterTypeWithExportImport()])]), 'parameter/parameter.json'],
         ];
     }
 }

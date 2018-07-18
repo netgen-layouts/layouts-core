@@ -432,11 +432,11 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     {
         $handler = new BlockDefinitionHandlerWithRequiredParameter();
 
-        return new BlockDefinition(
+        return BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -450,11 +450,11 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
 
     private function getContainerDefinition(): ContainerDefinitionInterface
     {
-        return new ContainerDefinition(
+        return ContainerDefinition::fromArray(
             [
                 'handler' => new ContainerDefinitionHandler([], ['main']),
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),

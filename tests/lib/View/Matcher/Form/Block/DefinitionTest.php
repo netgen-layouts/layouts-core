@@ -45,9 +45,9 @@ final class DefinitionTest extends TestCase
             Form::class,
             null,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
-                        'definition' => new BlockDefinition(['identifier' => 'block']),
+                        'definition' => BlockDefinition::fromArray(['identifier' => 'block']),
                     ]
                 ),
             ]
@@ -66,7 +66,7 @@ final class DefinitionTest extends TestCase
             Form::class,
             null,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => new NullBlockDefinition('definition'),
                     ]
@@ -87,7 +87,7 @@ final class DefinitionTest extends TestCase
             Form::class,
             null,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => new NullBlockDefinition('definition'),
                     ]

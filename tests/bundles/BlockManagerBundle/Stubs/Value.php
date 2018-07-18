@@ -6,10 +6,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\BlockManager\API\Values\Value as APIValue;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Value extends BaseValue implements APIValue
+final class Value implements APIValue
 {
+    use HydratorTrait;
     use ValueStatusTrait;
 
     /**

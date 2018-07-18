@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Collection extends Value
+final class Collection
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

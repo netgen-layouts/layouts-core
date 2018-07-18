@@ -116,7 +116,7 @@ final class BlockHandler implements BlockHandlerInterface
             throw new BadStateException('targetBlock', 'Target block is not in the provided layout.');
         }
 
-        $newBlock = new Block(
+        $newBlock = Block::fromArray(
             [
                 'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
                 'path' => $targetBlock !== null ? $targetBlock->path : '/',
@@ -192,7 +192,7 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function createCollectionReference(Block $block, Collection $collection, string $identifier): CollectionReference
     {
-        $newCollectionReference = new CollectionReference(
+        $newCollectionReference = CollectionReference::fromArray(
             [
                 'blockId' => $block->id,
                 'blockStatus' => $block->status,
@@ -244,7 +244,7 @@ final class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            $collectionUpdateStruct = new CollectionUpdateStruct(
+            $collectionUpdateStruct = CollectionUpdateStruct::fromArray(
                 [
                     'alwaysAvailable' => $updatedBlock->alwaysAvailable,
                     'isTranslatable' => $updatedBlock->isTranslatable,
@@ -509,7 +509,7 @@ final class BlockHandler implements BlockHandlerInterface
 
             $collection = $this->collectionHandler->copyCollection($collection);
 
-            $newCollectionReference = new CollectionReference(
+            $newCollectionReference = CollectionReference::fromArray(
                 [
                     'blockId' => $targetBlock->id,
                     'blockStatus' => $targetBlock->status,
@@ -544,7 +544,7 @@ final class BlockHandler implements BlockHandlerInterface
                 $newStatus
             );
 
-            $newCollectionReference = new CollectionReference(
+            $newCollectionReference = CollectionReference::fromArray(
                 [
                     'blockId' => $block->id,
                     'blockStatus' => $newStatus,

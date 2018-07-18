@@ -354,12 +354,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         $subParameters = $builder->buildParameterDefinitions();
 
         if (!$builder->getType() instanceof CompoundParameterTypeInterface) {
-            return new ParameterDefinition($data);
+            return ParameterDefinition::fromArray($data);
         }
 
         $data['parameterDefinitions'] = $subParameters;
 
-        return new CompoundParameterDefinition($data);
+        return CompoundParameterDefinition::fromArray($data);
     }
 
     /**

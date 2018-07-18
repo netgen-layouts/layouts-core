@@ -38,7 +38,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollection(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'id' => 2,
                 'offset' => 10,
@@ -90,7 +90,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollectionWithLocale(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -110,7 +110,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollectionWithLocales(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -130,7 +130,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
@@ -153,7 +153,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'id' => 42,
                 'mainLocale' => 'en',
@@ -173,7 +173,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'id' => 42,
                 'mainLocale' => 'en',
@@ -190,7 +190,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapCollectionWithNoQuery(): void
     {
-        $persistenceCollection = new Collection(
+        $persistenceCollection = Collection::fromArray(
             [
                 'id' => 1,
                 'offset' => 10,
@@ -241,7 +241,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapItem(): void
     {
-        $persistenceItem = new Item(
+        $persistenceItem = Item::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
@@ -293,7 +293,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapItemWithInvalidItemDefinition(): void
     {
-        $persistenceItem = new Item(
+        $persistenceItem = Item::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
@@ -339,7 +339,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQuery(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
@@ -388,7 +388,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQueryWithLocale(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'type' => 'my_query_type',
                 'mainLocale' => 'en',
@@ -410,7 +410,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQueryWithLocales(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'type' => 'my_query_type',
                 'mainLocale' => 'en',
@@ -432,7 +432,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQueryWithLocalesAndAlwaysAvailable(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'type' => 'my_query_type',
                 'alwaysAvailable' => true,
@@ -457,7 +457,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'id' => 42,
                 'type' => 'my_query_type',
@@ -479,7 +479,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'id' => 42,
                 'type' => 'my_query_type',
@@ -498,7 +498,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
      */
     public function testMapQueryWithInvalidType(): void
     {
-        $persistenceQuery = new Query(
+        $persistenceQuery = Query::fromArray(
             [
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,

@@ -28,7 +28,7 @@ final class RuleViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $rule = new Rule(['id' => 42]);
+        $rule = Rule::fromArray(['id' => 42]);
 
         /** @var \Netgen\BlockManager\View\View\RuleViewInterface $view */
         $view = $this->ruleViewProvider->provideView($rule);

@@ -137,7 +137,7 @@ final class BlockMapper
             ),
         ];
 
-        return new Block($blockData);
+        return Block::fromArray($blockData);
     }
 
     /**
@@ -174,7 +174,7 @@ final class BlockMapper
 
         $placeholders = [];
         foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {
-            $placeholders[$placeholderIdentifier] = new Placeholder(
+            $placeholders[$placeholderIdentifier] = Placeholder::fromArray(
                 [
                     'identifier' => $placeholderIdentifier,
                     'blocks' => new LazyCollection(

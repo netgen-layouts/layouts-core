@@ -22,9 +22,9 @@ final class BlockTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->blockDefinition = new BlockDefinition(['identifier' => 'title']);
+        $this->blockDefinition = BlockDefinition::fromArray(['identifier' => 'title']);
 
-        $this->blockType = new BlockType(
+        $this->blockType = BlockType::fromArray(
             [
                 'identifier' => 'title',
                 'name' => 'Title',

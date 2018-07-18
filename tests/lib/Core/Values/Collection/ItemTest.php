@@ -36,7 +36,7 @@ final class ItemTest extends TestCase
         $cmsItem = new CmsItem();
         $definition = new ItemDefinition();
 
-        $item = new Item(
+        $item = Item::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 30,
@@ -67,10 +67,10 @@ final class ItemTest extends TestCase
      */
     public function testIsValid(bool $cmsItemVisible, bool $isValid): void
     {
-        $item = new Item(
+        $item = Item::fromArray(
             [
                 'definition' => new ItemDefinition(),
-                'cmsItem' => new CmsItem(['isVisible' => $cmsItemVisible]),
+                'cmsItem' => CmsItem::fromArray(['isVisible' => $cmsItemVisible]),
             ]
         );
 
@@ -82,7 +82,7 @@ final class ItemTest extends TestCase
      */
     public function testIsValidWithNullCmsItem(): void
     {
-        $item = new Item(
+        $item = Item::fromArray(
             [
                 'cmsItem' => new NullCmsItem('value'),
             ]

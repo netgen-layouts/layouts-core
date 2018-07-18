@@ -12,7 +12,7 @@ final class ItemTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $item = new Item(
+        $item = Item::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 30,

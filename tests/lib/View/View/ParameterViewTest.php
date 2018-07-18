@@ -24,10 +24,10 @@ final class ParameterViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->parameter = new Parameter(
+        $this->parameter = Parameter::fromArray(
             [
                 'name' => 'paramName',
-                'parameterDefinition' => new ParameterDefinition(
+                'parameterDefinition' => ParameterDefinition::fromArray(
                     [
                         'type' => new ParameterType(),
                     ]

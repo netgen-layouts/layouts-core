@@ -25,15 +25,15 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         $this->constraint = new BlockUpdateStructConstraint();
 
         $handler = new BlockDefinitionHandler();
-        $this->constraint->payload = new Block(
+        $this->constraint->payload = Block::fromArray(
             [
                 'viewType' => 'large',
                 'mainLocale' => 'en',
-                'definition' => new BlockDefinition(
+                'definition' => BlockDefinition::fromArray(
                     [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
                         'viewTypes' => [
-                            'large' => new ViewType(
+                            'large' => ViewType::fromArray(
                                 [
                                     'itemViewTypes' => [
                                         'standard' => new ItemViewType(),

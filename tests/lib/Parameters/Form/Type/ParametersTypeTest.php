@@ -63,7 +63,7 @@ final class ParametersTypeTest extends FormTestCase
             $struct
         );
 
-        $compoundParameter = new CompoundParameterDefinition(
+        $compoundParameter = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -71,7 +71,7 @@ final class ParametersTypeTest extends FormTestCase
                     'reverse' => false,
                 ],
                 'parameterDefinitions' => [
-                    'inner' => new ParameterDefinition(
+                    'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
@@ -83,14 +83,14 @@ final class ParametersTypeTest extends FormTestCase
 
         $parameterDefinitions = new ParameterDefinitionCollection(
             [
-                'css_class' => new ParameterDefinition(
+                'css_class' => ParameterDefinition::fromArray(
                     [
                         'name' => 'css_class',
                         'type' => new ParameterType\TextLineType(),
                         'label' => false,
                     ]
                 ),
-                'css_id' => new ParameterDefinition(
+                'css_id' => ParameterDefinition::fromArray(
                     [
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
@@ -169,7 +169,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $parameterDefinitions = new ParameterDefinitionCollection(
             [
-                'test' => new ParameterDefinition(
+                'test' => ParameterDefinition::fromArray(
                     [
                         'name' => 'test',
                         'type' => new ParameterType\TextType(),
@@ -213,14 +213,14 @@ final class ParametersTypeTest extends FormTestCase
 
         $parameterDefinitions = new ParameterDefinitionCollection(
             [
-                'excluded' => new ParameterDefinition(
+                'excluded' => ParameterDefinition::fromArray(
                     [
                         'name' => 'excluded',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => ['excluded'],
                     ]
                 ),
-                'css_id' => new ParameterDefinition(
+                'css_id' => ParameterDefinition::fromArray(
                     [
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),

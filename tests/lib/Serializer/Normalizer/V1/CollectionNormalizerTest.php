@@ -28,7 +28,7 @@ final class CollectionNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $collection = new Collection(
+        $collection = Collection::fromArray(
             [
                 'id' => 42,
                 'query' => new Query(),

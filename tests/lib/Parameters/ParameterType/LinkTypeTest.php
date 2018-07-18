@@ -36,8 +36,8 @@ final class LinkTypeTest extends TestCase
     {
         $this->valueTypeRegistry = new ValueTypeRegistry(
             [
-                'default' => new ValueType(['isEnabled' => true]),
-                'disabled' => new ValueType(['isEnabled' => false]),
+                'default' => ValueType::fromArray(['isEnabled' => true]),
+                'disabled' => ValueType::fromArray(['isEnabled' => false]),
             ]
         );
 
@@ -149,49 +149,49 @@ final class LinkTypeTest extends TestCase
         return [
             [null, true, [], true],
             [null, false, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 'suffix']), true, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => true]), true, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => false]), true, [], true],
-            [new LinkValue(['linkType' => null, 'link' => null]), true, [], true],
-            [new LinkValue(['linkType' => null, 'link' => 'http://a.com']), true, [], false],
-            [new LinkValue(['linkType' => null, 'link' => null]), false, [], true],
-            [new LinkValue(['linkType' => null, 'link' => 'http://a.com']), false, [], false],
-            [new LinkValue(['linkType' => 'url', 'link' => null]), true, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com']), true, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => null]), false, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'http://a.com']), false, [], true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'invalid']), true, [], false],
-            [new LinkValue(['linkType' => 'url', 'link' => 'invalid']), false, [], false],
-            [new LinkValue(['linkType' => 'email', 'link' => null]), true, [], true],
-            [new LinkValue(['linkType' => 'email', 'link' => 'a@a.com']), true, [], true],
-            [new LinkValue(['linkType' => 'email', 'link' => null]), false, [], true],
-            [new LinkValue(['linkType' => 'email', 'link' => 'a@a.com']), false, [], true],
-            [new LinkValue(['linkType' => 'email', 'link' => 'invalid']), true, [], false],
-            [new LinkValue(['linkType' => 'email', 'link' => 'invalid']), false, [], false],
-            [new LinkValue(['linkType' => 'phone', 'link' => null]), true, [], true],
-            [new LinkValue(['linkType' => 'phone', 'link' => 'a@a.com']), true, [], true],
-            [new LinkValue(['linkType' => 'phone', 'link' => null]), false, [], true],
-            [new LinkValue(['linkType' => 'phone', 'link' => 'a@a.com']), false, [], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => null]), true, [], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), true, [], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'default://42']), true, [], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => null]), false, [], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), false, [], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'default://42']), false, [], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), true, [], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), false, [], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => null]), true, ['value'], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), true, ['value'], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => null]), false, ['value'], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), false, ['value'], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), true, ['value'], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), false, ['value'], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => null]), true, ['other'], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), true, ['other'], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => null]), false, ['other'], true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value://42']), false, ['other'], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), true, ['other'], false],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'value']), false, ['other'], false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 'suffix']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => true]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => false]), true, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => null]), true, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'http://a.com']), true, [], false],
+            [LinkValue::fromArray(['linkType' => null, 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'http://a.com']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'a@a.com']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'a@a.com']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'a@a.com']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'a@a.com']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'default://42']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'default://42']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, ['value'], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, ['value'], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), false, ['value'], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, ['value'], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, ['value'], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, ['value'], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, ['other'], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, ['other'], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), false, ['other'], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, ['other'], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, ['other'], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, ['other'], false],
         ];
     }
 
@@ -215,7 +215,7 @@ final class LinkTypeTest extends TestCase
                 null,
             ],
             [
-                new LinkValue(
+                LinkValue::fromArray(
                     [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
@@ -315,7 +315,7 @@ final class LinkTypeTest extends TestCase
             ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new CmsItem(
+                    CmsItem::fromArray(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -348,7 +348,7 @@ final class LinkTypeTest extends TestCase
             ],
             $this->type->export(
                 $this->getParameterDefinition(),
-                new LinkValue(
+                LinkValue::fromArray(
                     [
                         'linkType' => 'internal',
                         'link' => 'my_value_type://24',
@@ -368,7 +368,7 @@ final class LinkTypeTest extends TestCase
                 null,
             ],
             [
-                new LinkValue(
+                LinkValue::fromArray(
                     [
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
@@ -384,7 +384,7 @@ final class LinkTypeTest extends TestCase
                 ],
             ],
             [
-                new LinkValue(
+                LinkValue::fromArray(
                     [
                         'linkType' => 'internal',
                         'link' => 'my-value-type://42',
@@ -400,7 +400,7 @@ final class LinkTypeTest extends TestCase
                 ],
             ],
             [
-                new LinkValue(
+                LinkValue::fromArray(
                     [
                         'linkType' => 'internal',
                         'link' => 'invalid',
@@ -435,7 +435,7 @@ final class LinkTypeTest extends TestCase
             ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new CmsItem(
+                    CmsItem::fromArray(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -591,18 +591,18 @@ final class LinkTypeTest extends TestCase
         return [
             [null, true],
             [new LinkValue(), true],
-            [new LinkValue(['linkType' => 'url']), true],
-            [new LinkValue(['linkType' => 'url', 'link' => 'http://www.google.com']), false],
-            [new LinkValue(['linkType' => 'url', 'linkSuffix' => '?suffix']), false],
-            [new LinkValue(['linkType' => 'email']), true],
-            [new LinkValue(['linkType' => 'email', 'link' => 'test@example.com']), false],
-            [new LinkValue(['linkType' => 'email', 'linkSuffix' => '?suffix']), true],
-            [new LinkValue(['linkType' => 'tel']), true],
-            [new LinkValue(['linkType' => 'tel', 'link' => '123456']), false],
-            [new LinkValue(['linkType' => 'tel', 'linkSuffix' => '?suffix']), true],
-            [new LinkValue(['linkType' => 'internal']), true],
-            [new LinkValue(['linkType' => 'internal', 'link' => 'my_value_type://42']), false],
-            [new LinkValue(['linkType' => 'internal', 'linkSuffix' => '?suffix']), true],
+            [LinkValue::fromArray(['linkType' => 'url']), true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://www.google.com']), false],
+            [LinkValue::fromArray(['linkType' => 'url', 'linkSuffix' => '?suffix']), false],
+            [LinkValue::fromArray(['linkType' => 'email']), true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'test@example.com']), false],
+            [LinkValue::fromArray(['linkType' => 'email', 'linkSuffix' => '?suffix']), true],
+            [LinkValue::fromArray(['linkType' => 'tel']), true],
+            [LinkValue::fromArray(['linkType' => 'tel', 'link' => '123456']), false],
+            [LinkValue::fromArray(['linkType' => 'tel', 'linkSuffix' => '?suffix']), true],
+            [LinkValue::fromArray(['linkType' => 'internal']), true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'my_value_type://42']), false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'linkSuffix' => '?suffix']), true],
         ];
     }
 }

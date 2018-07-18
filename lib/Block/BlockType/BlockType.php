@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * Block type represents the starting configuration of the block. E.g. while
@@ -15,8 +15,10 @@ use Netgen\BlockManager\Value;
  *
  * @final
  */
-class BlockType extends Value
+class BlockType
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

@@ -12,7 +12,7 @@ final class QueryTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $query = new Query(
+        $query = Query::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 30,

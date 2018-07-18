@@ -501,7 +501,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $updatedRule = $this->handler->updateRuleMetadata(
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
-            new RuleMetadataUpdateStruct(
+            RuleMetadataUpdateStruct::fromArray(
                 [
                     'enabled' => false,
                     'priority' => 50,

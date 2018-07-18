@@ -28,7 +28,7 @@ final class LayoutIdTest extends TestCase
     public function testGetValue(): void
     {
         $item = new Item(
-            new Layout(
+            Layout::fromArray(
                 [
                     'id' => 42,
                 ]

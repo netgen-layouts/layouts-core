@@ -57,14 +57,14 @@ final class BlockDefinitionTest extends TestCase
     {
         $this->handler = new BlockDefinitionHandler([], true);
 
-        $this->form = new Form(['identifier' => 'content']);
-        $this->collection = new Collection(['identifier' => 'collection']);
+        $this->form = Form::fromArray(['identifier' => 'content']);
+        $this->collection = Collection::fromArray(['identifier' => 'collection']);
         $this->configDefinition = new ConfigDefinition();
 
-        $this->viewType1 = new ViewType(['identifier' => 'large']);
-        $this->viewType2 = new ViewType(['identifier' => 'small']);
+        $this->viewType1 = ViewType::fromArray(['identifier' => 'large']);
+        $this->viewType2 = ViewType::fromArray(['identifier' => 'small']);
 
-        $this->blockDefinition = new BlockDefinition(
+        $this->blockDefinition = BlockDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,

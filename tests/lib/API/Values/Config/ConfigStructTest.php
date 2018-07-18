@@ -36,17 +36,17 @@ final class ConfigStructTest extends TestCase
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $configDefinition->getParameterDefinition('compound');
 
-        $config = new Config(
+        $config = Config::fromArray(
             [
                 'definition' => $configDefinition,
                 'parameters' => [
-                    'css_class' => new Parameter(
+                    'css_class' => Parameter::fromArray(
                         [
                             'value' => 'css',
                             'parameterDefinition' => $configDefinition->getParameterDefinition('css_class'),
                         ]
                     ),
-                    'inner' => new Parameter(
+                    'inner' => Parameter::fromArray(
                         [
                             'value' => 'inner',
                             'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
@@ -123,13 +123,13 @@ final class ConfigStructTest extends TestCase
 
     private function buildConfigDefinition(): ConfigDefinitionInterface
     {
-        $compoundParameter = new CompoundParameterDefinition(
+        $compoundParameter = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
                 'parameterDefinitions' => [
-                    'inner' => new ParameterDefinition(
+                    'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
@@ -141,14 +141,14 @@ final class ConfigStructTest extends TestCase
         );
 
         $parameterDefinitions = [
-            'css_class' => new ParameterDefinition(
+            'css_class' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
                 ]
             ),
-            'css_id' => new ParameterDefinition(
+            'css_id' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
@@ -158,6 +158,6 @@ final class ConfigStructTest extends TestCase
             'compound' => $compoundParameter,
         ];
 
-        return new ConfigDefinition(['parameterDefinitions' => $parameterDefinitions]);
+        return ConfigDefinition::fromArray(['parameterDefinitions' => $parameterDefinitions]);
     }
 }

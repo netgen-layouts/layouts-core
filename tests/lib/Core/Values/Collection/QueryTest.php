@@ -42,7 +42,7 @@ final class QueryTest extends TestCase
     {
         $queryType = new QueryType('query_type');
 
-        $query = new Query(
+        $query = Query::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 30,
@@ -71,7 +71,7 @@ final class QueryTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $query = new Query(
+        $query = Query::fromArray(
             [
                 'queryType' => new QueryType('query_type'),
             ]

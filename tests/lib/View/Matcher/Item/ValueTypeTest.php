@@ -30,7 +30,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $view = new ItemView(new CmsItem(['valueType' => 'value']), 'view_type');
+        $view = new ItemView(CmsItem::fromArray(['valueType' => 'value']), 'view_type');
 
         $this->assertSame($expected, $this->matcher->match($view, $config));
     }

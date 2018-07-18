@@ -16,7 +16,7 @@ final class CollectionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->collection = new Collection(
+        $this->collection = Collection::fromArray(
             [
                 'identifier' => 'collection',
                 'validItemTypes' => ['item'],
@@ -55,7 +55,7 @@ final class CollectionTest extends TestCase
      */
     public function testIsValidQueryTypeWithAllValidTypes(): void
     {
-        $this->collection = new Collection(
+        $this->collection = Collection::fromArray(
             [
                 'validQueryTypes' => null,
             ]
@@ -70,7 +70,7 @@ final class CollectionTest extends TestCase
      */
     public function testIsValidQueryTypeWithNoValidTypes(): void
     {
-        $this->collection = new Collection(
+        $this->collection = Collection::fromArray(
             [
                 'validQueryTypes' => [],
             ]
@@ -102,7 +102,7 @@ final class CollectionTest extends TestCase
      */
     public function testIsValidItemTypeWithAllValidTypes(): void
     {
-        $this->collection = new Collection(
+        $this->collection = Collection::fromArray(
             [
                 'validItemTypes' => null,
             ]
@@ -117,7 +117,7 @@ final class CollectionTest extends TestCase
      */
     public function testIsValidItemTypeWithNoValidTypes(): void
     {
-        $this->collection = new Collection(
+        $this->collection = Collection::fromArray(
             [
                 'validItemTypes' => [],
             ]

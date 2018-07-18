@@ -12,7 +12,7 @@ final class LayoutTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'id' => 42,
                 'type' => '4_zones_a',

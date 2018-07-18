@@ -41,7 +41,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     public function getParameterDefinitions(): array
     {
         return [
-            'param' => new ParameterDefinition(
+            'param' => ParameterDefinition::fromArray(
                 [
                     'name' => 'param',
                     'type' => new TextLineType(),
@@ -52,7 +52,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                     ],
                 ]
             ),
-            'param2' => new ParameterDefinition(
+            'param2' => ParameterDefinition::fromArray(
                 [
                     'name' => 'param2',
                     'type' => new TextLineType(),

@@ -35,7 +35,7 @@ final class RangeMapperTest extends TestCase
      */
     public function testMapOptions(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'name',
                 'type' => new RangeParameterType(),

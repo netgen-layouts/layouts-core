@@ -16,7 +16,7 @@ final class ZoneTest extends TestCase
 
     public function setUp(): void
     {
-        $this->zone = new Zone(
+        $this->zone = Zone::fromArray(
             [
                 'identifier' => 'left',
                 'name' => 'Left',

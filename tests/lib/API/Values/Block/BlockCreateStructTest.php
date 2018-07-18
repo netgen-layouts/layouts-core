@@ -130,13 +130,13 @@ final class BlockCreateStructTest extends TestCase
 
     private function buildBlockDefinition(): BlockDefinitionInterface
     {
-        $compoundParameter = new CompoundParameterDefinition(
+        $compoundParameter = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
                 'parameterDefinitions' => [
-                    'inner' => new ParameterDefinition(
+                    'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
@@ -148,14 +148,14 @@ final class BlockCreateStructTest extends TestCase
         );
 
         $parameterDefinitions = [
-            'css_class' => new ParameterDefinition(
+            'css_class' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
                 ]
             ),
-            'css_id' => new ParameterDefinition(
+            'css_id' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
@@ -165,6 +165,6 @@ final class BlockCreateStructTest extends TestCase
             'compound' => $compoundParameter,
         ];
 
-        return new BlockDefinition(['parameterDefinitions' => $parameterDefinitions]);
+        return BlockDefinition::fromArray(['parameterDefinitions' => $parameterDefinitions]);
     }
 }

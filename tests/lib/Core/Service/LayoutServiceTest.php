@@ -1213,7 +1213,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testNewLayoutCreateStruct(): void
     {
-        $layoutType = new LayoutType(['identifier' => '4_zones_a']);
+        $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
 
         $struct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,

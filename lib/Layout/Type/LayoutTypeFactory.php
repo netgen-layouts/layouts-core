@@ -14,7 +14,7 @@ final class LayoutTypeFactory
         $zones = [];
 
         foreach ($config['zones'] as $zoneIdentifier => $zoneConfig) {
-            $zones[$zoneIdentifier] = new Zone(
+            $zones[$zoneIdentifier] = Zone::fromArray(
                 [
                     'identifier' => $zoneIdentifier,
                     'name' => $zoneConfig['name'],
@@ -23,7 +23,7 @@ final class LayoutTypeFactory
             );
         }
 
-        return new LayoutType(
+        return LayoutType::fromArray(
             [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],

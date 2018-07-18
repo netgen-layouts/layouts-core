@@ -31,7 +31,7 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     public function getParameterDefinitions(): array
     {
         return [
-            'css_class' => new ParameterDefinition(
+            'css_class' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
@@ -43,7 +43,7 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     ],
                 ]
             ),
-            'css_id' => new ParameterDefinition(
+            'css_id' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),

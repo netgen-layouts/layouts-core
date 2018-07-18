@@ -44,9 +44,9 @@ final class RuleTest extends TestCase
      */
     public function testSetProperties(): void
     {
-        $layout = new Layout(['id' => 24]);
+        $layout = Layout::fromArray(['id' => 24]);
 
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
                 'id' => 42,
                 'layout' => $layout,
@@ -72,10 +72,10 @@ final class RuleTest extends TestCase
      */
     public function testCanBeEnabled(): void
     {
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
                 'status' => Rule::STATUS_PUBLISHED,
-                'layout' => new Layout(['id' => 24]),
+                'layout' => Layout::fromArray(['id' => 24]),
                 'targets' => new ArrayCollection([new Target(), new Target()]),
             ]
         );
@@ -88,10 +88,10 @@ final class RuleTest extends TestCase
      */
     public function testCanBeEnabledWhenNotPublished(): void
     {
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
                 'status' => Rule::STATUS_DRAFT,
-                'layout' => new Layout(['id' => 24]),
+                'layout' => Layout::fromArray(['id' => 24]),
                 'targets' => new ArrayCollection([new Target(), new Target()]),
             ]
         );
@@ -104,7 +104,7 @@ final class RuleTest extends TestCase
      */
     public function testCanBeEnabledWithNoLayout(): void
     {
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
                 'status' => Rule::STATUS_PUBLISHED,
                 'layout' => null,
@@ -120,10 +120,10 @@ final class RuleTest extends TestCase
      */
     public function testCanBeEnabledWithNoTargets(): void
     {
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
                 'status' => Rule::STATUS_PUBLISHED,
-                'layout' => new Layout(['id' => 24]),
+                'layout' => Layout::fromArray(['id' => 24]),
                 'targets' => new ArrayCollection(),
             ]
         );

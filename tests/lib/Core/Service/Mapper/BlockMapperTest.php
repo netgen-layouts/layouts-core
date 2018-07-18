@@ -34,7 +34,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlock(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'id' => 31,
                 'layoutId' => 13,
@@ -108,7 +108,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithLocale(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
@@ -132,7 +132,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithLocales(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
@@ -156,7 +156,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithLocalesAndAlwaysAvailable(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
@@ -183,7 +183,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'id' => 42,
                 'definitionIdentifier' => 'text',
@@ -207,7 +207,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'id' => 42,
                 'definitionIdentifier' => 'text',
@@ -227,7 +227,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithInvalidDefinition(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'id' => 31,
                 'layoutId' => 13,
@@ -289,7 +289,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapContainerBlock(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'id' => 33,
                 'definitionIdentifier' => 'two_columns',
@@ -337,7 +337,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapBlockWithCollections(): void
     {
-        $persistenceBlock = new Block(
+        $persistenceBlock = Block::fromArray(
             [
                 'id' => 31,
                 'layoutId' => 13,

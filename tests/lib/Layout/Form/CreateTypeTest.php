@@ -21,7 +21,7 @@ final class CreateTypeTest extends FormTestCase
 
     public function setUp(): void
     {
-        $layoutType1 = new LayoutType(
+        $layoutType1 = LayoutType::fromArray(
             [
                 'name' => '4 zones A',
                 'identifier' => '4_zones_a',
@@ -29,7 +29,7 @@ final class CreateTypeTest extends FormTestCase
             ]
         );
 
-        $layoutType2 = new LayoutType(
+        $layoutType2 = LayoutType::fromArray(
             [
                 'name' => '4 zones B',
                 'identifier' => '4_zones_b',

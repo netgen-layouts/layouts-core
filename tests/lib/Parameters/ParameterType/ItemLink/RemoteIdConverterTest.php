@@ -41,7 +41,7 @@ final class RemoteIdConverterTest extends TestCase
             ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new CmsItem(
+                    CmsItem::fromArray(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',
@@ -86,7 +86,7 @@ final class RemoteIdConverterTest extends TestCase
             ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
             ->will(
                 $this->returnValue(
-                    new CmsItem(
+                    CmsItem::fromArray(
                         [
                             'value' => 42,
                             'remoteId' => 'abc',

@@ -27,7 +27,7 @@ final class BlockTypeNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->blockDefinition = new BlockDefinition(['identifier' => 'title']);
+        $this->blockDefinition = BlockDefinition::fromArray(['identifier' => 'title']);
 
         $this->normalizer = new BlockTypeNormalizer();
     }
@@ -37,7 +37,7 @@ final class BlockTypeNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $blockType = new BlockType(
+        $blockType = BlockType::fromArray(
             [
                 'identifier' => 'identifier',
                 'icon' => '/icon.svg',
@@ -71,12 +71,12 @@ final class BlockTypeNormalizerTest extends TestCase
      */
     public function testNormalizeWithContainerBlock(): void
     {
-        $blockType = new BlockType(
+        $blockType = BlockType::fromArray(
             [
                 'identifier' => 'definition',
                 'name' => 'Block type',
                 'isEnabled' => true,
-                'definition' => new ContainerDefinition(
+                'definition' => ContainerDefinition::fromArray(
                     [
                         'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),

@@ -81,10 +81,10 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->requestStack->push($request);
 
-        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
+        $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
 
         $view = new BlockView(
-            new Block(
+            Block::fromArray(
                 [
                     'definition' => new BlockDefinition(),
                     'collections' => new ArrayCollection(
@@ -110,7 +110,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
@@ -121,7 +121,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(5),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
@@ -147,19 +147,19 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->requestStack->push($request);
 
-        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
+        $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
 
         $view = new BlockView(
-            new Block(
+            Block::fromArray(
                 [
-                    'definition' => new BlockDefinition(
+                    'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([])],
                         ]
                     ),
                     'parameters' => [
-                        'paged_collections:enabled' => new Parameter(['value' => true]),
-                        'paged_collections:max_pages' => new Parameter(['value' => 2]),
+                        'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
+                        'paged_collections:max_pages' => Parameter::fromArray(['value' => 2]),
                     ],
                     'collections' => new ArrayCollection(
                         [
@@ -184,7 +184,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
@@ -195,7 +195,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(5),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
@@ -221,19 +221,19 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->requestStack->push($request);
 
-        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
+        $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
 
         $view = new BlockView(
-            new Block(
+            Block::fromArray(
                 [
-                    'definition' => new BlockDefinition(
+                    'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([])],
                         ]
                     ),
                     'parameters' => [
-                        'paged_collections:enabled' => new Parameter(['value' => true]),
-                        'paged_collections:max_pages' => new Parameter(['value' => null]),
+                        'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
+                        'paged_collections:max_pages' => Parameter::fromArray(['value' => null]),
                     ],
                     'collections' => new ArrayCollection(
                         [
@@ -258,7 +258,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
@@ -269,7 +269,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(5),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
@@ -295,18 +295,18 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->requestStack->push($request);
 
-        $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
+        $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
 
         $view = new BlockView(
-            new Block(
+            Block::fromArray(
                 [
-                    'definition' => new BlockDefinition(
+                    'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([])],
                         ]
                     ),
                     'parameters' => [
-                        'paged_collections:enabled' => new Parameter(['value' => false]),
+                        'paged_collections:enabled' => Parameter::fromArray(['value' => false]),
                     ],
                     'collections' => new ArrayCollection(
                         [
@@ -331,7 +331,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
@@ -342,7 +342,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 $this->identicalTo(5),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 1000, 'collection' => $collection])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 

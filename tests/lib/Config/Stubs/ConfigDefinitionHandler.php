@@ -14,13 +14,13 @@ final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
     public function getParameterDefinitions(): array
     {
         return [
-            'param' => new ParameterDefinition(
+            'param' => ParameterDefinition::fromArray(
                 [
                     'name' => 'param',
                     'type' => new ParameterType\TextLineType(),
                 ]
             ),
-            'param2' => new ParameterDefinition(
+            'param2' => ParameterDefinition::fromArray(
                 [
                     'name' => 'param2',
                     'type' => new ParameterType\TextLineType(),

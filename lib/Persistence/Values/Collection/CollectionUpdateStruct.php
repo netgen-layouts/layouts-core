@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class CollectionUpdateStruct extends Value
+final class CollectionUpdateStruct
 {
+    use HydratorTrait;
+
     /**
      * Starting offset for the collection results.
      *

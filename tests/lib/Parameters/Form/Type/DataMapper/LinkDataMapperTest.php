@@ -26,7 +26,7 @@ final class LinkDataMapperTest extends DataMapperTest
 
     public function setUp(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => new LinkType(
                     new ValueTypeRegistry([]),
@@ -44,7 +44,7 @@ final class LinkDataMapperTest extends DataMapperTest
      */
     public function testMapDataToForms(): void
     {
-        $linkValue = new LinkValue(
+        $linkValue = LinkValue::fromArray(
             [
                 'linkType' => 'url',
                 'link' => 'http://www.google.com',

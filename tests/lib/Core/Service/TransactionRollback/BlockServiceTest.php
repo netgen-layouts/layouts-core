@@ -46,7 +46,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(['availableLocales' => ['en']])));
+            ->will($this->returnValue(PersistenceLayout::fromArray(['availableLocales' => ['en']])));
 
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -63,11 +63,11 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlock(
-            new BlockCreateStruct(new BlockDefinition(['identifier' => 'definition'])),
-            new Block(
+            new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
+            Block::fromArray(
                 [
                     'status' => Value::STATUS_DRAFT,
-                    'definition' => new ContainerDefinition(
+                    'definition' => ContainerDefinition::fromArray(
                         [
                             'handler' => new ContainerDefinitionHandler([], ['main']),
                         ]
@@ -91,7 +91,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('loadLayoutDraft')
             ->will(
                 $this->returnValue(
-                    new Layout(
+                    Layout::fromArray(
                         [
                             'availableLocales' => ['en'],
                             'layoutType' => new LayoutType(),
@@ -103,7 +103,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
+            ->will($this->returnValue(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -125,8 +125,8 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlockInZone(
-            new BlockCreateStruct(new BlockDefinition(['identifier' => 'definition'])),
-            new Zone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
+            new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
+            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
         );
     }
 
@@ -137,7 +137,7 @@ final class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock(): void
     {
-        $persistenceBlock = new PersistenceBlock(
+        $persistenceBlock = PersistenceBlock::fromArray(
             [
                 'config' => [],
                 'mainLocale' => 'en',
@@ -164,7 +164,7 @@ final class BlockServiceTest extends ServiceTestCase
         $struct->locale = 'en';
 
         $this->blockService->updateBlock(
-            new Block(
+            Block::fromArray(
                 [
                     'status' => Value::STATUS_DRAFT,
                     'definition' => new BlockDefinition(),
@@ -202,11 +202,11 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlock(
-            new Block(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            new Block(
+            Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
+            Block::fromArray(
                 [
                     'status' => Value::STATUS_DRAFT,
-                    'definition' => new ContainerDefinition(
+                    'definition' => ContainerDefinition::fromArray(
                         [
                             'handler' => new ContainerDefinitionHandler([], ['main']),
                         ]
@@ -227,7 +227,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutServiceMock
             ->expects($this->at(0))
             ->method('loadLayoutDraft')
-            ->will($this->returnValue(new Layout(['layoutType' => new LayoutType()])));
+            ->will($this->returnValue(Layout::fromArray(['layoutType' => new LayoutType()])));
 
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -237,7 +237,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
+            ->will($this->returnValue(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -254,8 +254,8 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlockToZone(
-            new Block(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            new Zone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
+            Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
+            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
         );
     }
 
@@ -270,12 +270,12 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['parentId' => 1, 'placeholder' => 'main'])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['id' => 1])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['id' => 1])));
 
         $this->blockHandlerMock
             ->expects($this->at(2))
@@ -287,11 +287,11 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlock(
-            new Block(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            new Block(
+            Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
+            Block::fromArray(
                 [
                     'status' => Value::STATUS_DRAFT,
-                    'definition' => new ContainerDefinition(
+                    'definition' => ContainerDefinition::fromArray(
                         [
                             'handler' => new ContainerDefinitionHandler([], ['main']),
                         ]
@@ -314,22 +314,22 @@ final class BlockServiceTest extends ServiceTestCase
         $this->layoutServiceMock
             ->expects($this->at(0))
             ->method('loadLayoutDraft')
-            ->will($this->returnValue(new Layout(['layoutType' => new LayoutType()])));
+            ->will($this->returnValue(Layout::fromArray(['layoutType' => new LayoutType()])));
 
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['parentId' => 1, 'placeholder' => 'root'])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root'])));
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
+            ->will($this->returnValue(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['id' => 1])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['id' => 1])));
 
         $this->blockHandlerMock
             ->expects($this->at(2))
@@ -341,8 +341,8 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlockToZone(
-            new Block(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            new Zone(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']),
+            Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
+            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']),
             0
         );
     }
@@ -373,7 +373,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->restoreBlock(new Block(['status' => Value::STATUS_DRAFT]));
+        $this->blockService->restoreBlock(Block::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -386,12 +386,12 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['isTranslatable' => false, 'parentId' => 42])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['isTranslatable' => true, 'depth' => 1])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1])));
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -407,7 +407,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->enableTranslations(new Block(['status' => Value::STATUS_DRAFT]));
+        $this->blockService->enableTranslations(Block::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -420,7 +420,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(['isTranslatable' => true])));
+            ->will($this->returnValue(PersistenceBlock::fromArray(['isTranslatable' => true])));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -431,7 +431,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->disableTranslations(new Block(['status' => Value::STATUS_DRAFT]));
+        $this->blockService->disableTranslations(Block::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -455,7 +455,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->deleteBlock(new Block(['status' => Value::STATUS_DRAFT]));
+        $this->blockService->deleteBlock(Block::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**

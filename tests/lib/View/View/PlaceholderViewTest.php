@@ -28,8 +28,8 @@ final class PlaceholderViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->block = new Block(['id' => 42]);
-        $this->placeholder = new Placeholder(['identifier' => 'main']);
+        $this->block = Block::fromArray(['id' => 42]);
+        $this->placeholder = Placeholder::fromArray(['identifier' => 'main']);
 
         $this->view = new PlaceholderView($this->placeholder, $this->block);
 

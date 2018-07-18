@@ -43,7 +43,7 @@ final class LocaleTest extends TestCase
             Form::class,
             null,
             [
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'locale' => 'en',
                     ]

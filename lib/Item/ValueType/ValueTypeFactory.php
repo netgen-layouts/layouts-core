@@ -11,7 +11,7 @@ final class ValueTypeFactory
      */
     public static function buildValueType(string $identifier, array $config): ValueType
     {
-        return new ValueType(
+        return ValueType::fromArray(
             [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],

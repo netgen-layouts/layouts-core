@@ -18,8 +18,8 @@ final class ResultTest extends TestCase
      */
     public function testObject(): void
     {
-        $item1 = new CmsItem(['value' => 42]);
-        $item2 = new CmsItem(['value' => 43]);
+        $item1 = CmsItem::fromArray(['value' => 42]);
+        $item2 = CmsItem::fromArray(['value' => 43]);
 
         $result = new Result(0, $item1, $item2);
 

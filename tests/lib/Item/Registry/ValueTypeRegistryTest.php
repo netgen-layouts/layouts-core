@@ -28,8 +28,8 @@ final class ValueTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->valueType1 = new ValueType(['isEnabled' => true]);
-        $this->valueType2 = new ValueType(['isEnabled' => false]);
+        $this->valueType1 = ValueType::fromArray(['isEnabled' => true]);
+        $this->valueType2 = ValueType::fromArray(['isEnabled' => false]);
 
         $this->registry = new ValueTypeRegistry(
             [

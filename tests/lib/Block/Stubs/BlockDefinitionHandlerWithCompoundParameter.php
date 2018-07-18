@@ -25,7 +25,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
 
     public function getParameterDefinitions(): array
     {
-        $compoundParam = new CompoundParameterDefinition(
+        $compoundParam = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -34,7 +34,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
                     'translatable' => false,
                 ],
                 'parameterDefinitions' => [
-                    'inner' => new ParameterDefinition(
+                    'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
@@ -49,7 +49,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
         );
 
         return [
-            'css_class' => new ParameterDefinition(
+            'css_class' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
@@ -60,7 +60,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
                     ],
                 ]
             ),
-            'css_id' => new ParameterDefinition(
+            'css_id' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),

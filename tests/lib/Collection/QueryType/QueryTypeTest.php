@@ -18,7 +18,7 @@ final class QueryTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->queryType = new QueryType(
+        $this->queryType = QueryType::fromArray(
             [
                 'handler' => new QueryTypeHandler(['val1', 'val2']),
                 'type' => 'query_type',

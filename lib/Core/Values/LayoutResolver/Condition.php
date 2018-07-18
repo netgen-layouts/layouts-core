@@ -7,10 +7,11 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Condition extends Value implements APICondition
+final class Condition implements APICondition
 {
+    use HydratorTrait;
     use ValueStatusTrait;
 
     /**

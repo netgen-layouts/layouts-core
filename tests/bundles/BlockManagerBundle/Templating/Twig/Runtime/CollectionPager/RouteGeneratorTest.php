@@ -53,7 +53,7 @@ final class RouteGeneratorTest extends TestCase
      */
     public function testInvoke(int $page, string $signedUri, string $signedUriSuffix): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'locale' => 'en',

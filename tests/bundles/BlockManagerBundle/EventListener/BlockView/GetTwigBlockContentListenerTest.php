@@ -48,10 +48,10 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testOnRenderView(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
-                'definition' => new TwigBlockDefinition(
+                'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(),
                     ]
@@ -87,7 +87,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoTwigBlock(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'definition' => new BlockDefinition(),
@@ -107,7 +107,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testOnRenderViewInvalidTwigTemplate(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'definition' => new TwigBlockDefinition(),
@@ -130,7 +130,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
      */
     public function testOnRenderViewWithNoTwigTemplate(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'definition' => new TwigBlockDefinition(),

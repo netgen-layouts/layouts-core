@@ -29,7 +29,7 @@ final class QueryRunnerTest extends TestCase
             ->will(
                 $this->returnCallback(
                     function ($value): CmsItemInterface {
-                        return new CmsItem(['value' => $value, 'isVisible' => true]);
+                        return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
                     }
                 )
             );
@@ -43,7 +43,7 @@ final class QueryRunnerTest extends TestCase
     public function testRunner(): void
     {
         $queryType = new QueryType('query', [40, 41, 42]);
-        $query = new Query(['queryType' => $queryType]);
+        $query = Query::fromArray(['queryType' => $queryType]);
 
         $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
 

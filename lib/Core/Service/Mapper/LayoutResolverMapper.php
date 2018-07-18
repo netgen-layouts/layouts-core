@@ -100,7 +100,7 @@ final class LayoutResolverMapper
             ),
         ];
 
-        return new Rule($ruleData);
+        return Rule::fromArray($ruleData);
     }
 
     /**
@@ -124,7 +124,7 @@ final class LayoutResolverMapper
             'value' => $target->value,
         ];
 
-        return new Target($targetData);
+        return Target::fromArray($targetData);
     }
 
     /**
@@ -148,6 +148,6 @@ final class LayoutResolverMapper
             'value' => $condition->value,
         ];
 
-        return new Condition($conditionData);
+        return Condition::fromArray($conditionData);
     }
 }

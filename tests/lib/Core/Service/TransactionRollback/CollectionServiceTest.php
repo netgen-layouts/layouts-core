@@ -53,7 +53,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            new Collection(['status' => Value::STATUS_DRAFT, 'query' => new Query()]),
+            Collection::fromArray(['status' => Value::STATUS_DRAFT, 'query' => new Query()]),
             Collection::TYPE_MANUAL
         );
     }
@@ -84,11 +84,11 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->definition = new ItemDefinition(['valueType' => 'value_type']);
+        $itemCreateStruct->definition = ItemDefinition::fromArray(['valueType' => 'value_type']);
         $itemCreateStruct->type = Item::TYPE_MANUAL;
 
         $this->collectionService->addItem(
-            new Collection(['status' => Value::STATUS_DRAFT]),
+            Collection::fromArray(['status' => Value::STATUS_DRAFT]),
             $itemCreateStruct
         );
     }
@@ -105,7 +105,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('loadItem')
             ->will(
                 $this->returnValue(
-                    new PersistenceItem(['config' => []])
+                    PersistenceItem::fromArray(['config' => []])
                 )
             );
 
@@ -119,7 +119,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
-            new Item(['status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition()]),
+            Item::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition()]),
             new ItemUpdateStruct()
         );
     }
@@ -145,7 +145,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(new Item(['status' => Value::STATUS_DRAFT]), 0);
+        $this->collectionService->moveItem(Item::fromArray(['status' => Value::STATUS_DRAFT]), 0);
     }
 
     /**
@@ -169,7 +169,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(new Item(['status' => Value::STATUS_DRAFT]));
+        $this->collectionService->deleteItem(Item::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -193,7 +193,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItems(new Collection(['status' => Value::STATUS_DRAFT]));
+        $this->collectionService->deleteItems(Collection::fromArray(['status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -203,7 +203,7 @@ final class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQuery(): void
     {
-        $persistenceQuery = new PersistenceQuery(
+        $persistenceQuery = PersistenceQuery::fromArray(
             [
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -229,7 +229,7 @@ final class CollectionServiceTest extends ServiceTestCase
         $struct->locale = 'en';
 
         $this->collectionService->updateQuery(
-            new Query(
+            Query::fromArray(
                 [
                     'status' => Value::STATUS_DRAFT,
                     'queryType' => new QueryType('type'),

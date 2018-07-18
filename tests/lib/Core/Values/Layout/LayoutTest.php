@@ -64,14 +64,14 @@ final class LayoutTest extends TestCase
         $modifiedDate = new DateTimeImmutable();
         $modifiedDate->setTimestamp(456);
 
-        $layoutType = new LayoutType(['identifier' => '4_zones_a']);
+        $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
 
         $zones = [
-            'left' => new Zone(['identifier' => 'left']),
-            'right' => new Zone(['identifier' => 'right', 'linkedZone' => new Zone()]),
+            'left' => Zone::fromArray(['identifier' => 'left']),
+            'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
         ];
 
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'id' => 42,
                 'layoutType' => $layoutType,

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 final class Item extends Value
 {
+    use HydratorTrait;
+
     /**
      * Denotes that the item is manual. Manual items are injected in between items fetched from queries.
      */

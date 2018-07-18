@@ -35,7 +35,7 @@ final class NumberMapperTest extends TestCase
      */
     public function testMapOptions(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => new NumberParameterType(),
                 'options' => [

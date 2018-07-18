@@ -35,7 +35,7 @@ final class ParameterTest extends TestCase
     {
         $parameterDefinition = new ParameterDefinition();
 
-        $parameter = new Parameter(
+        $parameter = Parameter::fromArray(
             [
                 'name' => 'param_name',
                 'parameterDefinition' => $parameterDefinition,

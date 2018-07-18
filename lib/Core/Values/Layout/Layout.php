@@ -11,10 +11,11 @@ use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Layout extends Value implements APILayout
+final class Layout implements APILayout
 {
+    use HydratorTrait;
     use ValueStatusTrait;
 
     /**
@@ -67,10 +68,8 @@ final class Layout extends Value implements APILayout
      */
     private $zones;
 
-    public function __construct(array $data = [])
+    public function __construct()
     {
-        parent::__construct($data);
-
         $this->zones = $this->zones ?? new ArrayCollection();
     }
 

@@ -136,7 +136,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function createCollection(CollectionCreateStruct $collectionCreateStruct): Collection
     {
-        $newCollection = new Collection(
+        $newCollection = Collection::fromArray(
             [
                 'status' => $collectionCreateStruct->status,
                 'offset' => $collectionCreateStruct->offset,
@@ -353,7 +353,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $position = $this->createItemPosition($collection, $itemCreateStruct->position);
 
-        $newItem = new Item(
+        $newItem = Item::fromArray(
             [
                 'collectionId' => $collection->id,
                 'position' => $position,
@@ -473,7 +473,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $queryParameters[$collectionLocale] = $queryCreateStruct->parameters;
         }
 
-        $newQuery = new Query(
+        $newQuery = Query::fromArray(
             [
                 'collectionId' => $collection->id,
                 'type' => $queryCreateStruct->type,

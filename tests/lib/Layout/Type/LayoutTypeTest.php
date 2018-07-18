@@ -28,7 +28,7 @@ final class LayoutTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->zone1 = new Zone(
+        $this->zone1 = Zone::fromArray(
             [
                 'identifier' => 'left',
                 'name' => 'Left',
@@ -36,7 +36,7 @@ final class LayoutTypeTest extends TestCase
             ]
         );
 
-        $this->zone2 = new Zone(
+        $this->zone2 = Zone::fromArray(
             [
                 'identifier' => 'right',
                 'name' => 'Right',
@@ -44,7 +44,7 @@ final class LayoutTypeTest extends TestCase
             ]
         );
 
-        $this->layoutType = new LayoutType(
+        $this->layoutType = LayoutType::fromArray(
             [
                 'identifier' => '4_zones_a',
                 'isEnabled' => false,
@@ -152,7 +152,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZone(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'left'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'left'));
     }
 
     /**
@@ -160,7 +160,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneReturnsFalse(): void
     {
-        $this->assertFalse($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'other']), 'left'));
+        $this->assertFalse($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'other']), 'left'));
     }
 
     /**
@@ -168,7 +168,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneWithNonExistentZone(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'unknown'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'unknown'));
     }
 
     /**
@@ -176,6 +176,6 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneWithAllBlocksAllowed(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(['identifier' => 'title']), 'right'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'right'));
     }
 }

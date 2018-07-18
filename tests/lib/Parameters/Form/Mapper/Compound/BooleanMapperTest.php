@@ -41,7 +41,7 @@ final class BooleanMapperTest extends TestCase
                 'reverse' => true,
             ],
             $this->mapper->mapOptions(
-                new ParameterDefinition(
+                ParameterDefinition::fromArray(
                     [
                         'name' => 'name',
                         'type' => new BooleanType(),

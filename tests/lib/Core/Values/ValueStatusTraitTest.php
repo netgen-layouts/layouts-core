@@ -19,7 +19,7 @@ final class ValueStatusTraitTest extends TestCase
      */
     public function testStatus(int $status, bool $isDraft, bool $isPublished, bool $isArchived): void
     {
-        $value = new Value(['status' => $status]);
+        $value = Value::fromArray(['status' => $status]);
 
         $this->assertSame($status, $value->getStatus());
         $this->assertSame($isDraft, $value->isDraft());

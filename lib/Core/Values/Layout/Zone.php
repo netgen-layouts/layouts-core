@@ -7,10 +7,11 @@ namespace Netgen\BlockManager\Core\Values\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Zone extends Value implements APIZone
+final class Zone implements APIZone
 {
+    use HydratorTrait;
     use ValueStatusTrait;
     use LazyPropertyTrait;
 

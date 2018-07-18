@@ -8,9 +8,8 @@ use Netgen\BlockManager\API\Values\ParameterStruct as APIParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Value as BaseValue;
 
-final class ParameterStruct extends BaseValue implements APIParameterStruct
+final class ParameterStruct implements APIParameterStruct
 {
     use ParameterStructTrait;
 

@@ -214,7 +214,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderBlockReturnsEmptyStringOnException(): void
     {
-        $block = new Block(['definition' => new BlockDefinition()]);
+        $block = Block::fromArray(['definition' => new BlockDefinition()]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -242,7 +242,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderBlockThrowsExceptionInDebug(): void
     {
         $this->errorHandler->setThrow(true);
-        $block = new Block(['definition' => new BlockDefinition()]);
+        $block = Block::fromArray(['definition' => new BlockDefinition()]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -266,7 +266,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholder(): void
     {
         $placeholder = new Placeholder();
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'placeholders' => [
                     'main' => $placeholder,
@@ -315,7 +315,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderWithoutTwigTemplate(): void
     {
         $placeholder = new Placeholder();
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'placeholders' => [
                     'main' => $placeholder,
@@ -360,7 +360,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderWithViewContext(): void
     {
         $placeholder = new Placeholder();
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'placeholders' => [
                     'main' => $placeholder,
@@ -410,7 +410,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderWithViewContextFromTwigContext(): void
     {
         $placeholder = new Placeholder();
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'placeholders' => [
                     'main' => $placeholder,
@@ -459,7 +459,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderPlaceholderReturnsEmptyStringOnException(): void
     {
-        $block = new Block(['placeholders' => ['main' => new Placeholder()]]);
+        $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -488,7 +488,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderPlaceholderThrowsExceptionInDebug(): void
     {
         $this->errorHandler->setThrow(true);
-        $block = new Block(['placeholders' => ['main' => new Placeholder()]]);
+        $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
             ->expects($this->once())
@@ -598,7 +598,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderItemReturnsEmptyStringOnException(): void
     {
-        $cmsItem = new CmsItem(['valueType' => 'value_type']);
+        $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
 
         $this->rendererMock
             ->expects($this->once())
@@ -630,7 +630,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->errorHandler->setThrow(true);
 
-        $cmsItem = new CmsItem(['valueType' => 'value_type']);
+        $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
 
         $this->rendererMock
             ->expects($this->once())

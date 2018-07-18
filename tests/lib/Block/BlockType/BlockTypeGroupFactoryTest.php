@@ -19,7 +19,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
      */
     public function testBuildBlockTypeGroup(): void
     {
-        $blockType = new BlockType(['identifier' => 'title']);
+        $blockType = BlockType::fromArray(['identifier' => 'title']);
 
         $blockTypeGroup = BlockTypeGroupFactory::buildBlockTypeGroup(
             'simple_blocks',

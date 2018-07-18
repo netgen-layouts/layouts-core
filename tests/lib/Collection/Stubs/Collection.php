@@ -36,12 +36,12 @@ final class Collection implements APICollection
         int $queryCount = 0
     ) {
         foreach ($manualItems as $position => $value) {
-            $this->manualItems[$position] = new Item(
+            $this->manualItems[$position] = Item::fromArray(
                 [
                     'type' => Item::TYPE_MANUAL,
                     'value' => $value,
                     'cmsItem' => $value !== null ?
-                        new CmsItem(['value' => $value, 'isVisible' => true]) :
+                        CmsItem::fromArray(['value' => $value, 'isVisible' => true]) :
                         new NullCmsItem('value'),
                     'position' => $position,
                 ]
@@ -49,12 +49,12 @@ final class Collection implements APICollection
         }
 
         foreach ($overrideItems as $position => $value) {
-            $this->overrideItems[$position] = new Item(
+            $this->overrideItems[$position] = Item::fromArray(
                 [
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $value,
                     'cmsItem' => $value !== null ?
-                        new CmsItem(['value' => $value, 'isVisible' => true]) :
+                        CmsItem::fromArray(['value' => $value, 'isVisible' => true]) :
                         new NullCmsItem('value'),
                     'position' => $position,
                 ]
@@ -62,7 +62,7 @@ final class Collection implements APICollection
         }
 
         if ($queryValues !== null) {
-            $this->query = new Query(
+            $this->query = Query::fromArray(
                 [
                     'queryType' => new QueryType(
                         'my_query_type',

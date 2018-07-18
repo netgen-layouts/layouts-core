@@ -66,7 +66,7 @@ final class BlockDefinitionFactory
             $configDefinitionHandlers
         );
 
-        return new BlockDefinition($commonData);
+        return BlockDefinition::fromArray($commonData);
     }
 
     /**
@@ -92,7 +92,7 @@ final class BlockDefinitionFactory
             $configDefinitionHandlers
         );
 
-        return new TwigBlockDefinition($commonData);
+        return TwigBlockDefinition::fromArray($commonData);
     }
 
     /**
@@ -118,7 +118,7 @@ final class BlockDefinitionFactory
             $configDefinitionHandlers
         );
 
-        return new ContainerDefinition($commonData);
+        return ContainerDefinition::fromArray($commonData);
     }
 
     /**
@@ -175,7 +175,7 @@ final class BlockDefinitionFactory
 
         if (isset($config['collections'])) {
             foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
-                $collections[$collectionIdentifier] = new Collection(
+                $collections[$collectionIdentifier] = Collection::fromArray(
                     [
                         'identifier' => $collectionIdentifier,
                         'validItemTypes' => $collectionConfig['valid_item_types'],
@@ -191,7 +191,7 @@ final class BlockDefinitionFactory
                     continue;
                 }
 
-                $forms[$formIdentifier] = new Form(
+                $forms[$formIdentifier] = Form::fromArray(
                     [
                         'identifier' => $formIdentifier,
                         'type' => $formConfig['type'],
@@ -224,7 +224,7 @@ final class BlockDefinitionFactory
                         continue;
                     }
 
-                    $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(
+                    $itemViewTypes[$itemViewTypeIdentifier] = ItemViewType::fromArray(
                         [
                             'identifier' => $itemViewTypeIdentifier,
                             'name' => $itemViewTypeConfig['name'],
@@ -242,7 +242,7 @@ final class BlockDefinitionFactory
                     );
                 }
 
-                $viewTypes[$viewTypeIdentifier] = new ViewType(
+                $viewTypes[$viewTypeIdentifier] = ViewType::fromArray(
                     [
                         'identifier' => $viewTypeIdentifier,
                         'name' => $viewTypeConfig['name'] ?? '',

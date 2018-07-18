@@ -22,12 +22,12 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 {
     public function setUp(): void
     {
-        $compoundParameter = new CompoundParameterDefinition(
+        $compoundParameter = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'parameterDefinitions' => [
-                    'param' => new ParameterDefinition(
+                    'param' => ParameterDefinition::fromArray(
                         [
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
@@ -42,7 +42,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             [
                 'parameterDefinitions' => new ParameterDefinitionCollection(
                     [
-                        'css_id' => new ParameterDefinition(
+                        'css_id' => ParameterDefinition::fromArray(
                             [
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),
@@ -92,12 +92,12 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      */
     public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void
     {
-        $compoundParameter = new CompoundParameterDefinition(
+        $compoundParameter = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'parameterDefinitions' => [
-                    'param' => new ParameterDefinition(
+                    'param' => ParameterDefinition::fromArray(
                         [
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
@@ -112,7 +112,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             [
                 'parameterDefinitions' => new ParameterDefinitionCollection(
                     [
-                        'css_id' => new ParameterDefinition(
+                        'css_id' => ParameterDefinition::fromArray(
                             [
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),

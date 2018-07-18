@@ -6,13 +6,14 @@ namespace Netgen\BlockManager\Collection\QueryType;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * @final
  */
-class QueryType extends Value implements QueryTypeInterface
+class QueryType implements QueryTypeInterface
 {
+    use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
     /**

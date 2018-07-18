@@ -13,10 +13,11 @@ use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Block extends Value implements APIBlock
+final class Block implements APIBlock
 {
+    use HydratorTrait;
     use ValueStatusTrait;
     use ConfigAwareValueTrait;
     use ParameterCollectionTrait;
@@ -96,10 +97,8 @@ final class Block extends Value implements APIBlock
      */
     private $locale;
 
-    public function __construct(array $data = [])
+    public function __construct()
     {
-        parent::__construct($data);
-
         $this->collections = $this->collections ?? new ArrayCollection();
     }
 

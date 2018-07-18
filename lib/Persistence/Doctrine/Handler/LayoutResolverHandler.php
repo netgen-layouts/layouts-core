@@ -123,7 +123,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function createRule(RuleCreateStruct $ruleCreateStruct): Rule
     {
-        $newRule = new Rule(
+        $newRule = Rule::fromArray(
             [
                 'status' => $ruleCreateStruct->status,
                 'layoutId' => $ruleCreateStruct->layoutId,
@@ -254,7 +254,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target
     {
-        $newTarget = new Target(
+        $newTarget = Target::fromArray(
             [
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
@@ -283,7 +283,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition
     {
-        $newCondition = new Condition(
+        $newCondition = Condition::fromArray(
             [
                 'status' => $rule->status,
                 'ruleId' => $rule->id,

@@ -44,9 +44,9 @@ final class TranslatableTypeTraitTest extends FormTestCase
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void
     {
         $handler = new BlockDefinitionHandlerWithTranslatableCompoundParameter();
-        $block = new Block(
+        $block = Block::fromArray(
             [
-                'definition' => new BlockDefinition(
+                'definition' => BlockDefinition::fromArray(
                     [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
                     ]
@@ -78,9 +78,9 @@ final class TranslatableTypeTraitTest extends FormTestCase
     public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter(): void
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
-        $block = new Block(
+        $block = Block::fromArray(
             [
-                'definition' => new BlockDefinition(
+                'definition' => BlockDefinition::fromArray(
                     [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
                     ]

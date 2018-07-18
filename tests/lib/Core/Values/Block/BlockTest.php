@@ -60,10 +60,10 @@ final class BlockTest extends TestCase
     {
         $definition = new BlockDefinition();
 
-        $placeholder = new Placeholder(['identifier' => 'main']);
-        $collection = new Collection(['id' => 42]);
+        $placeholder = Placeholder::fromArray(['identifier' => 'main']);
+        $collection = Collection::fromArray(['id' => 42]);
 
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'layoutId' => 24,
@@ -140,9 +140,9 @@ final class BlockTest extends TestCase
      */
     public function testGetDynamicParameter(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
-                'definition' => new BlockDefinition(
+                'definition' => BlockDefinition::fromArray(
                     [
                         'handler' => new BlockDefinitionHandler(),
                     ]
@@ -165,9 +165,9 @@ final class BlockTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $query = new Block(
+        $query = Block::fromArray(
             [
-                'definition' => new BlockDefinition(
+                'definition' => BlockDefinition::fromArray(
                     [
                         'handler' => new BlockDefinitionHandler(),
                     ]

@@ -17,7 +17,7 @@ final class ParameterCollectionTraitTest extends TestCase
     {
         $parameter = new Parameter();
 
-        $parameters = new ParameterCollection(
+        $parameters = ParameterCollection::fromArray(
             ['parameters' => ['name' => $parameter]]
         );
 
@@ -31,7 +31,7 @@ final class ParameterCollectionTraitTest extends TestCase
      */
     public function testGetParameterWithNonExistingParameter(): void
     {
-        $parameters = new ParameterCollection(
+        $parameters = ParameterCollection::fromArray(
             ['parameters' => ['name' => new Parameter()]]
         );
 
@@ -45,7 +45,7 @@ final class ParameterCollectionTraitTest extends TestCase
     {
         $parameter = new Parameter();
 
-        $parameters = new ParameterCollection(
+        $parameters = ParameterCollection::fromArray(
             ['parameters' => ['name' => $parameter]]
         );
 
@@ -60,7 +60,7 @@ final class ParameterCollectionTraitTest extends TestCase
      */
     public function testHasParameter(): void
     {
-        $parameters = new ParameterCollection(
+        $parameters = ParameterCollection::fromArray(
             ['parameters' => ['name' => new Parameter()]]
         );
 

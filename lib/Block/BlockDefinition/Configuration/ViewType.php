@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class ViewType extends Value
+final class ViewType
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

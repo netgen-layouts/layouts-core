@@ -20,7 +20,7 @@ final class LayoutResolverMapper
         $rules = [];
 
         foreach ($data as $dataItem) {
-            $rules[] = new Rule(
+            $rules[] = Rule::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
@@ -45,7 +45,7 @@ final class LayoutResolverMapper
         $targets = [];
 
         foreach ($data as $dataItem) {
-            $targets[] = new Target(
+            $targets[] = Target::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
@@ -69,7 +69,7 @@ final class LayoutResolverMapper
         $conditions = [];
 
         foreach ($data as $dataItem) {
-            $conditions[] = new Condition(
+            $conditions[] = Condition::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],

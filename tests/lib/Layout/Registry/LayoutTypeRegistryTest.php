@@ -28,8 +28,8 @@ final class LayoutTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->layoutType1 = new LayoutType(['identifier' => 'layout_type1', 'isEnabled' => true]);
-        $this->layoutType2 = new LayoutType(['identifier' => 'layout_type2', 'isEnabled' => false]);
+        $this->layoutType1 = LayoutType::fromArray(['identifier' => 'layout_type1', 'isEnabled' => true]);
+        $this->layoutType2 = LayoutType::fromArray(['identifier' => 'layout_type2', 'isEnabled' => false]);
 
         $this->registry = new LayoutTypeRegistry(
             [

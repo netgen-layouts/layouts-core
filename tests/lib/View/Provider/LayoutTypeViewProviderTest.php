@@ -29,7 +29,7 @@ final class LayoutTypeViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $layoutType = new LayoutType(['identifier' => 'layout']);
+        $layoutType = LayoutType::fromArray(['identifier' => 'layout']);
 
         /** @var \Netgen\BlockManager\View\View\LayoutTypeViewInterface $view */
         $view = $this->layoutViewProvider->provideView($layoutType);

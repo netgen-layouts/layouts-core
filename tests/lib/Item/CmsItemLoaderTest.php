@@ -35,7 +35,7 @@ final class CmsItemLoaderTest extends TestCase
      */
     public function testLoad(): void
     {
-        $item = new CmsItem(
+        $item = CmsItem::fromArray(
             [
                 'value' => 42,
                 'remoteId' => 'abc',
@@ -92,7 +92,7 @@ final class CmsItemLoaderTest extends TestCase
      */
     public function testLoadByRemoteId(): void
     {
-        $item = new CmsItem(
+        $item = CmsItem::fromArray(
             [
                 'value' => 42,
                 'remoteId' => 'abc',

@@ -33,7 +33,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
      */
     public function testMapZone(): void
     {
-        $persistenceZone = new Zone(
+        $persistenceZone = Zone::fromArray(
             [
                 'identifier' => 'right',
                 'layoutId' => 1,
@@ -61,7 +61,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
      */
     public function testMapZoneWithNoLinkedZone(): void
     {
-        $persistenceZone = new Zone(
+        $persistenceZone = Zone::fromArray(
             [
                 'identifier' => 'right',
                 'layoutId' => 1,
@@ -86,7 +86,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
      */
     public function testMapZoneWithNonExistingLinkedZone(): void
     {
-        $persistenceZone = new Zone(
+        $persistenceZone = Zone::fromArray(
             [
                 'identifier' => 'right',
                 'layoutId' => 1,
@@ -111,7 +111,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
      */
     public function testMapLayout(): void
     {
-        $persistenceLayout = new Layout(
+        $persistenceLayout = Layout::fromArray(
             [
                 'id' => 1,
                 'type' => '4_zones_a',
@@ -154,7 +154,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
      */
     public function testMapLayoutWithInvalidLayoutType(): void
     {
-        $persistenceLayout = new Layout(
+        $persistenceLayout = Layout::fromArray(
             [
                 'id' => 1,
                 'type' => 'unknown',

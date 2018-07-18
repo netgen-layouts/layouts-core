@@ -35,17 +35,17 @@ final class FullEditTypeTest extends FormTestCase
         parent::setUp();
 
         $handler = new BlockDefinitionHandler();
-        $this->definition = new BlockDefinition(
+        $this->definition = BlockDefinition::fromArray(
             [
                 'identifier' => 'definition',
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'name' => 'large',
                             'identifier' => 'large',
                             'itemViewTypes' => [
-                                'standard' => new ItemViewType(
+                                'standard' => ItemViewType::fromArray(
                                     [
                                         'name' => 'standard',
                                         'identifier' => 'standard',
@@ -54,12 +54,12 @@ final class FullEditTypeTest extends FormTestCase
                             ],
                         ]
                     ),
-                    'small' => new ViewType(
+                    'small' => ViewType::fromArray(
                         [
                             'name' => 'small',
                             'identifier' => 'small',
                             'itemViewTypes' => [
-                                'standard' => new ItemViewType(
+                                'standard' => ItemViewType::fromArray(
                                     [
                                         'name' => 'standard',
                                         'identifier' => 'standard',
@@ -72,7 +72,7 @@ final class FullEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->block = new Block(['definition' => $this->definition, 'mainLocale' => 'en']);
+        $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -166,7 +166,7 @@ final class FullEditTypeTest extends FormTestCase
             FullEditType::class,
             $struct,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
@@ -201,7 +201,7 @@ final class FullEditTypeTest extends FormTestCase
             FullEditType::class,
             $struct,
             [
-                'block' => new Block(
+                'block' => Block::fromArray(
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',

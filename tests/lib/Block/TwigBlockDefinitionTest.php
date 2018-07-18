@@ -25,7 +25,7 @@ final class TwigBlockDefinitionTest extends TestCase
     {
         $this->handler = new TwigBlockDefinitionHandler();
 
-        $this->blockDefinition = new TwigBlockDefinition(
+        $this->blockDefinition = TwigBlockDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,

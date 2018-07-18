@@ -27,10 +27,10 @@ final class BlockTypeGroupTest extends TestCase
 
     public function setUp(): void
     {
-        $this->blockType1 = new BlockType(['isEnabled' => true, 'identifier' => 'type']);
-        $this->blockType2 = new BlockType(['isEnabled' => false, 'identifier' => 'type2']);
+        $this->blockType1 = BlockType::fromArray(['isEnabled' => true, 'identifier' => 'type']);
+        $this->blockType2 = BlockType::fromArray(['isEnabled' => false, 'identifier' => 'type2']);
 
-        $this->blockTypeGroup = new BlockTypeGroup(
+        $this->blockTypeGroup = BlockTypeGroup::fromArray(
             [
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,

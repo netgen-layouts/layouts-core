@@ -35,7 +35,7 @@ final class ResultSetTest extends TestCase
 
         $resultItem = new Result(0, new CmsItem());
 
-        $result = new ResultSet(
+        $result = ResultSet::fromArray(
             [
                 'collection' => $collection,
                 'results' => [$resultItem],
@@ -80,9 +80,9 @@ final class ResultSetTest extends TestCase
      */
     public function testIsDynamic(): void
     {
-        $result = new ResultSet(
+        $result = ResultSet::fromArray(
             [
-                'collection' => new Collection(
+                'collection' => Collection::fromArray(
                     [
                         'query' => new Query(),
                     ]
@@ -98,7 +98,7 @@ final class ResultSetTest extends TestCase
      */
     public function testIsDynamicWithManualCollection(): void
     {
-        $result = new ResultSet(
+        $result = ResultSet::fromArray(
             [
                 'collection' => new Collection(),
             ]
@@ -112,11 +112,11 @@ final class ResultSetTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $result = new ResultSet(
+        $result = ResultSet::fromArray(
             [
-                'collection' => new Collection(
+                'collection' => Collection::fromArray(
                     [
-                        'query' => new Query(
+                        'query' => Query::fromArray(
                             [
                                 'queryType' => new QueryType('type', [], null, false),
                             ]
@@ -134,7 +134,7 @@ final class ResultSetTest extends TestCase
      */
     public function testIsContextualWithManualCollection(): void
     {
-        $result = new ResultSet(
+        $result = ResultSet::fromArray(
             [
                 'collection' => new Collection(),
             ]
@@ -148,11 +148,11 @@ final class ResultSetTest extends TestCase
      */
     public function testIsContextualWithContextualQuery(): void
     {
-        $result = new ResultSet(
+        $result = ResultSet::fromArray(
             [
-                'collection' => new Collection(
+                'collection' => Collection::fromArray(
                     [
-                        'query' => new Query(
+                        'query' => Query::fromArray(
                             [
                                 'queryType' => new QueryType('type', [], null, true),
                             ]

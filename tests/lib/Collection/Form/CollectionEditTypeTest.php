@@ -73,7 +73,7 @@ final class CollectionEditTypeTest extends FormTestCase
      */
     public function testSubmitValidDataWithDynamicCollection(): void
     {
-        $this->collection = new Collection(['query' => new Query()]);
+        $this->collection = Collection::fromArray(['query' => new Query()]);
 
         $submittedData = [
             'offset' => 10,

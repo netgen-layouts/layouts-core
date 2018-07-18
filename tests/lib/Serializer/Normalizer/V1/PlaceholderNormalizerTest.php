@@ -41,7 +41,7 @@ final class PlaceholderNormalizerTest extends TestCase
     public function testNormalize(): void
     {
         $block = new Block();
-        $placeholder = new Placeholder(
+        $placeholder = Placeholder::fromArray(
             [
                 'identifier' => 'main',
                 'blocks' => new ArrayCollection([$block]),

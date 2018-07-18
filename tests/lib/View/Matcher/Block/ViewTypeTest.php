@@ -29,7 +29,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'viewType' => 'default',
             ]

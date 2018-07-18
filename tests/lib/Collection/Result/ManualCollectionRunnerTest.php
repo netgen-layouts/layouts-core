@@ -215,7 +215,7 @@ final class ManualCollectionRunnerTest extends TestCase
     {
         $results = [];
         foreach ($values as $key => $value) {
-            $results[] = new Result($key, new CmsItem(['value' => $value]));
+            $results[] = new Result($key, CmsItem::fromArray(['value' => $value]));
         }
 
         return $results;

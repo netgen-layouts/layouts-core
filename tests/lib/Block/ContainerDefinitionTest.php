@@ -24,7 +24,7 @@ final class ContainerDefinitionTest extends TestCase
     {
         $this->handler = new ContainerDefinitionHandler();
 
-        $this->blockDefinition = new ContainerDefinition(
+        $this->blockDefinition = ContainerDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,

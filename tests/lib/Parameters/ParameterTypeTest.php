@@ -30,7 +30,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraints(): void
     {
         $constraints = $this->parameterType->getConstraints(
-            new ParameterDefinition(
+            ParameterDefinition::fromArray(
                 [
                     'type' => new ParameterType(),
                 ]
@@ -50,7 +50,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraintsWithRequiredParameter(): void
     {
         $constraints = $this->parameterType->getConstraints(
-            new ParameterDefinition(
+            ParameterDefinition::fromArray(
                 [
                     'type' => new ParameterType(),
                     'isRequired' => true,
@@ -72,7 +72,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraintsThrowsParameterTypeException(): void
     {
         $this->parameterType->getConstraints(
-            new ParameterDefinition(['type' => new TextType()]),
+            ParameterDefinition::fromArray(['type' => new TextType()]),
             42
         );
     }

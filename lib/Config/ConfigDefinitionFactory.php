@@ -29,7 +29,7 @@ final class ConfigDefinitionFactory
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
-        return new ConfigDefinition(
+        return ConfigDefinition::fromArray(
             [
                 'configKey' => $configKey,
                 'handler' => $handler,

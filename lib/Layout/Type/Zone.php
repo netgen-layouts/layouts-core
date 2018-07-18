@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Layout\Type;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Zone extends Value
+final class Zone
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

@@ -66,7 +66,7 @@ final class LayoutMapper
             },
         ];
 
-        return new Zone($zoneData);
+        return Zone::fromArray($zoneData);
     }
 
     /**
@@ -103,6 +103,6 @@ final class LayoutMapper
             ),
         ];
 
-        return new Layout($layoutData);
+        return Layout::fromArray($layoutData);
     }
 }

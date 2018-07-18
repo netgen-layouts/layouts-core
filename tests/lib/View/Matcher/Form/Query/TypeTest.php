@@ -45,7 +45,7 @@ final class TypeTest extends TestCase
             Form::class,
             null,
             [
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'queryType' => new QueryType('type'),
                     ]
@@ -65,7 +65,7 @@ final class TypeTest extends TestCase
             Form::class,
             null,
             [
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'queryType' => new NullQueryType('type'),
                     ]
@@ -85,7 +85,7 @@ final class TypeTest extends TestCase
             Form::class,
             null,
             [
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'queryType' => new NullQueryType('type'),
                     ]

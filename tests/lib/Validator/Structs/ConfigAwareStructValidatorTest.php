@@ -26,10 +26,10 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
 
         $handler = new ConfigDefinitionHandler();
 
-        $this->constraint->payload = new ConfigDefinitionAware(
+        $this->constraint->payload = ConfigDefinitionAware::fromArray(
             [
                 'configDefinitions' => [
-                    'config' => new ConfigDefinition(
+                    'config' => ConfigDefinition::fromArray(
                         [
                             'parameterDefinitions' => $handler->getParameterDefinitions(),
                         ]

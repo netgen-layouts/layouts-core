@@ -29,7 +29,7 @@ final class ParameterMapperTest extends TestCase
     public function testMapParameters(): void
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
-        $blockDefinition = new BlockDefinition(
+        $blockDefinition = BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
             ]
@@ -80,7 +80,7 @@ final class ParameterMapperTest extends TestCase
     public function testSerializeValues(): void
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
-        $blockDefinition = new BlockDefinition(
+        $blockDefinition = BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
             ]
@@ -111,7 +111,7 @@ final class ParameterMapperTest extends TestCase
     public function testExtractUntranslatableParameters(): void
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
-        $blockDefinition = new BlockDefinition(
+        $blockDefinition = BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
             ]

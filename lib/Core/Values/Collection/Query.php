@@ -8,10 +8,11 @@ use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Query extends Value implements APIQuery
+final class Query implements APIQuery
 {
+    use HydratorTrait;
     use ValueStatusTrait;
     use ParameterCollectionTrait;
 

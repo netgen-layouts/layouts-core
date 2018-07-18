@@ -38,7 +38,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 3])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 3])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
@@ -61,7 +61,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 50])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 50])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 0, 10);
 
@@ -83,7 +83,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 6])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 6])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 
@@ -105,7 +105,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 $this->identicalTo(0),
                 $this->identicalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(['totalCount' => 10])));
+            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 10])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3, 5);
 
@@ -119,7 +119,7 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetSlice(): void
     {
         $collection = new Collection();
-        $resultSet = new ResultSet(['results' => [1, 2, 3], 'totalCount' => 3]);
+        $resultSet = ResultSet::fromArray(['results' => [1, 2, 3], 'totalCount' => 3]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')
@@ -143,7 +143,7 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetSliceWithStartingOffset(): void
     {
         $collection = new Collection();
-        $resultSet = new ResultSet(['results' => [1, 2, 3], 'totalCount' => 3]);
+        $resultSet = ResultSet::fromArray(['results' => [1, 2, 3], 'totalCount' => 3]);
 
         $this->resultBuilderMock->expects($this->once())
             ->method('build')

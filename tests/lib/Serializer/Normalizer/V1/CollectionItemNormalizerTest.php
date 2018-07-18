@@ -47,15 +47,15 @@ final class CollectionItemNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $item = new CollectionItem(
+        $item = CollectionItem::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 24,
                 'position' => 3,
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
-                'definition' => new ItemDefinition(['valueType' => 'my_value_type']),
-                'cmsItem' => new CmsItem(
+                'definition' => ItemDefinition::fromArray(['valueType' => 'my_value_type']),
+                'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
                         'isVisible' => true,

@@ -41,7 +41,7 @@ final class IdProviderTest extends TestCase
             ->with($this->identicalTo(42))
             ->will(
                 $this->returnValue(
-                    new Layout(
+                    Layout::fromArray(
                         [
                             'id' => 42,
                             'shared' => false,
@@ -80,7 +80,7 @@ final class IdProviderTest extends TestCase
      */
     public function testProvideIdsWithSharedLayout(): void
     {
-        $sharedLayout = new Layout(
+        $sharedLayout = Layout::fromArray(
             [
                 'id' => 42,
                 'shared' => true,
@@ -100,12 +100,12 @@ final class IdProviderTest extends TestCase
             ->will(
                 $this->returnValue(
                     [
-                        new Layout(
+                        Layout::fromArray(
                             [
                                 'id' => 43,
                             ]
                         ),
-                        new Layout(
+                        Layout::fromArray(
                             [
                                 'id' => 44,
                             ]

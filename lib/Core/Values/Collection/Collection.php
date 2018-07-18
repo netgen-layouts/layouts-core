@@ -10,10 +10,11 @@ use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Collection extends Value implements APICollection
+final class Collection implements APICollection
 {
+    use HydratorTrait;
     use ValueStatusTrait;
     use LazyPropertyTrait;
 
@@ -67,10 +68,8 @@ final class Collection extends Value implements APICollection
      */
     private $locale;
 
-    public function __construct(array $data = [])
+    public function __construct()
     {
-        parent::__construct($data);
-
         $this->items = $this->items ?? new ArrayCollection();
     }
 

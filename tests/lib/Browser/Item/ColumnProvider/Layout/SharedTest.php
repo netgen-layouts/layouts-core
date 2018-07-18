@@ -28,7 +28,7 @@ final class SharedTest extends TestCase
     public function testGetValue(): void
     {
         $item = new Item(
-            new Layout(
+            Layout::fromArray(
                 [
                     'shared' => true,
                 ]

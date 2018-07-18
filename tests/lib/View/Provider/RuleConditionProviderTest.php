@@ -28,7 +28,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $condition = new Condition(['id' => 42]);
+        $condition = Condition::fromArray(['id' => 42]);
 
         /** @var \Netgen\BlockManager\View\View\RuleConditionViewInterface $view */
         $view = $this->ruleConditionViewProvider->provideView($condition);

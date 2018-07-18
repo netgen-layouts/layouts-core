@@ -83,7 +83,7 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
-            new Collection(['query' => $isDynamic ? new Query() : null]),
+            Collection::fromArray(['query' => $isDynamic ? new Query() : null]),
             $struct
         );
     }
@@ -124,9 +124,9 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateItemUpdateStruct(
-            new Item(
+            Item::fromArray(
                 [
-                    'definition' => new ItemDefinition(
+                    'definition' => ItemDefinition::fromArray(
                         [
                             'configDefinitions' => [
                                 'key' => new ConfigDefinition(),
@@ -207,7 +207,7 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateQueryUpdateStruct(
-            new Query(['queryType' => new QueryType('query_type')]),
+            Query::fromArray(['queryType' => new QueryType('query_type')]),
             $queryUpdateStruct
         );
     }

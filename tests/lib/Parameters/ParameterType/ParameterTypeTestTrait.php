@@ -44,7 +44,7 @@ trait ParameterTypeTestTrait
         $defaultValue = $options['default_value'];
         unset($options['required'], $options['default_value']);
 
-        return new ParameterDefinition(
+        return ParameterDefinition::fromArray(
             [
                 'name' => 'name',
                 'type' => $this->type,

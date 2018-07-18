@@ -69,7 +69,7 @@ final class LinkTypeTest extends FormTestCase
             'url' => 'http://www.google.com',
         ];
 
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
             ]
@@ -119,7 +119,7 @@ final class LinkTypeTest extends FormTestCase
             'url' => 'http://www.google.com',
         ];
 
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
             ]
@@ -162,7 +162,7 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testBuildView(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
             ]
@@ -195,7 +195,7 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testBuildViewWithInvalidData(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
             ]

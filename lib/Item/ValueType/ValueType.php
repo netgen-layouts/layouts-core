@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Item\ValueType;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * Value type represents a model of a type of CMS value available in Netgen Layouts.
@@ -15,8 +15,10 @@ use Netgen\BlockManager\Value;
  *
  * @final
  */
-class ValueType extends Value
+class ValueType
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

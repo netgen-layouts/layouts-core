@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class ItemUpdateStruct extends Value
+final class ItemUpdateStruct
 {
+    use HydratorTrait;
+
     /**
      * New item configuration.
      *

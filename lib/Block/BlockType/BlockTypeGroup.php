@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Block\BlockType;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * Block type group is used to group together a list of block types for
@@ -12,8 +12,10 @@ use Netgen\BlockManager\Value;
  *
  * @final
  */
-class BlockTypeGroup extends Value
+class BlockTypeGroup
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

@@ -43,7 +43,7 @@ final class CollectionMapper
                 function (array $collectionData): Collection {
                     sort($collectionData['availableLocales']);
 
-                    return new Collection($collectionData);
+                    return Collection::fromArray($collectionData);
                 },
                 $collections
             )
@@ -60,7 +60,7 @@ final class CollectionMapper
         $items = [];
 
         foreach ($data as $dataItem) {
-            $items[] = new Item(
+            $items[] = Item::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
                     'collectionId' => (int) $dataItem['collection_id'],
@@ -107,7 +107,7 @@ final class CollectionMapper
                     ksort($queryData['parameters']);
                     sort($queryData['availableLocales']);
 
-                    return new Query($queryData);
+                    return Query::fromArray($queryData);
                 },
                 $queries
             )

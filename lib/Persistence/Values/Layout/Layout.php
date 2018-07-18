@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 final class Layout extends Value
 {
+    use HydratorTrait;
+
     /**
      * Layout ID.
      *

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 final class Zone extends Value
 {
+    use HydratorTrait;
+
     /**
      * Zone identifier.
      *

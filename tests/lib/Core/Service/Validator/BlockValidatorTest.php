@@ -87,7 +87,7 @@ final class BlockValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->blockValidator->validateBlockUpdateStruct(
-            new Block(
+            Block::fromArray(
                 [
                     'viewType' => 'large',
                     'mainLocale' => 'en',
@@ -800,11 +800,11 @@ final class BlockValidatorTest extends TestCase
             new BlockDefinitionHandlerWithRequiredParameter() :
             new BlockDefinitionHandler();
 
-        return new BlockDefinition(
+        return BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -818,11 +818,11 @@ final class BlockValidatorTest extends TestCase
 
     private function getContainerDefinition(): ContainerDefinitionInterface
     {
-        return new ContainerDefinition(
+        return ContainerDefinition::fromArray(
             [
                 'handler' => new ContainerDefinitionHandler([], ['main']),
                 'viewTypes' => [
-                    'large' => new ViewType(
+                    'large' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),

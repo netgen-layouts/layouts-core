@@ -10,6 +10,7 @@ use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Kernel\MockerContainer;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use Netgen\Bundle\BlockManagerFixturesBundle\Item\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
@@ -48,12 +49,12 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
             throw new RuntimeException('Symfony kernel is not configured yet.');
         }
 
-        $searchFixtures = require __DIR__ . '/_fixtures/search.php';
+        $searchResults = [new Value(140), new Value(79), new Value(78)];
 
         /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
         $queryTypeRegistry = $clientContainer->get('netgen_block_manager.collection.registry.query_type');
 
-        $queryType = new QueryType('my_query_type', $searchFixtures, count($searchFixtures));
+        $queryType = new QueryType('my_query_type', $searchResults, count($searchResults));
         $allQueryTypes = $queryTypeRegistry->getQueryTypes();
         $allQueryTypes['my_query_type'] = $queryType;
 

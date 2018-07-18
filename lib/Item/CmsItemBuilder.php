@@ -33,7 +33,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
                 continue;
             }
 
-            $value = new CmsItem(
+            $value = CmsItem::fromArray(
                 [
                     'value' => $valueConverter->getId($object),
                     'remoteId' => $valueConverter->getRemoteId($object),

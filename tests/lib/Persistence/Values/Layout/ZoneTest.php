@@ -12,7 +12,7 @@ final class ZoneTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $zone = new Zone(
+        $zone = Zone::fromArray(
             [
                 'identifier' => 'left',
                 'layoutId' => 84,

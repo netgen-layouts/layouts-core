@@ -11,10 +11,11 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-class BlockDefinition extends Value implements BlockDefinitionInterface
+class BlockDefinition implements BlockDefinitionInterface
 {
+    use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
     use ConfigDefinitionAwareTrait;
 

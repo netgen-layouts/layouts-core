@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Parameters\Value;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class LinkValue extends Value
+final class LinkValue
 {
+    use HydratorTrait;
+
     public const LINK_TYPE_URL = 'url';
 
     public const LINK_TYPE_EMAIL = 'email';

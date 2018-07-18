@@ -197,33 +197,33 @@ final class ResultBuilderTest extends TestCase
         $items = [];
 
         foreach ($manualIds as $position => $id) {
-            $items[] = new Item(
+            $items[] = Item::fromArray(
                 [
                     'position' => $position,
                     'type' => Item::TYPE_MANUAL,
                     'value' => $id,
-                    'definition' => new ItemDefinition(['valueType' => 'value']),
-                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
+                    'definition' => ItemDefinition::fromArray(['valueType' => 'value']),
+                    'cmsItem' => CmsItem::fromArray(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
                 ]
             );
         }
 
         foreach ($overrideIds as $position => $id) {
-            $items[] = new Item(
+            $items[] = Item::fromArray(
                 [
                     'position' => $position,
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
-                    'definition' => new ItemDefinition(['valueType' => 'value']),
-                    'cmsItem' => new CmsItem(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
+                    'definition' => ItemDefinition::fromArray(['valueType' => 'value']),
+                    'cmsItem' => CmsItem::fromArray(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
                 ]
             );
         }
 
-        $collection = new Collection(
+        $collection = Collection::fromArray(
             [
                 'items' => new ArrayCollection($items),
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'queryType' => new QueryType(
                             'my_query_type',

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Block;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class BlockCreateStruct extends Value
+final class BlockCreateStruct
 {
+    use HydratorTrait;
+
     /**
      * Status of the new block.
      *

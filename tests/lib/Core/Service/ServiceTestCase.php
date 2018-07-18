@@ -145,19 +145,19 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function prepareRegistries(): void
     {
-        $layoutType1 = new LayoutType(
+        $layoutType1 = LayoutType::fromArray(
             [
                 'identifier' => '4_zones_a',
                 'zones' => [
                     'top' => new Zone(),
                     'left' => new Zone(),
-                    'right' => new Zone(['allowedBlockDefinitions' => ['title', 'list']]),
-                    'bottom' => new Zone(['allowedBlockDefinitions' => ['title']]),
+                    'right' => Zone::fromArray(['allowedBlockDefinitions' => ['title', 'list']]),
+                    'bottom' => Zone::fromArray(['allowedBlockDefinitions' => ['title']]),
                 ],
             ]
         );
 
-        $layoutType2 = new LayoutType(
+        $layoutType2 = LayoutType::fromArray(
             [
                 'identifier' => '4_zones_b',
                 'zones' => [
@@ -177,13 +177,13 @@ abstract class ServiceTestCase extends TestCase
         );
 
         $itemConfigHandler = new ItemConfigHandler();
-        $itemConfigDefinition = new ConfigDefinition(
+        $itemConfigDefinition = ConfigDefinition::fromArray(
             [
                 'parameterDefinitions' => $itemConfigHandler->getParameterDefinitions(),
             ]
         );
 
-        $itemDefinition = new ItemDefinition(
+        $itemDefinition = ItemDefinition::fromArray(
             [
                 'valueType' => 'my_value_type',
                 'configDefinitions' => [
@@ -197,7 +197,7 @@ abstract class ServiceTestCase extends TestCase
         $this->queryTypeRegistry = new QueryTypeRegistry(['my_query_type' => new QueryType('my_query_type')]);
 
         $configHandler = new BlockConfigHandler();
-        $configDefinition = new ConfigDefinition(
+        $configDefinition = ConfigDefinition::fromArray(
             [
                 'parameterDefinitions' => $configHandler->getParameterDefinitions(),
             ]
@@ -206,14 +206,14 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinitionHandler1 = new BlockDefinitionHandler();
         $blockDefinitionHandler2 = new BlockDefinitionHandlerWithTranslatableParameter();
 
-        $blockDefinition1 = new BlockDefinition(
+        $blockDefinition1 = BlockDefinition::fromArray(
             [
                 'identifier' => 'title',
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
                 'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => true,
                 'viewTypes' => [
-                    'small' => new ViewType(
+                    'small' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -224,14 +224,14 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $blockDefinition2 = new BlockDefinition(
+        $blockDefinition2 = BlockDefinition::fromArray(
             [
                 'identifier' => 'text',
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
                 'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
                 'viewTypes' => [
-                    'standard' => new ViewType(
+                    'standard' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -242,7 +242,7 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $blockDefinition3 = new BlockDefinition(
+        $blockDefinition3 = BlockDefinition::fromArray(
             [
                 'identifier' => 'gallery',
                 'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
@@ -250,7 +250,7 @@ abstract class ServiceTestCase extends TestCase
                 'isTranslatable' => false,
                 'collections' => ['default' => new Collection()],
                 'viewTypes' => [
-                    'standard' => new ViewType(
+                    'standard' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -261,7 +261,7 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $blockDefinition4 = new BlockDefinition(
+        $blockDefinition4 = BlockDefinition::fromArray(
             [
                 'identifier' => 'list',
                 'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
@@ -269,7 +269,7 @@ abstract class ServiceTestCase extends TestCase
                 'isTranslatable' => false,
                 'collections' => ['default' => new Collection()],
                 'viewTypes' => [
-                    'small' => new ViewType(
+                    'small' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -280,13 +280,13 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $blockDefinition5 = new ContainerDefinition(
+        $blockDefinition5 = ContainerDefinition::fromArray(
             [
                 'identifier' => 'column',
                 'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
                 'viewTypes' => [
-                    'column' => new ViewType(
+                    'column' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
@@ -297,13 +297,13 @@ abstract class ServiceTestCase extends TestCase
             ]
         );
 
-        $blockDefinition6 = new ContainerDefinition(
+        $blockDefinition6 = ContainerDefinition::fromArray(
             [
                 'identifier' => 'two_columns',
                 'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
                 'viewTypes' => [
-                    'two_columns_50_50' => new ViewType(
+                    'two_columns_50_50' => ViewType::fromArray(
                         [
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),

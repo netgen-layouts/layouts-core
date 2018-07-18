@@ -33,7 +33,7 @@ final class CompoundParameterDefinitionTest extends TestCase
     {
         $innerDefinition = new ParameterDefinition();
 
-        $parameterDefinition = new CompoundParameterDefinition(
+        $parameterDefinition = CompoundParameterDefinition::fromArray(
             [
                 'parameterDefinitions' => ['name' => $innerDefinition],
             ]

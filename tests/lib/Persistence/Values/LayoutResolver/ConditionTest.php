@@ -12,7 +12,7 @@ final class ConditionTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $condition = new Condition(
+        $condition = Condition::fromArray(
             [
                 'id' => 42,
                 'ruleId' => 30,

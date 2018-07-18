@@ -30,7 +30,7 @@ final class ConfigAwareValueTraitTest extends TestCase
     {
         $config = new Config();
 
-        $value = new ConfigAwareValue(
+        $value = ConfigAwareValue::fromArray(
             [
                 'configs' => [
                     'config' => $config,

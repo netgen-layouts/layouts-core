@@ -42,7 +42,7 @@ final class LinkMapperTest extends TestCase
 
     public function setUp(): void
     {
-        $this->valueTypeRegistry = new ValueTypeRegistry(['default' => new ValueType(['isEnabled' => true])]);
+        $this->valueTypeRegistry = new ValueTypeRegistry(['default' => ValueType::fromArray(['isEnabled' => true])]);
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
@@ -67,7 +67,7 @@ final class LinkMapperTest extends TestCase
      */
     public function testMapOptions(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->type,
                 'options' => [
@@ -90,7 +90,7 @@ final class LinkMapperTest extends TestCase
      */
     public function testMapOptionsWithEmptyValueTypes(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->type,
                 'options' => [
@@ -113,7 +113,7 @@ final class LinkMapperTest extends TestCase
      */
     public function testHandleForm(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->type,
             ]

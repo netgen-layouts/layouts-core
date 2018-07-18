@@ -12,7 +12,7 @@ final class BlockTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'layoutId' => 84,

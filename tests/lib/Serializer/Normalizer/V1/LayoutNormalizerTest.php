@@ -83,13 +83,13 @@ final class LayoutNormalizerTest extends TestCase
         $date1 = new DateTimeImmutable();
         $date1 = $date1->setTimestamp(123);
 
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 24,
             ]
         );
 
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'id' => 42,
                 'layoutType' => $this->layoutType,
@@ -102,16 +102,16 @@ final class LayoutNormalizerTest extends TestCase
                 'availableLocales' => ['en', 'hr'],
                 'zones' => new ArrayCollection(
                     [
-                        'left' => new Zone(
+                        'left' => Zone::fromArray(
                             [
                                 'identifier' => 'left',
                                 'linkedZone' => null,
                             ]
                         ),
-                        'right' => new Zone(
+                        'right' => Zone::fromArray(
                             [
                                 'identifier' => 'right',
-                                'linkedZone' => new Zone(
+                                'linkedZone' => Zone::fromArray(
                                     [
                                         'layoutId' => 24,
                                         'identifier' => 'top',
@@ -119,7 +119,7 @@ final class LayoutNormalizerTest extends TestCase
                                 ),
                             ]
                         ),
-                        'missing' => new Zone(
+                        'missing' => Zone::fromArray(
                             [
                                 'identifier' => 'missing',
                             ]
@@ -217,7 +217,7 @@ final class LayoutNormalizerTest extends TestCase
         $date2 = new DateTimeImmutable();
         $date2 = $date2->setTimestamp(456);
 
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'id' => 42,
                 'layoutType' => $this->layoutType,
@@ -232,7 +232,7 @@ final class LayoutNormalizerTest extends TestCase
             ]
         );
 
-        $archivedLayout = new Layout(
+        $archivedLayout = Layout::fromArray(
             [
                 'id' => 42,
                 'layoutType' => $this->layoutType,

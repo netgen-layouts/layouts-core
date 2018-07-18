@@ -29,7 +29,7 @@ final class ParameterViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $parameter = new Parameter(['value' => 42]);
+        $parameter = Parameter::fromArray(['value' => 42]);
 
         /** @var \Netgen\BlockManager\View\View\ParameterViewInterface $view */
         $view = $this->parameterViewProvider->provideView($parameter);

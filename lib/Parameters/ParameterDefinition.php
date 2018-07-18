@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * The definition of a parameter, specifying its name, type and various options.
  *
  * This class is considered final and should not be extended.
  */
-class ParameterDefinition extends Value
+class ParameterDefinition
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

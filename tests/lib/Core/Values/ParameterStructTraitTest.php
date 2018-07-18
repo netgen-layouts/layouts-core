@@ -152,16 +152,16 @@ final class ParameterStructTraitTest extends TestCase
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $parameterDefinitions->getParameterDefinition('compound');
 
-        $parameters = new ParameterCollection(
+        $parameters = ParameterCollection::fromArray(
             [
                 'parameters' => [
-                    'css_class' => new Parameter(
+                    'css_class' => Parameter::fromArray(
                         [
                             'value' => 'css',
                             'parameterDefinition' => $parameterDefinitions->getParameterDefinition('css_class'),
                         ]
                     ),
-                    'inner' => new Parameter(
+                    'inner' => Parameter::fromArray(
                         [
                             'value' => 'inner',
                             'parameterDefinition' => $compoundParameter->getParameterDefinition('inner'),
@@ -238,13 +238,13 @@ final class ParameterStructTraitTest extends TestCase
 
     private function buildParameterDefinitionCollection(): ParameterDefinitionCollectionInterface
     {
-        $compoundParameter = new CompoundParameterDefinition(
+        $compoundParameter = CompoundParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
                 'parameterDefinitions' => [
-                    'inner' => new ParameterDefinition(
+                    'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
@@ -256,14 +256,14 @@ final class ParameterStructTraitTest extends TestCase
         );
 
         $parameterDefinitions = [
-            'css_class' => new ParameterDefinition(
+            'css_class' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
                 ]
             ),
-            'css_id' => new ParameterDefinition(
+            'css_id' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),

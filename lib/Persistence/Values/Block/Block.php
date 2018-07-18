@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 final class Block extends Value
 {
+    use HydratorTrait;
+
     /**
      * Block ID.
      *

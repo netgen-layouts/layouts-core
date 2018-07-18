@@ -120,7 +120,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $currentTimeStamp = time();
 
-        $newLayout = new Layout(
+        $newLayout = Layout::fromArray(
             [
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
@@ -200,7 +200,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct): Zone
     {
         $rootBlock = $this->blockHandler->createBlock(
-            new BlockCreateStruct(
+            BlockCreateStruct::fromArray(
                 [
                     'status' => $layout->status,
                     'position' => null,
@@ -217,7 +217,7 @@ final class LayoutHandler implements LayoutHandlerInterface
             $layout
         );
 
-        $newZone = new Zone(
+        $newZone = Zone::fromArray(
             [
                 'layoutId' => $layout->id,
                 'status' => $layout->status,
@@ -298,7 +298,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
-            $zoneCreateStruct = new ZoneCreateStruct(
+            $zoneCreateStruct = ZoneCreateStruct::fromArray(
                 [
                     'identifier' => $layoutZone->identifier,
                     'linkedLayoutId' => $layoutZone->linkedLayoutId,
@@ -339,7 +339,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         foreach ($zoneMappings as $newZoneIdentifier => $mappedZones) {
             $newRootBlocks[$newZoneIdentifier] = $this->blockHandler->createBlock(
-                new BlockCreateStruct(
+                BlockCreateStruct::fromArray(
                     [
                         'status' => $layout->status,
                         'position' => null,
@@ -372,7 +372,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         }
 
         foreach ($newRootBlocks as $newZoneIdentifier => $rootBlock) {
-            $newZone = new Zone(
+            $newZone = Zone::fromArray(
                 [
                     'layoutId' => $layout->id,
                     'status' => $layout->status,

@@ -319,7 +319,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItem(): void
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -344,7 +344,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -366,7 +366,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
             Item::TYPE_MANUAL,
             '66'
         );
@@ -509,7 +509,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollectionDraft(1);
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            new ItemDefinition(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
             Item::TYPE_OVERRIDE,
             66
         );

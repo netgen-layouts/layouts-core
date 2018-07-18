@@ -9,10 +9,11 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Rule extends Value implements APIRule
+final class Rule implements APIRule
 {
+    use HydratorTrait;
     use ValueStatusTrait;
     use LazyPropertyTrait;
 
@@ -51,10 +52,8 @@ final class Rule extends Value implements APIRule
      */
     private $conditions;
 
-    public function __construct(array $data = [])
+    public function __construct()
     {
-        parent::__construct($data);
-
         $this->targets = $this->targets ?? new ArrayCollection();
         $this->conditions = $this->conditions ?? new ArrayCollection();
     }

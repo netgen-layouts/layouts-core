@@ -52,7 +52,7 @@ final class BlockNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $collection = new Collection(
+        $collection = Collection::fromArray(
             [
                 'id' => 24,
                 'status' => Value::STATUS_PUBLISHED,
@@ -61,13 +61,13 @@ final class BlockNormalizerTest extends TestCase
             ]
         );
 
-        $placeholder = new Placeholder(['identifier' => 'main']);
+        $placeholder = Placeholder::fromArray(['identifier' => 'main']);
 
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'layoutId' => 24,
-                'definition' => new BlockDefinition(['identifier' => 'definition']),
+                'definition' => BlockDefinition::fromArray(['identifier' => 'definition']),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
@@ -158,11 +158,11 @@ final class BlockNormalizerTest extends TestCase
      */
     public function testNormalizeWithContainerBlock(): void
     {
-        $block = new Block(
+        $block = Block::fromArray(
             [
                 'id' => 42,
                 'layoutId' => 24,
-                'definition' => new ContainerDefinition(
+                'definition' => ContainerDefinition::fromArray(
                     [
                         'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),

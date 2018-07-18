@@ -31,7 +31,7 @@ final class TypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $target = new Target(
+        $target = Target::fromArray(
             [
                 'targetType' => new TargetType('route'),
             ]
@@ -47,7 +47,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullTargetType(): void
     {
-        $target = new Target(
+        $target = Target::fromArray(
             [
                 'targetType' => new NullTargetType('type'),
             ]
@@ -63,7 +63,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullTargetTypeReturnsFalse(): void
     {
-        $target = new Target(
+        $target = Target::fromArray(
             [
                 'targetType' => new NullTargetType('type'),
             ]

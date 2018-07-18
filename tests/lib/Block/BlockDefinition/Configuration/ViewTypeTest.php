@@ -27,10 +27,10 @@ final class ViewTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->itemViewType1 = new ItemViewType(['identifier' => 'standard']);
-        $this->itemViewType2 = new ItemViewType(['identifier' => 'standard_with_intro']);
+        $this->itemViewType1 = ItemViewType::fromArray(['identifier' => 'standard']);
+        $this->itemViewType2 = ItemViewType::fromArray(['identifier' => 'standard_with_intro']);
 
-        $this->viewType = new ViewType(
+        $this->viewType = ViewType::fromArray(
             [
                 'identifier' => 'large',
                 'name' => 'Large',

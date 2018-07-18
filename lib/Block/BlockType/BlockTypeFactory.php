@@ -13,7 +13,7 @@ final class BlockTypeFactory
      */
     public static function buildBlockType(string $identifier, array $config, BlockDefinitionInterface $blockDefinition): BlockType
     {
-        return new BlockType(
+        return BlockType::fromArray(
             [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],

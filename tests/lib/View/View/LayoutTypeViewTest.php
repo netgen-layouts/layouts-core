@@ -22,7 +22,7 @@ final class LayoutTypeViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->layoutType = new LayoutType(['identifier' => 'layout']);
+        $this->layoutType = LayoutType::fromArray(['identifier' => 'layout']);
 
         $this->view = new LayoutTypeView($this->layoutType);
 

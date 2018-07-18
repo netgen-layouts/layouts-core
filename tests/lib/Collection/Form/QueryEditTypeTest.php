@@ -33,7 +33,7 @@ final class QueryEditTypeTest extends FormTestCase
 
         $this->queryType = new QueryType('query_type');
 
-        $this->query = new Query(['queryType' => $this->queryType, 'mainLocale' => 'en']);
+        $this->query = Query::fromArray(['queryType' => $this->queryType, 'mainLocale' => 'en']);
     }
 
     public function getMainType(): FormTypeInterface
@@ -111,7 +111,7 @@ final class QueryEditTypeTest extends FormTestCase
             QueryEditType::class,
             $struct,
             [
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'queryType' => $this->queryType,
                         'mainLocale' => 'en',
@@ -138,7 +138,7 @@ final class QueryEditTypeTest extends FormTestCase
             QueryEditType::class,
             $struct,
             [
-                'query' => new Query(
+                'query' => Query::fromArray(
                     [
                         'queryType' => $this->queryType,
                         'mainLocale' => 'en',

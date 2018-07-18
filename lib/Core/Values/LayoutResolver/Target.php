@@ -7,10 +7,11 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class Target extends Value implements APITarget
+final class Target implements APITarget
 {
+    use HydratorTrait;
     use ValueStatusTrait;
 
     /**

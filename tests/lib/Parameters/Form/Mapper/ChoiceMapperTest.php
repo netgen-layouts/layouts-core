@@ -38,7 +38,7 @@ final class ChoiceMapperTest extends TestCase
      */
     public function testMapOptions(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
@@ -71,7 +71,7 @@ final class ChoiceMapperTest extends TestCase
      */
     public function testMapOptionsWithClosure(): void
     {
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),

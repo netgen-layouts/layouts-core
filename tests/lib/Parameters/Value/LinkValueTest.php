@@ -17,7 +17,7 @@ final class LinkValueTest extends TestCase
      */
     public function testSetProperties(): void
     {
-        $linkValue = new LinkValue(
+        $linkValue = LinkValue::fromArray(
             [
                 'linkType' => LinkValue::LINK_TYPE_EMAIL,
                 'link' => 'mail@example.com',

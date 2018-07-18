@@ -22,7 +22,7 @@ final class ItemTest extends TestCase
 
     public function setUp(): void
     {
-        $this->layout = new Layout(['id' => 42, 'name' => 'My layout']);
+        $this->layout = Layout::fromArray(['id' => 42, 'name' => 'My layout']);
 
         $this->item = new Item($this->layout);
     }

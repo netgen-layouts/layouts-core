@@ -31,7 +31,7 @@ final class TypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $condition = new Condition(
+        $condition = Condition::fromArray(
             [
                 'conditionType' => new ConditionType('route_parameter'),
             ]
@@ -47,7 +47,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullConditionType(): void
     {
-        $condition = new Condition(
+        $condition = Condition::fromArray(
             [
                 'conditionType' => new NullConditionType('type'),
             ]
@@ -63,7 +63,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullConditionTypeReturnsFalse(): void
     {
-        $condition = new Condition(
+        $condition = Condition::fromArray(
             [
                 'conditionType' => new NullConditionType('type'),
             ]

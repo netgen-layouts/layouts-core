@@ -49,7 +49,7 @@ final class ParameterDefinitionTest extends TestCase
         $type = new TextType();
         $constraints = [new NotBlank()];
 
-        $parameterDefinition = new ParameterDefinition(
+        $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'name',
                 'type' => $type,

@@ -28,7 +28,7 @@ final class RuleTargetProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $target = new Target(['id' => 42]);
+        $target = Target::fromArray(['id' => 42]);
 
         /** @var \Netgen\BlockManager\View\View\RuleTargetViewInterface $view */
         $view = $this->ruleTargetViewProvider->provideView($target);

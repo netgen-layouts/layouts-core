@@ -65,9 +65,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => 12]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -75,9 +75,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => 13]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -85,9 +85,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule3 = new Rule(
+        $rule3 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 14]),
+                'layout' => Layout::fromArray(['id' => 14]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -95,9 +95,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule4 = new Rule(
+        $rule4 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 15]),
+                'layout' => Layout::fromArray(['id' => 15]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -137,9 +137,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => 12]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -147,7 +147,7 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
                 'layout' => null,
                 'priority' => 4,
@@ -176,9 +176,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => 12]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -186,9 +186,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 24]),
+                'layout' => Layout::fromArray(['id' => 24]),
                 'priority' => 4,
                 'enabled' => false,
                 'targets' => new ArrayCollection(),
@@ -215,7 +215,7 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
                 'layout' => null,
                 'priority' => 2,
@@ -225,7 +225,7 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
                 'layout' => null,
                 'priority' => 4,
@@ -257,9 +257,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => 13]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -267,9 +267,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => 13]),
                 'priority' => 7,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -336,22 +336,22 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($matches as $conditionType => $match) {
-            $conditions[] = new Condition(['conditionType' => new ConditionType($conditionType, $match)]);
+            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
         }
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => $layoutId]),
+                'layout' => Layout::fromArray(['id' => $layoutId]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'priority' => 4,
-                'conditions' => new ArrayCollection([new Condition(['conditionType' => new ConditionType('condition2', false)])]),
+                'conditions' => new ArrayCollection([Condition::fromArray(['conditionType' => new ConditionType('condition2', false)])]),
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => $layoutId]),
+                'layout' => Layout::fromArray(['id' => $layoutId]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'priority' => 2,
@@ -386,12 +386,12 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($matches as $conditionType => $match) {
-            $conditions[] = new Condition(['conditionType' => new ConditionType($conditionType, $match)]);
+            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
         }
 
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => $layoutId]),
+                'layout' => Layout::fromArray(['id' => $layoutId]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -423,9 +423,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => 12]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -433,9 +433,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => 13]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -443,9 +443,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule3 = new Rule(
+        $rule3 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 14]),
+                'layout' => Layout::fromArray(['id' => 14]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -453,9 +453,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule4 = new Rule(
+        $rule4 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 15]),
+                'layout' => Layout::fromArray(['id' => 15]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -490,9 +490,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => 12]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -500,7 +500,7 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
                 'layout' => null,
                 'priority' => 4,
@@ -531,7 +531,7 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
                 'layout' => null,
                 'priority' => 2,
@@ -541,7 +541,7 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
                 'layout' => null,
                 'priority' => 4,
@@ -573,9 +573,9 @@ final class LayoutResolverTest extends TestCase
 
         $this->createLayoutResolver();
 
-        $rule1 = new Rule(
+        $rule1 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => 13]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -583,9 +583,9 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $rule2 = new Rule(
+        $rule2 = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => 13]),
                 'priority' => 7,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -654,12 +654,12 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($matches as $conditionType => $match) {
-            $conditions[] = new Condition(['conditionType' => new ConditionType($conditionType, $match)]);
+            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
         }
 
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => $layoutId]),
+                'layout' => Layout::fromArray(['id' => $layoutId]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -692,12 +692,12 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($matches as $conditionType => $match) {
-            $conditions[] = new Condition(['conditionType' => new ConditionType($conditionType, $match)]);
+            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
         }
 
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => $layoutId]),
+                'layout' => Layout::fromArray(['id' => $layoutId]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -722,12 +722,12 @@ final class LayoutResolverTest extends TestCase
     {
         $conditions = [];
         foreach ($matches as $conditionType => $match) {
-            $conditions[] = new Condition(['conditionType' => new ConditionType($conditionType, $match)]);
+            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
         }
 
-        $rule = new Rule(
+        $rule = Rule::fromArray(
             [
-                'layout' => new Layout(['id' => 42]),
+                'layout' => Layout::fromArray(['id' => 42]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),

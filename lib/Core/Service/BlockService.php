@@ -276,7 +276,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
                 return $this->blockHandler->updateBlock(
                     $persistenceBlock,
-                    new BlockUpdateStruct(
+                    BlockUpdateStruct::fromArray(
                         [
                             'viewType' => $blockUpdateStruct->viewType,
                             'itemViewType' => $blockUpdateStruct->itemViewType,
@@ -509,7 +509,7 @@ final class BlockService extends Service implements BlockServiceInterface
             function () use ($persistenceBlock, $persistenceLayout): PersistenceBlock {
                 $updatedBlock = $this->blockHandler->updateBlock(
                     $persistenceBlock,
-                    new BlockUpdateStruct(
+                    BlockUpdateStruct::fromArray(
                         [
                             'isTranslatable' => true,
                         ]
@@ -599,7 +599,7 @@ final class BlockService extends Service implements BlockServiceInterface
                 $blockDefinition = $blockCreateStruct->getDefinition();
 
                 $createdBlock = $this->blockHandler->createBlock(
-                    new BlockCreateStruct(
+                    BlockCreateStruct::fromArray(
                         [
                             'status' => $targetBlock->status,
                             'position' => $position,
@@ -628,7 +628,7 @@ final class BlockService extends Service implements BlockServiceInterface
                 if (!empty($collectionCreateStructs)) {
                     foreach ($collectionCreateStructs as $identifier => $collectionCreateStruct) {
                         $createdCollection = $this->collectionHandler->createCollection(
-                            new CollectionCreateStruct(
+                            CollectionCreateStruct::fromArray(
                                 [
                                     'status' => Value::STATUS_DRAFT,
                                     'offset' => $collectionCreateStruct->offset,
@@ -644,7 +644,7 @@ final class BlockService extends Service implements BlockServiceInterface
                             $queryType = $collectionCreateStruct->queryCreateStruct->getQueryType();
                             $this->collectionHandler->createQuery(
                                 $createdCollection,
-                                new QueryCreateStruct(
+                                QueryCreateStruct::fromArray(
                                     [
                                         'type' => $queryType->getType(),
                                         'parameters' => $this->parameterMapper->serializeValues(
@@ -714,7 +714,7 @@ final class BlockService extends Service implements BlockServiceInterface
     {
         $block = $this->blockHandler->updateBlock(
             $block,
-            new BlockUpdateStruct(
+            BlockUpdateStruct::fromArray(
                 [
                     'isTranslatable' => false,
                 ]
@@ -755,7 +755,7 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
                 $persistenceBlock,
                 $blockUpdateStruct->locale,
-                new TranslationUpdateStruct(
+                TranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockDefinition,
@@ -797,7 +797,7 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
                 $persistenceBlock,
                 $locale,
-                new TranslationUpdateStruct(
+                TranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $untranslatableParams + $params,
                     ]

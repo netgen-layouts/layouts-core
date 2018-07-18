@@ -29,7 +29,7 @@ final class SharedTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $layout = new Layout(
+        $layout = Layout::fromArray(
             [
                 'shared' => true,
             ]

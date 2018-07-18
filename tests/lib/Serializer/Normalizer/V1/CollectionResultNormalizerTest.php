@@ -50,11 +50,11 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $collectionItem = new CollectionItem(
+        $collectionItem = CollectionItem::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 24,
-                'cmsItem' => new CmsItem(
+                'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
                         'valueType' => 'value_type',
@@ -107,7 +107,7 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testNormalizeWithoutCollectionItem(): void
     {
-        $item = new CmsItem(
+        $item = CmsItem::fromArray(
             [
                 'name' => 'Value name',
                 'valueType' => 'value_type',
@@ -189,7 +189,7 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testNormalizeWithSubItem(): void
     {
-        $item = new CmsItem(
+        $item = CmsItem::fromArray(
             [
                 'name' => 'Value name',
                 'valueType' => 'value_type',
@@ -197,7 +197,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ]
         );
 
-        $collectionItem = new CollectionItem(
+        $collectionItem = CollectionItem::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 24,

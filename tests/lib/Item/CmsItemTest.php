@@ -22,7 +22,7 @@ final class CmsItemTest extends TestCase
     {
         $object = new stdClass();
 
-        $value = new CmsItem(
+        $value = CmsItem::fromArray(
             [
                 'value' => 42,
                 'remoteId' => 'abc',

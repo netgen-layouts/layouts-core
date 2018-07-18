@@ -58,13 +58,13 @@ final class CollectionTest extends TestCase
     public function testSetProperties(): void
     {
         $items = [
-            new Item(['type' => Item::TYPE_MANUAL, 'position' => 3]),
-            new Item(['type' => Item::TYPE_OVERRIDE, 'position' => 5]),
+            Item::fromArray(['type' => Item::TYPE_MANUAL, 'position' => 3]),
+            Item::fromArray(['type' => Item::TYPE_OVERRIDE, 'position' => 5]),
         ];
 
         $query = new Query();
 
-        $collection = new Collection(
+        $collection = Collection::fromArray(
             [
                 'id' => 42,
                 'offset' => 5,
@@ -130,7 +130,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetOffsetForManualCollection(): void
     {
-        $collection = new Collection(
+        $collection = Collection::fromArray(
             [
                 'offset' => 5,
             ]

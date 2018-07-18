@@ -22,7 +22,7 @@ final class ItemViewTest extends TestCase
 
     public function setUp(): void
     {
-        $this->item = new CmsItem(
+        $this->item = CmsItem::fromArray(
             [
                 'value' => 42,
                 'valueType' => 'type',

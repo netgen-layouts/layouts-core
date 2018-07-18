@@ -39,7 +39,7 @@ final class PlaceholderTest extends TestCase
     {
         $block = new Block();
 
-        $placeholder = new Placeholder(
+        $placeholder = Placeholder::fromArray(
             [
                 'identifier' => 'placeholder',
                 'blocks' => new ArrayCollection([$block]),

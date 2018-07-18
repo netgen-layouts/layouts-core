@@ -26,7 +26,7 @@ final class StatusStringTraitTest extends TestCase
      */
     public function testVisit(int $status, array $visitedValue): void
     {
-        $this->assertSame($visitedValue, $this->visitor->visit(new Value(['status' => $status])));
+        $this->assertSame($visitedValue, $this->visitor->visit(Value::fromArray(['status' => $status])));
     }
 
     /**
@@ -36,7 +36,7 @@ final class StatusStringTraitTest extends TestCase
      */
     public function testVisitThrowsRuntimeExceptionWithInvalidStatus(): void
     {
-        $this->visitor->visit(new Value(['status' => 9999]));
+        $this->visitor->visit(Value::fromArray(['status' => 9999]));
     }
 
     public function visitProvider(): array

@@ -11,11 +11,11 @@ final class MyValueTypeValueLoader implements ValueLoaderInterface
 {
     public function load($id)
     {
-        return new Value(['id' => (int) $id]);
+        return new Value((int) $id);
     }
 
     public function loadByRemoteId($remoteId)
     {
-        return new Value(['id' => (int) $remoteId]);
+        return new Value((int) $remoteId);
     }
 }

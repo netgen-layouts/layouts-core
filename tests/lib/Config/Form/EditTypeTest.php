@@ -31,12 +31,12 @@ final class EditTypeTest extends FormTestCase
 
         $handler = new ConfigDefinitionHandler();
 
-        $this->configurable = new ConfigAwareValue(
+        $this->configurable = ConfigAwareValue::fromArray(
             [
                 'configs' => [
-                    'test' => new Config(
+                    'test' => Config::fromArray(
                         [
-                            'definition' => new ConfigDefinition(
+                            'definition' => ConfigDefinition::fromArray(
                                 [
                                     'parameterDefinitions' => $handler->getParameterDefinitions(),
                                 ]

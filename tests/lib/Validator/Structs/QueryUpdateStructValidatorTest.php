@@ -21,7 +21,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     {
         $this->constraint = new QueryUpdateStructConstraint();
 
-        $this->constraint->payload = new Query(
+        $this->constraint->payload = Query::fromArray(
             [
                 'queryType' => new QueryType('query_type'),
             ]

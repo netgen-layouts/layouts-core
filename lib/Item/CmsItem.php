@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class CmsItem extends Value implements CmsItemInterface
+final class CmsItem implements CmsItemInterface
 {
+    use HydratorTrait;
+
     /**
      * @var int|string
      */

@@ -18,7 +18,7 @@ final class ConfigTest extends TestCase
     {
         $definition = new ConfigDefinition();
 
-        $config = new Config(
+        $config = Config::fromArray(
             [
                 'configKey' => 'config',
                 'definition' => $definition,

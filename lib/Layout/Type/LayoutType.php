@@ -6,13 +6,15 @@ namespace Netgen\BlockManager\Layout\Type;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * @final
  */
-class LayoutType extends Value implements LayoutTypeInterface
+class LayoutType implements LayoutTypeInterface
 {
+    use HydratorTrait;
+
     /**
      * @var string
      */

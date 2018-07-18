@@ -35,6 +35,6 @@ final class ParamConverter extends BaseParamConverter
 
         unset($values['status']);
 
-        return new Value($values + ['status' => $status]);
+        return Value::fromArray($values + ['status' => $status]);
     }
 }

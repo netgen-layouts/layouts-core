@@ -11,14 +11,16 @@ use IteratorAggregate;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Utils\HydratorTrait;
 
 /**
  * Result set is a calculated result of the collection
  * containing manual items + items received from running the query.
  */
-final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, Countable
+final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
 {
+    use HydratorTrait;
+
     /**
      * If specified, the result will include any invalid items,
      * i.e. those that don't exist in backend or are invisible.

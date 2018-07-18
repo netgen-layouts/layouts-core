@@ -57,8 +57,8 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeLayouts(): void
     {
-        $layout1 = new Layout(['id' => 42]);
-        $layout2 = new Layout(['id' => 24]);
+        $layout1 = Layout::fromArray(['id' => 42]);
+        $layout2 = Layout::fromArray(['id' => 24]);
 
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -103,7 +103,7 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeLayoutsWithNonExistentLayout(): void
     {
-        $layout = new Layout(['id' => 42]);
+        $layout = Layout::fromArray(['id' => 42]);
 
         $this->layoutServiceMock
             ->expects($this->at(0))
@@ -141,8 +141,8 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeRules(): void
     {
-        $rule1 = new Rule(['id' => 42]);
-        $rule2 = new Rule(['id' => 24]);
+        $rule1 = Rule::fromArray(['id' => 42]);
+        $rule2 = Rule::fromArray(['id' => 24]);
 
         $this->layoutResolverServiceMock
             ->expects($this->at(0))
@@ -187,7 +187,7 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeRulesWithNonExistentRule(): void
     {
-        $rule = new Rule(['id' => 42]);
+        $rule = Rule::fromArray(['id' => 42]);
 
         $this->layoutResolverServiceMock
             ->expects($this->at(0))

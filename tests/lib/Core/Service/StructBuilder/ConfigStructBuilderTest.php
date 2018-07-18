@@ -34,12 +34,12 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
     {
         $handler = new ConfigDefinitionHandler();
 
-        $block = new ConfigAwareValue(
+        $block = ConfigAwareValue::fromArray(
             [
                 'configs' => [
-                    'config' => new Config(
+                    'config' => Config::fromArray(
                         [
-                            'definition' => new ConfigDefinition(
+                            'definition' => ConfigDefinition::fromArray(
                                 [
                                     'parameterDefinitions' => $handler->getParameterDefinitions(),
                                 ]

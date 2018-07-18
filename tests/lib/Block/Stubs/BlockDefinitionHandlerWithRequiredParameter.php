@@ -15,7 +15,7 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
     public function getParameterDefinitions(): array
     {
         return [
-            'css_class' => new ParameterDefinition(
+            'css_class' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
@@ -25,7 +25,7 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
                     ],
                 ]
             ),
-            'css_id' => new ParameterDefinition(
+            'css_id' => ParameterDefinition::fromArray(
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),

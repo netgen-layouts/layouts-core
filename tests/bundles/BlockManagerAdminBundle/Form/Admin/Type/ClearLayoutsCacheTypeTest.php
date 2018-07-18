@@ -22,8 +22,8 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         parent::setUp();
 
         $this->layouts = [
-            42 => new Layout(['id' => 42, 'name' => 'Layout 42']),
-            24 => new Layout(['id' => 24, 'name' => 'Layout 24']),
+            42 => Layout::fromArray(['id' => 42, 'name' => 'Layout 42']),
+            24 => Layout::fromArray(['id' => 24, 'name' => 'Layout 24']),
         ];
     }
 

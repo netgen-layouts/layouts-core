@@ -44,7 +44,7 @@ final class LayoutMapper
                 function (array $layoutData): Layout {
                     sort($layoutData['availableLocales']);
 
-                    return new Layout($layoutData);
+                    return Layout::fromArray($layoutData);
                 },
                 $layouts
             )
@@ -61,7 +61,7 @@ final class LayoutMapper
         $zones = [];
 
         foreach ($data as $dataItem) {
-            $zones[$dataItem['identifier']] = new Zone(
+            $zones[$dataItem['identifier']] = Zone::fromArray(
                 [
                     'identifier' => $dataItem['identifier'],
                     'layoutId' => (int) $dataItem['layout_id'],

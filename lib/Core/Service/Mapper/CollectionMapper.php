@@ -127,7 +127,7 @@ final class CollectionMapper
             'locale' => array_values($validLocales)[0],
         ];
 
-        return new Collection($collectionData);
+        return Collection::fromArray($collectionData);
     }
 
     /**
@@ -157,7 +157,7 @@ final class CollectionMapper
             },
         ];
 
-        return new Item($itemData);
+        return Item::fromArray($itemData);
     }
 
     /**
@@ -211,6 +211,6 @@ final class CollectionMapper
             ),
         ];
 
-        return new Query($queryData);
+        return Query::fromArray($queryData);
     }
 }
