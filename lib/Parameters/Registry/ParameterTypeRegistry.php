@@ -31,7 +31,7 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
 
     public function hasParameterType(string $identifier): bool
     {
-        return isset($this->parameterTypes[$identifier]);
+        return array_key_exists($identifier, $this->parameterTypes);
     }
 
     public function getParameterType(string $identifier): ParameterTypeInterface
@@ -45,7 +45,7 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
 
     public function getParameterTypeByClass(string $class): ParameterTypeInterface
     {
-        if (!isset($this->parameterTypesByClass[$class])) {
+        if (!array_key_exists($class, $this->parameterTypesByClass)) {
             throw ParameterTypeException::noParameterTypeClass($class);
         }
 

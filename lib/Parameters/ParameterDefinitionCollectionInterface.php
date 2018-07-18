@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Parameters;
 interface ParameterDefinitionCollectionInterface
 {
     /**
-     * Returns the list of parameter definitions.
+     * Returns all parameter definitions from the collection.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
@@ -16,7 +16,7 @@ interface ParameterDefinitionCollectionInterface
     /**
      * Returns the parameter definition with provided name.
      *
-     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If parameter definition with provided name does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter definition does not exist
      */
     public function getParameterDefinition(string $parameterName): ParameterDefinition;
 

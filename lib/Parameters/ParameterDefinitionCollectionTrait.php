@@ -14,7 +14,7 @@ trait ParameterDefinitionCollectionTrait
     protected $parameterDefinitions = [];
 
     /**
-     * Returns the list of parameter definitions.
+     * Returns all parameter definitions from the collection.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
      */
@@ -26,15 +26,15 @@ trait ParameterDefinitionCollectionTrait
     /**
      * Returns the parameter definition with provided name.
      *
-     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If parameter with provided name does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter definition does not exist
      */
     public function getParameterDefinition(string $parameterName): ParameterDefinition
     {
-        if ($this->hasParameterDefinition($parameterName)) {
-            return $this->parameterDefinitions[$parameterName];
+        if (!$this->hasParameterDefinition($parameterName)) {
+            throw ParameterException::noParameterDefinition($parameterName);
         }
 
-        throw ParameterException::noParameterDefinition($parameterName);
+        return $this->parameterDefinitions[$parameterName];
     }
 
     /**
