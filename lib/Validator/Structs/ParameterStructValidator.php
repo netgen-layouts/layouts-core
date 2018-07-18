@@ -45,6 +45,8 @@ final class ParameterStructValidator extends ConstraintValidator
             )
         );
 
+        $allParameterValues = $this->getAllValues($constraint->parameterDefinitions, $value);
+
         // Then we validate with runtime constraints coming from parameter definition
         // allowing for validation of values dependent on other parameter struct values
         foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
@@ -55,7 +57,7 @@ final class ParameterStructValidator extends ConstraintValidator
                 $this->getRuntimeParameterConstraints(
                     $parameterDefinition,
                     $parameterValue,
-                    $this->getAllValues($constraint->parameterDefinitions, $value)
+                    $allParameterValues
                 )
             );
         }
