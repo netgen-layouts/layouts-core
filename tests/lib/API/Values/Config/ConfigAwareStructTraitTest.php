@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Values\Config;
+namespace Netgen\BlockManager\Tests\API\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
 use PHPUnit\Framework\TestCase;
 
-final class ConfigStructTest extends TestCase
+final class ConfigAwareStructTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct
+     * @var \Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct
      */
     private $struct;
 
