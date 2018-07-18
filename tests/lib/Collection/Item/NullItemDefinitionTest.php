@@ -27,12 +27,4 @@ final class NullItemDefinitionTest extends TestCase
     {
         $this->assertSame('value', $this->itemDefinition->getValueType());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::getConfigDefinitions
-     */
-    public function testGetConfigDefinitions(): void
-    {
-        $this->assertSame([], $this->itemDefinition->getConfigDefinitions());
-    }
 }

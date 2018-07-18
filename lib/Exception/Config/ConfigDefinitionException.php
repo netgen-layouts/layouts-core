@@ -9,13 +9,12 @@ use Netgen\BlockManager\Exception\Exception;
 
 final class ConfigDefinitionException extends InvalidArgumentException implements Exception
 {
-    public static function noConfigDefinition(string $type, string $identifier): self
+    public static function noConfigDefinition(string $configKey): self
     {
         return new self(
             sprintf(
-                'Config definition for "%s" type and "%s" identifier does not exist.',
-                $type,
-                $identifier
+                'Config definition with "%s" config key does not exist.',
+                $configKey
             )
         );
     }

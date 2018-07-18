@@ -14,10 +14,10 @@ final class ConfigDefinitionExceptionTest extends TestCase
      */
     public function testNoConfigDefinition(): void
     {
-        $exception = ConfigDefinitionException::noConfigDefinition('type', 'def');
+        $exception = ConfigDefinitionException::noConfigDefinition('key');
 
         $this->assertSame(
-            'Config definition for "type" type and "def" identifier does not exist.',
+            'Config definition with "key" config key does not exist.',
             $exception->getMessage()
         );
     }

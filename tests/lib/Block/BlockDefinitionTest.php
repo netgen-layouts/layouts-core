@@ -293,6 +293,43 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     */
+    public function testGetConfigDefinition(): void
+    {
+        $this->assertSame(
+            $this->configDefinition,
+            $this->blockDefinition->getConfigDefinition('config')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     * @expectedException \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
+     * @expectedExceptionMessage Config definition with "unknown" config key does not exist.
+     */
+    public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
+    {
+        $this->blockDefinition->getConfigDefinition('unknown');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     */
+    public function testHasConfigDefinition(): void
+    {
+        $this->assertTrue($this->blockDefinition->hasConfigDefinition('config'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     */
+    public function testHasConfigDefinitionWithNonExistentDefinition(): void
+    {
+        $this->assertFalse($this->blockDefinition->hasConfigDefinition('unknown'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinitions
      */
     public function testGetConfigDefinitions(): void

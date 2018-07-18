@@ -41,6 +41,43 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     */
+    public function testGetConfigDefinition(): void
+    {
+        $this->assertSame(
+            $this->configDefinition,
+            $this->itemDefinition->getConfigDefinition('config')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     * @expectedException \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
+     * @expectedExceptionMessage Config definition with "unknown" config key does not exist.
+     */
+    public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
+    {
+        $this->itemDefinition->getConfigDefinition('unknown');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     */
+    public function testHasConfigDefinition(): void
+    {
+        $this->assertTrue($this->itemDefinition->hasConfigDefinition('config'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     */
+    public function testHasConfigDefinitionWithNonExistentDefinition(): void
+    {
+        $this->assertFalse($this->itemDefinition->hasConfigDefinition('unknown'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinitions
      */
     public function testGetConfigDefinitions(): void

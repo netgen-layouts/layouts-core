@@ -160,14 +160,6 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getConfigDefinitions
-     */
-    public function testGetConfigDefinitions(): void
-    {
-        $this->assertSame([], $this->blockDefinition->getConfigDefinitions());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasPlugin
      */
     public function testHasPlugin(): void
