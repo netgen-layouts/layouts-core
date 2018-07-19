@@ -111,17 +111,17 @@ abstract class ImporterTest extends ServiceTestCase
         $this->serializer = new Serializer(
             $this->layoutService,
             $this->layoutResolverService,
-            new Visitor\Aggregate(
+            new Visitor\AggregateVisitor(
                 [
-                    new Visitor\Block($this->blockService),
-                    new Visitor\Collection(),
-                    new Visitor\Config(),
-                    new Visitor\Item(),
-                    new Visitor\Layout(),
-                    new Visitor\Parameter(),
-                    new Visitor\Placeholder(),
-                    new Visitor\Query($this->collectionService),
-                    new Visitor\Zone($this->blockService),
+                    new Visitor\BlockVisitor($this->blockService),
+                    new Visitor\CollectionVisitor(),
+                    new Visitor\ConfigVisitor(),
+                    new Visitor\ItemVisitor(),
+                    new Visitor\LayoutVisitor(),
+                    new Visitor\ParameterVisitor(),
+                    new Visitor\PlaceholderVisitor(),
+                    new Visitor\QueryVisitor($this->collectionService),
+                    new Visitor\ZoneVisitor($this->blockService),
                 ]
             )
         );
