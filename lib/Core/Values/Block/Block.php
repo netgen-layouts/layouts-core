@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Values\Block;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
@@ -61,9 +62,9 @@ final class Block extends Value implements APIBlock
     private $placeholders = [];
 
     /**
-     * @var \Netgen\BlockManager\Core\Values\Block\CollectionReference[]
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $collectionReferences = [];
+    private $collections;
 
     /**
      * @var \Netgen\BlockManager\Block\DynamicParameters
@@ -94,6 +95,13 @@ final class Block extends Value implements APIBlock
      * @var string
      */
     private $locale;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+
+        $this->collections = $this->collections ?? new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -151,26 +159,21 @@ final class Block extends Value implements APIBlock
 
     public function getCollections(): array
     {
-        return array_map(
-            function (CollectionReference $collectionReference): Collection {
-                return $collectionReference->getCollection();
-            },
-            $this->collectionReferences
-        );
+        return $this->collections->toArray();
     }
 
     public function getCollection(string $identifier): Collection
     {
-        if ($this->hasCollection($identifier)) {
-            return $this->collectionReferences[$identifier]->getCollection();
+        if (!$this->hasCollection($identifier)) {
+            throw BlockException::noCollection($identifier);
         }
 
-        throw BlockException::noCollection($identifier);
+        return $this->collections->get($identifier);
     }
 
     public function hasCollection(string $identifier): bool
     {
-        return isset($this->collectionReferences[$identifier]);
+        return $this->collections->containsKey($identifier);
     }
 
     public function getDynamicParameter(string $parameter)

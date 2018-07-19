@@ -332,10 +332,10 @@ abstract class BlockMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::loadCollections
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapCollectionReferences
      */
-    public function testMapBlockWithCollectionReferences(): void
+    public function testMapBlockWithCollections(): void
     {
         $persistenceBlock = new Block(
             [

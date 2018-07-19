@@ -11,7 +11,6 @@ use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
@@ -19,6 +18,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 
 final class BlockMapper
 {
@@ -115,7 +115,16 @@ final class BlockMapper
             'parentPosition' => $block->position,
             'status' => $block->status,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locales),
-            'collectionReferences' => $this->mapCollectionReferences($block, $locales),
+            'collections' => new LazyCollection(
+                function () use ($block, $locales): array {
+                    return array_map(
+                        function (PersistenceCollection $collection) use ($locales): Collection {
+                            return $this->collectionMapper->mapCollection($collection, $locales);
+                        },
+                        $this->loadCollections($block)
+                    );
+                }
+            ),
             'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
@@ -132,32 +141,24 @@ final class BlockMapper
     }
 
     /**
-     * Builds the collection reference values for the provided block.
+     * Loads all persistence collections belonging to the provided block.
      *
-     * @return \Netgen\BlockManager\Core\Values\Block\CollectionReference[]
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    private function mapCollectionReferences(PersistenceBlock $block, ?array $locales = null): array
+    private function loadCollections(PersistenceBlock $block): array
     {
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
-        $mappedReferences = [];
-        foreach ($collectionReferences as $collectionReference) {
-            $mappedReferences[$collectionReference->identifier] = new CollectionReference(
-                [
-                    'collection' => function () use ($collectionReference, $locales): Collection {
-                        $collection = $this->collectionHandler->loadCollection(
-                            $collectionReference->collectionId,
-                            $collectionReference->collectionStatus
-                        );
+        $collections = [];
 
-                        return $this->collectionMapper->mapCollection($collection, $locales, false);
-                    },
-                    'identifier' => $collectionReference->identifier,
-                ]
+        foreach ($collectionReferences as $collectionReference) {
+            $collections[$collectionReference->identifier] = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
             );
         }
 
-        return $mappedReferences;
+        return $collections;
     }
 
     /**

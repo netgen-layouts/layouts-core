@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Event\BlockManagerEvents;
@@ -68,29 +68,18 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderView(): void
     {
         $collection1 = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference1 = new CollectionReference(
-            [
-                'collection' => $collection1,
-                'identifier' => 'collection1',
-            ]
-        );
-
         $collection2 = new Collection(['offset' => 5, 'limit' => 10, 'query' => new Query()]);
-        $collectionReference2 = new CollectionReference(
-            [
-                'collection' => $collection2,
-                'identifier' => 'collection2',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
                 [
                     'definition' => new BlockDefinition(),
-                    'collectionReferences' => [
-                        'collection1' => $collectionReference1,
-                        'collection2' => $collectionReference2,
-                    ],
+                    'collections' => new ArrayCollection(
+                        [
+                            'collection1' => $collection1,
+                            'collection2' => $collection2,
+                        ]
+                    ),
                 ]
             )
         );
@@ -145,12 +134,6 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderViewWithPagedCollection(): void
     {
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'collection',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
@@ -164,9 +147,11 @@ final class GetCollectionResultsListenerTest extends TestCase
                         'paged_collections:enabled' => new Parameter(['value' => true]),
                         'paged_collections:max_pages' => new Parameter(['value' => 2]),
                     ],
-                    'collectionReferences' => [
-                        'collection' => $collectionReference,
-                    ],
+                    'collections' => new ArrayCollection(
+                        [
+                            'collection' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
@@ -205,12 +190,6 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
     {
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'collection',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
@@ -224,9 +203,11 @@ final class GetCollectionResultsListenerTest extends TestCase
                         'paged_collections:enabled' => new Parameter(['value' => true]),
                         'paged_collections:max_pages' => new Parameter(['value' => null]),
                     ],
-                    'collectionReferences' => [
-                        'collection' => $collectionReference,
-                    ],
+                    'collections' => new ArrayCollection(
+                        [
+                            'collection' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
@@ -265,12 +246,6 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
     {
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'collection',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
@@ -283,9 +258,11 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'parameters' => [
                         'paged_collections:enabled' => new Parameter(['value' => false]),
                     ],
-                    'collectionReferences' => [
-                        'collection' => $collectionReference,
-                    ],
+                    'collections' => new ArrayCollection(
+                        [
+                            'collection' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
@@ -324,18 +301,16 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderViewWithAPIContext(): void
     {
         $collection1 = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference1 = new CollectionReference(
-            [
-                'collection' => $collection1,
-                'identifier' => 'collection1',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
                 [
                     'definition' => new BlockDefinition(),
-                    'collectionReferences' => ['collection1' => $collectionReference1],
+                    'collections' => new ArrayCollection(
+                        [
+                            'collection1' => $collection1,
+                        ]
+                    ),
                 ]
             )
         );

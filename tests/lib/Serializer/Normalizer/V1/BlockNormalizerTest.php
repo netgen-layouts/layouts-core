@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
@@ -61,13 +61,6 @@ final class BlockNormalizerTest extends TestCase
             ]
         );
 
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'default',
-            ]
-        );
-
         $placeholder = new Placeholder(['identifier' => 'main']);
 
         $block = new Block(
@@ -83,9 +76,9 @@ final class BlockNormalizerTest extends TestCase
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
-                'collectionReferences' => [
-                    'default' => $collectionReference,
-                ],
+                'collections' => new ArrayCollection(
+                    ['default' => $collection]
+                ),
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
@@ -181,7 +174,7 @@ final class BlockNormalizerTest extends TestCase
                 'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
                 'placeholders' => [],
-                'collectionReferences' => [],
+                'collections' => new ArrayCollection(),
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],

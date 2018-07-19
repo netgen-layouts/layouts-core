@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Core\BlockException;
@@ -61,9 +61,7 @@ final class BlockTest extends TestCase
         $definition = new BlockDefinition();
 
         $placeholder = new Placeholder(['identifier' => 'main']);
-
         $collection = new Collection(['id' => 42]);
-        $collectionReference = new CollectionReference(['identifier' => 'default', 'collection' => $collection]);
 
         $block = new Block(
             [
@@ -77,9 +75,9 @@ final class BlockTest extends TestCase
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
-                'collectionReferences' => [
-                    'default' => $collectionReference,
-                ],
+                'collections' => new ArrayCollection(
+                    ['default' => $collection]
+                ),
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,

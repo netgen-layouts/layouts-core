@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Event\BlockManagerEvents;
@@ -82,18 +82,16 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->requestStack->push($request);
 
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'default',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
                 [
                     'definition' => new BlockDefinition(),
-                    'collectionReferences' => ['default' => $collectionReference],
+                    'collections' => new ArrayCollection(
+                        [
+                            'default' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
@@ -150,12 +148,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->requestStack->push($request);
 
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'default',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
@@ -169,7 +161,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                         'paged_collections:enabled' => new Parameter(['value' => true]),
                         'paged_collections:max_pages' => new Parameter(['value' => 2]),
                     ],
-                    'collectionReferences' => ['default' => $collectionReference],
+                    'collections' => new ArrayCollection(
+                        [
+                            'default' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
@@ -226,12 +222,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->requestStack->push($request);
 
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'default',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
@@ -245,7 +235,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                         'paged_collections:enabled' => new Parameter(['value' => true]),
                         'paged_collections:max_pages' => new Parameter(['value' => null]),
                     ],
-                    'collectionReferences' => ['default' => $collectionReference],
+                    'collections' => new ArrayCollection(
+                        [
+                            'default' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
@@ -302,12 +296,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->requestStack->push($request);
 
         $collection = new Collection(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
-        $collectionReference = new CollectionReference(
-            [
-                'collection' => $collection,
-                'identifier' => 'default',
-            ]
-        );
 
         $view = new BlockView(
             new Block(
@@ -320,7 +308,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'parameters' => [
                         'paged_collections:enabled' => new Parameter(['value' => false]),
                     ],
-                    'collectionReferences' => ['default' => $collectionReference],
+                    'collections' => new ArrayCollection(
+                        [
+                            'default' => $collection,
+                        ]
+                    ),
                 ]
             )
         );
