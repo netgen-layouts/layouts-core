@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Persistence\Values\Block;
 
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Value;
 
 final class CollectionReference extends Value
 {
