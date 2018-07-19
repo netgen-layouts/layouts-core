@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Validator\Stubs;
 
 use Netgen\BlockManager\Validator\ValidatorTrait;
 
-final class ValidatorValue
+final class ValueValidator
 {
     use ValidatorTrait;
 

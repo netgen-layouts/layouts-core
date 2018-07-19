@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Exception;
-use Netgen\BlockManager\Tests\Validator\Stubs\ValidatorValue;
+use Netgen\BlockManager\Tests\Validator\Stubs\ValueValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -20,14 +20,14 @@ final class ValidatorTraitTest extends TestCase
     private $validatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Validator\Stubs\ValidatorValue
+     * @var \Netgen\BlockManager\Tests\Validator\Stubs\ValueValidator
      */
     private $validator;
 
     public function setUp(): void
     {
         $this->validatorMock = $this->createMock(ValidatorInterface::class);
-        $this->validator = new ValidatorValue();
+        $this->validator = new ValueValidator();
         $this->validator->setValidator($this->validatorMock);
     }
 
