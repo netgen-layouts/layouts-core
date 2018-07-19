@@ -9,7 +9,7 @@
     {%- for child in form %}
         <div class="layout-type-item">
             {{- form_widget(child) -}}
-            {{- form_label(child, null, {layoutType: form.vars.layout_types[child.vars.value]}) -}}
+            {{- form_label(child, null, {layout_type: child.vars.layout_type}) -}}
         </div>
     {% endfor -%}
     </div>
@@ -17,7 +17,7 @@
 
 {% block _create_layoutType_entry_label %}
     <label for="{{ id }}" class="required">
-        <i class="icon" {% if layoutType.icon is not null %}style="background-image:url({{ asset(layoutType.icon) }})"{% endif %}></i>
+        <i class="icon" {% if layout_type.icon is not null %}style="background-image:url({{ asset(layout_type.icon) }})"{% endif %}></i>
         {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
     </label>
 {% endblock %}

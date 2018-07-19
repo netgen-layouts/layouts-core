@@ -83,23 +83,18 @@ final class CreateTypeTest extends FormTestCase
         $this->assertSame('4_zones_a', $struct->layoutType->getIdentifier());
 
         $view = $form->createView();
-        $children = $view->children;
 
-        foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+        $layoutTypes = $this->layoutTypeRegistry->getLayoutTypes(true);
+        $childViews = $view->children['layoutType']->children;
+
+        $this->assertCount(count($layoutTypes), $childViews);
+
+        foreach ($layoutTypes as $identifier => $layoutType) {
+            $this->assertArrayHasKey($identifier, $childViews);
+
+            $this->assertArrayHasKey('layout_type', $childViews[$identifier]->vars);
+            $this->assertSame($layoutType, $childViews[$identifier]->vars['layout_type']);
         }
-
-        $this->assertSame(
-            $this->layoutTypeRegistry->getLayoutTypes(true),
-            $form->get('layoutType')->getConfig()->getOption('choices')
-        );
-
-        $this->assertArrayHasKey('layout_types', $view['layoutType']->vars);
-
-        $this->assertSame(
-            $this->layoutTypeRegistry->getLayoutTypes(true),
-            $view['layoutType']->vars['layout_types']
-        );
     }
 
     /**

@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -51,9 +50,8 @@ final class CreateType extends AbstractType
                 'required' => true,
                 'choices' => $this->layoutTypeRegistry->getLayoutTypes(true),
                 'choice_value' => 'identifier',
-                'choice_label' => function (LayoutTypeInterface $layoutType): string {
-                    return $layoutType->getName();
-                },
+                'choice_name' => 'identifier',
+                'choice_label' => 'name',
                 'choice_translation_domain' => false,
                 'expanded' => true,
                 'constraints' => [
@@ -105,8 +103,9 @@ final class CreateType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $layoutTypeFormConfig = $form['layoutType']->getConfig();
-
-        $view['layoutType']->vars['layout_types'] = $layoutTypeFormConfig->getOption('choices');
+        foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
+            /* @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType */
+            $view['layoutType'][$layoutType->getIdentifier()]->vars['layout_type'] = $layoutType;
+        }
     }
 }
