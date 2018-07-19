@@ -121,18 +121,18 @@ final class LayoutMapperTest extends TestCase
             'left' => [
                 'identifier' => 'left',
                 'layoutId' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'top',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             'right' => [
                 'identifier' => 'right',
                 'layoutId' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 4,
                 'linkedLayoutId' => null,
                 'linkedZoneIdentifier' => null,
+                'status' => Value::STATUS_PUBLISHED,
             ],
         ];
 

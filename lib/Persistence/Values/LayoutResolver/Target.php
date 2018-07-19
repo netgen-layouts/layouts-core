@@ -16,13 +16,6 @@ final class Target extends Value
     public $id;
 
     /**
-     * Target status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
-
-    /**
      * ID of the rule where this target is located.
      *
      * @var int|string

@@ -23,13 +23,6 @@ final class Zone extends Value
     public $layoutId;
 
     /**
-     * Zone status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
-
-    /**
      * ID of the root block related to the zone.
      *
      * @var int

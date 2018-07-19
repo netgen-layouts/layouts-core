@@ -16,13 +16,6 @@ final class Rule extends Value
     public $id;
 
     /**
-     * Rule status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
-
-    /**
      * ID of the layout mapped to this rule. Can be null if there's no mapped layout.
      *
      * @var int|string|null

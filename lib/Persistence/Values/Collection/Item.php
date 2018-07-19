@@ -61,13 +61,6 @@ final class Item extends Value
     public $valueType;
 
     /**
-     * Item status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
-
-    /**
      * Item configuration.
      *
      * @var array

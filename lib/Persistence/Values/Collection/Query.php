@@ -63,11 +63,4 @@ final class Query extends Value
      * @var bool
      */
     public $alwaysAvailable;
-
-    /**
-     * Query status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
 }

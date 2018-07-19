@@ -16,4 +16,11 @@ abstract class Value extends BaseValue
     public const STATUS_PUBLISHED = 1;
 
     public const STATUS_ARCHIVED = 2;
+
+    /**
+     * Status of the value. One of self::STATUS_* flags.
+     *
+     * @var int
+     */
+    public $status;
 }

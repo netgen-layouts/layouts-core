@@ -56,11 +56,4 @@ final class Collection extends Value
      * @var bool
      */
     public $alwaysAvailable;
-
-    /**
-     * Collection status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
 }

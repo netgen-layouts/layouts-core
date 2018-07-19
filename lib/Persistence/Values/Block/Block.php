@@ -126,11 +126,4 @@ final class Block extends Value
      * @var bool
      */
     public $alwaysAvailable;
-
-    /**
-     * Block status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
 }

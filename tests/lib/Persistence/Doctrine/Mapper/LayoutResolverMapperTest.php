@@ -53,19 +53,19 @@ final class LayoutResolverMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
                 'layoutId' => 24,
                 'enabled' => true,
                 'priority' => 2,
                 'comment' => 'Comment',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             [
                 'id' => 43,
-                'status' => Value::STATUS_DRAFT,
                 'layoutId' => 25,
                 'enabled' => false,
                 'priority' => 3,
                 'comment' => null,
+                'status' => Value::STATUS_DRAFT,
             ],
         ];
 
@@ -103,17 +103,17 @@ final class LayoutResolverMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 1,
                 'type' => 'target',
                 'value' => '32',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             [
                 'id' => 43,
-                'status' => Value::STATUS_DRAFT,
                 'ruleId' => 2,
                 'type' => 'target2',
                 'value' => '42',
+                'status' => Value::STATUS_DRAFT,
             ],
         ];
 
@@ -151,19 +151,19 @@ final class LayoutResolverMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 1,
                 'type' => 'condition',
                 'value' => 24,
+                'status' => Value::STATUS_PUBLISHED,
             ],
             [
                 'id' => 43,
-                'status' => Value::STATUS_DRAFT,
                 'ruleId' => 2,
                 'type' => 'condition2',
                 'value' => [
                     'param' => 'value',
                 ],
+                'status' => Value::STATUS_DRAFT,
             ],
         ];
 

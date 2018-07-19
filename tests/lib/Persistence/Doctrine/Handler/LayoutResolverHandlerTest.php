@@ -67,11 +67,11 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'layoutId' => 1,
                 'enabled' => true,
                 'priority' => 9,
                 'comment' => 'My comment',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($rule)
         );
@@ -173,10 +173,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 1,
                 'type' => 'route',
                 'value' => 'my_cool_route',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($target)
         );
@@ -237,13 +237,13 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 2,
                 'type' => 'route_parameter',
                 'value' => [
                     'parameter_name' => 'some_param',
                     'parameter_values' => [1, 2],
                 ],
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($condition)
         );
@@ -559,17 +559,17 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 21,
-                    'status' => Value::STATUS_PUBLISHED,
                     'ruleId' => $copiedRule->id,
                     'type' => 'route_prefix',
                     'value' => 'my_second_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
                 ],
                 [
                     'id' => 22,
-                    'status' => Value::STATUS_PUBLISHED,
                     'ruleId' => $copiedRule->id,
                     'type' => 'route_prefix',
                     'value' => 'my_third_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
             $this->exportObjectList(
@@ -581,10 +581,10 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
-                    'status' => Value::STATUS_PUBLISHED,
                     'ruleId' => $copiedRule->id,
                     'type' => 'my_condition',
                     'value' => ['some_value'],
+                    'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
             $this->exportObjectList(
@@ -622,17 +622,17 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
-                    'status' => Value::STATUS_ARCHIVED,
                     'ruleId' => 3,
                     'type' => 'route',
                     'value' => 'my_fourth_cool_route',
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
                     'id' => 6,
-                    'status' => Value::STATUS_ARCHIVED,
                     'ruleId' => 3,
                     'type' => 'route',
                     'value' => 'my_fifth_cool_route',
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -644,23 +644,23 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 2,
-                    'status' => Value::STATUS_ARCHIVED,
                     'ruleId' => 3,
                     'type' => 'route_parameter',
                     'value' => [
                         'parameter_name' => 'some_param',
                         'parameter_values' => [3, 4],
                     ],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
                     'id' => 3,
-                    'status' => Value::STATUS_ARCHIVED,
                     'ruleId' => 3,
                     'type' => 'route_parameter',
                     'value' => [
                         'parameter_name' => 'some_other_param',
                         'parameter_values' => [5, 6],
                     ],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -726,10 +726,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 21,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 1,
                 'type' => 'target',
                 'value' => '42',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($target)
         );
@@ -754,10 +754,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 1,
                 'type' => 'route',
                 'value' => 'my_new_route',
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($target)
         );
@@ -798,10 +798,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 5,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 3,
                 'type' => 'condition',
                 'value' => ['param' => 'value'],
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($condition)
         );
@@ -826,10 +826,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->assertSame(
             [
                 'id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 2,
                 'type' => 'route_parameter',
                 'value' => ['new_param' => 'new_value'],
+                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($condition)
         );

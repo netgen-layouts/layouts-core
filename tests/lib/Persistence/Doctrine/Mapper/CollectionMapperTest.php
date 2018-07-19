@@ -132,12 +132,12 @@ final class CollectionMapperTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '32',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_PUBLISHED,
                 'config' => [
                     'config_item' => [
                         'id' => 42,
                     ],
                 ],
+                'status' => Value::STATUS_PUBLISHED,
             ],
             [
                 'id' => 43,
@@ -146,8 +146,8 @@ final class CollectionMapperTest extends TestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => '42',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
         ];
 

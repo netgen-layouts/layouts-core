@@ -70,11 +70,4 @@ final class Layout extends Value
      * @var string[]
      */
     public $availableLocales;
-
-    /**
-     * Layout status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
 }

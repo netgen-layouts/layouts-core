@@ -16,13 +16,6 @@ final class Condition extends Value
     public $id;
 
     /**
-     * Condition status. One of self::STATUS_* flags.
-     *
-     * @var int
-     */
-    public $status;
-
-    /**
      * ID of the rule where the condition is located.
      *
      * @var int|string

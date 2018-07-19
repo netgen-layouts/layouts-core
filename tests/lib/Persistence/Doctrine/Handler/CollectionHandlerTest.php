@@ -102,8 +102,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -142,8 +142,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -709,8 +709,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_PUBLISHED,
                     'config' => [],
+                    'status' => Value::STATUS_PUBLISHED,
                 ],
                 [
                     'id' => 14,
@@ -719,8 +719,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_PUBLISHED,
                     'config' => [],
+                    'status' => Value::STATUS_PUBLISHED,
                 ],
                 [
                     'id' => 15,
@@ -729,8 +729,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_PUBLISHED,
                     'config' => [],
+                    'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
             $this->exportObjectList(
@@ -807,8 +807,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
                     'config' => [],
+                    'status' => Value::STATUS_DRAFT,
                 ],
                 [
                     'id' => 14,
@@ -817,8 +817,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
                     'config' => [],
+                    'status' => Value::STATUS_DRAFT,
                 ],
                 [
                     'id' => 15,
@@ -827,8 +827,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_DRAFT,
                     'config' => [],
+                    'status' => Value::STATUS_DRAFT,
                 ],
             ],
             $this->exportObjectList(
@@ -878,8 +878,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_ARCHIVED,
                     'config' => [],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
                     'id' => 8,
@@ -888,8 +888,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_ARCHIVED,
                     'config' => [],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
                     'id' => 9,
@@ -898,8 +898,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_ARCHIVED,
                     'config' => [],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -977,8 +977,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_ARCHIVED,
                     'config' => [],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
                     'id' => 2,
@@ -987,8 +987,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_ARCHIVED,
                     'config' => [],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
                     'id' => 3,
@@ -997,8 +997,8 @@ final class CollectionHandlerTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
-                    'status' => Value::STATUS_ARCHIVED,
                     'config' => [],
+                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -1203,8 +1203,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -1244,8 +1244,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -1291,8 +1291,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -1331,8 +1331,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => ['config' => ['value' => 42]],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -1435,8 +1435,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => ['new_config' => ['val' => 24]],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
         );
@@ -1467,8 +1467,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '74',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
@@ -1505,8 +1505,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
@@ -1543,8 +1543,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
@@ -1581,8 +1581,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '73',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
@@ -1616,8 +1616,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '74',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
@@ -1654,8 +1654,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
@@ -1692,8 +1692,8 @@ final class CollectionHandlerTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value' => '73',
                 'valueType' => 'my_value_type',
-                'status' => Value::STATUS_DRAFT,
                 'config' => [],
+                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem)
         );
