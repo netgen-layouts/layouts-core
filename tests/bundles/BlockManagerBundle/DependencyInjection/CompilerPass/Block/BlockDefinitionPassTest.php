@@ -7,7 +7,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
@@ -223,7 +223,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['%test.class%', BlockDefinition::class],
             [BlockDefinitionHandler::class, BlockDefinition::class],
             [TwigBlockDefinitionHandlerInterface::class, TwigBlockDefinition::class],
-            [ContainerDefinitionHandler::class, ContainerDefinition::class],
+            [ContainerDefinitionHandlerInterface::class, ContainerDefinition::class],
         ];
     }
 

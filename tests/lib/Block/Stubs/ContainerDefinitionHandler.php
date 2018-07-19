@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler as BaseContainerDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-final class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
+final class ContainerDefinitionHandler extends BlockDefinitionHandler implements ContainerDefinitionHandlerInterface
 {
     /**
      * @var array
@@ -53,11 +54,6 @@ final class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
                 ]
             ),
         ];
-    }
-
-    public function isContainer(): bool
-    {
-        return true;
     }
 
     public function getPlaceholderIdentifiers(): array
