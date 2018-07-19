@@ -15,8 +15,8 @@ use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -190,15 +190,15 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct): CollectionReference
+    public function createCollectionReference(Block $block, Collection $collection, string $identifier): CollectionReference
     {
         $newCollectionReference = new CollectionReference(
             [
                 'blockId' => $block->id,
                 'blockStatus' => $block->status,
-                'collectionId' => $createStruct->collection->id,
-                'collectionStatus' => $createStruct->collection->status,
-                'identifier' => $createStruct->identifier,
+                'collectionId' => $collection->id,
+                'collectionStatus' => $collection->status,
+                'identifier' => $identifier,
             ]
         );
 

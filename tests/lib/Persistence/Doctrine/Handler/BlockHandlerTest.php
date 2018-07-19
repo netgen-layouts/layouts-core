@@ -10,7 +10,6 @@ use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
@@ -809,12 +808,8 @@ final class BlockHandlerTest extends TestCase
 
         $reference = $this->blockHandler->createCollectionReference(
             $block,
-            new CollectionReferenceCreateStruct(
-                [
-                    'identifier' => 'new',
-                    'collection' => $collection,
-                ]
-            )
+            $collection,
+            'new'
         );
 
         $this->assertInstanceOf(CollectionReference::class, $reference);

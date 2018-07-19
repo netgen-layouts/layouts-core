@@ -26,7 +26,6 @@ use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
@@ -671,12 +670,8 @@ final class BlockService extends Service implements BlockServiceInterface
 
                         $this->blockHandler->createCollectionReference(
                             $createdBlock,
-                            new CollectionReferenceCreateStruct(
-                                [
-                                    'identifier' => $identifier,
-                                    'collection' => $createdCollection,
-                                ]
-                            )
+                            $createdCollection,
+                            $identifier
                         );
                     }
                 }
