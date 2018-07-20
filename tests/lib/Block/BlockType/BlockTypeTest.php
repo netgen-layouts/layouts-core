@@ -42,7 +42,6 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::__construct
      * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIdentifier
      */
     public function testGetIdentifier(): void

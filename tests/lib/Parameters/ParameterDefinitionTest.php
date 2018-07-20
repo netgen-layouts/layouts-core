@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 final class ParameterDefinitionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
@@ -21,7 +20,7 @@ final class ParameterDefinitionTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
      */
-    public function testSetDefaultProperties(): void
+    public function testDefaultProperties(): void
     {
         $parameterDefinition = new ParameterDefinition();
 

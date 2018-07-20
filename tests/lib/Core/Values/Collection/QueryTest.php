@@ -17,7 +17,6 @@ final class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
      */
     public function testDefaultProperties(): void
@@ -28,7 +27,6 @@ final class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId

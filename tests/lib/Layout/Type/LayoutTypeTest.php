@@ -59,7 +59,6 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::__construct
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIdentifier
      */
     public function testGetIdentifier(): void

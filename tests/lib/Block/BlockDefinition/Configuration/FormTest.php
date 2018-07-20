@@ -20,7 +20,6 @@ final class FormTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::getIdentifier
      */
     public function testGetIdentifier(): void

@@ -17,7 +17,6 @@ final class TargetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::__construct
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType

@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 final class CompoundParameterDefinitionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::__construct
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinitions
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::hasParameterDefinition

@@ -20,7 +20,6 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition

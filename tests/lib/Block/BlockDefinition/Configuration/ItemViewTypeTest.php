@@ -20,7 +20,6 @@ final class ItemViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::getIdentifier
      */
     public function testGetIdentifier(): void

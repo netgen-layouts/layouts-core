@@ -26,7 +26,6 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ValueType\ValueType::__construct
      * @covers \Netgen\BlockManager\Item\ValueType\ValueType::getIdentifier
      */
     public function testGetIdentifier(): void

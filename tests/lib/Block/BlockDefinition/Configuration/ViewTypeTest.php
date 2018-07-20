@@ -44,7 +44,6 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getIdentifier
      */
     public function testGetIdentifier(): void

@@ -29,7 +29,6 @@ final class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType\QueryType::getType
      */
     public function testGetType(): void

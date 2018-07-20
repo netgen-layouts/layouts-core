@@ -26,7 +26,6 @@ final class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::__construct
      * @covers \Netgen\BlockManager\Layout\Type\Zone::getIdentifier
      */
     public function testGetIdentifier(): void
