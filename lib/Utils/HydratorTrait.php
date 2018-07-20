@@ -28,12 +28,16 @@ trait HydratorTrait
 
     /**
      * Hydrates the object instance with provided data.
+     *
+     * @param array $data
+     *
+     * @return self
      */
-    public function hydrate(array $data): void
+    public function hydrate(array $data)
     {
         self::initHydrator();
 
-        self::$__hydrator->hydrate($data, $this);
+        return self::$__hydrator->hydrate($data, $this);
     }
 
     /**
