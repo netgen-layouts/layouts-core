@@ -42,7 +42,7 @@ final class Hydrator
             );
         }
 
-        (function () use ($data): void {
+        return (function (array $data) {
             foreach ($data as $property => $value) {
                 if (!property_exists($this, $property)) {
                     throw new RuntimeException(
@@ -56,8 +56,8 @@ final class Hydrator
 
                 $this->{$property} = $value;
             }
-        })->call($object);
 
-        return $object;
+            return $this;
+        })->call($object, $data);
     }
 }
