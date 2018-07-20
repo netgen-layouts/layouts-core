@@ -6,9 +6,9 @@ namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -103,7 +103,7 @@ interface BlockHandlerInterface
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If the block does not have the provided locale
      */
-    public function updateBlockTranslation(Block $block, string $locale, TranslationUpdateStruct $translationUpdateStruct): Block;
+    public function updateBlockTranslation(Block $block, string $locale, BlockTranslationUpdateStruct $translationUpdateStruct): Block;
 
     /**
      * Updates the main translation of the block.

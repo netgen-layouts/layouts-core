@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\Utils\HydratorTrait;
 
-final class TranslationUpdateStruct
+final class BlockTranslationUpdateStruct
 {
     use HydratorTrait;
 

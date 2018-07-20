@@ -8,9 +8,9 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
@@ -939,7 +939,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testUpdateBlockTranslation(): void
     {
-        $translationUpdateStruct = new TranslationUpdateStruct();
+        $translationUpdateStruct = new BlockTranslationUpdateStruct();
 
         $translationUpdateStruct->parameters = [
             'number_of_columns' => 4,
@@ -994,7 +994,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testUpdateBlockTranslationWithDefaultValues(): void
     {
-        $translationUpdateStruct = new TranslationUpdateStruct();
+        $translationUpdateStruct = new BlockTranslationUpdateStruct();
 
         $updatedBlock = $this->blockHandler->updateBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -1050,7 +1050,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->updateBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
-            new TranslationUpdateStruct()
+            new BlockTranslationUpdateStruct()
         );
     }
 

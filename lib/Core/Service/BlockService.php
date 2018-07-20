@@ -25,8 +25,8 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 
@@ -755,7 +755,7 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
                 $persistenceBlock,
                 $blockUpdateStruct->locale,
-                TranslationUpdateStruct::fromArray(
+                BlockTranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockDefinition,
@@ -797,7 +797,7 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
                 $persistenceBlock,
                 $locale,
-                TranslationUpdateStruct::fromArray(
+                BlockTranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $untranslatableParams + $params,
                     ]
