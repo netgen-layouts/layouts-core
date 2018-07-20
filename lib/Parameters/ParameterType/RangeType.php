@@ -58,18 +58,12 @@ final class RangeType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
-        $options = $parameterDefinition->getOptions();
-
         return [
-            new Constraints\Type(
-                [
-                    'type' => 'numeric',
-                ]
-            ),
+            new Constraints\Type(['type' => 'numeric']),
             new Constraints\Range(
                 [
-                    'min' => $options['min'],
-                    'max' => $options['max'],
+                    'min' => $parameterDefinition->getOption('min'),
+                    'max' => $parameterDefinition->getOption('max'),
                 ]
             ),
         ];

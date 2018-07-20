@@ -64,7 +64,7 @@ final class CompoundBooleanType extends AbstractType
             CheckboxType::class,
             [
                 'required' => $builder->getRequired(),
-                'label' => $builder->getOptions()['label'],
+                'label' => $builder->getOption('label'),
                 'property_path' => $builder->getPropertyPath(),
             ]
         );

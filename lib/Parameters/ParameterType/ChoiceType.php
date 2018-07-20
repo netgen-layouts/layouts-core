@@ -76,17 +76,13 @@ final class ChoiceType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
-        $options = $parameterDefinition->getOptions();
+        $options = $parameterDefinition->getOption('options');
 
         return [
             new Constraints\Choice(
                 [
-                    'choices' => array_values(
-                        is_callable($options['options']) ?
-                            $options['options']() :
-                            $options['options']
-                        ),
-                    'multiple' => $options['multiple'],
+                    'choices' => array_values(is_callable($options) ? $options() : $options),
+                    'multiple' => $parameterDefinition->getOption('multiple'),
                     'strict' => true,
                 ]
             ),

@@ -66,26 +66,19 @@ final class NumberType extends ParameterType
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
-        $options = $parameterDefinition->getOptions();
+        $min = $parameterDefinition->getOption('min');
+        $max = $parameterDefinition->getOption('max');
 
         $constraints = [
-            new Constraints\Type(
-                [
-                    'type' => 'numeric',
-                ]
-            ),
+            new Constraints\Type(['type' => 'numeric']),
         ];
 
-        if ($options['min'] !== null) {
-            $constraints[] = new Constraints\GreaterThanOrEqual(
-                ['value' => $options['min']]
-            );
+        if ($min !== null) {
+            $constraints[] = new Constraints\GreaterThanOrEqual(['value' => $min]);
         }
 
-        if ($options['max'] !== null) {
-            $constraints[] = new Constraints\LessThanOrEqual(
-                ['value' => $options['max']]
-            );
+        if ($max !== null) {
+            $constraints[] = new Constraints\LessThanOrEqual(['value' => $max]);
         }
 
         return $constraints;
