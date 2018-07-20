@@ -19,4 +19,3 @@ parameters:
         - '#Parameter \#1 \$value of method Netgen\\BlockManager\\Item\\CmsItemLoaderInterface::load\(\) expects int\|string, bool\|float\|int\|string given.#'
         - '#Parameter \#2 \$value of class Symfony\\Component\\Security\\Csrf\\CsrfToken constructor expects string\|null, array<string>\|string given.#'
         - '#Property Netgen\\BlockManager\\Persistence\\Values\\.+::\$\w+ \(int\|string\) does not accept null.#'
-        - '#Method .*::fromArray\(\) should return .* but returns object.#'

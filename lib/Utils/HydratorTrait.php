@@ -15,6 +15,8 @@ trait HydratorTrait
      * Creates a new instance of a class on which the method is called
      * and return the object hydrated with provided data.
      *
+     * @param array $data
+     *
      * @return self
      */
     public static function fromArray(array $data)
@@ -27,7 +29,7 @@ trait HydratorTrait
     /**
      * Hydrates the object instance with provided data.
      */
-    private function hydrate(array $data): void
+    public function hydrate(array $data): void
     {
         self::initHydrator();
 
