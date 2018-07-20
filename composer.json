@@ -31,8 +31,7 @@
         "white-october/pagerfanta-bundle": "^1.2",
         "jean85/pretty-package-versions": "^1.2",
         "emodric/twig-package-versions": "^1.0",
-        "nikolaposa/version": "^3.0.2",
-        "zendframework/zend-hydrator": "^2.4"
+        "nikolaposa/version": "^3.0.2"
     },
     "require-dev": {
         "netgen/block-manager-standard": "~0.12.0",

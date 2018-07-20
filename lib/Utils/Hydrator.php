@@ -5,10 +5,16 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Utils;
 
 use Netgen\BlockManager\Exception\RuntimeException;
-use Zend\Hydrator\HydratorInterface;
 
-final class Hydrator implements HydratorInterface
+final class Hydrator
 {
+    /**
+     * Extract values from an object.
+     *
+     * @param object $object
+     *
+     * @return array
+     */
     public function extract($object): array
     {
         if (!is_object($object)) {
@@ -20,6 +26,14 @@ final class Hydrator implements HydratorInterface
         return (function (): array { return get_object_vars($this); })->call($object);
     }
 
+    /**
+     * Hydrate $object with the provided $data.
+     *
+     * @param array $data
+     * @param object $object
+     *
+     * @return mixed
+     */
     public function hydrate(array $data, $object)
     {
         if (!is_object($object)) {

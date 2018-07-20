@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Utils;
 trait HydratorTrait
 {
     /**
-     * @var \Zend\Hydrator\HydratorInterface
+     * @var \Netgen\BlockManager\Utils\Hydrator
      */
     private static $__hydrator;
 
