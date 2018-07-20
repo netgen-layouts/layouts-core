@@ -56,7 +56,7 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
 
         $this->assertArrayHasKey('config', $struct->getConfigStructs());
 
-        $configStruct = $struct->getConfigStructs()['config'];
+        $configStruct = $struct->getConfigStruct('config');
 
         $this->assertInstanceOf(ConfigStruct::class, $configStruct);
         $this->assertSame(['param' => null, 'param2' => null], $configStruct->getParameterValues());
