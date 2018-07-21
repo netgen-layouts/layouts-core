@@ -9,4 +9,4 @@ block_types:
 block_type_groups:
     test_blocks:
         name: 'Test blocks'
-        block_types: [test_grid, list_without_value_types]
+        block_types: [test_grid, list_without_value_types, list_without_query_types]

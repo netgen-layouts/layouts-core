@@ -16,3 +16,13 @@ block_definitions:
         view_types:
             list:
                 name: 'List'
+
+    list_without_query_types:
+        name: 'List without query types'
+        handler: list
+        collections:
+            default:
+                valid_query_types: []
+        view_types:
+            list:
+                name: 'List'
