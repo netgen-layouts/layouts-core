@@ -13,6 +13,7 @@ abstract class View implements ViewInterface
      * @var array
      */
     protected $parameters = [];
+
     /**
      * @var string
      */
@@ -80,9 +81,8 @@ abstract class View implements ViewInterface
 
     public function hasParameter(string $identifier): bool
     {
-        $parameters = $this->getParameters();
-
-        return isset($parameters[$identifier]);
+        return array_key_exists($identifier, $this->parameters) ||
+            array_key_exists($identifier, $this->customParameters);
     }
 
     public function getParameter(string $identifier)
@@ -91,9 +91,11 @@ abstract class View implements ViewInterface
             throw ViewException::parameterNotFound($identifier, get_class($this));
         }
 
-        $parameters = $this->getParameters();
+        if (array_key_exists($identifier, $this->parameters)) {
+            return $this->parameters[$identifier];
+        }
 
-        return $parameters[$identifier];
+        return $this->customParameters[$identifier];
     }
 
     public function getParameters(): array
