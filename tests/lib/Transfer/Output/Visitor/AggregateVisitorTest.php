@@ -11,7 +11,7 @@ use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
 
-class AggregateVisitorTest extends TestCase
+final class AggregateVisitorTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor

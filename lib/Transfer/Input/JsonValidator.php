@@ -9,7 +9,7 @@ use stdClass;
 use Swaggest\JsonSchema\Schema;
 use Throwable;
 
-class JsonValidator implements JsonValidatorInterface
+final class JsonValidator implements JsonValidatorInterface
 {
     public function validateJson(string $data, string $schema): void
     {

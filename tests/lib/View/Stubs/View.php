@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Tests\View\Stubs;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\View as BaseView;
 
-class View extends BaseView
+final class View extends BaseView
 {
     public function __construct(Value $value)
     {
