@@ -13,7 +13,7 @@ trait TranslatableTypeTrait
     /**
      * Disables all inputs for parameters which are not translatable.
      */
-    protected function disableUntranslatableForms(FormBuilderInterface $builder): void
+    private function disableUntranslatableForms(FormBuilderInterface $builder): void
     {
         foreach ($builder as $form) {
             /** @var \Symfony\Component\Form\FormBuilderInterface $form */
