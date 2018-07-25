@@ -43,7 +43,7 @@ trait ValidatorTrait
 
         $propertyName = $violations[0]->getPropertyPath();
         if (empty($propertyName)) {
-            $propertyName = (string) $propertyPath;
+            $propertyName = $propertyPath ?? '';
         }
 
         throw ValidationException::validationFailed($propertyName, $violations[0]->getMessage());
