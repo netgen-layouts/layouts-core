@@ -149,9 +149,8 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             }
         }
 
+        /** @var string $configFile */
         foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
-            $configFile = (string) $configFile;
-
             if ($configFile[0] !== '/') {
                 $configFile = __DIR__ . '/../Resources/config/' . $configFile;
             }
