@@ -35,6 +35,7 @@
             <exclude>
                 <file>bundles/BlockManagerBundle/NetgenBlockManagerBundle.php</file>
                 <file>bundles/BlockManagerAdminBundle/NetgenBlockManagerAdminBundle.php</file>
+                <file>bundles/BlockManagerAdminBundle/DependencyInjection/ExtensionPlugin.php</file>
                 <file>bundles/BlockManagerAdminBundle/DependencyInjection/NetgenBlockManagerAdminExtension.php</file>
             </exclude>
             <exclude>

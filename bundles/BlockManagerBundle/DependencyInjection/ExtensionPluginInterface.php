@@ -19,13 +19,6 @@ interface ExtensionPluginInterface
     public function addConfiguration(ArrayNodeDefinition $rootNode): void;
 
     /**
-     * Returns available configuration nodes for the bundle.
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
-     */
-    public function getConfigurationNodes(): array;
-
-    /**
      * Post-processes the resolved configuration.
      */
     public function postProcessConfiguration(array $config): array;

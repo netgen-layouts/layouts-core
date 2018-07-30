@@ -42,6 +42,7 @@ final class ExtensionPluginTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::addConfiguration
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::getConfigurationNodes
      */
     public function testAddConfiguration(): void
     {
@@ -82,14 +83,6 @@ final class ExtensionPluginTest extends TestCase
             ->with($this->equalTo($node2->getConfigurationNode()));
 
         $this->plugin->addConfiguration($rootNodeMock);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin::getConfigurationNodes
-     */
-    public function testGetConfigurationNodes(): void
-    {
-        $this->assertSame([], $this->plugin->getConfigurationNodes());
     }
 
     /**

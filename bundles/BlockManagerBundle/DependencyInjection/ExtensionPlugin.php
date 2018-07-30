@@ -22,17 +22,22 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
         }
     }
 
-    public function getConfigurationNodes(): array
-    {
-        return [];
-    }
-
     public function postProcessConfiguration(array $config): array
     {
         return $config;
     }
 
     public function appendConfigurationFiles(): array
+    {
+        return [];
+    }
+
+    /**
+     * Returns available configuration nodes for the bundle.
+     *
+     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
+     */
+    protected function getConfigurationNodes(): array
     {
         return [];
     }
