@@ -264,6 +264,104 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     */
+    public function testLoadLayoutsAndOffsetAndLimit()
+    {
+        $this->assertEquals(
+            [
+                new Layout(
+                    [
+                        'id' => 1,
+                        'type' => '4_zones_a',
+                        'name' => 'My layout',
+                        'description' => 'My layout description',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_PUBLISHED,
+                        'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => ['en', 'hr'],
+                    ]
+                ),
+                new Layout(
+                    [
+                        'id' => 2,
+                        'type' => '4_zones_b',
+                        'name' => 'My other layout',
+                        'description' => 'My other layout description',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_PUBLISHED,
+                        'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => ['en'],
+                    ]
+                ),
+            ],
+            $this->layoutHandler->loadLayouts(false, 0, 2)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     */
+    public function testLoadLayoutsWithUnpublishedLayoutsAndOffsetAndLimit()
+    {
+        $this->assertEquals(
+            [
+                new Layout(
+                    [
+                        'id' => 4,
+                        'type' => '4_zones_b',
+                        'name' => 'My fourth layout',
+                        'description' => 'My fourth layout description',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_DRAFT,
+                        'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => ['en'],
+                    ]
+                ),
+                new Layout(
+                    [
+                        'id' => 1,
+                        'type' => '4_zones_a',
+                        'name' => 'My layout',
+                        'description' => 'My layout description',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_PUBLISHED,
+                        'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => ['en', 'hr'],
+                    ]
+                ),
+                new Layout(
+                    [
+                        'id' => 2,
+                        'type' => '4_zones_b',
+                        'name' => 'My other layout',
+                        'description' => 'My other layout description',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_PUBLISHED,
+                        'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => ['en'],
+                    ]
+                ),
+            ],
+            $this->layoutHandler->loadLayouts(true, 0, 3)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData

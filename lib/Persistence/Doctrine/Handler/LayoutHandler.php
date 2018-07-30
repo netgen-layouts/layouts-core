@@ -72,14 +72,16 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadLayoutsData($includeDrafts, false, $offset, $limit);
+        $layoutIds = $this->queryHandler->loadLayoutIds($includeDrafts, false, $offset, $limit);
+        $data = $this->queryHandler->loadLayoutsData($layoutIds, $includeDrafts);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadLayoutsData($includeDrafts, true, $offset, $limit);
+        $layoutIds = $this->queryHandler->loadLayoutIds($includeDrafts, true, $offset, $limit);
+        $data = $this->queryHandler->loadLayoutsData($layoutIds, $includeDrafts);
 
         return $this->layoutMapper->mapLayouts($data);
     }

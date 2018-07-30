@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -32,7 +33,7 @@ final class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for layouts. If $includeDrafts is set to true, drafts which have no
+     * Loads all layout IDs for provided parameters. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
      * @param bool $includeDrafts
@@ -42,9 +43,12 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutsData($includeDrafts, $shared, $offset = 0, $limit = null)
+    public function loadLayoutIds($includeDrafts, $shared, $offset = 0, $limit = null)
     {
-        $query = $this->getLayoutSelectQuery();
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('DISTINCT l.id')
+            ->from('ngbm_layout', 'l');
 
         if ($includeDrafts) {
             $query->leftJoin(
@@ -76,6 +80,54 @@ final class LayoutQueryHandler extends QueryHandler
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
+
+        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_column($result, 'id');
+    }
+
+    /**
+     * Loads all data for layouts with provided IDs. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     *
+     * @param array $layoutIds
+     * @param bool $includeDrafts
+     *
+     * @return array
+     */
+    public function loadLayoutsData(array $layoutIds, $includeDrafts)
+    {
+        $query = $this->getLayoutSelectQuery();
+
+        if ($includeDrafts) {
+            $query->leftJoin(
+                'l',
+                'ngbm_layout',
+                'l2',
+                $query->expr()->andX(
+                    $query->expr()->eq('l.id', 'l2.id'),
+                    $query->expr()->eq('l2.status', ':status')
+                )
+            );
+        }
+
+        $query->where(
+            $query->expr()->in('l.id', [':layout_ids'])
+        );
+
+        $statusExpr = $query->expr()->eq('l.status', ':status');
+        if ($includeDrafts) {
+            $statusExpr = $query->expr()->orX(
+                $statusExpr,
+                $query->expr()->isNull('l2.id')
+            );
+        }
+
+        $query->andWhere($statusExpr);
+
+        $query->setParameter('layout_ids', $layoutIds, Connection::PARAM_INT_ARRAY);
+        $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
+
         $query->orderBy('l.name', 'ASC');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
