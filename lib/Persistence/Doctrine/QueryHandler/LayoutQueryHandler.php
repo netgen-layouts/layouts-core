@@ -43,7 +43,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->select('DISTINCT l.id')
+        $query->select('DISTINCT l.id, l.name')
             ->from('ngbm_layout', 'l');
 
         if ($includeDrafts) {
@@ -76,6 +76,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
+        $query->orderBy('l.name', 'ASC');
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
