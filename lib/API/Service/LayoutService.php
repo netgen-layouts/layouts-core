@@ -70,7 +70,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout, int $offset = 0, ?int $limit = null): array;
+    public function loadRelatedLayouts(Layout $sharedLayout): array;
 
     /**
      * Returns the count of published layouts related to provided shared layout.
