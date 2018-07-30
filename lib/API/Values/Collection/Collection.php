@@ -9,12 +9,12 @@ use Netgen\BlockManager\API\Values\Value;
 interface Collection extends Value
 {
     /**
-     * Denotes that the collection is manual, i.e., does not have a collection.
+     * Denotes that the collection is manual, i.e., does not have a query.
      */
     public const TYPE_MANUAL = 0;
 
     /**
-     * Denotes that the collection is dynamic, i.e., that it has a collection.
+     * Denotes that the collection is dynamic, i.e., that it has a query.
      */
     public const TYPE_DYNAMIC = 1;
 
