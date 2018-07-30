@@ -51,7 +51,11 @@
     <div class="xeditable" data-input data-xeditable-name="collection_type" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
         <div class="current">
             <label>{{ 'block.edit.collection_type'|trans }} <span class="bm-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
-            <a href="#" class="js-edit"><span class="text">{{ collection_types[collection.type] }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+
+            <a href="#" class="js-edit">
+                <span class="text">{{ collection_types[collection.hasQuery ? type_dynamic : type_manual] }}</span>
+                <span class="icon">{{ 'block.edit.change'|trans }}</span>
+            </a>
 
             {% if collection.hasQuery and allowed_query_types|length > 1 %}
                 <label>{{ 'block.edit.query_type'|trans }}</label>
