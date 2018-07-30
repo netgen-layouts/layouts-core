@@ -70,9 +70,7 @@ final class LayoutBackend implements BackendInterface
 
     public function getSubItemsCount(LocationInterface $location): int
     {
-        $layouts = $this->layoutService->loadLayouts();
-
-        return count($layouts);
+        return $this->layoutService->getLayoutsCount();
     }
 
     public function search($searchText, $offset = 0, $limit = 25)

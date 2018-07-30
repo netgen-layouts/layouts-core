@@ -83,6 +83,51 @@ final class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads all layout IDs for provided parameters. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     */
+    public function getLayoutsCount(bool $includeDrafts, bool $shared): int
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('count(DISTINCT l.id) AS count')
+            ->from('ngbm_layout', 'l');
+
+        if ($includeDrafts) {
+            $query->leftJoin(
+                'l',
+                'ngbm_layout',
+                'l2',
+                $query->expr()->andX(
+                    $query->expr()->eq('l.id', 'l2.id'),
+                    $query->expr()->eq('l2.status', ':status')
+                )
+            );
+        }
+
+        $query->where(
+            $query->expr()->eq('l.shared', ':shared')
+        );
+
+        $statusExpr = $query->expr()->eq('l.status', ':status');
+        if ($includeDrafts) {
+            $statusExpr = $query->expr()->orX(
+                $statusExpr,
+                $query->expr()->isNull('l2.id')
+            );
+        }
+
+        $query->andWhere($statusExpr);
+
+        $query->setParameter('shared', $shared, Type::BOOLEAN);
+        $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
+
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        return (int) ($data[0]['count'] ?? 0);
+    }
+
+    /**
      * Loads all data for layouts with provided IDs. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *

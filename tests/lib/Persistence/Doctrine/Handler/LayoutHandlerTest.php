@@ -368,6 +368,24 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     */
+    public function testGetLayoutsCount(): void
+    {
+        $this->assertSame(3, $this->layoutHandler->getLayoutsCount());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     */
+    public function testGetLayoutsCountWithUnpublishedLayouts(): void
+    {
+        $this->assertSame(5, $this->layoutHandler->getLayoutsCount(true));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
@@ -409,6 +427,15 @@ final class LayoutHandlerTest extends TestCase
             ],
             $this->exportObjectList($layouts)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getSharedLayoutsCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     */
+    public function testGetSharedLayoutsCount(): void
+    {
+        $this->assertSame(2, $this->layoutHandler->getSharedLayoutsCount());
     }
 
     /**

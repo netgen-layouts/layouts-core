@@ -117,6 +117,11 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $layouts;
     }
 
+    public function getLayoutsCount(bool $includeDrafts = false): int
+    {
+        return $this->layoutHandler->getLayoutsCount($includeDrafts);
+    }
+
     public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
@@ -133,6 +138,11 @@ final class LayoutService extends Service implements LayoutServiceInterface
         }
 
         return $layouts;
+    }
+
+    public function getSharedLayoutsCount(bool $includeDrafts = false): int
+    {
+        return $this->layoutHandler->getSharedLayoutsCount($includeDrafts);
     }
 
     public function loadRelatedLayouts(Layout $sharedLayout): array

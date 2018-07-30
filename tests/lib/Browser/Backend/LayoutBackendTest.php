@@ -181,8 +181,8 @@ final class LayoutBackendTest extends TestCase
     {
         $this->layoutServiceMock
             ->expects($this->once())
-            ->method('loadLayouts')
-            ->will($this->returnValue([new Layout(), new Layout()]));
+            ->method('getLayoutsCount')
+            ->will($this->returnValue(2));
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 

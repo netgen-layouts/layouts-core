@@ -135,6 +135,22 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getLayoutsCount
+     */
+    public function testGetLayoutsCount(): void
+    {
+        $this->assertSame(3, $this->layoutService->getLayoutsCount());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getLayoutsCount
+     */
+    public function testGetLayoutsCountWithUnpublishedLayouts(): void
+    {
+        $this->assertSame(5, $this->layoutService->getLayoutsCount(true));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadSharedLayouts
      */
     public function testLoadSharedLayouts(): void
@@ -149,6 +165,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->assertTrue($layout->isShared());
             $this->assertTrue($layout->isPublished());
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getSharedLayoutsCount
+     */
+    public function testGetSharedLayoutsCount(): void
+    {
+        $this->assertSame(2, $this->layoutService->getSharedLayoutsCount());
     }
 
     /**

@@ -48,12 +48,24 @@ interface LayoutHandlerInterface
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
     /**
+     * Returns the count of all layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     */
+    public function getLayoutsCount(bool $includeDrafts = false): int;
+
+    /**
      * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
     public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
+
+    /**
+     * Returns the count of all shared layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     */
+    public function getSharedLayoutsCount(bool $includeDrafts = false): int;
 
     /**
      * Loads all layouts related to provided shared layout.
