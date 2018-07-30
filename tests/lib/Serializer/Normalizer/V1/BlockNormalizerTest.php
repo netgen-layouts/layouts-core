@@ -142,7 +142,7 @@ final class BlockNormalizerTest extends TestCase
                     [
                         'identifier' => 'default',
                         'collection_id' => $collection->getId(),
-                        'collection_type' => $collection->getType(),
+                        'collection_type' => Collection::TYPE_MANUAL,
                         'offset' => $collection->getOffset(),
                         'limit' => $collection->getLimit(),
                     ],

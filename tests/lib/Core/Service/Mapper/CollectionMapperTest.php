@@ -55,7 +55,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(2, $collection->getId());
-        $this->assertSame(APICollection::TYPE_DYNAMIC, $collection->getType());
         $this->assertSame(10, $collection->getOffset());
         $this->assertSame(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
@@ -207,7 +206,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertSame(1, $collection->getId());
-        $this->assertSame(APICollection::TYPE_MANUAL, $collection->getType());
         $this->assertSame(0, $collection->getOffset());
         $this->assertSame(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());

@@ -26,14 +26,6 @@ interface Collection extends Value
     public function getId();
 
     /**
-     * Returns the collection type.
-     *
-     * The type can be manual (can have only manual items)
-     * or dynamic (can have manual items as well as a query).
-     */
-    public function getType(): int;
-
-    /**
      * Returns the starting collection offset.
      */
     public function getOffset(): int;

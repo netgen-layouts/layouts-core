@@ -47,7 +47,6 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasManualItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasOverrideItem
@@ -80,7 +79,6 @@ final class CollectionTest extends TestCase
         );
 
         $this->assertSame(42, $collection->getId());
-        $this->assertSame(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertSame(5, $collection->getOffset());
         $this->assertSame(10, $collection->getLimit());
         $this->assertSame('en', $collection->getMainLocale());

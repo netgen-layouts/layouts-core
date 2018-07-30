@@ -200,7 +200,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertNull($collections['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
-        $this->assertSame(Collection::TYPE_MANUAL, $collection->getType());
         $this->assertFalse($collection->hasQuery());
 
         $this->assertSame($block->isTranslatable(), $collection->isTranslatable());
@@ -244,7 +243,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertNull($collections['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
-        $this->assertSame(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertTrue($collection->hasQuery());
         $this->assertInstanceOf(Query::class, $collection->getQuery());
         $this->assertSame('my_query_type', $collection->getQuery()->getQueryType()->getType());

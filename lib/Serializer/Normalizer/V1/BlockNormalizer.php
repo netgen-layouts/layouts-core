@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -91,7 +92,7 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
             $data[] = [
                 'identifier' => $identifier,
                 'collection_id' => $collection->getId(),
-                'collection_type' => $collection->getType(),
+                'collection_type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
                 'offset' => $collection->getOffset(),
                 'limit' => $collection->getLimit(),
             ];

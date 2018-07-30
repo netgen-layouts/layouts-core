@@ -84,11 +84,6 @@ final class Collection implements APICollection
         return self::STATUS_DRAFT;
     }
 
-    public function getType(): int
-    {
-        return self::TYPE_MANUAL;
-    }
-
     public function isDraft(): bool
     {
         return true;

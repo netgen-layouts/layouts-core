@@ -78,11 +78,6 @@ final class Collection implements APICollection
         return $this->id;
     }
 
-    public function getType(): int
-    {
-        return $this->hasQuery() ? self::TYPE_DYNAMIC : self::TYPE_MANUAL;
-    }
-
     public function getOffset(): int
     {
         if ($this->offset !== null && !$this->hasQuery()) {

@@ -235,7 +235,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertTrue($updatedCollection->isDraft());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
-        $this->assertSame(Collection::TYPE_DYNAMIC, $updatedCollection->getType());
         $this->assertCount(count($collection->getItems()), $updatedCollection->getItems());
         $this->assertInstanceOf(Query::class, $updatedCollection->getQuery());
     }
@@ -254,7 +253,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertTrue($updatedCollection->isDraft());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
-        $this->assertSame(Collection::TYPE_MANUAL, $updatedCollection->getType());
         $this->assertCount(count($collection->getItems()), $updatedCollection->getItems());
         $this->assertNull($updatedCollection->getQuery());
 

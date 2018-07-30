@@ -42,7 +42,7 @@ final class CollectionNormalizerTest extends TestCase
         $this->assertSame(
             [
                 'id' => $collection->getId(),
-                'type' => $collection->getType(),
+                'type' => Collection::TYPE_DYNAMIC,
                 'is_translatable' => $collection->isTranslatable(),
                 'main_locale' => $collection->getMainLocale(),
                 'always_available' => $collection->isAlwaysAvailable(),
