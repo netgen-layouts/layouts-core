@@ -42,7 +42,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult::__invoke
      */
-    public function testLoadCollectionResultWithNonExistentCollectionReference(): void
+    public function testLoadCollectionResultWithNonExistentCollection(): void
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31/collections/unknown/result');
 

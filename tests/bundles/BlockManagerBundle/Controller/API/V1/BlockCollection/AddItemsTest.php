@@ -87,7 +87,7 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithNonExistentCollectionReference(): void
+    public function testAddItemsWithNonExistentCollection(): void
     {
         $data = $this->jsonEncode(
             [
