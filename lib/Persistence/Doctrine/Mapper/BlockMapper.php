@@ -39,11 +39,11 @@ final class BlockMapper
                     'mainLocale' => $dataItem['main_locale'],
                     'alwaysAvailable' => (bool) $dataItem['always_available'],
                     'status' => (int) $dataItem['status'],
-                    'config' => $this->buildParameters($dataItem['config']),
+                    'config' => $this->buildParameters((string) $dataItem['config']),
                 ];
             }
 
-            $blocks[$blockId]['parameters'][$locale] = $this->buildParameters($dataItem['parameters']);
+            $blocks[$blockId]['parameters'][$locale] = $this->buildParameters((string) $dataItem['parameters']);
             $blocks[$blockId]['availableLocales'][] = $locale;
         }
 
@@ -87,10 +87,10 @@ final class BlockMapper
     /**
      * Builds the array of parameters from provided JSON string.
      */
-    private function buildParameters(?string $parameters): array
+    private function buildParameters(string $parameters): array
     {
-        $parameters = !empty($parameters) ? json_decode($parameters, true) : [];
+        $decodedParameters = json_decode($parameters, true);
 
-        return is_array($parameters) ? $parameters : [];
+        return is_array($decodedParameters) ? $decodedParameters : [];
     }
 }

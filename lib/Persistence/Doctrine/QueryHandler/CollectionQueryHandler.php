@@ -512,7 +512,7 @@ final class CollectionQueryHandler extends QueryHandler
      */
     public function createQueryTranslation(Query $query, string $locale): void
     {
-        $query = $this->connection->createQueryBuilder()
+        $dbQuery = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query_translation')
             ->values(
                 [
@@ -527,7 +527,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('locale', $locale, Type::STRING)
             ->setParameter('parameters', $query->parameters[$locale], Type::JSON_ARRAY);
 
-        $query->execute();
+        $dbQuery->execute();
     }
 
     /**
@@ -535,23 +535,24 @@ final class CollectionQueryHandler extends QueryHandler
      */
     public function updateQueryTranslation(Query $query, string $locale): void
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
+        $dbQuery = $this->connection->createQueryBuilder();
+
+        $dbQuery
             ->update('ngbm_collection_query_translation')
             ->set('parameters', ':parameters')
             ->where(
-                $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->eq('query_id', ':query_id'),
-                    $queryBuilder->expr()->eq('locale', ':locale')
+                $dbQuery->expr()->andX(
+                    $dbQuery->expr()->eq('query_id', ':query_id'),
+                    $dbQuery->expr()->eq('locale', ':locale')
                 )
             )
             ->setParameter('query_id', $query->id, Type::INTEGER)
             ->setParameter('locale', $locale, Type::STRING)
             ->setParameter('parameters', $query->parameters[$locale], Type::JSON_ARRAY);
 
-        $this->applyStatusCondition($queryBuilder, $query->status);
+        $this->applyStatusCondition($dbQuery, $query->status);
 
-        $queryBuilder->execute();
+        $dbQuery->execute();
     }
 
     /**
