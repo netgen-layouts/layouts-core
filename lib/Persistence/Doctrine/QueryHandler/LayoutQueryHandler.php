@@ -85,12 +85,10 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all data for layouts related to provided shared layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
-     * @param int $offset
-     * @param int $limit
      *
      * @return array
      */
-    public function loadRelatedLayoutsData(Layout $sharedLayout, $offset = 0, $limit = null)
+    public function loadRelatedLayoutsData(Layout $sharedLayout)
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -114,7 +112,6 @@ final class LayoutQueryHandler extends QueryHandler
         ->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER)
         ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
 
-        $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);

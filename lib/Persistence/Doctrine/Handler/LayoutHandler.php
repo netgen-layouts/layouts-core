@@ -84,9 +84,9 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
+    public function loadRelatedLayouts(Layout $sharedLayout)
     {
-        $data = $this->queryHandler->loadRelatedLayoutsData($sharedLayout, $offset, $limit);
+        $data = $this->queryHandler->loadRelatedLayoutsData($sharedLayout);
 
         return $this->layoutMapper->mapLayouts($data);
     }

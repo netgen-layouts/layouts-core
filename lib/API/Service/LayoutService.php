@@ -72,15 +72,13 @@ interface LayoutService extends Service
      * Loads all published layouts related to provided shared layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
-     * @param int $offset
-     * @param int $limit
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
+    public function loadRelatedLayouts(Layout $sharedLayout);
 
     /**
      * Returns the count of published layouts related to provided shared layout.

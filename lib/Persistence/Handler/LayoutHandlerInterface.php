@@ -65,12 +65,10 @@ interface LayoutHandlerInterface
      * Loads all layouts related to provided shared layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
-     * @param int $offset
-     * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
+    public function loadRelatedLayouts(Layout $sharedLayout);
 
     /**
      * Loads the count of layouts related to provided shared layout.

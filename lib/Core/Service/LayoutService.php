@@ -138,7 +138,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $layouts;
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
+    public function loadRelatedLayouts(Layout $sharedLayout)
     {
         if (!$sharedLayout->isPublished()) {
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
@@ -150,11 +150,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->getId(), $sharedLayout->getStatus());
 
-        $relatedPersistenceLayouts = $this->layoutHandler->loadRelatedLayouts(
-            $persistenceLayout,
-            $offset,
-            $limit
-        );
+        $relatedPersistenceLayouts = $this->layoutHandler->loadRelatedLayouts($persistenceLayout);
 
         $relatedLayouts = [];
         foreach ($relatedPersistenceLayouts as $relatedPersistenceLayout) {
