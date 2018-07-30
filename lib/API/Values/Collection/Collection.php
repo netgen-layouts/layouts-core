@@ -36,16 +36,14 @@ interface Collection extends Value
     public function getLimit(): ?int;
 
     /**
-     * Returns if the item with specified type (manual or override)
-     * exists at specified position.
+     * Returns if the item exists at specified position.
      */
-    public function hasItem(int $position, ?int $type = null): bool;
+    public function hasItem(int $position): bool;
 
     /**
-     * Returns the item of specified type (manual or override)
-     * at specified position.
+     * Returns the item at specified position.
      */
-    public function getItem(int $position, ?int $type = null): ?Item;
+    public function getItem(int $position): ?Item;
 
     /**
      * Returns all collection items.
@@ -53,40 +51,6 @@ interface Collection extends Value
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
     public function getItems(): array;
-
-    /**
-     * Returns if the collection has a manual item at specified position.
-     */
-    public function hasManualItem(int $position): bool;
-
-    /**
-     * Returns the manual item at specified position.
-     */
-    public function getManualItem(int $position): ?Item;
-
-    /**
-     * Returns all the manual items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
-    public function getManualItems(): array;
-
-    /**
-     * Returns if the collection has an override item at specified position.
-     */
-    public function hasOverrideItem(int $position): bool;
-
-    /**
-     * Returns the override item at specified position.
-     */
-    public function getOverrideItem(int $position): ?Item;
-
-    /**
-     * Returns all the override items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
-    public function getOverrideItems(): array;
 
     /**
      * Returns the query from the collection or null if no query exists.

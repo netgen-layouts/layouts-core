@@ -67,19 +67,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
             $this->assertInstanceOf(APIItem::class, $item);
         }
 
-        foreach ($collection->getManualItems() as $item) {
-            $this->assertInstanceOf(APIItem::class, $item);
-        }
-
-        foreach ($collection->getOverrideItems() as $item) {
-            $this->assertInstanceOf(APIItem::class, $item);
-        }
-
-        $this->assertSame(
-            count($collection->getItems()),
-            count($collection->getManualItems()) + count($collection->getOverrideItems())
-        );
-
         $this->assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
@@ -218,19 +205,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
             $this->assertInstanceOf(APIItem::class, $item);
         }
 
-        foreach ($collection->getManualItems() as $item) {
-            $this->assertInstanceOf(APIItem::class, $item);
-        }
-
-        foreach ($collection->getOverrideItems() as $item) {
-            $this->assertInstanceOf(APIItem::class, $item);
-        }
-
-        $this->assertSame(
-            count($collection->getItems()),
-            count($collection->getManualItems()) + count($collection->getOverrideItems())
-        );
-
         $this->assertNull($collection->getQuery());
     }
 
@@ -245,7 +219,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'position' => 1,
-                'type' => APIItem::TYPE_OVERRIDE,
                 'value' => '12',
                 'valueType' => 'my_value_type',
                 'config' => [
@@ -272,7 +245,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertSame(42, $item->getCollectionId());
         $this->assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
         $this->assertSame(1, $item->getPosition());
-        $this->assertSame(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertSame('12', $item->getValue());
         $this->assertSame($cmsItem, $item->getCmsItem());
         $this->assertTrue($item->isPublished());
@@ -297,7 +269,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'position' => 1,
-                'type' => APIItem::TYPE_OVERRIDE,
                 'value' => '12',
                 'valueType' => 'unknown',
                 'config' => [
@@ -324,7 +295,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertSame(42, $item->getCollectionId());
         $this->assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
         $this->assertSame(1, $item->getPosition());
-        $this->assertSame(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertSame('12', $item->getValue());
         $this->assertSame($cmsItem, $item->getCmsItem());
         $this->assertTrue($item->isPublished());

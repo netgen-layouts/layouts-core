@@ -351,17 +351,12 @@
             "item": {
                 "type": "object",
                 "description": "A collection item",
-                "required": ["type", "position", "value", "value_type", "configuration"],
+                "required": ["position", "value", "value_type", "configuration"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
                         "$ref": "#/definitions/simple/unique_id",
                         "description": "The ID of the collection item"
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "The type of the collection item",
-                        "enum": ["MANUAL", "OVERRIDE"]
                     },
                     "position": {
                         "type": "integer",

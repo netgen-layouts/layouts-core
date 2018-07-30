@@ -32,13 +32,6 @@ final class ItemCreateStruct
     public $valueType;
 
     /**
-     * Type of the item. One of Item::TYPE_* flags.
-     *
-     * @var int
-     */
-    public $type;
-
-    /**
      * The item configuration.
      *
      * @var array

@@ -147,7 +147,6 @@ final class CollectionMapper
             'definition' => $itemDefinition,
             'collectionId' => $item->collectionId,
             'position' => $item->position,
-            'type' => $item->type,
             'value' => $item->value,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
             'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {

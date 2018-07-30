@@ -1,6 +1,5 @@
 {
     "id": 5,
-    "type": "MANUAL",
     "position": 2,
     "value": "abc",
     "value_type": "my_value_type",

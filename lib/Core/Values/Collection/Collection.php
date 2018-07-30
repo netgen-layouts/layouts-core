@@ -93,28 +93,20 @@ final class Collection implements APICollection
         return $this->limit;
     }
 
-    public function hasItem(int $position, ?int $type = null): bool
+    public function hasItem(int $position): bool
     {
         return $this->items->exists(
-            function ($key, APIItem $item) use ($position, $type): bool {
-                if ($item->getPosition() === $position) {
-                    return $type === null || $item->getType() === $type;
-                }
-
-                return false;
+            function ($key, APIItem $item) use ($position): bool {
+                return $item->getPosition() === $position;
             }
         );
     }
 
-    public function getItem(int $position, ?int $type = null): ?APIItem
+    public function getItem(int $position): ?APIItem
     {
         foreach ($this->items as $item) {
             if ($item->getPosition() === $position) {
-                if ($type === null || $item->getType() === $type) {
-                    return $item;
-                }
-
-                return null;
+                return $item;
             }
         }
 
@@ -124,36 +116,6 @@ final class Collection implements APICollection
     public function getItems(): array
     {
         return $this->items->toArray();
-    }
-
-    public function hasManualItem(int $position): bool
-    {
-        return $this->hasItem($position, Item::TYPE_MANUAL);
-    }
-
-    public function getManualItem(int $position): ?APIItem
-    {
-        return $this->getItem($position, Item::TYPE_MANUAL);
-    }
-
-    public function getManualItems(): array
-    {
-        return $this->filterItems(Item::TYPE_MANUAL);
-    }
-
-    public function hasOverrideItem(int $position): bool
-    {
-        return $this->hasItem($position, Item::TYPE_OVERRIDE);
-    }
-
-    public function getOverrideItem(int $position): ?APIItem
-    {
-        return $this->getItem($position, Item::TYPE_OVERRIDE);
-    }
-
-    public function getOverrideItems(): array
-    {
-        return $this->filterItems(Item::TYPE_OVERRIDE);
     }
 
     public function getQuery(): ?APIQuery
@@ -189,19 +151,5 @@ final class Collection implements APICollection
     public function getLocale(): string
     {
         return $this->locale;
-    }
-
-    /**
-     * Returns all items of specified type (manual or override).
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
-    private function filterItems(int $type): array
-    {
-        return $this->items->filter(
-            function (APIItem $item) use ($type): bool {
-                return $item->getType() === $type;
-            }
-        )->toArray();
     }
 }

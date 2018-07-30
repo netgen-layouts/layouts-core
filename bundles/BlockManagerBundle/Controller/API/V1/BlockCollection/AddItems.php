@@ -55,7 +55,6 @@ final class AddItems extends Controller
                 foreach ($items as $item) {
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                         $this->itemDefinitionRegistry->getItemDefinition($item['value_type']),
-                        $item['type'],
                         $item['value']
                     );
 

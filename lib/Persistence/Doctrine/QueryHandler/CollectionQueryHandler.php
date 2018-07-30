@@ -353,7 +353,6 @@ final class CollectionQueryHandler extends QueryHandler
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'position' => ':position',
-                    'type' => ':type',
                     'value' => ':value',
                     'value_type' => ':value_type',
                     'config' => ':config',
@@ -368,7 +367,6 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('status', $item->status, Type::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
             ->setParameter('position', $item->position, Type::INTEGER)
-            ->setParameter('type', $item->type, Type::INTEGER)
             ->setParameter('value', $item->value, Type::STRING)
             ->setParameter('value_type', $item->valueType, Type::STRING)
             ->setParameter('config', $item->config, Type::JSON_ARRAY);
@@ -391,7 +389,6 @@ final class CollectionQueryHandler extends QueryHandler
             ->update('ngbm_collection_item')
             ->set('collection_id', ':collection_id')
             ->set('position', ':position')
-            ->set('type', ':type')
             ->set('value', ':value')
             ->set('value_type', ':value_type')
             ->set('config', ':config')
@@ -401,7 +398,6 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('id', $item->id, Type::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
             ->setParameter('position', $item->position, Type::INTEGER)
-            ->setParameter('type', $item->type, Type::INTEGER)
             ->setParameter('value', $item->value, Type::STRING)
             ->setParameter('value_type', $item->valueType, Type::STRING)
             ->setParameter('config', $item->config, Type::JSON_ARRAY);
@@ -440,9 +436,8 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param int|string $collectionId
      * @param int $status
-     * @param int $itemType
      */
-    public function deleteItems($collectionId, int $status, ?int $itemType = null): void
+    public function deleteItems($collectionId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -451,13 +446,6 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->eq('collection_id', ':collection_id')
             )
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        if ($itemType !== null) {
-            $query->andWhere(
-                $query->expr()->eq('type', ':type')
-            )
-            ->setParameter('type', $itemType, Type::INTEGER);
-        }
 
         $this->applyStatusCondition($query, $status);
 

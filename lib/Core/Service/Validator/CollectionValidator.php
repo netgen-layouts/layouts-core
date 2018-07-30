@@ -120,22 +120,6 @@ final class CollectionValidator extends Validator
             'definition'
         );
 
-        $this->validate(
-            $itemCreateStruct->type,
-            [
-                new Constraints\NotBlank(),
-                new Constraints\Choice(
-                    [
-                        'choices' => [
-                            Item::TYPE_MANUAL,
-                        ],
-                        'strict' => true,
-                    ]
-                ),
-            ],
-            'type'
-        );
-
         if ($itemCreateStruct->value !== null) {
             $this->validate(
                 $itemCreateStruct->value,

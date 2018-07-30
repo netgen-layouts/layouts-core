@@ -273,7 +273,6 @@ final class CollectionService extends Service implements APICollectionService
                             'position' => $position,
                             'value' => $itemCreateStruct->value,
                             'valueType' => $itemCreateStruct->definition->getValueType(),
-                            'type' => $itemCreateStruct->type,
                             'config' => $this->configMapper->serializeValues(
                                 $itemCreateStruct->getConfigStructs(),
                                 $itemCreateStruct->definition->getConfigDefinitions()
@@ -356,21 +355,17 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function deleteItems(Collection $collection, ?int $itemType = null): Collection
+    public function deleteItems(Collection $collection): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
         }
 
-        if ($itemType !== null && !in_array($itemType, [Item::TYPE_MANUAL, Item::TYPE_OVERRIDE], true)) {
-            throw new BadStateException('itemType', 'Provided item type is not valid.');
-        }
-
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $updatedCollection = $this->transaction(
-            function () use ($persistenceCollection, $itemType): PersistenceCollection {
-                return $this->handler->deleteItems($persistenceCollection, $itemType);
+            function () use ($persistenceCollection): PersistenceCollection {
+                return $this->handler->deleteItems($persistenceCollection);
             }
         );
 
@@ -416,9 +411,9 @@ final class CollectionService extends Service implements APICollectionService
         return $this->structBuilder->newCollectionUpdateStruct($collection);
     }
 
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): APIItemCreateStruct
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): APIItemCreateStruct
     {
-        return $this->structBuilder->newItemCreateStruct($itemDefinition, $type, $value);
+        return $this->structBuilder->newItemCreateStruct($itemDefinition, $value);
     }
 
     public function newItemUpdateStruct(?Item $item = null): APIItemUpdateStruct

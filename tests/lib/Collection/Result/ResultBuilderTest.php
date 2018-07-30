@@ -102,7 +102,6 @@ final class ResultBuilderTest extends TestCase
     {
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
-            [3 => 25, 9 => 26],
             [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13
         );
@@ -128,7 +127,6 @@ final class ResultBuilderTest extends TestCase
     {
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
-            [3 => 25, 9 => 26],
             [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13,
             true
@@ -155,7 +153,6 @@ final class ResultBuilderTest extends TestCase
     {
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
-            [3 => 25, 9 => 26],
             [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13,
             true
@@ -188,31 +185,17 @@ final class ResultBuilderTest extends TestCase
      * Builds the dynamic collection for provided type and list of values.
      */
     private function buildCollection(
-        array $manualIds = [],
-        array $overrideIds = [],
+        array $itemIds = [],
         array $queryValues = [],
         int $queryCount = 0,
         bool $contextual = false
     ): APICollection {
         $items = [];
 
-        foreach ($manualIds as $position => $id) {
+        foreach ($itemIds as $position => $id) {
             $items[] = Item::fromArray(
                 [
                     'position' => $position,
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => $id,
-                    'definition' => ItemDefinition::fromArray(['valueType' => 'value']),
-                    'cmsItem' => CmsItem::fromArray(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
-                ]
-            );
-        }
-
-        foreach ($overrideIds as $position => $id) {
-            $items[] = Item::fromArray(
-                [
-                    'position' => $position,
-                    'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
                     'definition' => ItemDefinition::fromArray(['valueType' => 'value']),
                     'cmsItem' => CmsItem::fromArray(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),

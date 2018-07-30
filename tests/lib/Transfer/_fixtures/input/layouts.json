@@ -133,7 +133,6 @@
                                     "items": [
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 1,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -146,7 +145,6 @@
                                         },
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 2,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -159,7 +157,6 @@
                                         },
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -207,7 +204,6 @@
                                     "items": [
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 2,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -220,7 +216,6 @@
                                         },
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 3,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -233,7 +228,6 @@
                                         },
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -314,7 +308,6 @@
                                     "items": [
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 2,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -327,7 +320,6 @@
                                         },
                                         {
                                             "id": "@integer@",
-                                            "type": "MANUAL",
                                             "position": 3,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -340,7 +332,6 @@
                                         },
                                         {
                                             "id": "@integer@",
-                                            "type": "OVERRIDE",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",

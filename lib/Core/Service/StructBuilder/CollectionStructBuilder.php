@@ -60,16 +60,14 @@ final class CollectionStructBuilder
      * Creates a new item create struct from provided values.
      *
      * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface $itemDefinition
-     * @param int $type
      * @param int|string $value
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
      */
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): ItemCreateStruct
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): ItemCreateStruct
     {
         $struct = new ItemCreateStruct();
         $struct->definition = $itemDefinition;
-        $struct->type = $type;
         $struct->value = $value;
 
         return $struct;

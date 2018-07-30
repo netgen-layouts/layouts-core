@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\BlockCollection;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +21,11 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 74,
                         'value_type' => 'my_value_type',
                     ],
@@ -58,13 +55,11 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 74,
                         'value_type' => 'my_value_type',
                     ],
@@ -98,13 +93,11 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 74,
                         'value_type' => 'my_value_type',
                     ],
@@ -212,82 +205,12 @@ final class AddItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidItemType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'items' => [
-                    [
-                        'type' => 'type',
-                        'value' => 73,
-                        'value_type' => 'my_value_type',
-                        'position' => 3,
-                    ],
-                ],
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][type]": This value should be of type int.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
-     */
-    public function testAddItemsWithMissingItemType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'items' => [
-                    [
-                        'value' => 73,
-                        'value_type' => 'my_value_type',
-                        'position' => 3,
-                    ],
-                ],
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][type]": This field is missing.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
-     */
     public function testAddItemsWithInvalidValue(): void
     {
         $data = $this->jsonEncode(
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => [42],
                         'value_type' => 'my_value_type',
                         'position' => 3,
@@ -322,7 +245,6 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value_type' => 'my_value_type',
                         'position' => 3,
                     ],
@@ -356,7 +278,6 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 42,
                         'position' => 3,
@@ -391,7 +312,6 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'position' => 3,
                     ],
@@ -425,7 +345,6 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'my_value_type',
                         'position' => '3',
@@ -460,7 +379,6 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'my_value_type',
                     ],
@@ -494,7 +412,6 @@ final class AddItemsTest extends JsonApiTestCase
             [
                 'items' => [
                     [
-                        'type' => Item::TYPE_MANUAL,
                         'value' => 73,
                         'value_type' => 'my_value_type',
                         'position' => 9999,

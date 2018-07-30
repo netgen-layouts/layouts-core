@@ -10,7 +10,6 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
@@ -414,7 +413,6 @@ final class LayoutDataHandler
 
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
-                $this->mapItemType($collectionItemData['type']),
                 $item->getValue()
             );
 
@@ -426,17 +424,5 @@ final class LayoutDataHandler
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);
         }
-    }
-
-    /**
-     * Map items' exported type string to the real type value.
-     */
-    private function mapItemType(string $typeString): int
-    {
-        if ($typeString === 'OVERRIDE') {
-            return Item::TYPE_OVERRIDE;
-        }
-
-        return Item::TYPE_MANUAL;
     }
 }

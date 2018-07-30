@@ -12,16 +12,6 @@ final class Item extends Value
     use HydratorTrait;
 
     /**
-     * Denotes that the item is manual. Manual items are injected in between items fetched from queries.
-     */
-    public const TYPE_MANUAL = 0;
-
-    /**
-     * Denotes that the item is an override. Override items replace the items fetched from queries at specified position.
-     */
-    public const TYPE_OVERRIDE = 1;
-
-    /**
      * Item ID.
      *
      * @var int|string
@@ -41,13 +31,6 @@ final class Item extends Value
      * @var int
      */
     public $position;
-
-    /**
-     * Type of the item. One of self::TYPE_* flags.
-     *
-     * @var int
-     */
-    public $type;
 
     /**
      * Value from CMS this item wraps. This is usually the ID of the CMS entity.

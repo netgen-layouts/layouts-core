@@ -28,13 +28,4 @@ final class ItemCreateStruct implements ConfigAwareStruct
      * @var int|string
      */
     public $value;
-
-    /**
-     * Type of the item. One of Item::TYPE_* constants.
-     *
-     * Required.
-     *
-     * @var int
-     */
-    public $type;
 }

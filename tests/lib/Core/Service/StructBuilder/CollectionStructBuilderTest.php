@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
@@ -122,7 +121,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewItemCreateStruct(): void
     {
         $itemDefinition = new ItemDefinition();
-        $struct = $this->structBuilder->newItemCreateStruct($itemDefinition, Item::TYPE_OVERRIDE, '42');
+        $struct = $this->structBuilder->newItemCreateStruct($itemDefinition, '42');
 
         $this->assertInstanceOf(ItemCreateStruct::class, $struct);
 
@@ -130,7 +129,6 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
             [
                 'definition' => $itemDefinition,
                 'value' => '42',
-                'type' => Item::TYPE_OVERRIDE,
                 'configStructs' => [],
             ],
             $this->exportObject($struct)

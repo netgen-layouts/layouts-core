@@ -32,10 +32,6 @@ final class AddItemsValidator
                         'constraints' => new Constraints\Collection(
                             [
                                 'fields' => [
-                                    'type' => [
-                                        new Constraints\NotNull(),
-                                        new Constraints\Type(['type' => 'int']),
-                                    ],
                                     'value' => [
                                         new Constraints\NotNull(),
                                         new Constraints\Type(['type' => 'scalar']),

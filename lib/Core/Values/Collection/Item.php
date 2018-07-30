@@ -41,11 +41,6 @@ final class Item implements APIItem
     private $position;
 
     /**
-     * @var int
-     */
-    private $type;
-
-    /**
      * @var int|string
      */
     private $value;
@@ -65,16 +60,6 @@ final class Item implements APIItem
         return $this->collectionId;
     }
 
-    public function isManual(): bool
-    {
-        return $this->type === self::TYPE_MANUAL;
-    }
-
-    public function isOverride(): bool
-    {
-        return $this->type === self::TYPE_OVERRIDE;
-    }
-
     public function getDefinition(): ItemDefinitionInterface
     {
         return $this->definition;
@@ -83,11 +68,6 @@ final class Item implements APIItem
     public function getPosition(): int
     {
         return $this->position;
-    }
-
-    public function getType(): int
-    {
-        return $this->type;
     }
 
     public function getValue()

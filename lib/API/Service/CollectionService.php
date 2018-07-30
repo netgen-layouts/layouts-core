@@ -171,14 +171,11 @@ interface CollectionService extends Service
     public function deleteItem(Item $item): void;
 
     /**
-     * Removes all manual and override items from provided collection.
-     *
-     * If item type (one of Item::TYPE_* constants) is provided, only items
-     * of that type are removed (manual or override).
+     * Removes all manual items from provided collection.
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      */
-    public function deleteItems(Collection $collection, ?int $itemType = null): Collection;
+    public function deleteItems(Collection $collection): Collection;
 
     /**
      * Updates a query.
@@ -204,12 +201,11 @@ interface CollectionService extends Service
      * Creates a new item create struct from provided values.
      *
      * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface $itemDefinition
-     * @param int $type
      * @param int|string $value
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
      */
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int $type, $value): ItemCreateStruct;
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): ItemCreateStruct;
 
     /**
      * Creates a new item update struct.

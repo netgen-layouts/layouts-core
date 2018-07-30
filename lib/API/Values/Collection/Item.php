@@ -12,16 +12,6 @@ use Netgen\BlockManager\Item\CmsItemInterface;
 interface Item extends Value, ConfigAwareValue
 {
     /**
-     * Item of this type is inserted between items coming from the collection query.
-     */
-    public const TYPE_MANUAL = 0;
-
-    /**
-     * Items of this type override the item from the query at the specified position.
-     */
-    public const TYPE_OVERRIDE = 1;
-
-    /**
      * Returns the item ID.
      *
      * @return int|string
@@ -36,16 +26,6 @@ interface Item extends Value, ConfigAwareValue
     public function getCollectionId();
 
     /**
-     * Returns if the item is a manual item.
-     */
-    public function isManual(): bool;
-
-    /**
-     * Returns if the item is an override item.
-     */
-    public function isOverride(): bool;
-
-    /**
      * Returns the item definition.
      */
     public function getDefinition(): ItemDefinitionInterface;
@@ -54,14 +34,6 @@ interface Item extends Value, ConfigAwareValue
      * Returns the item position within the collection.
      */
     public function getPosition(): int;
-
-    /**
-     * Returns the type of this item.
-     *
-     * Type can either be manual (inserted between items returned from the query),
-     * or override (replaces the item from the query in the same position).
-     */
-    public function getType(): int;
 
     /**
      * Returns the value stored inside the collection item.

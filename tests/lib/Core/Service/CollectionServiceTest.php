@@ -318,7 +318,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            Item::TYPE_MANUAL,
             '66'
         );
 
@@ -343,7 +342,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            Item::TYPE_MANUAL,
             '66'
         );
 
@@ -365,7 +363,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            Item::TYPE_MANUAL,
             '66'
         );
 
@@ -501,27 +498,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
-     */
-    public function testDeleteItemsWithSpecificItemType(): void
-    {
-        $collection = $this->collectionService->loadCollectionDraft(1);
-
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            Item::TYPE_OVERRIDE,
-            66
-        );
-
-        $this->collectionService->addItem($collection, $itemCreateStruct);
-
-        $collection = $this->collectionService->deleteItems($collection, Item::TYPE_OVERRIDE);
-
-        $this->assertCount(3, $collection->getManualItems());
-        $this->assertCount(0, $collection->getOverrideItems());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "collection" has an invalid state. Only items in draft collections can be deleted.
      */
@@ -529,17 +505,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $collection = $this->collectionService->loadCollection(3);
         $this->collectionService->deleteItems($collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "itemType" has an invalid state. Provided item type is not valid.
-     */
-    public function testDeleteItemsThrowsBadStateExceptionWithInvalidItemType(): void
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-        $this->collectionService->deleteItems($collection, 9999);
     }
 
     /**
@@ -720,7 +685,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testNewItemCreateStruct(): void
     {
         $itemDefinition = new ItemDefinition();
-        $struct = $this->collectionService->newItemCreateStruct($itemDefinition, Item::TYPE_OVERRIDE, '42');
+        $struct = $this->collectionService->newItemCreateStruct($itemDefinition, '42');
 
         $this->assertInstanceOf(ItemCreateStruct::class, $struct);
 
@@ -728,7 +693,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
             [
                 'definition' => $itemDefinition,
                 'value' => '42',
-                'type' => Item::TYPE_OVERRIDE,
                 'configStructs' => [],
             ],
             $this->exportObject($struct)

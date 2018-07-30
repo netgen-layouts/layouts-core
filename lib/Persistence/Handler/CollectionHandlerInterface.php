@@ -167,12 +167,9 @@ interface CollectionHandlerInterface
     public function deleteItem(Item $item): void;
 
     /**
-     * Removes all manual and override items from provided collection.
-     *
-     * If item type (one of Item::TYPE_* constants) is provided, only items
-     * of that type are removed (manual or override).
+     * Removes all manual items from provided collection.
      */
-    public function deleteItems(Collection $collection, ?int $itemType = null): Collection;
+    public function deleteItems(Collection $collection): Collection;
 
     /**
      * Adds a query to collection.

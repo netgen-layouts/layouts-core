@@ -107,7 +107,6 @@ CREATE TABLE ngbm_collection_item (
   status int NOT NULL,
   collection_id int NOT NULL,
   position int NOT NULL,
-  type int NOT NULL,
   value nvarchar(255),
   value_type nvarchar(255) NOT NULL,
   config nvarchar(max) NOT NULL,

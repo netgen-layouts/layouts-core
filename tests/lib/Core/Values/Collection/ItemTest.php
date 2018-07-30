@@ -25,10 +25,7 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isManual
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isOverride
      */
     public function testSetProperties(): void
     {
@@ -41,7 +38,6 @@ final class ItemTest extends TestCase
                 'collectionId' => 30,
                 'definition' => $definition,
                 'position' => 3,
-                'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
                 'cmsItem' => function () use ($cmsItem): CmsItemInterface {
                     return $cmsItem;
@@ -53,9 +49,6 @@ final class ItemTest extends TestCase
         $this->assertSame(30, $item->getCollectionId());
         $this->assertSame($definition, $item->getDefinition());
         $this->assertSame(3, $item->getPosition());
-        $this->assertSame(Item::TYPE_OVERRIDE, $item->getType());
-        $this->assertFalse($item->isManual());
-        $this->assertTrue($item->isOverride());
         $this->assertSame(32, $item->getValue());
         $this->assertSame($cmsItem, $item->getCmsItem());
     }

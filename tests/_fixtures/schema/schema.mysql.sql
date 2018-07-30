@@ -91,7 +91,6 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_item` (
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `position` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
   `value` varchar(255),
   `value_type` varchar(255) NOT NULL,
   `config` text NOT NULL,

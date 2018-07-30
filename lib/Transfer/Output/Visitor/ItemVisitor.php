@@ -30,7 +30,6 @@ final class ItemVisitor implements VisitorInterface
 
         return [
             'id' => $collectionItem->getId(),
-            'type' => $this->getTypeString($collectionItem),
             'position' => $collectionItem->getPosition(),
             'value' => $collectionItem->getCmsItem()->getRemoteId(),
             'value_type' => $collectionItem->getDefinition()->getValueType(),
@@ -50,24 +49,5 @@ final class ItemVisitor implements VisitorInterface
         }
 
         return $hash;
-    }
-
-    /**
-     * Return type string representation for the given $item.
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
-     */
-    private function getTypeString(Item $item): string
-    {
-        switch ($item->getType()) {
-            case Item::TYPE_MANUAL:
-                return 'MANUAL';
-            case Item::TYPE_OVERRIDE:
-                return 'OVERRIDE';
-        }
-
-        $typeString = var_export($item->getType(), true);
-
-        throw new RuntimeException(sprintf("Unknown type '%s'", $typeString));
     }
 }

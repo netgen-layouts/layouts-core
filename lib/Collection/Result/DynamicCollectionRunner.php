@@ -39,9 +39,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
             $collectionItem = $collection->getItem($i);
 
-            if ($collectionItem instanceof CollectionItem && $collectionItem->isOverride()) {
-                $result = $this->buildOverrideResult($collectionItem, $queryIterator);
-            } elseif ($collectionItem instanceof CollectionItem) {
+            if ($collectionItem instanceof CollectionItem) {
                 $result = $this->buildManualResult($collectionItem, $queryIterator);
             } elseif ($queryIterator->valid()) {
                 $result = new Result($i, $this->getQueryValue($queryIterator));
@@ -69,40 +67,12 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 break;
             }
 
-            if ($item->getType() !== CollectionItem::TYPE_OVERRIDE || $item->getPosition() === $totalCount) {
-                if ($this->visibilityResolver->isVisible($item) && $item->isValid()) {
-                    ++$totalCount;
-                }
+            if ($this->visibilityResolver->isVisible($item) && $item->isValid()) {
+                ++$totalCount;
             }
         }
 
         return $totalCount;
-    }
-
-    /**
-     * Builds the result from an override item.
-     *
-     * This kind of result always has the main item and subitem. However, two cases are possible:
-     *
-     * 1) When override item is valid, than the subitem is a next value from the query, since
-     *    the nature of override item is that it covers the value coming from the query.
-     *
-     * 2) When override item is not valid, that the item itself is a subitem, and the main
-     *    item is a query value, just as it is the case with manual items.
-     */
-    private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
-    {
-        $queryValue = $this->getQueryValue($queryIterator);
-
-        if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
-            if (!$queryValue instanceof CmsItemInterface) {
-                return null;
-            }
-
-            return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
-        }
-
-        return new Result($collectionItem->getPosition(), new ManualItem($collectionItem), $queryValue);
     }
 
     /**
@@ -167,7 +137,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         $manualItemsCount = 0;
 
-        foreach ($collection->getManualItems() as $item) {
+        foreach ($collection->getItems() as $item) {
             $itemPosition = $item->getPosition();
             if ($itemPosition < $startOffset || $itemPosition >= $endOffset) {
                 continue;

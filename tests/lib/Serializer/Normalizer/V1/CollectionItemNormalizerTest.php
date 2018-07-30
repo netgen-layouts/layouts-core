@@ -52,7 +52,6 @@ final class CollectionItemNormalizerTest extends TestCase
                 'id' => 42,
                 'collectionId' => 24,
                 'position' => 3,
-                'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
                 'definition' => ItemDefinition::fromArray(['valueType' => 'my_value_type']),
                 'cmsItem' => CmsItem::fromArray(
@@ -89,7 +88,6 @@ final class CollectionItemNormalizerTest extends TestCase
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
-                'type' => $item->getType(),
                 'visible' => true,
                 'value' => $item->getValue(),
                 'value_type' => $item->getDefinition()->getValueType(),

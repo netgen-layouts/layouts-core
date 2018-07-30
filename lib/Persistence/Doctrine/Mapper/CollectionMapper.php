@@ -65,7 +65,6 @@ final class CollectionMapper
                     'id' => (int) $dataItem['id'],
                     'collectionId' => (int) $dataItem['collection_id'],
                     'position' => (int) $dataItem['position'],
-                    'type' => (int) $dataItem['type'],
                     'value' => $dataItem['value'],
                     'valueType' => $dataItem['value_type'],
                     'status' => (int) $dataItem['status'],

@@ -462,27 +462,23 @@ final class CollectionValidatorTest extends TestCase
     {
         return [
             [
-                ['definition' => new ItemDefinition(), 'value' => 42, 'type' => Item::TYPE_MANUAL],
+                ['definition' => new ItemDefinition(), 'value' => 42],
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => '42', 'type' => Item::TYPE_MANUAL],
+                ['definition' => new ItemDefinition(), 'value' => '42'],
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => null, 'type' => Item::TYPE_MANUAL],
+                ['definition' => new ItemDefinition(), 'value' => null],
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => '', 'type' => Item::TYPE_MANUAL],
+                ['definition' => new ItemDefinition(), 'value' => ''],
                 true,
             ],
-            [['definition' => 42, 'value' => 42, 'type' => Item::TYPE_MANUAL], false],
-            [['definition' => null, 'value' => 42, 'type' => Item::TYPE_MANUAL], false],
-            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => 23], false],
-            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => 'type'], false],
-            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => null], false],
-            [['definition' => new ItemDefinition(), 'value' => 42, 'type' => '0'], false],
+            [['definition' => 42, 'value' => 42], false],
+            [['definition' => null, 'value' => 42], false],
         ];
     }
 

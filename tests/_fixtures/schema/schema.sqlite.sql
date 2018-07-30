@@ -111,7 +111,6 @@ CREATE TABLE `ngbm_collection_item` (
   `status` integer NOT NULL,
   `collection_id` integer NOT NULL,
   `position` integer NOT NULL,
-  `type` integer NOT NULL,
   `value` text(255),
   `value_type` text(255) NOT NULL,
   `config` text NOT NULL,

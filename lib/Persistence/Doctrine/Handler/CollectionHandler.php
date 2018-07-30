@@ -357,7 +357,6 @@ final class CollectionHandler implements CollectionHandlerInterface
             [
                 'collectionId' => $collection->id,
                 'position' => $position,
-                'type' => $itemCreateStruct->type,
                 'value' => $itemCreateStruct->value,
                 'valueType' => $itemCreateStruct->valueType,
                 'status' => $collection->status,
@@ -451,9 +450,9 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
     }
 
-    public function deleteItems(Collection $collection, ?int $itemType = null): Collection
+    public function deleteItems(Collection $collection): Collection
     {
-        $this->queryHandler->deleteItems($collection->id, $collection->status, $itemType);
+        $this->queryHandler->deleteItems($collection->id, $collection->status);
 
         return $this->loadCollection($collection->id, $collection->status);
     }

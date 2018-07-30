@@ -99,7 +99,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 1,
                 'collectionId' => 1,
                 'position' => 0,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -139,7 +138,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 1,
                 'collectionId' => 1,
                 'position' => 0,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -706,7 +704,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 13,
                     'collectionId' => $copiedCollection->id,
                     'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -716,7 +713,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 14,
                     'collectionId' => $copiedCollection->id,
                     'position' => 3,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -726,7 +722,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 15,
                     'collectionId' => $copiedCollection->id,
                     'position' => 5,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -804,7 +799,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 13,
                     'collectionId' => $copiedCollection->id,
                     'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -814,7 +808,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 14,
                     'collectionId' => $copiedCollection->id,
                     'position' => 1,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -824,7 +817,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 15,
                     'collectionId' => $copiedCollection->id,
                     'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -875,7 +867,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 7,
                     'collectionId' => 3,
                     'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -885,7 +876,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 8,
                     'collectionId' => 3,
                     'position' => 3,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -895,7 +885,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 9,
                     'collectionId' => 3,
                     'position' => 5,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -974,7 +963,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -984,7 +972,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 2,
                     'collectionId' => 1,
                     'position' => 1,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -994,7 +981,6 @@ final class CollectionHandlerTest extends TestCase
                     'id' => 3,
                     'collectionId' => 1,
                     'position' => 2,
-                    'type' => Item::TYPE_MANUAL,
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'config' => [],
@@ -1182,7 +1168,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItem(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
@@ -1200,7 +1185,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 13,
                 'collectionId' => 1,
                 'position' => 1,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'config' => ['config' => ['value' => 42]],
@@ -1223,7 +1207,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemToDynamicCollection(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
@@ -1241,7 +1224,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 13,
                 'collectionId' => 3,
                 'position' => 2,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'config' => ['config' => ['value' => 42]],
@@ -1270,7 +1252,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemToDynamicCollectionInEmptySlot(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 4;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
@@ -1288,7 +1269,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 13,
                 'collectionId' => 3,
                 'position' => 4,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'config' => ['config' => ['value' => 42]],
@@ -1311,7 +1291,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemWithNoPosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
@@ -1328,7 +1307,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 13,
                 'collectionId' => 1,
                 'position' => 3,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'config' => ['config' => ['value' => 42]],
@@ -1349,7 +1327,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemToDynamicCollectionWithoutPositionThrowsBadStateException(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
 
@@ -1371,7 +1348,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemThrowsBadStateExceptionOnNegativePosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = -1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
@@ -1395,7 +1371,6 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 9999;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
@@ -1432,7 +1407,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 1,
                 'collectionId' => 1,
                 'position' => 0,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'config' => ['new_config' => ['val' => 24]],
@@ -1464,7 +1438,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 12,
                 'collectionId' => 4,
                 'position' => 2,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '74',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1502,7 +1475,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 1,
                 'collectionId' => 1,
                 'position' => 1,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1540,7 +1512,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 1,
                 'collectionId' => 1,
                 'position' => 0,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1578,7 +1549,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 2,
                 'collectionId' => 1,
                 'position' => 0,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '73',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1613,7 +1583,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 3,
                 'collectionId' => 1,
                 'position' => 1,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '74',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1651,7 +1620,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 7,
                 'collectionId' => 3,
                 'position' => 4,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1689,7 +1657,6 @@ final class CollectionHandlerTest extends TestCase
                 'id' => 8,
                 'collectionId' => 3,
                 'position' => 2,
-                'type' => Item::TYPE_MANUAL,
                 'value' => '73',
                 'valueType' => 'my_value_type',
                 'config' => [],
@@ -1838,33 +1805,6 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $this->assertCount(0, $this->collectionHandler->loadCollectionItems($collection));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItems
-     */
-    public function testDeleteItemsWithSpecificItemType(): void
-    {
-        $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_OVERRIDE;
-        $itemCreateStruct->position = 2;
-        $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
-        $itemCreateStruct->config = [];
-
-        $collection = $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
-
-        $this->collectionHandler->addItem($collection, $itemCreateStruct);
-
-        $collection = $this->collectionHandler->deleteItems($collection, Item::TYPE_OVERRIDE);
-
-        $collectionItems = $this->collectionHandler->loadCollectionItems($collection);
-        $this->assertCount(3, $collectionItems);
-
-        foreach ($collectionItems as $item) {
-            $this->assertSame(Item::TYPE_MANUAL, $item->type);
-        }
     }
 
     /**

@@ -17,12 +17,7 @@ final class Collection implements APICollection
     /**
      * @var array
      */
-    private $manualItems = [];
-
-    /**
-     * @var array
-     */
-    private $overrideItems = [];
+    private $items = [];
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query|null
@@ -30,28 +25,13 @@ final class Collection implements APICollection
     private $query;
 
     public function __construct(
-        array $manualItems = [],
-        array $overrideItems = [],
+        array $items = [],
         ?array $queryValues = null,
         int $queryCount = 0
     ) {
-        foreach ($manualItems as $position => $value) {
-            $this->manualItems[$position] = Item::fromArray(
+        foreach ($items as $position => $value) {
+            $this->items[$position] = Item::fromArray(
                 [
-                    'type' => Item::TYPE_MANUAL,
-                    'value' => $value,
-                    'cmsItem' => $value !== null ?
-                        CmsItem::fromArray(['value' => $value, 'isVisible' => true]) :
-                        new NullCmsItem('value'),
-                    'position' => $position,
-                ]
-            );
-        }
-
-        foreach ($overrideItems as $position => $value) {
-            $this->overrideItems[$position] = Item::fromArray(
-                [
-                    'type' => Item::TYPE_OVERRIDE,
                     'value' => $value,
                     'cmsItem' => $value !== null ?
                         CmsItem::fromArray(['value' => $value, 'isVisible' => true]) :
@@ -109,58 +89,23 @@ final class Collection implements APICollection
         return null;
     }
 
-    public function hasItem(int $position, ?int $type = null): bool
+    public function hasItem(int $position): bool
     {
-        return $this->hasManualItem($position) || $this->hasOverrideItem($position);
+        return isset($this->items[$position]);
     }
 
-    public function getItem(int $position, ?int $type = null): ?APIItem
+    public function getItem(int $position): ?APIItem
     {
-        $item = $this->getManualItem($position);
-        if ($item !== null) {
-            return $item;
+        if ($this->hasItem($position)) {
+            return $this->items[$position];
         }
 
-        return $this->getOverrideItem($position);
+        return null;
     }
 
     public function getItems(): array
     {
-        $items = $this->manualItems + $this->overrideItems;
-
-        ksort($items);
-
-        return $items;
-    }
-
-    public function hasManualItem(int $position): bool
-    {
-        return isset($this->manualItems[$position]);
-    }
-
-    public function getManualItem(int $position): ?APIItem
-    {
-        return $this->manualItems[$position] ?? null;
-    }
-
-    public function getManualItems(): array
-    {
-        return $this->manualItems;
-    }
-
-    public function hasOverrideItem(int $position): bool
-    {
-        return isset($this->overrideItems[$position]);
-    }
-
-    public function getOverrideItem(int $position): ?APIItem
-    {
-        return $this->overrideItems[$position] ?? null;
-    }
-
-    public function getOverrideItems(): array
-    {
-        return $this->overrideItems;
+        return $this->items;
     }
 
     public function getQuery(): ?APIQuery
