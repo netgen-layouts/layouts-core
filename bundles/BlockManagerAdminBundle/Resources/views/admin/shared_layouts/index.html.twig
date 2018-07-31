@@ -24,6 +24,7 @@
                         <option value="name">{{ 'layouts.layout.name'|trans }}</option>
                         <option value="description">{{ 'layouts.layout.description'|trans }}</option>
                         <option value="modified">{{ 'layouts.layout.modified'|trans }}</option>
+                        <option value="type">{{ 'layouts.layout.layout_type'|trans }}</option>
                         <option value="references">{{ 'shared_layouts.layout.references'|trans }}</option>
                     </select>
                     <select id="layout-sorting-direction" class="nl-select">
@@ -39,6 +40,7 @@
         </div>
         <div class="nl-layouts-head">
             <div class="nl-layout-info">
+                <div class="nl-layout-type"><a class="js-reorder-layouts" data-sorting="type">{{ 'layouts.layout.layout_type'|trans }}<i class="sort-icon"></i></a></div>
                 <div class="nl-layout-text">
                     <div class="nl-layout-name">
                         <div class="nl-layout-export-checkbox">
