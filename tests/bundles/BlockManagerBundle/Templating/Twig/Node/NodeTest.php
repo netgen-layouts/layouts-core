@@ -9,9 +9,9 @@ use Twig\Test\NodeTestCase;
 
 abstract class NodeTest extends NodeTestCase
 {
-    protected function getNodeGetter(string $name, int $line = 0): string
+    protected function getNodeGetter(string $name, int $lineNo = 0): string
     {
-        $line = $line > 0 ? "// line {$line}\n" : '';
+        $line = $lineNo > 0 ? "// line {$lineNo}\n" : '';
 
         if (Environment::VERSION_ID >= 20000) {
             return sprintf('%s(isset($context["%s"]) || array_key_exists("%s", $context) ? $context["%s"] : (function () { throw new Twig_Error_Runtime(\'Variable "%s" does not exist.\', 1, $this->source); })())', $line, $name, $name, $name, $name);

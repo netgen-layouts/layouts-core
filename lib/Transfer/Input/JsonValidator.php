@@ -13,12 +13,11 @@ final class JsonValidator implements JsonValidatorInterface
 {
     public function validateJson(string $data, string $schema): void
     {
-        $schema = $this->parseJson($schema);
-        $data = $this->parseJson($data);
+        $parsedSchema = $this->parseJson($schema);
+        $parsedData = $this->parseJson($data);
 
         try {
-            $schema = Schema::import($schema);
-            $schema->in($data);
+            Schema::import($parsedSchema)->in($parsedData);
         } catch (Throwable $t) {
             throw JsonValidationException::validationFailed($t->getMessage(), $t);
         }

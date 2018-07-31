@@ -34,15 +34,12 @@ final class VarnishClient implements ClientInterface
 
         $allLayoutIds = [];
         foreach ($layoutIds as $layoutId) {
-            $allLayoutIds = array_merge(
-                $allLayoutIds,
-                $this->layoutIdProvider->provideIds($layoutId)
-            );
+            $allLayoutIds[] = $this->layoutIdProvider->provideIds($layoutId);
         }
 
         $this->fosInvalidator->invalidate(
             [
-                'X-Layout-Id' => '^(' . implode('|', $allLayoutIds) . ')$',
+                'X-Layout-Id' => '^(' . implode('|', array_merge(...$allLayoutIds)) . ')$',
             ]
         );
     }

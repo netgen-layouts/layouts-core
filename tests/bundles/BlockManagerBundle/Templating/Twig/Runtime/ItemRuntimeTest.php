@@ -185,7 +185,7 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('generate');
 
-        $this->assertSame('', $this->runtime->getItemPath(new stdClass(), 'valuen'));
+        $this->assertSame('', $this->runtime->getItemPath(new stdClass(), 'value'));
     }
 
     /**

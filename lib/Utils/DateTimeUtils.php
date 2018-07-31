@@ -17,10 +17,10 @@ final class DateTimeUtils
      */
     public static function createFromTimestamp(?int $timestamp = null, ?string $timeZone = null): DateTimeInterface
     {
-        $timeZone = is_string($timeZone) ? new DateTimeZone($timeZone) : null;
+        $dateTimeZone = is_string($timeZone) ? new DateTimeZone($timeZone) : null;
         $timestamp = is_int($timestamp) ? $timestamp : time();
 
-        $dateTime = new DateTimeImmutable('now', $timeZone);
+        $dateTime = new DateTimeImmutable('now', $dateTimeZone);
 
         return $dateTime->setTimestamp($timestamp);
     }
