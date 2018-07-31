@@ -63,10 +63,10 @@ services:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.api_csrf_validation_listener:
-        class: Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\ApiCsrfValidationListener
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener
         # public: false
         arguments:
-            - "@security.csrf.token_manager"
+            - "@netgen_block_manager.security.csrf_validator"
             - "%netgen_block_manager.api.csrf_token_id%"
         tags:
             - { name: kernel.event_subscriber }

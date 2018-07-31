@@ -53,11 +53,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_block_manager.event_listener.admin_csrf_validation_listener:
-        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener
+    netgen_block_manager.event_listener.admin_csrf_validation:
+        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminCsrfValidationListener
         # public: false
         arguments:
-            - "@security.csrf.token_manager"
+            - "@netgen_block_manager.security.csrf_validator"
             - "%netgen_block_manager.admin.csrf_token_id%"
         tags:
             - { name: kernel.event_subscriber }
