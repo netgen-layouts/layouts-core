@@ -38,9 +38,7 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
             return;
         }
 
-        $event->setException(
-            new AccessDeniedHttpException()
-        );
+        $event->setException(new AccessDeniedHttpException());
 
         $event->stopPropagation();
     }
