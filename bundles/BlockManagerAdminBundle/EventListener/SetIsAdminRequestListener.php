@@ -49,7 +49,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
         $request->attributes->set(self::ADMIN_FLAG_NAME, true);
 
-        $event = new AdminMatchEvent($event->getRequest(), $event->getRequestType());
-        $this->eventDispatcher->dispatch(BlockManagerAdminEvents::ADMIN_MATCH, $event);
+        $adminEvent = new AdminMatchEvent($event->getRequest(), $event->getRequestType());
+        $this->eventDispatcher->dispatch(BlockManagerAdminEvents::ADMIN_MATCH, $adminEvent);
     }
 }
