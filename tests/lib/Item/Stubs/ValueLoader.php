@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item\Stubs;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ValueLoaderInterface;
 
 final class ValueLoader implements ValueLoaderInterface
@@ -12,28 +11,20 @@ final class ValueLoader implements ValueLoaderInterface
     /**
      * @var bool
      */
-    private $throwException = false;
+    private $exists;
 
-    public function __construct(bool $throwException = false)
+    public function __construct(bool $exists)
     {
-        $this->throwException = $throwException;
+        $this->exists = $exists;
     }
 
     public function load($id)
     {
-        if ($this->throwException) {
-            throw ItemException::noValue($id);
-        }
-
-        return new Value($id, '');
+        return $this->exists ? new Value($id, '') : null;
     }
 
     public function loadByRemoteId($remoteId)
     {
-        if ($this->throwException) {
-            throw ItemException::noValue($remoteId);
-        }
-
-        return new Value(0, $remoteId);
+        return $this->exists ? new Value(0, $remoteId) : null;
     }
 }

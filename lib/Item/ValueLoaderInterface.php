@@ -12,24 +12,20 @@ namespace Netgen\BlockManager\Item;
 interface ValueLoaderInterface
 {
     /**
-     * Loads the value from provided ID.
+     * Loads the value from provided ID or null if value cannot be loaded.
      *
      * @param int|string $id
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
-     *
-     * @return object
+     * @return object|null
      */
     public function load($id);
 
     /**
-     * Loads the value from provided remote ID.
+     * Loads the value from provided remote ID or null if value cannot be loaded.
      *
      * @param int|string $remoteId
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
-     *
-     * @return object
+     * @return object|null
      */
     public function loadByRemoteId($remoteId);
 }

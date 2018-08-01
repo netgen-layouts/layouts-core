@@ -42,7 +42,12 @@ final class CmsItemLoader implements CmsItemLoaderInterface
 
         try {
             $loadedValue = $this->valueLoaders[$valueType]->load($value);
+
+            if ($loadedValue === null) {
+                return new NullCmsItem($valueType);
+            }
         } catch (ItemException $e) {
+            // @deprecated For BC with previous versions
             return new NullCmsItem($valueType);
         }
 
@@ -57,7 +62,12 @@ final class CmsItemLoader implements CmsItemLoaderInterface
 
         try {
             $loadedValue = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
+
+            if ($loadedValue === null) {
+                return new NullCmsItem($valueType);
+            }
         } catch (ItemException $e) {
+            // @deprecated For BC with previous versions
             return new NullCmsItem($valueType);
         }
 

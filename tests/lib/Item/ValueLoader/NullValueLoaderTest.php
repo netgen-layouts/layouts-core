@@ -21,21 +21,17 @@ final class NullValueLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ValueLoader\NullValueLoader::load
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Item with ID "42" could not be loaded.
      */
     public function testLoad(): void
     {
-        $this->valueLoader->load(42);
+        $this->assertNull($this->valueLoader->load(42));
     }
 
     /**
      * @covers \Netgen\BlockManager\Item\ValueLoader\NullValueLoader::loadByRemoteId
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Item with remote ID "abc" could not be loaded.
      */
     public function testLoadByRemoteId(): void
     {
-        $this->valueLoader->loadByRemoteId('abc');
+        $this->assertNull($this->valueLoader->loadByRemoteId('abc'));
     }
 }
