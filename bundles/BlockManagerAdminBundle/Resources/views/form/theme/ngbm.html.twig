@@ -11,7 +11,7 @@
 {%- endblock form_errors -%}
 
 {%- block form_row -%}
-    <div class="row-input{% if errors|length > 0 %}error-input{% endif %} {% if form.vars.disabled %}disabled-input{% endif %}" >
+    <div class="row-input{% if errors|length > 0 %} error-input{% endif %}{% if form.vars.disabled %} disabled-input{% endif %}">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
@@ -122,7 +122,7 @@
         {% if reverse %}data-compound-reverse="true"{% endif %}
         {{ block('widget_container_attributes') }}
     >
-        <div class="checkbox row-input {% if form.vars.disabled %}disabled-input{% endif %}">
+        <div class="checkbox row-input{% if form.vars.disabled %} disabled-input{% endif %}">
             {{- form_errors(form._self) -}}
             {{- form_widget(form._self) -}}
             {{- form_label(form._self) -}}
