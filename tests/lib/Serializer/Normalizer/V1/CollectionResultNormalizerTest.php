@@ -7,7 +7,6 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\Slot;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
@@ -139,43 +138,6 @@ final class CollectionResultNormalizerTest extends TestCase
                 'name' => $item->getName(),
                 'cms_visible' => $item->isVisible(),
                 'cms_url' => '/some/url',
-                'config' => [],
-                'position' => $result->getPosition(),
-            ],
-            $this->normalizer->normalize(new VersionedValue($result, 1))
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
-     */
-    public function testNormalizeWithSlot(): void
-    {
-        $item = new Slot();
-
-        $result = new Result(3, $item);
-
-        $this->normalizerMock
-            ->expects($this->at(0))
-            ->method('normalize')
-            ->will($this->returnValue([]));
-
-        $this->urlGeneratorMock
-            ->expects($this->never())
-            ->method('generate');
-
-        $this->assertSame(
-            [
-                'id' => null,
-                'collection_id' => null,
-                'visible' => true,
-                'is_dynamic' => true,
-                'value' => $item->getValue(),
-                'value_type' => $item->getValueType(),
-                'name' => $item->getName(),
-                'cms_visible' => $item->isVisible(),
-                'cms_url' => null,
                 'config' => [],
                 'position' => $result->getPosition(),
             ],

@@ -7,7 +7,6 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\Slot;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Normalizer;
@@ -65,14 +64,14 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
      */
     private function normalizeResultItem(CmsItemInterface $resultItem, int $version, ?string $format = null, array $context = []): array
     {
-        $itemUrl = null;
         $collectionItem = null;
+        $cmsItem = $resultItem;
+        $isDynamic = true;
 
         if ($resultItem instanceof ManualItem) {
             $collectionItem = $resultItem->getCollectionItem();
-            $itemUrl = $this->urlGenerator->generate($resultItem->getCollectionItem()->getCmsItem());
-        } elseif (!$resultItem instanceof Slot) {
-            $itemUrl = $this->urlGenerator->generate($resultItem);
+            $cmsItem = $collectionItem->getCmsItem();
+            $isDynamic = false;
         }
 
         $configuration = [];
@@ -90,12 +89,12 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
             'visible' => $collectionItem !== null ?
                 $this->visibilityResolver->isVisible($collectionItem) :
                 true,
-            'is_dynamic' => !$resultItem instanceof ManualItem,
-            'value' => $resultItem->getValue(),
-            'value_type' => $resultItem->getValueType(),
-            'name' => $resultItem->getName(),
-            'cms_visible' => $resultItem->isVisible(),
-            'cms_url' => $itemUrl,
+            'is_dynamic' => $isDynamic,
+            'value' => $cmsItem->getValue(),
+            'value_type' => $cmsItem->getValueType(),
+            'name' => $cmsItem->getName(),
+            'cms_visible' => $cmsItem->isVisible(),
+            'cms_url' => $this->urlGenerator->generate($cmsItem),
             'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];
     }

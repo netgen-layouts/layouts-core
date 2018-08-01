@@ -14,5 +14,5 @@ interface UrlGeneratorInterface
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException if URL could not be generated
      */
-    public function generate(CmsItemInterface $item): ?string;
+    public function generate(CmsItemInterface $item): string;
 }

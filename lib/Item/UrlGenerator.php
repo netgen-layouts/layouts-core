@@ -26,18 +26,19 @@ final class UrlGenerator implements UrlGeneratorInterface
         );
     }
 
-    public function generate(CmsItemInterface $item): ?string
+    public function generate(CmsItemInterface $item): string
     {
-        if ($item instanceof NullCmsItem || $item->getObject() === null) {
-            return null;
+        $object = $item->getObject();
+        if ($item instanceof NullCmsItem || $object === null) {
+            return '';
         }
 
-        if (!isset($this->valueUrlGenerators[$item->getValueType()])) {
-            throw ItemException::noValueType($item->getValueType());
+        $valueType = $item->getValueType();
+
+        if (!isset($this->valueUrlGenerators[$valueType])) {
+            throw ItemException::noValueType($valueType);
         }
 
-        return $this->valueUrlGenerators[$item->getValueType()]->generate(
-            $item->getObject()
-        );
+        return $this->valueUrlGenerators[$valueType]->generate($object) ?? '';
     }
 }

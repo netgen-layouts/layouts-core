@@ -121,28 +121,6 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithUrlGeneratorReturningNull(): void
-    {
-        $cmsItem = new CmsItem();
-
-        $this->cmsItemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->once())
-            ->method('generate')
-            ->with($this->identicalTo($cmsItem))
-            ->will($this->returnValue(null));
-
-        $itemPath = $this->runtime->getItemPath($cmsItem);
-
-        $this->assertSame('', $itemPath);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithInvalidValue(): void
     {
         $this->cmsItemLoaderMock
