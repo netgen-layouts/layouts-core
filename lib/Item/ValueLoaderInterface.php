@@ -14,6 +14,10 @@ interface ValueLoaderInterface
     /**
      * Loads the value from provided ID or null if value cannot be loaded.
      *
+     * Any error situations (like non existing values or values which cannot be used
+     * due to various conditions) need to be handled by the implementation (e.g. logging)
+     * and just return null.
+     *
      * @param int|string $id
      *
      * @return object|null
@@ -22,6 +26,10 @@ interface ValueLoaderInterface
 
     /**
      * Loads the value from provided remote ID or null if value cannot be loaded.
+     *
+     * Any error situations (like non existing values or values which cannot be used
+     * due to various conditions) need to be handled by the implementation (e.g. logging)
+     * and just return null.
      *
      * @param int|string $remoteId
      *
