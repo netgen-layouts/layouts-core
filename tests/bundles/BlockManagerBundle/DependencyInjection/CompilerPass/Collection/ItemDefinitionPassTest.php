@@ -21,12 +21,10 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcess(): void
     {
         $this->setParameter(
-            'netgen_block_manager.items',
+            'netgen_block_manager.value_types',
             [
-                'value_types' => [
-                    'value_type' => [
-                        'enabled' => true,
-                    ],
+                'value_type' => [
+                    'enabled' => true,
                 ],
             ]
         );
@@ -63,20 +61,6 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
-     */
-    public function testProcessWithoutItemsConfig(): void
-    {
-        $this->setDefinition('netgen_block_manager.collection.registry.item_definition', new Definition());
-
-        $this->compile();
-
-        $registry = $this->container->getDefinition('netgen_block_manager.collection.registry.item_definition');
-
-        $this->assertEmpty($registry->getMethodCalls());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
@@ -85,12 +69,10 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithNoConfigKeyInTag(): void
     {
         $this->setParameter(
-            'netgen_block_manager.items',
+            'netgen_block_manager.value_types',
             [
-                'value_types' => [
-                    'value_type' => [
-                        'enabled' => true,
-                    ],
+                'value_type' => [
+                    'enabled' => true,
                 ],
             ]
         );

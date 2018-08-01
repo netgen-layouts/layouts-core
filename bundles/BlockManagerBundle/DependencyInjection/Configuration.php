@@ -59,7 +59,7 @@ final class Configuration implements ConfigurationInterface
             new ConfigurationNode\QueryTypeNode(),
             new ConfigurationNode\PageLayoutNode(),
             new ConfigurationNode\ApiKeysNode(),
-            new ConfigurationNode\ItemsNode(),
+            new ConfigurationNode\ValueTypeNode(),
             new ConfigurationNode\DebugNode(),
         ];
     }

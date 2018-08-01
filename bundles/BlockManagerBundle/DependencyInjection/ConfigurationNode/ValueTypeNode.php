@@ -8,25 +8,22 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterf
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
-final class ItemsNode implements ConfigurationNodeInterface
+final class ValueTypeNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder('items');
+        $treeBuilder = new TreeBuilder('value_types');
         $node = $treeBuilder->getRootNode();
 
         $node
-            ->children()
-                ->arrayNode('value_types')
-                    ->useAttributeAsKey('identifier')
-                    ->prototype('array')
-                        ->canBeDisabled()
-                        ->children()
-                            ->scalarNode('name')
-                                ->isRequired()
-                                ->cannotBeEmpty()
-                            ->end()
-                        ->end()
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('value_type')
+            ->prototype('array')
+                ->canBeDisabled()
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
                     ->end()
                 ->end()
             ->end();

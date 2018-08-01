@@ -23,12 +23,10 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_content_browser.config.test', new Definition());
 
         $this->setParameter(
-            'netgen_block_manager.items',
+            'netgen_block_manager.value_types',
             [
-                'value_types' => [
-                    'test' => [
-                        'enabled' => true,
-                    ],
+                'test' => [
+                    'enabled' => true,
                 ],
             ]
         );
@@ -59,12 +57,10 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_content_browser.config.other', new Definition());
 
         $this->setParameter(
-            'netgen_block_manager.items',
+            'netgen_block_manager.value_types',
             [
-                'value_types' => [
-                    'test' => [
-                        'enabled' => true,
-                    ],
+                'test' => [
+                    'enabled' => true,
                 ],
             ]
         );
@@ -72,20 +68,6 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
         $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition());
 
         $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
-     */
-    public function testProcessWithNoItems(): void
-    {
-        $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition());
-
-        $this->compile();
-
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.item.value_type.test');
     }
 
     /**

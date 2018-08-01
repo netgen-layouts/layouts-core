@@ -10,7 +10,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-final class ItemsNodeTest extends TestCase
+final class ValueTypeNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -18,37 +18,33 @@ final class ItemsNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ValueTypeNode::getConfigurationNode
      */
-    public function testItemsSettings(): void
+    public function testValueTypeSettings(): void
     {
         $config = [
             [
-                'items' => [
-                    'value_types' => [
-                        'value1' => [
-                            'name' => 'Value 1',
-                        ],
-                        'value2' => [
-                            'enabled' => false,
-                            'name' => 'Value 2',
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
-        $expectedConfig = [
-            'items' => [
                 'value_types' => [
                     'value1' => [
                         'name' => 'Value 1',
-                        'enabled' => true,
                     ],
                     'value2' => [
-                        'name' => 'Value 2',
                         'enabled' => false,
+                        'name' => 'Value 2',
                     ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'value_types' => [
+                'value1' => [
+                    'name' => 'Value 1',
+                    'enabled' => true,
+                ],
+                'value2' => [
+                    'name' => 'Value 2',
+                    'enabled' => false,
                 ],
             ],
         ];
@@ -56,59 +52,36 @@ final class ItemsNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'items.value_types'
+            'value_types'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ValueTypeNode::getConfigurationNode
      */
-    public function testItemsSettingsWithNoValueTypes(): void
+    public function testValueTypeSettingsWithNoValueTypes(): void
     {
-        $config = [['items' => []]];
+        $config = [[]];
 
         $expectedConfig = [
-            'items' => [
-                'value_types' => [],
-            ],
+            'value_types' => [],
         ];
 
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'items.value_types'
+            'value_types'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
-     */
-    public function testItemsSettingsWithEmptyValueTypes(): void
-    {
-        $config = [['items' => ['value_types' => []]]];
-
-        $expectedConfig = [
-            'items' => [
-                'value_types' => [],
-            ],
-        ];
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'items.value_types'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ItemsNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\ValueTypeNode::getConfigurationNode
      */
     public function testValueTypesSettingsWithNoName(): void
     {
-        $config = [['items' => ['value_types' => ['value' => []]]]];
+        $config = [['value_types' => ['value' => []]]];
         $this->assertConfigurationIsInvalid([$config]);
     }
 

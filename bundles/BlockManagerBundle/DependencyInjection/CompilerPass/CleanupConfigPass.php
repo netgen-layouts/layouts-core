@@ -17,7 +17,7 @@ final class CleanupConfigPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $container->getParameterBag()->remove('netgen_block_manager.items');
+        $container->getParameterBag()->remove('netgen_block_manager.value_types');
         $container->getParameterBag()->remove('netgen_block_manager.query_types');
         $container->getParameterBag()->remove('netgen_block_manager.block_definitions');
         $container->getParameterBag()->remove('netgen_block_manager.layout_types');

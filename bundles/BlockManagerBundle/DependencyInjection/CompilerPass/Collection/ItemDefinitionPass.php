@@ -21,16 +21,11 @@ final class ItemDefinitionPass implements CompilerPassInterface
             return;
         }
 
-        if (!$container->hasParameter('netgen_block_manager.items')) {
-            // By default, no item types are registered in the system
-            return;
-        }
-
-        $itemConfig = $container->getParameter('netgen_block_manager.items');
+        $valueTypes = $container->getParameter('netgen_block_manager.value_types');
         $itemDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
         $itemDefinitions = [];
 
-        foreach (array_keys($itemConfig['value_types']) as $valueType) {
+        foreach (array_keys($valueTypes) as $valueType) {
             $itemDefinitionServiceName = sprintf('netgen_block_manager.collection.item_definition.%s', $valueType);
 
             $itemDefinitionService = new Definition(ItemDefinition::class);
