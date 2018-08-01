@@ -29,9 +29,3 @@ services:
         public: false
         tags:
             - { name: netgen_block_manager.item.value_loader, value_type: "null" }
-
-    netgen_block_manager.item.value_url_generator.null:
-        class: Netgen\BlockManager\Item\ValueUrlGenerator\NullValueUrlGenerator
-        public: false
-        tags:
-            - { name: netgen_block_manager.item.value_url_generator, value_type: "null" }

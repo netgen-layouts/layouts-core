@@ -17,7 +17,7 @@ interface ValueUrlGeneratorInterface
      *
      * If the path cannot be generated, this can return null.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return string|null
      */

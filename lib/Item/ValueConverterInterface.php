@@ -14,7 +14,7 @@ interface ValueConverterInterface
     /**
      * Returns if the converter supports the object.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return bool
      */
@@ -23,7 +23,7 @@ interface ValueConverterInterface
     /**
      * Returns the value type for this object.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return string
      */
@@ -32,7 +32,7 @@ interface ValueConverterInterface
     /**
      * Returns the object ID.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return int|string
      */
@@ -41,7 +41,7 @@ interface ValueConverterInterface
     /**
      * Returns the object remote ID.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return int|string
      */
@@ -50,7 +50,7 @@ interface ValueConverterInterface
     /**
      * Returns the object name.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return string
      */
@@ -59,7 +59,7 @@ interface ValueConverterInterface
     /**
      * Returns if the object is visible.
      *
-     * @param mixed $object
+     * @param object $object
      *
      * @return bool
      */
@@ -70,9 +70,9 @@ interface ValueConverterInterface
      *
      * This method can be used to enrich the object before it being rendered.
      *
-     * @param mixed $object
+     * @param object $object
      *
-     * @return mixed
+     * @return object
      */
     public function getObject($object);
 }

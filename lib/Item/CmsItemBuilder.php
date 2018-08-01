@@ -47,8 +47,6 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
             return $value;
         }
 
-        throw ValueException::noValueConverter(
-            is_object($object) ? get_class($object) : gettype($object)
-        );
+        throw ValueException::noValueConverter(get_class($object));
     }
 }

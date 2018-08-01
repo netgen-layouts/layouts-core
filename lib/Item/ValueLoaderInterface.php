@@ -18,7 +18,7 @@ interface ValueLoaderInterface
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
      *
-     * @return mixed
+     * @return object
      */
     public function load($id);
 
@@ -29,7 +29,7 @@ interface ValueLoaderInterface
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
      *
-     * @return mixed
+     * @return object
      */
     public function loadByRemoteId($remoteId);
 }

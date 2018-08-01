@@ -40,9 +40,9 @@ interface CmsItemInterface
     public function isVisible(): bool;
 
     /**
-     * Returns the original value as supplied by the CMS.
+     * Returns the original value as supplied by the CMS or null if value does not exist.
      *
-     * @return mixed
+     * @return object|null
      */
     public function getObject();
 }
