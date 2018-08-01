@@ -82,7 +82,7 @@ final class ClearRelatedLayoutsCache extends Controller
             [
                 'error' => !$cacheCleared,
                 'layout' => $layout,
-                'related_layouts' => array_values($relatedLayouts),
+                'related_layouts' => $relatedLayouts,
             ],
             new Response(
                 null,
