@@ -18,7 +18,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('identifier')
+            ->useAttributeAsKey('block_type')
             ->prototype('array')
                 ->canBeDisabled()
                 ->validate()

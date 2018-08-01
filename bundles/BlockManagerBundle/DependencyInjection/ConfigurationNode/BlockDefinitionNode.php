@@ -21,7 +21,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('identifier')
+            ->useAttributeAsKey('block_definition')
             ->prototype('array')
                 ->canBeDisabled()
                 ->children()

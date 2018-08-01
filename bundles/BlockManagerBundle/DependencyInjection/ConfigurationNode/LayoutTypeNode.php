@@ -17,7 +17,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('type')
+            ->useAttributeAsKey('layout_type')
             ->prototype('array')
                 ->canBeDisabled()
                 ->children()

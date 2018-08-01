@@ -17,7 +17,7 @@ final class QueryTypeNode implements ConfigurationNodeInterface
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('identifier')
+            ->useAttributeAsKey('query_type')
             ->prototype('array')
                 ->canBeDisabled()
                 ->children()

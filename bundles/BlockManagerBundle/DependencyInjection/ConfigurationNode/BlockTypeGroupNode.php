@@ -17,7 +17,7 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('identifier')
+            ->useAttributeAsKey('block_type_group')
             ->prototype('array')
                 ->canBeDisabled()
                 ->children()
