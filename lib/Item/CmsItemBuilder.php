@@ -33,7 +33,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
                 continue;
             }
 
-            $value = CmsItem::fromArray(
+            return CmsItem::fromArray(
                 [
                     'value' => $valueConverter->getId($object),
                     'remoteId' => $valueConverter->getRemoteId($object),
@@ -43,8 +43,6 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
                     'object' => $valueConverter->getObject($object),
                 ]
             );
-
-            return $value;
         }
 
         throw ValueException::noValueConverter(get_class($object));
