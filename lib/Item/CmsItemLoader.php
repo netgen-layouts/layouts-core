@@ -34,24 +34,19 @@ final class CmsItemLoader implements CmsItemLoaderInterface
         );
     }
 
-    public function load($value, string $valueType): CmsItemInterface
+    public function load($id, string $valueType): CmsItemInterface
     {
         if (!isset($this->valueLoaders[$valueType])) {
             throw ItemException::noValueType($valueType);
         }
 
-        try {
-            $loadedValue = $this->valueLoaders[$valueType]->load($value);
+        $value = $this->valueLoaders[$valueType]->load($id);
 
-            if ($loadedValue === null) {
-                return new NullCmsItem($valueType);
-            }
-        } catch (ItemException $e) {
-            // @deprecated For BC with previous versions
+        if ($value === null) {
             return new NullCmsItem($valueType);
         }
 
-        return $this->cmsItemBuilder->build($loadedValue);
+        return $this->cmsItemBuilder->build($value);
     }
 
     public function loadByRemoteId($remoteId, string $valueType): CmsItemInterface
@@ -60,17 +55,12 @@ final class CmsItemLoader implements CmsItemLoaderInterface
             throw ItemException::noValueType($valueType);
         }
 
-        try {
-            $loadedValue = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
+        $value = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
 
-            if ($loadedValue === null) {
-                return new NullCmsItem($valueType);
-            }
-        } catch (ItemException $e) {
-            // @deprecated For BC with previous versions
+        if ($value === null) {
             return new NullCmsItem($valueType);
         }
 
-        return $this->cmsItemBuilder->build($loadedValue);
+        return $this->cmsItemBuilder->build($value);
     }
 }

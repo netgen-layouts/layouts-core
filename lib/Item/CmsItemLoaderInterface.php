@@ -10,16 +10,16 @@ namespace Netgen\BlockManager\Item;
 interface CmsItemLoaderInterface
 {
     /**
-     * Loads the CMS item from provided value and value type.
+     * Loads the CMS item from provided ID and value type.
      *
-     * @param int|string $value
+     * @param int|string $id
      * @param string $valueType
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If item could not be loaded
      *
      * @return \Netgen\BlockManager\Item\CmsItemInterface
      */
-    public function load($value, string $valueType): CmsItemInterface;
+    public function load($id, string $valueType): CmsItemInterface;
 
     /**
      * Loads the CMS item from provided value remote ID and value type.
