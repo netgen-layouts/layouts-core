@@ -51,13 +51,9 @@ abstract class ValidatorTestCase extends TestCase
         $this->executionContext->setConstraint($this->constraint);
         $this->validator->validate($value, $this->constraint);
 
-        if ($isValid) {
-            $this->assertCount(0, $this->executionContext->getViolations());
-        }
-
-        if (!$isValid) {
-            $this->assertGreaterThan(0, count($this->executionContext->getViolations()));
-        }
+        $isValid ?
+            $this->assertCount(0, $this->executionContext->getViolations()) :
+            $this->assertNotCount(0, $this->executionContext->getViolations());
     }
 
     abstract public function getValidator(): ConstraintValidatorInterface;
