@@ -8,15 +8,12 @@ use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
 final class ManualCollectionRunnerTest extends TestCase
 {
-    use IteratorTestTrait;
-
     /**
      * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
@@ -34,18 +31,22 @@ final class ManualCollectionRunnerTest extends TestCase
      *
      * @dataProvider manualCollectionProvider
      */
-    public function testCollectionResult(array $collectionItems, array $values, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
+    public function testCollectionResult(array $collectionItems, array $expected, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
         $collection = new Collection($collectionItems);
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
-        $expectedValues = $this->buildExpectedValues($values);
 
         $this->assertSame($totalCount, $collectionRunner->count($collection));
-        $this->assertIteratorValues(
-            $expectedValues,
-            $collectionRunner->runCollection($collection, $offset, $limit, $flags)
+
+        $result = array_map(
+            function (Result $result) {
+                return $result->getItem()->getValue();
+            },
+            iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit, $flags))
         );
+
+        $this->assertSame($expected, $result);
     }
 
     /**
@@ -209,15 +210,5 @@ final class ManualCollectionRunnerTest extends TestCase
                 5,
             ],
         ];
-    }
-
-    private function buildExpectedValues(array $values): array
-    {
-        $results = [];
-        foreach ($values as $key => $value) {
-            $results[] = new Result($key, CmsItem::fromArray(['value' => $value]));
-        }
-
-        return $results;
     }
 }

@@ -15,8 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 final class DynamicCollectionRunnerTest extends TestCase
 {
-    use IteratorTestTrait;
-
     /**
      * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
@@ -53,7 +51,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         array $items,
         array $queryItems,
         int $queryCount,
-        array $values,
+        array $expected,
         int $totalCount,
         int $offset = 0,
         int $limit = 200
@@ -61,14 +59,17 @@ final class DynamicCollectionRunnerTest extends TestCase
         $collection = new Collection($items, $queryItems, $queryCount);
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
-        $expectedValues = $this->buildExpectedValues($values);
 
         $this->assertSame($totalCount, $collectionRunner->count($collection));
 
-        $this->assertIteratorValues(
-            $expectedValues,
-            $collectionRunner->runCollection($collection, $offset, $limit)
+        $result = array_map(
+            function (Result $result) {
+                return $result->getItem()->getValue();
+            },
+            iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit))
         );
+
+        $this->assertSame($expected, $result);
     }
 
     /**
@@ -321,15 +322,5 @@ final class DynamicCollectionRunnerTest extends TestCase
                 [], 0,
             ],
         ];
-    }
-
-    private function buildExpectedValues(array $values): array
-    {
-        $results = [];
-        foreach ($values as $key => $value) {
-            $results[] = new Result($key, CmsItem::fromArray(['value' => $value]));
-        }
-
-        return $results;
     }
 }
