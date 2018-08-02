@@ -19,7 +19,7 @@ final class CommonParametersPlugin extends Plugin
      */
     private $defaultGroups = [];
 
-    public function __construct(array $defaultGroups = [])
+    public function __construct(array $defaultGroups)
     {
         $this->defaultGroups = $defaultGroups;
     }

@@ -14,7 +14,7 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
-    public function mapBlocks(array $data = []): array
+    public function mapBlocks(array $data): array
     {
         $blocks = [];
 
@@ -65,7 +65,7 @@ final class BlockMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
-    public function mapCollectionReferences(array $data = []): array
+    public function mapCollectionReferences(array $data): array
     {
         $collectionReferences = [];
 

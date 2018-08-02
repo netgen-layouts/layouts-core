@@ -148,7 +148,7 @@ final class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], bool $preserveSharedZones = true): void
+    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): void
     {
         $seenZones = [];
         foreach ($zoneMappings as $newZone => $oldZones) {

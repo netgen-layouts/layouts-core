@@ -140,7 +140,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 [
                     'definition' => BlockDefinition::fromArray(
                         [
-                            'handlerPlugins' => [new PagedCollectionsPlugin([])],
+                            'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
                         ]
                     ),
                     'parameters' => [
@@ -196,7 +196,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 [
                     'definition' => BlockDefinition::fromArray(
                         [
-                            'handlerPlugins' => [new PagedCollectionsPlugin([])],
+                            'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
                         ]
                     ),
                     'parameters' => [
@@ -252,7 +252,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 [
                     'definition' => BlockDefinition::fromArray(
                         [
-                            'handlerPlugins' => [new PagedCollectionsPlugin([])],
+                            'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
                         ]
                     ),
                     'parameters' => [

@@ -26,7 +26,7 @@ final class PagedCollectionsPlugin extends Plugin
      */
     private $defaultGroups = [];
 
-    public function __construct(array $pagerTypes, array $defaultGroups = [])
+    public function __construct(array $pagerTypes, array $defaultGroups)
     {
         $this->pagerTypes = $pagerTypes;
         $this->defaultGroups = $defaultGroups;

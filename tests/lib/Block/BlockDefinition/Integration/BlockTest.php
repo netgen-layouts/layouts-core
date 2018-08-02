@@ -78,14 +78,14 @@ abstract class BlockTest extends ServiceTestCase
      * @dataProvider invalidParametersDataProvider
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
-    public function testCreateBlockWithInvalidParameters(array $parameters, ?array $testedParams = null): void
+    public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = []): void
     {
         if (empty($parameters)) {
             throw ValidationException::validationFailed('parameters', 'Invalid parameters');
         }
 
         $blockDefinition = $this->createBlockDefinition(
-            $testedParams ?? array_keys($parameters)
+            !empty($testedParams) ? $testedParams : array_keys($parameters)
         );
 
         // We need to recreate the service due to recreating the block definition

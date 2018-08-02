@@ -118,7 +118,8 @@ final class ViewBuilderTest extends TestCase
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
-            $this->eventDispatcherMock
+            $this->eventDispatcherMock,
+            []
         );
 
         $viewBuilder->buildView($value);

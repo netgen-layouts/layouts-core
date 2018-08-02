@@ -14,7 +14,7 @@ final class LayoutMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
-    public function mapLayouts(array $data = []): array
+    public function mapLayouts(array $data): array
     {
         $layouts = [];
 
@@ -56,7 +56,7 @@ final class LayoutMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
      */
-    public function mapZones(array $data = []): array
+    public function mapZones(array $data): array
     {
         $zones = [];
 

@@ -32,7 +32,7 @@ final class ViewBuilder implements ViewBuilderInterface
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
      */
-    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders = [])
+    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders)
     {
         $this->templateResolver = $templateResolver;
         $this->eventDispatcher = $eventDispatcher;

@@ -20,7 +20,7 @@ final class VisibilityResolver implements VisibilityResolverInterface
      *
      * @param \Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[] $voters
      */
-    public function setVoters(array $voters = []): void
+    public function setVoters(array $voters): void
     {
         $this->voters = array_filter(
             $voters,

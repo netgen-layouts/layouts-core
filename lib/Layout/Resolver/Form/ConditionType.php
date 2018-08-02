@@ -24,7 +24,7 @@ final class ConditionType extends AbstractType
     /**
      * @param \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[] $mappers
      */
-    public function __construct(array $mappers = [])
+    public function __construct(array $mappers)
     {
         $this->mappers = array_filter(
             $mappers,

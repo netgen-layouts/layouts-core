@@ -272,8 +272,8 @@ abstract class ImporterTest extends ServiceTestCase
 
         $handlerPluginRegistry = new HandlerPluginRegistry(
             [
-                new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more']),
-                new CommonParametersPlugin(),
+                new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more'], []),
+                new CommonParametersPlugin([]),
             ]
         );
 
@@ -291,7 +291,8 @@ abstract class ImporterTest extends ServiceTestCase
 
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
             'title',
-            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3']),
+            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []
+            ),
             $data,
             $configHandlers
         );

@@ -16,7 +16,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
     /**
      * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters
      */
-    public function __construct(array $valueConverters = [])
+    public function __construct(array $valueConverters)
     {
         $this->valueConverters = array_filter(
             $valueConverters,

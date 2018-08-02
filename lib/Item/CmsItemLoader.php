@@ -22,7 +22,7 @@ final class CmsItemLoader implements CmsItemLoaderInterface
      * @param \Netgen\BlockManager\Item\CmsItemBuilderInterface $cmsItemBuilder
      * @param \Netgen\BlockManager\Item\ValueLoaderInterface[] $valueLoaders
      */
-    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, array $valueLoaders = [])
+    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, array $valueLoaders)
     {
         $this->cmsItemBuilder = $cmsItemBuilder;
 

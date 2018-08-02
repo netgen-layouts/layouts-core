@@ -16,7 +16,7 @@ final class UrlGenerator implements UrlGeneratorInterface
     /**
      * @param \Netgen\BlockManager\Item\ValueUrlGeneratorInterface[] $valueUrlGenerators
      */
-    public function __construct(array $valueUrlGenerators = [])
+    public function __construct(array $valueUrlGenerators)
     {
         $this->valueUrlGenerators = array_filter(
             $valueUrlGenerators,

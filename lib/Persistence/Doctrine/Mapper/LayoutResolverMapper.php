@@ -15,7 +15,7 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function mapRules(array $data = []): array
+    public function mapRules(array $data): array
     {
         $rules = [];
 
@@ -40,7 +40,7 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target[]
      */
-    public function mapTargets(array $data = []): array
+    public function mapTargets(array $data): array
     {
         $targets = [];
 
@@ -64,7 +64,7 @@ final class LayoutResolverMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition[]
      */
-    public function mapConditions(array $data = []): array
+    public function mapConditions(array $data): array
     {
         $conditions = [];
 

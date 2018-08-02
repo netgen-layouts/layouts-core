@@ -24,7 +24,7 @@ final class ParametersType extends AbstractType
     /**
      * @param \Netgen\BlockManager\Parameters\Form\MapperInterface[] $mappers
      */
-    public function __construct(array $mappers = [])
+    public function __construct(array $mappers)
     {
         $this->mappers = array_filter(
             $mappers,
@@ -122,7 +122,7 @@ final class ParametersType extends AbstractType
     /**
      * Returns if the parameter will be included in the form based on provided groups.
      */
-    private function includeParameter(ParameterDefinition $parameterDefinition, array $groups = []): bool
+    private function includeParameter(ParameterDefinition $parameterDefinition, array $groups): bool
     {
         $parameterGroups = $parameterDefinition->getGroups();
 

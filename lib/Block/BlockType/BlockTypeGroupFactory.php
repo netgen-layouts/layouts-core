@@ -15,7 +15,7 @@ final class BlockTypeGroupFactory
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
-    public static function buildBlockTypeGroup(string $identifier, array $config, array $blockTypes = []): BlockTypeGroup
+    public static function buildBlockTypeGroup(string $identifier, array $config, array $blockTypes): BlockTypeGroup
     {
         return BlockTypeGroup::fromArray(
             [

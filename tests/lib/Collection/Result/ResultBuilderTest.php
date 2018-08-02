@@ -185,7 +185,7 @@ final class ResultBuilderTest extends TestCase
      * Builds the dynamic collection for provided type and list of values.
      */
     private function buildCollection(
-        array $itemIds = [],
+        array $itemIds,
         array $queryValues = [],
         int $queryCount = 0,
         bool $contextual = false

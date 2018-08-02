@@ -336,7 +336,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $copiedLayout;
     }
 
-    public function changeLayoutType(Layout $layout, string $targetLayoutType, array $zoneMappings = []): Layout
+    public function changeLayoutType(Layout $layout, string $targetLayoutType, array $zoneMappings): Layout
     {
         $newRootBlocks = [];
         $oldRootBlocks = [];

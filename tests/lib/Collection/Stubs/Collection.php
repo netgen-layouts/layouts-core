@@ -25,7 +25,7 @@ final class Collection implements APICollection
     private $query;
 
     public function __construct(
-        array $items = [],
+        array $items,
         ?array $queryValues = null,
         int $queryCount = 0
     ) {

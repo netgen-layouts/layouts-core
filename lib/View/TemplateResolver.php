@@ -27,7 +27,7 @@ class TemplateResolver implements TemplateResolverInterface
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
      * @param array $viewConfig
      */
-    public function __construct(array $matchers = [], array $viewConfig = [])
+    public function __construct(array $matchers, array $viewConfig)
     {
         $this->matchers = array_filter(
             $matchers,

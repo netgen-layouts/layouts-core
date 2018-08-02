@@ -1040,7 +1040,8 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_b')
+            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            []
         );
     }
 

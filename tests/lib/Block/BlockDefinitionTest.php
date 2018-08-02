@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -68,7 +69,7 @@ final class BlockDefinitionTest extends TestCase
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'handlerPlugins' => [HandlerPlugin::instance()],
+                'handlerPlugins' => [HandlerPlugin::instance([BlockDefinitionHandlerInterface::class])],
                 'name' => 'Block definition',
                 'icon' => '/icon.svg',
                 'isTranslatable' => true,

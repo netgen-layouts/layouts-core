@@ -17,7 +17,7 @@ final class HandlerPlugin extends Plugin
      */
     private static $extendedHandlers = [];
 
-    public static function instance(array $extendedHandlers = []): self
+    public static function instance(array $extendedHandlers): self
     {
         self::$extendedHandlers = $extendedHandlers;
 

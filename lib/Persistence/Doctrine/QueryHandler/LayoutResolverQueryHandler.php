@@ -28,7 +28,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers
      */
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers = [])
+    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers)
     {
         $this->targetHandlers = array_filter(
             $targetHandlers,

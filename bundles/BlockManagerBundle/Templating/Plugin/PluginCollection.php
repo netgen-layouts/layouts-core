@@ -16,7 +16,7 @@ final class PluginCollection
      */
     private $plugins;
 
-    public function __construct(string $pluginName, array $plugins = [])
+    public function __construct(string $pluginName, array $plugins)
     {
         $this->pluginName = $pluginName;
 

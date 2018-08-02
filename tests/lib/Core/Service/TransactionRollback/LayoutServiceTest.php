@@ -283,7 +283,8 @@ final class LayoutServiceTest extends ServiceTestCase
 
         $this->layoutService->changeLayoutType(
             Layout::fromArray(['status' => Layout::STATUS_DRAFT]),
-            LayoutType::fromArray(['identifier' => '4_zones_a'])
+            LayoutType::fromArray(['identifier' => '4_zones_a']),
+            []
         );
     }
 

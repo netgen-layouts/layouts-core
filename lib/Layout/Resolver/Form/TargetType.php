@@ -24,7 +24,7 @@ final class TargetType extends AbstractType
     /**
      * @param \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[] $mappers
      */
-    public function __construct(array $mappers = [])
+    public function __construct(array $mappers)
     {
         $this->mappers = array_filter(
             $mappers,

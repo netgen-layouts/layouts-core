@@ -15,7 +15,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function mapCollections(array $data = []): array
+    public function mapCollections(array $data): array
     {
         $collections = [];
 
@@ -55,7 +55,7 @@ final class CollectionMapper
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
      */
-    public function mapItems(array $data = []): array
+    public function mapItems(array $data): array
     {
         $items = [];
 
@@ -79,7 +79,7 @@ final class CollectionMapper
     /**
      * Maps data from database to query values.
      */
-    public function mapQueries(array $data = []): array
+    public function mapQueries(array $data): array
     {
         $queries = [];
 

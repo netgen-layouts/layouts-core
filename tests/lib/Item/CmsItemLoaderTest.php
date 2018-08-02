@@ -82,7 +82,7 @@ final class CmsItemLoaderTest extends TestCase
      */
     public function testLoadItemThrowsItemException(): void
     {
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock);
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, []);
 
         $this->cmsItemLoader->load(42, 'value');
     }
@@ -139,7 +139,7 @@ final class CmsItemLoaderTest extends TestCase
      */
     public function testLoadByRemoteIdItemThrowsItemException(): void
     {
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock);
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, []);
 
         $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }

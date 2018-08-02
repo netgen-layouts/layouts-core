@@ -24,7 +24,7 @@ final class AggregateVisitor implements VisitorInterface
      *
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface[] $visitors
      */
-    public function __construct(array $visitors = [])
+    public function __construct(array $visitors)
     {
         $this->visitors = array_filter(
             $visitors,

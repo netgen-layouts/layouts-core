@@ -234,7 +234,7 @@ interface LayoutService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      */
-    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], bool $preserveSharedZones = true): Layout;
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout;
 
     /**
      * Creates a layout draft.

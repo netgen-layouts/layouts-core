@@ -447,7 +447,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($copiedLayout);
     }
 
-    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings = [], bool $preserveSharedZones = true): Layout
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout
     {
         if (!$layout->isDraft()) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');

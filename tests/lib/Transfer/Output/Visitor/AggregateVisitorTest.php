@@ -52,7 +52,7 @@ final class AggregateVisitorTest extends TestCase
      */
     public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException(): void
     {
-        $this->visitor = new AggregateVisitor();
+        $this->visitor = new AggregateVisitor([]);
 
         $this->visitor->visit(new Block());
     }
@@ -64,7 +64,7 @@ final class AggregateVisitorTest extends TestCase
      */
     public function testVisitWithNoAcceptedVisitorAndScalarValueThrowsRuntimeException(): void
     {
-        $this->visitor = new AggregateVisitor();
+        $this->visitor = new AggregateVisitor([]);
 
         $this->visitor->visit(42);
     }
