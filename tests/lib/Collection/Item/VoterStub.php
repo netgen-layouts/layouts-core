@@ -10,16 +10,16 @@ use Netgen\BlockManager\Collection\Item\VisibilityVoterInterface;
 final class VoterStub implements VisibilityVoterInterface
 {
     /**
-     * @var bool|null
+     * @var int
      */
     private $vote;
 
-    public function __construct(?bool $vote)
+    public function __construct(int $vote)
     {
         $this->vote = $vote;
     }
 
-    public function vote(Item $item): ?bool
+    public function vote(Item $item): int
     {
         return $this->vote;
     }
