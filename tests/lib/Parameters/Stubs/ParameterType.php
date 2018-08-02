@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 final class ParameterType extends BaseParameterType
 {
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'type';
     }

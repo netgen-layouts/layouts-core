@@ -95,7 +95,7 @@ trait ParameterStructTrait
 
             if ($parameters->hasParameter($name)) {
                 $parameter = $parameters->getParameter($name);
-                if ($parameter->getParameterDefinition()->getType()->getIdentifier() === $definition->getType()->getIdentifier()) {
+                if ($parameter->getParameterDefinition()->getType()::getIdentifier() === $definition->getType()::getIdentifier()) {
                     $value = $parameter->getValue();
                     $value = is_object($value) ? clone $value : $value;
                 }

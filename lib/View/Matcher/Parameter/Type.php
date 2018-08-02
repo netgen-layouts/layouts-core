@@ -22,6 +22,6 @@ final class Type implements MatcherInterface
 
         $parameterType = $view->getParameterValue()->getParameterDefinition()->getType();
 
-        return in_array($parameterType->getIdentifier(), $config, true);
+        return in_array($parameterType::getIdentifier(), $config, true);
     }
 }

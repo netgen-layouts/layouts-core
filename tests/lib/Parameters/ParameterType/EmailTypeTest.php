@@ -22,7 +22,7 @@ final class EmailTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('email', $this->type->getIdentifier());
+        $this->assertSame('email', $this->type::getIdentifier());
     }
 
     /**

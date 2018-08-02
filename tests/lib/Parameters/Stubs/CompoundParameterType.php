@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 final class CompoundParameterType extends BaseCompoundParameterType
 {
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'type';
     }

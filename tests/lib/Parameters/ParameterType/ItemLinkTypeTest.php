@@ -77,7 +77,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('item_link', $this->type->getIdentifier());
+        $this->assertSame('item_link', $this->type::getIdentifier());
     }
 
     /**

@@ -16,7 +16,7 @@ final class EmailType extends ParameterType
 {
     use StrictEmailValidatorTrait;
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'email';
     }

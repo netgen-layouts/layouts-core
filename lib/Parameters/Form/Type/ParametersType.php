@@ -81,7 +81,7 @@ final class ParametersType extends AbstractType
 
             $parameterName = $parameterDefinition->getName();
             $parameterLabel = $parameterDefinition->getLabel();
-            $parameterType = $parameterDefinition->getType()->getIdentifier();
+            $parameterType = $parameterDefinition->getType()::getIdentifier();
 
             if (!isset($this->mappers[$parameterType])) {
                 throw ParameterTypeException::noFormMapper($parameterType);

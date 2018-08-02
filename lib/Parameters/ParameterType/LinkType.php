@@ -36,7 +36,7 @@ final class LinkType extends ParameterType
         $this->remoteIdConverter = $remoteIdConverter;
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'link';
     }

@@ -20,7 +20,7 @@ final class DateTimeType extends ParameterType
 {
     private const STORAGE_FORMAT = 'Y-m-d H:i:s.u';
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'datetime';
     }

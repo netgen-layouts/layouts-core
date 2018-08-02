@@ -24,7 +24,7 @@ final class HtmlTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('html', $this->type->getIdentifier());
+        $this->assertSame('html', $this->type::getIdentifier());
     }
 
     /**

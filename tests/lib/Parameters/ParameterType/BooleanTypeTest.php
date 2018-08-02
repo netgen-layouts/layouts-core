@@ -22,7 +22,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('boolean', $this->type->getIdentifier());
+        $this->assertSame('boolean', $this->type::getIdentifier());
     }
 
     /**

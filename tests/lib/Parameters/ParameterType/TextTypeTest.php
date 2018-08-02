@@ -22,7 +22,7 @@ final class TextTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('text', $this->type->getIdentifier());
+        $this->assertSame('text', $this->type::getIdentifier());
     }
 
     /**

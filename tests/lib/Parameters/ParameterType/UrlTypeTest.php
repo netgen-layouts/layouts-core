@@ -22,7 +22,7 @@ final class UrlTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('url', $this->type->getIdentifier());
+        $this->assertSame('url', $this->type::getIdentifier());
     }
 
     /**

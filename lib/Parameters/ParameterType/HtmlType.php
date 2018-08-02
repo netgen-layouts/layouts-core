@@ -26,7 +26,7 @@ final class HtmlType extends ParameterType
         $this->htmlPurifier = $htmlPurifier;
     }
 
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'html';
     }

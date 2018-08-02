@@ -22,7 +22,7 @@ final class NumberTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('number', $this->type->getIdentifier());
+        $this->assertSame('number', $this->type::getIdentifier());
     }
 
     /**

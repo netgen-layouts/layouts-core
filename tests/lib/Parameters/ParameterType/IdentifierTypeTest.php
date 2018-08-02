@@ -22,7 +22,7 @@ final class IdentifierTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('identifier', $this->type->getIdentifier());
+        $this->assertSame('identifier', $this->type::getIdentifier());
     }
 
     /**

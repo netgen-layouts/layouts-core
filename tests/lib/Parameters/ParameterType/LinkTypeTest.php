@@ -52,7 +52,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('link', $this->type->getIdentifier());
+        $this->assertSame('link', $this->type::getIdentifier());
     }
 
     /**

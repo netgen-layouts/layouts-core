@@ -16,9 +16,9 @@ abstract class ParameterType implements ParameterTypeInterface
 
     public function getConstraints(ParameterDefinition $parameterDefinition, $value)
     {
-        if ($parameterDefinition->getType()->getIdentifier() !== $this->getIdentifier()) {
+        if ($parameterDefinition->getType()::getIdentifier() !== $this::getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(
-                $parameterDefinition->getType()->getIdentifier()
+                $parameterDefinition->getType()::getIdentifier()
             );
         }
 

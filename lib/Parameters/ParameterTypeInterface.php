@@ -13,7 +13,7 @@ interface ParameterTypeInterface
      *
      * @return string
      */
-    public function getIdentifier();
+    public static function getIdentifier();
 
     /**
      * Configures the options for this parameter.

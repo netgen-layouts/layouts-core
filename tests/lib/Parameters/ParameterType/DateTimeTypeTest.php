@@ -25,7 +25,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('datetime', $this->type->getIdentifier());
+        $this->assertSame('datetime', $this->type::getIdentifier());
     }
 
     /**

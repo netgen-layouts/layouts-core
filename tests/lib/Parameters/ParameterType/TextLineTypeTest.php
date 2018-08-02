@@ -22,7 +22,7 @@ final class TextLineTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('text_line', $this->type->getIdentifier());
+        $this->assertSame('text_line', $this->type::getIdentifier());
     }
 
     /**

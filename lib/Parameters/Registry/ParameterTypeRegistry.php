@@ -24,7 +24,7 @@ final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
     public function __construct(ParameterTypeInterface ...$parameterTypes)
     {
         foreach ($parameterTypes as $parameterType) {
-            $this->parameterTypes[$parameterType->getIdentifier()] = $parameterType;
+            $this->parameterTypes[$parameterType::getIdentifier()] = $parameterType;
             $this->parameterTypesByClass[get_class($parameterType)] = $parameterType;
         }
     }

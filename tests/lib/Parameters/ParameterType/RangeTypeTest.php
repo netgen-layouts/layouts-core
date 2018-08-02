@@ -23,7 +23,7 @@ final class RangeTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('range', $this->type->getIdentifier());
+        $this->assertSame('range', $this->type::getIdentifier());
     }
 
     /**

@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints;
  */
 final class BooleanType extends CompoundParameterType
 {
-    public function getIdentifier(): string
+    public static function getIdentifier(): string
     {
         return 'compound_boolean';
     }

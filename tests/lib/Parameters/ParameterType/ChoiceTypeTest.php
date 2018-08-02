@@ -23,7 +23,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('choice', $this->type->getIdentifier());
+        $this->assertSame('choice', $this->type::getIdentifier());
     }
 
     /**
