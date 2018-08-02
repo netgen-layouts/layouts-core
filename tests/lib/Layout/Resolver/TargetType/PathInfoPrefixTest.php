@@ -26,7 +26,7 @@ final class PathInfoPrefixTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('path_info_prefix', $this->targetType->getType());
+        $this->assertSame('path_info_prefix', $this->targetType::getType());
     }
 
     /**

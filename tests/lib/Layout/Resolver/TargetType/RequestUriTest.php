@@ -26,7 +26,7 @@ final class RequestUriTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('request_uri', $this->targetType->getType());
+        $this->assertSame('request_uri', $this->targetType::getType());
     }
 
     /**

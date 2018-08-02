@@ -106,7 +106,7 @@ final class BlockManagerDataCollector extends DataCollector
 
         foreach ($rule->getTargets() as $target) {
             $this->data['rule']['targets'][] = [
-                'type' => $target->getTargetType()->getType(),
+                'type' => $target->getTargetType()::getType(),
                 'value' => $this->formatVar($target->getValue()),
             ];
         }

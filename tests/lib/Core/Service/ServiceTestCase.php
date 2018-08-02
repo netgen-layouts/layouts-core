@@ -42,6 +42,7 @@ use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\BlockManager\Layout\Resolver\TargetType;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\Zone;
 use Netgen\BlockManager\Parameters\ParameterType;
@@ -54,7 +55,7 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -326,13 +327,13 @@ abstract class ServiceTestCase extends TestCase
         );
 
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target'),
-            new TargetType('route'),
-            new TargetType('route_prefix'),
-            new TargetType('path_info'),
-            new TargetType('path_info_prefix'),
-            new TargetType('request_uri'),
-            new TargetType('request_uri_prefix')
+            new TargetType1(),
+            new TargetType\Route(),
+            new TargetType\RoutePrefix(),
+            new TargetType\PathInfo(),
+            new TargetType\PathInfoPrefix(),
+            new TargetType\RequestUri(),
+            new TargetType\RequestUriPrefix()
         );
 
         $this->conditionTypeRegistry = new ConditionTypeRegistry(

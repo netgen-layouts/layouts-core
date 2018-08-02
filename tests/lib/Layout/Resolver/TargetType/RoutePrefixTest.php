@@ -26,7 +26,7 @@ final class RoutePrefixTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('route_prefix', $this->targetType->getType());
+        $this->assertSame('route_prefix', $this->targetType::getType());
     }
 
     /**

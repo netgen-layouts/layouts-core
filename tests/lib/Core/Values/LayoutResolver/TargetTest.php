@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
@@ -24,7 +24,7 @@ final class TargetTest extends TestCase
      */
     public function testSetProperties(): void
     {
-        $targetType = new TargetType('target');
+        $targetType = new TargetType1();
 
         $target = Target::fromArray(
             [

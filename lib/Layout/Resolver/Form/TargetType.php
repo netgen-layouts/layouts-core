@@ -48,11 +48,11 @@ final class TargetType extends AbstractType
         /** @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType */
         $targetType = $options['target_type'];
 
-        if (!isset($this->mappers[$targetType->getType()])) {
-            throw TargetTypeException::noFormMapper($targetType->getType());
+        if (!isset($this->mappers[$targetType::getType()])) {
+            throw TargetTypeException::noFormMapper($targetType::getType());
         }
 
-        $mapper = $this->mappers[$targetType->getType()];
+        $mapper = $this->mappers[$targetType::getType()];
 
         $defaultOptions = [
             'label' => false,

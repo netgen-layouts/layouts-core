@@ -25,7 +25,7 @@ final class TargetVisitor implements VisitorInterface
 
         return [
             'id' => $target->getId(),
-            'type' => $target->getTargetType()->getType(),
+            'type' => $target->getTargetType()::getType(),
             'value' => $target->getValue(),
         ];
     }

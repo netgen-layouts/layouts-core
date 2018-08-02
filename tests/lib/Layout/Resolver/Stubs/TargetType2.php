@@ -8,31 +8,24 @@ use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-final class TargetType implements TargetTypeInterface
+final class TargetType2 implements TargetTypeInterface
 {
-    /**
-     * @var string
-     */
-    private $type;
-
     /**
      * @var mixed
      */
     private $value;
 
     /**
-     * @param string $type
      * @param mixed $value
      */
-    public function __construct(string $type, $value = null)
+    public function __construct($value = null)
     {
-        $this->type = $type;
         $this->value = $value;
     }
 
-    public function getType(): string
+    public static function getType(): string
     {
-        return $this->type;
+        return 'target2';
     }
 
     public function getConstraints(): array

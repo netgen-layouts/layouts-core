@@ -12,7 +12,8 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolver;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType2;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -59,8 +60,8 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRules(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', 42),
-            new TargetType('target2', 84)
+            new TargetType1(42),
+            new TargetType2(84)
         );
 
         $this->createLayoutResolver();
@@ -133,7 +134,7 @@ final class LayoutResolverTest extends TestCase
      */
     public function testResolveRulesWithInvalidRule(): void
     {
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType('target1', 42));
+        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
@@ -172,7 +173,7 @@ final class LayoutResolverTest extends TestCase
      */
     public function testResolveRulesWithDisabledRule(): void
     {
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType('target1', 42));
+        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
@@ -211,7 +212,7 @@ final class LayoutResolverTest extends TestCase
      */
     public function testResolveRulesWithNoValidRules(): void
     {
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType('target1', 42));
+        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
@@ -251,8 +252,8 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRulesWithNoTargetValue(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', null),
-            new TargetType('target2', 84)
+            new TargetType1(null),
+            new TargetType2(84)
         );
 
         $this->createLayoutResolver();
@@ -293,8 +294,8 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRulesWithNoTargetValues(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', null),
-            new TargetType('target2', null)
+            new TargetType1(null),
+            new TargetType2(null)
         );
 
         $this->createLayoutResolver();
@@ -330,7 +331,7 @@ final class LayoutResolverTest extends TestCase
      */
     public function testResolveRulesWithConditionsAndPartialConditionMatching(array $matches, ?int $layoutId): void
     {
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType('target', 42));
+        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
@@ -362,7 +363,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('matchRules')
-            ->with($this->identicalTo('target'), $this->identicalTo(42))
+            ->with($this->identicalTo('target1'), $this->identicalTo(42))
             ->will($this->returnValue([$rule1, $rule2]));
 
         $this->assertSame(
@@ -380,7 +381,7 @@ final class LayoutResolverTest extends TestCase
      */
     public function testResolveRulesWithConditions(array $matches, ?int $layoutId): void
     {
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType('target', 42));
+        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
@@ -401,7 +402,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('matchRules')
-            ->with($this->identicalTo('target'), $this->identicalTo(42))
+            ->with($this->identicalTo('target1'), $this->identicalTo(42))
             ->will($this->returnValue([$rule]));
 
         $this->assertSame(
@@ -417,8 +418,8 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRule(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', 42),
-            new TargetType('target2', 84)
+            new TargetType1(42),
+            new TargetType2(84)
         );
 
         $this->createLayoutResolver();
@@ -485,7 +486,7 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRuleWithInvalidRule(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', 42)
+            new TargetType1(42)
         );
 
         $this->createLayoutResolver();
@@ -526,7 +527,7 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRuleWithNoValidRules(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', 42)
+            new TargetType1(42)
         );
 
         $this->createLayoutResolver();
@@ -567,8 +568,8 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRuleWithNoTargetValue(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', null),
-            new TargetType('target2', 84)
+            new TargetType1(null),
+            new TargetType2(84)
         );
 
         $this->createLayoutResolver();
@@ -609,8 +610,8 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRuleWithNoTargetValues(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target1', null),
-            new TargetType('target2', null)
+            new TargetType1(null),
+            new TargetType2(null)
         );
 
         $this->createLayoutResolver();
@@ -647,7 +648,7 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRuleWithConditionsAndPartialConditionMatching(array $matches, ?int $layoutId): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target', 42)
+            new TargetType1(42)
         );
 
         $this->createLayoutResolver();
@@ -669,7 +670,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('matchRules')
-            ->with($this->identicalTo('target'), $this->identicalTo(42))
+            ->with($this->identicalTo('target1'), $this->identicalTo(42))
             ->will($this->returnValue([$rule]));
 
         $this->assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule(null, ['condition2']));
@@ -685,7 +686,7 @@ final class LayoutResolverTest extends TestCase
     public function testResolveRuleWithConditions(array $matches, ?int $layoutId): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
-            new TargetType('target', 42)
+            new TargetType1(42)
         );
 
         $this->createLayoutResolver();
@@ -707,7 +708,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('matchRules')
-            ->with($this->identicalTo('target'), $this->identicalTo(42))
+            ->with($this->identicalTo('target1'), $this->identicalTo(42))
             ->will($this->returnValue([$rule]));
 
         $this->assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule());

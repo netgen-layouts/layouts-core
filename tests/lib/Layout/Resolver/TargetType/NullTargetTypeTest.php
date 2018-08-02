@@ -17,16 +17,15 @@ final class NullTargetTypeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->targetType = new NullTargetType('type');
+        $this->targetType = new NullTargetType();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::getType
      */
     public function testGetType(): void
     {
-        $this->assertSame('type', $this->targetType->getType());
+        $this->assertSame('null', $this->targetType::getType());
     }
 
     /**

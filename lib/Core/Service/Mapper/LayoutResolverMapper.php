@@ -113,7 +113,7 @@ final class LayoutResolverMapper
                 $target->type
             );
         } catch (TargetTypeException $e) {
-            $targetType = new NullTargetType($target->type);
+            $targetType = new NullTargetType();
         }
 
         $targetData = [

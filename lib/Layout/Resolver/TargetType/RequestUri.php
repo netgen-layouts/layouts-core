@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints;
 
 class RequestUri implements TargetTypeInterface
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'request_uri';
     }

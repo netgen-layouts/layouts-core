@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
 use ArrayIterator;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
 
 final class TargetTypeRegistryTest extends TestCase
@@ -23,7 +23,7 @@ final class TargetTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->targetType = new TargetType('type', 'value');
+        $this->targetType = new TargetType1('value');
 
         $this->registry = new TargetTypeRegistry($this->targetType);
     }
@@ -34,7 +34,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetTypes(): void
     {
-        $this->assertSame(['type' => $this->targetType], $this->registry->getTargetTypes());
+        $this->assertSame(['target1' => $this->targetType], $this->registry->getTargetTypes());
     }
 
     /**
@@ -42,17 +42,17 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetType(): void
     {
-        $this->assertSame($this->targetType, $this->registry->getTargetType('type'));
+        $this->assertSame($this->targetType, $this->registry->getTargetType('target1'));
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
      * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
-     * @expectedExceptionMessage Target type "other_type" does not exist.
+     * @expectedExceptionMessage Target type "other" does not exist.
      */
     public function testGetTargetTypeThrowsTargetTypeException(): void
     {
-        $this->registry->getTargetType('other_type');
+        $this->registry->getTargetType('other');
     }
 
     /**
@@ -60,7 +60,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testHasTargetType(): void
     {
-        $this->assertTrue($this->registry->hasTargetType('type'));
+        $this->assertTrue($this->registry->hasTargetType('target1'));
     }
 
     /**
@@ -68,7 +68,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testHasTargetTypeWithNoTargetType(): void
     {
-        $this->assertFalse($this->registry->hasTargetType('other_type'));
+        $this->assertFalse($this->registry->hasTargetType('other'));
     }
 
     /**
@@ -99,7 +99,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('type', $this->registry);
+        $this->assertArrayHasKey('target1', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
     }
 
@@ -108,7 +108,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->targetType, $this->registry['type']);
+        $this->assertSame($this->targetType, $this->registry['target1']);
     }
 
     /**
@@ -118,7 +118,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetSet(): void
     {
-        $this->registry['type'] = $this->targetType;
+        $this->registry['target1'] = $this->targetType;
     }
 
     /**
@@ -128,6 +128,6 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetUnset(): void
     {
-        unset($this->registry['type']);
+        unset($this->registry['target1']);
     }
 }

@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Layout\Resolver\TargetType;
 
 final class RoutePrefix extends Route
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'route_prefix';
     }

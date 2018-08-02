@@ -26,7 +26,7 @@ final class RouteTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('route', $this->targetType->getType());
+        $this->assertSame('route', $this->targetType::getType());
     }
 
     /**

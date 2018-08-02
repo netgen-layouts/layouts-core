@@ -98,7 +98,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
-                'type' => 'target',
+                'type' => 'target1',
                 'value' => 42,
             ]
         );
@@ -106,7 +106,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $target = $this->mapper->mapTarget($persistenceTarget);
 
         $this->assertSame(
-            $this->targetTypeRegistry->getTargetType('target'),
+            $this->targetTypeRegistry->getTargetType('target1'),
             $target->getTargetType()
         );
 

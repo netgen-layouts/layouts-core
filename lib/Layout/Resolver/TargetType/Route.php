@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints;
 
 class Route implements TargetTypeInterface
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'route';
     }

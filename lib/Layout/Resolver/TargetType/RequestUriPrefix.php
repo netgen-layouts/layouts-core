@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Layout\Resolver\TargetType;
 
 final class RequestUriPrefix extends RequestUri
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'request_uri_prefix';
     }

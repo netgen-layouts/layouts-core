@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType as TargetTypeForm;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetTypeMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -23,7 +23,7 @@ final class TargetTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->targetType = new TargetType('type', 42);
+        $this->targetType = new TargetType1(42);
     }
 
     public function getMainType(): FormTypeInterface
@@ -35,7 +35,7 @@ final class TargetTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
      * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
-     * @expectedExceptionMessage Form mapper for "type" target type does not exist.
+     * @expectedExceptionMessage Form mapper for "target1" target type does not exist.
      */
     public function testBuildFormThrowsTargetTypeException(): void
     {

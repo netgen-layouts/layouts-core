@@ -26,7 +26,7 @@ final class RequestUriPrefixTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('request_uri_prefix', $this->targetType->getType());
+        $this->assertSame('request_uri_prefix', $this->targetType::getType());
     }
 
     /**

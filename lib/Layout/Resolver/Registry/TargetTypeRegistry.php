@@ -19,7 +19,7 @@ final class TargetTypeRegistry implements TargetTypeRegistryInterface
     public function __construct(TargetTypeInterface ...$targetTypes)
     {
         foreach ($targetTypes as $targetType) {
-            $this->targetTypes[$targetType->getType()] = $targetType;
+            $this->targetTypes[$targetType::getType()] = $targetType;
         }
     }
 

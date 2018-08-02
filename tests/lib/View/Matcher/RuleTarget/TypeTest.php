@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\RuleTarget\Type;
 use Netgen\BlockManager\View\View\RuleTargetView;
@@ -33,7 +33,7 @@ final class TypeTest extends TestCase
     {
         $target = Target::fromArray(
             [
-                'targetType' => new TargetType('route'),
+                'targetType' => new TargetType1('target1'),
             ]
         );
 
@@ -49,7 +49,7 @@ final class TypeTest extends TestCase
     {
         $target = Target::fromArray(
             [
-                'targetType' => new NullTargetType('type'),
+                'targetType' => new NullTargetType(),
             ]
         );
 
@@ -65,7 +65,7 @@ final class TypeTest extends TestCase
     {
         $target = Target::fromArray(
             [
-                'targetType' => new NullTargetType('type'),
+                'targetType' => new NullTargetType(),
             ]
         );
 
@@ -79,9 +79,9 @@ final class TypeTest extends TestCase
         return [
             [[], false],
             [['some_type'], false],
-            [['route'], true],
+            [['target1'], true],
             [['some_type', 'some_type_2'], false],
-            [['some_type', 'route'], true],
+            [['some_type', 'target1'], true],
         ];
     }
 

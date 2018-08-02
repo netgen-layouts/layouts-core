@@ -100,7 +100,7 @@ final class LayoutResolver implements LayoutResolverInterface
                 continue;
             }
 
-            $matchedRules = $this->layoutResolverService->matchRules($targetType->getType(), $targetValue);
+            $matchedRules = $this->layoutResolverService->matchRules($targetType::getType(), $targetValue);
 
             foreach ($matchedRules as $matchedRule) {
                 if (!$matchedRule->isEnabled() || !$this->matches($matchedRule, $request, $enabledConditions)) {

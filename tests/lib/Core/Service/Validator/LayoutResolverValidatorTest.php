@@ -18,7 +18,7 @@ use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Netgen\BlockManager\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
@@ -52,7 +52,7 @@ final class LayoutResolverValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType('target', 42));
+        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->conditionTypeRegistry = new ConditionTypeRegistry(new ConditionType('condition'));
 
@@ -158,7 +158,7 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
-            Target::fromArray(['targetType' => new TargetType('target')]),
+            Target::fromArray(['targetType' => new TargetType1()]),
             $struct
         );
     }
@@ -252,15 +252,15 @@ final class LayoutResolverValidatorTest extends TestCase
     public function validateTargetCreateStructProvider(): array
     {
         return [
-            [['type' => 'target', 'value' => 42], true],
-            [['type' => 'target', 'value' => '42'], true],
-            [['type' => 'target', 'value' => [42]], true],
+            [['type' => 'target1', 'value' => 42], true],
+            [['type' => 'target1', 'value' => '42'], true],
+            [['type' => 'target1', 'value' => [42]], true],
             [['type' => '', 'value' => 42], false],
             [['type' => null, 'value' => 42], false],
             [['type' => 42, 'value' => 42], false],
-            [['type' => 'target', 'value' => null], false],
-            [['type' => 'target', 'value' => ''], false],
-            [['type' => 'target', 'value' => []], false],
+            [['type' => 'target1', 'value' => null], false],
+            [['type' => 'target1', 'value' => ''], false],
+            [['type' => 'target1', 'value' => []], false],
         ];
     }
 
