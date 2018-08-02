@@ -24,7 +24,7 @@ final class CommonParametersPlugin extends Plugin
         $this->defaultGroups = $defaultGroups;
     }
 
-    public static function getExtendedHandler(): array
+    public static function getExtendedHandlers(): array
     {
         return [BlockDefinitionHandlerInterface::class];
     }

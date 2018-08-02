@@ -32,7 +32,7 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
             array_filter(
                 $this->handlerPlugins,
                 function (PluginInterface $plugin) use ($handlerClass): bool {
-                    $extendedHandlers = (array) $plugin::getExtendedHandler();
+                    $extendedHandlers = $plugin::getExtendedHandlers();
                     foreach ($extendedHandlers as $extendedHandler) {
                         if (is_a($handlerClass, $extendedHandler, true)) {
                             return true;

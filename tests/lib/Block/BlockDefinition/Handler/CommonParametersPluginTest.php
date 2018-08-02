@@ -44,13 +44,13 @@ final class CommonParametersPluginTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::getExtendedHandler
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::getExtendedHandlers
      */
-    public function testGetExtendedHandler(): void
+    public function testGetExtendedHandlers(): void
     {
         $plugin = $this->plugin;
 
-        $this->assertSame([BlockDefinitionHandlerInterface::class], $plugin::getExtendedHandler());
+        $this->assertSame([BlockDefinitionHandlerInterface::class], $plugin::getExtendedHandlers());
     }
 
     /**

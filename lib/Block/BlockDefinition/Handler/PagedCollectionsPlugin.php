@@ -32,7 +32,7 @@ final class PagedCollectionsPlugin extends Plugin
         $this->defaultGroups = $defaultGroups;
     }
 
-    public static function getExtendedHandler(): array
+    public static function getExtendedHandlers(): array
     {
         return [PagedCollectionsBlockInterface::class];
     }

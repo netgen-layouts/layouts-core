@@ -24,7 +24,7 @@ final class HandlerPlugin extends Plugin
         return new self();
     }
 
-    public static function getExtendedHandler(): array
+    public static function getExtendedHandlers(): array
     {
         return self::$extendedHandlers;
     }

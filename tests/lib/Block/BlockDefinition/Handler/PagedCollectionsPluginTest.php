@@ -46,13 +46,13 @@ final class PagedCollectionsPluginTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::getExtendedHandler
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::getExtendedHandlers
      */
-    public function testGetExtendedHandler(): void
+    public function testGetExtendedHandlers(): void
     {
         $plugin = $this->plugin;
 
-        $this->assertSame([PagedCollectionsBlockInterface::class], $plugin::getExtendedHandler());
+        $this->assertSame([PagedCollectionsBlockInterface::class], $plugin::getExtendedHandlers());
     }
 
     /**
