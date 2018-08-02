@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use EdiModric\Twig\VersionExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
-use Twig\Extensions\IntlExtension;
+use Twig\Extension\ExtensionInterface;
 
 /**
  * @final
@@ -21,9 +20,15 @@ class TwigExtensionsListener implements EventSubscriberInterface
      */
     private $twig;
 
-    public function __construct(Environment $twig)
+    /**
+     * @var \Twig\Extension\ExtensionInterface[]
+     */
+    private $extensions;
+
+    public function __construct(Environment $twig, array $extensions)
     {
         $this->twig = $twig;
+        $this->extensions = $extensions;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,12 +41,16 @@ class TwigExtensionsListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event): void
     {
-        if (!$this->twig->hasExtension(IntlExtension::class)) {
-            $this->twig->addExtension(new IntlExtension());
-        }
+        foreach ($this->extensions as $extension) {
+            if (!class_exists($extension) || !is_a($extension, ExtensionInterface::class, true)) {
+                continue;
+            }
 
-        if (!$this->twig->hasExtension(VersionExtension::class)) {
-            $this->twig->addExtension(new VersionExtension());
+            if ($this->twig->hasExtension($extension)) {
+                continue;
+            }
+
+            $this->twig->addExtension(new $extension());
         }
     }
 }

@@ -1,3 +1,8 @@
+parameters:
+    netgen_block_manager.event_listener.twig_extensions.extensions:
+        - Twig\Extensions\IntlExtension
+        - EdiModric\Twig\VersionExtension
+
 services:
     netgen_block_manager.event_listener.exception_conversion:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
@@ -57,6 +62,7 @@ services:
         # public: false
         arguments:
             - "@twig"
+            - "%netgen_block_manager.event_listener.twig_extensions.extensions%"
         # Set as lazy to prevent crashing of eZ Platform siteaccess aware config
         lazy: true
         tags:
