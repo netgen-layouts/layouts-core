@@ -11,8 +11,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class CsrfTokenValidator implements CsrfTokenValidatorInterface
 {
-    private const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
-
     /**
      * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
      */
