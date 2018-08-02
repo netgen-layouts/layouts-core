@@ -11,7 +11,9 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolver;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType2;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType3;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType2;
 use PHPUnit\Framework\TestCase;
@@ -329,15 +331,15 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
-    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $matches, ?int $layoutId): void
+    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $conditionTypes, ?int $layoutId): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
         $conditions = [];
-        foreach ($matches as $conditionType => $match) {
-            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
+        foreach ($conditionTypes as $conditionType) {
+            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule1 = Rule::fromArray(
@@ -346,7 +348,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'priority' => 4,
-                'conditions' => new ArrayCollection([Condition::fromArray(['conditionType' => new ConditionType('condition2', false)])]),
+                'conditions' => new ArrayCollection([Condition::fromArray(['conditionType' => new ConditionType2(false)])]),
             ]
         );
 
@@ -379,15 +381,15 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithRuleConditionsProvider
      */
-    public function testResolveRulesWithConditions(array $matches, ?int $layoutId): void
+    public function testResolveRulesWithConditions(array $conditionTypes, ?int $layoutId): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
         $this->createLayoutResolver();
 
         $conditions = [];
-        foreach ($matches as $conditionType => $match) {
-            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
+        foreach ($conditionTypes as $conditionType) {
+            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -645,7 +647,7 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
-    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $matches, ?int $layoutId): void
+    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $conditionTypes, ?int $layoutId): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
             new TargetType1(42)
@@ -654,8 +656,8 @@ final class LayoutResolverTest extends TestCase
         $this->createLayoutResolver();
 
         $conditions = [];
-        foreach ($matches as $conditionType => $match) {
-            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
+        foreach ($conditionTypes as $conditionType) {
+            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -683,7 +685,7 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithRuleConditionsProvider
      */
-    public function testResolveRuleWithConditions(array $matches, ?int $layoutId): void
+    public function testResolveRuleWithConditions(array $conditionTypes, ?int $layoutId): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
             new TargetType1(42)
@@ -692,8 +694,8 @@ final class LayoutResolverTest extends TestCase
         $this->createLayoutResolver();
 
         $conditions = [];
-        foreach ($matches as $conditionType => $match) {
-            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
+        foreach ($conditionTypes as $conditionType) {
+            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -719,11 +721,11 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches(array $matches, bool $isMatch): void
+    public function testMatches(array $conditionTypes, bool $isMatch): void
     {
         $conditions = [];
-        foreach ($matches as $conditionType => $match) {
-            $conditions[] = Condition::fromArray(['conditionType' => new ConditionType($conditionType, $match)]);
+        foreach ($conditionTypes as $conditionType) {
+            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -742,12 +744,12 @@ final class LayoutResolverTest extends TestCase
     {
         return [
             [[], 42],
-            [['condition' => true], 42],
-            [['condition' => false], null],
-            [['condition1' => true, 'condition2' => false], null],
-            [['condition1' => false, 'condition2' => true], null],
-            [['condition1' => false, 'condition2' => false], null],
-            [['condition1' => true, 'condition2' => true], 42],
+            [[new ConditionType3(true)], 42],
+            [[new ConditionType3(false)], null],
+            [[new ConditionType1(true), new ConditionType2(false)], null],
+            [[new ConditionType1(false), new ConditionType2(true)], null],
+            [[new ConditionType1(false), new ConditionType2(false)], null],
+            [[new ConditionType1(true), new ConditionType2(true)], 42],
         ];
     }
 
@@ -755,12 +757,12 @@ final class LayoutResolverTest extends TestCase
     {
         return [
             [[], 42],
-            [['condition' => true], 42],
-            [['condition' => false], 42],
-            [['condition1' => true, 'condition2' => false], null],
-            [['condition1' => false, 'condition2' => true], 42],
-            [['condition1' => false, 'condition2' => false], null],
-            [['condition1' => true, 'condition2' => true], 42],
+            [[new ConditionType3(true)], 42],
+            [[new ConditionType3(false)], 42],
+            [[new ConditionType1(true), new ConditionType2(false)], null],
+            [[new ConditionType1(false), new ConditionType2(true)], 42],
+            [[new ConditionType1(false), new ConditionType2(false)], null],
+            [[new ConditionType1(true), new ConditionType2(true)], 42],
         ];
     }
 
@@ -768,12 +770,12 @@ final class LayoutResolverTest extends TestCase
     {
         return [
             [[], true],
-            [['condition' => true], true],
-            [['condition' => false], false],
-            [['condition1' => true, 'condition2' => false], false],
-            [['condition1' => false, 'condition2' => true], false],
-            [['condition1' => false, 'condition2' => false], false],
-            [['condition1' => true, 'condition2' => true], true],
+            [[new ConditionType3(true)], true],
+            [[new ConditionType3(false)], false],
+            [[new ConditionType1(true), new ConditionType2(false)], false],
+            [[new ConditionType1(false), new ConditionType2(true)], false],
+            [[new ConditionType1(false), new ConditionType2(false)], false],
+            [[new ConditionType1(true), new ConditionType2(true)], true],
         ];
     }
 

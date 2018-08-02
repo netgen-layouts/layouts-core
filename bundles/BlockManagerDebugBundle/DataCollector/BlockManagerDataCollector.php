@@ -113,7 +113,7 @@ final class BlockManagerDataCollector extends DataCollector
 
         foreach ($rule->getConditions() as $condition) {
             $this->data['rule']['conditions'][] = [
-                'type' => $condition->getConditionType()->getType(),
+                'type' => $condition->getConditionType()::getType(),
                 'value' => $this->formatVar($condition->getValue()),
             ];
         }

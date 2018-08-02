@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class Exception implements ConditionTypeInterface
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'exception';
     }

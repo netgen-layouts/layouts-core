@@ -28,7 +28,7 @@ final class TimeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('time', $this->conditionType->getType());
+        $this->assertSame('time', $this->conditionType::getType());
     }
 
     /**

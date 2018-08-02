@@ -28,7 +28,7 @@ final class ExceptionTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('exception', $this->conditionType->getType());
+        $this->assertSame('exception', $this->conditionType::getType());
     }
 
     /**

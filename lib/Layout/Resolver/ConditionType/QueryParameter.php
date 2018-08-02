@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class QueryParameter implements ConditionTypeInterface
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'query_parameter';
     }

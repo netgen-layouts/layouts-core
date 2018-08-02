@@ -40,6 +40,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Layout\Resolver\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\TargetType;
@@ -54,7 +55,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
@@ -337,8 +338,8 @@ abstract class ServiceTestCase extends TestCase
         );
 
         $this->conditionTypeRegistry = new ConditionTypeRegistry(
-            new ConditionType('my_condition'),
-            new ConditionType('route_parameter')
+            new ConditionType1(),
+            new ConditionType\RouteParameter()
         );
 
         $this->prepareParameterTypeRegistry();

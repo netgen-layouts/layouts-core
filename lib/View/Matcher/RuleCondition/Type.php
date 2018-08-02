@@ -26,6 +26,6 @@ final class Type implements MatcherInterface
             return in_array('null', $config, true);
         }
 
-        return in_array($conditionType->getType(), $config, true);
+        return in_array($conditionType::getType(), $config, true);
     }
 }

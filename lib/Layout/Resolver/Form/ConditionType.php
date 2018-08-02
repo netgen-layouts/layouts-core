@@ -48,11 +48,11 @@ final class ConditionType extends AbstractType
         /** @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType */
         $conditionType = $options['condition_type'];
 
-        if (!isset($this->mappers[$conditionType->getType()])) {
-            throw ConditionTypeException::noFormMapper($conditionType->getType());
+        if (!isset($this->mappers[$conditionType::getType()])) {
+            throw ConditionTypeException::noFormMapper($conditionType::getType());
         }
 
-        $mapper = $this->mappers[$conditionType->getType()];
+        $mapper = $this->mappers[$conditionType::getType()];
 
         $defaultOptions = [
             'label' => false,

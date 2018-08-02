@@ -26,7 +26,7 @@ final class RouteParameterTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('route_parameter', $this->conditionType->getType());
+        $this->assertSame('route_parameter', $this->conditionType::getType());
     }
 
     /**

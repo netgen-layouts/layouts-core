@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase
@@ -24,7 +24,7 @@ final class ConditionTest extends TestCase
      */
     public function testSetProperties(): void
     {
-        $conditionType = new ConditionType('condition');
+        $conditionType = new ConditionType1();
 
         $condition = Condition::fromArray(
             [

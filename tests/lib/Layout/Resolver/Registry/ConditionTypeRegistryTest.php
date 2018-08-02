@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
 use ArrayIterator;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionTypeRegistryTest extends TestCase
@@ -23,7 +23,7 @@ final class ConditionTypeRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->conditionType = new ConditionType('type');
+        $this->conditionType = new ConditionType1();
 
         $this->registry = new ConditionTypeRegistry($this->conditionType);
     }
@@ -34,7 +34,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionTypes(): void
     {
-        $this->assertSame(['type' => $this->conditionType], $this->registry->getConditionTypes());
+        $this->assertSame(['condition1' => $this->conditionType], $this->registry->getConditionTypes());
     }
 
     /**
@@ -42,17 +42,17 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionType(): void
     {
-        $this->assertSame($this->conditionType, $this->registry->getConditionType('type'));
+        $this->assertSame($this->conditionType, $this->registry->getConditionType('condition1'));
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
      * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
-     * @expectedExceptionMessage Condition type "other_type" does not exist.
+     * @expectedExceptionMessage Condition type "other" does not exist.
      */
     public function testGetConditionTypeThrowsConditionTypeException(): void
     {
-        $this->registry->getConditionType('other_type');
+        $this->registry->getConditionType('other');
     }
 
     /**
@@ -60,7 +60,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testHasConditionType(): void
     {
-        $this->assertTrue($this->registry->hasConditionType('type'));
+        $this->assertTrue($this->registry->hasConditionType('condition1'));
     }
 
     /**
@@ -68,7 +68,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testHasConditionTypeWithNoConditionType(): void
     {
-        $this->assertFalse($this->registry->hasConditionType('other_type'));
+        $this->assertFalse($this->registry->hasConditionType('other'));
     }
 
     /**
@@ -99,7 +99,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('type', $this->registry);
+        $this->assertArrayHasKey('condition1', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
     }
 
@@ -108,7 +108,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->conditionType, $this->registry['type']);
+        $this->assertSame($this->conditionType, $this->registry['condition1']);
     }
 
     /**
@@ -118,7 +118,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetSet(): void
     {
-        $this->registry['type'] = $this->conditionType;
+        $this->registry['condition1'] = $this->conditionType;
     }
 
     /**
@@ -128,6 +128,6 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetUnset(): void
     {
-        unset($this->registry['type']);
+        unset($this->registry['condition1']);
     }
 }

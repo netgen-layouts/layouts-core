@@ -17,7 +17,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Netgen\BlockManager\Utils\Hydrator;
@@ -54,7 +54,7 @@ final class LayoutResolverValidatorTest extends TestCase
 
         $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
 
-        $this->conditionTypeRegistry = new ConditionTypeRegistry(new ConditionType('condition'));
+        $this->conditionTypeRegistry = new ConditionTypeRegistry(new ConditionType1());
 
         $this->layoutResolverValidator = new LayoutResolverValidator(
             $this->targetTypeRegistry,
@@ -199,7 +199,7 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
-            Condition::fromArray(['conditionType' => new ConditionType('condition')]),
+            Condition::fromArray(['conditionType' => new ConditionType1()]),
             $struct
         );
     }
@@ -279,15 +279,15 @@ final class LayoutResolverValidatorTest extends TestCase
     public function validateConditionCreateStructProvider(): array
     {
         return [
-            [['type' => 'condition', 'value' => 42], true],
-            [['type' => 'condition', 'value' => '42'], true],
-            [['type' => 'condition', 'value' => [42]], true],
+            [['type' => 'condition1', 'value' => 42], true],
+            [['type' => 'condition1', 'value' => '42'], true],
+            [['type' => 'condition1', 'value' => [42]], true],
             [['type' => '', 'value' => 42], false],
             [['type' => null, 'value' => 42], false],
             [['type' => 42, 'value' => 42], false],
-            [['type' => 'condition', 'value' => null], false],
-            [['type' => 'condition', 'value' => ''], false],
-            [['type' => 'condition', 'value' => []], false],
+            [['type' => 'condition1', 'value' => null], false],
+            [['type' => 'condition1', 'value' => ''], false],
+            [['type' => 'condition1', 'value' => []], false],
         ];
     }
 

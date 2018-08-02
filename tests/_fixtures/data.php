@@ -363,7 +363,7 @@ return [
         ['id' => 1, 'status' => 2, 'rule_id' => 2, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [1,2]}'],
         ['id' => 2, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [3,4]}'],
         ['id' => 3, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_other_param", "parameter_values": [5,6]}'],
-        ['id' => 4, 'status' => 0, 'rule_id' => 5, 'type' => 'my_condition', 'value' => '["some_value"]'],
-        ['id' => 4, 'status' => 1, 'rule_id' => 5, 'type' => 'my_condition', 'value' => '["some_value"]'],
+        ['id' => 4, 'status' => 0, 'rule_id' => 5, 'type' => 'condition1', 'value' => '["some_value"]'],
+        ['id' => 4, 'status' => 1, 'rule_id' => 5, 'type' => 'condition1', 'value' => '["some_value"]'],
     ],
 ];

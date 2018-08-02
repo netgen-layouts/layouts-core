@@ -137,7 +137,7 @@ final class LayoutResolverMapper
                 $condition->type
             );
         } catch (ConditionTypeException $e) {
-            $conditionType = new NullConditionType($condition->type);
+            $conditionType = new NullConditionType();
         }
 
         $conditionData = [

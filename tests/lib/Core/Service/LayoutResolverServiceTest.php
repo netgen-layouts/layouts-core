@@ -882,7 +882,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     public function testAddCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'my_condition'
+            'condition1'
         );
 
         $conditionCreateStruct->value = 'value';
@@ -906,7 +906,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     public function testAddConditionThrowsBadStateExceptionOnNonDraftRule(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'my_condition'
+            'condition1'
         );
 
         $conditionCreateStruct->value = 'value';

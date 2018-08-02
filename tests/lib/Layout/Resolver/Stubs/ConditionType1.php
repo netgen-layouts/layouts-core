@@ -8,27 +8,21 @@ use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-final class ConditionType implements ConditionTypeInterface
+final class ConditionType1 implements ConditionTypeInterface
 {
-    /**
-     * @var string
-     */
-    private $type;
-
     /**
      * @var bool
      */
     private $matches = true;
 
-    public function __construct(string $type, bool $matches = true)
+    public function __construct(bool $matches = true)
     {
-        $this->type = $type;
         $this->matches = $matches;
     }
 
-    public function getType(): string
+    public static function getType(): string
     {
-        return $this->type;
+        return 'condition1';
     }
 
     public function getConstraints(): array

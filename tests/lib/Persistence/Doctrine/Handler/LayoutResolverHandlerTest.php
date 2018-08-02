@@ -582,7 +582,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 [
                     'id' => 5,
                     'ruleId' => $copiedRule->id,
-                    'type' => 'my_condition',
+                    'type' => 'condition1',
                     'value' => ['some_value'],
                     'status' => Value::STATUS_PUBLISHED,
                 ],

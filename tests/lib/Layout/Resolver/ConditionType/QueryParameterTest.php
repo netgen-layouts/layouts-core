@@ -26,7 +26,7 @@ final class QueryParameterTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('query_parameter', $this->conditionType->getType());
+        $this->assertSame('query_parameter', $this->conditionType::getType());
     }
 
     /**

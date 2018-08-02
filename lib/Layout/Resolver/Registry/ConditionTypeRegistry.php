@@ -19,7 +19,7 @@ final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
     public function __construct(ConditionTypeInterface ...$conditionTypes)
     {
         foreach ($conditionTypes as $conditionType) {
-            $this->conditionTypes[$conditionType->getType()] = $conditionType;
+            $this->conditionTypes[$conditionType::getType()] = $conditionType;
         }
     }
 

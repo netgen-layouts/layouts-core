@@ -363,8 +363,8 @@ INSERT INTO `ngbm_rule_condition` VALUES (1,1,2,'route_parameter','{\"parameter_
 INSERT INTO `ngbm_rule_condition` VALUES (1,2,2,'route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [1,2]}');
 INSERT INTO `ngbm_rule_condition` VALUES (2,1,3,'route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [3,4]}');
 INSERT INTO `ngbm_rule_condition` VALUES (3,1,3,'route_parameter','{\"parameter_name\": \"some_other_param\", \"parameter_values\": [5,6]}');
-INSERT INTO `ngbm_rule_condition` VALUES (4,0,5,'my_condition','[\"some_value\"]');
-INSERT INTO `ngbm_rule_condition` VALUES (4,1,5,'my_condition','[\"some_value\"]');
+INSERT INTO `ngbm_rule_condition` VALUES (4,0,5,'condition1','[\"some_value\"]');
+INSERT INTO `ngbm_rule_condition` VALUES (4,1,5,'condition1','[\"some_value\"]');
 /*!40000 ALTER TABLE `ngbm_rule_condition` ENABLE KEYS */;
 UNLOCK TABLES;
 

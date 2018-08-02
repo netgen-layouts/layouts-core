@@ -153,7 +153,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
-                'type' => 'my_condition',
+                'type' => 'condition1',
                 'value' => 42,
             ]
         );
@@ -161,7 +161,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $condition = $this->mapper->mapCondition($persistenceCondition);
 
         $this->assertSame(
-            $this->conditionTypeRegistry->getConditionType('my_condition'),
+            $this->conditionTypeRegistry->getConditionType('condition1'),
             $condition->getConditionType()
         );
 

@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\RuleCondition\Type;
 use Netgen\BlockManager\View\View\RuleConditionView;
@@ -33,7 +33,7 @@ final class TypeTest extends TestCase
     {
         $condition = Condition::fromArray(
             [
-                'conditionType' => new ConditionType('route_parameter'),
+                'conditionType' => new ConditionType1(),
             ]
         );
 
@@ -49,7 +49,7 @@ final class TypeTest extends TestCase
     {
         $condition = Condition::fromArray(
             [
-                'conditionType' => new NullConditionType('type'),
+                'conditionType' => new NullConditionType(),
             ]
         );
 
@@ -65,7 +65,7 @@ final class TypeTest extends TestCase
     {
         $condition = Condition::fromArray(
             [
-                'conditionType' => new NullConditionType('type'),
+                'conditionType' => new NullConditionType(),
             ]
         );
 
@@ -79,9 +79,9 @@ final class TypeTest extends TestCase
         return [
             [[], false],
             [['other_type'], false],
-            [['route_parameter'], true],
+            [['condition1'], true],
             [['other_type', 'other_type_2'], false],
-            [['other_type', 'route_parameter'], true],
+            [['other_type', 'condition1'], true],
         ];
     }
 

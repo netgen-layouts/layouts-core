@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class Time implements ConditionTypeInterface
 {
-    public function getType(): string
+    public static function getType(): string
     {
         return 'time';
     }

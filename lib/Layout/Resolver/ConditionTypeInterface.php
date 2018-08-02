@@ -22,7 +22,7 @@ interface ConditionTypeInterface
      *
      * @return string
      */
-    public function getType();
+    public static function getType();
 
     /**
      * Returns the constraints that will be used to validate the condition value.
