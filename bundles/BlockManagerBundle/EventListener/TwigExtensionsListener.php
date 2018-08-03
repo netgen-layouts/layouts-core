@@ -21,7 +21,7 @@ class TwigExtensionsListener implements EventSubscriberInterface
     private $twig;
 
     /**
-     * @var \Twig\Extension\ExtensionInterface[]
+     * @var string[]
      */
     private $extensions;
 
