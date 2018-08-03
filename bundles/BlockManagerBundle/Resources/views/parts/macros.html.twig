@@ -9,3 +9,13 @@
         </div>
     {% endif %}
 {% endmacro %}
+
+{% macro inline_template(string, parameters) %}
+{% spaceless %}
+    {% if '{{' in string and '}}' in string and '{%' not in string and '{#' not in string %}
+        {{ include(template_from_string(string), parameters, with_context = false) }}
+    {% else %}
+        {{ string }}
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
