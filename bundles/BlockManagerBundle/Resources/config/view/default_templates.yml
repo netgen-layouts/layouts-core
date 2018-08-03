@@ -8,4 +8,4 @@ default_view_templates:
     parameter_view:
         default: '@NetgenBlockManager/parameter/parameter.html.twig'
     placeholder_view:
-        default: '@NetgenBlockManager/placeholder/placeholder.html.twig'
+        default: '@ngbm/placeholder/placeholder.html.twig'
