@@ -1,7 +1,16 @@
 view:
     item_view:
+        default:
+            invalid:
+                template: "@NetgenBlockManager/item/invalid_item.html.twig"
+                match:
+                    item\value_type: "null"
         api:
             slot:
                 template: "@NetgenBlockManager/api/item/slot.html.twig"
                 match:
                     item\value_type: slot
+            invalid:
+                template: "@NetgenBlockManager/api/item/invalid_item.html.twig"
+                match:
+                    item\value_type: "null"

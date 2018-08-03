@@ -3,8 +3,8 @@ default_view_templates:
         default: '@ngbm/block/block.html.twig'
         api: '@NetgenBlockManager/api/block/block.html.twig'
     item_view:
-        default: '@NetgenBlockManager/item/item.html.twig'
-        api: '@NetgenBlockManager/api/item/item.html.twig'
+        default: '@NetgenBlockManager/item/invalid_item.html.twig'
+        api: '@NetgenBlockManager/api/item/invalid_item.html.twig'
     parameter_view:
         default: '@NetgenBlockManager/parameter/parameter.html.twig'
     placeholder_view:
