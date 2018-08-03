@@ -35,7 +35,7 @@
     },
     "require-dev": {
         "netgen/block-manager-standard": "~0.12.0",
-        "phpunit/phpunit": "^5.7 || ^7.2",
+        "phpunit/phpunit": "^5.7 || ^7.3",
         "symfony/phpunit-bridge": "^4.1",
         "phpstan/phpstan": "^0.10",
         "phpstan/phpstan-phpunit": "^0.10",
