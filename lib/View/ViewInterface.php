@@ -110,5 +110,5 @@ interface ViewInterface
     /**
      * Adds parameters to the view.
      */
-    public function addParameters(array $parameters = []): void;
+    public function addParameters(array $parameters): void;
 }

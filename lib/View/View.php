@@ -108,7 +108,7 @@ abstract class View implements ViewInterface
         $this->customParameters[$parameterName] = $parameterValue;
     }
 
-    public function addParameters(array $parameters = []): void
+    public function addParameters(array $parameters): void
     {
         $this->customParameters = $parameters + $this->customParameters;
     }
