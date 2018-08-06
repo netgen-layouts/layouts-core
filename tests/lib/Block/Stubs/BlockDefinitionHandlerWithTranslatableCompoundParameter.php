@@ -16,7 +16,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
     /**
      * @var array
      */
-    private $parameterGroups = [];
+    private $parameterGroups;
 
     public function __construct(array $parameterGroups = [])
     {

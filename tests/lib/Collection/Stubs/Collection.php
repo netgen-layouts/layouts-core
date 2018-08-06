@@ -24,11 +24,8 @@ final class Collection implements APICollection
      */
     private $query;
 
-    public function __construct(
-        array $items,
-        ?array $queryValues = null,
-        int $queryCount = 0
-    ) {
+    public function __construct(array $items, ?Query $query = null)
+    {
         foreach ($items as $position => $value) {
             $this->items[$position] = Item::fromArray(
                 [
@@ -41,17 +38,7 @@ final class Collection implements APICollection
             );
         }
 
-        if ($queryValues !== null) {
-            $this->query = Query::fromArray(
-                [
-                    'queryType' => new QueryType(
-                        'my_query_type',
-                        $queryValues,
-                        $queryCount
-                    ),
-                ]
-            );
-        }
+        $this->query = $query;
     }
 
     public function getId()

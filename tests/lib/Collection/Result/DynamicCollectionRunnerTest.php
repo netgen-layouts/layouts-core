@@ -7,10 +7,12 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class DynamicCollectionRunnerTest extends TestCase
@@ -56,7 +58,9 @@ final class DynamicCollectionRunnerTest extends TestCase
         int $offset = 0,
         int $limit = 200
     ): void {
-        $collection = new Collection($items, $queryItems, $queryCount);
+        $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
+        $collection = new Collection($items, $query);
+
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
 

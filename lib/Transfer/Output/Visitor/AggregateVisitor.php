@@ -17,7 +17,7 @@ final class AggregateVisitor implements VisitorInterface
      *
      * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface[]
      */
-    private $visitors = [];
+    private $visitors;
 
     /**
      * Construct from the optional array of $visitors.

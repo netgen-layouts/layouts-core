@@ -16,7 +16,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
     /**
      * @var array
      */
-    private $parameterGroups = [];
+    private $parameterGroups;
 
     public function __construct(array $parameterGroups = [])
     {

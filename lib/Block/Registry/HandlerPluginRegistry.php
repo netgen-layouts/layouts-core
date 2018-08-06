@@ -11,7 +11,7 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    private $handlerPlugins = [];
+    private $handlerPlugins;
 
     /**
      * @param \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[] $handlerPlugins

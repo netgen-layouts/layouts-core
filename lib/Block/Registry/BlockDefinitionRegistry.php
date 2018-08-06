@@ -14,7 +14,7 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface[]
      */
-    private $blockDefinitions = [];
+    private $blockDefinitions;
 
     /**
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface[] $blockDefinitions

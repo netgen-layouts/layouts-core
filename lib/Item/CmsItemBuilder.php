@@ -11,7 +11,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
      */
-    private $valueConverters = [];
+    private $valueConverters;
 
     /**
      * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters

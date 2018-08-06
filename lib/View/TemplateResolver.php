@@ -16,12 +16,12 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface[]
      */
-    private $matchers = [];
+    private $matchers;
 
     /**
      * @var array
      */
-    private $viewConfig = [];
+    private $viewConfig;
 
     /**
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers

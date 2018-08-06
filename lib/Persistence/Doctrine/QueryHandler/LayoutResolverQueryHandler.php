@@ -21,7 +21,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[]
      */
-    private $targetHandlers = [];
+    private $targetHandlers;
 
     /**
      * @param \Doctrine\DBAL\Connection $connection

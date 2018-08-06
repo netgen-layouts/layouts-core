@@ -35,7 +35,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var array
      */
-    private $options = [];
+    private $options;
 
     /**
      * @var bool

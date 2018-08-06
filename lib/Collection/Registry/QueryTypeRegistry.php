@@ -14,7 +14,7 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[]
      */
-    private $queryTypes = [];
+    private $queryTypes;
 
     /**
      * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[] $queryTypes

@@ -17,7 +17,7 @@ final class CacheEnabledListener implements EventSubscriberInterface
     /**
      * @var bool
      */
-    private $cacheEnabled = true;
+    private $cacheEnabled;
 
     public function __construct(ClientInterface $httpCacheClient)
     {

@@ -13,7 +13,7 @@ final class ConditionType3 implements ConditionTypeInterface
     /**
      * @var bool
      */
-    private $matches = true;
+    private $matches;
 
     public function __construct(bool $matches = true)
     {

@@ -25,7 +25,7 @@ final class ViewBuilder implements ViewBuilderInterface
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
      */
-    private $viewProviders = [];
+    private $viewProviders;
 
     /**
      * @param \Netgen\BlockManager\View\TemplateResolverInterface $templateResolver

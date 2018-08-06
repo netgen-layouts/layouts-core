@@ -14,7 +14,7 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
     /**
      * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[]
      */
-    private $itemDefinitions = [];
+    private $itemDefinitions;
 
     /**
      * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[] $itemDefinitions

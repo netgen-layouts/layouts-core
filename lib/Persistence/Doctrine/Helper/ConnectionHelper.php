@@ -18,7 +18,7 @@ final class ConnectionHelper
     /**
      * @var array
      */
-    private $databaseSpecificHelpers = [];
+    private $databaseSpecificHelpers;
 
     public function __construct(Connection $connection)
     {

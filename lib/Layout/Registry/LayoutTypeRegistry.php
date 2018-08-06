@@ -14,7 +14,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[]
      */
-    private $layoutTypes = [];
+    private $layoutTypes;
 
     /**
      * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[] $layoutTypes

@@ -15,7 +15,7 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     /**
      * @var array
      */
-    private $parameterGroups = [];
+    private $parameterGroups;
 
     /**
      * @var bool

@@ -15,7 +15,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * @var array
      */
-    private $values = [];
+    private $values;
 
     /**
      * @var int|null

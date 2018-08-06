@@ -16,12 +16,12 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
     /**
      * @var array
      */
-    private $parameterGroups = [];
+    private $parameterGroups;
 
     /**
      * @var array
      */
-    private $placeholderIdentifiers = [];
+    private $placeholderIdentifiers;
 
     public function __construct(array $parameterGroups = [], array $placeholderIdentifiers = ['left', 'right'])
     {

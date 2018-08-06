@@ -14,7 +14,7 @@ final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup[]
      */
-    private $blockTypeGroups = [];
+    private $blockTypeGroups;
 
     /**
      * @param \Netgen\BlockManager\Block\BlockType\BlockTypeGroup[] $blockTypeGroups

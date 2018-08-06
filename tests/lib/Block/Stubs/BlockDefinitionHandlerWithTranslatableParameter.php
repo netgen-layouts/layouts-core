@@ -15,7 +15,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
     /**
      * @var array
      */
-    private $parameterGroups = [];
+    private $parameterGroups;
 
     public function __construct(array $parameterGroups = [])
     {
