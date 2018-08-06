@@ -84,8 +84,7 @@ final class RouteGeneratorTest extends TestCase
             ->with($this->identicalTo('/generated/uri'))
             ->will($this->returnValue($signedUri));
 
-        $routeGenerator = $this->routeGenerator;
-        $url = $routeGenerator($block, 'default', $page);
+        $url = call_user_func($this->routeGenerator, $block, 'default', $page);
 
         $this->assertSame($signedUri . $signedUriSuffix, $url);
     }

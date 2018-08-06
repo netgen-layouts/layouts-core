@@ -50,8 +50,6 @@ final class CollectionPagerRuntime
             );
         }
 
-        $routeGenerator = $this->routeGenerator;
-
-        return $routeGenerator($block, $collectionIdentifier, $page);
+        return call_user_func($this->routeGenerator, $block, $collectionIdentifier, $page);
     }
 }
