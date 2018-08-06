@@ -34,15 +34,15 @@ final class LayoutBackendTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::__construct
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getDefaultSections
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSections
      */
-    public function testGetDefaultSections(): void
+    public function testGetSections(): void
     {
         $this->layoutServiceMock
             ->expects($this->never())
             ->method('loadLayout');
 
-        $locations = $this->backend->getDefaultSections();
+        $locations = $this->backend->getSections();
 
         $this->assertCount(1, $locations);
         $this->assertInstanceOf(RootLocation::class, $locations[0]);

@@ -26,7 +26,7 @@ final class LayoutBackend implements BackendInterface
         $this->layoutService = $layoutService;
     }
 
-    public function getDefaultSections()
+    public function getSections()
     {
         return [new RootLocation()];
     }

@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class MyValueTypeBackend implements BackendInterface
 {
-    public function getDefaultSections()
+    public function getSections()
     {
     }
 
