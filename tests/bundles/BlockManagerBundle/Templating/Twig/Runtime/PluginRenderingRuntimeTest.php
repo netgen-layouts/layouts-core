@@ -45,15 +45,15 @@ final class PluginRenderingRuntimeTest extends TestCase
     public function testRenderPlugins(): void
     {
         $this->pluginRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderPlugins')
             ->with(
-                $this->identicalTo('plugin_name'),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo('plugin_name'),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->returnValue('rendered plugin'));
+            ->will(self::returnValue('rendered plugin'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered plugin',
             $this->runtime->renderPlugins(
                 ['param' => 'value'],
@@ -72,13 +72,13 @@ final class PluginRenderingRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $this->pluginRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderPlugins')
             ->with(
-                $this->identicalTo('plugin_name'),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo('plugin_name'),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->runtime->renderPlugins(
             ['param' => 'value'],
@@ -92,15 +92,15 @@ final class PluginRenderingRuntimeTest extends TestCase
     public function testRenderPluginsReturnsEmptyStringOnException(): void
     {
         $this->pluginRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderPlugins')
             ->with(
-                $this->identicalTo('plugin_name'),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo('plugin_name'),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->assertSame(
+        self::assertSame(
             '',
                 $this->runtime->renderPlugins(
                 ['param' => 'value'],

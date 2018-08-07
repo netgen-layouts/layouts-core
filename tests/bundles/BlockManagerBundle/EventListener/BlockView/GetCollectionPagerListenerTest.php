@@ -63,7 +63,7 @@ final class GetCollectionPagerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
@@ -102,37 +102,37 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(13),
-                $this->identicalTo(5),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(13),
+                self::identicalTo(5),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $result = $event->getParameters()['collection'];
 
-        $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertSame($collection, $result->getCollection());
-        $this->assertSame(1000, $result->getTotalCount());
+        self::assertInstanceOf(ResultSet::class, $result);
+        self::assertSame($collection, $result->getCollection());
+        self::assertSame(1000, $result->getTotalCount());
 
-        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertSame(3, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -176,37 +176,37 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(8),
-                $this->identicalTo(5),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(8),
+                self::identicalTo(5),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $result = $event->getParameters()['collection'];
 
-        $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertSame($collection, $result->getCollection());
-        $this->assertSame(1000, $result->getTotalCount());
+        self::assertInstanceOf(ResultSet::class, $result);
+        self::assertSame($collection, $result->getCollection());
+        self::assertSame(1000, $result->getTotalCount());
 
-        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertSame(2, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertSame(2, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -250,37 +250,37 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(13),
-                $this->identicalTo(5),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(13),
+                self::identicalTo(5),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $result = $event->getParameters()['collection'];
 
-        $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertSame($collection, $result->getCollection());
-        $this->assertSame(1000, $result->getTotalCount());
+        self::assertInstanceOf(ResultSet::class, $result);
+        self::assertSame($collection, $result->getCollection());
+        self::assertSame(1000, $result->getTotalCount());
 
-        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertSame(3, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -323,37 +323,37 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->resultBuilderMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(13),
-                $this->identicalTo(5),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(13),
+                self::identicalTo(5),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
 
         $this->listener->onRenderView($event);
 
         $result = $event->getParameters()['collection'];
 
-        $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertSame($collection, $result->getCollection());
-        $this->assertSame(1000, $result->getTotalCount());
+        self::assertInstanceOf(ResultSet::class, $result);
+        self::assertSame($collection, $result->getCollection());
+        self::assertSame(1000, $result->getTotalCount());
 
-        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
-        $this->assertSame(3, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
     /**
@@ -367,7 +367,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 
     /**
@@ -383,7 +383,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 
     /**
@@ -398,7 +398,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 
     /**
@@ -415,6 +415,6 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 }

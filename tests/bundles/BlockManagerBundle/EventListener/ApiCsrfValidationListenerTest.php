@@ -49,7 +49,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
@@ -65,10 +65,10 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $this->csrfTokenValidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validateCsrfToken')
-            ->with($this->identicalTo($request), $this->identicalTo($this->csrfTokenId))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
+            ->will(self::returnValue(true));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
@@ -87,10 +87,10 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $this->csrfTokenValidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validateCsrfToken')
-            ->with($this->identicalTo($request), $this->identicalTo($this->csrfTokenId))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
+            ->will(self::returnValue(false));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
@@ -107,7 +107,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $this->csrfTokenValidatorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('validateCsrfToken');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -124,7 +124,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $request = Request::create('/');
 
         $this->csrfTokenValidatorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('validateCsrfToken');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);

@@ -51,23 +51,23 @@ abstract class ServiceTestCase extends BaseServiceTestCase
         $this->layoutResolverHandlerMock = $this->createMock(LayoutResolverHandlerInterface::class);
 
         $this->persistenceHandler
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getBlockHandler')
-            ->will($this->returnValue($this->blockHandlerMock));
+            ->will(self::returnValue($this->blockHandlerMock));
 
         $this->persistenceHandler
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getLayoutHandler')
-            ->will($this->returnValue($this->layoutHandlerMock));
+            ->will(self::returnValue($this->layoutHandlerMock));
 
         $this->persistenceHandler
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getCollectionHandler')
-            ->will($this->returnValue($this->collectionHandlerMock));
+            ->will(self::returnValue($this->collectionHandlerMock));
 
         $this->persistenceHandler
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getLayoutResolverHandler')
-            ->will($this->returnValue($this->layoutResolverHandlerMock));
+            ->will(self::returnValue($this->layoutResolverHandlerMock));
     }
 }

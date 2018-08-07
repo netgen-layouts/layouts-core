@@ -36,23 +36,23 @@ final class BlockTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $block->id);
-        $this->assertSame(84, $block->layoutId);
-        $this->assertSame(2, $block->depth);
-        $this->assertSame('/1/22/42/', $block->path);
-        $this->assertSame(22, $block->parentId);
-        $this->assertSame('top', $block->placeholder);
-        $this->assertSame(4, $block->position);
-        $this->assertSame('text', $block->definitionIdentifier);
-        $this->assertSame('default', $block->viewType);
-        $this->assertSame('standard', $block->itemViewType);
-        $this->assertSame('My block', $block->name);
-        $this->assertSame('en', $block->mainLocale);
-        $this->assertTrue($block->alwaysAvailable);
-        $this->assertSame(['en'], $block->availableLocales);
-        $this->assertSame(Value::STATUS_DRAFT, $block->status);
+        self::assertSame(42, $block->id);
+        self::assertSame(84, $block->layoutId);
+        self::assertSame(2, $block->depth);
+        self::assertSame('/1/22/42/', $block->path);
+        self::assertSame(22, $block->parentId);
+        self::assertSame('top', $block->placeholder);
+        self::assertSame(4, $block->position);
+        self::assertSame('text', $block->definitionIdentifier);
+        self::assertSame('default', $block->viewType);
+        self::assertSame('standard', $block->itemViewType);
+        self::assertSame('My block', $block->name);
+        self::assertSame('en', $block->mainLocale);
+        self::assertTrue($block->alwaysAvailable);
+        self::assertSame(['en'], $block->availableLocales);
+        self::assertSame(Value::STATUS_DRAFT, $block->status);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'some_param' => 'some_value',
                 'some_other_param' => ['some_other_value'],

@@ -32,9 +32,9 @@ final class ConnectionHelperTest extends TestCase
         $this->databaseConnectionMock = $this->createMock(Connection::class);
 
         $this->databaseConnectionMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getDatabasePlatform')
-            ->will($this->returnValue($this->databasePlatformMock));
+            ->will(self::returnValue($this->databasePlatformMock));
 
         $this->connectionHelper = new ConnectionHelper($this->databaseConnectionMock);
     }
@@ -46,11 +46,11 @@ final class ConnectionHelperTest extends TestCase
     public function testGetAutoIncrementValue(): void
     {
         $this->databasePlatformMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getName')
-            ->will($this->returnValue('mysql'));
+            ->will(self::returnValue('mysql'));
 
-        $this->assertSame('null', $this->connectionHelper->getAutoIncrementValue('table'));
+        self::assertSame('null', $this->connectionHelper->getAutoIncrementValue('table'));
     }
 
     /**
@@ -61,17 +61,17 @@ final class ConnectionHelperTest extends TestCase
     public function testGetAutoIncrementValueForPostgres(): void
     {
         $this->databasePlatformMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getName')
-            ->will($this->returnValue('postgresql'));
+            ->will(self::returnValue('postgresql'));
 
         $this->databasePlatformMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentitySequenceName')
-            ->with($this->identicalTo('table'), $this->identicalTo('id'))
-            ->will($this->returnValue('s_table_id'));
+            ->with(self::identicalTo('table'), self::identicalTo('id'))
+            ->will(self::returnValue('s_table_id'));
 
-        $this->assertSame("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
+        self::assertSame("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
     }
 
     /**
@@ -81,17 +81,17 @@ final class ConnectionHelperTest extends TestCase
     public function testLastInsertId(): void
     {
         $this->databasePlatformMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getName')
-            ->will($this->returnValue('mysql'));
+            ->will(self::returnValue('mysql'));
 
         $this->databaseConnectionMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('lastInsertId')
-            ->with($this->identicalTo('table'))
-            ->will($this->returnValue(42));
+            ->with(self::identicalTo('table'))
+            ->will(self::returnValue(42));
 
-        $this->assertSame(42, $this->connectionHelper->lastInsertId('table'));
+        self::assertSame(42, $this->connectionHelper->lastInsertId('table'));
     }
 
     /**
@@ -102,22 +102,22 @@ final class ConnectionHelperTest extends TestCase
     public function testLastInsertIdForPostgres(): void
     {
         $this->databasePlatformMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getName')
-            ->will($this->returnValue('postgresql'));
+            ->will(self::returnValue('postgresql'));
 
         $this->databasePlatformMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getIdentitySequenceName')
-            ->with($this->identicalTo('table'), $this->identicalTo('id'))
-            ->will($this->returnValue('s_table_id'));
+            ->with(self::identicalTo('table'), self::identicalTo('id'))
+            ->will(self::returnValue('s_table_id'));
 
         $this->databaseConnectionMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('lastInsertId')
-            ->with($this->identicalTo('s_table_id'))
-            ->will($this->returnValue(43));
+            ->with(self::identicalTo('s_table_id'))
+            ->will(self::returnValue(43));
 
-        $this->assertSame(43, $this->connectionHelper->lastInsertId('table'));
+        self::assertSame(43, $this->connectionHelper->lastInsertId('table'));
     }
 }

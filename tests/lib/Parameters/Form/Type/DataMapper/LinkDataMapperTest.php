@@ -64,10 +64,10 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($linkValue, $forms);
 
-        $this->assertSame('url', $forms['link_type']->getData());
-        $this->assertSame('?suffix', $forms['link_suffix']->getData());
-        $this->assertSame('1', $forms['new_window']->getData());
-        $this->assertSame('http://www.google.com', $forms['url']->getData());
+        self::assertSame('url', $forms['link_type']->getData());
+        self::assertSame('?suffix', $forms['link_suffix']->getData());
+        self::assertSame('1', $forms['new_window']->getData());
+        self::assertSame('http://www.google.com', $forms['url']->getData());
     }
 
     /**
@@ -87,9 +87,9 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($linkValue, $forms);
 
-        $this->assertNull($forms['link_type']->getData());
-        $this->assertNull($forms['link_suffix']->getData());
-        $this->assertNull($forms['new_window']->getData());
+        self::assertNull($forms['link_type']->getData());
+        self::assertNull($forms['link_suffix']->getData());
+        self::assertNull($forms['new_window']->getData());
     }
 
     /**
@@ -108,9 +108,9 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertInstanceOf(LinkValue::class, $data);
+        self::assertInstanceOf(LinkValue::class, $data);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'linkType' => 'url',
                 'link' => 'http://www.google.com',
@@ -136,9 +136,9 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertInstanceOf(LinkValue::class, $data);
+        self::assertInstanceOf(LinkValue::class, $data);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'linkType' => null,
                 'link' => null,

@@ -37,7 +37,7 @@ final class ManualCollectionRunnerTest extends TestCase
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
 
-        $this->assertSame($totalCount, $collectionRunner->count($collection));
+        self::assertSame($totalCount, $collectionRunner->count($collection));
 
         $result = array_map(
             function (Result $result) {
@@ -46,7 +46,7 @@ final class ManualCollectionRunnerTest extends TestCase
             iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit, $flags))
         );
 
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     /**

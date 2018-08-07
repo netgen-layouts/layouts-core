@@ -35,8 +35,8 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.registry.layout_type',
             0,
             [
@@ -81,7 +81,7 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

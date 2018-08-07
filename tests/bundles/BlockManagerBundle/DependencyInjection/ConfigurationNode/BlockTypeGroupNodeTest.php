@@ -42,7 +42,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_type_groups'
@@ -83,7 +83,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_type_groups.*.block_types'
@@ -116,7 +116,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_type_groups.*.block_types'
@@ -149,7 +149,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_type_groups.*.block_types'
@@ -166,7 +166,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             'block_type_groups' => [],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -181,7 +181,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -199,7 +199,7 @@ final class BlockTypeGroupNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

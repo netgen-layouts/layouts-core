@@ -24,7 +24,7 @@ final class RootLocationTest extends TestCase
      */
     public function testGetLocationId(): void
     {
-        $this->assertSame(0, $this->location->getLocationId());
+        self::assertSame(0, $this->location->getLocationId());
     }
 
     /**
@@ -32,7 +32,7 @@ final class RootLocationTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('All layouts', $this->location->getName());
+        self::assertSame('All layouts', $this->location->getName());
     }
 
     /**
@@ -40,6 +40,6 @@ final class RootLocationTest extends TestCase
      */
     public function testGetParentId(): void
     {
-        $this->assertNull($this->location->getParentId());
+        self::assertNull($this->location->getParentId());
     }
 }

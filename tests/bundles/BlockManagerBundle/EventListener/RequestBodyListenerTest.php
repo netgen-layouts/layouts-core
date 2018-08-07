@@ -39,7 +39,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
@@ -52,10 +52,10 @@ final class RequestBodyListenerTest extends TestCase
     public function testOnKernelRequest(): void
     {
         $this->decoderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('decode')
-            ->with($this->identicalTo('{"test": "value"}'))
-            ->will($this->returnValue(['test' => 'value']));
+            ->with(self::identicalTo('{"test": "value"}'))
+            ->will(self::returnValue(['test' => 'value']));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -67,12 +67,12 @@ final class RequestBodyListenerTest extends TestCase
 
         $request = $event->getRequest();
 
-        $this->assertTrue($request->attributes->has('data'));
+        self::assertTrue($request->attributes->has('data'));
 
         $data = $event->getRequest()->attributes->get('data');
-        $this->assertInstanceOf(ParameterBag::class, $data);
+        self::assertInstanceOf(ParameterBag::class, $data);
 
-        $this->assertSame('value', $data->get('test'));
+        self::assertSame('value', $data->get('test'));
     }
 
     /**
@@ -80,7 +80,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithNonApiRoute(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
+        $this->decoderMock->expects(self::never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -89,7 +89,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -97,7 +97,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestInSubRequest(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
+        $this->decoderMock->expects(self::never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -107,7 +107,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -116,7 +116,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidMethod(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
+        $this->decoderMock->expects(self::never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -125,7 +125,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -134,7 +134,7 @@ final class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidContentType(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
+        $this->decoderMock->expects(self::never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -144,7 +144,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
     /**
@@ -155,10 +155,10 @@ final class RequestBodyListenerTest extends TestCase
     public function testOnKernelRequestWithInvalidJson(): void
     {
         $this->decoderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('decode')
-            ->with($this->identicalTo('{]'))
-            ->will($this->throwException(new UnexpectedValueException()));
+            ->with(self::identicalTo('{]'))
+            ->will(self::throwException(new UnexpectedValueException()));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{]');
@@ -177,10 +177,10 @@ final class RequestBodyListenerTest extends TestCase
     public function testOnKernelRequestWithNonArrayJson(): void
     {
         $this->decoderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('decode')
-            ->with($this->identicalTo('42'))
-            ->will($this->returnValue(42));
+            ->with(self::identicalTo('42'))
+            ->will(self::returnValue(42));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '42');

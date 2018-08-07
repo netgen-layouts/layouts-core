@@ -30,7 +30,7 @@ final class ViewListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::VIEW => 'onView'],
             $this->listener::getSubscribedEvents()
         );
@@ -55,8 +55,8 @@ final class ViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertTrue($request->attributes->has('ngbmView'));
-        $this->assertSame($blockView, $request->attributes->get('ngbmView'));
+        self::assertTrue($request->attributes->has('ngbmView'));
+        self::assertSame($blockView, $request->attributes->get('ngbmView'));
     }
 
     /**
@@ -78,7 +78,7 @@ final class ViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertFalse($request->attributes->has('ngbmView'));
+        self::assertFalse($request->attributes->has('ngbmView'));
     }
 
     /**
@@ -98,6 +98,6 @@ final class ViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertFalse($request->attributes->has('ngbmView'));
+        self::assertFalse($request->attributes->has('ngbmView'));
     }
 }

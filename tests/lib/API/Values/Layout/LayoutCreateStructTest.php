@@ -13,6 +13,6 @@ final class LayoutCreateStructTest extends TestCase
     {
         $layoutCreateStruct = new LayoutCreateStruct();
 
-        $this->assertFalse($layoutCreateStruct->shared);
+        self::assertFalse($layoutCreateStruct->shared);
     }
 }

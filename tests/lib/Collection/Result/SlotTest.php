@@ -21,11 +21,11 @@ final class SlotTest extends TestCase
     {
         $value = new Slot();
 
-        $this->assertSame(0, $value->getValue());
-        $this->assertSame(0, $value->getRemoteId());
-        $this->assertSame('slot', $value->getValueType());
-        $this->assertSame('(UNKNOWN ITEM)', $value->getName());
-        $this->assertTrue($value->isVisible());
-        $this->assertNull($value->getObject());
+        self::assertSame(0, $value->getValue());
+        self::assertSame(0, $value->getRemoteId());
+        self::assertSame('slot', $value->getValueType());
+        self::assertSame('(UNKNOWN ITEM)', $value->getName());
+        self::assertTrue($value->isVisible());
+        self::assertNull($value->getObject());
     }
 }

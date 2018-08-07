@@ -35,7 +35,7 @@ final class CompoundParameterTypeTest extends TestCase
         $parameterBuilder = $parameterBuilderFactory->createParameterBuilder();
         $this->parameterType->buildParameters($parameterBuilder);
 
-        $this->assertCount(0, $parameterBuilder);
+        self::assertCount(0, $parameterBuilder);
     }
 
     /**
@@ -54,8 +54,8 @@ final class CompoundParameterTypeTest extends TestCase
             42
         );
 
-        $this->assertCount(1, $constraints);
-        $this->assertInstanceOf(Constraints\NotNull::class, $constraints[0]);
+        self::assertCount(1, $constraints);
+        self::assertInstanceOf(Constraints\NotNull::class, $constraints[0]);
     }
 
     /**
@@ -75,9 +75,9 @@ final class CompoundParameterTypeTest extends TestCase
             42
         );
 
-        $this->assertCount(2, $constraints);
-        $this->assertInstanceOf(Constraints\NotBlank::class, $constraints[0]);
-        $this->assertInstanceOf(Constraints\NotNull::class, $constraints[1]);
+        self::assertCount(2, $constraints);
+        self::assertInstanceOf(Constraints\NotBlank::class, $constraints[0]);
+        self::assertInstanceOf(Constraints\NotNull::class, $constraints[1]);
     }
 
     /**
@@ -98,7 +98,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testToHash(): void
     {
-        $this->assertSame(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
+        self::assertSame(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -106,7 +106,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testFromHash(): void
     {
-        $this->assertSame(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
+        self::assertSame(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -114,7 +114,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testIsValueEmpty(): void
     {
-        $this->assertTrue($this->parameterType->isValueEmpty(new ParameterDefinition(), null));
+        self::assertTrue($this->parameterType->isValueEmpty(new ParameterDefinition(), null));
     }
 
     /**
@@ -122,6 +122,6 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testIsValueEmptyReturnsFalse(): void
     {
-        $this->assertFalse($this->parameterType->isValueEmpty(new ParameterDefinition(), 42));
+        self::assertFalse($this->parameterType->isValueEmpty(new ParameterDefinition(), 42));
     }
 }

@@ -28,7 +28,7 @@ final class ExtensionPluginTest extends TestCase
     public function testPreProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->preProcessConfiguration([]);
-        $this->assertSame([], $processedConfig);
+        self::assertSame([], $processedConfig);
     }
 
     /**
@@ -37,7 +37,7 @@ final class ExtensionPluginTest extends TestCase
     public function testPostProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->postProcessConfiguration([]);
-        $this->assertSame([], $processedConfig);
+        self::assertSame([], $processedConfig);
     }
 
     /**
@@ -60,27 +60,27 @@ final class ExtensionPluginTest extends TestCase
         );
 
         $this->plugin
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getConfigurationNodes')
-            ->will($this->returnValue([$node1, $node2]));
+            ->will(self::returnValue([$node1, $node2]));
 
         $rootNodeMock = $this->createMock(ArrayNodeDefinition::class);
         $nodeBuilderMock = $this->createMock(NodeBuilder::class);
 
         $rootNodeMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('children')
-            ->will($this->returnValue($nodeBuilderMock));
+            ->will(self::returnValue($nodeBuilderMock));
 
         $nodeBuilderMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('append')
-            ->with($this->equalTo($node1->getConfigurationNode()));
+            ->with(self::equalTo($node1->getConfigurationNode()));
 
         $nodeBuilderMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('append')
-            ->with($this->equalTo($node2->getConfigurationNode()));
+            ->with(self::equalTo($node2->getConfigurationNode()));
 
         $this->plugin->addConfiguration($rootNodeMock);
     }
@@ -90,6 +90,6 @@ final class ExtensionPluginTest extends TestCase
      */
     public function testAppendConfigurationFiles(): void
     {
-        $this->assertSame([], $this->plugin->appendConfigurationFiles());
+        self::assertSame([], $this->plugin->appendConfigurationFiles());
     }
 }

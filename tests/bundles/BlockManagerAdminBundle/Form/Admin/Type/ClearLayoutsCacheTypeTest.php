@@ -50,20 +50,20 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame(['layouts' => [$this->layouts[42]]], $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame(['layouts' => [$this->layouts[42]]], $form->getData());
 
         $view = $form->createView();
 
         $childViews = $view->children['layouts']->children;
 
-        $this->assertCount(2, $childViews);
+        self::assertCount(2, $childViews);
 
         foreach ($this->layouts as $id => $layout) {
-            $this->assertArrayHasKey($id, $childViews);
+            self::assertArrayHasKey($id, $childViews);
 
-            $this->assertArrayHasKey('layout', $childViews[$id]->vars);
-            $this->assertSame($layout, $childViews[$id]->vars['layout']);
+            self::assertArrayHasKey('layout', $childViews[$id]->vars);
+            self::assertSame($layout, $childViews[$id]->vars['layout']);
         }
     }
 
@@ -82,7 +82,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->layouts, $options['layouts']);
+        self::assertSame($this->layouts, $options['layouts']);
     }
 
     /**

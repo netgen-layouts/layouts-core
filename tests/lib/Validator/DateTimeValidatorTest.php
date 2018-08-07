@@ -36,7 +36,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
      */
     public function testValidate($value, bool $isValid): void
     {
-        $this->assertValid($isValid, $value);
+        self::assertValid($isValid, $value);
     }
 
     /**
@@ -47,7 +47,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, new DateTimeImmutable());
+        self::assertValid(true, new DateTimeImmutable());
     }
 
     /**
@@ -57,7 +57,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     /**
@@ -69,7 +69,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     {
         $this->constraint->allowArray = false;
 
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     /**
@@ -81,7 +81,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     {
         $this->constraint->allowArray = false;
 
-        $this->assertValid(true, []);
+        self::assertValid(true, []);
     }
 
     public function validateDataProvider(): array

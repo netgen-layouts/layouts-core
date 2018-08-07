@@ -7,8 +7,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
@@ -34,8 +32,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layout = $this->layoutService->loadLayout(1);
 
-        $this->assertTrue($layout->isPublished());
-        $this->assertInstanceOf(Layout::class, $layout);
+        self::assertTrue($layout->isPublished());
     }
 
     /**
@@ -56,8 +53,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layout = $this->layoutService->loadLayoutDraft(1);
 
-        $this->assertTrue($layout->isDraft());
-        $this->assertInstanceOf(Layout::class, $layout);
+        self::assertTrue($layout->isDraft());
     }
 
     /**
@@ -78,8 +74,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layout = $this->layoutService->loadLayoutArchive(2);
 
-        $this->assertTrue($layout->isArchived());
-        $this->assertInstanceOf(Layout::class, $layout);
+        self::assertTrue($layout->isArchived());
     }
 
     /**
@@ -99,13 +94,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layouts = $this->layoutService->loadLayouts();
 
-        $this->assertInternalType('array', $layouts);
-        $this->assertCount(3, $layouts);
+        self::assertCount(3, $layouts);
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-            $this->assertFalse($layout->isShared());
-            $this->assertTrue($layout->isPublished());
+            self::assertFalse($layout->isShared());
+            self::assertTrue($layout->isPublished());
         }
     }
 
@@ -116,17 +110,16 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layouts = $this->layoutService->loadLayouts(true);
 
-        $this->assertInternalType('array', $layouts);
-        $this->assertCount(5, $layouts);
+        self::assertCount(5, $layouts);
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-            $this->assertFalse($layout->isShared());
+            self::assertFalse($layout->isShared());
 
             if (!$layout->isPublished()) {
                 try {
                     $this->layoutService->loadLayout($layout->getId());
-                    $this->fail('Layout in draft status with existing published version loaded.');
+                    self::fail('Layout in draft status with existing published version loaded.');
                 } catch (NotFoundException $e) {
                     // Do nothing
                 }
@@ -139,7 +132,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testGetLayoutsCount(): void
     {
-        $this->assertSame(3, $this->layoutService->getLayoutsCount());
+        self::assertSame(3, $this->layoutService->getLayoutsCount());
     }
 
     /**
@@ -147,7 +140,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testGetLayoutsCountWithUnpublishedLayouts(): void
     {
-        $this->assertSame(5, $this->layoutService->getLayoutsCount(true));
+        self::assertSame(5, $this->layoutService->getLayoutsCount(true));
     }
 
     /**
@@ -157,13 +150,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layouts = $this->layoutService->loadSharedLayouts();
 
-        $this->assertInternalType('array', $layouts);
-        $this->assertCount(2, $layouts);
+        self::assertCount(2, $layouts);
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-            $this->assertTrue($layout->isShared());
-            $this->assertTrue($layout->isPublished());
+            self::assertTrue($layout->isShared());
+            self::assertTrue($layout->isPublished());
         }
     }
 
@@ -172,7 +164,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testGetSharedLayoutsCount(): void
     {
-        $this->assertSame(2, $this->layoutService->getSharedLayoutsCount());
+        self::assertSame(2, $this->layoutService->getSharedLayoutsCount());
     }
 
     /**
@@ -183,13 +175,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $sharedLayout = $this->layoutService->loadLayout(3);
         $layouts = $this->layoutService->loadRelatedLayouts($sharedLayout);
 
-        $this->assertInternalType('array', $layouts);
-        $this->assertCount(1, $layouts);
+        self::assertCount(1, $layouts);
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-            $this->assertFalse($layout->isShared());
-            $this->assertTrue($layout->isPublished());
+            self::assertFalse($layout->isShared());
+            self::assertTrue($layout->isPublished());
         }
     }
 
@@ -223,7 +214,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $sharedLayout = $this->layoutService->loadLayout(3);
         $count = $this->layoutService->getRelatedLayoutsCount($sharedLayout);
 
-        $this->assertSame(1, $count);
+        self::assertSame(1, $count);
     }
 
     /**
@@ -253,7 +244,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testHasStatus(): void
     {
-        $this->assertTrue($this->layoutService->hasStatus(1, Layout::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutService->hasStatus(1, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -261,7 +252,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testHasPublishedStateReturnsFalse(): void
     {
-        $this->assertFalse($this->layoutService->hasStatus(4, Layout::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutService->hasStatus(4, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -271,8 +262,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $zone = $this->layoutService->loadZone(1, 'left');
 
-        $this->assertTrue($zone->isPublished());
-        $this->assertInstanceOf(Zone::class, $zone);
+        self::assertTrue($zone->isPublished());
     }
 
     /**
@@ -302,8 +292,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
-        $this->assertTrue($zone->isDraft());
-        $this->assertInstanceOf(Zone::class, $zone);
+        self::assertTrue($zone->isDraft());
     }
 
     /**
@@ -331,7 +320,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testLayoutNameExists(): void
     {
-        $this->assertTrue($this->layoutService->layoutNameExists('My layout'));
+        self::assertTrue($this->layoutService->layoutNameExists('My layout'));
     }
 
     /**
@@ -339,7 +328,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testLayoutNameNotExistsWithExcludedLayoutId(): void
     {
-        $this->assertFalse($this->layoutService->layoutNameExists('My layout', 1));
+        self::assertFalse($this->layoutService->layoutNameExists('My layout', 1));
     }
 
     /**
@@ -347,7 +336,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testLayoutNameNotExists(): void
     {
-        $this->assertFalse($this->layoutService->layoutNameExists('Non existing'));
+        self::assertFalse($this->layoutService->layoutNameExists('Non existing'));
     }
 
     /**
@@ -360,10 +349,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
-        $this->assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
-        $this->assertTrue($updatedZone->getLinkedZone()->isPublished());
-        $this->assertSame($linkedZone->getLayoutId(), $updatedZone->getLinkedZone()->getLayoutId());
-        $this->assertSame($linkedZone->getIdentifier(), $updatedZone->getLinkedZone()->getIdentifier());
+        self::assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
+        self::assertTrue($updatedZone->getLinkedZone()->isPublished());
+        self::assertSame($linkedZone->getLayoutId(), $updatedZone->getLinkedZone()->getLayoutId());
+        self::assertSame($linkedZone->getIdentifier(), $updatedZone->getLinkedZone()->getIdentifier());
     }
 
     /**
@@ -440,7 +429,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedZone = $this->layoutService->unlinkZone($zone);
 
-        $this->assertNull($updatedZone->getLinkedZone());
+        self::assertNull($updatedZone->getLinkedZone());
     }
 
     /**
@@ -468,11 +457,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
-        $this->assertTrue($createdLayout->isDraft());
-        $this->assertInstanceOf(Layout::class, $createdLayout);
+        self::assertTrue($createdLayout->isDraft());
 
-        $this->assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
-        $this->assertEquals($createdLayout->getCreated(), $createdLayout->getModified());
+        self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
+        self::assertEquals($createdLayout->getCreated(), $createdLayout->getModified());
     }
 
     /**
@@ -499,20 +487,20 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayoutDraft(1);
         $updatedLayout = $this->layoutService->addTranslation($layout, 'de', 'en');
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $this->assertSame(['en', 'hr', 'de'], $updatedLayout->getAvailableLocales());
+        self::assertSame(['en', 'hr', 'de'], $updatedLayout->getAvailableLocales());
 
         $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['en', 'hr', 'de']);
         foreach ($layoutBlocks as $layoutBlock) {
             $layoutBlock->isTranslatable() ?
-                $this->assertContains('de', $layoutBlock->getAvailableLocales()) :
-                $this->assertNotContains('de', $layoutBlock->getAvailableLocales());
+                self::assertContains('de', $layoutBlock->getAvailableLocales()) :
+                self::assertNotContains('de', $layoutBlock->getAvailableLocales());
 
             $layoutBlock->isTranslatable() ?
-                $this->assertContains('de', $layoutBlock->getAvailableLocales()) :
-                $this->assertNotContains('de', $layoutBlock->getAvailableLocales());
+                self::assertContains('de', $layoutBlock->getAvailableLocales()) :
+                self::assertNotContains('de', $layoutBlock->getAvailableLocales());
         }
     }
 
@@ -549,15 +537,15 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedLayout = $this->layoutService->setMainTranslation($layout, 'hr');
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $this->assertSame('hr', $updatedLayout->getMainLocale());
-        $this->assertSame(['en', 'hr'], $updatedLayout->getAvailableLocales());
+        self::assertSame('hr', $updatedLayout->getMainLocale());
+        self::assertSame(['en', 'hr'], $updatedLayout->getAvailableLocales());
 
         $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['hr', 'en']);
         foreach ($layoutBlocks as $layoutBlock) {
-            $this->assertSame('hr', $layoutBlock->getMainLocale());
+            self::assertSame('hr', $layoutBlock->getMainLocale());
         }
     }
 
@@ -593,14 +581,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayoutDraft(1);
 
         $updatedLayout = $this->layoutService->removeTranslation($layout, 'hr');
-        $this->assertNotContains('hr', $updatedLayout->getAvailableLocales());
+        self::assertNotContains('hr', $updatedLayout->getAvailableLocales());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['en']);
         foreach ($layoutBlocks as $layoutBlock) {
-            $this->assertNotContains('hr', $layoutBlock->getAvailableLocales());
+            self::assertNotContains('hr', $layoutBlock->getAvailableLocales());
         }
     }
 
@@ -653,13 +641,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedLayout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
 
-        $this->assertTrue($updatedLayout->isDraft());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertSame('New name', $updatedLayout->getName());
-        $this->assertSame('New description', $updatedLayout->getDescription());
+        self::assertTrue($updatedLayout->isDraft());
+        self::assertSame('New name', $updatedLayout->getName());
+        self::assertSame('New description', $updatedLayout->getDescription());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
     }
 
     /**
@@ -707,15 +694,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayout(1);
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
-        $this->assertSame($layout->isPublished(), $copiedLayout->isPublished());
-        $this->assertInstanceOf(Layout::class, $copiedLayout);
+        self::assertSame($layout->isPublished(), $copiedLayout->isPublished());
 
-        $this->assertGreaterThan($layout->getCreated(), $copiedLayout->getCreated());
-        $this->assertEquals($copiedLayout->getCreated(), $copiedLayout->getModified());
+        self::assertGreaterThan($layout->getCreated(), $copiedLayout->getCreated());
+        self::assertEquals($copiedLayout->getCreated(), $copiedLayout->getModified());
 
-        $this->assertSame(8, $copiedLayout->getId());
-        $this->assertSame('New name', $copiedLayout->getName());
-        $this->assertSame('New description', $copiedLayout->getDescription());
+        self::assertSame(8, $copiedLayout->getId());
+        self::assertSame('New name', $copiedLayout->getName());
+        self::assertSame('New description', $copiedLayout->getDescription());
     }
 
     /**
@@ -746,13 +732,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             ]
         );
 
-        $this->assertSame($layout->getId(), $updatedLayout->getId());
-        $this->assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        $this->assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
+        self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
             $this->layoutService->loadZoneDraft(1, 'top')
@@ -770,14 +755,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(1, 'bottom')
         );
 
-        $this->assertCount(3, $topZoneBlocks);
-        $this->assertCount(0, $leftZoneBlocks);
-        $this->assertCount(0, $rightZoneBlocks);
-        $this->assertCount(0, $bottomZoneBlocks);
+        self::assertCount(3, $topZoneBlocks);
+        self::assertCount(0, $leftZoneBlocks);
+        self::assertCount(0, $rightZoneBlocks);
+        self::assertCount(0, $bottomZoneBlocks);
 
-        $this->assertSame(32, $topZoneBlocks[0]->getId());
-        $this->assertSame(31, $topZoneBlocks[1]->getId());
-        $this->assertSame(35, $topZoneBlocks[2]->getId());
+        self::assertSame(32, $topZoneBlocks[0]->getId());
+        self::assertSame(31, $topZoneBlocks[1]->getId());
+        self::assertSame(35, $topZoneBlocks[2]->getId());
     }
 
     /**
@@ -794,13 +779,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             ]
         );
 
-        $this->assertSame($layout->getId(), $updatedLayout->getId());
-        $this->assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        $this->assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
+        self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
             $this->layoutService->loadZoneDraft(1, 'top')
@@ -818,14 +802,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(1, 'bottom')
         );
 
-        $this->assertCount(3, $topZoneBlocks);
-        $this->assertCount(0, $leftZoneBlocks);
-        $this->assertCount(0, $rightZoneBlocks);
-        $this->assertCount(0, $bottomZoneBlocks);
+        self::assertCount(3, $topZoneBlocks);
+        self::assertCount(0, $leftZoneBlocks);
+        self::assertCount(0, $rightZoneBlocks);
+        self::assertCount(0, $bottomZoneBlocks);
 
-        $this->assertSame(32, $topZoneBlocks[0]->getId());
-        $this->assertSame(31, $topZoneBlocks[1]->getId());
-        $this->assertSame(35, $topZoneBlocks[2]->getId());
+        self::assertSame(32, $topZoneBlocks[0]->getId());
+        self::assertSame(31, $topZoneBlocks[1]->getId());
+        self::assertSame(35, $topZoneBlocks[2]->getId());
     }
 
     /**
@@ -842,13 +826,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             ]
         );
 
-        $this->assertSame($layout->getId(), $updatedLayout->getId());
-        $this->assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        $this->assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
+        self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZone = $this->layoutService->loadZoneDraft(2, 'top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -865,21 +848,21 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(2, 'bottom')
         );
 
-        $this->assertCount(0, $topZoneBlocks);
-        $this->assertCount(0, $leftZoneBlocks);
-        $this->assertCount(0, $rightZoneBlocks);
-        $this->assertCount(0, $bottomZoneBlocks);
+        self::assertCount(0, $topZoneBlocks);
+        self::assertCount(0, $leftZoneBlocks);
+        self::assertCount(0, $rightZoneBlocks);
+        self::assertCount(0, $bottomZoneBlocks);
 
-        $this->assertTrue($topZone->hasLinkedZone());
+        self::assertTrue($topZone->hasLinkedZone());
 
         $newTopZone = $layout->getZone('top', true);
-        $this->assertInstanceOf(Zone::class, $newTopZone);
+        self::assertInstanceOf(Zone::class, $newTopZone);
 
-        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
-        $this->assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
+        self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+        self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
 
-        $this->assertSame($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
-        $this->assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+        self::assertSame($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        self::assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
 
     /**
@@ -896,13 +879,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             ]
         );
 
-        $this->assertSame($layout->getId(), $updatedLayout->getId());
-        $this->assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        $this->assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
+        self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZone = $this->layoutService->loadZoneDraft(2, 'top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -919,22 +901,22 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(2, 'bottom')
         );
 
-        $this->assertCount(0, $topZoneBlocks);
-        $this->assertCount(0, $leftZoneBlocks);
-        $this->assertCount(0, $rightZoneBlocks);
-        $this->assertCount(0, $bottomZoneBlocks);
+        self::assertCount(0, $topZoneBlocks);
+        self::assertCount(0, $leftZoneBlocks);
+        self::assertCount(0, $rightZoneBlocks);
+        self::assertCount(0, $bottomZoneBlocks);
 
-        $this->assertTrue($topZone->hasLinkedZone());
+        self::assertTrue($topZone->hasLinkedZone());
 
         $newTopZone = $layout->getZone('top', true);
 
-        $this->assertInstanceOf(Zone::class, $newTopZone);
+        self::assertInstanceOf(Zone::class, $newTopZone);
 
-        $this->assertInstanceOf(Zone::class, $topZone->getLinkedZone());
-        $this->assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
+        self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
+        self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
 
-        $this->assertSame($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
-        $this->assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+        self::assertSame($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        self::assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
 
     /**
@@ -952,13 +934,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             false
         );
 
-        $this->assertSame($layout->getId(), $updatedLayout->getId());
-        $this->assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        $this->assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
+        self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZone = $this->layoutService->loadZoneDraft(2, 'top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -975,12 +956,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(2, 'bottom')
         );
 
-        $this->assertCount(0, $topZoneBlocks);
-        $this->assertCount(0, $leftZoneBlocks);
-        $this->assertCount(0, $rightZoneBlocks);
-        $this->assertCount(0, $bottomZoneBlocks);
+        self::assertCount(0, $topZoneBlocks);
+        self::assertCount(0, $leftZoneBlocks);
+        self::assertCount(0, $rightZoneBlocks);
+        self::assertCount(0, $bottomZoneBlocks);
 
-        $this->assertFalse($topZone->hasLinkedZone());
+        self::assertFalse($topZone->hasLinkedZone());
     }
 
     /**
@@ -998,13 +979,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             false
         );
 
-        $this->assertSame($layout->getId(), $updatedLayout->getId());
-        $this->assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        $this->assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
+        self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
-        $this->assertEquals($layout->getCreated(), $updatedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $updatedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZone = $this->layoutService->loadZoneDraft(2, 'top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -1021,12 +1001,12 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(2, 'bottom')
         );
 
-        $this->assertCount(0, $topZoneBlocks);
-        $this->assertCount(0, $leftZoneBlocks);
-        $this->assertCount(0, $rightZoneBlocks);
-        $this->assertCount(0, $bottomZoneBlocks);
+        self::assertCount(0, $topZoneBlocks);
+        self::assertCount(0, $leftZoneBlocks);
+        self::assertCount(0, $rightZoneBlocks);
+        self::assertCount(0, $bottomZoneBlocks);
 
-        $this->assertFalse($topZone->hasLinkedZone());
+        self::assertFalse($topZone->hasLinkedZone());
     }
 
     /**
@@ -1053,11 +1033,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayout(6);
         $draftLayout = $this->layoutService->createDraft($layout);
 
-        $this->assertTrue($draftLayout->isDraft());
-        $this->assertInstanceOf(Layout::class, $draftLayout);
+        self::assertTrue($draftLayout->isDraft());
 
-        $this->assertEquals($layout->getCreated(), $draftLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $draftLayout->getModified());
+        self::assertEquals($layout->getCreated(), $draftLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
     }
 
     /**
@@ -1068,11 +1047,10 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayout(1);
         $draftLayout = $this->layoutService->createDraft($layout, true);
 
-        $this->assertTrue($draftLayout->isDraft());
-        $this->assertInstanceOf(Layout::class, $draftLayout);
+        self::assertTrue($draftLayout->isDraft());
 
-        $this->assertEquals($layout->getCreated(), $draftLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $draftLayout->getModified());
+        self::assertEquals($layout->getCreated(), $draftLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
     }
 
     /**
@@ -1130,14 +1108,13 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $currentlyPublishedLayout = $this->layoutService->loadLayout(1);
         $publishedLayout = $this->layoutService->publishLayout($layout);
 
-        $this->assertInstanceOf(Layout::class, $publishedLayout);
-        $this->assertTrue($publishedLayout->isPublished());
+        self::assertTrue($publishedLayout->isPublished());
 
-        $this->assertEquals($layout->getCreated(), $publishedLayout->getCreated());
-        $this->assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
+        self::assertEquals($layout->getCreated(), $publishedLayout->getCreated());
+        self::assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
 
         $archivedLayout = $this->layoutService->loadLayoutArchive(1);
-        $this->assertEquals($currentlyPublishedLayout->getModified(), $archivedLayout->getModified());
+        self::assertEquals($currentlyPublishedLayout->getModified(), $archivedLayout->getModified());
 
         try {
             $this->layoutService->loadLayoutDraft($layout->getId());
@@ -1169,12 +1146,11 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadLayoutArchive(2)
         );
 
-        $this->assertInstanceOf(Layout::class, $restoredLayout);
-        $this->assertTrue($restoredLayout->isDraft());
-        $this->assertSame($publishedLayout->getName(), $restoredLayout->getName());
+        self::assertTrue($restoredLayout->isDraft());
+        self::assertSame($publishedLayout->getName(), $restoredLayout->getName());
 
-        $this->assertEquals($originalLayout->getCreated(), $restoredLayout->getCreated());
-        $this->assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
+        self::assertEquals($originalLayout->getCreated(), $restoredLayout->getCreated());
+        self::assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
     }
 
     /**
@@ -1190,9 +1166,8 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadLayoutArchive(2)
         );
 
-        $this->assertInstanceOf(Layout::class, $restoredLayout);
-        $this->assertTrue($restoredLayout->isDraft());
-        $this->assertSame($publishedLayout->getName(), $restoredLayout->getName());
+        self::assertTrue($restoredLayout->isDraft());
+        self::assertSame($publishedLayout->getName(), $restoredLayout->getName());
     }
 
     /**
@@ -1246,9 +1221,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
             'en'
         );
 
-        $this->assertInstanceOf(LayoutCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'layoutType' => $layoutType,
                 'name' => 'New layout',
@@ -1269,9 +1242,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadLayoutDraft(1)
         );
 
-        $this->assertInstanceOf(LayoutUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'My layout',
                 'description' => 'My layout description',
@@ -1287,9 +1258,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $struct = $this->layoutService->newLayoutUpdateStruct();
 
-        $this->assertInstanceOf(LayoutUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => null,
                 'description' => null,
@@ -1307,9 +1276,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->layoutService->loadLayoutDraft(1)
         );
 
-        $this->assertInstanceOf(LayoutCopyStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'My layout (copy)',
                 'description' => null,
@@ -1325,9 +1292,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $struct = $this->layoutService->newLayoutCopyStruct();
 
-        $this->assertInstanceOf(LayoutCopyStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => null,
                 'description' => null,

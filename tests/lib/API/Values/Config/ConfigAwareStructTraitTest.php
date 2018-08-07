@@ -30,7 +30,7 @@ final class ConfigAwareStructTraitTest extends TestCase
 
         $this->struct->setConfigStruct('test', $struct);
 
-        $this->assertSame($struct, $this->struct->getConfigStruct('test'));
+        self::assertSame($struct, $this->struct->getConfigStruct('test'));
     }
 
     /**
@@ -54,8 +54,8 @@ final class ConfigAwareStructTraitTest extends TestCase
     {
         $this->struct->setConfigStruct('test', new ConfigStruct());
 
-        $this->assertTrue($this->struct->hasConfigStruct('test'));
-        $this->assertFalse($this->struct->hasConfigStruct('unknown'));
+        self::assertTrue($this->struct->hasConfigStruct('test'));
+        self::assertFalse($this->struct->hasConfigStruct('unknown'));
     }
 
     /**
@@ -68,6 +68,6 @@ final class ConfigAwareStructTraitTest extends TestCase
 
         $this->struct->setConfigStruct('test', $struct);
 
-        $this->assertSame(['test' => $struct], $this->struct->getConfigStructs());
+        self::assertSame(['test' => $struct], $this->struct->getConfigStructs());
     }
 }

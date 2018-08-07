@@ -33,7 +33,7 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetEntityType(): void
     {
-        $this->assertSame('type', $this->result->getEntityType());
+        self::assertSame('type', $this->result->getEntityType());
     }
 
     /**
@@ -41,7 +41,7 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetData(): void
     {
-        $this->assertSame(['data'], $this->result->getData());
+        self::assertSame(['data'], $this->result->getData());
     }
 
     /**
@@ -49,6 +49,6 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetError(): void
     {
-        $this->assertSame($this->error, $this->result->getError());
+        self::assertSame($this->error, $this->result->getError());
     }
 }

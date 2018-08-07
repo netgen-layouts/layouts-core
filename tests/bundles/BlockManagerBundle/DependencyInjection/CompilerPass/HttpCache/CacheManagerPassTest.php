@@ -24,14 +24,14 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.http_cache.fos.cache_manager',
             0,
             new Reference('fos_http_cache.proxy_client.varnish')
         );
 
         $def = $this->container->findDefinition('netgen_block_manager.http_cache.fos.cache_manager');
-        $this->assertFalse($def->isPublic());
+        self::assertFalse($def->isPublic());
     }
 
     /**
@@ -43,7 +43,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasAlias(
+        self::assertContainerBuilderHasAlias(
             'netgen_block_manager.http_cache.client',
             'netgen_block_manager.http_cache.client.null'
         );
@@ -58,7 +58,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasAlias(
+        self::assertContainerBuilderHasAlias(
             'netgen_block_manager.http_cache.client',
             'netgen_block_manager.http_cache.client.null'
         );
@@ -71,7 +71,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

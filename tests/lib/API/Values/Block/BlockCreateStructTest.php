@@ -45,7 +45,7 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testGetDefinition(): void
     {
-        $this->assertSame($this->blockDefinition, $this->struct->getDefinition());
+        self::assertSame($this->blockDefinition, $this->struct->getDefinition());
     }
 
     /**
@@ -53,7 +53,7 @@ final class BlockCreateStructTest extends TestCase
      */
     public function testGetCollectionCreateStructs(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['default' => $this->collectionStruct],
             $this->struct->getCollectionCreateStructs()
         );
@@ -71,7 +71,7 @@ final class BlockCreateStructTest extends TestCase
         $this->struct->addCollectionCreateStruct('default', $collectionStruct1);
         $this->struct->addCollectionCreateStruct('featured', $collectionStruct2);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'default' => $collectionStruct1,
                 'featured' => $collectionStruct2,
@@ -94,7 +94,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -117,7 +117,7 @@ final class BlockCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

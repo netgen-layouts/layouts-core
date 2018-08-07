@@ -15,6 +15,6 @@ final class QueryUpdateStructTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new QueryUpdateStruct();
-        $this->assertSame('ngbm_query_update_struct', $constraint->validatedBy());
+        self::assertSame('ngbm_query_update_struct', $constraint->validatedBy());
     }
 }

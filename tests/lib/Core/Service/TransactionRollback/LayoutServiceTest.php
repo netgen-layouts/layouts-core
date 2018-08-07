@@ -32,32 +32,32 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testLinkZone(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(PersistenceLayout::fromArray(['shared' => false])));
+            ->will(self::returnValue(PersistenceLayout::fromArray(['shared' => false])));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadZone')
-            ->will($this->returnValue(PersistenceZone::fromArray(['layoutId' => 1])));
+            ->will(self::returnValue(PersistenceZone::fromArray(['layoutId' => 1])));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('loadLayout')
-            ->will($this->returnValue(PersistenceLayout::fromArray(['shared' => true])));
+            ->will(self::returnValue(PersistenceLayout::fromArray(['shared' => true])));
 
         $this->layoutHandlerMock
-            ->expects($this->at(3))
+            ->expects(self::at(3))
             ->method('loadZone')
-            ->will($this->returnValue(PersistenceZone::fromArray(['layoutId' => 2])));
+            ->will(self::returnValue(PersistenceZone::fromArray(['layoutId' => 2])));
 
         $this->layoutHandlerMock
-            ->expects($this->at(4))
+            ->expects(self::at(4))
             ->method('updateZone')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
@@ -74,17 +74,17 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testUnlinkZone(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->will(self::returnValue(new PersistenceZone()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('updateZone')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->unlinkZone(Zone::fromArray(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]));
@@ -98,17 +98,17 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testCreateLayout(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('layoutNameExists')
-            ->will($this->returnValue(false));
+            ->will(self::returnValue(false));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('createLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $layoutCreateStruct = new LayoutCreateStruct();
@@ -127,10 +127,10 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testAddTranslation(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     PersistenceLayout::fromArray(
                         [
                             'mainLocale' => 'en',
@@ -141,12 +141,12 @@ final class LayoutServiceTest extends ServiceTestCase
             );
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('createLayoutTranslation')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->addTranslation(Layout::fromArray(['status' => Value::STATUS_DRAFT]), 'hr', 'en');
@@ -160,10 +160,10 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testRemoveTranslation(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     PersistenceLayout::fromArray(
                         [
                             'mainLocale' => 'en',
@@ -174,12 +174,12 @@ final class LayoutServiceTest extends ServiceTestCase
             );
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteLayoutTranslation')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->removeTranslation(Layout::fromArray(['status' => Value::STATUS_DRAFT]), 'hr');
@@ -193,22 +193,22 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testUpdateLayout(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('layoutNameExists')
-            ->will($this->returnValue(false));
+            ->will(self::returnValue(false));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('updateLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $layoutUpdateStruct = new LayoutUpdateStruct();
@@ -228,22 +228,22 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testCopyLayout(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('layoutNameExists')
-            ->will($this->returnValue(false));
+            ->will(self::returnValue(false));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('copyLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $layoutCopyStruct = new LayoutCopyStruct();
@@ -263,22 +263,22 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testChangeLayoutType(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayoutZones')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('changeLayoutType')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->changeLayoutType(
@@ -296,22 +296,22 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testCreateDraft(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('layoutExists')
-            ->will($this->returnValue(false));
+            ->will(self::returnValue(false));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->createDraft(Layout::fromArray(['status' => Value::STATUS_PUBLISHED]));
@@ -325,17 +325,17 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testDiscardDraft(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->discardDraft(Layout::fromArray(['status' => Value::STATUS_DRAFT]));
@@ -349,17 +349,17 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testPublishLayout(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->publishLayout(Layout::fromArray(['status' => Value::STATUS_DRAFT]));
@@ -373,27 +373,27 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testRestoreFromArchive(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(3))
+            ->expects(self::at(3))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->restoreFromArchive(Layout::fromArray(['status' => Layout::STATUS_ARCHIVED]));
@@ -407,17 +407,17 @@ final class LayoutServiceTest extends ServiceTestCase
     public function testDeleteLayout(): void
     {
         $this->layoutHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will(self::returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->layoutService->deleteLayout(Layout::fromArray(['id' => 42, 'status' => Layout::STATUS_DRAFT]));

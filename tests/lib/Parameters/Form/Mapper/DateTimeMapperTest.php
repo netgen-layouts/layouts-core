@@ -25,6 +25,6 @@ final class DateTimeMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(DateTimeType::class, $this->mapper->getFormType());
+        self::assertSame(DateTimeType::class, $this->mapper->getFormType());
     }
 }

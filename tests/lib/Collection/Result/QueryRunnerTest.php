@@ -24,10 +24,10 @@ final class QueryRunnerTest extends TestCase
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
         $this->cmsItemBuilderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('build')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function ($value): CmsItemInterface {
                         return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
                     }
@@ -50,14 +50,14 @@ final class QueryRunnerTest extends TestCase
         $items = iterator_to_array($queryRunner->runQuery($query));
 
         foreach ($items as $item) {
-            $this->assertInstanceOf(CmsItemInterface::class, $item);
-            $this->assertTrue($item->isVisible());
+            self::assertInstanceOf(CmsItemInterface::class, $item);
+            self::assertTrue($item->isVisible());
         }
 
-        $this->assertSame(40, $items[0]->getValue());
-        $this->assertSame(41, $items[1]->getValue());
-        $this->assertSame(42, $items[2]->getValue());
+        self::assertSame(40, $items[0]->getValue());
+        self::assertSame(41, $items[1]->getValue());
+        self::assertSame(42, $items[2]->getValue());
 
-        $this->assertSame(3, $queryRunner->count($query));
+        self::assertSame(3, $queryRunner->count($query));
     }
 }

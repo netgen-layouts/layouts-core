@@ -20,7 +20,7 @@ final class TargetHandlerTest extends AbstractTargetHandlerTest
             'some_non_existent_route'
         );
 
-        $this->assertEmpty($rules);
+        self::assertEmpty($rules);
     }
 
     /**

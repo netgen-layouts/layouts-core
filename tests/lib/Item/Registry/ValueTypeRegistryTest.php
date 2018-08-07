@@ -45,7 +45,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetValueTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'value1' => $this->valueType1,
                 'value2' => $this->valueType2,
@@ -59,7 +59,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetEnabledValueTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'value1' => $this->valueType1,
             ],
@@ -72,7 +72,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetValueType(): void
     {
-        $this->assertSame($this->valueType1, $this->registry->getValueType('value1'));
+        self::assertSame($this->valueType1, $this->registry->getValueType('value1'));
     }
 
     /**
@@ -90,7 +90,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testHasValueType(): void
     {
-        $this->assertTrue($this->registry->hasValueType('value1'));
+        self::assertTrue($this->registry->hasValueType('value1'));
     }
 
     /**
@@ -98,7 +98,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testHasValueTypeWithNoValueType(): void
     {
-        $this->assertFalse($this->registry->hasValueType('other_value'));
+        self::assertFalse($this->registry->hasValueType('other_value'));
     }
 
     /**
@@ -106,14 +106,14 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $valueTypes = [];
         foreach ($this->registry as $identifier => $valueType) {
             $valueTypes[$identifier] = $valueType;
         }
 
-        $this->assertSame($this->registry->getValueTypes(), $valueTypes);
+        self::assertSame($this->registry->getValueTypes(), $valueTypes);
     }
 
     /**
@@ -121,7 +121,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(2, $this->registry);
+        self::assertCount(2, $this->registry);
     }
 
     /**
@@ -129,8 +129,8 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('value1', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('value1', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -138,7 +138,7 @@ final class ValueTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->valueType1, $this->registry['value1']);
+        self::assertSame($this->valueType1, $this->registry['value1']);
     }
 
     /**

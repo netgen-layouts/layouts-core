@@ -15,6 +15,6 @@ final class LinkTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new Link();
-        $this->assertSame('ngbm_link', $constraint->validatedBy());
+        self::assertSame('ngbm_link', $constraint->validatedBy());
     }
 }

@@ -25,6 +25,6 @@ final class BooleanMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(CheckboxType::class, $this->mapper->getFormType());
+        self::assertSame(CheckboxType::class, $this->mapper->getFormType());
     }
 }

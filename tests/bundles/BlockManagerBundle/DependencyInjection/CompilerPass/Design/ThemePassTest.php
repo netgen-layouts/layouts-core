@@ -84,7 +84,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         foreach ($designList as $designName => $themes) {
             foreach ($themes as $theme) {
                 foreach ($themeDirs[$theme] as $themeDir) {
-                    $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+                    self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'ngbm_' . $designName],
@@ -149,7 +149,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         foreach ($designList as $designName => $themes) {
             foreach ($themes as $theme) {
                 foreach ($themeDirs[$theme] as $themeDir) {
-                    $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+                    self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'ngbm_' . $designName],
@@ -214,7 +214,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         foreach ($designList as $designName => $themes) {
             foreach ($themes as $theme) {
                 foreach ($themeDirs[$theme] as $themeDir) {
-                    $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+                    self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'ngbm_' . $designName],
@@ -232,7 +232,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

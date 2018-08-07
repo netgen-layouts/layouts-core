@@ -47,8 +47,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -98,10 +98,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        $this->assertInternalType('array', $blockTypes);
-        $this->assertArrayHasKey('test', $blockTypes);
+        self::assertInternalType('array', $blockTypes);
+        self::assertArrayHasKey('test', $blockTypes);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => true,
                 'icon' => '/icon2.svg',
@@ -110,8 +110,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -153,10 +153,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        $this->assertInternalType('array', $blockTypes);
-        $this->assertArrayHasKey('test', $blockTypes);
+        self::assertInternalType('array', $blockTypes);
+        self::assertArrayHasKey('test', $blockTypes);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => true,
                 'name' => 'Test',
@@ -166,8 +166,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -202,9 +202,9 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
-        $this->assertArrayHasKey('test', $blockTypes);
+        self::assertArrayHasKey('test', $blockTypes);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'Test',
                 'icon' => '/icon.svg',
@@ -215,8 +215,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -261,10 +261,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        $this->assertInternalType('array', $blockTypes);
-        $this->assertArrayHasKey('type', $blockTypes);
+        self::assertInternalType('array', $blockTypes);
+        self::assertArrayHasKey('type', $blockTypes);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => false,
                 'icon' => '/icon.svg',
@@ -273,8 +273,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['type']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -320,10 +320,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        $this->assertInternalType('array', $blockTypes);
-        $this->assertArrayHasKey('title', $blockTypes);
+        self::assertInternalType('array', $blockTypes);
+        self::assertArrayHasKey('title', $blockTypes);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => false,
                 'icon' => '/icon.svg',
@@ -333,8 +333,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['title']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.title');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.title');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -379,10 +379,10 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        $this->assertInternalType('array', $blockTypes);
-        $this->assertArrayHasKey('type', $blockTypes);
+        self::assertInternalType('array', $blockTypes);
+        self::assertArrayHasKey('type', $blockTypes);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => false,
                 'icon' => '/icon.svg',
@@ -391,8 +391,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['type']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type',
             0,
             [
@@ -437,7 +437,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

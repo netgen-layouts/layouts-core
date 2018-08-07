@@ -28,7 +28,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => ['onKernelRequest', 10]],
             $this->listener::getSubscribedEvents()
         );
@@ -48,8 +48,8 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertTrue($event->getRequest()->attributes->has('ngbmContextUri'));
-        $this->assertSame($filteredUri, $event->getRequest()->attributes->get('ngbmContextUri'));
+        self::assertTrue($event->getRequest()->attributes->has('ngbmContextUri'));
+        self::assertSame($filteredUri, $event->getRequest()->attributes->get('ngbmContextUri'));
     }
 
     public function onKernelRequestDataProvider(): array
@@ -78,7 +78,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has('ngbmContextUri'));
+        self::assertFalse($event->getRequest()->attributes->has('ngbmContextUri'));
     }
 
     /**
@@ -94,7 +94,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has('ngbmContextUri'));
+        self::assertFalse($event->getRequest()->attributes->has('ngbmContextUri'));
     }
 
     /**
@@ -111,6 +111,6 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertSame('/some/uri', $event->getRequest()->attributes->get('ngbmContextUri'));
+        self::assertSame('/some/uri', $event->getRequest()->attributes->get('ngbmContextUri'));
     }
 }

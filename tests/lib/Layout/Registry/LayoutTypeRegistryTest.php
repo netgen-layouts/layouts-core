@@ -45,7 +45,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetLayoutTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'layout_type1' => $this->layoutType1,
                 'layout_type2' => $this->layoutType2,
@@ -59,7 +59,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetEnabledLayoutTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'layout_type1' => $this->layoutType1,
             ],
@@ -72,7 +72,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testHasLayoutType(): void
     {
-        $this->assertTrue($this->registry->hasLayoutType('layout_type1'));
+        self::assertTrue($this->registry->hasLayoutType('layout_type1'));
     }
 
     /**
@@ -80,7 +80,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testHasLayoutTypeWithNoLayoutType(): void
     {
-        $this->assertFalse($this->registry->hasLayoutType('other_layout_type'));
+        self::assertFalse($this->registry->hasLayoutType('other_layout_type'));
     }
 
     /**
@@ -88,7 +88,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetLayoutType(): void
     {
-        $this->assertSame($this->layoutType1, $this->registry->getLayoutType('layout_type1'));
+        self::assertSame($this->layoutType1, $this->registry->getLayoutType('layout_type1'));
     }
 
     /**
@@ -106,14 +106,14 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $layoutTypes = [];
         foreach ($this->registry as $identifier => $layoutType) {
             $layoutTypes[$identifier] = $layoutType;
         }
 
-        $this->assertSame($this->registry->getLayoutTypes(), $layoutTypes);
+        self::assertSame($this->registry->getLayoutTypes(), $layoutTypes);
     }
 
     /**
@@ -121,7 +121,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(2, $this->registry);
+        self::assertCount(2, $this->registry);
     }
 
     /**
@@ -129,8 +129,8 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('layout_type1', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('layout_type1', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -138,7 +138,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->layoutType1, $this->registry['layout_type1']);
+        self::assertSame($this->layoutType1, $this->registry['layout_type1']);
     }
 
     /**

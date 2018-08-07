@@ -27,7 +27,7 @@ final class PublishDraftTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        self::assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -46,7 +46,7 @@ final class PublishDraftTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "9999"'

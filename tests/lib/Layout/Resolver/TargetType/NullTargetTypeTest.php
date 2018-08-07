@@ -25,7 +25,7 @@ final class NullTargetTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('null', $this->targetType::getType());
+        self::assertSame('null', $this->targetType::getType());
     }
 
     /**
@@ -33,7 +33,7 @@ final class NullTargetTypeTest extends TestCase
      */
     public function testGetConstraints(): void
     {
-        $this->assertSame([], $this->targetType->getConstraints());
+        self::assertSame([], $this->targetType->getConstraints());
     }
 
     /**
@@ -41,6 +41,6 @@ final class NullTargetTypeTest extends TestCase
      */
     public function testProvideValue(): void
     {
-        $this->assertNull($this->targetType->provideValue(Request::create('')));
+        self::assertNull($this->targetType->provideValue(Request::create('')));
     }
 }

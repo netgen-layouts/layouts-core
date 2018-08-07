@@ -34,7 +34,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionTypes(): void
     {
-        $this->assertSame(['condition1' => $this->conditionType], $this->registry->getConditionTypes());
+        self::assertSame(['condition1' => $this->conditionType], $this->registry->getConditionTypes());
     }
 
     /**
@@ -42,7 +42,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionType(): void
     {
-        $this->assertSame($this->conditionType, $this->registry->getConditionType('condition1'));
+        self::assertSame($this->conditionType, $this->registry->getConditionType('condition1'));
     }
 
     /**
@@ -60,7 +60,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testHasConditionType(): void
     {
-        $this->assertTrue($this->registry->hasConditionType('condition1'));
+        self::assertTrue($this->registry->hasConditionType('condition1'));
     }
 
     /**
@@ -68,7 +68,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testHasConditionTypeWithNoConditionType(): void
     {
-        $this->assertFalse($this->registry->hasConditionType('other'));
+        self::assertFalse($this->registry->hasConditionType('other'));
     }
 
     /**
@@ -76,14 +76,14 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $conditionTypes = [];
         foreach ($this->registry as $identifier => $conditionType) {
             $conditionTypes[$identifier] = $conditionType;
         }
 
-        $this->assertSame($this->registry->getConditionTypes(), $conditionTypes);
+        self::assertSame($this->registry->getConditionTypes(), $conditionTypes);
     }
 
     /**
@@ -91,7 +91,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -99,8 +99,8 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('condition1', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('condition1', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -108,7 +108,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->conditionType, $this->registry['condition1']);
+        self::assertSame($this->conditionType, $this->registry['condition1']);
     }
 
     /**

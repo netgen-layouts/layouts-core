@@ -27,7 +27,7 @@ final class CreateDraftTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_draft',
             Response::HTTP_CREATED
@@ -50,7 +50,7 @@ final class CreateDraftTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "9999"'

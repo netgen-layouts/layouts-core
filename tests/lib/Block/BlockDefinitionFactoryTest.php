@@ -5,16 +5,10 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -143,25 +137,19 @@ final class BlockDefinitionFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
-        $this->assertSame('definition', $blockDefinition->getIdentifier());
-        $this->assertFalse($blockDefinition->isTranslatable());
+        self::assertSame('definition', $blockDefinition->getIdentifier());
+        self::assertFalse($blockDefinition->isTranslatable());
 
-        $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
-        $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
+        self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
+        self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $this->assertArrayHasKey('view_type', $blockDefinition->getViewTypes());
+        self::assertTrue($blockDefinition->hasViewType('view_type'));
 
         $viewType = $blockDefinition->getViewType('view_type');
-        $this->assertInstanceOf(ViewType::class, $viewType);
+        self::assertTrue($viewType->hasItemViewType('standard'));
+        self::assertTrue($viewType->hasItemViewType('item_view_type'));
 
-        $this->assertArrayHasKey('standard', $viewType->getItemViewTypes());
-        $this->assertArrayHasKey('item_view_type', $viewType->getItemViewTypes());
-
-        $this->assertInstanceOf(ItemViewType::class, $viewType->getItemViewType('standard'));
-        $this->assertInstanceOf(ItemViewType::class, $viewType->getItemViewType('item_view_type'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'view_type' => [
                     'identifier' => 'view_type',
@@ -182,10 +170,9 @@ final class BlockDefinitionFactoryTest extends TestCase
             $this->exportObjectList($blockDefinition->getViewTypes(), true)
         );
 
-        $this->assertArrayHasKey('form', $blockDefinition->getForms());
-        $this->assertInstanceOf(Form::class, $blockDefinition->getForm('form'));
+        self::assertTrue($blockDefinition->hasForm('form'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'form',
                 'type' => 'form_type',
@@ -193,13 +180,10 @@ final class BlockDefinitionFactoryTest extends TestCase
             $this->exportObject($blockDefinition->getForm('form'))
         );
 
-        $this->assertArrayHasKey('default', $blockDefinition->getCollections());
-        $this->assertArrayHasKey('featured', $blockDefinition->getCollections());
+        self::assertTrue($blockDefinition->hasCollection('default'));
+        self::assertTrue($blockDefinition->hasCollection('featured'));
 
-        $this->assertInstanceOf(Collection::class, $blockDefinition->getCollection('default'));
-        $this->assertInstanceOf(Collection::class, $blockDefinition->getCollection('featured'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'default' => [
                     'identifier' => 'default',
@@ -216,11 +200,9 @@ final class BlockDefinitionFactoryTest extends TestCase
         );
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();
-        $this->assertArrayHasKey('test', $configDefinitions);
-        $this->assertArrayHasKey('test2', $configDefinitions);
-
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
+        self::assertArrayHasKey('test', $configDefinitions);
+        self::assertArrayHasKey('test2', $configDefinitions);
+        self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
     }
 
     /**
@@ -250,19 +232,17 @@ final class BlockDefinitionFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
-        $this->assertSame('definition', $blockDefinition->getIdentifier());
-        $this->assertTrue($blockDefinition->isTranslatable());
+        self::assertSame('definition', $blockDefinition->getIdentifier());
+        self::assertTrue($blockDefinition->isTranslatable());
 
-        $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
-        $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
+        self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
+        self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();
-        $this->assertArrayHasKey('test', $configDefinitions);
-        $this->assertArrayHasKey('test2', $configDefinitions);
+        self::assertArrayHasKey('test', $configDefinitions);
+        self::assertArrayHasKey('test2', $configDefinitions);
 
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
+        self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
     }
 
     /**
@@ -275,9 +255,9 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->handlerMock = $this->createMock(ContainerDefinitionHandlerInterface::class);
 
         $this->handlerMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getPlaceholderIdentifiers')
-            ->will($this->returnValue(['left', 'right']));
+            ->will(self::returnValue(['left', 'right']));
 
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
@@ -297,21 +277,18 @@ final class BlockDefinitionFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
-        $this->assertSame('definition', $blockDefinition->getIdentifier());
-        $this->assertFalse($blockDefinition->isTranslatable());
+        self::assertSame('definition', $blockDefinition->getIdentifier());
+        self::assertFalse($blockDefinition->isTranslatable());
 
-        $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
-        $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
+        self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
+        self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();
-        $this->assertArrayHasKey('test', $configDefinitions);
-        $this->assertArrayHasKey('test2', $configDefinitions);
+        self::assertArrayHasKey('test', $configDefinitions);
+        self::assertArrayHasKey('test2', $configDefinitions);
+        self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
 
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
-
-        $this->assertSame(['left', 'right'], $blockDefinition->getPlaceholders());
+        self::assertSame(['left', 'right'], $blockDefinition->getPlaceholders());
     }
 
     /**

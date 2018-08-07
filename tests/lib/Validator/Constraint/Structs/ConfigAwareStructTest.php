@@ -15,6 +15,6 @@ final class ConfigAwareStructTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new ConfigAwareStruct();
-        $this->assertSame('ngbm_config_aware_struct', $constraint->validatedBy());
+        self::assertSame('ngbm_config_aware_struct', $constraint->validatedBy());
     }
 }

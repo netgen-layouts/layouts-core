@@ -56,38 +56,38 @@ final class ViewRendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->eventDispatcherMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('dispatch')
             ->with(
-                $this->identicalTo(BlockManagerEvents::RENDER_VIEW),
-                $this->isInstanceOf(CollectViewParametersEvent::class)
+                self::identicalTo(BlockManagerEvents::RENDER_VIEW),
+                self::isInstanceOf(CollectViewParametersEvent::class)
             );
 
         $this->eventDispatcherMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('dispatch')
             ->with(
-                $this->identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
-                $this->isInstanceOf(CollectViewParametersEvent::class)
+                self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+                self::isInstanceOf(CollectViewParametersEvent::class)
             );
 
         $this->twigEnvironmentMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo('some_template.html.twig'),
-                $this->identicalTo(
+                self::identicalTo('some_template.html.twig'),
+                self::identicalTo(
                     [
                         'value' => $value,
                         'some_param' => 'some_value',
                     ]
                 )
             )
-            ->will($this->returnValue('rendered template'));
+            ->will(self::returnValue('rendered template'));
 
         $renderedTemplate = $this->viewRenderer->renderView($view);
 
-        $this->assertSame('rendered template', $renderedTemplate);
+        self::assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -100,27 +100,27 @@ final class ViewRendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->eventDispatcherMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('dispatch')
             ->with(
-                $this->identicalTo(BlockManagerEvents::RENDER_VIEW),
-                $this->isInstanceOf(CollectViewParametersEvent::class)
+                self::identicalTo(BlockManagerEvents::RENDER_VIEW),
+                self::isInstanceOf(CollectViewParametersEvent::class)
             );
 
         $this->eventDispatcherMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('dispatch')
             ->with(
-                $this->identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
-                $this->isInstanceOf(CollectViewParametersEvent::class)
+                self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+                self::isInstanceOf(CollectViewParametersEvent::class)
             );
 
         $this->twigEnvironmentMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('render');
 
         $renderedTemplate = $this->viewRenderer->renderView($view);
 
-        $this->assertSame('', $renderedTemplate);
+        self::assertSame('', $renderedTemplate);
     }
 }

@@ -36,8 +36,8 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type_group',
             0,
             [
@@ -76,8 +76,8 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.block_type_group.test',
             2,
             [
@@ -130,9 +130,9 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $blockTypeGroups = $this->container->getParameter('netgen_block_manager.block_type_groups');
-        $this->assertArrayHasKey('custom', $blockTypeGroups);
+        self::assertArrayHasKey('custom', $blockTypeGroups);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => true,
                 'block_types' => ['test2', 'test3'],
@@ -165,9 +165,9 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $blockTypeGroups = $this->container->getParameter('netgen_block_manager.block_type_groups');
-        $this->assertArrayHasKey('test', $blockTypeGroups);
+        self::assertArrayHasKey('test', $blockTypeGroups);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'enabled' => false,
                 'block_types' => [],
@@ -183,7 +183,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

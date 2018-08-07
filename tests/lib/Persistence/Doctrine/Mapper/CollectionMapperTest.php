@@ -89,11 +89,8 @@ final class CollectionMapperTest extends TestCase
 
         $collections = $this->mapper->mapCollections($data);
 
-        foreach ($collections as $collection) {
-            $this->assertInstanceOf(Collection::class, $collection);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($collections));
+        self::assertContainsOnlyInstancesOf(Collection::class, $collections);
+        self::assertSame($expectedData, $this->exportObjectList($collections));
     }
 
     /**
@@ -149,11 +146,8 @@ final class CollectionMapperTest extends TestCase
 
         $items = $this->mapper->mapItems($data);
 
-        foreach ($items as $item) {
-            $this->assertInstanceOf(Item::class, $item);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($items));
+        self::assertContainsOnlyInstancesOf(Item::class, $items);
+        self::assertSame($expectedData, $this->exportObjectList($items));
     }
 
     /**
@@ -227,10 +221,7 @@ final class CollectionMapperTest extends TestCase
 
         $queries = $this->mapper->mapQueries($data);
 
-        foreach ($queries as $query) {
-            $this->assertInstanceOf(Query::class, $query);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($queries));
+        self::assertContainsOnlyInstancesOf(Query::class, $queries);
+        self::assertSame($expectedData, $this->exportObjectList($queries));
     }
 }

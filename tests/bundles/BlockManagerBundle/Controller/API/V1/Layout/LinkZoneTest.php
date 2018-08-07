@@ -32,7 +32,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        self::assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -51,7 +51,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "unknown"'
@@ -74,7 +74,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "right"'
@@ -101,7 +101,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should not be blank.'
@@ -129,7 +129,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should be of type scalar.'
@@ -157,7 +157,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "unknown"'
@@ -185,7 +185,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "right"'
@@ -213,7 +213,7 @@ final class LinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.'

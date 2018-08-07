@@ -26,7 +26,7 @@ final class RoutePrefixTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('route_prefix', $this->targetType::getType());
+        self::assertSame('route_prefix', $this->targetType::getType());
     }
 
     /**
@@ -41,7 +41,7 @@ final class RoutePrefixTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->targetType->getConstraints());
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -52,7 +52,7 @@ final class RoutePrefixTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('_route', 'my_cool_route');
 
-        $this->assertSame(
+        self::assertSame(
             'my_cool_route',
             $this->targetType->provideValue($request)
         );

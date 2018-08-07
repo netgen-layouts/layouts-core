@@ -32,7 +32,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
             $this->listener::getSubscribedEvents()
         );
@@ -50,7 +50,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertTrue(
+        self::assertTrue(
             $event->getRequest()->attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME)
         );
     }
@@ -67,7 +67,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));
+        self::assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));
     }
 
     /**
@@ -81,6 +81,6 @@ final class SetIsAdminRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));
+        self::assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));
     }
 }

@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
@@ -55,9 +53,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
 
-        $this->assertInstanceOf(Collection::class, $collection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'offset' => 0,
@@ -92,9 +88,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $item = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 1,
@@ -131,9 +125,7 @@ final class CollectionHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 1,
@@ -171,11 +163,8 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
 
-        $this->assertNotEmpty($items);
-
-        foreach ($items as $item) {
-            $this->assertInstanceOf(Item::class, $item);
-        }
+        self::assertNotEmpty($items);
+        self::assertContainsOnlyInstancesOf(Item::class, $items);
     }
 
     /**
@@ -187,9 +176,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Query::class, $query);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 2,
@@ -239,9 +226,7 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertInstanceOf(Query::class, $query);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 2,
@@ -289,7 +274,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionExists(): void
     {
-        $this->assertTrue($this->collectionHandler->collectionExists(1, Value::STATUS_DRAFT));
+        self::assertTrue($this->collectionHandler->collectionExists(1, Value::STATUS_DRAFT));
     }
 
     /**
@@ -298,7 +283,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExists(): void
     {
-        $this->assertFalse($this->collectionHandler->collectionExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->collectionHandler->collectionExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -307,7 +292,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExistsInStatus(): void
     {
-        $this->assertFalse($this->collectionHandler->collectionExists(1, Value::STATUS_ARCHIVED));
+        self::assertFalse($this->collectionHandler->collectionExists(1, Value::STATUS_ARCHIVED));
     }
 
     /**
@@ -326,9 +311,7 @@ final class CollectionHandlerTest extends TestCase
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
 
-        $this->assertInstanceOf(Collection::class, $createdCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 7,
                 'offset' => 5,
@@ -356,9 +339,7 @@ final class CollectionHandlerTest extends TestCase
             'en'
         );
 
-        $this->assertInstanceOf(Collection::class, $collection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 2,
                 'offset' => 0,
@@ -374,7 +355,7 @@ final class CollectionHandlerTest extends TestCase
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => $collection->id,
@@ -421,9 +402,7 @@ final class CollectionHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertInstanceOf(Collection::class, $collection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 2,
                 'offset' => 0,
@@ -439,7 +418,7 @@ final class CollectionHandlerTest extends TestCase
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => $collection->id,
@@ -486,9 +465,7 @@ final class CollectionHandlerTest extends TestCase
             'en'
         );
 
-        $this->assertInstanceOf(Collection::class, $collection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'offset' => 0,
@@ -542,10 +519,10 @@ final class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
         $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
 
-        $this->assertSame('hr', $collection->mainLocale);
+        self::assertSame('hr', $collection->mainLocale);
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
-        $this->assertSame('hr', $query->mainLocale);
+        self::assertSame('hr', $query->mainLocale);
     }
 
     /**
@@ -557,7 +534,7 @@ final class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
         $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
 
-        $this->assertSame('hr', $collection->mainLocale);
+        self::assertSame('hr', $collection->mainLocale);
     }
 
     /**
@@ -588,9 +565,7 @@ final class CollectionHandlerTest extends TestCase
             $collectionUpdateStruct
         );
 
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'offset' => 5,
@@ -620,9 +595,7 @@ final class CollectionHandlerTest extends TestCase
             $collectionUpdateStruct
         );
 
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 3,
                 'offset' => 5,
@@ -650,9 +623,7 @@ final class CollectionHandlerTest extends TestCase
             $collectionUpdateStruct
         );
 
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'offset' => 0,
@@ -682,9 +653,7 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 7,
                 'offset' => 4,
@@ -698,7 +667,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($copiedCollection)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 13,
@@ -735,7 +704,7 @@ final class CollectionHandlerTest extends TestCase
 
         $query = $this->collectionHandler->loadCollectionQuery($copiedCollection);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 5,
                 'collectionId' => $copiedCollection->id,
@@ -777,9 +746,7 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
 
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 7,
                 'offset' => 0,
@@ -793,7 +760,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($copiedCollection)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 13,
@@ -845,9 +812,7 @@ final class CollectionHandlerTest extends TestCase
             Value::STATUS_ARCHIVED
         );
 
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 3,
                 'offset' => 4,
@@ -861,7 +826,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($copiedCollection)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 7,
@@ -896,7 +861,7 @@ final class CollectionHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 2,
                 'collectionId' => 3,
@@ -941,9 +906,7 @@ final class CollectionHandlerTest extends TestCase
             Value::STATUS_ARCHIVED
         );
 
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'offset' => 0,
@@ -957,7 +920,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($copiedCollection)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 1,
@@ -1061,9 +1024,7 @@ final class CollectionHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertInstanceOf(Collection::class, $collection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 2,
                 'offset' => 0,
@@ -1079,7 +1040,7 @@ final class CollectionHandlerTest extends TestCase
 
         $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => $collection->id,
@@ -1113,9 +1074,7 @@ final class CollectionHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertInstanceOf(Collection::class, $collection);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'offset' => 0,
@@ -1178,9 +1137,7 @@ final class CollectionHandlerTest extends TestCase
             $itemCreateStruct
         );
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 13,
                 'collectionId' => 1,
@@ -1194,7 +1151,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertSame(2, $secondItem->position);
+        self::assertSame(2, $secondItem->position);
     }
 
     /**
@@ -1217,9 +1174,7 @@ final class CollectionHandlerTest extends TestCase
             $itemCreateStruct
         );
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 13,
                 'collectionId' => 3,
@@ -1233,13 +1188,13 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
-        $this->assertSame(3, $secondItem->position);
+        self::assertSame(3, $secondItem->position);
 
         $thirdItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
-        $this->assertSame(4, $thirdItem->position);
+        self::assertSame(4, $thirdItem->position);
 
         $fourthItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
-        $this->assertSame(5, $fourthItem->position);
+        self::assertSame(5, $fourthItem->position);
     }
 
     /**
@@ -1262,9 +1217,7 @@ final class CollectionHandlerTest extends TestCase
             $itemCreateStruct
         );
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 13,
                 'collectionId' => 3,
@@ -1278,7 +1231,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
-        $this->assertSame(5, $secondItem->position);
+        self::assertSame(5, $secondItem->position);
     }
 
     /**
@@ -1300,9 +1253,7 @@ final class CollectionHandlerTest extends TestCase
             $itemCreateStruct
         );
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 13,
                 'collectionId' => 1,
@@ -1400,9 +1351,7 @@ final class CollectionHandlerTest extends TestCase
             $itemUpdateStruct
         );
 
-        $this->assertInstanceOf(Item::class, $item);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 1,
@@ -1431,9 +1380,7 @@ final class CollectionHandlerTest extends TestCase
             2
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 12,
                 'collectionId' => 4,
@@ -1447,10 +1394,10 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(10, Value::STATUS_DRAFT);
-        $this->assertSame(3, $firstItem->position);
+        self::assertSame(3, $firstItem->position);
 
         $secondItem = $this->collectionHandler->loadItem(11, Value::STATUS_DRAFT);
-        $this->assertSame(4, $secondItem->position);
+        self::assertSame(4, $secondItem->position);
     }
 
     /**
@@ -1468,9 +1415,7 @@ final class CollectionHandlerTest extends TestCase
             1
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 1,
@@ -1484,10 +1429,10 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertSame(0, $firstItem->position);
+        self::assertSame(0, $firstItem->position);
 
         $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
-        $this->assertSame(2, $secondItem->position);
+        self::assertSame(2, $secondItem->position);
     }
 
     /**
@@ -1505,9 +1450,7 @@ final class CollectionHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 1,
@@ -1521,10 +1464,10 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertSame(1, $firstItem->position);
+        self::assertSame(1, $firstItem->position);
 
         $firstItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
-        $this->assertSame(2, $firstItem->position);
+        self::assertSame(2, $firstItem->position);
     }
 
     /**
@@ -1542,9 +1485,7 @@ final class CollectionHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 2,
                 'collectionId' => 1,
@@ -1558,7 +1499,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
-        $this->assertSame(1, $firstItem->position);
+        self::assertSame(1, $firstItem->position);
     }
 
     /**
@@ -1576,9 +1517,7 @@ final class CollectionHandlerTest extends TestCase
             1
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 3,
                 'collectionId' => 1,
@@ -1592,10 +1531,10 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
-        $this->assertSame(0, $firstItem->position);
+        self::assertSame(0, $firstItem->position);
 
         $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $this->assertSame(2, $secondItem->position);
+        self::assertSame(2, $secondItem->position);
     }
 
     /**
@@ -1613,9 +1552,7 @@ final class CollectionHandlerTest extends TestCase
             4
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 7,
                 'collectionId' => 3,
@@ -1629,10 +1566,10 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
-        $this->assertSame(3, $secondItem->position);
+        self::assertSame(3, $secondItem->position);
 
         $thirdItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
-        $this->assertSame(5, $thirdItem->position);
+        self::assertSame(5, $thirdItem->position);
     }
 
     /**
@@ -1650,9 +1587,7 @@ final class CollectionHandlerTest extends TestCase
             2
         );
 
-        $this->assertInstanceOf(Item::class, $movedItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 8,
                 'collectionId' => 3,
@@ -1666,7 +1601,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
-        $this->assertSame(3, $firstItem->position);
+        self::assertSame(3, $firstItem->position);
     }
 
     /**
@@ -1718,8 +1653,8 @@ final class CollectionHandlerTest extends TestCase
         $updatedItem1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
         $updatedItem2 = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
 
-        $this->assertSame($item2->position, $updatedItem1->position);
-        $this->assertSame($item1->position, $updatedItem2->position);
+        self::assertSame($item2->position, $updatedItem1->position);
+        self::assertSame($item1->position, $updatedItem2->position);
     }
 
     /**
@@ -1761,7 +1696,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
-        $this->assertSame(1, $secondItem->position);
+        self::assertSame(1, $secondItem->position);
 
         try {
             $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
@@ -1784,7 +1719,7 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
-        $this->assertSame(3, $secondItem->position);
+        self::assertSame(3, $secondItem->position);
 
         try {
             $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
@@ -1804,7 +1739,7 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT)
         );
 
-        $this->assertCount(0, $this->collectionHandler->loadCollectionItems($collection));
+        self::assertCount(0, $this->collectionHandler->loadCollectionItems($collection));
     }
 
     /**
@@ -1826,9 +1761,7 @@ final class CollectionHandlerTest extends TestCase
             $queryCreateStruct
         );
 
-        $this->assertInstanceOf(Query::class, $createdQuery);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 5,
                 'collectionId' => $collection->id,
@@ -1890,9 +1823,7 @@ final class CollectionHandlerTest extends TestCase
             $translationUpdateStruct
         );
 
-        $this->assertInstanceOf(Query::class, $updatedQuery);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 2,
@@ -1933,9 +1864,7 @@ final class CollectionHandlerTest extends TestCase
             $translationUpdateStruct
         );
 
-        $this->assertInstanceOf(Query::class, $updatedQuery);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'collectionId' => 2,
@@ -2007,6 +1936,6 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 }

@@ -353,9 +353,9 @@ abstract class ServiceTestCase extends TestCase
         if ($layoutValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
 
-            $validator->expects($this->any())
+            $validator->expects(self::any())
                 ->method('validate')
-                ->will($this->returnValue(new ConstraintViolationList()));
+                ->will(self::returnValue(new ConstraintViolationList()));
 
             $layoutValidator = new LayoutValidator();
             $layoutValidator->setValidator($validator);
@@ -377,9 +377,9 @@ abstract class ServiceTestCase extends TestCase
         if ($blockValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
 
-            $validator->expects($this->any())
+            $validator->expects(self::any())
                 ->method('validate')
-                ->will($this->returnValue(new ConstraintViolationList()));
+                ->will(self::returnValue(new ConstraintViolationList()));
 
             $collectionValidator = new CollectionValidator();
             $collectionValidator->setValidator($validator);
@@ -409,9 +409,9 @@ abstract class ServiceTestCase extends TestCase
         if ($collectionValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
 
-            $validator->expects($this->any())
+            $validator->expects(self::any())
                 ->method('validate')
-                ->will($this->returnValue(new ConstraintViolationList()));
+                ->will(self::returnValue(new ConstraintViolationList()));
 
             $collectionValidator = new CollectionValidator();
             $collectionValidator->setValidator($validator);
@@ -437,9 +437,9 @@ abstract class ServiceTestCase extends TestCase
         if ($layoutResolverValidator === null) {
             $validator = $this->createMock(ValidatorInterface::class);
 
-            $validator->expects($this->any())
+            $validator->expects(self::any())
                 ->method('validate')
-                ->will($this->returnValue(new ConstraintViolationList()));
+                ->will(self::returnValue(new ConstraintViolationList()));
 
             $layoutResolverValidator = new LayoutResolverValidator(
                 $this->targetTypeRegistry,

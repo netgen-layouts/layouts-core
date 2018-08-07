@@ -28,7 +28,7 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.resolver.form.condition_type',
             0,
             [
@@ -62,7 +62,7 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

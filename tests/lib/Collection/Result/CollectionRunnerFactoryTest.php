@@ -42,7 +42,7 @@ final class CollectionRunnerFactoryTest extends TestCase
     {
         $runner = $this->factory->getCollectionRunner(new Collection());
 
-        $this->assertInstanceOf(ManualCollectionRunner::class, $runner);
+        self::assertInstanceOf(ManualCollectionRunner::class, $runner);
     }
 
     /**
@@ -64,7 +64,7 @@ final class CollectionRunnerFactoryTest extends TestCase
             )
         );
 
-        $this->assertInstanceOf(DynamicCollectionRunner::class, $runner);
+        self::assertInstanceOf(DynamicCollectionRunner::class, $runner);
     }
 
     /**
@@ -87,6 +87,6 @@ final class CollectionRunnerFactoryTest extends TestCase
             PHP_INT_MAX
         );
 
-        $this->assertInstanceOf(DynamicCollectionRunner::class, $runner);
+        self::assertInstanceOf(DynamicCollectionRunner::class, $runner);
     }
 }

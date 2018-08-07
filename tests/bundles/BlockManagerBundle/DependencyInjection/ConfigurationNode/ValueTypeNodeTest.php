@@ -49,7 +49,7 @@ final class ValueTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'value_types'
@@ -68,7 +68,7 @@ final class ValueTypeNodeTest extends TestCase
             'value_types' => [],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'value_types'
@@ -82,7 +82,7 @@ final class ValueTypeNodeTest extends TestCase
     public function testValueTypesSettingsWithNoName(): void
     {
         $config = [['value_types' => ['value' => []]]];
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

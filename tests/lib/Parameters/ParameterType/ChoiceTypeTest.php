@@ -23,7 +23,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('choice', $this->type::getIdentifier());
+        self::assertSame('choice', $this->type::getIdentifier());
     }
 
     /**
@@ -39,7 +39,7 @@ final class ChoiceTypeTest extends TestCase
     public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
-        $this->assertSame($expected, $parameter->getDefaultValue());
+        self::assertSame($expected, $parameter->getDefaultValue());
     }
 
     /**
@@ -49,7 +49,7 @@ final class ChoiceTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertSame($resolvedOptions, $parameter->getOptions());
+        self::assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -246,7 +246,7 @@ final class ChoiceTypeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -266,7 +266,7 @@ final class ChoiceTypeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -297,7 +297,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue, bool $multiple): void
     {
-        $this->assertSame(
+        self::assertSame(
             $convertedValue,
             $this->type->fromHash(
                 $this->getParameterDefinition(
@@ -366,7 +366,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
+        self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

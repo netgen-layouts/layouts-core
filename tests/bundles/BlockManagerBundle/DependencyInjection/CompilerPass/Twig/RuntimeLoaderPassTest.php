@@ -29,13 +29,13 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.templating.twig.runtime.container_loader',
             'addRuntime',
             [stdClass::class, 'netgen_block_manager.twig.runtime.test']
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'twig',
             'addRuntimeLoader',
             [new Reference('netgen_block_manager.templating.twig.runtime.container_loader')]
@@ -53,7 +53,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
+        self::assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
             'twig',
             'addRuntimeLoader',
             [new Reference('netgen_block_manager.templating.twig.runtime.container_loader')]
@@ -67,7 +67,7 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void
@@ -85,9 +85,9 @@ final class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
         array $arguments = [],
         ?int $index = null
     ): void {
-        $this->assertThat(
+        self::assertThat(
             $this->container->findDefinition($serviceId),
-            $this->logicalNot(
+            self::logicalNot(
                 new DefinitionHasMethodCallConstraint(
                     $method,
                     $arguments,

@@ -86,11 +86,8 @@ final class LayoutMapperTest extends TestCase
 
         $layouts = $this->mapper->mapLayouts($data);
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($layouts));
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
+        self::assertSame($expectedData, $this->exportObjectList($layouts));
     }
 
     /**
@@ -138,10 +135,7 @@ final class LayoutMapperTest extends TestCase
 
         $zones = $this->mapper->mapZones($data);
 
-        foreach ($zones as $zone) {
-            $this->assertInstanceOf(Zone::class, $zone);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($zones));
+        self::assertContainsOnlyInstancesOf(Zone::class, $zones);
+        self::assertSame($expectedData, $this->exportObjectList($zones));
     }
 }

@@ -8,7 +8,6 @@ use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase
@@ -27,9 +26,9 @@ final class PagerFactoryTest extends TestCase
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
-        $this->resultBuilderMock->expects($this->any())
+        $this->resultBuilderMock->expects(self::any())
             ->method('build')
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 1000])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000])));
 
         $this->pagerFactory = new PagerFactory($this->resultBuilderMock, 200);
     }
@@ -45,11 +44,10 @@ final class PagerFactoryTest extends TestCase
     {
         $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), $startPage);
 
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame(5, $pager->getMaxPerPage());
-        $this->assertSame($currentPage, $pager->getCurrentPage());
-        $this->assertSame(200, $pager->getNbPages());
+        self::assertTrue($pager->getNormalizeOutOfRangePages());
+        self::assertSame(5, $pager->getMaxPerPage());
+        self::assertSame($currentPage, $pager->getCurrentPage());
+        self::assertSame(200, $pager->getNbPages());
     }
 
     public function getPagerProvider(): array
@@ -75,11 +73,10 @@ final class PagerFactoryTest extends TestCase
     {
         $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), 2, $maxPages);
 
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame(5, $pager->getMaxPerPage());
-        $this->assertSame($currentPage, $pager->getCurrentPage());
-        $this->assertSame($nbPages, $pager->getNbPages());
+        self::assertTrue($pager->getNormalizeOutOfRangePages());
+        self::assertSame(5, $pager->getMaxPerPage());
+        self::assertSame($currentPage, $pager->getCurrentPage());
+        self::assertSame($nbPages, $pager->getNbPages());
     }
 
     public function getMaxPagesPagerProvider(): array
@@ -109,11 +106,10 @@ final class PagerFactoryTest extends TestCase
     {
         $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => $limit]), 2, $maxPages);
 
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame($maxPerPage, $pager->getMaxPerPage());
-        $this->assertSame(2, $pager->getCurrentPage());
-        $this->assertSame($nbPages, $pager->getNbPages());
+        self::assertTrue($pager->getNormalizeOutOfRangePages());
+        self::assertSame($maxPerPage, $pager->getMaxPerPage());
+        self::assertSame(2, $pager->getCurrentPage());
+        self::assertSame($nbPages, $pager->getNbPages());
     }
 
     public function getPagerWithCollectionLimitProvider(): array

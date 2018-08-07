@@ -34,8 +34,8 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms('value://42', $forms);
 
-        $this->assertSame('42', $forms['item_value']->getData());
-        $this->assertSame('value', $forms['item_type']->getData());
+        self::assertSame('42', $forms['item_value']->getData());
+        self::assertSame('value', $forms['item_type']->getData());
     }
 
     /**
@@ -52,8 +52,8 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms('value://', $forms);
 
-        $this->assertNull($forms['item_value']->getData());
-        $this->assertNull($forms['item_type']->getData());
+        self::assertNull($forms['item_value']->getData());
+        self::assertNull($forms['item_type']->getData());
     }
 
     /**
@@ -70,8 +70,8 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms(42, $forms);
 
-        $this->assertNull($forms['item_value']->getData());
-        $this->assertNull($forms['item_type']->getData());
+        self::assertNull($forms['item_value']->getData());
+        self::assertNull($forms['item_type']->getData());
     }
 
     /**
@@ -88,7 +88,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertSame('value://42', $data);
+        self::assertSame('value://42', $data);
     }
 
     /**
@@ -105,7 +105,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertNull($data);
+        self::assertNull($data);
     }
 
     /**
@@ -122,6 +122,6 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertNull($data);
+        self::assertNull($data);
     }
 }

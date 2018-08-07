@@ -35,7 +35,7 @@ final class ZoneParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['layoutId', 'zoneIdentifier'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['layoutId', 'zoneIdentifier'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ZoneParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('zone', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('zone', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class ZoneParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APIZone::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APIZone::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class ZoneParamConverterTest extends TestCase
         $zone = new Zone();
 
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadZone')
-            ->with($this->identicalTo(42), $this->identicalTo('left'))
-            ->will($this->returnValue($zone));
+            ->with(self::identicalTo(42), self::identicalTo('left'))
+            ->will(self::returnValue($zone));
 
-        $this->assertSame(
+        self::assertSame(
             $zone,
             $this->paramConverter->loadValue(
                 [
@@ -87,12 +87,12 @@ final class ZoneParamConverterTest extends TestCase
         $zone = new Zone();
 
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadZoneDraft')
-            ->with($this->identicalTo(42), $this->identicalTo('left'))
-            ->will($this->returnValue($zone));
+            ->with(self::identicalTo(42), self::identicalTo('left'))
+            ->will(self::returnValue($zone));
 
-        $this->assertSame(
+        self::assertSame(
             $zone,
             $this->paramConverter->loadValue(
                 [

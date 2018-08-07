@@ -56,7 +56,7 @@ final class ContextListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
@@ -71,12 +71,12 @@ final class ContextListenerTest extends TestCase
         $request = Request::create('/');
 
         $this->contextBuilderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildContext')
-            ->with($this->identicalTo($this->context));
+            ->with(self::identicalTo($this->context));
 
         $this->uriSignerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('check');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -96,19 +96,19 @@ final class ContextListenerTest extends TestCase
         $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildContext');
 
         $this->uriSignerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
-            ->with($this->identicalTo($request->getRequestUri()))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($request->getRequestUri()))
+            ->will(self::returnValue(true));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertSame(['var' => 'value'], $this->context->all());
+        self::assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -122,17 +122,17 @@ final class ContextListenerTest extends TestCase
         $request->attributes->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildContext');
 
         $this->uriSignerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('check');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertSame(['var' => 'value'], $this->context->all());
+        self::assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -149,19 +149,19 @@ final class ContextListenerTest extends TestCase
         $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildContext');
 
         $this->uriSignerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
-            ->with($this->identicalTo($request->attributes->get('ngbmContextUri')))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($request->attributes->get('ngbmContextUri')))
+            ->will(self::returnValue(true));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertSame(['var' => 'value'], $this->context->all());
+        self::assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -177,19 +177,19 @@ final class ContextListenerTest extends TestCase
         $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildContext');
 
         $this->uriSignerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('check')
-            ->with($this->identicalTo($request->getRequestUri()))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo($request->getRequestUri()))
+            ->will(self::returnValue(false));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertSame([], $this->context->all());
+        self::assertSame([], $this->context->all());
     }
 
     /**
@@ -203,12 +203,12 @@ final class ContextListenerTest extends TestCase
         $request->query->set('ngbmContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildContext');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertSame([], $this->context->all());
+        self::assertSame([], $this->context->all());
     }
 }

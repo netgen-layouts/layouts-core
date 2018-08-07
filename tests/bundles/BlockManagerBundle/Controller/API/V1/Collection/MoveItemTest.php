@@ -31,7 +31,7 @@ final class MoveItemTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        self::assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -50,7 +50,7 @@ final class MoveItemTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find item with identifier "9999"'
@@ -77,7 +77,7 @@ final class MoveItemTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'

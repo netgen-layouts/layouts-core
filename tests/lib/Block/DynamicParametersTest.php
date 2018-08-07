@@ -29,7 +29,7 @@ final class DynamicParametersTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(2, $this->dynamicParams);
+        self::assertCount(2, $this->dynamicParams);
     }
 
     /**
@@ -37,9 +37,9 @@ final class DynamicParametersTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('test', $this->dynamicParams);
-        $this->assertArrayHasKey('closure', $this->dynamicParams);
-        $this->assertArrayNotHasKey('unknown', $this->dynamicParams);
+        self::assertArrayHasKey('test', $this->dynamicParams);
+        self::assertArrayHasKey('closure', $this->dynamicParams);
+        self::assertArrayNotHasKey('unknown', $this->dynamicParams);
     }
 
     /**
@@ -47,9 +47,9 @@ final class DynamicParametersTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame('some_value', $this->dynamicParams['test']);
-        $this->assertSame('closure_value', $this->dynamicParams['closure']);
-        $this->assertNull($this->dynamicParams['unknown']);
+        self::assertSame('some_value', $this->dynamicParams['test']);
+        self::assertSame('closure_value', $this->dynamicParams['closure']);
+        self::assertNull($this->dynamicParams['unknown']);
     }
 
     /**
@@ -63,9 +63,9 @@ final class DynamicParametersTest extends TestCase
             return 'closure_value2';
         };
 
-        $this->assertSame('new_value', $this->dynamicParams['new']);
-        $this->assertSame('value2', $this->dynamicParams['test']);
-        $this->assertSame('closure_value2', $this->dynamicParams['closure']);
+        self::assertSame('new_value', $this->dynamicParams['new']);
+        self::assertSame('value2', $this->dynamicParams['test']);
+        self::assertSame('closure_value2', $this->dynamicParams['closure']);
     }
 
     /**
@@ -75,8 +75,8 @@ final class DynamicParametersTest extends TestCase
     {
         unset($this->dynamicParams['test'], $this->dynamicParams['closure'], $this->dynamicParams['unknown']);
 
-        $this->assertArrayNotHasKey('test', $this->dynamicParams);
-        $this->assertArrayNotHasKey('closure', $this->dynamicParams);
-        $this->assertArrayNotHasKey('unknown', $this->dynamicParams);
+        self::assertArrayNotHasKey('test', $this->dynamicParams);
+        self::assertArrayNotHasKey('closure', $this->dynamicParams);
+        self::assertArrayNotHasKey('unknown', $this->dynamicParams);
     }
 }

@@ -40,7 +40,7 @@ final class TypeTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             '4 zones A',
             $this->provider->getValue($item)
         );
@@ -51,6 +51,6 @@ final class TypeTest extends TestCase
      */
     public function testGetValueWithInvalidItem(): void
     {
-        $this->assertNull($this->provider->getValue(new StubItem()));
+        self::assertNull($this->provider->getValue(new StubItem()));
     }
 }

@@ -18,7 +18,7 @@ final class LayoutTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Layout());
+        self::assertInstanceOf(Value::class, new Layout());
     }
 
     /**
@@ -30,8 +30,8 @@ final class LayoutTest extends TestCase
     {
         $layout = new Layout();
 
-        $this->assertSame([], $layout->getZones());
-        $this->assertSame([], $layout->getAvailableLocales());
+        self::assertSame([], $layout->getZones());
+        self::assertSame([], $layout->getAvailableLocales());
     }
 
     /**
@@ -86,42 +86,42 @@ final class LayoutTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $layout->getId());
-        $this->assertSame($layoutType, $layout->getLayoutType());
-        $this->assertSame('My layout', $layout->getName());
-        $this->assertSame('My description', $layout->getDescription());
-        $this->assertSame($createdDate, $layout->getCreated());
-        $this->assertSame($modifiedDate, $layout->getModified());
-        $this->assertTrue($layout->isShared());
-        $this->assertSame($zones, $layout->getZones());
-        $this->assertNull($layout->getZone('test'));
-        $this->assertFalse($layout->hasZone('test'));
-        $this->assertSame($zones['right']->getLinkedZone(), $layout->getZone('right'));
-        $this->assertSame($zones['right'], $layout->getZone('right', true));
-        $this->assertTrue($layout->hasZone('right'));
-        $this->assertSame('en', $layout->getMainLocale());
-        $this->assertSame(['en'], $layout->getAvailableLocales());
-        $this->assertTrue($layout->hasLocale('en'));
-        $this->assertFalse($layout->hasLocale('hr'));
+        self::assertSame(42, $layout->getId());
+        self::assertSame($layoutType, $layout->getLayoutType());
+        self::assertSame('My layout', $layout->getName());
+        self::assertSame('My description', $layout->getDescription());
+        self::assertSame($createdDate, $layout->getCreated());
+        self::assertSame($modifiedDate, $layout->getModified());
+        self::assertTrue($layout->isShared());
+        self::assertSame($zones, $layout->getZones());
+        self::assertNull($layout->getZone('test'));
+        self::assertFalse($layout->hasZone('test'));
+        self::assertSame($zones['right']->getLinkedZone(), $layout->getZone('right'));
+        self::assertSame($zones['right'], $layout->getZone('right', true));
+        self::assertTrue($layout->hasZone('right'));
+        self::assertSame('en', $layout->getMainLocale());
+        self::assertSame(['en'], $layout->getAvailableLocales());
+        self::assertTrue($layout->hasLocale('en'));
+        self::assertFalse($layout->hasLocale('hr'));
 
-        $this->assertInstanceOf(Traversable::class, $layout->getIterator());
-        $this->assertSame($zones, iterator_to_array($layout->getIterator()));
+        self::assertInstanceOf(Traversable::class, $layout->getIterator());
+        self::assertSame($zones, iterator_to_array($layout->getIterator()));
 
-        $this->assertCount(2, $layout);
+        self::assertCount(2, $layout);
 
-        $this->assertTrue(isset($layout['left']));
-        $this->assertSame($zones['left'], $layout['left']);
+        self::assertTrue(isset($layout['left']));
+        self::assertSame($zones['left'], $layout['left']);
 
         try {
             $layout['left'] = new Zone();
-            $this->fail('Succeeded in setting a new zone to layout.');
+            self::fail('Succeeded in setting a new zone to layout.');
         } catch (RuntimeException $e) {
             // Do nothing
         }
 
         try {
             unset($layout['left']);
-            $this->fail('Succeeded in unsetting a zone in layout.');
+            self::fail('Succeeded in unsetting a zone in layout.');
         } catch (RuntimeException $e) {
             // Do nothing
         }

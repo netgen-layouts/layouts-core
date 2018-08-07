@@ -51,7 +51,7 @@ final class PluginTest extends TestCase
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->plugin->buildParameters($builder);
 
-        $this->assertCount(0, $builder);
+        self::assertCount(0, $builder);
     }
 
     /**
@@ -62,6 +62,6 @@ final class PluginTest extends TestCase
         $dynamicParameters = new DynamicParameters();
         $this->plugin->getDynamicParameters($dynamicParameters, new Block());
 
-        $this->assertCount(0, $dynamicParameters);
+        self::assertCount(0, $dynamicParameters);
     }
 }

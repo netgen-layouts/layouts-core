@@ -32,7 +32,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/copy_block_to_zone',
             Response::HTTP_CREATED
@@ -55,7 +55,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -83,7 +83,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "left"'
@@ -111,7 +111,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "unknown"'
@@ -139,7 +139,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
@@ -167,7 +167,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should be of type scalar.'
@@ -194,7 +194,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should not be blank.'

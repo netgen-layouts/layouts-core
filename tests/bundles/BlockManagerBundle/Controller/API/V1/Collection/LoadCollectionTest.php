@@ -17,7 +17,7 @@ final class LoadCollectionTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/3');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/collections/load_collection',
             Response::HTTP_OK
@@ -31,7 +31,7 @@ final class LoadCollectionTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/9999');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find collection with identifier "9999"'

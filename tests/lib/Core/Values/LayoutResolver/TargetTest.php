@@ -13,7 +13,7 @@ final class TargetTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Target());
+        self::assertInstanceOf(Value::class, new Target());
     }
 
     /**
@@ -35,9 +35,9 @@ final class TargetTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $target->getId());
-        $this->assertSame(30, $target->getRuleId());
-        $this->assertSame($targetType, $target->getTargetType());
-        $this->assertSame(32, $target->getValue());
+        self::assertSame(42, $target->getId());
+        self::assertSame(30, $target->getRuleId());
+        self::assertSame($targetType, $target->getTargetType());
+        self::assertSame(32, $target->getValue());
     }
 }

@@ -44,7 +44,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testGetEnabledQueryTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'query_type1' => $this->queryType1,
             ],
@@ -58,7 +58,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testGetQueryTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'query_type1' => $this->queryType1,
                 'query_type2' => $this->queryType2,
@@ -72,7 +72,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testGetQueryType(): void
     {
-        $this->assertSame($this->queryType1, $this->registry->getQueryType('query_type1'));
+        self::assertSame($this->queryType1, $this->registry->getQueryType('query_type1'));
     }
 
     /**
@@ -90,7 +90,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testHasQueryType(): void
     {
-        $this->assertTrue($this->registry->hasQueryType('query_type1'));
+        self::assertTrue($this->registry->hasQueryType('query_type1'));
     }
 
     /**
@@ -98,7 +98,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testHasQueryTypeWithNoQueryType(): void
     {
-        $this->assertFalse($this->registry->hasQueryType('other_query_type'));
+        self::assertFalse($this->registry->hasQueryType('other_query_type'));
     }
 
     /**
@@ -106,14 +106,14 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $queryTypes = [];
         foreach ($this->registry as $identifier => $queryType) {
             $queryTypes[$identifier] = $queryType;
         }
 
-        $this->assertSame($this->registry->getQueryTypes(), $queryTypes);
+        self::assertSame($this->registry->getQueryTypes(), $queryTypes);
     }
 
     /**
@@ -121,7 +121,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(2, $this->registry);
+        self::assertCount(2, $this->registry);
     }
 
     /**
@@ -129,8 +129,8 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('query_type1', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('query_type1', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -138,7 +138,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->queryType1, $this->registry['query_type1']);
+        self::assertSame($this->queryType1, $this->registry['query_type1']);
     }
 
     /**

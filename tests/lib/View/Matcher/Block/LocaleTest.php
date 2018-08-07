@@ -37,7 +37,7 @@ final class LocaleTest extends TestCase
 
         $view = new BlockView($block);
 
-        $this->assertSame($expected, $this->matcher->match($view, $config));
+        self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
     public function matchProvider(): array
@@ -56,6 +56,6 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithNoBlockView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

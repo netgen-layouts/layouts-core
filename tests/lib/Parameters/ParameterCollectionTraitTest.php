@@ -21,7 +21,7 @@ final class ParameterCollectionTraitTest extends TestCase
             ['parameters' => ['name' => $parameter]]
         );
 
-        $this->assertSame($parameter, $parameters->getParameter('name'));
+        self::assertSame($parameter, $parameters->getParameter('name'));
     }
 
     /**
@@ -49,7 +49,7 @@ final class ParameterCollectionTraitTest extends TestCase
             ['parameters' => ['name' => $parameter]]
         );
 
-        $this->assertSame(
+        self::assertSame(
             ['name' => $parameter],
             $parameters->getParameters()
         );
@@ -64,7 +64,7 @@ final class ParameterCollectionTraitTest extends TestCase
             ['parameters' => ['name' => new Parameter()]]
         );
 
-        $this->assertFalse($parameters->hasParameter('test'));
-        $this->assertTrue($parameters->hasParameter('name'));
+        self::assertFalse($parameters->hasParameter('test'));
+        self::assertTrue($parameters->hasParameter('name'));
     }
 }

@@ -15,7 +15,7 @@ final class CollectionTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Collection());
+        self::assertInstanceOf(Value::class, new Collection());
     }
 
     /**
@@ -27,8 +27,8 @@ final class CollectionTest extends TestCase
     {
         $collection = new Collection();
 
-        $this->assertSame([], $collection->getAvailableLocales());
-        $this->assertSame([], $collection->getItems());
+        self::assertSame([], $collection->getAvailableLocales());
+        self::assertSame([], $collection->getItems());
     }
 
     /**
@@ -71,28 +71,28 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $collection->getId());
-        $this->assertSame(5, $collection->getOffset());
-        $this->assertSame(10, $collection->getLimit());
-        $this->assertSame('en', $collection->getMainLocale());
-        $this->assertSame(['en', 'hr'], $collection->getAvailableLocales());
-        $this->assertTrue($collection->isTranslatable());
-        $this->assertFalse($collection->isAlwaysAvailable());
-        $this->assertSame('en', $collection->getLocale());
-        $this->assertCount(2, $collection->getItems());
+        self::assertSame(42, $collection->getId());
+        self::assertSame(5, $collection->getOffset());
+        self::assertSame(10, $collection->getLimit());
+        self::assertSame('en', $collection->getMainLocale());
+        self::assertSame(['en', 'hr'], $collection->getAvailableLocales());
+        self::assertTrue($collection->isTranslatable());
+        self::assertFalse($collection->isAlwaysAvailable());
+        self::assertSame('en', $collection->getLocale());
+        self::assertCount(2, $collection->getItems());
 
-        $this->assertInstanceOf(Item::class, $collection->getItem(3));
-        $this->assertInstanceOf(Item::class, $collection->getItem(5));
+        self::assertInstanceOf(Item::class, $collection->getItem(3));
+        self::assertInstanceOf(Item::class, $collection->getItem(5));
 
-        $this->assertSame($query, $collection->getQuery());
-        $this->assertTrue($collection->hasQuery());
+        self::assertSame($query, $collection->getQuery());
+        self::assertTrue($collection->hasQuery());
 
-        $this->assertFalse($collection->hasItem(2));
-        $this->assertTrue($collection->hasItem(3));
-        $this->assertTrue($collection->hasItem(5));
+        self::assertFalse($collection->hasItem(2));
+        self::assertTrue($collection->hasItem(3));
+        self::assertTrue($collection->hasItem(5));
 
-        $this->assertSame($items[0], $collection->getItem(3));
-        $this->assertSame($items[1], $collection->getItem(5));
+        self::assertSame($items[0], $collection->getItem(3));
+        self::assertSame($items[1], $collection->getItem(5));
     }
 
     /**
@@ -106,6 +106,6 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertSame(0, $collection->getOffset());
+        self::assertSame(0, $collection->getOffset());
     }
 }

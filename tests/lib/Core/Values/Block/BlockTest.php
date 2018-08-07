@@ -18,7 +18,7 @@ final class BlockTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Block());
+        self::assertInstanceOf(Value::class, new Block());
     }
 
     /**
@@ -31,9 +31,9 @@ final class BlockTest extends TestCase
     {
         $block = new Block();
 
-        $this->assertSame([], $block->getPlaceholders());
-        $this->assertSame([], $block->getCollections());
-        $this->assertSame([], $block->getAvailableLocales());
+        self::assertSame([], $block->getPlaceholders());
+        self::assertSame([], $block->getCollections());
+        self::assertSame([], $block->getAvailableLocales());
     }
 
     /**
@@ -87,26 +87,26 @@ final class BlockTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $block->getId());
-        $this->assertSame(24, $block->getLayoutId());
-        $this->assertSame($definition, $block->getDefinition());
-        $this->assertSame($placeholder, $block->getPlaceholder('main'));
-        $this->assertFalse($block->hasPlaceholder('test'));
-        $this->assertTrue($block->hasPlaceholder('main'));
-        $this->assertSame($collection, $block->getCollection('default'));
-        $this->assertFalse($block->hasCollection('test'));
-        $this->assertTrue($block->hasCollection('default'));
-        $this->assertSame('default', $block->getViewType());
-        $this->assertSame('standard', $block->getItemViewType());
-        $this->assertSame('My block', $block->getName());
-        $this->assertSame(3, $block->getParentPosition());
-        $this->assertTrue($block->isTranslatable());
-        $this->assertSame('en', $block->getMainLocale());
-        $this->assertTrue($block->isAlwaysAvailable());
-        $this->assertSame(['en'], $block->getAvailableLocales());
-        $this->assertSame('en', $block->getLocale());
+        self::assertSame(42, $block->getId());
+        self::assertSame(24, $block->getLayoutId());
+        self::assertSame($definition, $block->getDefinition());
+        self::assertSame($placeholder, $block->getPlaceholder('main'));
+        self::assertFalse($block->hasPlaceholder('test'));
+        self::assertTrue($block->hasPlaceholder('main'));
+        self::assertSame($collection, $block->getCollection('default'));
+        self::assertFalse($block->hasCollection('test'));
+        self::assertTrue($block->hasCollection('default'));
+        self::assertSame('default', $block->getViewType());
+        self::assertSame('standard', $block->getItemViewType());
+        self::assertSame('My block', $block->getName());
+        self::assertSame(3, $block->getParentPosition());
+        self::assertTrue($block->isTranslatable());
+        self::assertSame('en', $block->getMainLocale());
+        self::assertTrue($block->isAlwaysAvailable());
+        self::assertSame(['en'], $block->getAvailableLocales());
+        self::assertSame('en', $block->getLocale());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'main' => $placeholder,
             ],
@@ -119,7 +119,7 @@ final class BlockTest extends TestCase
             // Do nothing
         }
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'default' => $collection,
             ],
@@ -150,14 +150,14 @@ final class BlockTest extends TestCase
             ]
         );
 
-        $this->assertTrue($block->hasDynamicParameter('definition_param'));
-        $this->assertSame('definition_value', $block->getDynamicParameter('definition_param'));
+        self::assertTrue($block->hasDynamicParameter('definition_param'));
+        self::assertSame('definition_value', $block->getDynamicParameter('definition_param'));
 
-        $this->assertTrue($block->hasDynamicParameter('closure_param'));
-        $this->assertSame('closure_value', $block->getDynamicParameter('closure_param'));
+        self::assertTrue($block->hasDynamicParameter('closure_param'));
+        self::assertSame('closure_value', $block->getDynamicParameter('closure_param'));
 
-        $this->assertNull($block->getDynamicParameter('unknown_param'));
-        $this->assertFalse($block->hasDynamicParameter('unknown_param'));
+        self::assertNull($block->getDynamicParameter('unknown_param'));
+        self::assertFalse($block->hasDynamicParameter('unknown_param'));
     }
 
     /**
@@ -175,6 +175,6 @@ final class BlockTest extends TestCase
             ]
         );
 
-        $this->assertFalse($query->isContextual());
+        self::assertFalse($query->isContextual());
     }
 }

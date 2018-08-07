@@ -39,7 +39,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
             $this->listener::getSubscribedEvents()
         );
@@ -57,14 +57,14 @@ final class RuleCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getRuleCount')
-            ->with($this->identicalTo($layout))
-            ->will($this->returnValue(3));
+            ->with(self::identicalTo($layout))
+            ->will(self::returnValue(3));
 
         $this->listener->onBuildView($event);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'rule_count' => 3,
             ],
@@ -82,12 +82,12 @@ final class RuleCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('getRuleCount');
 
         $this->listener->onBuildView($event);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'rule_count' => 0,
             ],
@@ -104,7 +104,7 @@ final class RuleCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 
     /**
@@ -118,6 +118,6 @@ final class RuleCountListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 }

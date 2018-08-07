@@ -36,7 +36,7 @@ final class ApiKeysNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'api_keys.google_maps'
@@ -59,7 +59,7 @@ final class ApiKeysNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'api_keys.google_maps'

@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
@@ -49,26 +48,19 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $rule = $this->mapper->mapRule($persistenceRule);
 
-        $this->assertInstanceOf(APIRule::class, $rule);
-        $this->assertSame(3, $rule->getId());
-        $this->assertInstanceOf(Layout::class, $rule->getLayout());
-        $this->assertSame(1, $rule->getLayout()->getId());
-        $this->assertTrue($rule->isPublished());
-        $this->assertTrue($rule->isEnabled());
-        $this->assertSame(12, $rule->getPriority());
-        $this->assertSame('Comment', $rule->getComment());
+        self::assertSame(3, $rule->getId());
+        self::assertInstanceOf(Layout::class, $rule->getLayout());
+        self::assertSame(1, $rule->getLayout()->getId());
+        self::assertTrue($rule->isPublished());
+        self::assertTrue($rule->isEnabled());
+        self::assertSame(12, $rule->getPriority());
+        self::assertSame('Comment', $rule->getComment());
 
-        $this->assertNotEmpty($rule->getTargets());
+        self::assertNotEmpty($rule->getTargets());
+        self::assertContainsOnlyInstancesOf(APITarget::class, $rule->getTargets());
 
-        foreach ($rule->getTargets() as $target) {
-            $this->assertInstanceOf(APITarget::class, $target);
-        }
-
-        $this->assertNotEmpty($rule->getConditions());
-
-        foreach ($rule->getConditions() as $condition) {
-            $this->assertInstanceOf(APICondition::class, $condition);
-        }
+        self::assertNotEmpty($rule->getConditions());
+        self::assertContainsOnlyInstancesOf(APICondition::class, $rule->getConditions());
     }
 
     /**
@@ -84,8 +76,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $rule = $this->mapper->mapRule($persistenceRule);
 
-        $this->assertInstanceOf(APIRule::class, $rule);
-        $this->assertNull($rule->getLayout());
+        self::assertNull($rule->getLayout());
     }
 
     /**
@@ -105,16 +96,15 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $target = $this->mapper->mapTarget($persistenceTarget);
 
-        $this->assertSame(
+        self::assertSame(
             $this->targetTypeRegistry->getTargetType('target1'),
             $target->getTargetType()
         );
 
-        $this->assertInstanceOf(APITarget::class, $target);
-        $this->assertSame(1, $target->getId());
-        $this->assertTrue($target->isPublished());
-        $this->assertSame(42, $target->getRuleId());
-        $this->assertSame(42, $target->getValue());
+        self::assertSame(1, $target->getId());
+        self::assertTrue($target->isPublished());
+        self::assertSame(42, $target->getRuleId());
+        self::assertSame(42, $target->getValue());
     }
 
     /**
@@ -134,13 +124,12 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $target = $this->mapper->mapTarget($persistenceTarget);
 
-        $this->assertInstanceOf(NullTargetType::class, $target->getTargetType());
+        self::assertInstanceOf(NullTargetType::class, $target->getTargetType());
 
-        $this->assertInstanceOf(APITarget::class, $target);
-        $this->assertSame(1, $target->getId());
-        $this->assertTrue($target->isPublished());
-        $this->assertSame(42, $target->getRuleId());
-        $this->assertSame(42, $target->getValue());
+        self::assertSame(1, $target->getId());
+        self::assertTrue($target->isPublished());
+        self::assertSame(42, $target->getRuleId());
+        self::assertSame(42, $target->getValue());
     }
 
     /**
@@ -160,16 +149,15 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $condition = $this->mapper->mapCondition($persistenceCondition);
 
-        $this->assertSame(
+        self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
             $condition->getConditionType()
         );
 
-        $this->assertInstanceOf(APICondition::class, $condition);
-        $this->assertSame(1, $condition->getId());
-        $this->assertTrue($condition->isPublished());
-        $this->assertSame(42, $condition->getRuleId());
-        $this->assertSame(42, $condition->getValue());
+        self::assertSame(1, $condition->getId());
+        self::assertTrue($condition->isPublished());
+        self::assertSame(42, $condition->getRuleId());
+        self::assertSame(42, $condition->getValue());
     }
 
     /**
@@ -189,12 +177,11 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $condition = $this->mapper->mapCondition($persistenceCondition);
 
-        $this->assertInstanceOf(NullConditionType::class, $condition->getConditionType());
+        self::assertInstanceOf(NullConditionType::class, $condition->getConditionType());
 
-        $this->assertInstanceOf(APICondition::class, $condition);
-        $this->assertSame(1, $condition->getId());
-        $this->assertTrue($condition->isPublished());
-        $this->assertSame(42, $condition->getRuleId());
-        $this->assertSame(42, $condition->getValue());
+        self::assertSame(1, $condition->getId());
+        self::assertTrue($condition->isPublished());
+        self::assertSame(42, $condition->getRuleId());
+        self::assertSame(42, $condition->getValue());
     }
 }

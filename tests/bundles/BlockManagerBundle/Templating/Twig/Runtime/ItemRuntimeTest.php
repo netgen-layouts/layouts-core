@@ -56,20 +56,20 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('load')
-            ->with($this->identicalTo(42), $this->identicalTo('value'))
-            ->will($this->returnValue($cmsItem));
+            ->with(self::identicalTo(42), self::identicalTo('value'))
+            ->will(self::returnValue($cmsItem));
 
         $this->urlGeneratorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
-            ->with($this->identicalTo($cmsItem))
-            ->will($this->returnValue('/item/path'));
+            ->with(self::identicalTo($cmsItem))
+            ->will(self::returnValue('/item/path'));
 
         $itemPath = $this->runtime->getItemPath(42, 'value');
 
-        $this->assertSame('/item/path', $itemPath);
+        self::assertSame('/item/path', $itemPath);
     }
 
     /**
@@ -80,20 +80,20 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('load')
-            ->with($this->identicalTo('42'), $this->identicalTo('value'))
-            ->will($this->returnValue($cmsItem));
+            ->with(self::identicalTo('42'), self::identicalTo('value'))
+            ->will(self::returnValue($cmsItem));
 
         $this->urlGeneratorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
-            ->with($this->identicalTo($cmsItem))
-            ->will($this->returnValue('/item/path'));
+            ->with(self::identicalTo($cmsItem))
+            ->will(self::returnValue('/item/path'));
 
         $itemPath = $this->runtime->getItemPath('value://42');
 
-        $this->assertSame('/item/path', $itemPath);
+        self::assertSame('/item/path', $itemPath);
     }
 
     /**
@@ -104,18 +104,18 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
-            ->with($this->identicalTo($cmsItem))
-            ->will($this->returnValue('/item/path'));
+            ->with(self::identicalTo($cmsItem))
+            ->will(self::returnValue('/item/path'));
 
         $itemPath = $this->runtime->getItemPath($cmsItem);
 
-        $this->assertSame('/item/path', $itemPath);
+        self::assertSame('/item/path', $itemPath);
     }
 
     /**
@@ -124,14 +124,14 @@ final class ItemRuntimeTest extends TestCase
     public function testGetItemPathWithInvalidValue(): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('generate');
 
-        $this->assertSame('', $this->runtime->getItemPath('value'));
+        self::assertSame('', $this->runtime->getItemPath('value'));
     }
 
     /**
@@ -140,14 +140,14 @@ final class ItemRuntimeTest extends TestCase
     public function testGetItemPathWithUnsupportedValue(): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('generate');
 
-        $this->assertSame('', $this->runtime->getItemPath(42));
+        self::assertSame('', $this->runtime->getItemPath(42));
     }
 
     /**
@@ -156,14 +156,14 @@ final class ItemRuntimeTest extends TestCase
     public function testGetItemPathWithObjectAndValueType(): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('generate');
 
-        $this->assertSame('', $this->runtime->getItemPath(new stdClass(), 'value'));
+        self::assertSame('', $this->runtime->getItemPath(new stdClass(), 'value'));
     }
 
     /**
@@ -176,11 +176,11 @@ final class ItemRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $this->cmsItemLoaderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('generate');
 
         $this->runtime->getItemPath('value');
@@ -196,11 +196,11 @@ final class ItemRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $this->cmsItemLoaderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('generate');
 
         $this->runtime->getItemPath(new stdClass());

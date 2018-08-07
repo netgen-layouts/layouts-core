@@ -34,14 +34,14 @@ final class LoadConfigTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_OK);
+        self::assertResponseCode($response, Response::HTTP_OK);
 
         $responseContent = json_decode($response->getContent(), true);
 
-        $this->assertInternalType('array', $responseContent);
-        $this->assertArrayHasKey('csrf_token', $responseContent);
+        self::assertInternalType('array', $responseContent);
+        self::assertArrayHasKey('csrf_token', $responseContent);
 
-        $this->assertInternalType('string', $responseContent['csrf_token']);
-        $this->assertSame($currentToken->getValue(), $responseContent['csrf_token']);
+        self::assertInternalType('string', $responseContent['csrf_token']);
+        self::assertSame($currentToken->getValue(), $responseContent['csrf_token']);
     }
 }

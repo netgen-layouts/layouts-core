@@ -63,7 +63,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertSame('test', $this->builder->get('test')->getName());
+        self::assertSame('test', $this->builder->get('test')->getName());
     }
 
     /**
@@ -81,7 +81,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             $this->registry->getParameterType('text'),
             $this->builder->get('test')->getType()
         );
@@ -103,7 +103,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             ['reverse' => true],
             $this->builder->get('test')->getOptions()
         );
@@ -125,7 +125,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->get('test')->getOption('reverse'));
+        self::assertTrue($this->builder->get('test')->getOption('reverse'));
     }
 
     /**
@@ -146,7 +146,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->get('test')->getOption('unknown'));
+        self::assertTrue($this->builder->get('test')->getOption('unknown'));
     }
 
     /**
@@ -165,8 +165,8 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->get('test')->hasOption('reverse'));
-        $this->assertFalse($this->builder->get('test')->hasOption('unknown'));
+        self::assertTrue($this->builder->get('test')->hasOption('reverse'));
+        self::assertFalse($this->builder->get('test')->hasOption('unknown'));
     }
 
     /**
@@ -185,8 +185,8 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('min', 42);
 
-        $this->assertSame(42, $this->builder->get('test')->getOption('min'));
-        $this->assertSame(100, $this->builder->get('test')->getOption('max'));
+        self::assertSame(42, $this->builder->get('test')->getOption('min'));
+        self::assertSame(100, $this->builder->get('test')->getOption('max'));
     }
 
     /**
@@ -204,7 +204,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('required', false);
 
-        $this->assertFalse($this->builder->get('test')->isRequired());
+        self::assertFalse($this->builder->get('test')->isRequired());
     }
 
     /**
@@ -222,7 +222,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('default_value', 'test2');
 
-        $this->assertSame('test2', $this->builder->get('test')->getDefaultValue());
+        self::assertSame('test2', $this->builder->get('test')->getDefaultValue());
     }
 
     /**
@@ -240,7 +240,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('label', 'test2');
 
-        $this->assertSame('test2', $this->builder->get('test')->getLabel());
+        self::assertSame('test2', $this->builder->get('test')->getLabel());
     }
 
     /**
@@ -258,7 +258,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('groups', ['test2']);
 
-        $this->assertSame(['test2'], $this->builder->get('test')->getGroups());
+        self::assertSame(['test2'], $this->builder->get('test')->getGroups());
     }
 
     /**
@@ -285,7 +285,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setRequired(true);
 
-        $this->assertTrue($this->builder->get('test')->isRequired());
+        self::assertTrue($this->builder->get('test')->isRequired());
     }
 
     /**
@@ -312,7 +312,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setDefaultValue(42);
 
-        $this->assertSame(42, $this->builder->get('test')->getDefaultValue());
+        self::assertSame(42, $this->builder->get('test')->getDefaultValue());
     }
 
     /**
@@ -339,7 +339,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setLabel('Custom label');
 
-        $this->assertSame('Custom label', $this->builder->get('test')->getLabel());
+        self::assertSame('Custom label', $this->builder->get('test')->getLabel());
     }
 
     /**
@@ -366,7 +366,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setGroups(['group']);
 
-        $this->assertSame(['group'], $this->builder->get('test')->getGroups());
+        self::assertSame(['group'], $this->builder->get('test')->getGroups());
     }
 
     /**
@@ -374,7 +374,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetGroupsWithoutParentBuilder(): void
     {
-        $this->assertSame([], $this->builder->getGroups());
+        self::assertSame([], $this->builder->getGroups());
     }
 
     /**
@@ -393,7 +393,7 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setConstraints($constraints);
 
-        $this->assertSame($constraints, $this->builder->get('test')->getConstraints());
+        self::assertSame($constraints, $this->builder->get('test')->getConstraints());
     }
 
     /**
@@ -401,7 +401,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetConstraintsWithoutParentBuilder(): void
     {
-        $this->assertSame([], $this->builder->getConstraints());
+        self::assertSame([], $this->builder->getConstraints());
     }
 
     /**
@@ -450,7 +450,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertSame(['group'], $this->builder->get('test')->get('test2')->getGroups());
+        self::assertSame(['group'], $this->builder->get('test')->get('test2')->getGroups());
     }
 
     /**
@@ -491,7 +491,7 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertCount(2, $this->builder);
+        self::assertCount(2, $this->builder);
     }
 
     /**
@@ -596,10 +596,10 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->has('test'));
-        $this->assertTrue($this->builder->has('test2'));
+        self::assertTrue($this->builder->has('test'));
+        self::assertTrue($this->builder->has('test2'));
 
-        $this->assertFalse($this->builder->has('unknown'));
+        self::assertFalse($this->builder->has('unknown'));
     }
 
     /**
@@ -618,8 +618,8 @@ final class ParameterBuilderTest extends TestCase
             ]
         );
 
-        $compoundBuilder = $this->builder->get('test');
-        $this->assertInstanceOf(ParameterBuilderInterface::class, $compoundBuilder);
+        $this::assertTrue($this->builder->has('test'));
+        $this->builder->get('test');
     }
 
     /**
@@ -688,14 +688,12 @@ final class ParameterBuilderTest extends TestCase
         );
 
         $parameterBuilders = $this->builder->all();
-        $this->assertInternalType('array', $parameterBuilders);
 
-        $this->assertCount(2, $parameterBuilders);
-        $this->assertArrayHasKey('test', $parameterBuilders);
-        $this->assertArrayHasKey('test2', $parameterBuilders);
+        self::assertCount(2, $parameterBuilders);
+        self::assertArrayHasKey('test', $parameterBuilders);
+        self::assertArrayHasKey('test2', $parameterBuilders);
 
-        $this->assertInstanceOf(ParameterBuilderInterface::class, $parameterBuilders['test']);
-        $this->assertInstanceOf(ParameterBuilderInterface::class, $parameterBuilders['test2']);
+        self::assertContainsOnlyInstancesOf(ParameterBuilderInterface::class, $parameterBuilders);
     }
 
     /**
@@ -720,12 +718,10 @@ final class ParameterBuilderTest extends TestCase
         );
 
         $parameterBuilders = $this->builder->all('group');
-        $this->assertInternalType('array', $parameterBuilders);
 
-        $this->assertCount(1, $parameterBuilders);
-        $this->assertArrayHasKey('test', $parameterBuilders);
-
-        $this->assertInstanceOf(ParameterBuilderInterface::class, $parameterBuilders['test']);
+        self::assertCount(1, $parameterBuilders);
+        self::assertArrayHasKey('test', $parameterBuilders);
+        self::assertContainsOnlyInstancesOf(ParameterBuilderInterface::class, $parameterBuilders);
     }
 
     /**
@@ -760,8 +756,8 @@ final class ParameterBuilderTest extends TestCase
 
         $this->builder->remove('test');
 
-        $this->assertCount(0, $this->builder);
-        $this->assertFalse($this->builder->has('test'));
+        self::assertCount(0, $this->builder);
+        self::assertFalse($this->builder->has('test'));
     }
 
     /**
@@ -834,23 +830,23 @@ final class ParameterBuilderTest extends TestCase
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
-        $this->assertArrayHasKey('test', $parameterDefinitions);
-        $this->assertArrayHasKey('compound', $parameterDefinitions);
+        self::assertArrayHasKey('test', $parameterDefinitions);
+        self::assertArrayHasKey('compound', $parameterDefinitions);
 
-        $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
-        $this->assertNotInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['test']);
+        self::assertContainsOnlyInstancesOf(ParameterDefinition::class, $parameterDefinitions);
+        self::assertNotInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['test']);
 
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $parameterDefinitions['compound'];
-        $this->assertInstanceOf(CompoundParameterDefinition::class, $compoundDefinition);
+        self::assertInstanceOf(CompoundParameterDefinition::class, $compoundDefinition);
 
         $innerDefinitions = $compoundDefinition->getParameterDefinitions();
 
-        $this->assertArrayHasKey('test2', $innerDefinitions);
-        $this->assertInstanceOf(ParameterDefinition::class, $innerDefinitions['test2']);
-        $this->assertNotInstanceOf(CompoundParameterDefinition::class, $innerDefinitions['test2']);
+        self::assertArrayHasKey('test2', $innerDefinitions);
 
-        $this->assertSame(
+        self::assertContainsOnlyInstancesOf(ParameterDefinition::class, $innerDefinitions);
+        self::assertNotInstanceOf(CompoundParameterDefinition::class, $innerDefinitions['test2']);
+
+        self::assertSame(
             [
                 'name' => 'test',
                 'type' => $this->registry->getParameterType('text'),
@@ -864,7 +860,7 @@ final class ParameterBuilderTest extends TestCase
             $this->exportObject($parameterDefinitions['test'])
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'compound',
                 'type' => $this->registry->getParameterType('compound_boolean'),
@@ -879,7 +875,7 @@ final class ParameterBuilderTest extends TestCase
             $this->exportObject($parameterDefinitions['compound'])
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'test2',
                 'type' => $this->registry->getParameterType('text'),
@@ -921,10 +917,10 @@ final class ParameterBuilderTest extends TestCase
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
-        $this->assertArrayHasKey('test', $parameterDefinitions);
-        $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
+        self::assertArrayHasKey('test', $parameterDefinitions);
+        self::assertContainsOnlyInstancesOf(ParameterDefinition::class, $parameterDefinitions);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'test',
                 'type' => $this->registry->getParameterType('text'),
@@ -952,10 +948,10 @@ final class ParameterBuilderTest extends TestCase
 
         $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
-        $this->assertArrayHasKey('test', $parameterDefinitions);
-        $this->assertInstanceOf(ParameterDefinition::class, $parameterDefinitions['test']);
+        self::assertArrayHasKey('test', $parameterDefinitions);
+        self::assertContainsOnlyInstancesOf(ParameterDefinition::class, $parameterDefinitions);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'test',
                 'type' => $this->registry->getParameterType('text'),

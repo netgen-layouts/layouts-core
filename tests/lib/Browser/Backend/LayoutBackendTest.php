@@ -39,13 +39,13 @@ final class LayoutBackendTest extends TestCase
     public function testGetSections(): void
     {
         $this->layoutServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadLayout');
 
         $locations = $this->backend->getSections();
 
-        $this->assertCount(1, $locations);
-        $this->assertInstanceOf(RootLocation::class, $locations[0]);
+        self::assertCount(1, $locations);
+        self::assertInstanceOf(RootLocation::class, $locations[0]);
     }
 
     /**
@@ -54,12 +54,12 @@ final class LayoutBackendTest extends TestCase
     public function testLoadLocation(): void
     {
         $this->layoutServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadLayout');
 
         $location = $this->backend->loadLocation(1);
 
-        $this->assertInstanceOf(RootLocation::class, $location);
+        self::assertInstanceOf(RootLocation::class, $location);
     }
 
     /**
@@ -71,17 +71,17 @@ final class LayoutBackendTest extends TestCase
         $layout = new Layout();
 
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayout')
-            ->with($this->identicalTo(1))
-            ->will($this->returnValue($layout));
+            ->with(self::identicalTo(1))
+            ->will(self::returnValue($layout));
 
         /** @var \Netgen\BlockManager\Browser\Item\Layout\LayoutInterface $item */
         $item = $this->backend->loadItem(1);
 
-        $this->assertInstanceOf(ItemInterface::class, $item);
-        $this->assertInstanceOf(LayoutInterface::class, $item);
-        $this->assertSame($layout, $item->getLayout());
+        self::assertInstanceOf(ItemInterface::class, $item);
+        self::assertInstanceOf(LayoutInterface::class, $item);
+        self::assertSame($layout, $item->getLayout());
     }
 
     /**
@@ -92,10 +92,10 @@ final class LayoutBackendTest extends TestCase
     public function testLoadItemThrowsNotFoundException(): void
     {
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayout')
-            ->with($this->identicalTo(1))
-            ->will($this->throwException(new NotFoundException('layout', 1)));
+            ->with(self::identicalTo(1))
+            ->will(self::throwException(new NotFoundException('layout', 1)));
 
         $this->backend->loadItem(1);
     }
@@ -107,7 +107,7 @@ final class LayoutBackendTest extends TestCase
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
-        $this->assertSame([], $locations);
+        self::assertSame([], $locations);
     }
 
     /**
@@ -117,7 +117,7 @@ final class LayoutBackendTest extends TestCase
     {
         $count = $this->backend->getSubLocationsCount(new RootLocation());
 
-        $this->assertSame(0, $count);
+        self::assertSame(0, $count);
     }
 
     /**
@@ -128,20 +128,20 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItems(): void
     {
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayouts')
             ->with(
-                $this->identicalTo(false),
-                $this->identicalTo(0),
-                $this->identicalTo(25)
+                self::identicalTo(false),
+                self::identicalTo(0),
+                self::identicalTo(25)
             )
-            ->will($this->returnValue([new Layout(), new Layout()]));
+            ->will(self::returnValue([new Layout(), new Layout()]));
 
         $items = $this->backend->getSubItems(new RootLocation());
 
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
         foreach ($items as $item) {
-            $this->assertInstanceOf(ItemInterface::class, $item);
+            self::assertInstanceOf(ItemInterface::class, $item);
         }
     }
 
@@ -153,14 +153,14 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItemsWithOffsetAndLimit(): void
     {
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayouts')
             ->with(
-                $this->identicalTo(false),
-                $this->identicalTo(5),
-                $this->identicalTo(10)
+                self::identicalTo(false),
+                self::identicalTo(5),
+                self::identicalTo(10)
             )
-            ->will($this->returnValue([new Layout(), new Layout()]));
+            ->will(self::returnValue([new Layout(), new Layout()]));
 
         $items = $this->backend->getSubItems(
             new RootLocation(),
@@ -168,9 +168,9 @@ final class LayoutBackendTest extends TestCase
             10
         );
 
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
         foreach ($items as $item) {
-            $this->assertInstanceOf(ItemInterface::class, $item);
+            self::assertInstanceOf(ItemInterface::class, $item);
         }
     }
 
@@ -180,13 +180,13 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItemsCount(): void
     {
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLayoutsCount')
-            ->will($this->returnValue(2));
+            ->will(self::returnValue(2));
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 
-        $this->assertSame(2, $count);
+        self::assertSame(2, $count);
     }
 
     /**
@@ -196,7 +196,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test');
 
-        $this->assertSame([], $items);
+        self::assertSame([], $items);
     }
 
     /**
@@ -206,7 +206,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test', 5, 10);
 
-        $this->assertSame([], $items);
+        self::assertSame([], $items);
     }
 
     /**
@@ -216,6 +216,6 @@ final class LayoutBackendTest extends TestCase
     {
         $count = $this->backend->searchCount('test');
 
-        $this->assertSame(0, $count);
+        self::assertSame(0, $count);
     }
 }

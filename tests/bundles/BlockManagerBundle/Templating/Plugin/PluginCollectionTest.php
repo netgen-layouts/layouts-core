@@ -45,7 +45,7 @@ final class PluginCollectionTest extends TestCase
      */
     public function testGetPluginName(): void
     {
-        $this->assertSame('plugin', $this->pluginCollection->getPluginName());
+        self::assertSame('plugin', $this->pluginCollection->getPluginName());
     }
 
     /**
@@ -53,6 +53,6 @@ final class PluginCollectionTest extends TestCase
      */
     public function testGetPlugins(): void
     {
-        $this->assertSame([$this->plugin1, $this->plugin2], $this->pluginCollection->getPlugins());
+        self::assertSame([$this->plugin1, $this->plugin2], $this->pluginCollection->getPlugins());
     }
 }

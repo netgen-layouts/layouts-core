@@ -39,7 +39,7 @@ final class CollectionNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => $collection->getId(),
                 'type' => Collection::TYPE_DYNAMIC,
@@ -61,7 +61,7 @@ final class CollectionNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

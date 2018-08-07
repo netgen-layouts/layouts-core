@@ -16,7 +16,7 @@ final class NotFoundExceptionTest extends TestCase
     {
         $exception = new NotFoundException('test');
 
-        $this->assertSame('Could not find test', $exception->getMessage());
+        self::assertSame('Could not find test', $exception->getMessage());
     }
 
     /**
@@ -26,7 +26,7 @@ final class NotFoundExceptionTest extends TestCase
     {
         $exception = new NotFoundException('test', 1);
 
-        $this->assertSame(
+        self::assertSame(
             'Could not find test with identifier "1"',
             $exception->getMessage()
         );

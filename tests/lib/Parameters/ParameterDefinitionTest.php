@@ -24,12 +24,12 @@ final class ParameterDefinitionTest extends TestCase
     {
         $parameterDefinition = new ParameterDefinition();
 
-        $this->assertSame([], $parameterDefinition->getOptions());
-        $this->assertFalse($parameterDefinition->isRequired());
-        $this->assertNull($parameterDefinition->getDefaultValue());
-        $this->assertNull($parameterDefinition->getLabel());
-        $this->assertSame([], $parameterDefinition->getGroups());
-        $this->assertSame([], $parameterDefinition->getConstraints());
+        self::assertSame([], $parameterDefinition->getOptions());
+        self::assertFalse($parameterDefinition->isRequired());
+        self::assertNull($parameterDefinition->getDefaultValue());
+        self::assertNull($parameterDefinition->getLabel());
+        self::assertSame([], $parameterDefinition->getGroups());
+        self::assertSame([], $parameterDefinition->getConstraints());
     }
 
     /**
@@ -61,22 +61,22 @@ final class ParameterDefinitionTest extends TestCase
             ]
         );
 
-        $this->assertSame('name', $parameterDefinition->getName());
-        $this->assertSame($type, $parameterDefinition->getType());
-        $this->assertSame(['option' => 'value'], $parameterDefinition->getOptions());
-        $this->assertTrue($parameterDefinition->hasOption('option'));
-        $this->assertFalse($parameterDefinition->hasOption('other'));
-        $this->assertSame('value', $parameterDefinition->getOption('option'));
-        $this->assertTrue($parameterDefinition->isRequired());
-        $this->assertSame(42, $parameterDefinition->getDefaultValue());
-        $this->assertSame('Custom label', $parameterDefinition->getLabel());
-        $this->assertSame(['group'], $parameterDefinition->getGroups());
-        $this->assertSame($constraints, $parameterDefinition->getConstraints());
+        self::assertSame('name', $parameterDefinition->getName());
+        self::assertSame($type, $parameterDefinition->getType());
+        self::assertSame(['option' => 'value'], $parameterDefinition->getOptions());
+        self::assertTrue($parameterDefinition->hasOption('option'));
+        self::assertFalse($parameterDefinition->hasOption('other'));
+        self::assertSame('value', $parameterDefinition->getOption('option'));
+        self::assertTrue($parameterDefinition->isRequired());
+        self::assertSame(42, $parameterDefinition->getDefaultValue());
+        self::assertSame('Custom label', $parameterDefinition->getLabel());
+        self::assertSame(['group'], $parameterDefinition->getGroups());
+        self::assertSame($constraints, $parameterDefinition->getConstraints());
 
         try {
             $parameterDefinition->getOption('other');
 
-            $this->fail('Non existing option was returned.');
+            self::fail('Non existing option was returned.');
         } catch (ParameterException $e) {
             // Do nothing
         }

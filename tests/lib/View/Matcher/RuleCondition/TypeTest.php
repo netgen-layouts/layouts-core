@@ -39,7 +39,7 @@ final class TypeTest extends TestCase
 
         $view = new RuleConditionView($condition);
 
-        $this->assertSame($expected, $this->matcher->match($view, $config));
+        self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -55,7 +55,7 @@ final class TypeTest extends TestCase
 
         $view = new RuleConditionView($condition);
 
-        $this->assertTrue($this->matcher->match($view, ['null']));
+        self::assertTrue($this->matcher->match($view, ['null']));
     }
 
     /**
@@ -71,7 +71,7 @@ final class TypeTest extends TestCase
 
         $view = new RuleConditionView($condition);
 
-        $this->assertFalse($this->matcher->match($view, ['test']));
+        self::assertFalse($this->matcher->match($view, ['test']));
     }
 
     public function matchProvider(): array
@@ -90,6 +90,6 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoRuleConditionView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

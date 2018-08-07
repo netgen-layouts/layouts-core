@@ -23,11 +23,11 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $item->id);
-        $this->assertSame(30, $item->collectionId);
-        $this->assertSame(3, $item->position);
-        $this->assertSame(32, $item->value);
-        $this->assertSame('my_value_type', $item->valueType);
-        $this->assertSame(Value::STATUS_PUBLISHED, $item->status);
+        self::assertSame(42, $item->id);
+        self::assertSame(30, $item->collectionId);
+        self::assertSame(3, $item->position);
+        self::assertSame(32, $item->value);
+        self::assertSame('my_value_type', $item->valueType);
+        self::assertSame(Value::STATUS_PUBLISHED, $item->status);
     }
 }

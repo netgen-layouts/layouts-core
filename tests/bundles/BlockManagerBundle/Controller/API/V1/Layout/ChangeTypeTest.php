@@ -35,7 +35,7 @@ final class ChangeTypeTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/change_type',
             Response::HTTP_OK
@@ -62,7 +62,7 @@ final class ChangeTypeTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/change_type_without_mappings',
             Response::HTTP_OK

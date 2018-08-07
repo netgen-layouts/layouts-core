@@ -60,7 +60,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'view'
@@ -101,7 +101,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'view.*.*.*.match'
@@ -142,7 +142,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'view.*.*.*.match'
@@ -181,7 +181,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'view.*.*.*.parameters'
@@ -206,7 +206,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -227,7 +227,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -244,7 +244,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -259,7 +259,7 @@ final class ViewNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -272,7 +272,7 @@ final class ViewNodeTest extends TestCase
             'view' => [],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

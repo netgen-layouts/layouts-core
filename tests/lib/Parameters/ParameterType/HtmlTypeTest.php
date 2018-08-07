@@ -24,7 +24,7 @@ final class HtmlTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('html', $this->type::getIdentifier());
+        self::assertSame('html', $this->type::getIdentifier());
     }
 
     /**
@@ -43,7 +43,7 @@ HTML;
 <a href="http://www.google.com">Google</a>
 HTML;
 
-        $this->assertSame($safeHtml, $this->type->toHash($this->getParameterDefinition(), $unsafeHtml));
+        self::assertSame($safeHtml, $this->type->toHash($this->getParameterDefinition(), $unsafeHtml));
     }
 
     /**
@@ -53,7 +53,7 @@ HTML;
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertSame($resolvedOptions, $parameter->getOptions());
+        self::assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -101,7 +101,7 @@ HTML;
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array

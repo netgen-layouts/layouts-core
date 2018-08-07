@@ -19,9 +19,9 @@ final class ParameterTest extends TestCase
     {
         $parameter = new Parameter();
 
-        $this->assertNull($parameter->getValue());
-        $this->assertTrue($parameter->isEmpty());
-        $this->assertSame('', (string) $parameter);
+        self::assertNull($parameter->getValue());
+        self::assertTrue($parameter->isEmpty());
+        self::assertSame('', (string) $parameter);
     }
 
     /**
@@ -44,10 +44,10 @@ final class ParameterTest extends TestCase
             ]
         );
 
-        $this->assertSame('param_name', $parameter->getName());
-        $this->assertSame($parameterDefinition, $parameter->getParameterDefinition());
-        $this->assertSame(42, $parameter->getValue());
-        $this->assertFalse($parameter->isEmpty());
-        $this->assertSame('42', (string) $parameter);
+        self::assertSame('param_name', $parameter->getName());
+        self::assertSame($parameterDefinition, $parameter->getParameterDefinition());
+        self::assertSame(42, $parameter->getValue());
+        self::assertFalse($parameter->isEmpty());
+        self::assertSame('42', (string) $parameter);
     }
 }

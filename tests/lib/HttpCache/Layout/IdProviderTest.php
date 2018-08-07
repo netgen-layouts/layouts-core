@@ -36,11 +36,11 @@ final class IdProviderTest extends TestCase
     public function testProvideIds(): void
     {
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayout')
-            ->with($this->identicalTo(42))
+            ->with(self::identicalTo(42))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     Layout::fromArray(
                         [
                             'id' => 42,
@@ -52,7 +52,7 @@ final class IdProviderTest extends TestCase
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertSame([42], $providedIds);
+        self::assertSame([42], $providedIds);
     }
 
     /**
@@ -61,18 +61,18 @@ final class IdProviderTest extends TestCase
     public function testProvideIdsWithNonExistingLayout(): void
     {
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayout')
-            ->with($this->identicalTo(42))
+            ->with(self::identicalTo(42))
             ->will(
-                $this->throwException(
+                self::throwException(
                     new NotFoundException('layout', 42)
                 )
             );
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertSame([42], $providedIds);
+        self::assertSame([42], $providedIds);
     }
 
     /**
@@ -88,17 +88,17 @@ final class IdProviderTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($sharedLayout));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($sharedLayout));
 
         $this->layoutServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadRelatedLayouts')
-            ->with($this->identicalTo($sharedLayout))
+            ->with(self::identicalTo($sharedLayout))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     [
                         Layout::fromArray(
                             [
@@ -116,6 +116,6 @@ final class IdProviderTest extends TestCase
 
         $providedIds = $this->idProvider->provideIds(42);
 
-        $this->assertSame([42, 43, 44], $providedIds);
+        self::assertSame([42, 43, 44], $providedIds);
     }
 }

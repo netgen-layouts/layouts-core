@@ -30,7 +30,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('value', $this->valueType->getIdentifier());
+        self::assertSame('value', $this->valueType->getIdentifier());
     }
 
     /**
@@ -38,7 +38,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testIsEnabled(): void
     {
-        $this->assertFalse($this->valueType->isEnabled());
+        self::assertFalse($this->valueType->isEnabled());
     }
 
     /**
@@ -46,6 +46,6 @@ final class ValueTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Value type', $this->valueType->getName());
+        self::assertSame('Value type', $this->valueType->getName());
     }
 }

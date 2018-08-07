@@ -25,10 +25,10 @@ final class ItemExtensionTest extends TestCase
      */
     public function testGetFunctions(): void
     {
-        $this->assertNotEmpty($this->extension->getFunctions());
+        self::assertNotEmpty($this->extension->getFunctions());
 
         foreach ($this->extension->getFunctions() as $function) {
-            $this->assertInstanceOf(TwigFunction::class, $function);
+            self::assertInstanceOf(TwigFunction::class, $function);
         }
     }
 }

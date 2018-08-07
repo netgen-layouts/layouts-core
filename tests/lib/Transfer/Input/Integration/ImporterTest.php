@@ -63,10 +63,10 @@ abstract class ImporterTest extends ServiceTestCase
         $this->layoutResolverService = $this->createLayoutResolverService();
 
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('loadByRemoteId')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function ($remoteId): CmsItemInterface {
                         return CmsItem::fromArray(
                             [
@@ -79,10 +79,10 @@ abstract class ImporterTest extends ServiceTestCase
             );
 
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function ($value): CmsItemInterface {
                         return CmsItem::fromArray(
                             [
@@ -140,9 +140,9 @@ abstract class ImporterTest extends ServiceTestCase
         $decodedData = json_decode($importData, true);
 
         foreach ($this->importer->importData($importData) as $index => $result) {
-            $this->assertInstanceOf(SuccessResult::class, $result);
-            $this->assertInstanceOf(Layout::class, $result->getEntity());
-            $this->assertSame($result->getEntity()->getId(), $result->getEntityId());
+            self::assertInstanceOf(SuccessResult::class, $result);
+            self::assertInstanceOf(Layout::class, $result->getEntity());
+            self::assertSame($result->getEntity()->getId(), $result->getEntityId());
 
             $layoutData = $decodedData['entities'][$index];
             $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntityId()]);
@@ -151,14 +151,14 @@ abstract class ImporterTest extends ServiceTestCase
 
             // After we check that layout names are different, we remove them
             // from the data, so they don't kill the test
-            $this->assertNotEquals($layoutData['name'], $exportedLayoutData['name']);
+            self::assertNotEquals($layoutData['name'], $exportedLayoutData['name']);
             unset($layoutData['name'], $exportedLayoutData['name']);
 
             // Same goes for creation and modification date
-            $this->assertGreaterThan($layoutData['creation_date'], $exportedLayoutData['creation_date']);
+            self::assertGreaterThan($layoutData['creation_date'], $exportedLayoutData['creation_date']);
             unset($layoutData['creation_date'], $exportedLayoutData['creation_date']);
 
-            $this->assertGreaterThan($layoutData['modification_date'], $exportedLayoutData['modification_date']);
+            self::assertGreaterThan($layoutData['modification_date'], $exportedLayoutData['modification_date']);
             unset($layoutData['modification_date'], $exportedLayoutData['modification_date']);
 
             $matcher = $this->matcherFactory->createMatcher();
@@ -172,12 +172,12 @@ abstract class ImporterTest extends ServiceTestCase
                     explode(PHP_EOL, is_string($prettyLayoutData) ? $prettyLayoutData : '')
                 );
 
-                $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
+                self::fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
             }
         }
 
         // Fake assertion to disable risky flag
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -192,9 +192,9 @@ abstract class ImporterTest extends ServiceTestCase
 
         $result = iterator_to_array($this->importer->importData($layoutData));
 
-        $this->assertInstanceOf(ErrorResult::class, $result[0]);
-        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertSame('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(ErrorResult::class, $result[0]);
+        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        self::assertSame('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -209,9 +209,9 @@ abstract class ImporterTest extends ServiceTestCase
 
         $result = iterator_to_array($this->importer->importData($layoutData));
 
-        $this->assertInstanceOf(ErrorResult::class, $result[0]);
-        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertSame('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(ErrorResult::class, $result[0]);
+        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        self::assertSame('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -226,9 +226,9 @@ abstract class ImporterTest extends ServiceTestCase
 
         $result = iterator_to_array($this->importer->importData($layoutData));
 
-        $this->assertInstanceOf(ErrorResult::class, $result[0]);
-        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertSame('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(ErrorResult::class, $result[0]);
+        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        self::assertSame('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -243,9 +243,9 @@ abstract class ImporterTest extends ServiceTestCase
 
         $result = iterator_to_array($this->importer->importData($layoutData));
 
-        $this->assertInstanceOf(ErrorResult::class, $result[0]);
-        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertSame('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(ErrorResult::class, $result[0]);
+        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        self::assertSame('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
     }
 
     /**
@@ -260,9 +260,9 @@ abstract class ImporterTest extends ServiceTestCase
 
         $result = iterator_to_array($this->importer->importData($layoutData));
 
-        $this->assertInstanceOf(ErrorResult::class, $result[0]);
-        $this->assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        $this->assertSame('Missing data for zone "right"', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(ErrorResult::class, $result[0]);
+        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
+        self::assertSame('Missing data for zone "right"', $result[0]->getError()->getMessage());
     }
 
     private function prepareBlockDefinitionRegistry(): void

@@ -114,9 +114,9 @@ final class ParametersTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'Some CSS class',
                 'css_id' => 'Some CSS ID',
@@ -126,18 +126,18 @@ final class ParametersTypeTest extends FormTestCase
             $struct->getParameterValues()
         );
 
-        $this->assertCount(3, $parentForm->get('parameter_values')->all());
+        self::assertCount(3, $parentForm->get('parameter_values')->all());
 
         foreach (array_keys($submittedData['parameter_values']) as $key) {
             $paramForm = $parentForm->get('parameter_values')->get($key);
 
-            $this->assertSame('parameterValues[' . $key . ']', (string) $paramForm->getPropertyPath());
-            $this->assertInstanceOf(
+            self::assertSame('parameterValues[' . $key . ']', (string) $paramForm->getPropertyPath());
+            self::assertInstanceOf(
                 $key === 'compound' ? CompoundBooleanType::class : TextType::class,
                 $paramForm->getConfig()->getType()->getInnerType()
             );
 
-            $this->assertSame(
+            self::assertSame(
                 $parameterDefinitions->getParameterDefinition($key)->getLabel() ?? 'label.' . $key,
                 $paramForm->getConfig()->getOption('label')
             );
@@ -148,10 +148,10 @@ final class ParametersTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('parameter_values', $children);
+        self::assertArrayHasKey('parameter_values', $children);
 
         foreach (array_keys($submittedData['parameter_values']) as $key) {
-            $this->assertArrayHasKey($key, $children['parameter_values']);
+            self::assertArrayHasKey($key, $children['parameter_values']);
         }
     }
 
@@ -244,13 +244,13 @@ final class ParametersTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(['css_id' => 'Some CSS ID'], $struct->getParameterValues());
+        self::assertSame(['css_id' => 'Some CSS ID'], $struct->getParameterValues());
 
-        $this->assertCount(1, $parentForm->get('parameter_values')->all());
-        $this->assertTrue($parentForm->get('parameter_values')->has('css_id'));
-        $this->assertFalse($parentForm->get('parameter_values')->has('excluded'));
+        self::assertCount(1, $parentForm->get('parameter_values')->all());
+        self::assertTrue($parentForm->get('parameter_values')->has('css_id'));
+        self::assertFalse($parentForm->get('parameter_values')->has('excluded'));
     }
 
     /**
@@ -272,7 +272,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'translation_domain' => 'ngbm',
                 'groups' => [],

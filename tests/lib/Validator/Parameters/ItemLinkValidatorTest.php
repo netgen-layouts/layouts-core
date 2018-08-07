@@ -45,12 +45,12 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
         if ($value !== null && $isValid) {
             $this->cmsItemLoaderMock
-                ->expects($this->once())
+                ->expects(self::once())
                 ->method('load')
-                ->will($this->returnValue(new CmsItem()));
+                ->will(self::returnValue(new CmsItem()));
         }
 
-        $this->assertValid($isValid, $value);
+        self::assertValid($isValid, $value);
     }
 
     /**
@@ -59,11 +59,11 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public function testValidateWithInvalidItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('load')
-            ->will($this->returnValue(new NullCmsItem('value')));
+            ->will(self::returnValue(new NullCmsItem('value')));
 
-        $this->assertValid(false, 'value://42');
+        self::assertValid(false, 'value://42');
     }
 
     /**
@@ -74,7 +74,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, 'value://42');
+        self::assertValid(true, 'value://42');
     }
 
     /**
@@ -84,7 +84,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

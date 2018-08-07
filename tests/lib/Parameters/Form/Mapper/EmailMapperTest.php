@@ -25,6 +25,6 @@ final class EmailMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(EmailType::class, $this->mapper->getFormType());
+        self::assertSame(EmailType::class, $this->mapper->getFormType());
     }
 }

@@ -51,14 +51,14 @@ final class CollectionPagerRuntimeTest extends TestCase
         $block = new Block();
         $pagerfanta = $this->createMock(Pagerfanta::class);
 
-        $this->pagerfantaViewMock->expects($this->once())
+        $this->pagerfantaViewMock->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo($pagerfanta),
-                $this->identicalTo($this->routeGenerator),
-                $this->identicalTo(['block' => $block, 'collection_identifier' => 'default'])
+                self::identicalTo($pagerfanta),
+                self::identicalTo($this->routeGenerator),
+                self::identicalTo(['block' => $block, 'collection_identifier' => 'default'])
             )
-            ->will($this->returnValue('rendered view'));
+            ->will(self::returnValue('rendered view'));
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
@@ -66,7 +66,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             'default'
         );
 
-        $this->assertSame('rendered view', $renderedPagerfanta);
+        self::assertSame('rendered view', $renderedPagerfanta);
     }
 
     /**
@@ -77,12 +77,12 @@ final class CollectionPagerRuntimeTest extends TestCase
         $block = new Block();
         $pagerfanta = $this->createMock(Pagerfanta::class);
 
-        $this->pagerfantaViewMock->expects($this->once())
+        $this->pagerfantaViewMock->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo($pagerfanta),
-                $this->identicalTo($this->routeGenerator),
-                $this->identicalTo(
+                self::identicalTo($pagerfanta),
+                self::identicalTo($this->routeGenerator),
+                self::identicalTo(
                     [
                         'var' => 'value',
                         'block' => $block,
@@ -90,7 +90,7 @@ final class CollectionPagerRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered view'));
+            ->will(self::returnValue('rendered view'));
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
@@ -101,7 +101,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             ]
         );
 
-        $this->assertSame('rendered view', $renderedPagerfanta);
+        self::assertSame('rendered view', $renderedPagerfanta);
     }
 
     /**
@@ -110,9 +110,9 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function testGetCollectionPageUrl(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta->expects($this->any())
+        $pagerfanta->expects(self::any())
             ->method('getNbPages')
-            ->will($this->returnValue(5));
+            ->will(self::returnValue(5));
 
         $uri = $this->runtime->getCollectionPageUrl(
             $pagerfanta,
@@ -121,7 +121,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             5
         );
 
-        $this->assertSame('/generated/uri?page=5', $uri);
+        self::assertSame('/generated/uri?page=5', $uri);
     }
 
     /**
@@ -133,9 +133,9 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta->expects($this->any())
+        $pagerfanta->expects(self::any())
             ->method('getNbPages')
-            ->will($this->returnValue(5));
+            ->will(self::returnValue(5));
 
         $this->runtime->getCollectionPageUrl(
             $pagerfanta,

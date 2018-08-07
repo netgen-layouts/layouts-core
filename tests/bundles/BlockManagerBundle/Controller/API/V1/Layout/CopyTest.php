@@ -32,7 +32,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout',
             Response::HTTP_CREATED
@@ -60,7 +60,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_published_layout',
             Response::HTTP_CREATED
@@ -87,7 +87,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout_without_description',
             Response::HTTP_CREATED
@@ -115,7 +115,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout_empty_description',
             Response::HTTP_CREATED
@@ -142,7 +142,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "9999"'
@@ -169,7 +169,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "name": This value should be of type string.'
@@ -192,7 +192,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "name": This value should not be blank.'
@@ -219,7 +219,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.'
@@ -247,7 +247,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "description": This value should be of type string.'

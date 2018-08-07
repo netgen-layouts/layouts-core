@@ -16,7 +16,7 @@ final class ConditionTypeExceptionTest extends TestCase
     {
         $exception = ConditionTypeException::noConditionType('type');
 
-        $this->assertSame(
+        self::assertSame(
             'Condition type "type" does not exist.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ConditionTypeExceptionTest extends TestCase
     {
         $exception = ConditionTypeException::noFormMapper('type');
 
-        $this->assertSame(
+        self::assertSame(
             'Form mapper for "type" condition type does not exist.',
             $exception->getMessage()
         );

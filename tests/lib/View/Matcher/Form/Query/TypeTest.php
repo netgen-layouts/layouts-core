@@ -53,7 +53,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $this->assertSame($expected, $this->matcher->match(new FormView($form), $config));
+        self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
     /**
@@ -73,7 +73,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->matcher->match(new FormView($form), ['null']));
+        self::assertTrue($this->matcher->match(new FormView($form), ['null']));
     }
 
     /**
@@ -93,7 +93,7 @@ final class TypeTest extends TestCase
             ]
         );
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['test']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
     public function matchProvider(): array
@@ -112,7 +112,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNoFormView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
     /**
@@ -122,7 +122,7 @@ final class TypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['type']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['type']));
     }
 
     /**
@@ -132,6 +132,6 @@ final class TypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, ['query' => 'type']);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['type']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['type']));
     }
 }

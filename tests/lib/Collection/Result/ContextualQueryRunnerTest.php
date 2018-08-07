@@ -21,12 +21,12 @@ final class ContextualQueryRunnerTest extends TestCase
 
         $count = 0;
         foreach ($queryRunner->runQuery(new Query(), 0, 5) as $value) {
-            $this->assertInstanceOf(Slot::class, $value);
+            self::assertInstanceOf(Slot::class, $value);
             ++$count;
         }
 
-        $this->assertSame(5, $count);
+        self::assertSame(5, $count);
 
-        $this->assertSame(intdiv(PHP_INT_MAX - 1, 2), $queryRunner->count(new Query()));
+        self::assertSame(intdiv(PHP_INT_MAX - 1, 2), $queryRunner->count(new Query()));
     }
 }

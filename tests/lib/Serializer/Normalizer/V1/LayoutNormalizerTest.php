@@ -130,33 +130,33 @@ final class LayoutNormalizerTest extends TestCase
         );
 
         $this->blockServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadZoneBlocks')
-            ->will($this->returnValue([$block]));
+            ->will(self::returnValue([$block]));
 
         $this->blockServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadZoneBlocks')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
         $this->blockServiceMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('loadZoneBlocks')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
         $this->layoutServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('hasStatus')
-            ->with($this->identicalTo($layout->getId()), $this->identicalTo(Layout::STATUS_PUBLISHED))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
+            ->will(self::returnValue(true));
 
         $this->layoutServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayoutArchive')
-            ->with($this->identicalTo($layout->getId()))
-            ->will($this->throwException(new NotFoundException('layout')));
+            ->with(self::identicalTo($layout->getId()))
+            ->will(self::throwException(new NotFoundException('layout')));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => $layout->getId(),
                 'type' => $this->layoutType->getIdentifier(),
@@ -248,22 +248,22 @@ final class LayoutNormalizerTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('hasStatus')
-            ->with($this->identicalTo($layout->getId()), $this->identicalTo(Layout::STATUS_PUBLISHED))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
+            ->will(self::returnValue(true));
 
         $this->layoutServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayoutArchive')
-            ->with($this->identicalTo($layout->getId()))
-            ->will($this->returnValue($archivedLayout));
+            ->with(self::identicalTo($layout->getId()))
+            ->will(self::returnValue($archivedLayout));
 
         $data = $this->normalizer->normalize(new VersionedValue($layout, 1));
 
-        $this->assertTrue($data['has_archived_state']);
-        $this->assertSame($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
-        $this->assertSame($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);
+        self::assertTrue($data['has_archived_state']);
+        self::assertSame($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
+        self::assertSame($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);
     }
 
     /**
@@ -275,7 +275,7 @@ final class LayoutNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

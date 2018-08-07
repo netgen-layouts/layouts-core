@@ -52,19 +52,19 @@ final class CollectionEditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(5, $struct->limit);
+        self::assertSame(5, $struct->limit);
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
 
-        $this->assertArrayHasKey('collection', $view->vars);
-        $this->assertSame($this->collection, $view->vars['collection']);
+        self::assertArrayHasKey('collection', $view->vars);
+        self::assertSame($this->collection, $view->vars['collection']);
     }
 
     /**
@@ -90,20 +90,20 @@ final class CollectionEditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(10, $struct->offset);
-        $this->assertSame(5, $struct->limit);
+        self::assertSame(10, $struct->offset);
+        self::assertSame(5, $struct->limit);
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
 
-        $this->assertArrayHasKey('collection', $view->vars);
-        $this->assertSame($this->collection, $view->vars['collection']);
+        self::assertArrayHasKey('collection', $view->vars);
+        self::assertSame($this->collection, $view->vars['collection']);
     }
 
     /**
@@ -125,9 +125,9 @@ final class CollectionEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->collection, $options['collection']);
-        $this->assertSame($struct, $options['data']);
-        $this->assertSame('ngbm_forms', $options['translation_domain']);
+        self::assertSame($this->collection, $options['collection']);
+        self::assertSame($struct, $options['data']);
+        self::assertSame('ngbm_forms', $options['translation_domain']);
     }
 
     /**

@@ -46,7 +46,7 @@ final class ValidatorTest extends TestCase
         }
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->validator->validateId($id);
     }
@@ -65,7 +65,7 @@ final class ValidatorTest extends TestCase
         }
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->validator->validateIdentifier($identifier);
     }
@@ -85,7 +85,7 @@ final class ValidatorTest extends TestCase
         }
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->validator->validatePosition($position, null, $isRequired);
     }
@@ -98,7 +98,7 @@ final class ValidatorTest extends TestCase
         $this->validator->validatePosition(null);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -116,7 +116,7 @@ final class ValidatorTest extends TestCase
         }
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->validator->validateOffsetAndLimit($offset, $limit);
     }
@@ -132,7 +132,7 @@ final class ValidatorTest extends TestCase
         }
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->validator->validateLocale($locale);
     }

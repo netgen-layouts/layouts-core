@@ -30,14 +30,13 @@ final class RuleConditionProviderTest extends TestCase
     {
         $condition = Condition::fromArray(['id' => 42]);
 
-        /** @var \Netgen\BlockManager\View\View\RuleConditionViewInterface $view */
         $view = $this->ruleConditionViewProvider->provideView($condition);
 
-        $this->assertInstanceOf(RuleConditionViewInterface::class, $view);
+        self::assertInstanceOf(RuleConditionViewInterface::class, $view);
 
-        $this->assertSame($condition, $view->getCondition());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($condition, $view->getCondition());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'condition' => $condition,
             ],
@@ -54,7 +53,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->ruleConditionViewProvider->supports($value));
+        self::assertSame($supports, $this->ruleConditionViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

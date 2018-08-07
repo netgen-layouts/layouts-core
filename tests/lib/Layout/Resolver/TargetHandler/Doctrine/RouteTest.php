@@ -18,8 +18,8 @@ final class RouteTest extends AbstractTargetHandlerTest
     {
         $rules = $this->handler->matchRules($this->getTargetIdentifier(), 'my_cool_route');
 
-        $this->assertCount(1, $rules);
-        $this->assertSame(1, $rules[0]->id);
+        self::assertCount(1, $rules);
+        self::assertSame(1, $rules[0]->id);
     }
 
     /**

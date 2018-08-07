@@ -35,7 +35,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['blockId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['blockId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('block', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('block', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APIBlock::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APIBlock::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class BlockParamConverterTest extends TestCase
         $block = new Block();
 
         $this->blockServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadBlock')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($block));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($block));
 
-        $this->assertSame(
+        self::assertSame(
             $block,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class BlockParamConverterTest extends TestCase
         $block = new Block();
 
         $this->blockServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadBlockDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($block));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($block));
 
-        $this->assertSame(
+        self::assertSame(
             $block,
             $this->paramConverter->loadValue(
                 [

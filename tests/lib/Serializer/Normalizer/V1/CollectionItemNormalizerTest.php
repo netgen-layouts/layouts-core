@@ -73,17 +73,17 @@ final class CollectionItemNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
-            ->will($this->returnValue($serializedConfig));
+            ->will(self::returnValue($serializedConfig));
 
         $this->urlGeneratorMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('generate')
-            ->with($this->identicalTo($item->getCmsItem()))
-            ->will($this->returnValue('/some/url'));
+            ->with(self::identicalTo($item->getCmsItem()))
+            ->will(self::returnValue('/some/url'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
@@ -109,7 +109,7 @@ final class CollectionItemNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

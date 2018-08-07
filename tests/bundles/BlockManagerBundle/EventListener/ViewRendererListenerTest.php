@@ -43,7 +43,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::VIEW => ['onView', -255]],
             $this->listener::getSubscribedEvents()
         );
@@ -63,10 +63,10 @@ final class ViewRendererListenerTest extends TestCase
         $view->setResponse($response);
 
         $this->viewRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderView')
-            ->with($this->identicalTo($view))
-            ->will($this->returnValue('rendered content'));
+            ->with(self::identicalTo($view))
+            ->will(self::returnValue('rendered content'));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -80,12 +80,12 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(Response::class, $event->getResponse());
+        self::assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        $this->assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+        self::assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
 
-        $this->assertSame('rendered content', $event->getResponse()->getContent());
+        self::assertSame('rendered content', $event->getResponse()->getContent());
     }
 
     /**
@@ -101,10 +101,10 @@ final class ViewRendererListenerTest extends TestCase
         $view->setResponse($response);
 
         $this->viewRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderView')
-            ->with($this->identicalTo($view))
-            ->will($this->throwException(new Exception()));
+            ->with(self::identicalTo($view))
+            ->will(self::throwException(new Exception()));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -118,12 +118,12 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(Response::class, $event->getResponse());
+        self::assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        $this->assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+        self::assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
 
-        $this->assertSame('', $event->getResponse()->getContent());
+        self::assertSame('', $event->getResponse()->getContent());
     }
 
     /**
@@ -134,7 +134,7 @@ final class ViewRendererListenerTest extends TestCase
         $view = new View(new Value());
 
         $this->viewRendererMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('renderView');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -149,7 +149,7 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 
     /**
@@ -169,6 +169,6 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 }

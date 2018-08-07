@@ -35,7 +35,7 @@ final class CollectionViewTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('ngbm_collection', $this->collectionView->getName());
+        self::assertSame('ngbm_collection', $this->collectionView->getName());
     }
 
     /**
@@ -46,11 +46,11 @@ final class CollectionViewTest extends TestCase
         $block = new Block();
         $pagerMock = $this->createMock(Pagerfanta::class);
 
-        $this->twigMock->expects($this->once())
+        $this->twigMock->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo('default_template.html.twig'),
-                $this->identicalTo(
+                self::identicalTo('default_template.html.twig'),
+                self::identicalTo(
                     [
                         'pager' => $pagerMock,
                         'block' => $block,
@@ -58,7 +58,7 @@ final class CollectionViewTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered template'));
+            ->will(self::returnValue('rendered template'));
 
         $renderedTemplate = $this->collectionView->render(
             $pagerMock,
@@ -69,7 +69,7 @@ final class CollectionViewTest extends TestCase
             ]
         );
 
-        $this->assertSame('rendered template', $renderedTemplate);
+        self::assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -80,11 +80,11 @@ final class CollectionViewTest extends TestCase
         $block = new Block();
         $pagerMock = $this->createMock(Pagerfanta::class);
 
-        $this->twigMock->expects($this->once())
+        $this->twigMock->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo('template.html.twig'),
-                $this->identicalTo(
+                self::identicalTo('template.html.twig'),
+                self::identicalTo(
                     [
                         'pager' => $pagerMock,
                         'block' => $block,
@@ -92,7 +92,7 @@ final class CollectionViewTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered template'));
+            ->will(self::returnValue('rendered template'));
 
         $renderedTemplate = $this->collectionView->render(
             $pagerMock,
@@ -104,7 +104,7 @@ final class CollectionViewTest extends TestCase
             ]
         );
 
-        $this->assertSame('rendered template', $renderedTemplate);
+        self::assertSame('rendered template', $renderedTemplate);
     }
 
     /**
@@ -116,7 +116,7 @@ final class CollectionViewTest extends TestCase
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
-        $this->twigMock->expects($this->never())
+        $this->twigMock->expects(self::never())
             ->method('render');
 
         $this->collectionView->render(
@@ -137,7 +137,7 @@ final class CollectionViewTest extends TestCase
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
-        $this->twigMock->expects($this->never())
+        $this->twigMock->expects(self::never())
             ->method('render');
 
         $this->collectionView->render(
@@ -159,7 +159,7 @@ final class CollectionViewTest extends TestCase
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
-        $this->twigMock->expects($this->never())
+        $this->twigMock->expects(self::never())
             ->method('render');
 
         $this->collectionView->render(
@@ -180,7 +180,7 @@ final class CollectionViewTest extends TestCase
     {
         $pagerMock = $this->createMock(Pagerfanta::class);
 
-        $this->twigMock->expects($this->never())
+        $this->twigMock->expects(self::never())
             ->method('render');
 
         $this->collectionView->render(

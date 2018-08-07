@@ -41,13 +41,13 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     {
         if ($value !== null) {
             $this->layoutServiceMock
-                ->expects($this->once())
+                ->expects(self::once())
                 ->method('layoutNameExists')
-                ->with($this->identicalTo($value))
-                ->will($this->returnValue(!$isValid));
+                ->with(self::identicalTo($value))
+                ->will(self::returnValue(!$isValid));
         }
 
-        $this->assertValid($isValid, $value);
+        self::assertValid($isValid, $value);
     }
 
     /**
@@ -58,7 +58,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, 'My layout');
+        self::assertValid(true, 'My layout');
     }
 
     /**
@@ -68,7 +68,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

@@ -81,13 +81,13 @@ final class LinkTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
         $formData = $form->getData();
 
-        $this->assertInstanceOf(LinkValue::class, $formData);
+        self::assertInstanceOf(LinkValue::class, $formData);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'linkType' => 'url',
                 'link' => 'http://www.google.com',
@@ -103,7 +103,7 @@ final class LinkTypeTest extends FormTestCase
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 
@@ -131,13 +131,13 @@ final class LinkTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
         $formData = $form->getData();
 
-        $this->assertInstanceOf(LinkValue::class, $formData);
+        self::assertInstanceOf(LinkValue::class, $formData);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'linkType' => null,
                 'link' => null,
@@ -153,7 +153,7 @@ final class LinkTypeTest extends FormTestCase
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 
@@ -186,8 +186,8 @@ final class LinkTypeTest extends FormTestCase
 
         $errors = $form->get('url')->getErrors();
 
-        $this->assertCount(1, $errors);
-        $this->assertSame('an error', iterator_to_array($errors)[0]->getMessage());
+        self::assertCount(1, $errors);
+        self::assertSame('an error', iterator_to_array($errors)[0]->getMessage());
     }
 
     /**
@@ -217,7 +217,7 @@ final class LinkTypeTest extends FormTestCase
         $form->get('link')->addError(new FormError('an error'));
         $form->createView();
 
-        $this->assertCount(0, $form->get('url')->getErrors());
+        self::assertCount(0, $form->get('url')->getErrors());
     }
 
     /**
@@ -235,7 +235,7 @@ final class LinkTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'translation_domain' => 'ngbm_forms',
                 'value_types' => ['value'],
@@ -269,7 +269,7 @@ final class LinkTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve();
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'translation_domain' => 'ngbm_forms',
                 'value_types' => [],
@@ -301,6 +301,6 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngbm_link', $this->formType->getBlockPrefix());
+        self::assertSame('ngbm_link', $this->formType->getBlockPrefix());
     }
 }

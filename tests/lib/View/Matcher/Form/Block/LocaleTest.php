@@ -51,7 +51,7 @@ final class LocaleTest extends TestCase
             ]
         );
 
-        $this->assertSame($expected, $this->matcher->match(new FormView($form), $config));
+        self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
     public function matchProvider(): array
@@ -70,7 +70,7 @@ final class LocaleTest extends TestCase
      */
     public function testMatchWithNoFormView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
     /**
@@ -80,7 +80,7 @@ final class LocaleTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['block']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['block']));
     }
 
     /**
@@ -90,6 +90,6 @@ final class LocaleTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, ['block' => 'block']);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['block']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['block']));
     }
 }

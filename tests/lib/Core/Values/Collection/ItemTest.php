@@ -16,7 +16,7 @@ final class ItemTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Item());
+        self::assertInstanceOf(Value::class, new Item());
     }
 
     /**
@@ -45,12 +45,12 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $item->getId());
-        $this->assertSame(30, $item->getCollectionId());
-        $this->assertSame($definition, $item->getDefinition());
-        $this->assertSame(3, $item->getPosition());
-        $this->assertSame(32, $item->getValue());
-        $this->assertSame($cmsItem, $item->getCmsItem());
+        self::assertSame(42, $item->getId());
+        self::assertSame(30, $item->getCollectionId());
+        self::assertSame($definition, $item->getDefinition());
+        self::assertSame(3, $item->getPosition());
+        self::assertSame(32, $item->getValue());
+        self::assertSame($cmsItem, $item->getCmsItem());
     }
 
     /**
@@ -66,7 +66,7 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertSame($isValid, $item->isValid());
+        self::assertSame($isValid, $item->isValid());
     }
 
     /**
@@ -80,7 +80,7 @@ final class ItemTest extends TestCase
             ]
         );
 
-        $this->assertFalse($item->isValid());
+        self::assertFalse($item->isValid());
     }
 
     public function isValidProvider(): array

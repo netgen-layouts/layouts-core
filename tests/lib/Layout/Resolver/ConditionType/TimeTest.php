@@ -28,7 +28,7 @@ final class TimeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('time', $this->conditionType::getType());
+        self::assertSame('time', $this->conditionType::getType());
     }
 
     /**
@@ -45,7 +45,7 @@ final class TimeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -61,7 +61,7 @@ final class TimeTest extends TestCase
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1521800000);
 
-        $this->assertSame($matches, $this->conditionType->matches(Request::create('/'), $value));
+        self::assertSame($matches, $this->conditionType->matches(Request::create('/'), $value));
 
         ClockMock::withClockMock(false);
     }

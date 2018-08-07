@@ -48,7 +48,7 @@ final class TwigExtensionsListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
@@ -63,21 +63,21 @@ final class TwigExtensionsListenerTest extends TestCase
         $request = Request::create('/');
 
         $this->twigMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('hasExtension')
-            ->with($this->identicalTo(IntlExtension::class))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo(IntlExtension::class))
+            ->will(self::returnValue(true));
 
         $this->twigMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('hasExtension')
-            ->with($this->identicalTo(VersionExtension::class))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo(VersionExtension::class))
+            ->will(self::returnValue(false));
 
         $this->twigMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addExtension')
-            ->with($this->isInstanceOf(VersionExtension::class));
+            ->with(self::isInstanceOf(VersionExtension::class));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);

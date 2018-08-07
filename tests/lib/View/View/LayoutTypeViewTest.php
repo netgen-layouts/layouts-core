@@ -36,8 +36,8 @@ final class LayoutTypeViewTest extends TestCase
      */
     public function testGetLayoutType(): void
     {
-        $this->assertSame($this->layoutType, $this->view->getLayoutType());
-        $this->assertSame(
+        self::assertSame($this->layoutType, $this->view->getLayoutType());
+        self::assertSame(
             [
                 'layout_type' => $this->layoutType,
                 'param' => 'value',
@@ -51,6 +51,6 @@ final class LayoutTypeViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('layout', $this->view::getIdentifier());
+        self::assertSame('layout', $this->view::getIdentifier());
     }
 }

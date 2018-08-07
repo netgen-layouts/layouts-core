@@ -44,7 +44,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         $queryUpdateStruct = new QueryUpdateStruct();
         (new Hydrator())->hydrate($value, $queryUpdateStruct);
 
-        $this->assertValid($isValid, $queryUpdateStruct);
+        self::assertValid($isValid, $queryUpdateStruct);
     }
 
     /**
@@ -55,7 +55,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, new QueryUpdateStruct());
+        self::assertValid(true, new QueryUpdateStruct());
     }
 
     /**
@@ -66,7 +66,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->constraint->payload = new stdClass();
-        $this->assertValid(true, new QueryUpdateStruct());
+        self::assertValid(true, new QueryUpdateStruct());
     }
 
     /**
@@ -77,7 +77,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->constraint->payload = new Query();
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

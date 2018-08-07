@@ -16,7 +16,7 @@ final class RuleTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Rule());
+        self::assertInstanceOf(Value::class, new Rule());
     }
 
     /**
@@ -28,8 +28,8 @@ final class RuleTest extends TestCase
     {
         $rule = new Rule();
 
-        $this->assertSame([], $rule->getTargets());
-        $this->assertSame([], $rule->getConditions());
+        self::assertSame([], $rule->getTargets());
+        self::assertSame([], $rule->getConditions());
     }
 
     /**
@@ -58,13 +58,13 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $rule->getId());
-        $this->assertSame($layout, $rule->getLayout());
-        $this->assertSame(13, $rule->getPriority());
-        $this->assertTrue($rule->isEnabled());
-        $this->assertSame('Comment', $rule->getComment());
-        $this->assertCount(2, $rule->getTargets());
-        $this->assertCount(1, $rule->getConditions());
+        self::assertSame(42, $rule->getId());
+        self::assertSame($layout, $rule->getLayout());
+        self::assertSame(13, $rule->getPriority());
+        self::assertTrue($rule->isEnabled());
+        self::assertSame('Comment', $rule->getComment());
+        self::assertCount(2, $rule->getTargets());
+        self::assertCount(1, $rule->getConditions());
     }
 
     /**
@@ -80,7 +80,7 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertTrue($rule->canBeEnabled());
+        self::assertTrue($rule->canBeEnabled());
     }
 
     /**
@@ -96,7 +96,7 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertFalse($rule->canBeEnabled());
+        self::assertFalse($rule->canBeEnabled());
     }
 
     /**
@@ -112,7 +112,7 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertFalse($rule->canBeEnabled());
+        self::assertFalse($rule->canBeEnabled());
     }
 
     /**
@@ -128,6 +128,6 @@ final class RuleTest extends TestCase
             ]
         );
 
-        $this->assertFalse($rule->canBeEnabled());
+        self::assertFalse($rule->canBeEnabled());
     }
 }

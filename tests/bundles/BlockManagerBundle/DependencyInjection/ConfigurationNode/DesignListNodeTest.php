@@ -50,7 +50,7 @@ final class DesignListNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'design_list'
@@ -73,7 +73,7 @@ final class DesignListNodeTest extends TestCase
             'design_list' => [],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'design_list'
@@ -99,7 +99,7 @@ final class DesignListNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'design_list'
@@ -121,7 +121,7 @@ final class DesignListNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design_list.design.0" cannot contain an empty value, but got "".');
+        self::assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design_list.design.0" cannot contain an empty value, but got "".');
     }
 
     protected function getConfiguration(): ConfigurationInterface

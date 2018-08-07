@@ -40,7 +40,7 @@ final class ContainerRuntimeLoaderTest extends TestCase
 
         $this->runtimeLoader->addRuntime(stdClass::class, 'test');
 
-        $this->assertSame($service, $this->runtimeLoader->load(stdClass::class));
+        self::assertSame($service, $this->runtimeLoader->load(stdClass::class));
     }
 
     /**
@@ -48,6 +48,6 @@ final class ContainerRuntimeLoaderTest extends TestCase
      */
     public function testLoadWithNoMapping(): void
     {
-        $this->assertNull($this->runtimeLoader->load(stdClass::class));
+        self::assertNull($this->runtimeLoader->load(stdClass::class));
     }
 }

@@ -17,7 +17,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/layouts/1?html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_layout',
             Response::HTTP_OK
@@ -31,7 +31,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/layouts/1?published=true&html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_published_layout',
             Response::HTTP_OK
@@ -45,7 +45,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/layouts/9999');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "9999"'

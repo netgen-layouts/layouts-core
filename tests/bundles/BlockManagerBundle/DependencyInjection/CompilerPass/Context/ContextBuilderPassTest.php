@@ -30,14 +30,14 @@ final class ContextBuilderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.context.builder',
             'registerProvider',
             [new Reference('netgen_block_manager.context.provider.test')],
             0
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.context.builder',
             'registerProvider',
             [new Reference('netgen_block_manager.context.provider.test2')],
@@ -52,7 +52,7 @@ final class ContextBuilderPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

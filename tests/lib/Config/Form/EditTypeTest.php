@@ -91,18 +91,18 @@ final class EditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(['param' => 'new_value'], $configStruct->getParameterValues());
+        self::assertSame(['param' => 'new_value'], $configStruct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('test', $children);
-        $this->assertArrayHasKey('param', $children['test']);
+        self::assertArrayHasKey('test', $children);
+        self::assertArrayHasKey('param', $children['test']);
 
-        $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertSame($this->configurable, $view->vars['configurable']);
+        self::assertArrayHasKey('configurable', $view->vars);
+        self::assertSame($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -134,18 +134,18 @@ final class EditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(['param' => 'new_value'], $configStruct->getParameterValues());
+        self::assertSame(['param' => 'new_value'], $configStruct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('test', $children);
-        $this->assertArrayHasKey('param', $children['test']);
+        self::assertArrayHasKey('test', $children);
+        self::assertArrayHasKey('param', $children['test']);
 
-        $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertSame($this->configurable, $view->vars['configurable']);
+        self::assertArrayHasKey('configurable', $view->vars);
+        self::assertSame($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -175,18 +175,18 @@ final class EditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame($struct, $form->getData());
+        self::assertSame($struct, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
 
-        $this->assertArrayNotHasKey('test', $children);
-        $this->assertArrayNotHasKey('unknown', $children);
+        self::assertArrayNotHasKey('test', $children);
+        self::assertArrayNotHasKey('unknown', $children);
 
-        $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertSame($this->configurable, $view->vars['configurable']);
+        self::assertArrayHasKey('configurable', $view->vars);
+        self::assertSame($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -209,8 +209,8 @@ final class EditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->configurable, $options['configurable']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->configurable, $options['configurable']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

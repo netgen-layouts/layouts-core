@@ -51,7 +51,7 @@ final class RenderZoneTest extends TestCase
     {
         $stream = $this->environment->tokenize(new Source($source, ''));
 
-        $this->assertEquals($node, $this->parser->parse($stream)->getNode('body')->getNode(0));
+        self::assertEquals($node, $this->parser->parse($stream)->getNode('body')->getNode(0));
     }
 
     /**

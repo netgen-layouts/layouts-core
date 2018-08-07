@@ -21,7 +21,7 @@ final class PlaceholderTest extends TestCase
     {
         $placeholder = new Placeholder();
 
-        $this->assertSame([], $placeholder->getBlocks());
+        self::assertSame([], $placeholder->getBlocks());
     }
 
     /**
@@ -46,27 +46,27 @@ final class PlaceholderTest extends TestCase
             ]
         );
 
-        $this->assertSame('placeholder', $placeholder->getIdentifier());
-        $this->assertSame([$block], $placeholder->getBlocks());
+        self::assertSame('placeholder', $placeholder->getIdentifier());
+        self::assertSame([$block], $placeholder->getBlocks());
 
-        $this->assertInstanceOf(Traversable::class, $placeholder->getIterator());
-        $this->assertSame([$block], iterator_to_array($placeholder->getIterator()));
+        self::assertInstanceOf(Traversable::class, $placeholder->getIterator());
+        self::assertSame([$block], iterator_to_array($placeholder->getIterator()));
 
-        $this->assertCount(1, $placeholder);
+        self::assertCount(1, $placeholder);
 
-        $this->assertTrue(isset($placeholder[0]));
-        $this->assertSame($block, $placeholder[0]);
+        self::assertTrue(isset($placeholder[0]));
+        self::assertSame($block, $placeholder[0]);
 
         try {
             $placeholder[1] = $block;
-            $this->fail('Succeeded in setting a new block to placeholder.');
+            self::fail('Succeeded in setting a new block to placeholder.');
         } catch (RuntimeException $e) {
             // Do nothing
         }
 
         try {
             unset($placeholder[0]);
-            $this->fail('Succeeded in unsetting a block in placeholder.');
+            self::fail('Succeeded in unsetting a block in placeholder.');
         } catch (RuntimeException $e) {
             // Do nothing
         }

@@ -32,7 +32,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::EXCEPTION => ['onException', 20]],
             $this->listener::getSubscribedEvents()
         );
@@ -57,8 +57,8 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertInstanceOf(AccessDeniedHttpException::class, $event->getException());
-        $this->assertTrue($event->isPropagationStopped());
+        self::assertInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        self::assertTrue($event->isPropagationStopped());
     }
 
     /**
@@ -80,8 +80,8 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertInstanceOf(Exception::class, $event->getException());
-        $this->assertFalse($event->isPropagationStopped());
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        self::assertFalse($event->isPropagationStopped());
     }
 
     /**
@@ -102,8 +102,8 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertInstanceOf(Exception::class, $event->getException());
-        $this->assertFalse($event->isPropagationStopped());
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        self::assertFalse($event->isPropagationStopped());
     }
 
     /**
@@ -124,7 +124,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertInstanceOf(Exception::class, $event->getException());
-        $this->assertFalse($event->isPropagationStopped());
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        self::assertFalse($event->isPropagationStopped());
     }
 }

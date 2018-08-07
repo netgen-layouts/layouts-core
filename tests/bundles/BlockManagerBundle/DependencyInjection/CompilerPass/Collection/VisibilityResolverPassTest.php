@@ -32,7 +32,7 @@ final class VisibilityResolverPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.collection.item_visibility_resolver',
             'setVoters',
             [
@@ -51,7 +51,7 @@ final class VisibilityResolverPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

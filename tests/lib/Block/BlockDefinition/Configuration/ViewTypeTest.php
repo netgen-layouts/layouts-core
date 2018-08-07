@@ -48,7 +48,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('large', $this->viewType->getIdentifier());
+        self::assertSame('large', $this->viewType->getIdentifier());
     }
 
     /**
@@ -56,7 +56,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Large', $this->viewType->getName());
+        self::assertSame('Large', $this->viewType->getName());
     }
 
     /**
@@ -64,7 +64,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetItemViewTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'standard' => $this->itemViewType1,
                 'standard_with_intro' => $this->itemViewType2,
@@ -78,7 +78,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetItemViewTypeIdentifiers(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['standard', 'standard_with_intro'],
             $this->viewType->getItemViewTypeIdentifiers()
         );
@@ -89,8 +89,8 @@ final class ViewTypeTest extends TestCase
      */
     public function testHasItemViewType(): void
     {
-        $this->assertTrue($this->viewType->hasItemViewType('standard'));
-        $this->assertFalse($this->viewType->hasItemViewType('unknown'));
+        self::assertTrue($this->viewType->hasItemViewType('standard'));
+        self::assertFalse($this->viewType->hasItemViewType('unknown'));
     }
 
     /**
@@ -98,7 +98,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetItemViewType(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->itemViewType1,
             $this->viewType->getItemViewType('standard')
         );
@@ -119,7 +119,7 @@ final class ViewTypeTest extends TestCase
      */
     public function testGetValidParameters(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['param1', 'param2'],
             $this->viewType->getValidParameters()
         );

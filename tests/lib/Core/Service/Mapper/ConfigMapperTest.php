@@ -9,7 +9,6 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -55,20 +54,15 @@ final class ConfigMapperTest extends TestCase
             ]
         );
 
-        $this->assertInternalType('array', $mappedConfig);
-        $this->assertArrayHasKey('config_key', $mappedConfig);
+        self::assertArrayHasKey('config_key', $mappedConfig);
+        self::assertContainsOnlyInstancesOf(Config::class, $mappedConfig);
 
         $config = $mappedConfig['config_key'];
+        self::assertSame('config_key', $config->getConfigKey());
+        self::assertSame($this->configDefinition, $config->getDefinition());
 
-        $this->assertInstanceOf(Config::class, $config);
-        $this->assertSame('config_key', $config->getConfigKey());
-        $this->assertSame($this->configDefinition, $config->getDefinition());
-
-        $this->assertTrue($config->hasParameter('param'));
-
-        $this->assertInstanceOf(Parameter::class, $config->getParameter('param'));
-
-        $this->assertSame('value', $config->getParameter('param')->getValue());
+        self::assertTrue($config->hasParameter('param'));
+        self::assertSame('value', $config->getParameter('param')->getValue());
     }
 
     /**
@@ -93,7 +87,7 @@ final class ConfigMapperTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'config_key' => [
                     'param' => 'new_value',

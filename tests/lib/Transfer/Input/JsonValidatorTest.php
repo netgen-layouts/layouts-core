@@ -28,7 +28,7 @@ final class JsonValidatorTest extends TestCase
         $this->validator->validateJson('{}', '{}');
 
         // Fake assertion to disable risky warning
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**

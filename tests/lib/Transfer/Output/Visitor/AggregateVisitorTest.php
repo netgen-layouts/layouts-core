@@ -34,7 +34,7 @@ final class AggregateVisitorTest extends TestCase
      */
     public function testAccept($value, bool $accepted): void
     {
-        $this->assertSame($accepted, $this->visitor->accept($value));
+        self::assertSame($accepted, $this->visitor->accept($value));
     }
 
     /**
@@ -42,7 +42,7 @@ final class AggregateVisitorTest extends TestCase
      */
     public function testVisit(): void
     {
-        $this->assertSame('visited_value', $this->visitor->visit(42));
+        self::assertSame('visited_value', $this->visitor->visit(42));
     }
 
     /**

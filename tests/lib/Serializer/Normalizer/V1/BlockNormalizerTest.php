@@ -93,15 +93,15 @@ final class BlockNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
-            ->will($this->returnValue($serializedParams));
+            ->will(self::returnValue($serializedParams));
 
         $this->normalizerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('normalize')
-            ->with($this->equalTo([new VersionedValue($placeholder, 1)]))
-            ->will($this->returnValue(['normalized placeholders']));
+            ->with(self::equalTo([new VersionedValue($placeholder, 1)]))
+            ->will(self::returnValue(['normalized placeholders']));
 
         $serializedConfig = [
             'key' => [
@@ -111,17 +111,17 @@ final class BlockNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('normalize')
-            ->will($this->returnValue($serializedConfig));
+            ->will(self::returnValue($serializedConfig));
 
         $this->blockServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('hasPublishedState')
-            ->with($this->identicalTo($block))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($block))
+            ->will(self::returnValue(true));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => $block->getId(),
                 'layout_id' => $block->getLayoutId(),
@@ -186,7 +186,7 @@ final class BlockNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($block, 1));
 
-        $this->assertTrue($data['is_container']);
+        self::assertTrue($data['is_container']);
     }
 
     /**
@@ -198,7 +198,7 @@ final class BlockNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

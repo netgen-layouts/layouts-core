@@ -63,7 +63,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types'
@@ -93,7 +93,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.icon'
@@ -125,7 +125,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.icon'
@@ -154,7 +154,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.name'
@@ -197,7 +197,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*'
@@ -226,7 +226,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.definition_identifier'
@@ -261,7 +261,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.defaults.name'
@@ -296,7 +296,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.defaults.view_type'
@@ -331,7 +331,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.defaults.item_view_type'
@@ -366,7 +366,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.defaults.parameters'
@@ -418,7 +418,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.defaults.parameters'
@@ -452,7 +452,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_types.*.defaults'
@@ -474,7 +474,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
+        self::assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -492,7 +492,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
+        self::assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -505,7 +505,7 @@ final class BlockTypeNodeTest extends TestCase
             'block_types' => [],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -522,7 +522,7 @@ final class BlockTypeNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

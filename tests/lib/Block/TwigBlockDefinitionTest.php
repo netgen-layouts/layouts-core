@@ -38,6 +38,6 @@ final class TwigBlockDefinitionTest extends TestCase
      */
     public function testGetTwigBlockName(): void
     {
-        $this->assertSame('twig_block', $this->blockDefinition->getTwigBlockName(new Block()));
+        self::assertSame('twig_block', $this->blockDefinition->getTwigBlockName(new Block()));
     }
 }

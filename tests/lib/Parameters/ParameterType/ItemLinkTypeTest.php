@@ -39,11 +39,11 @@ final class ItemLinkTypeTest extends TestCase
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
-            ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
+            ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     CmsItem::fromArray(
                         [
                             'value' => 42,
@@ -54,11 +54,11 @@ final class ItemLinkTypeTest extends TestCase
             );
 
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('loadByRemoteId')
-            ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
+            ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     CmsItem::fromArray(
                         [
                             'value' => 42,
@@ -77,7 +77,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('item_link', $this->type::getIdentifier());
+        self::assertSame('item_link', $this->type::getIdentifier());
     }
 
     /**
@@ -87,7 +87,7 @@ final class ItemLinkTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertSame($resolvedOptions, $parameter->getOptions());
+        self::assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -164,7 +164,7 @@ final class ItemLinkTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -182,7 +182,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testExport(): void
     {
-        $this->assertSame('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
+        self::assertSame('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
     }
 
     /**
@@ -190,7 +190,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testExportWithInvalidValue(): void
     {
-        $this->assertNull($this->type->export($this->getParameterDefinition(), 42));
+        self::assertNull($this->type->export($this->getParameterDefinition(), 42));
     }
 
     /**
@@ -198,7 +198,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testImport(): void
     {
-        $this->assertSame('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
+        self::assertSame('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
     }
 
     /**
@@ -206,7 +206,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testImportWithInvalidValue(): void
     {
-        $this->assertNull($this->type->import($this->getParameterDefinition(), 42));
+        self::assertNull($this->type->import($this->getParameterDefinition(), 42));
     }
 
     /**
@@ -218,7 +218,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

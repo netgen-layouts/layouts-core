@@ -31,18 +31,17 @@ final class FormViewProviderTest extends TestCase
     {
         $formView = new FormView();
         $form = $this->createMock(FormInterface::class);
-        $form->expects($this->once())
+        $form->expects(self::once())
             ->method('createView')
-            ->will($this->returnValue($formView));
+            ->will(self::returnValue($formView));
 
-        /** @var \Netgen\BlockManager\View\View\FormViewInterface $view */
         $view = $this->formViewProvider->provideView($form);
 
-        $this->assertInstanceOf(FormViewInterface::class, $view);
+        self::assertInstanceOf(FormViewInterface::class, $view);
 
-        $this->assertSame($form, $view->getForm());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($form, $view->getForm());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'form_object' => $form,
                 'form' => $formView,
@@ -60,7 +59,7 @@ final class FormViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->formViewProvider->supports($value));
+        self::assertSame($supports, $this->formViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

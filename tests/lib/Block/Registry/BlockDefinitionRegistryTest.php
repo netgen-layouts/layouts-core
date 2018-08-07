@@ -34,7 +34,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testGetBlockDefinitions(): void
     {
-        $this->assertSame(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
+        self::assertSame(['block_definition' => $this->blockDefinition], $this->registry->getBlockDefinitions());
     }
 
     /**
@@ -42,7 +42,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testGetBlockDefinition(): void
     {
-        $this->assertSame($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
+        self::assertSame($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
     }
 
     /**
@@ -60,7 +60,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testHasBlockDefinition(): void
     {
-        $this->assertTrue($this->registry->hasBlockDefinition('block_definition'));
+        self::assertTrue($this->registry->hasBlockDefinition('block_definition'));
     }
 
     /**
@@ -68,7 +68,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testHasBlockDefinitionWithNoBlockDefinition(): void
     {
-        $this->assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
+        self::assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
     }
 
     /**
@@ -76,14 +76,14 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $blockDefinitions = [];
         foreach ($this->registry as $identifier => $blockDefinition) {
             $blockDefinitions[$identifier] = $blockDefinition;
         }
 
-        $this->assertSame($this->registry->getBlockDefinitions(), $blockDefinitions);
+        self::assertSame($this->registry->getBlockDefinitions(), $blockDefinitions);
     }
 
     /**
@@ -91,7 +91,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -99,8 +99,8 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('block_definition', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('block_definition', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -108,7 +108,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->blockDefinition, $this->registry['block_definition']);
+        self::assertSame($this->blockDefinition, $this->registry['block_definition']);
     }
 
     /**

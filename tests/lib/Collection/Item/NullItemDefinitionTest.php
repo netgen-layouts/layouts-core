@@ -25,6 +25,6 @@ final class NullItemDefinitionTest extends TestCase
      */
     public function testGetValueType(): void
     {
-        $this->assertSame('value', $this->itemDefinition->getValueType());
+        self::assertSame('value', $this->itemDefinition->getValueType());
     }
 }

@@ -49,7 +49,7 @@ final class ValueTypeTest extends TestCase
             ]
         );
 
-        $this->assertSame($expected, $this->matcher->match(new FormView($form), $config));
+        self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
     public function matchProvider(): array
@@ -68,7 +68,7 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNoFormView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
     /**
@@ -78,7 +78,7 @@ final class ValueTypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), [Block::class]));
+        self::assertFalse($this->matcher->match(new FormView($form), [Block::class]));
     }
 
     /**
@@ -88,6 +88,6 @@ final class ValueTypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, ['configurable' => 'type']);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), [Block::class]));
+        self::assertFalse($this->matcher->match(new FormView($form), [Block::class]));
     }
 }

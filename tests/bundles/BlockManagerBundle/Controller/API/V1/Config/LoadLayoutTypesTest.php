@@ -20,11 +20,11 @@ final class LoadLayoutTypesTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_OK);
+        self::assertResponseCode($response, Response::HTTP_OK);
 
         $responseContent = json_decode($response->getContent(), true);
 
-        $this->assertInternalType('array', $responseContent);
-        $this->assertNotEmpty($responseContent);
+        self::assertInternalType('array', $responseContent);
+        self::assertNotEmpty($responseContent);
     }
 }

@@ -79,7 +79,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $blockCreateStruct = new BlockCreateStruct(new BlockDefinition());
         $blockCreateStruct->setParameterValues($value);
 
-        $this->assertValid($isValid, $blockCreateStruct);
+        self::assertValid($isValid, $blockCreateStruct);
     }
 
     /**
@@ -137,7 +137,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $blockCreateStruct = new BlockCreateStruct(new BlockDefinition());
         $blockCreateStruct->setParameterValues($value);
 
-        $this->assertValid($isValid, $blockCreateStruct);
+        self::assertValid($isValid, $blockCreateStruct);
     }
 
     /**
@@ -148,7 +148,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
+        self::assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
     /**
@@ -158,7 +158,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

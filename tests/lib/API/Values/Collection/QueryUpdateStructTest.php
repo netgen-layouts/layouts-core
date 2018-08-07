@@ -58,7 +58,7 @@ final class QueryUpdateStructTest extends TestCase
 
         $this->struct->fillParametersFromQuery($query);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => null,
@@ -85,7 +85,7 @@ final class QueryUpdateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($queryType, $initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -110,7 +110,7 @@ final class QueryUpdateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($queryType, $initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

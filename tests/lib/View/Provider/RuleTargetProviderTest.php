@@ -30,14 +30,13 @@ final class RuleTargetProviderTest extends TestCase
     {
         $target = Target::fromArray(['id' => 42]);
 
-        /** @var \Netgen\BlockManager\View\View\RuleTargetViewInterface $view */
         $view = $this->ruleTargetViewProvider->provideView($target);
 
-        $this->assertInstanceOf(RuleTargetViewInterface::class, $view);
+        self::assertInstanceOf(RuleTargetViewInterface::class, $view);
 
-        $this->assertSame($target, $view->getTarget());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($target, $view->getTarget());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'target' => $target,
             ],
@@ -54,7 +53,7 @@ final class RuleTargetProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->ruleTargetViewProvider->supports($value));
+        self::assertSame($supports, $this->ruleTargetViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

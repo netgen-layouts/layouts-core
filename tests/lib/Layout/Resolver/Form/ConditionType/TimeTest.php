@@ -67,12 +67,12 @@ final class TimeTest extends FormTestCase
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
-        $this->assertInstanceOf(TimeType::class, $valueFormConfig->getType()->getInnerType());
+        self::assertInstanceOf(TimeType::class, $valueFormConfig->getType()->getInnerType());
 
         $form->submit($submittedData);
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'from' => [
                     'datetime' => '2018-02-15 13:00:00',
@@ -88,9 +88,9 @@ final class TimeTest extends FormTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('value', $formView->children);
+        self::assertArrayHasKey('value', $formView->children);
 
-        $this->assertArrayHasKey('condition_type', $formView->vars);
-        $this->assertSame($this->conditionType, $formView->vars['condition_type']);
+        self::assertArrayHasKey('condition_type', $formView->vars);
+        self::assertSame($this->conditionType, $formView->vars['condition_type']);
     }
 }

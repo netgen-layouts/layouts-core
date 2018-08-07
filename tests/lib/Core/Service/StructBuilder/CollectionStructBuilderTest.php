@@ -4,13 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
@@ -45,9 +39,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
         $struct = $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
 
-        $this->assertInstanceOf(CollectionCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => 0,
                 'limit' => null,
@@ -64,9 +56,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct();
 
-        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => null,
                 'limit' => null,
@@ -84,9 +74,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
             $this->collectionService->loadCollectionDraft(3)
         );
 
-        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => 4,
                 'limit' => 2,
@@ -104,9 +92,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
             $this->collectionService->loadCollectionDraft(1)
         );
 
-        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => 0,
                 'limit' => 0,
@@ -123,9 +109,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $itemDefinition = new ItemDefinition();
         $struct = $this->structBuilder->newItemCreateStruct($itemDefinition, '42');
 
-        $this->assertInstanceOf(ItemCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'definition' => $itemDefinition,
                 'value' => '42',
@@ -142,9 +126,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $struct = $this->structBuilder->newItemUpdateStruct();
 
-        $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'configStructs' => [],
             ],
@@ -160,12 +142,9 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $item = $this->collectionService->loadItemDraft(1);
         $struct = $this->structBuilder->newItemUpdateStruct($item);
 
-        $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
+        self::assertArrayHasKey('key', $struct->getConfigStructs());
 
-        $this->assertArrayHasKey('key', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'configStructs' => [
                     'key' => [
@@ -189,9 +168,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
 
         $struct = $this->structBuilder->newQueryCreateStruct($queryType);
 
-        $this->assertInstanceOf(QueryCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'queryType' => $queryType,
                 'parameterValues' => [
@@ -210,9 +187,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     {
         $struct = $this->structBuilder->newQueryUpdateStruct('en');
 
-        $this->assertInstanceOf(QueryUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'parameterValues' => [],
@@ -229,9 +204,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $query = $this->collectionService->loadQueryDraft(4);
         $struct = $this->structBuilder->newQueryUpdateStruct('en', $query);
 
-        $this->assertInstanceOf(QueryUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'parameterValues' => [

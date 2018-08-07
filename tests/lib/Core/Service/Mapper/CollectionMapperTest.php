@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
@@ -53,21 +51,17 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection);
 
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertSame(2, $collection->getId());
-        $this->assertSame(10, $collection->getOffset());
-        $this->assertSame(20, $collection->getLimit());
-        $this->assertTrue($collection->isPublished());
-        $this->assertTrue($collection->isTranslatable());
-        $this->assertSame('en', $collection->getMainLocale());
-        $this->assertFalse($collection->isAlwaysAvailable());
-        $this->assertSame(['en'], $collection->getAvailableLocales());
+        self::assertSame(2, $collection->getId());
+        self::assertSame(10, $collection->getOffset());
+        self::assertSame(20, $collection->getLimit());
+        self::assertTrue($collection->isPublished());
+        self::assertTrue($collection->isTranslatable());
+        self::assertSame('en', $collection->getMainLocale());
+        self::assertFalse($collection->isAlwaysAvailable());
+        self::assertSame(['en'], $collection->getAvailableLocales());
 
-        foreach ($collection->getItems() as $item) {
-            $this->assertInstanceOf(APIItem::class, $item);
-        }
-
-        $this->assertInstanceOf(APIQuery::class, $collection->getQuery());
+        self::assertContainsOnlyInstancesOf(APIItem::class, $collection->getItems());
+        self::assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
     /**
@@ -85,9 +79,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['hr']);
 
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
-        $this->assertSame('hr', $collection->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
+        self::assertSame('hr', $collection->getLocale());
     }
 
     /**
@@ -105,9 +98,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['hr', 'en']);
 
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
-        $this->assertSame('hr', $collection->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
+        self::assertSame('hr', $collection->getLocale());
     }
 
     /**
@@ -126,9 +118,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
 
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
-        $this->assertSame('en', $collection->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
+        self::assertSame('en', $collection->getLocale());
     }
 
     /**
@@ -191,21 +182,17 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection);
 
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertSame(1, $collection->getId());
-        $this->assertSame(0, $collection->getOffset());
-        $this->assertSame(20, $collection->getLimit());
-        $this->assertTrue($collection->isPublished());
-        $this->assertTrue($collection->isTranslatable());
-        $this->assertSame('en', $collection->getMainLocale());
-        $this->assertFalse($collection->isAlwaysAvailable());
-        $this->assertSame(['en'], $collection->getAvailableLocales());
+        self::assertSame(1, $collection->getId());
+        self::assertSame(0, $collection->getOffset());
+        self::assertSame(20, $collection->getLimit());
+        self::assertTrue($collection->isPublished());
+        self::assertTrue($collection->isTranslatable());
+        self::assertSame('en', $collection->getMainLocale());
+        self::assertFalse($collection->isAlwaysAvailable());
+        self::assertSame(['en'], $collection->getAvailableLocales());
 
-        foreach ($collection->getItems() as $item) {
-            $this->assertInstanceOf(APIItem::class, $item);
-        }
-
-        $this->assertNull($collection->getQuery());
+        self::assertContainsOnlyInstancesOf(APIItem::class, $collection->getItems());
+        self::assertNull($collection->getQuery());
     }
 
     /**
@@ -233,29 +220,27 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
-            ->with($this->identicalTo('12'), $this->identicalTo('my_value_type'))
-            ->will($this->returnValue($cmsItem));
+            ->with(self::identicalTo('12'), self::identicalTo('my_value_type'))
+            ->will(self::returnValue($cmsItem));
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        $this->assertInstanceOf(APIItem::class, $item);
-        $this->assertSame(1, $item->getId());
-        $this->assertSame(42, $item->getCollectionId());
-        $this->assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
-        $this->assertSame(1, $item->getPosition());
-        $this->assertSame('12', $item->getValue());
-        $this->assertSame($cmsItem, $item->getCmsItem());
-        $this->assertTrue($item->isPublished());
+        self::assertSame(1, $item->getId());
+        self::assertSame(42, $item->getCollectionId());
+        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
+        self::assertSame(1, $item->getPosition());
+        self::assertSame('12', $item->getValue());
+        self::assertSame($cmsItem, $item->getCmsItem());
+        self::assertTrue($item->isPublished());
 
-        $this->assertTrue($item->hasConfig('key'));
-        $this->assertInstanceOf(Config::class, $item->getConfig('key'));
+        self::assertTrue($item->hasConfig('key'));
 
         $itemConfig = $item->getConfig('key');
 
-        $this->assertTrue($itemConfig->getParameter('param1')->getValue());
-        $this->assertSame(42, $itemConfig->getParameter('param2')->getValue());
+        self::assertTrue($itemConfig->getParameter('param1')->getValue());
+        self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
     /**
@@ -283,23 +268,22 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $cmsItem = new NullCmsItem('value');
 
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
-            ->with($this->identicalTo('12'), $this->identicalTo('null'))
-            ->will($this->returnValue($cmsItem));
+            ->with(self::identicalTo('12'), self::identicalTo('null'))
+            ->will(self::returnValue($cmsItem));
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        $this->assertInstanceOf(APIItem::class, $item);
-        $this->assertSame(1, $item->getId());
-        $this->assertSame(42, $item->getCollectionId());
-        $this->assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
-        $this->assertSame(1, $item->getPosition());
-        $this->assertSame('12', $item->getValue());
-        $this->assertSame($cmsItem, $item->getCmsItem());
-        $this->assertTrue($item->isPublished());
+        self::assertSame(1, $item->getId());
+        self::assertSame(42, $item->getCollectionId());
+        self::assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
+        self::assertSame(1, $item->getPosition());
+        self::assertSame('12', $item->getValue());
+        self::assertSame($cmsItem, $item->getCmsItem());
+        self::assertTrue($item->isPublished());
 
-        $this->assertFalse($item->hasConfig('key'));
+        self::assertFalse($item->hasConfig('key'));
     }
 
     /**
@@ -327,27 +311,26 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery);
 
-        $this->assertSame(
+        self::assertSame(
             $this->queryTypeRegistry->getQueryType('my_query_type'),
             $query->getQueryType()
         );
 
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertSame(1, $query->getId());
-        $this->assertSame(42, $query->getCollectionId());
-        $this->assertTrue($query->isPublished());
-        $this->assertTrue($query->isTranslatable());
-        $this->assertSame('en', $query->getMainLocale());
-        $this->assertFalse($query->isAlwaysAvailable());
-        $this->assertSame(['en'], $query->getAvailableLocales());
+        self::assertSame(1, $query->getId());
+        self::assertSame(42, $query->getCollectionId());
+        self::assertTrue($query->isPublished());
+        self::assertTrue($query->isTranslatable());
+        self::assertSame('en', $query->getMainLocale());
+        self::assertFalse($query->isAlwaysAvailable());
+        self::assertSame(['en'], $query->getAvailableLocales());
 
-        $this->assertSame('value', $query->getParameter('param')->getValue());
-        $this->assertNull($query->getParameter('param2')->getValue());
+        self::assertSame('value', $query->getParameter('param')->getValue());
+        self::assertNull($query->getParameter('param2')->getValue());
 
-        $this->assertSame('en', $query->getLocale());
+        self::assertSame('en', $query->getLocale());
 
-        $this->assertSame('value', $query->getParameter('param')->getValue());
-        $this->assertNull($query->getParameter('param2')->getValue());
+        self::assertSame('value', $query->getParameter('param')->getValue());
+        self::assertNull($query->getParameter('param2')->getValue());
     }
 
     /**
@@ -367,9 +350,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['hr']);
 
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
-        $this->assertSame('hr', $query->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
+        self::assertSame('hr', $query->getLocale());
     }
 
     /**
@@ -389,9 +371,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['hr', 'en']);
 
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
-        $this->assertSame('hr', $query->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
+        self::assertSame('hr', $query->getLocale());
     }
 
     /**
@@ -412,9 +393,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
 
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
-        $this->assertSame('en', $query->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
+        self::assertSame('en', $query->getLocale());
     }
 
     /**
@@ -486,20 +466,19 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery);
 
-        $this->assertInstanceOf(NullQueryType::class, $query->getQueryType());
+        self::assertInstanceOf(NullQueryType::class, $query->getQueryType());
 
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertSame(1, $query->getId());
-        $this->assertSame(42, $query->getCollectionId());
-        $this->assertTrue($query->isPublished());
-        $this->assertTrue($query->isTranslatable());
-        $this->assertSame('en', $query->getMainLocale());
-        $this->assertFalse($query->isAlwaysAvailable());
-        $this->assertSame(['en'], $query->getAvailableLocales());
+        self::assertSame(1, $query->getId());
+        self::assertSame(42, $query->getCollectionId());
+        self::assertTrue($query->isPublished());
+        self::assertTrue($query->isTranslatable());
+        self::assertSame('en', $query->getMainLocale());
+        self::assertFalse($query->isAlwaysAvailable());
+        self::assertSame(['en'], $query->getAvailableLocales());
 
-        $this->assertFalse($query->hasParameter('param'));
-        $this->assertFalse($query->hasParameter('param2'));
+        self::assertFalse($query->hasParameter('param'));
+        self::assertFalse($query->hasParameter('param2'));
 
-        $this->assertSame('en', $query->getLocale());
+        self::assertSame('en', $query->getLocale());
     }
 }

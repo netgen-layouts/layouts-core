@@ -22,10 +22,10 @@ final class TargetTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $target->id);
-        $this->assertSame(30, $target->ruleId);
-        $this->assertSame('target', $target->type);
-        $this->assertSame(32, $target->value);
-        $this->assertSame(Value::STATUS_PUBLISHED, $target->status);
+        self::assertSame(42, $target->id);
+        self::assertSame(30, $target->ruleId);
+        self::assertSame('target', $target->type);
+        self::assertSame(32, $target->value);
+        self::assertSame(Value::STATUS_PUBLISHED, $target->status);
     }
 }

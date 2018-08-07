@@ -31,9 +31,9 @@ abstract class VisitorTest extends ServiceTestCase
         $this->subVisitorMock = $this->createMock(VisitorInterface::class);
 
         $this->subVisitorMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('visit')
-            ->will($this->returnValue(['sub_visit_value']));
+            ->will(self::returnValue(['sub_visit_value']));
 
         $this->matcherFactory = new SimpleFactory();
     }
@@ -46,7 +46,7 @@ abstract class VisitorTest extends ServiceTestCase
      */
     public function testAccept($value, bool $accepted): void
     {
-        $this->assertSame($accepted, $this->getVisitor()->accept($value));
+        self::assertSame($accepted, $this->getVisitor()->accept($value));
     }
 
     /**
@@ -81,11 +81,11 @@ abstract class VisitorTest extends ServiceTestCase
             $visitedData = json_encode($visitedData, JSON_PRETTY_PRINT);
             $diff = new Diff(explode(PHP_EOL, is_string($visitedData) ? $visitedData : ''), explode(PHP_EOL, $expectedData));
 
-            $this->fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
+            self::fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
         }
 
         // Fake assertion to disable risky flag
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**

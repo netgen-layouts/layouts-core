@@ -35,8 +35,8 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.item.value_type.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasService('netgen_block_manager.item.value_type.test');
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.item.registry.value_type',
             0,
             [
@@ -77,7 +77,7 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

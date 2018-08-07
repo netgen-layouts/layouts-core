@@ -121,13 +121,13 @@ final class FullEditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame('My block', $struct->name);
-        $this->assertSame('large', $struct->viewType);
-        $this->assertSame('standard', $struct->itemViewType);
+        self::assertSame('My block', $struct->name);
+        self::assertSame('large', $struct->viewType);
+        self::assertSame('standard', $struct->itemViewType);
 
-        $this->assertSame(
+        self::assertSame(
             ['css_class' => 'Some CSS class', 'css_id' => 'Some CSS ID'],
             $struct->getParameterValues()
         );
@@ -136,17 +136,17 @@ final class FullEditTypeTest extends FormTestCase
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
 
         foreach (array_keys($submittedData['parameters']) as $key) {
-            $this->assertArrayHasKey($key, $children['parameters']);
+            self::assertArrayHasKey($key, $children['parameters']);
         }
 
-        $this->assertArrayHasKey('block', $view->vars);
-        $this->assertSame($this->block, $view->vars['block']);
+        self::assertArrayHasKey('block', $view->vars);
+        self::assertSame($this->block, $view->vars['block']);
 
-        $this->assertArrayHasKey('parameter_view_types', $view->vars);
+        self::assertArrayHasKey('parameter_view_types', $view->vars);
     }
 
     /**
@@ -175,13 +175,13 @@ final class FullEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertTrue($form->get('name')->isDisabled());
-        $this->assertTrue($form->get('view_type')->isDisabled());
-        $this->assertTrue($form->get('item_view_type')->isDisabled());
+        self::assertTrue($form->get('name')->isDisabled());
+        self::assertTrue($form->get('view_type')->isDisabled());
+        self::assertTrue($form->get('item_view_type')->isDisabled());
 
-        $this->assertFalse($form->get('parameters')->isDisabled());
-        $this->assertTrue($form->get('parameters')->get('css_class')->isDisabled());
-        $this->assertTrue($form->get('parameters')->get('css_id')->isDisabled());
+        self::assertFalse($form->get('parameters')->isDisabled());
+        self::assertTrue($form->get('parameters')->get('css_class')->isDisabled());
+        self::assertTrue($form->get('parameters')->get('css_id')->isDisabled());
     }
 
     /**
@@ -210,13 +210,13 @@ final class FullEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertFalse($form->get('name')->isDisabled());
-        $this->assertFalse($form->get('view_type')->isDisabled());
-        $this->assertFalse($form->get('item_view_type')->isDisabled());
+        self::assertFalse($form->get('name')->isDisabled());
+        self::assertFalse($form->get('view_type')->isDisabled());
+        self::assertFalse($form->get('item_view_type')->isDisabled());
 
-        $this->assertFalse($form->get('parameters')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('css_class')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('css_id')->isDisabled());
+        self::assertFalse($form->get('parameters')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('css_class')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('css_id')->isDisabled());
     }
 
     /**
@@ -238,8 +238,8 @@ final class FullEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->block, $options['block']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->block, $options['block']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

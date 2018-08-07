@@ -40,7 +40,7 @@ final class SerializerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::VIEW => 'onView'],
             $this->listener::getSubscribedEvents()
         );
@@ -55,15 +55,15 @@ final class SerializerListenerTest extends TestCase
         $value = new VersionedValue(new Value(), 42);
 
         $this->serializerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('serialize')
             ->with(
-                $this->identicalTo($value),
-                $this->identicalTo('json'),
-                $this->identicalTo([])
+                self::identicalTo($value),
+                self::identicalTo('json'),
+                self::identicalTo([])
             )
             ->will(
-                $this->returnValue('serialized content')
+                self::returnValue('serialized content')
             );
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -79,12 +79,12 @@ final class SerializerListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        $this->assertSame(
+        self::assertSame(
             'serialized content',
             $event->getResponse()->getContent()
         );
@@ -98,15 +98,15 @@ final class SerializerListenerTest extends TestCase
         $value = new VersionedValue(new Value(), 42);
 
         $this->serializerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('serialize')
             ->with(
-                $this->identicalTo($value),
-                $this->identicalTo('json'),
-                $this->identicalTo(['disable_html' => true])
+                self::identicalTo($value),
+                self::identicalTo('json'),
+                self::identicalTo(['disable_html' => true])
             )
             ->will(
-                $this->returnValue('serialized content')
+                self::returnValue('serialized content')
             );
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -123,12 +123,12 @@ final class SerializerListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        $this->assertSame(
+        self::assertSame(
             'serialized content',
             $event->getResponse()->getContent()
         );
@@ -151,7 +151,7 @@ final class SerializerListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 
     /**
@@ -172,6 +172,6 @@ final class SerializerListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 }

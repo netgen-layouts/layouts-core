@@ -35,21 +35,21 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testChangeCollectionType(): void
     {
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadCollection')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     new PersistenceCollection()
                 )
             );
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteCollectionQuery')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
@@ -66,21 +66,21 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testAddItem(): void
     {
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadCollection')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     new PersistenceCollection()
                 )
             );
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('addItem')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $itemCreateStruct = new ItemCreateStruct();
@@ -100,21 +100,21 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testUpdateItem(): void
     {
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     PersistenceItem::fromArray(['config' => []])
                 )
             );
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('updateItem')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
@@ -131,17 +131,17 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testMoveItem(): void
     {
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->will($this->returnValue(new PersistenceItem()));
+            ->will(self::returnValue(new PersistenceItem()));
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('moveItem')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->collectionService->moveItem(Item::fromArray(['status' => Value::STATUS_DRAFT]), 0);
@@ -155,17 +155,17 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testDeleteItem(): void
     {
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->will($this->returnValue(new PersistenceItem()));
+            ->will(self::returnValue(new PersistenceItem()));
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteItem')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->collectionService->deleteItem(Item::fromArray(['status' => Value::STATUS_DRAFT]));
@@ -179,17 +179,17 @@ final class CollectionServiceTest extends ServiceTestCase
     public function testDeleteItems(): void
     {
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
+            ->will(self::returnValue(new PersistenceCollection()));
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deleteItems')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->collectionService->deleteItems(Collection::fromArray(['status' => Value::STATUS_DRAFT]));
@@ -211,17 +211,17 @@ final class CollectionServiceTest extends ServiceTestCase
         );
 
         $this->collectionHandlerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadQuery')
-            ->will($this->returnValue($persistenceQuery));
+            ->will(self::returnValue($persistenceQuery));
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('updateQueryTranslation')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $struct = new QueryUpdateStruct();

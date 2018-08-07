@@ -18,7 +18,7 @@ final class LocaleProviderTest extends TestCase
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'en' => 'English',
                 'hr' => 'Croatian',
@@ -35,7 +35,7 @@ final class LocaleProviderTest extends TestCase
     {
         $localeProvider = new LocaleProvider(['en', 'hr_NON_EXISTING']);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'en' => 'English',
             ],
@@ -51,7 +51,7 @@ final class LocaleProviderTest extends TestCase
     {
         $localeProvider = new LocaleProvider();
 
-        $this->assertNotEmpty($localeProvider->getAvailableLocales());
+        self::assertNotEmpty($localeProvider->getAvailableLocales());
     }
 
     /**
@@ -62,11 +62,11 @@ final class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider();
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->expects($this->any())
+        $requestMock->expects(self::any())
             ->method('getLocale')
-            ->will($this->returnValue('en'));
+            ->will(self::returnValue('en'));
 
-        $this->assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
+        self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
     /**
@@ -77,11 +77,11 @@ final class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->expects($this->any())
+        $requestMock->expects(self::any())
             ->method('getLocale')
-            ->will($this->returnValue('en'));
+            ->will(self::returnValue('en'));
 
-        $this->assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
+        self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
     /**
@@ -92,10 +92,10 @@ final class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->expects($this->any())
+        $requestMock->expects(self::any())
             ->method('getLocale')
-            ->will($this->returnValue('de'));
+            ->will(self::returnValue('de'));
 
-        $this->assertSame([], $localeProvider->getRequestLocales($requestMock));
+        self::assertSame([], $localeProvider->getRequestLocales($requestMock));
     }
 }

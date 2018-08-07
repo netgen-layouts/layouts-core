@@ -30,7 +30,7 @@ final class DesignNodeTest extends TestCase
             'design' => 'standard',
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'design'
@@ -48,7 +48,7 @@ final class DesignNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design" cannot contain an empty value, but got "".');
+        self::assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design" cannot contain an empty value, but got "".');
     }
 
     /**
@@ -62,7 +62,7 @@ final class DesignNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.design". Expected scalar, but got array.');
+        self::assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.design". Expected scalar, but got array.');
     }
 
     protected function getConfiguration(): ConfigurationInterface

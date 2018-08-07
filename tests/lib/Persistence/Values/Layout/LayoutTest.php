@@ -25,13 +25,13 @@ final class LayoutTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $layout->id);
-        $this->assertSame('4_zones_a', $layout->type);
-        $this->assertSame('My layout', $layout->name);
-        $this->assertSame('My description', $layout->description);
-        $this->assertTrue($layout->shared);
-        $this->assertSame(123, $layout->created);
-        $this->assertSame(456, $layout->modified);
-        $this->assertSame(Value::STATUS_PUBLISHED, $layout->status);
+        self::assertSame(42, $layout->id);
+        self::assertSame('4_zones_a', $layout->type);
+        self::assertSame('My layout', $layout->name);
+        self::assertSame('My description', $layout->description);
+        self::assertTrue($layout->shared);
+        self::assertSame(123, $layout->created);
+        self::assertSame(456, $layout->modified);
+        self::assertSame(Value::STATUS_PUBLISHED, $layout->status);
     }
 }

@@ -35,7 +35,7 @@ final class ItemParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['itemId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['itemId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ItemParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('item', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('item', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class ItemParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APIItem::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APIItem::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class ItemParamConverterTest extends TestCase
         $item = new Item();
 
         $this->collectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($item));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($item));
 
-        $this->assertSame(
+        self::assertSame(
             $item,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class ItemParamConverterTest extends TestCase
         $item = new Item();
 
         $this->collectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItemDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($item));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($item));
 
-        $this->assertSame(
+        self::assertSame(
             $item,
             $this->paramConverter->loadValue(
                 [

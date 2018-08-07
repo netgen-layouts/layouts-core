@@ -35,7 +35,7 @@ final class ConditionParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['conditionId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['conditionId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ConditionParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('condition', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('condition', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class ConditionParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APICondition::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APICondition::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class ConditionParamConverterTest extends TestCase
         $condition = new Condition();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadCondition')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($condition));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($condition));
 
-        $this->assertSame(
+        self::assertSame(
             $condition,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class ConditionParamConverterTest extends TestCase
         $condition = new Condition();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadConditionDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($condition));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($condition));
 
-        $this->assertSame(
+        self::assertSame(
             $condition,
             $this->paramConverter->loadValue(
                 [

@@ -52,7 +52,7 @@ final class BlockTypeNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => $blockType->getIdentifier(),
                 'enabled' => false,
@@ -87,7 +87,7 @@ final class BlockTypeNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($blockType, 1));
 
-        $this->assertTrue($data['is_container']);
+        self::assertTrue($data['is_container']);
     }
 
     /**
@@ -99,7 +99,7 @@ final class BlockTypeNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

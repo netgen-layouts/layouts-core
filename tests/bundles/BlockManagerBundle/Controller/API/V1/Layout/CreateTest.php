@@ -35,7 +35,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout',
             Response::HTTP_CREATED
@@ -65,7 +65,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_empty_description',
             Response::HTTP_CREATED
@@ -96,7 +96,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_empty_description',
             Response::HTTP_CREATED
@@ -126,7 +126,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layout_type": This value should be of type string.'
@@ -155,7 +155,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layout_type": This value should not be blank.'
@@ -186,7 +186,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "description": This value should be of type string.'
@@ -217,7 +217,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "locale": Expected argument of type "string", "integer" given'
@@ -247,7 +247,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "locale": This value should not be blank.'
@@ -278,7 +278,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "locale": This value is not a valid locale.'
@@ -308,7 +308,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "layout_type" has an invalid state. Layout type does not exist.'
@@ -338,7 +338,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "name" has an invalid state. Layout with provided name already exists.'

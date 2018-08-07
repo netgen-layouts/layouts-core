@@ -45,7 +45,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetBlockTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'block_type' => $this->blockType,
                 'block_type2' => $this->blockType2,
@@ -59,7 +59,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetEnabledBlockTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'block_type' => $this->blockType,
             ],
@@ -72,7 +72,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testHasBlockType(): void
     {
-        $this->assertTrue($this->registry->hasBlockType('block_type'));
+        self::assertTrue($this->registry->hasBlockType('block_type'));
     }
 
     /**
@@ -80,7 +80,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testHasBlockTypeWithNoBlockType(): void
     {
-        $this->assertFalse($this->registry->hasBlockType('other_block_type'));
+        self::assertFalse($this->registry->hasBlockType('other_block_type'));
     }
 
     /**
@@ -88,7 +88,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetBlockType(): void
     {
-        $this->assertSame($this->blockType, $this->registry->getBlockType('block_type'));
+        self::assertSame($this->blockType, $this->registry->getBlockType('block_type'));
     }
 
     /**
@@ -106,14 +106,14 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $blockTypes = [];
         foreach ($this->registry as $identifier => $blockType) {
             $blockTypes[$identifier] = $blockType;
         }
 
-        $this->assertSame($this->registry->getBlockTypes(), $blockTypes);
+        self::assertSame($this->registry->getBlockTypes(), $blockTypes);
     }
 
     /**
@@ -121,7 +121,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(2, $this->registry);
+        self::assertCount(2, $this->registry);
     }
 
     /**
@@ -129,8 +129,8 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('block_type', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('block_type', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -138,7 +138,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->blockType, $this->registry['block_type']);
+        self::assertSame($this->blockType, $this->registry['block_type']);
     }
 
     /**

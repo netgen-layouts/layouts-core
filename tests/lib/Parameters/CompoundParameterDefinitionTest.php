@@ -20,7 +20,7 @@ final class CompoundParameterDefinitionTest extends TestCase
     {
         $parameterDefinition = new CompoundParameterDefinition();
 
-        $this->assertSame([], $parameterDefinition->getParameterDefinitions());
+        self::assertSame([], $parameterDefinition->getParameterDefinitions());
     }
 
     /**
@@ -38,18 +38,18 @@ final class CompoundParameterDefinitionTest extends TestCase
             ]
         );
 
-        $this->assertSame(['name' => $innerDefinition], $parameterDefinition->getParameterDefinitions());
+        self::assertSame(['name' => $innerDefinition], $parameterDefinition->getParameterDefinitions());
 
-        $this->assertFalse($parameterDefinition->hasParameterDefinition('test'));
-        $this->assertTrue($parameterDefinition->hasParameterDefinition('name'));
+        self::assertFalse($parameterDefinition->hasParameterDefinition('test'));
+        self::assertTrue($parameterDefinition->hasParameterDefinition('name'));
 
         try {
             $parameterDefinition->getParameterDefinition('test');
-            $this->fail('Fetched a parameter in empty collection.');
+            self::fail('Fetched a parameter in empty collection.');
         } catch (ParameterException $e) {
             // Do nothing
         }
 
-        $this->assertSame($innerDefinition, $parameterDefinition->getParameterDefinition('name'));
+        self::assertSame($innerDefinition, $parameterDefinition->getParameterDefinition('name'));
     }
 }

@@ -171,7 +171,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions'
@@ -201,7 +201,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.icon'
@@ -233,7 +233,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.icon'
@@ -261,7 +261,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.handler'
@@ -294,7 +294,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.enabled'
@@ -325,7 +325,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.translatable'
@@ -358,7 +358,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.translatable'
@@ -387,7 +387,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections'
@@ -427,7 +427,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections'
@@ -468,7 +468,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections.default.valid_query_types'
@@ -509,7 +509,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections.default.valid_query_types'
@@ -550,7 +550,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections.default.valid_query_types'
@@ -591,7 +591,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections.default.valid_item_types'
@@ -632,7 +632,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections.default.valid_item_types'
@@ -673,7 +673,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.collections.default.valid_item_types'
@@ -731,7 +731,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.forms'
@@ -832,7 +832,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.view_types'
@@ -908,7 +908,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.view_types'
@@ -963,7 +963,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'block_definitions.*.view_types.*'
@@ -988,7 +988,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1006,7 +1006,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
+        self::assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -1024,7 +1024,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
+        self::assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -1037,7 +1037,7 @@ final class BlockDefinitionNodeTest extends TestCase
             'block_definitions' => [],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1060,7 +1060,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config], 'Collections need to allow at least one item type or at least one query type.');
+        self::assertConfigurationIsInvalid([$config], 'Collections need to allow at least one item type or at least one query type.');
     }
 
     /**
@@ -1095,7 +1095,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1130,7 +1130,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1165,7 +1165,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1200,7 +1200,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1238,7 +1238,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1256,7 +1256,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -1279,7 +1279,7 @@ final class BlockDefinitionNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid([$config]);
+        self::assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

@@ -15,6 +15,6 @@ final class ParameterStructTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new ParameterStruct();
-        $this->assertSame('ngbm_parameter_struct', $constraint->validatedBy());
+        self::assertSame('ngbm_parameter_struct', $constraint->validatedBy());
     }
 }

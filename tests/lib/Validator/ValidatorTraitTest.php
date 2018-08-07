@@ -39,13 +39,13 @@ final class ValidatorTraitTest extends TestCase
     {
         $constraints = [new Constraints\NotBlank()];
         $this->validatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validate')
             ->with(
-                $this->identicalTo('some value'),
-                $this->identicalTo($constraints)
+                self::identicalTo('some value'),
+                self::identicalTo($constraints)
             )
-            ->will($this->returnValue(new ConstraintViolationList()));
+            ->will(self::returnValue(new ConstraintViolationList()));
 
         $this->validator->validateValue('some value', $constraints);
     }
@@ -59,13 +59,13 @@ final class ValidatorTraitTest extends TestCase
     {
         $constraints = [new Constraints\NotBlank()];
         $this->validatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validate')
             ->with(
-                $this->identicalTo('some value'),
-                $this->identicalTo($constraints)
+                self::identicalTo('some value'),
+                self::identicalTo($constraints)
             )->will(
-                $this->returnValue(
+                self::returnValue(
                     new ConstraintViolationList(
                         [
                             $this->createConfiguredMock(
@@ -88,10 +88,10 @@ final class ValidatorTraitTest extends TestCase
     public function testValidateThrowsValidationExceptionOnOtherException(): void
     {
         $this->validatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validate')
             ->will(
-                $this->throwException(new Exception('Test exception text'))
+                self::throwException(new Exception('Test exception text'))
             );
 
         $this->validator->validateValue('some value', [new Constraints\NotBlank()]);

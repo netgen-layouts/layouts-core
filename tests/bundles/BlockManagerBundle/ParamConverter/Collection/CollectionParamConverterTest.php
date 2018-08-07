@@ -35,7 +35,7 @@ final class CollectionParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['collectionId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['collectionId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class CollectionParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('collection', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('collection', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class CollectionParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APICollection::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APICollection::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class CollectionParamConverterTest extends TestCase
         $collection = new Collection();
 
         $this->collectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadCollection')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($collection));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($collection));
 
-        $this->assertSame(
+        self::assertSame(
             $collection,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class CollectionParamConverterTest extends TestCase
         $collection = new Collection();
 
         $this->collectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadCollectionDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($collection));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($collection));
 
-        $this->assertSame(
+        self::assertSame(
             $collection,
             $this->paramConverter->loadValue(
                 [

@@ -31,7 +31,7 @@ final class UrlGeneratorTest extends TestCase
      */
     public function testGenerate(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '/item-url',
             $this->urlGenerator->generate(
                 CmsItem::fromArray(['valueType' => 'value', 'object' => new stdClass()])
@@ -45,7 +45,7 @@ final class UrlGeneratorTest extends TestCase
      */
     public function testGenerateWithNullCmsItem(): void
     {
-        $this->assertSame('', $this->urlGenerator->generate(new NullCmsItem('value')));
+        self::assertSame('', $this->urlGenerator->generate(new NullCmsItem('value')));
     }
 
     /**
@@ -54,7 +54,7 @@ final class UrlGeneratorTest extends TestCase
      */
     public function testGenerateWithNullObject(): void
     {
-        $this->assertSame('', $this->urlGenerator->generate(CmsItem::fromArray(['object' => null])));
+        self::assertSame('', $this->urlGenerator->generate(CmsItem::fromArray(['object' => null])));
     }
 
     /**

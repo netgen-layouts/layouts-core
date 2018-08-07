@@ -26,7 +26,7 @@ final class RequestUriTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('request_uri', $this->targetType::getType());
+        self::assertSame('request_uri', $this->targetType::getType());
     }
 
     /**
@@ -41,7 +41,7 @@ final class RequestUriTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->targetType->getConstraints());
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -51,7 +51,7 @@ final class RequestUriTest extends TestCase
     {
         $request = Request::create('/the/answer', Request::METHOD_GET, ['a' => 42]);
 
-        $this->assertSame(
+        self::assertSame(
             '/the/answer?a=42',
             $this->targetType->provideValue($request)
         );

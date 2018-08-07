@@ -33,7 +33,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntityType(): void
     {
-        $this->assertSame('type', $this->result->getEntityType());
+        self::assertSame('type', $this->result->getEntityType());
     }
 
     /**
@@ -41,7 +41,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetData(): void
     {
-        $this->assertSame(['data'], $this->result->getData());
+        self::assertSame(['data'], $this->result->getData());
     }
 
     /**
@@ -49,7 +49,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntityId(): void
     {
-        $this->assertSame(42, $this->result->getEntityId());
+        self::assertSame(42, $this->result->getEntityId());
     }
 
     /**
@@ -57,6 +57,6 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntity(): void
     {
-        $this->assertSame($this->entity, $this->result->getEntity());
+        self::assertSame($this->entity, $this->result->getEntity());
     }
 }

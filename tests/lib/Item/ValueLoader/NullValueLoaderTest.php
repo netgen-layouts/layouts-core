@@ -24,7 +24,7 @@ final class NullValueLoaderTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertNull($this->valueLoader->load(42));
+        self::assertNull($this->valueLoader->load(42));
     }
 
     /**
@@ -32,6 +32,6 @@ final class NullValueLoaderTest extends TestCase
      */
     public function testLoadByRemoteId(): void
     {
-        $this->assertNull($this->valueLoader->loadByRemoteId('abc'));
+        self::assertNull($this->valueLoader->loadByRemoteId('abc'));
     }
 }

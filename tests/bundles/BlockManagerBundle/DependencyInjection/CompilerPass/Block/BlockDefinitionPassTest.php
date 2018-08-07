@@ -53,12 +53,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService(
+        self::assertContainerBuilderHasService(
             'netgen_block_manager.block.block_definition.block_definition',
             $definitionClass
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.block_definition.block_definition',
             3,
             [
@@ -66,7 +66,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_definition',
             0,
             [
@@ -104,12 +104,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService(
+        self::assertContainerBuilderHasService(
             'netgen_block_manager.block.block_definition.block_definition',
             $definitionClass
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_definition',
             0,
             [
@@ -214,7 +214,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     public function processDataProvider(): array

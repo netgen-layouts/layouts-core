@@ -30,14 +30,13 @@ final class RuleViewProviderTest extends TestCase
     {
         $rule = Rule::fromArray(['id' => 42]);
 
-        /** @var \Netgen\BlockManager\View\View\RuleViewInterface $view */
         $view = $this->ruleViewProvider->provideView($rule);
 
-        $this->assertInstanceOf(RuleViewInterface::class, $view);
+        self::assertInstanceOf(RuleViewInterface::class, $view);
 
-        $this->assertSame($rule, $view->getRule());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($rule, $view->getRule());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'rule' => $rule,
             ],
@@ -54,7 +53,7 @@ final class RuleViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->ruleViewProvider->supports($value));
+        self::assertSame($supports, $this->ruleViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

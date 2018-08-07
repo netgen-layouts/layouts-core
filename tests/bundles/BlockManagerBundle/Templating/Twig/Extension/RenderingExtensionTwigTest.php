@@ -139,23 +139,23 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
 
         $request instanceof Request ?
             $this->localeProviderMock
-                ->expects($this->any())
+                ->expects(self::any())
                 ->method('getRequestLocales')
-                ->with($this->identicalTo($request))
-                ->will($this->returnValue(['en'])) :
+                ->with(self::identicalTo($request))
+                ->will(self::returnValue(['en'])) :
             $this->localeProviderMock
-                ->expects($this->never())
+                ->expects(self::never())
                 ->method('getRequestLocales');
 
         $this->blockServiceMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('loadZoneBlocks')
             ->with(
-                $this->isInstanceOf(Zone::class),
-                $this->identicalTo($request instanceof Request ? ['en'] : null)
+                self::isInstanceOf(Zone::class),
+                self::identicalTo($request instanceof Request ? ['en'] : null)
             )
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     [
                         Block::fromArray(
                             [
@@ -199,10 +199,10 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             );
 
         $this->rendererMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('renderValue')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function (Block $block, string $context): string {
                         if ($block->getDefinition()->getIdentifier() === 'twig_block') {
                             return 'rendered twig block' . PHP_EOL;

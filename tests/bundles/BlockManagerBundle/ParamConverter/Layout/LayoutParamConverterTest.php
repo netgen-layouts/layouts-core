@@ -35,7 +35,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['layoutId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['layoutId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('layout', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('layout', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APILayout::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APILayout::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class LayoutParamConverterTest extends TestCase
         $layout = new Layout();
 
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayout')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($layout));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($layout));
 
-        $this->assertSame(
+        self::assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class LayoutParamConverterTest extends TestCase
         $layout = new Layout();
 
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayoutArchive')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($layout));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($layout));
 
-        $this->assertSame(
+        self::assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
@@ -110,12 +110,12 @@ final class LayoutParamConverterTest extends TestCase
         $layout = new Layout();
 
         $this->layoutServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLayoutDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($layout));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($layout));
 
-        $this->assertSame(
+        self::assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [

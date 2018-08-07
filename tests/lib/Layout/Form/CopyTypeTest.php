@@ -52,16 +52,16 @@ final class CopyTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame('New name', $struct->name);
-        $this->assertSame('New description', $struct->description);
+        self::assertSame('New name', $struct->name);
+        self::assertSame('New description', $struct->description);
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 
@@ -84,8 +84,8 @@ final class CopyTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->layout, $options['layout']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->layout, $options['layout']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

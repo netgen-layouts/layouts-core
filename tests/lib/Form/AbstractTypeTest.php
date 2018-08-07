@@ -26,7 +26,7 @@ final class AbstractTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
         $resolvedOptions = $optionsResolver->resolve([]);
 
-        $this->assertSame(
+        self::assertSame(
             'ngbm_forms',
             $resolvedOptions['translation_domain']
         );

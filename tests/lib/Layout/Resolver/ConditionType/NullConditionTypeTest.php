@@ -25,7 +25,7 @@ final class NullConditionTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('null', $this->conditionType::getType());
+        self::assertSame('null', $this->conditionType::getType());
     }
 
     /**
@@ -33,7 +33,7 @@ final class NullConditionTypeTest extends TestCase
      */
     public function testGetConstraints(): void
     {
-        $this->assertSame([], $this->conditionType->getConstraints());
+        self::assertSame([], $this->conditionType->getConstraints());
     }
 
     /**
@@ -41,6 +41,6 @@ final class NullConditionTypeTest extends TestCase
      */
     public function testMatches(): void
     {
-        $this->assertTrue($this->conditionType->matches(Request::create(''), ''));
+        self::assertTrue($this->conditionType->matches(Request::create(''), ''));
     }
 }

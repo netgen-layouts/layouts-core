@@ -27,6 +27,6 @@ final class HelpersRuntimeTest extends TestCase
     {
         $localeName = $this->runtime->getLocaleName('hr_HR', 'hr_HR');
 
-        $this->assertSame('hrvatski (Hrvatska)', $localeName);
+        self::assertSame('hrvatski (Hrvatska)', $localeName);
     }
 }

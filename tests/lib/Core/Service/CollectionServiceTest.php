@@ -5,15 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -39,8 +32,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $collection = $this->collectionService->loadCollection(3);
 
-        $this->assertTrue($collection->isPublished());
-        $this->assertInstanceOf(Collection::class, $collection);
+        self::assertTrue($collection->isPublished());
     }
 
     /**
@@ -61,8 +53,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $collection = $this->collectionService->loadCollectionDraft(3);
 
-        $this->assertTrue($collection->isDraft());
-        $this->assertInstanceOf(Collection::class, $collection);
+        self::assertTrue($collection->isDraft());
     }
 
     /**
@@ -89,11 +80,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
-        $this->assertTrue($updatedCollection->isDraft());
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertSame(6, $updatedCollection->getOffset());
-        $this->assertSame(3, $updatedCollection->getLimit());
+        self::assertTrue($updatedCollection->isDraft());
+        self::assertSame(6, $updatedCollection->getOffset());
+        self::assertSame(3, $updatedCollection->getLimit());
     }
 
     /**
@@ -110,11 +99,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
-        $this->assertTrue($updatedCollection->isDraft());
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertSame(6, $updatedCollection->getOffset());
-        $this->assertNull($updatedCollection->getLimit());
+        self::assertTrue($updatedCollection->isDraft());
+        self::assertSame(6, $updatedCollection->getOffset());
+        self::assertNull($updatedCollection->getLimit());
     }
 
     /**
@@ -141,8 +128,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $item = $this->collectionService->loadItem(7);
 
-        $this->assertTrue($item->isPublished());
-        $this->assertInstanceOf(Item::class, $item);
+        self::assertTrue($item->isPublished());
     }
 
     /**
@@ -162,8 +148,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $item = $this->collectionService->loadItemDraft(7);
 
-        $this->assertTrue($item->isDraft());
-        $this->assertInstanceOf(Item::class, $item);
+        self::assertTrue($item->isDraft());
     }
 
     /**
@@ -183,8 +168,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $query = $this->collectionService->loadQuery(2);
 
-        $this->assertTrue($query->isPublished());
-        $this->assertInstanceOf(Query::class, $query);
+        self::assertTrue($query->isPublished());
     }
 
     /**
@@ -204,8 +188,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $query = $this->collectionService->loadQueryDraft(2);
 
-        $this->assertTrue($query->isDraft());
-        $this->assertInstanceOf(Query::class, $query);
+        self::assertTrue($query->isDraft());
     }
 
     /**
@@ -233,10 +216,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
             )
         );
 
-        $this->assertTrue($updatedCollection->isDraft());
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-        $this->assertCount(count($collection->getItems()), $updatedCollection->getItems());
-        $this->assertInstanceOf(Query::class, $updatedCollection->getQuery());
+        self::assertTrue($updatedCollection->isDraft());
+        self::assertCount(count($collection->getItems()), $updatedCollection->getItems());
+        self::assertInstanceOf(Query::class, $updatedCollection->getQuery());
     }
 
     /**
@@ -251,16 +233,15 @@ abstract class CollectionServiceTest extends ServiceTestCase
             Collection::TYPE_MANUAL
         );
 
-        $this->assertTrue($updatedCollection->isDraft());
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-        $this->assertCount(count($collection->getItems()), $updatedCollection->getItems());
-        $this->assertNull($updatedCollection->getQuery());
+        self::assertTrue($updatedCollection->isDraft());
+        self::assertCount(count($collection->getItems()), $updatedCollection->getItems());
+        self::assertNull($updatedCollection->getQuery());
 
         foreach ($updatedCollection->getItems() as $index => $item) {
-            $this->assertSame($index, $item->getPosition());
+            self::assertSame($index, $item->getPosition());
         }
 
-        $this->assertSame(0, $updatedCollection->getOffset());
+        self::assertSame(0, $updatedCollection->getOffset());
     }
 
     /**
@@ -329,8 +310,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             1
         );
 
-        $this->assertTrue($createdItem->isDraft());
-        $this->assertInstanceOf(Item::class, $createdItem);
+        self::assertTrue($createdItem->isDraft());
     }
 
     /**
@@ -387,15 +367,12 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedItem = $this->collectionService->updateItem($item, $itemUpdateStruct);
 
-        $this->assertTrue($updatedItem->isDraft());
-        $this->assertInstanceOf(Item::class, $updatedItem);
+        self::assertTrue($updatedItem->isDraft());
+        self::assertTrue($updatedItem->hasConfig('key'));
 
-        $this->assertTrue($updatedItem->hasConfig('key'));
         $itemConfig = $updatedItem->getConfig('key');
-
-        $this->assertInstanceOf(Config::class, $itemConfig);
-        $this->assertNull($itemConfig->getParameter('param1')->getValue());
-        $this->assertSame(42, $itemConfig->getParameter('param2')->getValue());
+        self::assertNull($itemConfig->getParameter('param1')->getValue());
+        self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
     /**
@@ -421,12 +398,11 @@ abstract class CollectionServiceTest extends ServiceTestCase
             1
         );
 
-        $this->assertTrue($movedItem->isDraft());
-        $this->assertInstanceOf(Item::class, $movedItem);
-        $this->assertSame(1, $movedItem->getPosition());
+        self::assertTrue($movedItem->isDraft());
+        self::assertSame(1, $movedItem->getPosition());
 
         $secondItem = $this->collectionService->loadItemDraft(2);
-        $this->assertSame(0, $secondItem->getPosition());
+        self::assertSame(0, $secondItem->getPosition());
     }
 
     /**
@@ -471,7 +447,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         }
 
         $secondItem = $this->collectionService->loadItemDraft(2);
-        $this->assertSame(0, $secondItem->getPosition());
+        self::assertSame(0, $secondItem->getPosition());
     }
 
     /**
@@ -493,7 +469,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollectionDraft(3);
         $collection = $this->collectionService->deleteItems($collection);
 
-        $this->assertCount(0, $collection->getItems());
+        self::assertCount(0, $collection->getItems());
     }
 
     /**
@@ -522,20 +498,18 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
-        $this->assertTrue($updatedQuery->isDraft());
-        $this->assertInstanceOf(Query::class, $updatedQuery);
+        self::assertTrue($updatedQuery->isDraft());
+        self::assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
 
-        $this->assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
-
-        $this->assertNull($updatedQuery->getParameter('param')->getValue());
-        $this->assertNull($updatedQuery->getParameter('param2')->getValue());
+        self::assertNull($updatedQuery->getParameter('param')->getValue());
+        self::assertNull($updatedQuery->getParameter('param2')->getValue());
 
         $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
-        $this->assertNull($croQuery->getParameter('param')->getValue());
+        self::assertNull($croQuery->getParameter('param')->getValue());
 
-        $this->assertSame(3, $croQuery->getParameter('param2')->getValue());
+        self::assertSame(3, $croQuery->getParameter('param2')->getValue());
     }
 
     /**
@@ -553,20 +527,18 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
-        $this->assertTrue($updatedQuery->isDraft());
-        $this->assertInstanceOf(Query::class, $updatedQuery);
-
-        $this->assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
+        self::assertTrue($updatedQuery->isDraft());
+        self::assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
 
         $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
 
-        $this->assertSame('new_value', $updatedQuery->getParameter('param')->getValue());
-        $this->assertSame(3, $updatedQuery->getParameter('param2')->getValue());
+        self::assertSame('new_value', $updatedQuery->getParameter('param')->getValue());
+        self::assertSame(3, $updatedQuery->getParameter('param2')->getValue());
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
-        $this->assertSame('new_value', $croQuery->getParameter('param')->getValue());
+        self::assertSame('new_value', $croQuery->getParameter('param')->getValue());
 
-        $this->assertNull($croQuery->getParameter('param2')->getValue());
+        self::assertNull($croQuery->getParameter('param2')->getValue());
     }
 
     /**
@@ -609,9 +581,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
         $struct = $this->collectionService->newCollectionCreateStruct($queryCreateStruct);
 
-        $this->assertInstanceOf(CollectionCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => 0,
                 'limit' => null,
@@ -628,9 +598,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $struct = $this->collectionService->newCollectionUpdateStruct();
 
-        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => null,
                 'limit' => null,
@@ -648,9 +616,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $this->collectionService->loadCollectionDraft(3)
         );
 
-        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => 4,
                 'limit' => 2,
@@ -668,9 +634,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $this->collectionService->loadCollectionDraft(1)
         );
 
-        $this->assertInstanceOf(CollectionUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'offset' => 0,
                 'limit' => 0,
@@ -687,9 +651,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $itemDefinition = new ItemDefinition();
         $struct = $this->collectionService->newItemCreateStruct($itemDefinition, '42');
 
-        $this->assertInstanceOf(ItemCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'definition' => $itemDefinition,
                 'value' => '42',
@@ -706,9 +668,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $struct = $this->collectionService->newItemUpdateStruct();
 
-        $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'configStructs' => [],
             ],
@@ -724,12 +684,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $item = $this->collectionService->loadItemDraft(1);
         $struct = $this->collectionService->newItemUpdateStruct($item);
 
-        $this->assertInstanceOf(ItemUpdateStruct::class, $struct);
+        self::assertArrayHasKey('key', $struct->getConfigStructs());
 
-        $this->assertArrayHasKey('key', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'configStructs' => [
                     'key' => [
@@ -753,9 +710,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $struct = $this->collectionService->newQueryCreateStruct($queryType);
 
-        $this->assertInstanceOf(QueryCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'queryType' => $queryType,
                 'parameterValues' => [
@@ -774,9 +729,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $struct = $this->collectionService->newQueryUpdateStruct('en');
 
-        $this->assertInstanceOf(QueryUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'parameterValues' => [],
@@ -793,9 +746,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $query = $this->collectionService->loadQueryDraft(4);
         $struct = $this->collectionService->newQueryUpdateStruct('en', $query);
 
-        $this->assertInstanceOf(QueryUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'parameterValues' => [

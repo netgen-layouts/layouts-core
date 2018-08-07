@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Exception;
 use Netgen\BlockManager\Core\Service\Service;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 final class ServiceTest extends TestCase
 {
@@ -38,15 +38,15 @@ final class ServiceTest extends TestCase
     public function testTransaction(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('beginTransaction');
 
         $this->persistenceHandlerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('rollbackTransaction');
 
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commitTransaction');
 
         $return = $this->service->transaction(
@@ -55,7 +55,7 @@ final class ServiceTest extends TestCase
             }
         );
 
-        $this->assertSame(42, $return);
+        self::assertSame(42, $return);
     }
 
     /**
@@ -66,20 +66,20 @@ final class ServiceTest extends TestCase
     public function testTransactionWithException(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('beginTransaction');
 
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->persistenceHandlerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('commitTransaction');
 
         $this->service->transaction(
             function (): void {
-                throw new Exception('Test exception');
+                throw new RuntimeException('Test exception');
             }
         );
     }
@@ -90,7 +90,7 @@ final class ServiceTest extends TestCase
     public function testBeginTransaction(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('beginTransaction');
 
         $this->service->beginTransaction();
@@ -102,7 +102,7 @@ final class ServiceTest extends TestCase
     public function testCommitTransaction(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commitTransaction');
 
         $this->service->commitTransaction();
@@ -116,9 +116,9 @@ final class ServiceTest extends TestCase
     public function testCommitTransactionThrowsRuntimeException(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commitTransaction')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new RuntimeException('Test exception text')));
 
         $this->service->commitTransaction();
     }
@@ -129,7 +129,7 @@ final class ServiceTest extends TestCase
     public function testRollbackTransaction(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction');
 
         $this->service->rollbackTransaction();
@@ -143,9 +143,9 @@ final class ServiceTest extends TestCase
     public function testRollbackTransactionThrowsRuntimeException(): void
     {
         $this->persistenceHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollbackTransaction')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new RuntimeException('Test exception text')));
 
         $this->service->rollbackTransaction();
     }

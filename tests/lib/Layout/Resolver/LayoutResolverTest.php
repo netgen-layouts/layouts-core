@@ -109,25 +109,25 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('matchRules')
-            ->with($this->identicalTo('target2'), $this->identicalTo(84))
-            ->will($this->returnValue([$rule3, $rule4]));
+            ->with(self::identicalTo('target2'), self::identicalTo(84))
+            ->will(self::returnValue([$rule3, $rule4]));
 
         $resolvedRules = $this->layoutResolver->resolveRules();
 
-        $this->assertCount(4, $resolvedRules);
+        self::assertCount(4, $resolvedRules);
 
         // We can't be sure in what order two rules with same priority will be returned,
         // so just assert the first one and the last one
-        $this->assertSame($rule3, $resolvedRules[0]);
-        $this->assertSame($rule1, $resolvedRules[3]);
+        self::assertSame($rule3, $resolvedRules[0]);
+        self::assertSame($rule1, $resolvedRules[3]);
     }
 
     /**
@@ -161,12 +161,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame([$rule1], $this->layoutResolver->resolveRules());
+        self::assertSame([$rule1], $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -200,12 +200,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame([$rule1], $this->layoutResolver->resolveRules());
+        self::assertSame([$rule1], $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -239,12 +239,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame([], $this->layoutResolver->resolveRules());
+        self::assertSame([], $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -281,12 +281,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target2'), $this->identicalTo(84))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target2'), self::identicalTo(84))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules());
+        self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -303,10 +303,10 @@ final class LayoutResolverTest extends TestCase
         $this->createLayoutResolver();
 
         $this->layoutResolverServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('matchRules');
 
-        $this->assertSame([], $this->layoutResolver->resolveRules());
+        self::assertSame([], $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -318,10 +318,10 @@ final class LayoutResolverTest extends TestCase
         $this->requestStack->pop();
 
         $this->layoutResolverServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('matchRules');
 
-        $this->assertSame([], $this->layoutResolver->resolveRules());
+        self::assertSame([], $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -363,12 +363,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame(
+        self::assertSame(
             $layoutId !== null ? [$rule2] : [],
             $this->layoutResolver->resolveRules(null, ['condition2'])
         );
@@ -402,12 +402,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule]));
 
-        $this->assertSame(
+        self::assertSame(
             $layoutId !== null ? [$rule] : [],
             $this->layoutResolver->resolveRules()
         );
@@ -467,18 +467,18 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('matchRules')
-            ->with($this->identicalTo('target2'), $this->identicalTo(84))
-            ->will($this->returnValue([$rule3, $rule4]));
+            ->with(self::identicalTo('target2'), self::identicalTo(84))
+            ->will(self::returnValue([$rule3, $rule4]));
 
-        $this->assertSame($rule3, $this->layoutResolver->resolveRule());
+        self::assertSame($rule3, $this->layoutResolver->resolveRule());
     }
 
     /**
@@ -514,12 +514,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame($rule1, $this->layoutResolver->resolveRule());
+        self::assertSame($rule1, $this->layoutResolver->resolveRule());
     }
 
     /**
@@ -555,12 +555,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertNull($this->layoutResolver->resolveRule());
+        self::assertNull($this->layoutResolver->resolveRule());
     }
 
     /**
@@ -597,12 +597,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('matchRules')
-            ->with($this->identicalTo('target2'), $this->identicalTo(84))
-            ->will($this->returnValue([$rule1, $rule2]));
+            ->with(self::identicalTo('target2'), self::identicalTo(84))
+            ->will(self::returnValue([$rule1, $rule2]));
 
-        $this->assertSame($rule2, $this->layoutResolver->resolveRule());
+        self::assertSame($rule2, $this->layoutResolver->resolveRule());
     }
 
     /**
@@ -619,10 +619,10 @@ final class LayoutResolverTest extends TestCase
         $this->createLayoutResolver();
 
         $this->layoutResolverServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('matchRules');
 
-        $this->assertNull($this->layoutResolver->resolveRule());
+        self::assertNull($this->layoutResolver->resolveRule());
     }
 
     /**
@@ -634,10 +634,10 @@ final class LayoutResolverTest extends TestCase
         $this->requestStack->pop();
 
         $this->layoutResolverServiceMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('matchRules');
 
-        $this->assertNull($this->layoutResolver->resolveRule());
+        self::assertNull($this->layoutResolver->resolveRule());
     }
 
     /**
@@ -670,12 +670,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule]));
 
-        $this->assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule(null, ['condition2']));
+        self::assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule(null, ['condition2']));
     }
 
     /**
@@ -708,12 +708,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('matchRules')
-            ->with($this->identicalTo('target1'), $this->identicalTo(42))
-            ->will($this->returnValue([$rule]));
+            ->with(self::identicalTo('target1'), self::identicalTo(42))
+            ->will(self::returnValue([$rule]));
 
-        $this->assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule());
+        self::assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule());
     }
 
     /**
@@ -737,7 +737,7 @@ final class LayoutResolverTest extends TestCase
             ]
         );
 
-        $this->assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
+        self::assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
     }
 
     public function resolveRulesWithRuleConditionsProvider(): array

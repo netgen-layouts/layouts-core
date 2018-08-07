@@ -63,7 +63,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('4_zones_a', $this->layoutType->getIdentifier());
+        self::assertSame('4_zones_a', $this->layoutType->getIdentifier());
     }
 
     /**
@@ -71,7 +71,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsEnabled(): void
     {
-        $this->assertFalse($this->layoutType->isEnabled());
+        self::assertFalse($this->layoutType->isEnabled());
     }
 
     /**
@@ -79,7 +79,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('4 zones A', $this->layoutType->getName());
+        self::assertSame('4 zones A', $this->layoutType->getName());
     }
 
     /**
@@ -87,7 +87,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertSame('/icon.svg', $this->layoutType->getIcon());
+        self::assertSame('/icon.svg', $this->layoutType->getIcon());
     }
 
     /**
@@ -95,7 +95,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetZones(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'left' => $this->zone1,
                 'right' => $this->zone2,
@@ -109,7 +109,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetZoneIdentifiers(): void
     {
-        $this->assertSame(['left', 'right'], $this->layoutType->getZoneIdentifiers());
+        self::assertSame(['left', 'right'], $this->layoutType->getZoneIdentifiers());
     }
 
     /**
@@ -117,7 +117,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testHasZone(): void
     {
-        $this->assertTrue($this->layoutType->hasZone('left'));
+        self::assertTrue($this->layoutType->hasZone('left'));
     }
 
     /**
@@ -125,7 +125,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testHasZoneReturnsFalse(): void
     {
-        $this->assertFalse($this->layoutType->hasZone('unknown'));
+        self::assertFalse($this->layoutType->hasZone('unknown'));
     }
 
     /**
@@ -133,7 +133,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testGetZone(): void
     {
-        $this->assertSame($this->zone1, $this->layoutType->getZone('left'));
+        self::assertSame($this->zone1, $this->layoutType->getZone('left'));
     }
 
     /**
@@ -151,7 +151,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZone(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'left'));
+        self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'left'));
     }
 
     /**
@@ -159,7 +159,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneReturnsFalse(): void
     {
-        $this->assertFalse($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'other']), 'left'));
+        self::assertFalse($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'other']), 'left'));
     }
 
     /**
@@ -167,7 +167,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneWithNonExistentZone(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'unknown'));
+        self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'unknown'));
     }
 
     /**
@@ -175,6 +175,6 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneWithAllBlocksAllowed(): void
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'right'));
+        self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'right'));
     }
 }

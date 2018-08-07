@@ -33,7 +33,7 @@ final class ItemTest extends TestCase
      */
     public function testGetValue(): void
     {
-        $this->assertSame(42, $this->item->getValue());
+        self::assertSame(42, $this->item->getValue());
     }
 
     /**
@@ -41,7 +41,7 @@ final class ItemTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('My layout', $this->item->getName());
+        self::assertSame('My layout', $this->item->getName());
     }
 
     /**
@@ -49,7 +49,7 @@ final class ItemTest extends TestCase
      */
     public function testIsVisible(): void
     {
-        $this->assertTrue($this->item->isVisible());
+        self::assertTrue($this->item->isVisible());
     }
 
     /**
@@ -57,7 +57,7 @@ final class ItemTest extends TestCase
      */
     public function testIsSelectable(): void
     {
-        $this->assertTrue($this->item->isSelectable());
+        self::assertTrue($this->item->isSelectable());
     }
 
     /**
@@ -65,6 +65,6 @@ final class ItemTest extends TestCase
      */
     public function testGetLayout(): void
     {
-        $this->assertSame($this->layout, $this->item->getLayout());
+        self::assertSame($this->layout, $this->item->getLayout());
     }
 }

@@ -74,26 +74,26 @@ final class CreateTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame('My layout', $struct->name);
-        $this->assertTrue($struct->shared);
+        self::assertSame('My layout', $struct->name);
+        self::assertTrue($struct->shared);
 
-        $this->assertInstanceOf(LayoutType::class, $struct->layoutType);
-        $this->assertSame('4_zones_a', $struct->layoutType->getIdentifier());
+        self::assertInstanceOf(LayoutType::class, $struct->layoutType);
+        self::assertSame('4_zones_a', $struct->layoutType->getIdentifier());
 
         $view = $form->createView();
 
         $layoutTypes = $this->layoutTypeRegistry->getLayoutTypes(true);
         $childViews = $view->children['layoutType']->children;
 
-        $this->assertCount(count($layoutTypes), $childViews);
+        self::assertCount(count($layoutTypes), $childViews);
 
         foreach ($layoutTypes as $identifier => $layoutType) {
-            $this->assertArrayHasKey($identifier, $childViews);
+            self::assertArrayHasKey($identifier, $childViews);
 
-            $this->assertArrayHasKey('layout_type', $childViews[$identifier]->vars);
-            $this->assertSame($layoutType, $childViews[$identifier]->vars['layout_type']);
+            self::assertArrayHasKey('layout_type', $childViews[$identifier]->vars);
+            self::assertSame($layoutType, $childViews[$identifier]->vars['layout_type']);
         }
     }
 
@@ -115,7 +115,7 @@ final class CreateTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

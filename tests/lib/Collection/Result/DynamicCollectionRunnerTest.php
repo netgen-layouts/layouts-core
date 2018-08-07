@@ -27,10 +27,10 @@ final class DynamicCollectionRunnerTest extends TestCase
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
         $this->cmsItemBuilderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('build')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function ($value): CmsItemInterface {
                         return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
                     }
@@ -64,7 +64,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
 
-        $this->assertSame($totalCount, $collectionRunner->count($collection));
+        self::assertSame($totalCount, $collectionRunner->count($collection));
 
         $result = array_map(
             function (Result $result) {
@@ -73,7 +73,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit))
         );
 
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     /**

@@ -25,10 +25,10 @@ final class LazyCollectionTest extends TestCase
      */
     public function testToArray(): void
     {
-        $this->assertFalse($this->collection->isInitialized());
+        self::assertFalse($this->collection->isInitialized());
 
-        $this->assertSame([1, 2, 3], $this->collection->toArray());
+        self::assertSame([1, 2, 3], $this->collection->toArray());
 
-        $this->assertTrue($this->collection->isInitialized());
+        self::assertTrue($this->collection->isInitialized());
     }
 }

@@ -28,10 +28,10 @@ final class MainMenuBuilderTest extends TestCase
     {
         $urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
         $urlGeneratorMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('generate')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function (string $route): string {
                         return $route;
                     }
@@ -53,30 +53,29 @@ final class MainMenuBuilderTest extends TestCase
     public function testCreateMenu(): void
     {
         $this->authorizationCheckerMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('isGranted')
-            ->with($this->identicalTo('ROLE_NGBM_ADMIN'))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo('ROLE_NGBM_ADMIN'))
+            ->will(self::returnValue(true));
 
         $menu = $this->builder->createMenu();
 
-        $this->assertInstanceOf(ItemInterface::class, $menu);
-        $this->assertCount(3, $menu);
+        self::assertCount(3, $menu);
 
-        $this->assertInstanceOf(ItemInterface::class, $menu->getChild('layout_resolver'));
-        $this->assertSame(
+        self::assertInstanceOf(ItemInterface::class, $menu->getChild('layout_resolver'));
+        self::assertSame(
             'ngbm_admin_layout_resolver_index',
             $menu->getChild('layout_resolver')->getUri()
         );
 
-        $this->assertInstanceOf(ItemInterface::class, $menu->getChild('layouts'));
-        $this->assertSame(
+        self::assertInstanceOf(ItemInterface::class, $menu->getChild('layouts'));
+        self::assertSame(
             'ngbm_admin_layouts_index',
             $menu->getChild('layouts')->getUri()
         );
 
-        $this->assertInstanceOf(ItemInterface::class, $menu->getChild('shared_layouts'));
-        $this->assertSame(
+        self::assertInstanceOf(ItemInterface::class, $menu->getChild('shared_layouts'));
+        self::assertSame(
             'ngbm_admin_shared_layouts_index',
             $menu->getChild('shared_layouts')->getUri()
         );
@@ -88,14 +87,13 @@ final class MainMenuBuilderTest extends TestCase
     public function testCreateMenuWithNoAccess(): void
     {
         $this->authorizationCheckerMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('isGranted')
-            ->with($this->identicalTo('ROLE_NGBM_ADMIN'))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo('ROLE_NGBM_ADMIN'))
+            ->will(self::returnValue(false));
 
         $menu = $this->builder->createMenu();
 
-        $this->assertInstanceOf(ItemInterface::class, $menu);
-        $this->assertCount(0, $menu);
+        self::assertCount(0, $menu);
     }
 }

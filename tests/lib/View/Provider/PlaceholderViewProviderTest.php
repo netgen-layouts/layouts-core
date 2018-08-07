@@ -31,7 +31,6 @@ final class PlaceholderViewProviderTest extends TestCase
         $block = new Block();
         $placeholder = new Placeholder();
 
-        /** @var \Netgen\BlockManager\View\View\PlaceholderViewInterface $view */
         $view = $this->placeholderViewProvider->provideView(
             $placeholder,
             [
@@ -39,12 +38,12 @@ final class PlaceholderViewProviderTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(PlaceholderViewInterface::class, $view);
+        self::assertInstanceOf(PlaceholderViewInterface::class, $view);
 
-        $this->assertSame($placeholder, $view->getPlaceholder());
-        $this->assertSame($block, $view->getBlock());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($placeholder, $view->getPlaceholder());
+        self::assertSame($block, $view->getBlock());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'placeholder' => $placeholder,
                 'block' => $block,
@@ -82,7 +81,7 @@ final class PlaceholderViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->placeholderViewProvider->supports($value));
+        self::assertSame($supports, $this->placeholderViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

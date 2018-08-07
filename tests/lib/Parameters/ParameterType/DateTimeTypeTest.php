@@ -25,7 +25,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('datetime', $this->type::getIdentifier());
+        self::assertSame('datetime', $this->type::getIdentifier());
     }
 
     /**
@@ -37,7 +37,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array
@@ -60,7 +60,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue): void
     {
-        $this->assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
+        self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
     public function toHashProvider(): array
@@ -93,9 +93,9 @@ final class DateTimeTypeTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $convertedValue);
-        $this->assertSame('2018-02-01 15:00:00', $convertedValue->format('Y-m-d H:i:s'));
-        $this->assertSame('Antarctica/Casey', $convertedValue->getTimezone()->getName());
+        self::assertInstanceOf(DateTimeImmutable::class, $convertedValue);
+        self::assertSame('2018-02-01 15:00:00', $convertedValue->format('Y-m-d H:i:s'));
+        self::assertSame('Antarctica/Casey', $convertedValue->getTimezone()->getName());
     }
 
     /**
@@ -107,7 +107,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testFromHashWithInvalidValues($value, $convertedValue): void
     {
-        $this->assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
+        self::assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
     public function invalidFromHashProvider(): array
@@ -139,7 +139,7 @@ final class DateTimeTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array

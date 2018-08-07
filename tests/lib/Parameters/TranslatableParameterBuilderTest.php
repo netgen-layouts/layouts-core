@@ -53,7 +53,7 @@ final class TranslatableParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('translatable', true);
 
-        $this->assertTrue($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->getOption('translatable'));
     }
 
     /**
@@ -72,8 +72,8 @@ final class TranslatableParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
-        $this->assertTrue($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
+        self::assertTrue($this->builder->get('test')->getOption('translatable'));
     }
 
     /**
@@ -93,8 +93,8 @@ final class TranslatableParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
-        $this->assertFalse($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
+        self::assertFalse($this->builder->get('test')->getOption('translatable'));
     }
 
     /**
@@ -113,11 +113,11 @@ final class TranslatableParameterBuilderTest extends TestCase
             ParameterType\TextType::class
         );
 
-        $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
-        $this->assertTrue($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
+        self::assertTrue($this->builder->get('test')->getOption('translatable'));
 
-        $this->assertTrue($this->builder->get('test')->get('test2')->hasOption('translatable'));
-        $this->assertTrue($this->builder->get('test')->get('test2')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->get('test2')->hasOption('translatable'));
+        self::assertTrue($this->builder->get('test')->get('test2')->getOption('translatable'));
     }
 
     /**
@@ -142,11 +142,11 @@ final class TranslatableParameterBuilderTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->builder->get('test')->hasOption('translatable'));
-        $this->assertFalse($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
+        self::assertFalse($this->builder->get('test')->getOption('translatable'));
 
-        $this->assertTrue($this->builder->get('test')->get('test2')->hasOption('translatable'));
-        $this->assertFalse($this->builder->get('test')->get('test2')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->get('test2')->hasOption('translatable'));
+        self::assertFalse($this->builder->get('test')->get('test2')->getOption('translatable'));
     }
 
     /**

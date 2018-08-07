@@ -41,9 +41,9 @@ final class ParameterBuilderFactoryTest extends TestCase
     {
         $parameterBuilder = $this->factory->createParameterBuilder();
 
-        $this->assertInstanceOf(ParameterBuilder::class, $parameterBuilder);
-        $this->assertNull($parameterBuilder->getName());
-        $this->assertNull($parameterBuilder->getType());
+        self::assertInstanceOf(ParameterBuilder::class, $parameterBuilder);
+        self::assertNull($parameterBuilder->getName());
+        self::assertNull($parameterBuilder->getType());
     }
 
     /**
@@ -59,10 +59,10 @@ final class ParameterBuilderFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(ParameterBuilder::class, $parameterBuilder);
-        $this->assertSame('param', $parameterBuilder->getName());
+        self::assertInstanceOf(ParameterBuilder::class, $parameterBuilder);
+        self::assertSame('param', $parameterBuilder->getName());
 
-        $this->assertSame(
+        self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
             $parameterBuilder->getType()
         );

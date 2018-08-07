@@ -40,18 +40,18 @@ final class ValueNormalizerTest extends TestCase
     {
         $value = new StubValue();
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
             ->with(
-                $this->identicalTo($value),
-                $this->identicalTo('json'),
-                $this->identicalTo(['context'])
+                self::identicalTo($value),
+                self::identicalTo('json'),
+                self::identicalTo(['context'])
             )
-            ->will($this->returnValue(['serialized']));
+            ->will(self::returnValue(['serialized']));
 
         $data = $this->normalizer->normalize(new Value($value), 'json', ['context']);
 
-        $this->assertSame(['serialized'], $data);
+        self::assertSame(['serialized'], $data);
     }
 
     /**
@@ -63,7 +63,7 @@ final class ValueNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

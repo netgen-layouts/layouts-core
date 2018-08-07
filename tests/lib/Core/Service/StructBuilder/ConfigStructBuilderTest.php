@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
 use Netgen\BlockManager\Core\Values\Config\Config;
@@ -54,11 +53,10 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
 
         $this->structBuilder->buildConfigUpdateStructs($block, $struct);
 
-        $this->assertArrayHasKey('config', $struct->getConfigStructs());
+        self::assertArrayHasKey('config', $struct->getConfigStructs());
 
         $configStruct = $struct->getConfigStruct('config');
 
-        $this->assertInstanceOf(ConfigStruct::class, $configStruct);
-        $this->assertSame(['param' => null, 'param2' => null], $configStruct->getParameterValues());
+        self::assertSame(['param' => null, 'param2' => null], $configStruct->getParameterValues());
     }
 }

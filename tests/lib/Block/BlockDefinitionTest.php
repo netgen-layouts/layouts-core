@@ -93,7 +93,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('block_definition', $this->blockDefinition->getIdentifier());
+        self::assertSame('block_definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -101,7 +101,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Block definition', $this->blockDefinition->getName());
+        self::assertSame('Block definition', $this->blockDefinition->getName());
     }
 
     /**
@@ -109,7 +109,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertSame('/icon.svg', $this->blockDefinition->getIcon());
+        self::assertSame('/icon.svg', $this->blockDefinition->getIcon());
     }
 
     /**
@@ -117,7 +117,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testIsTranslatable(): void
     {
-        $this->assertTrue($this->blockDefinition->isTranslatable());
+        self::assertTrue($this->blockDefinition->isTranslatable());
     }
 
     /**
@@ -125,7 +125,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetForms(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'content' => $this->form,
             ],
@@ -138,8 +138,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasForm(): void
     {
-        $this->assertTrue($this->blockDefinition->hasForm('content'));
-        $this->assertFalse($this->blockDefinition->hasForm('unknown'));
+        self::assertTrue($this->blockDefinition->hasForm('content'));
+        self::assertFalse($this->blockDefinition->hasForm('unknown'));
     }
 
     /**
@@ -147,7 +147,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetForm(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->form,
             $this->blockDefinition->getForm('content')
         );
@@ -168,7 +168,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetCollections(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'collection' => $this->collection,
             ],
@@ -181,8 +181,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasCollection(): void
     {
-        $this->assertTrue($this->blockDefinition->hasCollection('collection'));
-        $this->assertFalse($this->blockDefinition->hasCollection('unknown'));
+        self::assertTrue($this->blockDefinition->hasCollection('collection'));
+        self::assertFalse($this->blockDefinition->hasCollection('unknown'));
     }
 
     /**
@@ -190,7 +190,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetCollection(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->collection,
             $this->blockDefinition->getCollection('collection')
         );
@@ -211,7 +211,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetViewTypes(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'large' => $this->viewType1,
                 'small' => $this->viewType2,
@@ -225,7 +225,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetViewTypeIdentifiers(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['large', 'small'],
             $this->blockDefinition->getViewTypeIdentifiers()
         );
@@ -236,8 +236,8 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasViewType(): void
     {
-        $this->assertTrue($this->blockDefinition->hasViewType('large'));
-        $this->assertFalse($this->blockDefinition->hasViewType('unknown'));
+        self::assertTrue($this->blockDefinition->hasViewType('large'));
+        self::assertFalse($this->blockDefinition->hasViewType('unknown'));
     }
 
     /**
@@ -245,7 +245,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetViewType(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->viewType1,
             $this->blockDefinition->getViewType('large')
         );
@@ -274,15 +274,15 @@ final class BlockDefinitionTest extends TestCase
 
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
 
-        $this->assertCount(3, $dynamicParameters);
+        self::assertCount(3, $dynamicParameters);
 
-        $this->assertArrayHasKey('definition_param', $dynamicParameters);
-        $this->assertArrayHasKey('closure_param', $dynamicParameters);
-        $this->assertArrayHasKey('dynamic_param', $dynamicParameters);
+        self::assertArrayHasKey('definition_param', $dynamicParameters);
+        self::assertArrayHasKey('closure_param', $dynamicParameters);
+        self::assertArrayHasKey('dynamic_param', $dynamicParameters);
 
-        $this->assertSame('definition_value', $dynamicParameters['definition_param']);
-        $this->assertSame('closure_value', $dynamicParameters['closure_param']);
-        $this->assertSame('dynamic_value', $dynamicParameters['dynamic_param']);
+        self::assertSame('definition_value', $dynamicParameters['definition_param']);
+        self::assertSame('closure_value', $dynamicParameters['closure_param']);
+        self::assertSame('dynamic_value', $dynamicParameters['dynamic_param']);
     }
 
     /**
@@ -290,7 +290,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $this->assertTrue($this->blockDefinition->isContextual(new Block()));
+        self::assertTrue($this->blockDefinition->isContextual(new Block()));
     }
 
     /**
@@ -298,7 +298,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetConfigDefinition(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->configDefinition,
             $this->blockDefinition->getConfigDefinition('config')
         );
@@ -319,7 +319,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasConfigDefinition(): void
     {
-        $this->assertTrue($this->blockDefinition->hasConfigDefinition('config'));
+        self::assertTrue($this->blockDefinition->hasConfigDefinition('config'));
     }
 
     /**
@@ -327,7 +327,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {
-        $this->assertFalse($this->blockDefinition->hasConfigDefinition('unknown'));
+        self::assertFalse($this->blockDefinition->hasConfigDefinition('unknown'));
     }
 
     /**
@@ -335,7 +335,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['config' => $this->configDefinition],
             $this->blockDefinition->getConfigDefinitions()
         );
@@ -346,7 +346,7 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasPlugin(): void
     {
-        $this->assertTrue($this->blockDefinition->hasPlugin(HandlerPlugin::class));
+        self::assertTrue($this->blockDefinition->hasPlugin(HandlerPlugin::class));
     }
 
     /**
@@ -354,6 +354,6 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testHasPluginWithUnknownPlugin(): void
     {
-        $this->assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
+        self::assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
     }
 }

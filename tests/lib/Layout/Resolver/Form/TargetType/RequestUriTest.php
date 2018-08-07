@@ -58,18 +58,18 @@ final class RequestUriTest extends FormTestCase
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
-        $this->assertInstanceOf(TextType::class, $valueFormConfig->getType()->getInnerType());
+        self::assertInstanceOf(TextType::class, $valueFormConfig->getType()->getInnerType());
 
         $form->submit($submittedData);
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame('/some/path?id=42', $struct->value);
+        self::assertSame('/some/path?id=42', $struct->value);
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('value', $formView->children);
+        self::assertArrayHasKey('value', $formView->children);
 
-        $this->assertArrayHasKey('target_type', $formView->vars);
-        $this->assertSame($this->targetType, $formView->vars['target_type']);
+        self::assertArrayHasKey('target_type', $formView->vars);
+        self::assertSame($this->targetType, $formView->vars['target_type']);
     }
 }

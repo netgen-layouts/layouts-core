@@ -63,32 +63,32 @@ final class CollectionResultSetNormalizerTest extends TestCase
         );
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
             ->with(
-                $this->equalTo(
+                self::equalTo(
                     [
                         new VersionedValue($result1, 1),
                         new VersionedValue($result2, 1),
                     ]
                 )
             )
-            ->will($this->returnValue(['items']));
+            ->will(self::returnValue(['items']));
 
         $this->normalizerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('normalize')
             ->with(
-                $this->equalTo(
+                self::equalTo(
                     [
                         new VersionedValue($item1, 1),
                         new VersionedValue($item4, 1),
                     ]
                 )
             )
-            ->will($this->returnValue(['overflow_items']));
+            ->will(self::returnValue(['overflow_items']));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'items' => ['items'],
                 'overflow_items' => ['overflow_items'],
@@ -106,7 +106,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

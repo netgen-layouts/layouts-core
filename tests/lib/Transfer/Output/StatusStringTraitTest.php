@@ -26,7 +26,7 @@ final class StatusStringTraitTest extends TestCase
      */
     public function testVisit(int $status, array $visitedValue): void
     {
-        $this->assertSame($visitedValue, $this->visitor->visit(Value::fromArray(['status' => $status])));
+        self::assertSame($visitedValue, $this->visitor->visit(Value::fromArray(['status' => $status])));
     }
 
     /**

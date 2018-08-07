@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
@@ -66,9 +65,7 @@ final class LayoutHandlerTest extends TestCase
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Layout::class, $layout);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'type' => '4_zones_a',
@@ -105,9 +102,7 @@ final class LayoutHandlerTest extends TestCase
     {
         $zone = $this->layoutHandler->loadZone(2, Value::STATUS_PUBLISHED, 'top');
 
-        $this->assertInstanceOf(Zone::class, $zone);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'top',
                 'layoutId' => 2,
@@ -140,11 +135,9 @@ final class LayoutHandlerTest extends TestCase
     {
         $layouts = $this->layoutHandler->loadLayouts();
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 1,
@@ -196,11 +189,9 @@ final class LayoutHandlerTest extends TestCase
     {
         $layouts = $this->layoutHandler->loadLayouts(true);
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 4,
@@ -276,11 +267,9 @@ final class LayoutHandlerTest extends TestCase
     {
         $layouts = $this->layoutHandler->loadLayouts(false, 0, 2);
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 1,
@@ -320,11 +309,9 @@ final class LayoutHandlerTest extends TestCase
     {
         $layouts = $this->layoutHandler->loadLayouts(true, 0, 3);
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 4,
@@ -373,7 +360,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testGetLayoutsCount(): void
     {
-        $this->assertSame(3, $this->layoutHandler->getLayoutsCount());
+        self::assertSame(3, $this->layoutHandler->getLayoutsCount());
     }
 
     /**
@@ -382,7 +369,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testGetLayoutsCountWithUnpublishedLayouts(): void
     {
-        $this->assertSame(5, $this->layoutHandler->getLayoutsCount(true));
+        self::assertSame(5, $this->layoutHandler->getLayoutsCount(true));
     }
 
     /**
@@ -394,11 +381,9 @@ final class LayoutHandlerTest extends TestCase
     {
         $layouts = $this->layoutHandler->loadSharedLayouts();
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 5,
@@ -435,7 +420,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testGetSharedLayoutsCount(): void
     {
-        $this->assertSame(2, $this->layoutHandler->getSharedLayoutsCount());
+        self::assertSame(2, $this->layoutHandler->getSharedLayoutsCount());
     }
 
     /**
@@ -449,11 +434,9 @@ final class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
         );
 
-        foreach ($layouts as $layout) {
-            $this->assertInstanceOf(Layout::class, $layout);
-        }
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 2,
@@ -482,7 +465,7 @@ final class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertSame(1, $count);
+        self::assertSame(1, $count);
     }
 
     /**
@@ -491,7 +474,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLayoutExists(): void
     {
-        $this->assertTrue($this->layoutHandler->layoutExists(1, Value::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutHandler->layoutExists(1, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -500,7 +483,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNotExists(): void
     {
-        $this->assertFalse($this->layoutHandler->layoutExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutHandler->layoutExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -509,7 +492,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNotExistsInStatus(): void
     {
-        $this->assertFalse($this->layoutHandler->layoutExists(1, Value::STATUS_ARCHIVED));
+        self::assertFalse($this->layoutHandler->layoutExists(1, Value::STATUS_ARCHIVED));
     }
 
     /**
@@ -518,7 +501,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testZoneExists(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'left')
         );
     }
@@ -529,7 +512,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testZoneNotExists(): void
     {
-        $this->assertFalse(
+        self::assertFalse(
             $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'non_existing')
         );
     }
@@ -540,7 +523,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameExists(): void
     {
-        $this->assertTrue($this->layoutHandler->layoutNameExists('My layout'));
+        self::assertTrue($this->layoutHandler->layoutNameExists('My layout'));
     }
 
     /**
@@ -549,7 +532,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExists(): void
     {
-        $this->assertFalse($this->layoutHandler->layoutNameExists('Non existent'));
+        self::assertFalse($this->layoutHandler->layoutNameExists('Non existent'));
     }
 
     /**
@@ -558,7 +541,7 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExistsWithExcludedId(): void
     {
-        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', 1));
+        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', 1));
     }
 
     /**
@@ -571,11 +554,9 @@ final class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED)
         );
 
-        foreach ($zones as $zone) {
-            $this->assertInstanceOf(Zone::class, $zone);
-        }
+        self::assertContainsOnlyInstancesOf(Zone::class, $zones);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'bottom' => [
                     'identifier' => 'bottom',
@@ -632,9 +613,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertInstanceOf(Zone::class, $updatedZone);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'top',
                 'layoutId' => 1,
@@ -664,9 +643,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertInstanceOf(Zone::class, $updatedZone);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'left',
                 'layoutId' => 1,
@@ -696,21 +673,19 @@ final class LayoutHandlerTest extends TestCase
 
         $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
-        $this->assertInstanceOf(Layout::class, $createdLayout);
+        self::assertSame(8, $createdLayout->id);
+        self::assertSame('new_layout', $createdLayout->type);
+        self::assertSame('New layout', $createdLayout->name);
+        self::assertSame('New description', $createdLayout->description);
+        self::assertSame(Value::STATUS_DRAFT, $createdLayout->status);
+        self::assertTrue($createdLayout->shared);
+        self::assertSame('en', $createdLayout->mainLocale);
 
-        $this->assertSame(8, $createdLayout->id);
-        $this->assertSame('new_layout', $createdLayout->type);
-        $this->assertSame('New layout', $createdLayout->name);
-        $this->assertSame('New description', $createdLayout->description);
-        $this->assertSame(Value::STATUS_DRAFT, $createdLayout->status);
-        $this->assertTrue($createdLayout->shared);
-        $this->assertSame('en', $createdLayout->mainLocale);
+        self::assertInternalType('int', $createdLayout->created);
+        self::assertGreaterThan(0, $createdLayout->created);
 
-        $this->assertInternalType('int', $createdLayout->created);
-        $this->assertGreaterThan(0, $createdLayout->created);
-
-        $this->assertInternalType('int', $createdLayout->modified);
-        $this->assertGreaterThan(0, $createdLayout->modified);
+        self::assertInternalType('int', $createdLayout->modified);
+        self::assertGreaterThan(0, $createdLayout->modified);
     }
 
     /**
@@ -722,18 +697,16 @@ final class LayoutHandlerTest extends TestCase
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $layout = $this->layoutHandler->createLayoutTranslation($originalLayout, 'de', 'en');
 
-        $this->assertInstanceOf(Layout::class, $layout);
-
-        $this->assertSame('en', $layout->mainLocale);
-        $this->assertSame(['en', 'hr', 'de'], $layout->availableLocales);
-        $this->assertSame($originalLayout->created, $layout->created);
-        $this->assertGreaterThan($originalLayout->modified, $layout->modified);
+        self::assertSame('en', $layout->mainLocale);
+        self::assertSame(['en', 'hr', 'de'], $layout->availableLocales);
+        self::assertSame($originalLayout->created, $layout->created);
+        self::assertGreaterThan($originalLayout->modified, $layout->modified);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
         foreach ($layoutBlocks as $layoutBlock) {
             $layoutBlock->isTranslatable ?
-                $this->assertContains('de', $layoutBlock->availableLocales) :
-                $this->assertNotContains('de', $layoutBlock->availableLocales);
+                self::assertContains('de', $layoutBlock->availableLocales) :
+                self::assertNotContains('de', $layoutBlock->availableLocales);
         }
     }
 
@@ -775,13 +748,13 @@ final class LayoutHandlerTest extends TestCase
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->setMainTranslation($layout, 'hr');
 
-        $this->assertSame('hr', $updatedLayout->mainLocale);
-        $this->assertSame($layout->created, $updatedLayout->created);
-        $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
+        self::assertSame('hr', $updatedLayout->mainLocale);
+        self::assertSame($layout->created, $updatedLayout->created);
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
-            $this->assertSame('hr', $layoutBlock->mainLocale);
+            self::assertSame('hr', $layoutBlock->mainLocale);
         }
     }
 
@@ -812,20 +785,16 @@ final class LayoutHandlerTest extends TestCase
             $zoneCreateStruct
         );
 
-        $this->assertInstanceOf(Zone::class, $createdZone);
-
-        $this->assertSame(1, $createdZone->layoutId);
-        $this->assertSame(Value::STATUS_DRAFT, $createdZone->status);
-        $this->assertSame('new_zone', $createdZone->identifier);
-        $this->assertSame(39, $createdZone->rootBlockId);
-        $this->assertSame(3, $createdZone->linkedLayoutId);
-        $this->assertSame('linked_zone', $createdZone->linkedZoneIdentifier);
+        self::assertSame(1, $createdZone->layoutId);
+        self::assertSame(Value::STATUS_DRAFT, $createdZone->status);
+        self::assertSame('new_zone', $createdZone->identifier);
+        self::assertSame(39, $createdZone->rootBlockId);
+        self::assertSame(3, $createdZone->linkedLayoutId);
+        self::assertSame('linked_zone', $createdZone->linkedZoneIdentifier);
 
         $rootBlock = $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT);
 
-        $this->assertInstanceOf(Block::class, $rootBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => $createdZone->layoutId,
@@ -867,11 +836,10 @@ final class LayoutHandlerTest extends TestCase
             $layoutUpdateStruct
         );
 
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertSame('New name', $updatedLayout->name);
-        $this->assertSame('New description', $updatedLayout->description);
-        $this->assertSame($originalLayout->created, $updatedLayout->created);
-        $this->assertSame(123, $updatedLayout->modified);
+        self::assertSame('New name', $updatedLayout->name);
+        self::assertSame('New description', $updatedLayout->description);
+        self::assertSame($originalLayout->created, $updatedLayout->created);
+        self::assertSame(123, $updatedLayout->modified);
     }
 
     /**
@@ -888,11 +856,10 @@ final class LayoutHandlerTest extends TestCase
             $layoutUpdateStruct
         );
 
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertSame('My layout', $updatedLayout->name);
-        $this->assertSame('My layout description', $updatedLayout->description);
-        $this->assertSame($originalLayout->created, $updatedLayout->created);
-        $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
+        self::assertSame('My layout', $updatedLayout->name);
+        self::assertSame('My layout description', $updatedLayout->description);
+        self::assertSame($originalLayout->created, $updatedLayout->created);
+        self::assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
     }
 
     /**
@@ -920,21 +887,19 @@ final class LayoutHandlerTest extends TestCase
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
         $copiedLayout = $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
 
-        $this->assertInstanceOf(Layout::class, $copiedLayout);
+        self::assertSame(8, $copiedLayout->id);
+        self::assertSame('4_zones_a', $copiedLayout->type);
+        self::assertSame('New name', $copiedLayout->name);
+        self::assertSame('New description', $copiedLayout->description);
+        self::assertSame(Value::STATUS_PUBLISHED, $copiedLayout->status);
+        self::assertFalse($copiedLayout->shared);
+        self::assertSame('en', $copiedLayout->mainLocale);
+        self::assertSame(['en', 'hr'], $copiedLayout->availableLocales);
 
-        $this->assertSame(8, $copiedLayout->id);
-        $this->assertSame('4_zones_a', $copiedLayout->type);
-        $this->assertSame('New name', $copiedLayout->name);
-        $this->assertSame('New description', $copiedLayout->description);
-        $this->assertSame(Value::STATUS_PUBLISHED, $copiedLayout->status);
-        $this->assertFalse($copiedLayout->shared);
-        $this->assertSame('en', $copiedLayout->mainLocale);
-        $this->assertSame(['en', 'hr'], $copiedLayout->availableLocales);
+        self::assertGreaterThan($originalLayout->created, $copiedLayout->created);
+        self::assertSame($copiedLayout->created, $copiedLayout->modified);
 
-        $this->assertGreaterThan($originalLayout->created, $copiedLayout->created);
-        $this->assertSame($copiedLayout->created, $copiedLayout->modified);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'bottom' => [
                     'identifier' => 'bottom',
@@ -974,7 +939,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 41,
@@ -1015,7 +980,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 43,
@@ -1087,24 +1052,24 @@ final class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(41, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(0, $references);
+        self::assertCount(0, $references);
 
         // Second block
         $references = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(43, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(2, $references);
-        $this->assertContains($references[0]->collectionId, [7, 8]);
-        $this->assertContains($references[1]->collectionId, [7, 8]);
+        self::assertCount(2, $references);
+        self::assertContains($references[0]->collectionId, [7, 8]);
+        self::assertContains($references[1]->collectionId, [7, 8]);
 
         // Third block
         $references = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(44, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(1, $references);
-        $this->assertSame($references[0]->collectionId, 9);
+        self::assertCount(1, $references);
+        self::assertSame($references[0]->collectionId, 9);
     }
 
     /**
@@ -1136,19 +1101,17 @@ final class LayoutHandlerTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertSame(1, $updatedLayout->id);
+        self::assertSame('4_zones_b', $updatedLayout->type);
+        self::assertSame('My layout', $updatedLayout->name);
+        self::assertSame('My layout description', $updatedLayout->description);
+        self::assertSame(Value::STATUS_DRAFT, $updatedLayout->status);
+        self::assertFalse($updatedLayout->shared);
 
-        $this->assertSame(1, $updatedLayout->id);
-        $this->assertSame('4_zones_b', $updatedLayout->type);
-        $this->assertSame('My layout', $updatedLayout->name);
-        $this->assertSame('My layout description', $updatedLayout->description);
-        $this->assertSame(Value::STATUS_DRAFT, $updatedLayout->status);
-        $this->assertFalse($updatedLayout->shared);
+        self::assertSame($originalLayout->created, $updatedLayout->created);
+        self::assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
 
-        $this->assertSame($originalLayout->created, $updatedLayout->created);
-        $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'bottom' => [
                     'identifier' => 'bottom',
@@ -1188,7 +1151,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 32,
@@ -1283,19 +1246,19 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT)
             )
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(41, Value::STATUS_DRAFT)
             )
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(42, Value::STATUS_DRAFT)
             )
@@ -1324,21 +1287,19 @@ final class LayoutHandlerTest extends TestCase
             Value::STATUS_ARCHIVED
         );
 
-        $this->assertInstanceOf(Layout::class, $copiedLayout);
+        self::assertSame(1, $copiedLayout->id);
+        self::assertSame('4_zones_a', $copiedLayout->type);
+        self::assertSame('My layout', $copiedLayout->name);
+        self::assertSame('My layout description', $copiedLayout->description);
+        self::assertSame(Value::STATUS_ARCHIVED, $copiedLayout->status);
+        self::assertFalse($copiedLayout->shared);
+        self::assertSame('en', $copiedLayout->mainLocale);
+        self::assertSame(['en', 'hr'], $copiedLayout->availableLocales);
 
-        $this->assertSame(1, $copiedLayout->id);
-        $this->assertSame('4_zones_a', $copiedLayout->type);
-        $this->assertSame('My layout', $copiedLayout->name);
-        $this->assertSame('My layout description', $copiedLayout->description);
-        $this->assertSame(Value::STATUS_ARCHIVED, $copiedLayout->status);
-        $this->assertFalse($copiedLayout->shared);
-        $this->assertSame('en', $copiedLayout->mainLocale);
-        $this->assertSame(['en', 'hr'], $copiedLayout->availableLocales);
+        self::assertSame($originalLayout->created, $copiedLayout->created);
+        self::assertGreaterThan($originalLayout->modified, $copiedLayout->modified);
 
-        $this->assertSame($originalLayout->created, $copiedLayout->created);
-        $this->assertGreaterThan($originalLayout->modified, $copiedLayout->modified);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'bottom' => [
                     'identifier' => 'bottom',
@@ -1378,7 +1339,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 32,
@@ -1419,7 +1380,7 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 31,
@@ -1488,17 +1449,17 @@ final class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_ARCHIVED)
         );
 
-        $this->assertCount(2, $archivedReferences);
-        $this->assertContains($archivedReferences[0]->collectionId, [2, 3]);
-        $this->assertContains($archivedReferences[1]->collectionId, [2, 3]);
+        self::assertCount(2, $archivedReferences);
+        self::assertContains($archivedReferences[0]->collectionId, [2, 3]);
+        self::assertContains($archivedReferences[1]->collectionId, [2, 3]);
 
         // Second block
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(35, Value::STATUS_ARCHIVED)
         );
 
-        $this->assertCount(1, $archivedReferences);
-        $this->assertSame(4, $archivedReferences[0]->collectionId);
+        self::assertCount(1, $archivedReferences);
+        self::assertSame(4, $archivedReferences[0]->collectionId);
     }
 
     /**
@@ -1564,17 +1525,17 @@ final class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(2, $publishedReferences);
-        $this->assertContains($publishedReferences[0]->collectionId, [2, 3]);
-        $this->assertContains($publishedReferences[1]->collectionId, [2, 3]);
+        self::assertCount(2, $publishedReferences);
+        self::assertContains($publishedReferences[0]->collectionId, [2, 3]);
+        self::assertContains($publishedReferences[1]->collectionId, [2, 3]);
 
         // Second block
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(35, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(1, $publishedReferences);
-        $this->assertSame(4, $publishedReferences[0]->collectionId);
+        self::assertCount(1, $publishedReferences);
+        self::assertSame(4, $publishedReferences[0]->collectionId);
     }
 
     /**
@@ -1587,16 +1548,15 @@ final class LayoutHandlerTest extends TestCase
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
 
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertSame($layout->created, $updatedLayout->created);
-        $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
+        self::assertSame($layout->created, $updatedLayout->created);
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $this->assertSame('en', $updatedLayout->mainLocale);
-        $this->assertSame(['en'], $updatedLayout->availableLocales);
+        self::assertSame('en', $updatedLayout->mainLocale);
+        self::assertSame(['en'], $updatedLayout->availableLocales);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
-            $this->assertNotContains('hr', $layoutBlock->availableLocales);
+            self::assertNotContains('hr', $layoutBlock->availableLocales);
         }
     }
 
@@ -1618,12 +1578,11 @@ final class LayoutHandlerTest extends TestCase
 
         $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
 
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertSame($layout->created, $updatedLayout->created);
-        $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
+        self::assertSame($layout->created, $updatedLayout->created);
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $this->assertSame('en', $updatedLayout->mainLocale);
-        $this->assertSame(['en'], $updatedLayout->availableLocales);
+        self::assertSame('en', $updatedLayout->mainLocale);
+        self::assertSame(['en'], $updatedLayout->availableLocales);
 
         $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
     }

@@ -45,7 +45,7 @@ final class InvalidationListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 KernelEvents::TERMINATE => 'onKernelTerminate',
                 KernelEvents::EXCEPTION => 'onKernelException',
@@ -72,7 +72,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->httpCacheClientMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commit');
 
         $this->listener->onKernelTerminate($event);
@@ -94,7 +94,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->httpCacheClientMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commit');
 
         $this->listener->onKernelException($event);
@@ -116,7 +116,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->httpCacheClientMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commit');
 
         $this->listener->onConsoleTerminate($event);

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Block\BlockType;
 
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
@@ -35,9 +34,7 @@ final class BlockTypeFactoryTest extends TestCase
             $blockDefinition
         );
 
-        $this->assertInstanceOf(BlockType::class, $blockType);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'title',
                 'isEnabled' => false,

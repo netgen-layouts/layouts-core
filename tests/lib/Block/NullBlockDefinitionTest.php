@@ -28,7 +28,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('definition', $this->blockDefinition->getIdentifier());
+        self::assertSame('definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -36,7 +36,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Invalid block definition', $this->blockDefinition->getName());
+        self::assertSame('Invalid block definition', $this->blockDefinition->getName());
     }
 
     /**
@@ -44,7 +44,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetIcon(): void
     {
-        $this->assertSame('', $this->blockDefinition->getIcon());
+        self::assertSame('', $this->blockDefinition->getIcon());
     }
 
     /**
@@ -52,7 +52,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testIsTranslatable(): void
     {
-        $this->assertFalse($this->blockDefinition->isTranslatable());
+        self::assertFalse($this->blockDefinition->isTranslatable());
     }
 
     /**
@@ -60,7 +60,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetForms(): void
     {
-        $this->assertSame([], $this->blockDefinition->getForms());
+        self::assertSame([], $this->blockDefinition->getForms());
     }
 
     /**
@@ -68,7 +68,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testHasForm(): void
     {
-        $this->assertFalse($this->blockDefinition->hasForm('content'));
+        self::assertFalse($this->blockDefinition->hasForm('content'));
     }
 
     /**
@@ -86,7 +86,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetCollections(): void
     {
-        $this->assertSame([], $this->blockDefinition->getCollections());
+        self::assertSame([], $this->blockDefinition->getCollections());
     }
 
     /**
@@ -94,7 +94,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testHasCollection(): void
     {
-        $this->assertFalse($this->blockDefinition->hasCollection('collection'));
+        self::assertFalse($this->blockDefinition->hasCollection('collection'));
     }
 
     /**
@@ -112,7 +112,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetViewTypes(): void
     {
-        $this->assertSame([], $this->blockDefinition->getViewTypes());
+        self::assertSame([], $this->blockDefinition->getViewTypes());
     }
 
     /**
@@ -120,7 +120,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testGetViewTypeIdentifiers(): void
     {
-        $this->assertSame([], $this->blockDefinition->getViewTypeIdentifiers());
+        self::assertSame([], $this->blockDefinition->getViewTypeIdentifiers());
     }
 
     /**
@@ -128,7 +128,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testHasViewType(): void
     {
-        $this->assertFalse($this->blockDefinition->hasViewType('large'));
+        self::assertFalse($this->blockDefinition->hasViewType('large'));
     }
 
     /**
@@ -148,7 +148,7 @@ final class NullBlockDefinitionTest extends TestCase
     {
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
 
-        $this->assertCount(0, $dynamicParameters);
+        self::assertCount(0, $dynamicParameters);
     }
 
     /**
@@ -156,7 +156,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $this->assertFalse($this->blockDefinition->isContextual(new Block()));
+        self::assertFalse($this->blockDefinition->isContextual(new Block()));
     }
 
     /**
@@ -164,7 +164,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testHasPlugin(): void
     {
-        $this->assertFalse($this->blockDefinition->hasPlugin(HandlerPlugin::class));
+        self::assertFalse($this->blockDefinition->hasPlugin(HandlerPlugin::class));
     }
 
     /**
@@ -172,6 +172,6 @@ final class NullBlockDefinitionTest extends TestCase
      */
     public function testHasPluginWithUnknownPlugin(): void
     {
-        $this->assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
+        self::assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
     }
 }

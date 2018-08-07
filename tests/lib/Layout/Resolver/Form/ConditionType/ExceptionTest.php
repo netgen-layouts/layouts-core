@@ -56,17 +56,17 @@ final class ExceptionTest extends FormTestCase
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
-        $this->assertInstanceOf(ChoiceType::class, $valueFormConfig->getType()->getInnerType());
+        self::assertInstanceOf(ChoiceType::class, $valueFormConfig->getType()->getInnerType());
 
         $form->submit($submittedData);
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame([404], $struct->value);
+        self::assertSame([404], $struct->value);
 
         $formView = $form->createView();
-        $this->assertArrayHasKey('value', $formView->children);
+        self::assertArrayHasKey('value', $formView->children);
 
-        $this->assertArrayHasKey('condition_type', $formView->vars);
-        $this->assertSame($this->conditionType, $formView->vars['condition_type']);
+        self::assertArrayHasKey('condition_type', $formView->vars);
+        self::assertSame($this->conditionType, $formView->vars['condition_type']);
     }
 }

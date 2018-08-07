@@ -65,8 +65,8 @@ final class ConditionTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->conditionType, $options['condition_type']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->conditionType, $options['condition_type']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

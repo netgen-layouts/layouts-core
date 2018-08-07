@@ -5,14 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
@@ -39,8 +34,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlock(31);
 
-        $this->assertTrue($block->isPublished());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isPublished());
     }
 
     /**
@@ -71,8 +65,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlockDraft(31);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isDraft());
     }
 
     /**
@@ -104,10 +97,8 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->layoutService->loadZone(1, 'right')
         );
 
-        $this->assertCount(2, $blocks);
-        foreach ($blocks as $block) {
-            $this->assertInstanceOf(Block::class, $block);
-        }
+        self::assertCount(2, $blocks);
+        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
     }
 
     /**
@@ -119,10 +110,8 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->layoutService->loadLayout(1)
         );
 
-        $this->assertCount(3, $blocks);
-        foreach ($blocks as $block) {
-            $this->assertInstanceOf(Block::class, $block);
-        }
+        self::assertCount(3, $blocks);
+        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
     }
 
     /**
@@ -132,7 +121,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlock(31);
 
-        $this->assertTrue($this->blockService->hasPublishedState($block));
+        self::assertTrue($this->blockService->hasPublishedState($block));
     }
 
     /**
@@ -142,7 +131,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlockDraft(36);
 
-        $this->assertFalse($this->blockService->hasPublishedState($block));
+        self::assertFalse($this->blockService->hasPublishedState($block));
     }
 
     /**
@@ -162,16 +151,15 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame($block->getId(), $leftPlaceholder->getBlocks()[0]->getId());
+        self::assertTrue($block->isDraft());
+        self::assertSame($block->getId(), $leftPlaceholder->getBlocks()[0]->getId());
 
-        $this->assertSame(37, $leftPlaceholder->getBlocks()[1]->getId());
+        self::assertSame(37, $leftPlaceholder->getBlocks()[1]->getId());
 
-        $this->assertFalse($block->isTranslatable());
-        $this->assertTrue($block->isAlwaysAvailable());
-        $this->assertContains('en', $block->getAvailableLocales());
-        $this->assertSame('en', $block->getLocale());
+        self::assertFalse($block->isTranslatable());
+        self::assertTrue($block->isAlwaysAvailable());
+        self::assertContains('en', $block->getAvailableLocales());
+        self::assertSame('en', $block->getLocale());
     }
 
     /**
@@ -189,23 +177,22 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isDraft());
 
         $collections = $block->getCollections();
-        $this->assertCount(1, $collections);
-        $this->assertArrayHasKey('default', $collections);
+        self::assertCount(1, $collections);
+        self::assertArrayHasKey('default', $collections);
 
-        $this->assertSame(0, $collections['default']->getOffset());
-        $this->assertNull($collections['default']->getLimit());
+        self::assertSame(0, $collections['default']->getOffset());
+        self::assertNull($collections['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
-        $this->assertFalse($collection->hasQuery());
+        self::assertFalse($collection->hasQuery());
 
-        $this->assertSame($block->isTranslatable(), $collection->isTranslatable());
-        $this->assertSame($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
-        $this->assertSame($block->getAvailableLocales(), $collection->getAvailableLocales());
-        $this->assertSame($block->getMainLocale(), $collection->getMainLocale());
+        self::assertSame($block->isTranslatable(), $collection->isTranslatable());
+        self::assertSame($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
+        self::assertSame($block->getAvailableLocales(), $collection->getAvailableLocales());
+        self::assertSame($block->getMainLocale(), $collection->getMainLocale());
     }
 
     /**
@@ -232,25 +219,24 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isDraft());
 
         $collections = $block->getCollections();
-        $this->assertCount(1, $collections);
-        $this->assertArrayHasKey('default', $collections);
+        self::assertCount(1, $collections);
+        self::assertArrayHasKey('default', $collections);
 
-        $this->assertSame(0, $collections['default']->getOffset());
-        $this->assertNull($collections['default']->getLimit());
+        self::assertSame(0, $collections['default']->getOffset());
+        self::assertNull($collections['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
-        $this->assertTrue($collection->hasQuery());
-        $this->assertInstanceOf(Query::class, $collection->getQuery());
-        $this->assertSame('my_query_type', $collection->getQuery()->getQueryType()->getType());
+        self::assertTrue($collection->hasQuery());
+        self::assertInstanceOf(Query::class, $collection->getQuery());
+        self::assertSame('my_query_type', $collection->getQuery()->getQueryType()->getType());
 
-        $this->assertSame($block->isTranslatable(), $collection->isTranslatable());
-        $this->assertSame($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
-        $this->assertSame($block->getAvailableLocales(), $collection->getAvailableLocales());
-        $this->assertSame($block->getMainLocale(), $collection->getMainLocale());
+        self::assertSame($block->isTranslatable(), $collection->isTranslatable());
+        self::assertSame($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
+        self::assertSame($block->getAvailableLocales(), $collection->getAvailableLocales());
+        self::assertSame($block->getMainLocale(), $collection->getMainLocale());
     }
 
     /**
@@ -269,17 +255,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertTrue($block->isTranslatable());
-        $this->assertSame('en', $block->getMainLocale());
-
-        $this->assertCount(2, $block->getAvailableLocales());
-        $this->assertContains('en', $block->getAvailableLocales());
-        $this->assertContains('hr', $block->getAvailableLocales());
-
-        $this->assertSame('en', $block->getLocale());
+        self::assertTrue($block->isDraft());
+        self::assertTrue($block->isTranslatable());
+        self::assertSame('en', $block->getMainLocale());
+        self::assertCount(2, $block->getAvailableLocales());
+        self::assertContains('en', $block->getAvailableLocales());
+        self::assertContains('hr', $block->getAvailableLocales());
+        self::assertSame('en', $block->getLocale());
     }
 
     /**
@@ -302,17 +284,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertFalse($block->isTranslatable());
-        $this->assertSame('en', $block->getMainLocale());
-
-        $this->assertCount(1, $block->getAvailableLocales());
-        $this->assertContains('en', $block->getAvailableLocales());
-        $this->assertNotContains('hr', $block->getAvailableLocales());
-
-        $this->assertSame('en', $block->getLocale());
+        self::assertTrue($block->isDraft());
+        self::assertFalse($block->isTranslatable());
+        self::assertSame('en', $block->getMainLocale());
+        self::assertCount(1, $block->getAvailableLocales());
+        self::assertContains('en', $block->getAvailableLocales());
+        self::assertNotContains('hr', $block->getAvailableLocales());
+        self::assertSame('en', $block->getLocale());
     }
 
     /**
@@ -337,19 +315,16 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isDraft());
+        self::assertTrue($block->hasConfig('key'));
 
-        $this->assertTrue($block->hasConfig('key'));
         $blockConfig = $block->getConfig('key');
+        self::assertTrue($blockConfig->getParameter('param1')->getValue());
+        self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
 
-        $this->assertInstanceOf(Config::class, $blockConfig);
-        $this->assertTrue($blockConfig->getParameter('param1')->getValue());
-        $this->assertSame(400, $blockConfig->getParameter('param2')->getValue());
-
-        $this->assertFalse($block->isTranslatable());
-        $this->assertContains('en', $block->getAvailableLocales());
-        $this->assertSame('en', $block->getLocale());
+        self::assertFalse($block->isTranslatable());
+        self::assertContains('en', $block->getAvailableLocales());
+        self::assertSame('en', $block->getLocale());
     }
 
     /**
@@ -424,9 +399,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame($block->getId(), $leftPlaceholder->getBlocks()[1]->getId());
+        self::assertTrue($block->isDraft());
+        self::assertSame($block->getId(), $leftPlaceholder->getBlocks()[1]->getId());
     }
 
     /**
@@ -485,11 +459,10 @@ abstract class BlockServiceTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame($block->getId(), $blocks[0]->getId());
+        self::assertTrue($block->isDraft());
+        self::assertSame($block->getId(), $blocks[0]->getId());
 
-        $this->assertSame(31, $blocks[1]->getId());
+        self::assertSame(31, $blocks[1]->getId());
     }
 
     /**
@@ -508,13 +481,10 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertCount(2, $block->getPlaceholders());
+        self::assertCount(2, $block->getPlaceholders());
 
-        $this->assertTrue($block->hasPlaceholder('main'));
-        $this->assertTrue($block->hasPlaceholder('other'));
-
-        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('main'));
-        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('other'));
+        self::assertTrue($block->hasPlaceholder('main'));
+        self::assertTrue($block->hasPlaceholder('other'));
     }
 
     /**
@@ -536,14 +506,13 @@ abstract class BlockServiceTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame($block->getId(), $blocks[0]->getId());
+        self::assertTrue($block->isDraft());
+        self::assertSame($block->getId(), $blocks[0]->getId());
 
-        $this->assertSame(31, $blocks[1]->getId());
+        self::assertSame(31, $blocks[1]->getId());
 
         $collections = $block->getCollections();
-        $this->assertCount(0, $collections);
+        self::assertCount(0, $collections);
     }
 
     /**
@@ -562,8 +531,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isDraft());
     }
 
     /**
@@ -599,8 +567,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(2, 'top')
         );
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($block->isDraft());
     }
 
     /**
@@ -621,9 +588,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame($block->getId(), $blocks[2]->getId());
+        self::assertTrue($block->isDraft());
+        self::assertSame($block->getId(), $blocks[2]->getId());
     }
 
     /**
@@ -675,22 +641,21 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame('small', $block->getViewType());
-        $this->assertSame('Super cool block', $block->getName());
+        self::assertTrue($updatedBlock->isDraft());
+        self::assertSame('small', $updatedBlock->getViewType());
+        self::assertSame('Super cool block', $updatedBlock->getName());
 
-        $this->assertSame('css-class', $block->getParameter('css_class')->getValue());
-        $this->assertSame('css-id', $block->getParameter('css_id')->getValue());
+        self::assertSame('css-class', $updatedBlock->getParameter('css_class')->getValue());
+        self::assertSame('css-id', $updatedBlock->getParameter('css_id')->getValue());
 
         $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
 
-        $this->assertSame('test_value', $croBlock->getParameter('css_class')->getValue());
+        self::assertSame('test_value', $croBlock->getParameter('css_class')->getValue());
 
         // CSS ID is untranslatable, meaning it keeps the value from main locale
-        $this->assertSame('css-id', $croBlock->getParameter('css_id')->getValue());
+        self::assertSame('css-id', $croBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -707,22 +672,21 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame('small', $block->getViewType());
-        $this->assertSame('Super cool block', $block->getName());
+        self::assertTrue($updatedBlock->isDraft());
+        self::assertSame('small', $updatedBlock->getViewType());
+        self::assertSame('Super cool block', $updatedBlock->getName());
 
-        $this->assertSame('test_value', $block->getParameter('css_class')->getValue());
-        $this->assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
+        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
+        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
 
         $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
 
-        $this->assertSame('css-class-hr', $croBlock->getParameter('css_class')->getValue());
+        self::assertSame('css-class-hr', $croBlock->getParameter('css_class')->getValue());
 
         // CSS ID is untranslatable, meaning it receives the value from the main locale
-        $this->assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
+        self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -747,11 +711,11 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
 
-        $this->assertSame('english_css', $block->getParameter('css_class')->getValue());
-        $this->assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
+        self::assertSame('english_css', $block->getParameter('css_class')->getValue());
+        self::assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
 
-        $this->assertSame('croatian_css', $croBlock->getParameter('css_class')->getValue());
-        $this->assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
+        self::assertSame('croatian_css', $croBlock->getParameter('css_class')->getValue());
+        self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -770,17 +734,14 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $blockUpdateStruct->setConfigStruct('key', $configStruct);
 
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
+        self::assertTrue($updatedBlock->isDraft());
+        self::assertTrue($updatedBlock->hasConfig('key'));
 
-        $this->assertTrue($block->hasConfig('key'));
-        $blockConfig = $block->getConfig('key');
-
-        $this->assertInstanceOf(Config::class, $blockConfig);
-        $this->assertTrue($blockConfig->getParameter('param1')->getValue());
-        $this->assertSame(400, $blockConfig->getParameter('param2')->getValue());
+        $blockConfig = $updatedBlock->getConfig('key');
+        self::assertTrue($blockConfig->getParameter('param1')->getValue());
+        self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
     }
 
     /**
@@ -796,15 +757,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame('small', $block->getViewType());
-        $this->assertSame('My block', $block->getName());
+        self::assertTrue($updatedBlock->isDraft());
+        self::assertSame('small', $updatedBlock->getViewType());
+        self::assertSame('My block', $updatedBlock->getName());
 
-        $this->assertSame('test_value', $block->getParameter('css_class')->getValue());
-        $this->assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
+        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
+        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -820,15 +780,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $this->assertTrue($block->isDraft());
-        $this->assertInstanceOf(Block::class, $block);
-        $this->assertSame('list', $block->getViewType());
-        $this->assertSame('Super cool block', $block->getName());
+        self::assertTrue($updatedBlock->isDraft());
+        self::assertSame('list', $updatedBlock->getViewType());
+        self::assertSame('Super cool block', $updatedBlock->getName());
 
-        $this->assertSame('test_value', $block->getParameter('css_class')->getValue());
-        $this->assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
+        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
+        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -879,12 +838,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(34);
-        $this->assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(1, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(1, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -900,12 +858,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(34);
-        $this->assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(1, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(1, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -921,12 +878,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(37);
-        $this->assertSame(1, $firstBlockInTargetBlock->getParentPosition());
+        self::assertSame(1, $firstBlockInTargetBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(0, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(0, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -1039,23 +995,20 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        $this->assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getParentPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        $this->assertSame(1, $secondBlock->getParentPosition());
+        self::assertSame(1, $secondBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(2, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(2, $copiedBlock->getParentPosition());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(7);
-        $this->assertTrue($copiedCollection->isDraft());
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
+        self::assertTrue($copiedCollection->isDraft());
 
         $copiedCollection2 = $this->collectionService->loadCollectionDraft(8);
-        $this->assertTrue($copiedCollection2->isDraft());
-        $this->assertInstanceOf(Collection::class, $copiedCollection2);
+        self::assertTrue($copiedCollection2->isDraft());
     }
 
     /**
@@ -1070,15 +1023,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        $this->assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getParentPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        $this->assertSame(2, $secondBlock->getParentPosition());
+        self::assertSame(2, $secondBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(1, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(1, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -1093,15 +1045,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        $this->assertSame(1, $originalBlock->getParentPosition());
+        self::assertSame(1, $originalBlock->getParentPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        $this->assertSame(2, $secondBlock->getParentPosition());
+        self::assertSame(2, $secondBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(0, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(0, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -1116,15 +1067,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        $this->assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getParentPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        $this->assertSame(1, $secondBlock->getParentPosition());
+        self::assertSame(1, $secondBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(2, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(2, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -1139,15 +1089,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        $this->assertSame(1, $originalBlock->getParentPosition());
+        self::assertSame(1, $originalBlock->getParentPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        $this->assertSame(2, $secondBlock->getParentPosition());
+        self::assertSame(2, $secondBlock->getParentPosition());
 
-        $this->assertTrue($copiedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertSame(39, $copiedBlock->getId());
-        $this->assertSame(0, $copiedBlock->getParentPosition());
+        self::assertTrue($copiedBlock->isDraft());
+        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame(0, $copiedBlock->getParentPosition());
     }
 
     /**
@@ -1229,14 +1178,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($movedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertSame(34, $movedBlock->getId());
+        self::assertTrue($movedBlock->isDraft());
+        self::assertSame(34, $movedBlock->getId());
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $this->assertSame($movedBlock->getId(), $leftPlaceholder->getBlocks()[0]->getId());
+        self::assertSame($movedBlock->getId(), $leftPlaceholder->getBlocks()[0]->getId());
     }
 
     /**
@@ -1252,16 +1200,15 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($movedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertSame(37, $movedBlock->getId());
+        self::assertTrue($movedBlock->isDraft());
+        self::assertSame(37, $movedBlock->getId());
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
         $rightPlaceholder = $targetBlock->getPlaceholder('right');
 
-        $this->assertEmpty($leftPlaceholder->getBlocks());
-        $this->assertSame($movedBlock->getId(), $rightPlaceholder->getBlocks()[0]->getId());
+        self::assertEmpty($leftPlaceholder->getBlocks());
+        self::assertSame($movedBlock->getId(), $rightPlaceholder->getBlocks()[0]->getId());
     }
 
     /**
@@ -1277,17 +1224,16 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($movedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertSame(37, $movedBlock->getId());
+        self::assertTrue($movedBlock->isDraft());
+        self::assertSame(37, $movedBlock->getId());
 
         $originalBlock = $this->blockService->loadBlockDraft(33);
         $targetBlock = $this->blockService->loadBlockDraft(38);
         $originalPlaceholder = $originalBlock->getPlaceholder('left');
         $targetPlaceholder = $targetBlock->getPlaceholder('main');
 
-        $this->assertEmpty($originalPlaceholder->getBlocks());
-        $this->assertSame($movedBlock->getId(), $targetPlaceholder->getBlocks()[0]->getId());
+        self::assertEmpty($originalPlaceholder->getBlocks());
+        self::assertSame($movedBlock->getId(), $targetPlaceholder->getBlocks()[0]->getId());
     }
 
     /**
@@ -1407,14 +1353,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($movedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertSame(32, $movedBlock->getId());
+        self::assertTrue($movedBlock->isDraft());
+        self::assertSame(32, $movedBlock->getId());
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertSame($movedBlock->getId(), $blocks[0]->getId());
+        self::assertSame($movedBlock->getId(), $blocks[0]->getId());
     }
 
     /**
@@ -1429,14 +1374,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
-        $this->assertTrue($movedBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertSame(32, $movedBlock->getId());
+        self::assertTrue($movedBlock->isDraft());
+        self::assertSame(32, $movedBlock->getId());
 
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertSame($movedBlock->getId(), $blocks[0]->getId());
+        self::assertSame($movedBlock->getId(), $blocks[0]->getId());
     }
 
     /**
@@ -1526,33 +1470,32 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $restoredBlock = $this->blockService->restoreBlock($movedBlock);
 
-        $this->assertTrue($restoredBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $restoredBlock);
-        $this->assertSame('grid', $restoredBlock->getViewType());
-        $this->assertSame('standard_with_intro', $restoredBlock->getItemViewType());
-        $this->assertSame('My published block', $restoredBlock->getName());
+        self::assertTrue($restoredBlock->isDraft());
+        self::assertSame('grid', $restoredBlock->getViewType());
+        self::assertSame('standard_with_intro', $restoredBlock->getItemViewType());
+        self::assertSame('My published block', $restoredBlock->getName());
 
-        $this->assertSame('some-class', $restoredBlock->getParameter('css_class')->getValue());
-        $this->assertNull($restoredBlock->getParameter('css_id')->getValue());
+        self::assertSame('some-class', $restoredBlock->getParameter('css_class')->getValue());
+        self::assertNull($restoredBlock->getParameter('css_id')->getValue());
 
         $collections = $restoredBlock->getCollections();
-        $this->assertCount(2, $collections);
-        $this->assertArrayHasKey('default', $collections);
-        $this->assertArrayHasKey('featured', $collections);
+        self::assertCount(2, $collections);
+        self::assertArrayHasKey('default', $collections);
+        self::assertArrayHasKey('featured', $collections);
 
-        $this->assertSame(2, $collections['default']->getId());
-        $this->assertSame(3, $collections['featured']->getId());
+        self::assertSame(2, $collections['default']->getId());
+        self::assertSame(3, $collections['featured']->getId());
 
         $restoredPersistenceBlock = $blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
 
         // Make sure the position is not moved.
 
-        $this->assertSame($movedPersistenceBlock->layoutId, $restoredPersistenceBlock->layoutId);
-        $this->assertSame($movedPersistenceBlock->depth, $restoredPersistenceBlock->depth);
-        $this->assertSame($movedPersistenceBlock->parentId, $restoredPersistenceBlock->parentId);
-        $this->assertSame($movedPersistenceBlock->placeholder, $restoredPersistenceBlock->placeholder);
-        $this->assertSame($movedPersistenceBlock->position, $restoredPersistenceBlock->position);
-        $this->assertSame($movedPersistenceBlock->path, $restoredPersistenceBlock->path);
+        self::assertSame($movedPersistenceBlock->layoutId, $restoredPersistenceBlock->layoutId);
+        self::assertSame($movedPersistenceBlock->depth, $restoredPersistenceBlock->depth);
+        self::assertSame($movedPersistenceBlock->parentId, $restoredPersistenceBlock->parentId);
+        self::assertSame($movedPersistenceBlock->placeholder, $restoredPersistenceBlock->placeholder);
+        self::assertSame($movedPersistenceBlock->position, $restoredPersistenceBlock->position);
+        self::assertSame($movedPersistenceBlock->path, $restoredPersistenceBlock->path);
     }
 
     /**
@@ -1567,14 +1510,12 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $restoredBlock = $this->blockService->restoreBlock($block);
 
-        $this->assertTrue($restoredBlock->isDraft());
-        $this->assertInstanceOf(Block::class, $restoredBlock);
-        $this->assertTrue($restoredBlock->isTranslatable());
-
-        $this->assertCount(3, $restoredBlock->getAvailableLocales());
-        $this->assertContains('en', $restoredBlock->getAvailableLocales());
-        $this->assertContains('hr', $restoredBlock->getAvailableLocales());
-        $this->assertContains('de', $restoredBlock->getAvailableLocales());
+        self::assertTrue($restoredBlock->isDraft());
+        self::assertTrue($restoredBlock->isTranslatable());
+        self::assertCount(3, $restoredBlock->getAvailableLocales());
+        self::assertContains('en', $restoredBlock->getAvailableLocales());
+        self::assertContains('hr', $restoredBlock->getAvailableLocales());
+        self::assertContains('de', $restoredBlock->getAvailableLocales());
     }
 
     /**
@@ -1600,10 +1541,10 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $layout = $this->layoutService->loadLayoutDraft($block->getLayoutId());
         foreach ($layout->getAvailableLocales() as $locale) {
-            $this->assertContains($locale, $updatedBlock->getAvailableLocales());
+            self::assertContains($locale, $updatedBlock->getAvailableLocales());
         }
 
-        $this->assertTrue($updatedBlock->isTranslatable());
+        self::assertTrue($updatedBlock->isTranslatable());
     }
 
     /**
@@ -1655,10 +1596,10 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $updatedBlock = $this->blockService->disableTranslations($block);
 
-        $this->assertFalse($updatedBlock->isTranslatable());
+        self::assertFalse($updatedBlock->isTranslatable());
 
-        $this->assertNotContains('hr', $updatedBlock->getAvailableLocales());
-        $this->assertContains('en', $updatedBlock->getAvailableLocales());
+        self::assertNotContains('hr', $updatedBlock->getAvailableLocales());
+        self::assertContains('en', $updatedBlock->getAvailableLocales());
     }
 
     /**
@@ -1673,17 +1614,17 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->enableTranslations($childBlock);
         $block = $this->blockService->disableTranslations($block);
 
-        $this->assertFalse($block->isTranslatable());
+        self::assertFalse($block->isTranslatable());
 
-        $this->assertNotContains('hr', $block->getAvailableLocales());
-        $this->assertContains('en', $block->getAvailableLocales());
+        self::assertNotContains('hr', $block->getAvailableLocales());
+        self::assertContains('en', $block->getAvailableLocales());
 
         $childBlock = $this->blockService->loadBlockDraft(37);
 
-        $this->assertFalse($childBlock->isTranslatable());
+        self::assertFalse($childBlock->isTranslatable());
 
-        $this->assertNotContains('hr', $childBlock->getAvailableLocales());
-        $this->assertContains('en', $childBlock->getAvailableLocales());
+        self::assertNotContains('hr', $childBlock->getAvailableLocales());
+        self::assertContains('en', $childBlock->getAvailableLocales());
     }
 
     /**
@@ -1743,9 +1684,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $struct = $this->blockService->newBlockCreateStruct($blockDefinition);
 
-        $this->assertInstanceOf(BlockCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'viewType' => 'small',
                 'itemViewType' => 'standard',
@@ -1771,9 +1710,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $struct = $this->blockService->newBlockUpdateStruct('en');
 
-        $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'viewType' => null,
@@ -1795,12 +1732,9 @@ abstract class BlockServiceTest extends ServiceTestCase
         $block = $this->blockService->loadBlockDraft(36);
         $struct = $this->blockService->newBlockUpdateStruct('en', $block);
 
-        $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
+        self::assertArrayHasKey('key', $struct->getConfigStructs());
 
-        $this->assertArrayHasKey('key', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'viewType' => 'title',

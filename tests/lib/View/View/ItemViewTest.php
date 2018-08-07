@@ -41,8 +41,8 @@ final class ItemViewTest extends TestCase
      */
     public function testGetItem(): void
     {
-        $this->assertSame($this->item, $this->view->getItem());
-        $this->assertSame(
+        self::assertSame($this->item, $this->view->getItem());
+        self::assertSame(
             [
                 'item' => $this->item,
                 'view_type' => 'view_type',
@@ -57,7 +57,7 @@ final class ItemViewTest extends TestCase
      */
     public function testGetViewType(): void
     {
-        $this->assertSame('view_type', $this->view->getViewType());
+        self::assertSame('view_type', $this->view->getViewType());
     }
 
     /**
@@ -65,6 +65,6 @@ final class ItemViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('item', $this->view::getIdentifier());
+        self::assertSame('item', $this->view::getIdentifier());
     }
 }

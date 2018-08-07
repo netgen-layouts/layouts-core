@@ -51,7 +51,7 @@ final class BlockDefinitionHandlerTest extends TestCase
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->handler->buildParameters($builder);
 
-        $this->assertCount(0, $builder);
+        self::assertCount(0, $builder);
     }
 
     /**
@@ -62,7 +62,7 @@ final class BlockDefinitionHandlerTest extends TestCase
         $dynamicParameters = new DynamicParameters();
         $this->handler->getDynamicParameters($dynamicParameters, new Block());
 
-        $this->assertCount(0, $dynamicParameters);
+        self::assertCount(0, $dynamicParameters);
     }
 
     /**
@@ -70,6 +70,6 @@ final class BlockDefinitionHandlerTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $this->assertFalse($this->handler->isContextual(new Block()));
+        self::assertFalse($this->handler->isContextual(new Block()));
     }
 }

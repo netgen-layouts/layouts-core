@@ -16,7 +16,7 @@ final class BlockExceptionTest extends TestCase
     {
         $exception = BlockException::noPlaceholder('placeholder');
 
-        $this->assertSame(
+        self::assertSame(
             'Placeholder with "placeholder" identifier does not exist in the block.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class BlockExceptionTest extends TestCase
     {
         $exception = BlockException::noCollection('collection');
 
-        $this->assertSame(
+        self::assertSame(
             'Collection with "collection" identifier does not exist in the block.',
             $exception->getMessage()
         );

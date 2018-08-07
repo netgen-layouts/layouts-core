@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Layout\Type;
 
-use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
-use Netgen\BlockManager\Layout\Type\Zone;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -34,12 +32,9 @@ final class LayoutTypeFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(LayoutType::class, $layoutType);
+        self::assertTrue($layoutType->hasZone('left'));
 
-        $this->assertArrayHasKey('left', $layoutType->getZones());
-        $this->assertInstanceOf(Zone::class, $layoutType->getZone('left'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => '4_zones_a',
                 'isEnabled' => false,

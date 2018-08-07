@@ -34,14 +34,13 @@ final class BlockViewProviderTest extends TestCase
             ]
         );
 
-        /** @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
         $view = $this->blockViewProvider->provideView($block);
 
-        $this->assertInstanceOf(BlockViewInterface::class, $view);
+        self::assertInstanceOf(BlockViewInterface::class, $view);
 
-        $this->assertSame($block, $view->getBlock());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($block, $view->getBlock());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'block' => $block,
             ],
@@ -58,7 +57,7 @@ final class BlockViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->blockViewProvider->supports($value));
+        self::assertSame($supports, $this->blockViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

@@ -41,16 +41,16 @@ final class TemplateResolverTest extends TestCase
         $matcherMock = $this->createMock(MatcherInterface::class);
 
         $matcherMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('match')
-            ->with($this->identicalTo($this->view), $this->identicalTo(['value']))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo($this->view), self::identicalTo(['value']))
+            ->will(self::returnValue(false));
 
         $matcherMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('match')
-            ->with($this->identicalTo($this->view), $this->identicalTo(['value2']))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo($this->view), self::identicalTo(['value2']))
+            ->will(self::returnValue(true));
 
         $viewConfiguration = [
             'stub_view' => [
@@ -88,13 +88,13 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('template2.html.twig', $this->view->getTemplate());
+        self::assertSame('template2.html.twig', $this->view->getTemplate());
 
-        $this->assertTrue($this->view->hasParameter('param'));
-        $this->assertSame('value2', $this->view->getParameter('param'));
+        self::assertTrue($this->view->hasParameter('param'));
+        self::assertSame('value2', $this->view->getParameter('param'));
 
-        $this->assertTrue($this->view->hasParameter('param2'));
-        $this->assertSame($this->value, $this->view->getParameter('param2'));
+        self::assertTrue($this->view->hasParameter('param2'));
+        self::assertSame($this->value, $this->view->getParameter('param2'));
     }
 
     /**
@@ -125,9 +125,9 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('template.html.twig', $this->view->getTemplate());
-        $this->assertTrue($this->view->hasParameter('param'));
-        $this->assertSame('value', $this->view->getParameter('param'));
+        self::assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertTrue($this->view->hasParameter('param'));
+        self::assertSame('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -161,7 +161,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertSame('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -193,7 +193,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        $this->assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertSame('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -232,10 +232,10 @@ final class TemplateResolverTest extends TestCase
     {
         $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('match')
-            ->with($this->identicalTo($this->view), $this->identicalTo(['value']))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo($this->view), self::identicalTo(['value']))
+            ->will(self::returnValue(false));
 
         $viewConfiguration = [
             'stub_view' => [

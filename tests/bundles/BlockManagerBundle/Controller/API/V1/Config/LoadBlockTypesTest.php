@@ -20,18 +20,18 @@ final class LoadBlockTypesTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_OK);
+        self::assertResponseCode($response, Response::HTTP_OK);
 
         $responseContent = json_decode($response->getContent(), true);
 
-        $this->assertInternalType('array', $responseContent);
-        $this->assertArrayHasKey('block_types', $responseContent);
-        $this->assertArrayHasKey('block_type_groups', $responseContent);
+        self::assertInternalType('array', $responseContent);
+        self::assertArrayHasKey('block_types', $responseContent);
+        self::assertArrayHasKey('block_type_groups', $responseContent);
 
-        $this->assertInternalType('array', $responseContent['block_types']);
-        $this->assertNotEmpty($responseContent['block_types']);
+        self::assertInternalType('array', $responseContent['block_types']);
+        self::assertNotEmpty($responseContent['block_types']);
 
-        $this->assertInternalType('array', $responseContent['block_type_groups']);
-        $this->assertNotEmpty($responseContent['block_type_groups']);
+        self::assertInternalType('array', $responseContent['block_type_groups']);
+        self::assertNotEmpty($responseContent['block_type_groups']);
     }
 }

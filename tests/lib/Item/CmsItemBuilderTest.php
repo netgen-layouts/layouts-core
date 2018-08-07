@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Item;
 
 use Netgen\BlockManager\Item\CmsItemBuilder;
-use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
@@ -28,9 +27,7 @@ final class CmsItemBuilderTest extends TestCase
 
         $builtItem = $builder->build($value);
 
-        $this->assertInstanceOf(CmsItemInterface::class, $builtItem);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'value' => 42,
                 'remoteId' => 'abc',

@@ -36,7 +36,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block',
             Response::HTTP_CREATED
@@ -67,7 +67,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_with_view_type',
             Response::HTTP_CREATED
@@ -98,7 +98,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_with_item_view_type',
             Response::HTTP_CREATED
@@ -128,7 +128,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_at_end',
             Response::HTTP_CREATED
@@ -158,7 +158,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "targetBlock" has an invalid state. Target block is not a container.'
@@ -188,7 +188,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.'
@@ -218,7 +218,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "block_type": This value should be of type string.'
@@ -247,7 +247,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "block_type": This value should not be blank.'
@@ -277,7 +277,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "block_type" has an invalid state. Block type does not exist.'
@@ -307,7 +307,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
@@ -337,7 +337,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'

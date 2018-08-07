@@ -29,11 +29,11 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService(
+        self::assertContainerBuilderHasService(
             'netgen_block_manager.collection.query_type.query_type'
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.query_type',
             0,
             [
@@ -58,11 +58,11 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService(
+        self::assertContainerBuilderHasService(
             'netgen_block_manager.collection.query_type.query_type'
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.query_type',
             0,
             [
@@ -135,7 +135,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

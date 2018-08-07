@@ -16,7 +16,7 @@ final class LocaleExceptionTest extends TestCase
     {
         $exception = LocaleException::noLocale();
 
-        $this->assertSame(
+        self::assertSame(
             'No locales available in the current context.',
             $exception->getMessage()
         );

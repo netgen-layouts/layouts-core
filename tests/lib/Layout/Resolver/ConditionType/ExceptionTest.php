@@ -28,7 +28,7 @@ final class ExceptionTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('exception', $this->conditionType::getType());
+        self::assertSame('exception', $this->conditionType::getType());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ExceptionTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -60,7 +60,7 @@ final class ExceptionTest extends TestCase
 
         $request->attributes->set('exception', FlattenException::create(new Exception(), 404));
 
-        $this->assertSame($matches, $this->conditionType->matches($request, $value));
+        self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
     /**
@@ -70,7 +70,7 @@ final class ExceptionTest extends TestCase
     {
         $request = Request::create('/');
 
-        $this->assertFalse($this->conditionType->matches($request, [404]));
+        self::assertFalse($this->conditionType->matches($request, [404]));
     }
 
     /**
@@ -82,7 +82,7 @@ final class ExceptionTest extends TestCase
 
         $request->attributes->set('exception', new Exception());
 
-        $this->assertFalse($this->conditionType->matches($request, [404]));
+        self::assertFalse($this->conditionType->matches($request, [404]));
     }
 
     public function validationProvider(): array

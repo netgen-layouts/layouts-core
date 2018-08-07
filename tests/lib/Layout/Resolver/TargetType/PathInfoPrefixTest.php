@@ -26,7 +26,7 @@ final class PathInfoPrefixTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('path_info_prefix', $this->targetType::getType());
+        self::assertSame('path_info_prefix', $this->targetType::getType());
     }
 
     /**
@@ -41,7 +41,7 @@ final class PathInfoPrefixTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->targetType->getConstraints());
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     /**
@@ -51,7 +51,7 @@ final class PathInfoPrefixTest extends TestCase
     {
         $request = Request::create('/the/answer');
 
-        $this->assertSame(
+        self::assertSame(
             '/the/answer',
             $this->targetType->provideValue($request)
         );

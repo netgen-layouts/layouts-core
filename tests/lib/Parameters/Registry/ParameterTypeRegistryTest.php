@@ -36,7 +36,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testGetParameterTypes(): void
     {
-        $this->assertSame(['type' => $this->parameterType], $this->registry->getParameterTypes());
+        self::assertSame(['type' => $this->parameterType], $this->registry->getParameterTypes());
     }
 
     /**
@@ -44,7 +44,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testHasParameterType(): void
     {
-        $this->assertTrue($this->registry->hasParameterType('type'));
+        self::assertTrue($this->registry->hasParameterType('type'));
     }
 
     /**
@@ -52,7 +52,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testHasParameterTypeWithNoParameterType(): void
     {
-        $this->assertFalse($this->registry->hasParameterType('other_type'));
+        self::assertFalse($this->registry->hasParameterType('other_type'));
     }
 
     /**
@@ -60,7 +60,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testGetParameterType(): void
     {
-        $this->assertSame($this->parameterType, $this->registry->getParameterType('type'));
+        self::assertSame($this->parameterType, $this->registry->getParameterType('type'));
     }
 
     /**
@@ -78,7 +78,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testGetParameterTypeByClass(): void
     {
-        $this->assertSame($this->parameterType, $this->registry->getParameterTypeByClass(ParameterType::class));
+        self::assertSame($this->parameterType, $this->registry->getParameterTypeByClass(ParameterType::class));
     }
 
     /**
@@ -96,14 +96,14 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $parameterTypes = [];
         foreach ($this->registry as $identifier => $parameterType) {
             $parameterTypes[$identifier] = $parameterType;
         }
 
-        $this->assertSame($this->registry->getParameterTypes(), $parameterTypes);
+        self::assertSame($this->registry->getParameterTypes(), $parameterTypes);
     }
 
     /**
@@ -111,7 +111,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -119,8 +119,8 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('type', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('type', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -128,7 +128,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->parameterType, $this->registry['type']);
+        self::assertSame($this->parameterType, $this->registry['type']);
     }
 
     /**

@@ -44,14 +44,14 @@ final class RendererTest extends TestCase
     public function testRenderPlugins(): void
     {
         $this->twigMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('display')
             ->with(
-                $this->identicalTo('template1.html.twig'),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo('template1.html.twig'),
+                self::identicalTo(['param' => 'value'])
             )
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function (): void {
                         echo 'rendered1';
                     }
@@ -59,21 +59,21 @@ final class RendererTest extends TestCase
             );
 
         $this->twigMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('display')
             ->with(
-                $this->identicalTo('template2.html.twig'),
-                $this->identicalTo(['param2' => 'value2', 'param' => 'value3'])
+                self::identicalTo('template2.html.twig'),
+                self::identicalTo(['param2' => 'value2', 'param' => 'value3'])
             )
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function (): void {
                         echo 'rendered2';
                     }
                 )
             );
 
-        $this->assertSame('rendered1rendered2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
+        self::assertSame('rendered1rendered2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
     }
 
     /**
@@ -82,10 +82,10 @@ final class RendererTest extends TestCase
     public function testRenderPluginsWithUnknownPlugin(): void
     {
         $this->twigMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('display');
 
-        $this->assertSame('', $this->renderer->renderPlugins('unknown'));
+        self::assertSame('', $this->renderer->renderPlugins('unknown'));
     }
 
     /**
@@ -96,9 +96,9 @@ final class RendererTest extends TestCase
     public function testRenderPluginsWithException(): void
     {
         $this->twigMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('display')
-            ->will($this->throwException(new Exception('Test exception message')));
+            ->will(self::throwException(new Exception('Test exception message')));
 
         $this->renderer->renderPlugins('plugin');
     }

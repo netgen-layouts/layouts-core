@@ -56,20 +56,20 @@ final class RendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->viewBuilderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildView')
             ->with(
-                $this->identicalTo($value),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['some_param' => 'some_value'])
+                self::identicalTo($value),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['some_param' => 'some_value'])
             )
-            ->will($this->returnValue($view));
+            ->will(self::returnValue($view));
 
         $this->viewRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderView')
-            ->with($this->identicalTo($view))
-            ->will($this->returnValue('rendered template'));
+            ->with(self::identicalTo($view))
+            ->will(self::returnValue('rendered template'));
 
         $renderedTemplate = $this->renderer->renderValue(
             $value,
@@ -77,6 +77,6 @@ final class RendererTest extends TestCase
             ['some_param' => 'some_value']
         );
 
-        $this->assertSame('rendered template', $renderedTemplate);
+        self::assertSame('rendered template', $renderedTemplate);
     }
 }

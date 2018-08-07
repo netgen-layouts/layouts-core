@@ -37,6 +37,6 @@ final class ContainerDefinitionTest extends TestCase
      */
     public function testGetPlaceholders(): void
     {
-        $this->assertSame(['left', 'right'], $this->blockDefinition->getPlaceholders());
+        self::assertSame(['left', 'right'], $this->blockDefinition->getPlaceholders());
     }
 }

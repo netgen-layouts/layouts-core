@@ -22,7 +22,7 @@ final class IntegerTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('integer', $this->type::getIdentifier());
+        self::assertSame('integer', $this->type::getIdentifier());
     }
 
     /**
@@ -38,7 +38,7 @@ final class IntegerTypeTest extends TestCase
     public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
-        $this->assertSame($expected, $parameter->getDefaultValue());
+        self::assertSame($expected, $parameter->getDefaultValue());
     }
 
     /**
@@ -48,7 +48,7 @@ final class IntegerTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertSame($resolvedOptions, $parameter->getOptions());
+        self::assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -188,7 +188,7 @@ final class IntegerTypeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -221,7 +221,7 @@ final class IntegerTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

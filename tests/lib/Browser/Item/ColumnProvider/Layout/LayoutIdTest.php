@@ -35,7 +35,7 @@ final class LayoutIdTest extends TestCase
             )
         );
 
-        $this->assertSame('42', $this->provider->getValue($item));
+        self::assertSame('42', $this->provider->getValue($item));
     }
 
     /**
@@ -43,6 +43,6 @@ final class LayoutIdTest extends TestCase
      */
     public function testGetValueWithInvalidItem(): void
     {
-        $this->assertNull($this->provider->getValue(new StubItem()));
+        self::assertNull($this->provider->getValue(new StubItem()));
     }
 }

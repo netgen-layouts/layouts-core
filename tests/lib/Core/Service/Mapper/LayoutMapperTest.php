@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use DateTimeInterface;
-use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Layout\Type\NullLayoutType;
@@ -46,14 +44,13 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $zone = $this->mapper->mapZone($persistenceZone);
 
-        $this->assertInstanceOf(APIZone::class, $zone);
-        $this->assertSame('right', $zone->getIdentifier());
-        $this->assertSame(1, $zone->getLayoutId());
-        $this->assertTrue($zone->isPublished());
-        $this->assertInstanceOf(APIZone::class, $zone->getLinkedZone());
-        $this->assertTrue($zone->getLinkedZone()->isPublished());
-        $this->assertSame(3, $zone->getLinkedZone()->getLayoutId());
-        $this->assertSame('right', $zone->getLinkedZone()->getIdentifier());
+        self::assertSame('right', $zone->getIdentifier());
+        self::assertSame(1, $zone->getLayoutId());
+        self::assertTrue($zone->isPublished());
+        self::assertInstanceOf(APIZone::class, $zone->getLinkedZone());
+        self::assertTrue($zone->getLinkedZone()->isPublished());
+        self::assertSame(3, $zone->getLinkedZone()->getLayoutId());
+        self::assertSame('right', $zone->getLinkedZone()->getIdentifier());
     }
 
     /**
@@ -74,11 +71,10 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $zone = $this->mapper->mapZone($persistenceZone);
 
-        $this->assertInstanceOf(APIZone::class, $zone);
-        $this->assertSame('right', $zone->getIdentifier());
-        $this->assertSame(1, $zone->getLayoutId());
-        $this->assertTrue($zone->isPublished());
-        $this->assertNull($zone->getLinkedZone());
+        self::assertSame('right', $zone->getIdentifier());
+        self::assertSame(1, $zone->getLayoutId());
+        self::assertTrue($zone->isPublished());
+        self::assertNull($zone->getLinkedZone());
     }
 
     /**
@@ -99,11 +95,10 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $zone = $this->mapper->mapZone($persistenceZone);
 
-        $this->assertInstanceOf(APIZone::class, $zone);
-        $this->assertSame('right', $zone->getIdentifier());
-        $this->assertSame(1, $zone->getLayoutId());
-        $this->assertTrue($zone->isPublished());
-        $this->assertNull($zone->getLinkedZone());
+        self::assertSame('right', $zone->getIdentifier());
+        self::assertSame(1, $zone->getLayoutId());
+        self::assertTrue($zone->isPublished());
+        self::assertNull($zone->getLinkedZone());
     }
 
     /**
@@ -126,27 +121,21 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $layout = $this->mapper->mapLayout($persistenceLayout);
 
-        $this->assertSame(
+        self::assertSame(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             $layout->getLayoutType()
         );
 
-        $this->assertInstanceOf(APILayout::class, $layout);
-        $this->assertSame(1, $layout->getId());
-        $this->assertSame('My layout', $layout->getName());
-        $this->assertSame('My description', $layout->getDescription());
-        $this->assertInstanceOf(DateTimeInterface::class, $layout->getCreated());
-        $this->assertSame(1447065813, $layout->getCreated()->getTimestamp());
-        $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
-        $this->assertSame(1447065813, $layout->getModified()->getTimestamp());
-        $this->assertTrue($layout->isPublished());
-        $this->assertTrue($layout->isShared());
+        self::assertSame(1, $layout->getId());
+        self::assertSame('My layout', $layout->getName());
+        self::assertSame('My description', $layout->getDescription());
+        self::assertSame(1447065813, $layout->getCreated()->getTimestamp());
+        self::assertSame(1447065813, $layout->getModified()->getTimestamp());
+        self::assertTrue($layout->isPublished());
+        self::assertTrue($layout->isShared());
 
-        $this->assertNotEmpty($layout->getZones());
-
-        foreach ($layout as $zone) {
-            $this->assertInstanceOf(APIZone::class, $zone);
-        }
+        self::assertNotEmpty($layout->getZones());
+        self::assertContainsOnlyInstancesOf(APIZone::class, $layout->getZones());
     }
 
     /**
@@ -169,23 +158,17 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $layout = $this->mapper->mapLayout($persistenceLayout);
 
-        $this->assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
+        self::assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
 
-        $this->assertInstanceOf(APILayout::class, $layout);
-        $this->assertSame(1, $layout->getId());
-        $this->assertSame('My layout', $layout->getName());
-        $this->assertSame('My description', $layout->getDescription());
-        $this->assertInstanceOf(DateTimeInterface::class, $layout->getCreated());
-        $this->assertSame(1447065813, $layout->getCreated()->getTimestamp());
-        $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
-        $this->assertSame(1447065813, $layout->getModified()->getTimestamp());
-        $this->assertTrue($layout->isPublished());
-        $this->assertTrue($layout->isShared());
+        self::assertSame(1, $layout->getId());
+        self::assertSame('My layout', $layout->getName());
+        self::assertSame('My description', $layout->getDescription());
+        self::assertSame(1447065813, $layout->getCreated()->getTimestamp());
+        self::assertSame(1447065813, $layout->getModified()->getTimestamp());
+        self::assertTrue($layout->isPublished());
+        self::assertTrue($layout->isShared());
 
-        $this->assertNotEmpty($layout->getZones());
-
-        foreach ($layout as $zone) {
-            $this->assertInstanceOf(APIZone::class, $zone);
-        }
+        self::assertNotEmpty($layout->getZones());
+        self::assertContainsOnlyInstancesOf(APIZone::class, $layout->getZones());
     }
 }

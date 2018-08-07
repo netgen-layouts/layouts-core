@@ -45,22 +45,22 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateLayouts(): void
     {
         $this->idProviderMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('provideIds')
-            ->with($this->identicalTo(24))
-            ->will($this->returnValue([24, 25, 26]));
+            ->with(self::identicalTo(24))
+            ->will(self::returnValue([24, 25, 26]));
 
         $this->idProviderMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('provideIds')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue([42]));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue([42]));
 
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('invalidate')
             ->with(
-                $this->identicalTo(
+                self::identicalTo(
                     [
                         'X-Layout-Id' => '^(24|25|26|42)$',
                     ]
@@ -76,11 +76,11 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
         $this->idProviderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('provideIds');
 
         $this->fosInvalidatorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('invalidate');
 
         $this->client->invalidateLayouts([]);
@@ -92,14 +92,14 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateAllLayouts(): void
     {
         $this->idProviderMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('provideIds');
 
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('invalidate')
             ->with(
-                $this->identicalTo(
+                self::identicalTo(
                     [
                         'X-Layout-Id' => '.*',
                     ]
@@ -115,10 +115,10 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateBlocks(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('invalidate')
             ->with(
-                $this->identicalTo(
+                self::identicalTo(
                     [
                         'X-Block-Id' => '^(24|42)$',
                     ]
@@ -134,7 +134,7 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('invalidate');
 
         $this->client->invalidateBlocks([]);
@@ -146,10 +146,10 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateLayoutBlocks(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('invalidate')
             ->with(
-                $this->identicalTo(
+                self::identicalTo(
                     [
                         'X-Origin-Layout-Id' => '^(24|42)$',
                     ]
@@ -165,7 +165,7 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('invalidate');
 
         $this->client->invalidateLayoutBlocks([]);
@@ -177,10 +177,10 @@ final class VarnishClientTest extends TestCase
     public function testInvalidateAllBlocks(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('invalidate')
             ->with(
-                $this->identicalTo(
+                self::identicalTo(
                     [
                         'X-Block-Id' => '.*',
                     ]
@@ -196,10 +196,10 @@ final class VarnishClientTest extends TestCase
     public function testCommit(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('flush');
 
-        $this->assertTrue($this->client->commit());
+        self::assertTrue($this->client->commit());
     }
 
     /**
@@ -208,10 +208,10 @@ final class VarnishClientTest extends TestCase
     public function testCommitReturnsFalse(): void
     {
         $this->fosInvalidatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('flush')
-            ->will($this->throwException(new ExceptionCollection()));
+            ->will(self::throwException(new ExceptionCollection()));
 
-        $this->assertFalse($this->client->commit());
+        self::assertFalse($this->client->commit());
     }
 }

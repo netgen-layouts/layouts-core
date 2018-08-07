@@ -31,15 +31,14 @@ final class ParameterViewProviderTest extends TestCase
     {
         $parameter = Parameter::fromArray(['value' => 42]);
 
-        /** @var \Netgen\BlockManager\View\View\ParameterViewInterface $view */
         $view = $this->parameterViewProvider->provideView($parameter);
 
-        $this->assertInstanceOf(ParameterViewInterface::class, $view);
+        self::assertInstanceOf(ParameterViewInterface::class, $view);
 
-        $this->assertSame($parameter, $view->getParameterValue());
-        $this->assertSame(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($parameter, $view->getParameterValue());
+        self::assertSame(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'parameter' => $parameter,
             ],
@@ -56,7 +55,7 @@ final class ParameterViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->parameterViewProvider->supports($value));
+        self::assertSame($supports, $this->parameterViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

@@ -18,7 +18,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_layout_blocks',
             Response::HTTP_OK
@@ -32,7 +32,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?published=true&html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_published_layout_blocks',
             Response::HTTP_OK
@@ -46,7 +46,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/blocks');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "9999"'
@@ -60,7 +60,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/blocks');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "1"'

@@ -23,12 +23,12 @@ final class HandlerPluginRegistryTest extends TestCase
 
         $registry = new HandlerPluginRegistry([$handlerPlugin]);
 
-        $this->assertSame(
+        self::assertSame(
             [$handlerPlugin],
             $registry->getPlugins(BlockDefinitionHandler::class)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [],
             $registry->getPlugins(stdClass::class)
         );
@@ -43,12 +43,12 @@ final class HandlerPluginRegistryTest extends TestCase
 
         $registry = new HandlerPluginRegistry([$handlerPlugin]);
 
-        $this->assertSame(
+        self::assertSame(
             [$handlerPlugin],
             $registry->getPlugins(BlockDefinitionHandler::class)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [],
             $registry->getPlugins(stdClass::class)
         );

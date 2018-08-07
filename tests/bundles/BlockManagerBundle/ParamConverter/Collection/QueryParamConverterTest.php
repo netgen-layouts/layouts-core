@@ -35,7 +35,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['queryId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['queryId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('query', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('query', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APIQuery::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APIQuery::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class QueryParamConverterTest extends TestCase
         $query = new Query();
 
         $this->collectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadQuery')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($query));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($query));
 
-        $this->assertSame(
+        self::assertSame(
             $query,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class QueryParamConverterTest extends TestCase
         $query = new Query();
 
         $this->collectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadQueryDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($query));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($query));
 
-        $this->assertSame(
+        self::assertSame(
             $query,
             $this->paramConverter->loadValue(
                 [

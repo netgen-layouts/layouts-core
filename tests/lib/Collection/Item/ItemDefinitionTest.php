@@ -37,7 +37,7 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testGetValueType(): void
     {
-        $this->assertSame('value_type', $this->itemDefinition->getValueType());
+        self::assertSame('value_type', $this->itemDefinition->getValueType());
     }
 
     /**
@@ -45,7 +45,7 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testGetConfigDefinition(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->configDefinition,
             $this->itemDefinition->getConfigDefinition('config')
         );
@@ -66,7 +66,7 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testHasConfigDefinition(): void
     {
-        $this->assertTrue($this->itemDefinition->hasConfigDefinition('config'));
+        self::assertTrue($this->itemDefinition->hasConfigDefinition('config'));
     }
 
     /**
@@ -74,7 +74,7 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {
-        $this->assertFalse($this->itemDefinition->hasConfigDefinition('unknown'));
+        self::assertFalse($this->itemDefinition->hasConfigDefinition('unknown'));
     }
 
     /**
@@ -82,7 +82,7 @@ final class ItemDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['config' => $this->configDefinition],
             $this->itemDefinition->getConfigDefinitions()
         );

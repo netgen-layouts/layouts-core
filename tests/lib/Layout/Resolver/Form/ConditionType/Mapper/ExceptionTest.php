@@ -25,7 +25,7 @@ final class ExceptionTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(ChoiceType::class, $this->mapper->getFormType());
+        self::assertSame(ChoiceType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -36,19 +36,19 @@ final class ExceptionTest extends TestCase
     {
         $options = $this->mapper->getFormOptions();
 
-        $this->assertArrayHasKey('multiple', $options);
-        $this->assertArrayHasKey('required', $options);
-        $this->assertArrayHasKey('choices', $options);
+        self::assertArrayHasKey('multiple', $options);
+        self::assertArrayHasKey('required', $options);
+        self::assertArrayHasKey('choices', $options);
 
-        $this->assertTrue($options['multiple']);
-        $this->assertFalse($options['required']);
-        $this->assertInternalType('array', $options['choices']);
+        self::assertTrue($options['multiple']);
+        self::assertFalse($options['required']);
+        self::assertInternalType('array', $options['choices']);
 
         foreach ($options['choices'] as $choiceLabel => $choice) {
-            $this->assertInternalType('string', $choiceLabel);
-            $this->assertInternalType('int', $choice);
-            $this->assertGreaterThanOrEqual(400, $choice);
-            $this->assertLessThan(600, $choice);
+            self::assertInternalType('string', $choiceLabel);
+            self::assertInternalType('int', $choice);
+            self::assertGreaterThanOrEqual(400, $choice);
+            self::assertLessThan(600, $choice);
         }
     }
 }

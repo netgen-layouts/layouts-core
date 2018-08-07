@@ -38,8 +38,8 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($value, $forms);
 
-        $this->assertSame('2018-02-01 15:00:00', $forms['datetime']->getData());
-        $this->assertSame('Antarctica/Casey', $forms['timezone']->getData());
+        self::assertSame('2018-02-01 15:00:00', $forms['datetime']->getData());
+        self::assertSame('Antarctica/Casey', $forms['timezone']->getData());
     }
 
     /**
@@ -57,8 +57,8 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($input, $forms);
 
-        $this->assertSame($dateTime, $forms['datetime']->getData());
-        $this->assertSame($timeZone, $forms['timezone']->getData());
+        self::assertSame($dateTime, $forms['datetime']->getData());
+        self::assertSame($timeZone, $forms['timezone']->getData());
     }
 
     public function mapDataToFormsWithArrayProvider(): array
@@ -86,8 +86,8 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms(null, $forms);
 
-        $this->assertNull($forms['datetime']->getData());
-        $this->assertSame(date_default_timezone_get(), $forms['timezone']->getData());
+        self::assertNull($forms['datetime']->getData());
+        self::assertSame(date_default_timezone_get(), $forms['timezone']->getData());
     }
 
     /**
@@ -104,9 +104,9 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $data);
-        $this->assertSame('2018-02-01 15:00:00', $data->format('Y-m-d H:i:s'));
-        $this->assertSame('Antarctica/Casey', $data->getTimezone()->getName());
+        self::assertInstanceOf(DateTimeImmutable::class, $data);
+        self::assertSame('2018-02-01 15:00:00', $data->format('Y-m-d H:i:s'));
+        self::assertSame('Antarctica/Casey', $data->getTimezone()->getName());
     }
 
     /**
@@ -125,7 +125,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'datetime' => '2018-02-01 15:00:00',
                 'timezone' => 'Antarctica/Casey',
@@ -148,6 +148,6 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertNull($data);
+        self::assertNull($data);
     }
 }

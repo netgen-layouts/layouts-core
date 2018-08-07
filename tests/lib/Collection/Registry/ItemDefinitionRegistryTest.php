@@ -34,7 +34,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testGetItemDefinitions(): void
     {
-        $this->assertSame(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
+        self::assertSame(['item_definition' => $this->itemDefinition], $this->registry->getItemDefinitions());
     }
 
     /**
@@ -42,7 +42,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testGetItemDefinition(): void
     {
-        $this->assertSame($this->itemDefinition, $this->registry->getItemDefinition('item_definition'));
+        self::assertSame($this->itemDefinition, $this->registry->getItemDefinition('item_definition'));
     }
 
     /**
@@ -60,7 +60,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testHasItemDefinition(): void
     {
-        $this->assertTrue($this->registry->hasItemDefinition('item_definition'));
+        self::assertTrue($this->registry->hasItemDefinition('item_definition'));
     }
 
     /**
@@ -68,7 +68,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testHasItemDefinitionWithNoItemDefinition(): void
     {
-        $this->assertFalse($this->registry->hasItemDefinition('other_item_definition'));
+        self::assertFalse($this->registry->hasItemDefinition('other_item_definition'));
     }
 
     /**
@@ -76,14 +76,14 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $itemDefinitions = [];
         foreach ($this->registry as $identifier => $itemDefinition) {
             $itemDefinitions[$identifier] = $itemDefinition;
         }
 
-        $this->assertSame($this->registry->getItemDefinitions(), $itemDefinitions);
+        self::assertSame($this->registry->getItemDefinitions(), $itemDefinitions);
     }
 
     /**
@@ -91,7 +91,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -99,8 +99,8 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('item_definition', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('item_definition', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -108,7 +108,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->itemDefinition, $this->registry['item_definition']);
+        self::assertSame($this->itemDefinition, $this->registry['item_definition']);
     }
 
     /**

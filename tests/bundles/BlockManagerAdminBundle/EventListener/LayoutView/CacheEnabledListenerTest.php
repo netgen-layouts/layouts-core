@@ -33,7 +33,7 @@ final class CacheEnabledListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
             $this->listener::getSubscribedEvents()
         );
@@ -51,7 +51,7 @@ final class CacheEnabledListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'http_cache_enabled' => false,
             ],
@@ -73,7 +73,7 @@ final class CacheEnabledListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'http_cache_enabled' => true,
             ],
@@ -90,7 +90,7 @@ final class CacheEnabledListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 
     /**
@@ -104,6 +104,6 @@ final class CacheEnabledListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        $this->assertSame([], $event->getParameters());
+        self::assertSame([], $event->getParameters());
     }
 }

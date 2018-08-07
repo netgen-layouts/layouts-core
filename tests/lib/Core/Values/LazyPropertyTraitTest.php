@@ -24,14 +24,14 @@ final class LazyPropertyTraitTest extends TestCase
      */
     public function testGetLazyProperty(): void
     {
-        $this->assertInternalType('callable', $this->value->value);
+        self::assertInternalType('callable', $this->value->value);
 
-        $this->assertSame(42, $this->value->getValue());
+        self::assertSame(42, $this->value->getValue());
 
         /** @var int $newValue */
         $newValue = $this->value->value;
 
-        $this->assertInternalType('int', $newValue);
-        $this->assertSame(42, $newValue);
+        self::assertInternalType('int', $newValue);
+        self::assertSame(42, $newValue);
     }
 }

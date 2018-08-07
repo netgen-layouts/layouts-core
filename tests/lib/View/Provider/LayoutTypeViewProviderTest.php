@@ -31,14 +31,13 @@ final class LayoutTypeViewProviderTest extends TestCase
     {
         $layoutType = LayoutType::fromArray(['identifier' => 'layout']);
 
-        /** @var \Netgen\BlockManager\View\View\LayoutTypeViewInterface $view */
         $view = $this->layoutViewProvider->provideView($layoutType);
 
-        $this->assertInstanceOf(LayoutTypeViewInterface::class, $view);
+        self::assertInstanceOf(LayoutTypeViewInterface::class, $view);
 
-        $this->assertSame($layoutType, $view->getLayoutType());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($layoutType, $view->getLayoutType());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'layout_type' => $layoutType,
             ],
@@ -55,7 +54,7 @@ final class LayoutTypeViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->layoutViewProvider->supports($value));
+        self::assertSame($supports, $this->layoutViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

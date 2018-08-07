@@ -60,16 +60,16 @@ final class TranslatableTypeTraitTest extends FormTestCase
             ['block' => $block]
         );
 
-        $this->assertTrue($form->get('name')->isDisabled());
+        self::assertTrue($form->get('name')->isDisabled());
 
         $paramsForm = $form->get('parameters');
-        $this->assertFalse($paramsForm->isDisabled());
+        self::assertFalse($paramsForm->isDisabled());
 
-        $this->assertFalse($paramsForm->get('compound')->isDisabled());
-        $this->assertFalse($paramsForm->get('compound')->get('inner')->isDisabled());
+        self::assertFalse($paramsForm->get('compound')->isDisabled());
+        self::assertFalse($paramsForm->get('compound')->get('inner')->isDisabled());
 
-        $this->assertFalse($paramsForm->get('css_class')->isDisabled());
-        $this->assertTrue($paramsForm->get('css_id')->isDisabled());
+        self::assertFalse($paramsForm->get('css_class')->isDisabled());
+        self::assertTrue($paramsForm->get('css_id')->isDisabled());
     }
 
     /**
@@ -94,16 +94,16 @@ final class TranslatableTypeTraitTest extends FormTestCase
             ['block' => $block]
         );
 
-        $this->assertTrue($form->get('name')->isDisabled());
+        self::assertTrue($form->get('name')->isDisabled());
 
         $paramsForm = $form->get('parameters');
-        $this->assertFalse($paramsForm->isDisabled());
+        self::assertFalse($paramsForm->isDisabled());
 
-        $this->assertTrue($paramsForm->get('compound')->isDisabled());
-        $this->assertTrue($paramsForm->get('compound')->get('inner')->isDisabled());
+        self::assertTrue($paramsForm->get('compound')->isDisabled());
+        self::assertTrue($paramsForm->get('compound')->get('inner')->isDisabled());
 
-        $this->assertFalse($paramsForm->get('css_class')->isDisabled());
-        $this->assertTrue($paramsForm->get('css_id')->isDisabled());
-        $this->assertTrue($paramsForm->get('other')->isDisabled());
+        self::assertFalse($paramsForm->get('css_class')->isDisabled());
+        self::assertTrue($paramsForm->get('css_id')->isDisabled());
+        self::assertTrue($paramsForm->get('other')->isDisabled());
     }
 }

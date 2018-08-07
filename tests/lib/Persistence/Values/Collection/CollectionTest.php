@@ -19,7 +19,7 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $collection->id);
-        $this->assertSame(Value::STATUS_PUBLISHED, $collection->status);
+        self::assertSame(42, $collection->id);
+        self::assertSame(Value::STATUS_PUBLISHED, $collection->status);
     }
 }

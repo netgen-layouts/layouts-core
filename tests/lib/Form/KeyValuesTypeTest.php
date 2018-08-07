@@ -47,27 +47,27 @@ final class KeyValuesTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame($submittedData, $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame($submittedData, $form->getData());
 
-        $this->assertSame('Key', $form->get('some_key')->getConfig()->getOption('label'));
-        $this->assertSame('Value', $form->get('some_value')->getConfig()->getOption('label'));
+        self::assertSame('Key', $form->get('some_key')->getConfig()->getOption('label'));
+        self::assertSame('Value', $form->get('some_value')->getConfig()->getOption('label'));
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             CollectionType::class,
             $form->get('some_value')->getConfig()->getType()->getInnerType()
         );
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('key_name', $view->vars);
-        $this->assertArrayHasKey('values_name', $view->vars);
+        self::assertArrayHasKey('key_name', $view->vars);
+        self::assertArrayHasKey('values_name', $view->vars);
 
-        $this->assertSame('some_key', $view->vars['key_name']);
-        $this->assertSame('some_value', $view->vars['values_name']);
+        self::assertSame('some_key', $view->vars['key_name']);
+        self::assertSame('some_value', $view->vars['values_name']);
 
-        $this->assertArrayHasKey('some_key', $view->children);
-        $this->assertArrayHasKey('some_value', $view->children);
+        self::assertArrayHasKey('some_key', $view->children);
+        self::assertArrayHasKey('some_value', $view->children);
     }
 
     /**
@@ -92,12 +92,12 @@ final class KeyValuesTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertSame('some_key', $resolvedOptions['key_name']);
-        $this->assertSame('some_key_label', $resolvedOptions['key_label']);
-        $this->assertSame('some_values', $resolvedOptions['values_name']);
-        $this->assertSame('some_values_label', $resolvedOptions['values_label']);
-        $this->assertSame('some_type', $resolvedOptions['values_type']);
-        $this->assertSame([$constraint], $resolvedOptions['values_constraints']);
+        self::assertSame('some_key', $resolvedOptions['key_name']);
+        self::assertSame('some_key_label', $resolvedOptions['key_label']);
+        self::assertSame('some_values', $resolvedOptions['values_name']);
+        self::assertSame('some_values_label', $resolvedOptions['values_label']);
+        self::assertSame('some_type', $resolvedOptions['values_type']);
+        self::assertSame([$constraint], $resolvedOptions['values_constraints']);
     }
 
     /**
@@ -128,6 +128,6 @@ final class KeyValuesTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngbm_key_values', $this->formType->getBlockPrefix());
+        self::assertSame('ngbm_key_values', $this->formType->getBlockPrefix());
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Collection\Item;
 
 use Netgen\BlockManager\Collection\Item\ItemDefinitionFactory;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
@@ -52,14 +51,11 @@ final class ItemDefinitionFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(ItemDefinitionInterface::class, $itemDefinition);
-        $this->assertSame('value_type', $itemDefinition->getValueType());
+        self::assertSame('value_type', $itemDefinition->getValueType());
 
         $configDefinitions = $itemDefinition->getConfigDefinitions();
-        $this->assertArrayHasKey('test', $configDefinitions);
-        $this->assertArrayHasKey('test2', $configDefinitions);
-
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
-        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
+        self::assertArrayHasKey('test', $configDefinitions);
+        self::assertArrayHasKey('test2', $configDefinitions);
+        self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
     }
 }

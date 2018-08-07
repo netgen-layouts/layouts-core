@@ -39,7 +39,7 @@ final class QueryCreateStructTest extends TestCase
     {
         $queryCreateStruct = new QueryCreateStruct($this->queryType);
 
-        $this->assertSame($this->queryType, $queryCreateStruct->getQueryType());
+        self::assertSame($this->queryType, $queryCreateStruct->getQueryType());
     }
 
     /**
@@ -56,7 +56,7 @@ final class QueryCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -79,7 +79,7 @@ final class QueryCreateStructTest extends TestCase
 
         $this->struct->fillParametersFromHash($initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

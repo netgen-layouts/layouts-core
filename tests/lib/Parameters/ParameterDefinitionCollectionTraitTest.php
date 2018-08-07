@@ -21,7 +21,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
             ['name' => $definition]
         );
 
-        $this->assertSame($definition, $parameterDefinitions->getParameterDefinition('name'));
+        self::assertSame($definition, $parameterDefinitions->getParameterDefinition('name'));
     }
 
     /**
@@ -49,7 +49,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
             ['name' => $definition]
         );
 
-        $this->assertSame(
+        self::assertSame(
             ['name' => $definition],
             $parameterDefinitions->getParameterDefinitions()
         );
@@ -64,7 +64,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
             ['name' => new ParameterDefinition()]
         );
 
-        $this->assertFalse($parameterDefinitions->hasParameterDefinition('test'));
-        $this->assertTrue($parameterDefinitions->hasParameterDefinition('name'));
+        self::assertFalse($parameterDefinitions->hasParameterDefinition('test'));
+        self::assertTrue($parameterDefinitions->hasParameterDefinition('name'));
     }
 }

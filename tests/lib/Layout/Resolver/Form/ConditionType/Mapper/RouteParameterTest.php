@@ -26,7 +26,7 @@ final class RouteParameterTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(KeyValuesType::class, $this->mapper->getFormType());
+        self::assertSame(KeyValuesType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -34,7 +34,7 @@ final class RouteParameterTest extends TestCase
      */
     public function testGetFormOptions(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'label' => false,
                 'required' => false,

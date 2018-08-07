@@ -30,8 +30,8 @@ final class ContextTest extends TestCase
     {
         $this->context->set('var2', 'value2');
 
-        $this->assertTrue($this->context->has('var2'));
-        $this->assertSame('value2', $this->context->get('var2'));
+        self::assertTrue($this->context->has('var2'));
+        self::assertSame('value2', $this->context->get('var2'));
     }
 
     /**
@@ -43,11 +43,11 @@ final class ContextTest extends TestCase
     {
         $this->context->add(['var2' => 'value2', 'var3' => 'value3']);
 
-        $this->assertTrue($this->context->has('var2'));
-        $this->assertSame('value2', $this->context->get('var2'));
+        self::assertTrue($this->context->has('var2'));
+        self::assertSame('value2', $this->context->get('var2'));
 
-        $this->assertTrue($this->context->has('var3'));
-        $this->assertSame('value3', $this->context->get('var3'));
+        self::assertTrue($this->context->has('var3'));
+        self::assertSame('value3', $this->context->get('var3'));
     }
 
     /**
@@ -55,7 +55,7 @@ final class ContextTest extends TestCase
      */
     public function testGet(): void
     {
-        $this->assertSame('value', $this->context->get('var'));
+        self::assertSame('value', $this->context->get('var'));
     }
 
     /**
@@ -73,7 +73,7 @@ final class ContextTest extends TestCase
      */
     public function testHas(): void
     {
-        $this->assertTrue($this->context->has('var'));
+        self::assertTrue($this->context->has('var'));
     }
 
     /**
@@ -81,7 +81,7 @@ final class ContextTest extends TestCase
      */
     public function testHasWithUnknownVariable(): void
     {
-        $this->assertFalse($this->context->has('unknown'));
+        self::assertFalse($this->context->has('unknown'));
     }
 
     /**
@@ -89,7 +89,7 @@ final class ContextTest extends TestCase
      */
     public function testAll(): void
     {
-        $this->assertSame(['var' => 'value'], $this->context->all());
+        self::assertSame(['var' => 'value'], $this->context->all());
     }
 
     /**
@@ -97,14 +97,14 @@ final class ContextTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->context->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->context->getIterator());
 
         $variables = [];
         foreach ($this->context as $identifier => $value) {
             $variables[$identifier] = $value;
         }
 
-        $this->assertSame($this->context->all(), $variables);
+        self::assertSame($this->context->all(), $variables);
     }
 
     /**
@@ -112,7 +112,7 @@ final class ContextTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->context);
+        self::assertCount(1, $this->context);
     }
 
     /**
@@ -120,8 +120,8 @@ final class ContextTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('var', $this->context);
-        $this->assertArrayNotHasKey('var2', $this->context);
+        self::assertArrayHasKey('var', $this->context);
+        self::assertArrayNotHasKey('var2', $this->context);
     }
 
     /**
@@ -129,7 +129,7 @@ final class ContextTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame('value', $this->context['var']);
+        self::assertSame('value', $this->context['var']);
     }
 
     /**
@@ -139,7 +139,7 @@ final class ContextTest extends TestCase
     {
         $this->context['var'] = 'value2';
 
-        $this->assertSame('value2', $this->context['var']);
+        self::assertSame('value2', $this->context['var']);
     }
 
     /**

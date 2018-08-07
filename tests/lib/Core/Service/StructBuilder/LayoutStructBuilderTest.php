@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -43,9 +40,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
             'en'
         );
 
-        $this->assertInstanceOf(LayoutCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'layoutType' => $layoutType,
                 'name' => 'New layout',
@@ -66,9 +61,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
             $this->layoutService->loadLayoutDraft(1)
         );
 
-        $this->assertInstanceOf(LayoutUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'My layout',
                 'description' => 'My layout description',
@@ -84,9 +77,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct();
 
-        $this->assertInstanceOf(LayoutUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => null,
                 'description' => null,
@@ -104,9 +95,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
             $this->layoutService->loadLayoutDraft(1)
         );
 
-        $this->assertInstanceOf(LayoutCopyStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'My layout (copy)',
                 'description' => null,
@@ -122,9 +111,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     {
         $struct = $this->structBuilder->newLayoutCopyStruct();
 
-        $this->assertInstanceOf(LayoutCopyStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => null,
                 'description' => null,

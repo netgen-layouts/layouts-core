@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -42,9 +39,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
 
         $struct = $this->structBuilder->newBlockCreateStruct($blockDefinition);
 
-        $this->assertInstanceOf(BlockCreateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'viewType' => 'small',
                 'itemViewType' => 'standard',
@@ -70,9 +65,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     {
         $struct = $this->structBuilder->newBlockUpdateStruct('en');
 
-        $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'viewType' => null,
@@ -94,12 +87,9 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
         $block = $this->blockService->loadBlockDraft(36);
         $struct = $this->structBuilder->newBlockUpdateStruct('en', $block);
 
-        $this->assertInstanceOf(BlockUpdateStruct::class, $struct);
+        self::assertArrayHasKey('key', $struct->getConfigStructs());
 
-        $this->assertArrayHasKey('key', $struct->getConfigStructs());
-        $this->assertInstanceOf(ConfigStruct::class, $struct->getConfigStruct('key'));
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'locale' => 'en',
                 'viewType' => 'title',

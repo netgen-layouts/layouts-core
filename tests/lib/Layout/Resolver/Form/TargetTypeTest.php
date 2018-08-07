@@ -65,8 +65,8 @@ final class TargetTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->targetType, $options['target_type']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->targetType, $options['target_type']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

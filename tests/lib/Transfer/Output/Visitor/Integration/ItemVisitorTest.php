@@ -19,9 +19,9 @@ abstract class ItemVisitorTest extends VisitorTest
         parent::setUp();
 
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
-            ->will($this->returnValue(CmsItem::fromArray(['remoteId' => 'abc'])));
+            ->will(self::returnValue(CmsItem::fromArray(['remoteId' => 'abc'])));
 
         $this->collectionService = $this->createCollectionService();
     }

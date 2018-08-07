@@ -75,21 +75,21 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($block),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(
+                self::identicalTo($block),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(
                     [
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
                     ]
                 )
             )
-            ->will($this->returnValue('rendered block'));
+            ->will(self::returnValue('rendered block'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [
@@ -110,21 +110,21 @@ final class RenderingRuntimeTest extends TestCase
         $block = new Block();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($block),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(
+                self::identicalTo($block),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(
                     [
                         'twig_template' => null,
                         'param' => 'value',
                     ]
                 )
             )
-            ->will($this->returnValue('rendered block'));
+            ->will(self::returnValue('rendered block'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [],
@@ -144,21 +144,21 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($block),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(
+                self::identicalTo($block),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(
                     [
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
                     ]
                 )
             )
-            ->will($this->returnValue('rendered block'));
+            ->will(self::returnValue('rendered block'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [
@@ -181,21 +181,21 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($block),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(
+                self::identicalTo($block),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(
                     [
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
                     ]
                 )
             )
-            ->will($this->returnValue('rendered block'));
+            ->will(self::returnValue('rendered block'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered block',
             $this->runtime->renderBlock(
                 [
@@ -217,9 +217,9 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['definition' => new BlockDefinition()]);
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
-            ->will($this->throwException(new Exception()));
+            ->will(self::throwException(new Exception()));
 
         $renderedBlock = $this->runtime->renderBlock(
             [
@@ -230,7 +230,7 @@ final class RenderingRuntimeTest extends TestCase
             $block
         );
 
-        $this->assertSame('', $renderedBlock);
+        self::assertSame('', $renderedBlock);
     }
 
     /**
@@ -245,9 +245,9 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['definition' => new BlockDefinition()]);
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->runtime->renderBlock(
             [
@@ -277,12 +277,12 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($placeholder),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(
+                self::identicalTo($placeholder),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(
                     [
                         'block' => $block,
                         'twig_template' => $twigTemplate,
@@ -290,9 +290,9 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered placeholder'));
+            ->will(self::returnValue('rendered placeholder'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
@@ -324,12 +324,12 @@ final class RenderingRuntimeTest extends TestCase
         );
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($placeholder),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(
+                self::identicalTo($placeholder),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(
                     [
                         'block' => $block,
                         'twig_template' => null,
@@ -337,9 +337,9 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered placeholder'));
+            ->will(self::returnValue('rendered placeholder'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [],
@@ -371,12 +371,12 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($placeholder),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(
+                self::identicalTo($placeholder),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(
                     [
                         'block' => $block,
                         'twig_template' => $twigTemplate,
@@ -384,9 +384,9 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered placeholder'));
+            ->will(self::returnValue('rendered placeholder'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
@@ -421,12 +421,12 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($placeholder),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(
+                self::identicalTo($placeholder),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(
                     [
                         'block' => $block,
                         'twig_template' => $twigTemplate,
@@ -434,9 +434,9 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('rendered placeholder'));
+            ->will(self::returnValue('rendered placeholder'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
@@ -462,9 +462,9 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
-            ->will($this->throwException(new Exception()));
+            ->will(self::throwException(new Exception()));
 
         $renderedBlock = $this->runtime->renderPlaceholder(
             [
@@ -476,7 +476,7 @@ final class RenderingRuntimeTest extends TestCase
             'main'
         );
 
-        $this->assertSame('', $renderedBlock);
+        self::assertSame('', $renderedBlock);
     }
 
     /**
@@ -491,9 +491,9 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->runtime->renderPlaceholder(
             [
@@ -514,16 +514,16 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($cmsItem),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will($this->returnValue('rendered item'));
+            ->will(self::returnValue('rendered item'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered item',
             $this->runtime->renderItem(
                 [],
@@ -542,16 +542,16 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($cmsItem),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will($this->returnValue('rendered item'));
+            ->will(self::returnValue('rendered item'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered item',
             $this->runtime->renderItem(
                 [],
@@ -571,16 +571,16 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($cmsItem),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will($this->returnValue('rendered item'));
+            ->will(self::returnValue('rendered item'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered item',
             $this->runtime->renderItem(
                 [
@@ -601,16 +601,16 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($cmsItem),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will($this->throwException(new Exception()));
+            ->will(self::throwException(new Exception()));
 
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->runtime->renderItem(
                 [],
@@ -633,14 +633,14 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($cmsItem),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->runtime->renderItem(
             [],
@@ -659,16 +659,16 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new Condition();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($condition),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo($condition),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->returnValue('rendered value'));
+            ->will(self::returnValue('rendered value'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered value',
             $this->runtime->renderValue(
                 [],
@@ -687,16 +687,16 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new Condition();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($condition),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo($condition),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->returnValue('rendered value'));
+            ->will(self::returnValue('rendered value'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered value',
             $this->runtime->renderValue(
                 [],
@@ -716,16 +716,16 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new Condition();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($condition),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo($condition),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->returnValue('rendered value'));
+            ->will(self::returnValue('rendered value'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered value',
             $this->runtime->renderValue(
                 [
@@ -746,16 +746,16 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new Condition();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($condition),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo($condition),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->throwException(new Exception()));
+            ->will(self::throwException(new Exception()));
 
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->runtime->renderValue(
                 [],
@@ -778,14 +778,14 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new Condition();
 
         $this->rendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($condition),
-                $this->identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->identicalTo(['param' => 'value'])
+                self::identicalTo($condition),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['param' => 'value'])
             )
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $this->runtime->renderValue(
             [],

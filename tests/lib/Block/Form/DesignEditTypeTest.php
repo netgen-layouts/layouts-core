@@ -135,21 +135,21 @@ final class DesignEditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame('large', $struct->viewType);
-        $this->assertSame('standard', $struct->itemViewType);
-        $this->assertSame(['css_class' => 'Some CSS class'], $struct->getParameterValues());
+        self::assertSame('large', $struct->viewType);
+        self::assertSame('standard', $struct->itemViewType);
+        self::assertSame(['css_class' => 'Some CSS class'], $struct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
 
         foreach (array_keys($submittedData['parameters']) as $key) {
-            $this->assertArrayHasKey($key, $children['parameters']);
+            self::assertArrayHasKey($key, $children['parameters']);
         }
     }
 
@@ -179,12 +179,12 @@ final class DesignEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertTrue($form->get('view_type')->isDisabled());
-        $this->assertTrue($form->get('item_view_type')->isDisabled());
+        self::assertTrue($form->get('view_type')->isDisabled());
+        self::assertTrue($form->get('item_view_type')->isDisabled());
 
-        $this->assertFalse($form->get('parameters')->isDisabled());
-        $this->assertTrue($form->get('parameters')->get('css_class')->isDisabled());
-        $this->assertTrue($form->get('parameters')->get('css_id')->isDisabled());
+        self::assertFalse($form->get('parameters')->isDisabled());
+        self::assertTrue($form->get('parameters')->get('css_class')->isDisabled());
+        self::assertTrue($form->get('parameters')->get('css_id')->isDisabled());
     }
 
     /**
@@ -213,12 +213,12 @@ final class DesignEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertFalse($form->get('view_type')->isDisabled());
-        $this->assertFalse($form->get('item_view_type')->isDisabled());
+        self::assertFalse($form->get('view_type')->isDisabled());
+        self::assertFalse($form->get('item_view_type')->isDisabled());
 
-        $this->assertFalse($form->get('parameters')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('css_class')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('css_id')->isDisabled());
+        self::assertFalse($form->get('parameters')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('css_class')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('css_id')->isDisabled());
     }
 
     /**
@@ -240,8 +240,8 @@ final class DesignEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->block, $options['block']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->block, $options['block']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

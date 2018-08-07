@@ -34,7 +34,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetTypes(): void
     {
-        $this->assertSame(['target1' => $this->targetType], $this->registry->getTargetTypes());
+        self::assertSame(['target1' => $this->targetType], $this->registry->getTargetTypes());
     }
 
     /**
@@ -42,7 +42,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetType(): void
     {
-        $this->assertSame($this->targetType, $this->registry->getTargetType('target1'));
+        self::assertSame($this->targetType, $this->registry->getTargetType('target1'));
     }
 
     /**
@@ -60,7 +60,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testHasTargetType(): void
     {
-        $this->assertTrue($this->registry->hasTargetType('target1'));
+        self::assertTrue($this->registry->hasTargetType('target1'));
     }
 
     /**
@@ -68,7 +68,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testHasTargetTypeWithNoTargetType(): void
     {
-        $this->assertFalse($this->registry->hasTargetType('other'));
+        self::assertFalse($this->registry->hasTargetType('other'));
     }
 
     /**
@@ -76,14 +76,14 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $targetTypes = [];
         foreach ($this->registry as $identifier => $targetType) {
             $targetTypes[$identifier] = $targetType;
         }
 
-        $this->assertSame($this->registry->getTargetTypes(), $targetTypes);
+        self::assertSame($this->registry->getTargetTypes(), $targetTypes);
     }
 
     /**
@@ -91,7 +91,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -99,8 +99,8 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('target1', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('target1', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -108,7 +108,7 @@ final class TargetTypeRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->targetType, $this->registry['target1']);
+        self::assertSame($this->targetType, $this->registry['target1']);
     }
 
     /**

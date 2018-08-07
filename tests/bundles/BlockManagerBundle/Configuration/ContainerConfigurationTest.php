@@ -32,12 +32,12 @@ final class ContainerConfigurationTest extends TestCase
     public function testHasParameter(): void
     {
         $this->containerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('hasParameter')
-            ->with($this->identicalTo('netgen_block_manager.some_param'))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo('netgen_block_manager.some_param'))
+            ->will(self::returnValue(true));
 
-        $this->assertTrue($this->configuration->hasParameter('some_param'));
+        self::assertTrue($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -48,10 +48,10 @@ final class ContainerConfigurationTest extends TestCase
         $this->createConfiguration(['some_param' => 'some_value']);
 
         $this->containerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('hasParameter');
 
-        $this->assertTrue($this->configuration->hasParameter('some_param'));
+        self::assertTrue($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -60,12 +60,12 @@ final class ContainerConfigurationTest extends TestCase
     public function testHasParameterWithNoParameter(): void
     {
         $this->containerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('hasParameter')
-            ->with($this->identicalTo('netgen_block_manager.some_param'))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo('netgen_block_manager.some_param'))
+            ->will(self::returnValue(false));
 
-        $this->assertFalse($this->configuration->hasParameter('some_param'));
+        self::assertFalse($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -74,18 +74,18 @@ final class ContainerConfigurationTest extends TestCase
     public function testGetParameter(): void
     {
         $this->containerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('hasParameter')
-            ->with($this->identicalTo('netgen_block_manager.some_param'))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo('netgen_block_manager.some_param'))
+            ->will(self::returnValue(true));
 
         $this->containerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getParameter')
-            ->with($this->identicalTo('netgen_block_manager.some_param'))
-            ->will($this->returnValue('some_param_value'));
+            ->with(self::identicalTo('netgen_block_manager.some_param'))
+            ->will(self::returnValue('some_param_value'));
 
-        $this->assertSame('some_param_value', $this->configuration->getParameter('some_param'));
+        self::assertSame('some_param_value', $this->configuration->getParameter('some_param'));
     }
 
     /**
@@ -96,14 +96,14 @@ final class ContainerConfigurationTest extends TestCase
         $this->createConfiguration(['some_param' => 'injected']);
 
         $this->containerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('hasParameter');
 
         $this->containerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('getParameter');
 
-        $this->assertSame('injected', $this->configuration->getParameter('some_param'));
+        self::assertSame('injected', $this->configuration->getParameter('some_param'));
     }
 
     /**
@@ -114,10 +114,10 @@ final class ContainerConfigurationTest extends TestCase
     public function testGetParameterThrowsConfigurationException(): void
     {
         $this->containerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('hasParameter')
-            ->with($this->identicalTo('netgen_block_manager.some_param'))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo('netgen_block_manager.some_param'))
+            ->will(self::returnValue(false));
 
         $this->configuration->getParameter('some_param');
     }

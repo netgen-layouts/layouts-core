@@ -32,21 +32,21 @@ final class DateTimeTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
         $processedData = $form->getData();
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $processedData);
-        $this->assertSame('2018-03-31 01:00:00', $processedData->format('Y-m-d H:i:s'));
-        $this->assertSame('Antarctica/Casey', $processedData->getTimezone()->getName());
+        self::assertInstanceOf(DateTimeImmutable::class, $processedData);
+        self::assertSame('2018-03-31 01:00:00', $processedData->format('Y-m-d H:i:s'));
+        self::assertSame('Antarctica/Casey', $processedData->getTimezone()->getName());
 
-        $this->assertSame($processedData, $form->getData());
+        self::assertSame($processedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 
@@ -70,14 +70,14 @@ final class DateTimeTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame($processedData, $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame($processedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 
@@ -96,8 +96,8 @@ final class DateTimeTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertFalse($resolvedOptions['use_datetime']);
-        $this->assertFalse($resolvedOptions['error_bubbling']);
+        self::assertFalse($resolvedOptions['use_datetime']);
+        self::assertFalse($resolvedOptions['error_bubbling']);
     }
 
     /**
@@ -111,8 +111,8 @@ final class DateTimeTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve([]);
 
-        $this->assertTrue($resolvedOptions['use_datetime']);
-        $this->assertFalse($resolvedOptions['error_bubbling']);
+        self::assertTrue($resolvedOptions['use_datetime']);
+        self::assertFalse($resolvedOptions['error_bubbling']);
     }
 
     /**
@@ -134,6 +134,6 @@ final class DateTimeTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngbm_datetime', $this->formType->getBlockPrefix());
+        self::assertSame('ngbm_datetime', $this->formType->getBlockPrefix());
     }
 }

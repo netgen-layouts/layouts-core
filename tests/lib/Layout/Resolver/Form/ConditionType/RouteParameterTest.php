@@ -61,12 +61,12 @@ final class RouteParameterTest extends FormTestCase
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
-        $this->assertInstanceOf(KeyValuesType::class, $valueFormConfig->getType()->getInnerType());
+        self::assertInstanceOf(KeyValuesType::class, $valueFormConfig->getType()->getInnerType());
 
         $form->submit($submittedData);
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'parameter_name' => 'some_name',
                 'parameter_values' => ['value1', 'value1'],
@@ -76,9 +76,9 @@ final class RouteParameterTest extends FormTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('value', $formView->children);
+        self::assertArrayHasKey('value', $formView->children);
 
-        $this->assertArrayHasKey('condition_type', $formView->vars);
-        $this->assertSame($this->conditionType, $formView->vars['condition_type']);
+        self::assertArrayHasKey('condition_type', $formView->vars);
+        self::assertSame($this->conditionType, $formView->vars['condition_type']);
     }
 }

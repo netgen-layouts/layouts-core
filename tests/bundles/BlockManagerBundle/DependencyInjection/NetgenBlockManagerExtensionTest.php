@@ -45,7 +45,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testHasPlugin(): void
     {
-        $this->assertTrue($this->extension->hasPlugin(ExtensionPlugin::class));
+        self::assertTrue($this->extension->hasPlugin(ExtensionPlugin::class));
     }
 
     /**
@@ -54,7 +54,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testGetPlugin(): void
     {
-        $this->assertInstanceOf(ExtensionPlugin::class, $this->extension->getPlugin(ExtensionPlugin::class));
+        self::assertInstanceOf(ExtensionPlugin::class, $this->extension->getPlugin(ExtensionPlugin::class));
     }
 
     /**
@@ -76,10 +76,9 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     {
         $plugins = $this->extension->getPlugins();
 
-        $this->assertInternalType('array', $plugins);
-        $this->assertArrayHasKey(ExtensionPlugin::class, $plugins);
-        $this->assertCount(1, $plugins);
-        $this->assertInstanceOf(ExtensionPlugin::class, $plugins[ExtensionPlugin::class]);
+        self::assertArrayHasKey(ExtensionPlugin::class, $plugins);
+        self::assertCount(1, $plugins);
+        self::assertInstanceOf(ExtensionPlugin::class, $plugins[ExtensionPlugin::class]);
     }
 
     /**
@@ -93,12 +92,10 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
             ...$this->container->getExtensionConfig('netgen_block_manager')
         );
 
-        $this->assertInternalType('array', $config);
+        self::assertArrayHasKey('block_types', $config);
+        self::assertArrayHasKey('test_type', $config['block_types']);
 
-        $this->assertArrayHasKey('block_types', $config);
-        $this->assertArrayHasKey('test_type', $config['block_types']);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'name' => 'Test type',
                 'definition_identifier' => 'title',
@@ -127,7 +124,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->load($this->minimalConfig + ['design' => 'standard']);
 
         // Avoids a warning in test runner about tests which do not assert anything
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -142,7 +139,7 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->load($designList + ['design' => 'custom']);
 
         // Avoids a warning in test runner about tests which do not assert anything
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     protected function getContainerExtensions(): array

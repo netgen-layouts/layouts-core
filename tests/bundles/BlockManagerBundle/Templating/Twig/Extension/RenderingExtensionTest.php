@@ -26,10 +26,10 @@ final class RenderingExtensionTest extends TestCase
      */
     public function testGetFunctions(): void
     {
-        $this->assertNotEmpty($this->extension->getFunctions());
+        self::assertNotEmpty($this->extension->getFunctions());
 
         foreach ($this->extension->getFunctions() as $function) {
-            $this->assertInstanceOf(TwigFunction::class, $function);
+            self::assertInstanceOf(TwigFunction::class, $function);
         }
     }
 
@@ -38,10 +38,10 @@ final class RenderingExtensionTest extends TestCase
      */
     public function testGetTokenParsers(): void
     {
-        $this->assertNotEmpty($this->extension->getTokenParsers());
+        self::assertNotEmpty($this->extension->getTokenParsers());
 
         foreach ($this->extension->getTokenParsers() as $tokenParser) {
-            $this->assertInstanceOf(TokenParserInterface::class, $tokenParser);
+            self::assertInstanceOf(TokenParserInterface::class, $tokenParser);
         }
     }
 }

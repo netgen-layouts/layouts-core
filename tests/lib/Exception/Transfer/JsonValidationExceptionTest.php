@@ -17,7 +17,7 @@ final class JsonValidationExceptionTest extends TestCase
     {
         $exception = JsonValidationException::parseError('Error message', 42);
 
-        $this->assertSame(
+        self::assertSame(
             'Provided data is not a valid JSON string: Error message (error code 42)',
             $exception->getMessage()
         );
@@ -30,7 +30,7 @@ final class JsonValidationExceptionTest extends TestCase
     {
         $exception = JsonValidationException::notAcceptable('A reason');
 
-        $this->assertSame(
+        self::assertSame(
             'Provided data is not an acceptable JSON string: A reason',
             $exception->getMessage()
         );
@@ -44,11 +44,11 @@ final class JsonValidationExceptionTest extends TestCase
         $previousException = new Exception();
         $exception = JsonValidationException::validationFailed('Error message', $previousException);
 
-        $this->assertSame(
+        self::assertSame(
             'JSON data failed to validate the schema: Error message',
             $exception->getMessage()
         );
 
-        $this->assertSame($previousException, $exception->getPrevious());
+        self::assertSame($previousException, $exception->getPrevious());
     }
 }

@@ -61,7 +61,7 @@ final class CollectionValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->collectionValidator->validateCollectionCreateStruct($struct);
     }
@@ -80,7 +80,7 @@ final class CollectionValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
             Collection::fromArray(['query' => $isDynamic ? new Query() : null]),
@@ -102,7 +102,7 @@ final class CollectionValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->collectionValidator->validateItemCreateStruct($struct);
     }
@@ -121,7 +121,7 @@ final class CollectionValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->collectionValidator->validateItemUpdateStruct(
             Item::fromArray(
@@ -185,7 +185,7 @@ final class CollectionValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $queryCreateStruct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
     }
@@ -204,7 +204,7 @@ final class CollectionValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $queryUpdateStruct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->collectionValidator->validateQueryUpdateStruct(
             Query::fromArray(['queryType' => new QueryType('query_type')]),

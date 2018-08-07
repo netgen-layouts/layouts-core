@@ -36,6 +36,6 @@ HTML;
 <a href="http://www.google.com">Google</a>
 HTML;
 
-        $this->assertSame($safeHtml, $this->htmlPurifier->purify($unsafeHtml));
+        self::assertSame($safeHtml, $this->htmlPurifier->purify($unsafeHtml));
     }
 }

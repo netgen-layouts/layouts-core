@@ -50,7 +50,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::EXCEPTION => ['onException', 5]],
             $this->listener::getSubscribedEvents()
         );
@@ -65,18 +65,18 @@ final class ExceptionSerializerListenerTest extends TestCase
         $exception = new Exception();
 
         $this->serializerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('serialize')
             ->with(
-                $this->identicalTo($exception),
-                $this->identicalTo('json')
+                self::identicalTo($exception),
+                self::identicalTo('json')
             )
             ->will(
-                $this->returnValue('serialized content')
+                self::returnValue('serialized content')
             );
 
         $this->loggerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('critical');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -92,12 +92,12 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        $this->assertSame(
+        self::assertSame(
             'serialized content',
             $event->getResponse()->getContent()
         );
@@ -113,18 +113,18 @@ final class ExceptionSerializerListenerTest extends TestCase
         $exception = new HttpException($statusCode);
 
         $this->serializerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('serialize')
             ->with(
-                $this->identicalTo($exception),
-                $this->identicalTo('json')
+                self::identicalTo($exception),
+                self::identicalTo('json')
             )
             ->will(
-                $this->returnValue('serialized content')
+                self::returnValue('serialized content')
             );
 
         $this->loggerMock
-            ->expects($loggerCalled ? $this->at(0) : $this->never())
+            ->expects($loggerCalled ? self::at(0) : self::never())
             ->method('critical');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -140,12 +140,12 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        $this->assertSame(
+        self::assertSame(
             'serialized content',
             $event->getResponse()->getContent()
         );
@@ -179,7 +179,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 
     /**
@@ -199,6 +199,6 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 }

@@ -31,7 +31,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testDefaultProperties(): void
     {
-        $this->assertSame([], $this->struct->getParameterValues());
+        self::assertSame([], $this->struct->getParameterValues());
     }
 
     /**
@@ -47,7 +47,7 @@ final class ParameterStructTraitTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -64,7 +64,7 @@ final class ParameterStructTraitTest extends TestCase
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_other_param', 'some_other_value');
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -81,7 +81,7 @@ final class ParameterStructTraitTest extends TestCase
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_param', 'new_value');
 
-        $this->assertSame(['some_param' => 'new_value'], $this->struct->getParameterValues());
+        self::assertSame(['some_param' => 'new_value'], $this->struct->getParameterValues());
     }
 
     /**
@@ -91,7 +91,7 @@ final class ParameterStructTraitTest extends TestCase
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->assertSame('some_value', $this->struct->getParameterValue('some_param'));
+        self::assertSame('some_value', $this->struct->getParameterValue('some_param'));
     }
 
     /**
@@ -99,7 +99,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     public function testGetParameterValueWithNonExistingParameter(): void
     {
-        $this->assertNull($this->struct->getParameterValue('some_other_param'));
+        self::assertNull($this->struct->getParameterValue('some_other_param'));
     }
 
     /**
@@ -109,7 +109,7 @@ final class ParameterStructTraitTest extends TestCase
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->assertTrue($this->struct->hasParameterValue('some_param'));
+        self::assertTrue($this->struct->hasParameterValue('some_param'));
     }
 
     /**
@@ -119,7 +119,7 @@ final class ParameterStructTraitTest extends TestCase
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->assertFalse($this->struct->hasParameterValue('some_other_param'));
+        self::assertFalse($this->struct->hasParameterValue('some_other_param'));
     }
 
     /**
@@ -131,7 +131,7 @@ final class ParameterStructTraitTest extends TestCase
 
         $this->struct->fillDefaultParameters($parameterDefinitions);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css_default',
                 'css_id' => 'id_default',
@@ -173,7 +173,7 @@ final class ParameterStructTraitTest extends TestCase
 
         $this->struct->fillParametersFromCollection($parameterDefinitions, $parameters);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => null,
@@ -200,7 +200,7 @@ final class ParameterStructTraitTest extends TestCase
 
         $this->struct->fillParametersFromHash($parameterDefinitions, $initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id',
@@ -225,7 +225,7 @@ final class ParameterStructTraitTest extends TestCase
 
         $this->struct->fillParametersFromHash($parameterDefinitions, $initialValues);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'css',
                 'css_id' => 'id_default',

@@ -49,12 +49,12 @@ final class PlaceholderNormalizerTest extends TestCase
         );
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
-            ->with($this->equalTo([new View($block, 1)]))
-            ->will($this->returnValue(['normalized blocks']));
+            ->with(self::equalTo([new View($block, 1)]))
+            ->will(self::returnValue(['normalized blocks']));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'main',
                 'blocks' => ['normalized blocks'],
@@ -72,7 +72,7 @@ final class PlaceholderNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

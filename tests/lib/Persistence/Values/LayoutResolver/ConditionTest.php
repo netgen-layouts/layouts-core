@@ -22,10 +22,10 @@ final class ConditionTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $condition->id);
-        $this->assertSame(30, $condition->ruleId);
-        $this->assertSame('condition', $condition->type);
-        $this->assertSame(32, $condition->value);
-        $this->assertSame(Value::STATUS_PUBLISHED, $condition->status);
+        self::assertSame(42, $condition->id);
+        self::assertSame(30, $condition->ruleId);
+        self::assertSame('condition', $condition->type);
+        self::assertSame(32, $condition->value);
+        self::assertSame(Value::STATUS_PUBLISHED, $condition->status);
     }
 }

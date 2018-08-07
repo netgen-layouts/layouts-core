@@ -62,9 +62,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $rule = $this->handler->loadRule(1, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Rule::class, $rule);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'layoutId' => 1,
@@ -96,14 +94,13 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
 
-        $this->assertCount(12, $rules);
+        self::assertCount(12, $rules);
+        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
 
         $previousPriority = null;
         foreach ($rules as $index => $rule) {
-            $this->assertInstanceOf(Rule::class, $rule);
-
             if ($index > 0) {
-                $this->assertLessThanOrEqual($previousPriority, $rule->priority);
+                self::assertLessThanOrEqual($previousPriority, $rule->priority);
             }
 
             $previousPriority = $rule->priority;
@@ -121,14 +118,13 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(2, $rules);
+        self::assertCount(2, $rules);
+        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
 
         $previousPriority = null;
         foreach ($rules as $index => $rule) {
-            $this->assertInstanceOf(Rule::class, $rule);
-
             if ($index > 0) {
-                $this->assertLessThanOrEqual($previousPriority, $rule->priority);
+                self::assertLessThanOrEqual($previousPriority, $rule->priority);
             }
 
             $previousPriority = $rule->priority;
@@ -143,7 +139,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $rules = $this->handler->getRuleCount();
 
-        $this->assertSame(12, $rules);
+        self::assertSame(12, $rules);
     }
 
     /**
@@ -156,7 +152,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertSame(2, $rules);
+        self::assertSame(2, $rules);
     }
 
     /**
@@ -168,9 +164,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $target = $this->handler->loadTarget(1, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Target::class, $target);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'ruleId' => 1,
@@ -203,11 +197,8 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertNotEmpty($targets);
-
-        foreach ($targets as $target) {
-            $this->assertInstanceOf(Target::class, $target);
-        }
+        self::assertNotEmpty($targets);
+        self::assertContainsOnlyInstancesOf(Target::class, $targets);
     }
 
     /**
@@ -220,7 +211,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertSame(2, $targets);
+        self::assertSame(2, $targets);
     }
 
     /**
@@ -232,9 +223,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         $condition = $this->handler->loadCondition(1, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Condition::class, $condition);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'ruleId' => 2,
@@ -270,11 +259,8 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(2, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertNotEmpty($conditions);
-
-        foreach ($conditions as $condition) {
-            $this->assertInstanceOf(Condition::class, $condition);
-        }
+        self::assertNotEmpty($conditions);
+        self::assertContainsOnlyInstancesOf(Condition::class, $conditions);
     }
 
     /**
@@ -283,7 +269,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleExists(): void
     {
-        $this->assertTrue($this->handler->ruleExists(1, Value::STATUS_PUBLISHED));
+        self::assertTrue($this->handler->ruleExists(1, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -292,7 +278,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExists(): void
     {
-        $this->assertFalse($this->handler->ruleExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->handler->ruleExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -301,7 +287,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExistsInStatus(): void
     {
-        $this->assertFalse($this->handler->ruleExists(1, Value::STATUS_ARCHIVED));
+        self::assertFalse($this->handler->ruleExists(1, Value::STATUS_ARCHIVED));
     }
 
     /**
@@ -321,14 +307,12 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $createdRule = $this->handler->createRule($ruleCreateStruct);
 
-        $this->assertInstanceOf(Rule::class, $createdRule);
-
-        $this->assertSame(13, $createdRule->id);
-        $this->assertSame(3, $createdRule->layoutId);
-        $this->assertSame(5, $createdRule->priority);
-        $this->assertTrue($createdRule->enabled);
-        $this->assertSame('My rule', $createdRule->comment);
-        $this->assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(13, $createdRule->id);
+        self::assertSame(3, $createdRule->layoutId);
+        self::assertSame(5, $createdRule->priority);
+        self::assertTrue($createdRule->enabled);
+        self::assertSame('My rule', $createdRule->comment);
+        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -344,14 +328,12 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $createdRule = $this->handler->createRule($ruleCreateStruct);
 
-        $this->assertInstanceOf(Rule::class, $createdRule);
-
-        $this->assertSame(13, $createdRule->id);
-        $this->assertNull($createdRule->layoutId);
-        $this->assertSame(-12, $createdRule->priority);
-        $this->assertFalse($createdRule->enabled);
-        $this->assertSame('', $createdRule->comment);
-        $this->assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(13, $createdRule->id);
+        self::assertNull($createdRule->layoutId);
+        self::assertSame(-12, $createdRule->priority);
+        self::assertFalse($createdRule->enabled);
+        self::assertSame('', $createdRule->comment);
+        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -378,10 +360,8 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $createdRule = $this->handler->createRule($ruleCreateStruct);
 
-        $this->assertInstanceOf(Rule::class, $createdRule);
-
-        $this->assertSame(0, $createdRule->priority);
-        $this->assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(0, $createdRule->priority);
+        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -399,12 +379,10 @@ final class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertSame(3, $updatedRule->id);
-        $this->assertSame(15, $updatedRule->layoutId);
-        $this->assertSame('New comment', $updatedRule->comment);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(3, $updatedRule->id);
+        self::assertSame(15, $updatedRule->layoutId);
+        self::assertSame('New comment', $updatedRule->comment);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -422,12 +400,10 @@ final class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertSame(3, $updatedRule->id);
-        $this->assertSame('15', $updatedRule->layoutId);
-        $this->assertSame('New comment', $updatedRule->comment);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(3, $updatedRule->id);
+        self::assertSame('15', $updatedRule->layoutId);
+        self::assertSame('New comment', $updatedRule->comment);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -444,11 +420,9 @@ final class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertSame(3, $updatedRule->id);
-        $this->assertNull($updatedRule->layoutId);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(3, $updatedRule->id);
+        self::assertNull($updatedRule->layoutId);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -465,11 +439,9 @@ final class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertSame(3, $updatedRule->id);
-        $this->assertNull($updatedRule->layoutId);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(3, $updatedRule->id);
+        self::assertNull($updatedRule->layoutId);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -485,12 +457,10 @@ final class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertSame(3, $updatedRule->id);
-        $this->assertSame(3, $updatedRule->layoutId);
-        $this->assertNull($updatedRule->comment);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(3, $updatedRule->id);
+        self::assertSame(3, $updatedRule->layoutId);
+        self::assertNull($updatedRule->comment);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -509,10 +479,9 @@ final class LayoutResolverHandlerTest extends TestCase
             )
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertSame(50, $updatedRule->priority);
-        $this->assertFalse($updatedRule->enabled);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(50, $updatedRule->priority);
+        self::assertFalse($updatedRule->enabled);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -526,10 +495,9 @@ final class LayoutResolverHandlerTest extends TestCase
             new RuleMetadataUpdateStruct()
         );
 
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertSame(5, $updatedRule->priority);
-        $this->assertTrue($updatedRule->enabled);
-        $this->assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(5, $updatedRule->priority);
+        self::assertTrue($updatedRule->enabled);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -547,15 +515,14 @@ final class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertInstanceOf(Rule::class, $copiedRule);
-        $this->assertSame(13, $copiedRule->id);
-        $this->assertSame(2, $copiedRule->layoutId);
-        $this->assertSame(5, $copiedRule->priority);
-        $this->assertTrue($copiedRule->enabled);
-        $this->assertNull($copiedRule->comment);
-        $this->assertSame(Value::STATUS_PUBLISHED, $copiedRule->status);
+        self::assertSame(13, $copiedRule->id);
+        self::assertSame(2, $copiedRule->layoutId);
+        self::assertSame(5, $copiedRule->priority);
+        self::assertTrue($copiedRule->enabled);
+        self::assertNull($copiedRule->comment);
+        self::assertSame(Value::STATUS_PUBLISHED, $copiedRule->status);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 21,
@@ -577,7 +544,7 @@ final class LayoutResolverHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 5,
@@ -609,16 +576,14 @@ final class LayoutResolverHandlerTest extends TestCase
             Value::STATUS_ARCHIVED
         );
 
-        $this->assertInstanceOf(Rule::class, $copiedRule);
+        self::assertSame(3, $copiedRule->id);
+        self::assertSame(3, $copiedRule->layoutId);
+        self::assertSame(7, $copiedRule->priority);
+        self::assertTrue($copiedRule->enabled);
+        self::assertNull($copiedRule->comment);
+        self::assertSame(Value::STATUS_ARCHIVED, $copiedRule->status);
 
-        $this->assertSame(3, $copiedRule->id);
-        $this->assertSame(3, $copiedRule->layoutId);
-        $this->assertSame(7, $copiedRule->priority);
-        $this->assertTrue($copiedRule->enabled);
-        $this->assertNull($copiedRule->comment);
-        $this->assertSame(Value::STATUS_ARCHIVED, $copiedRule->status);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 5,
@@ -640,7 +605,7 @@ final class LayoutResolverHandlerTest extends TestCase
             )
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 2,
@@ -721,9 +686,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $targetCreateStruct
         );
 
-        $this->assertInstanceOf(Target::class, $target);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 21,
                 'ruleId' => 1,
@@ -749,9 +712,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $targetUpdateStruct
         );
 
-        $this->assertInstanceOf(Target::class, $target);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'ruleId' => 1,
@@ -793,9 +754,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $conditionCreateStruct
         );
 
-        $this->assertInstanceOf(Condition::class, $condition);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 5,
                 'ruleId' => 3,
@@ -821,9 +780,7 @@ final class LayoutResolverHandlerTest extends TestCase
             $conditionUpdateStruct
         );
 
-        $this->assertInstanceOf(Condition::class, $condition);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 1,
                 'ruleId' => 2,

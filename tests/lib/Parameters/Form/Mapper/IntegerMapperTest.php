@@ -25,6 +25,6 @@ final class IntegerMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(IntegerType::class, $this->mapper->getFormType());
+        self::assertSame(IntegerType::class, $this->mapper->getFormType());
     }
 }

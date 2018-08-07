@@ -16,7 +16,7 @@ final class ViewProviderExceptionTest extends TestCase
     {
         $exception = new ViewProviderException();
 
-        $this->assertSame(
+        self::assertSame(
             'An error occurred while building the view.',
             $exception->getMessage()
         );
@@ -29,7 +29,7 @@ final class ViewProviderExceptionTest extends TestCase
     {
         $exception = ViewProviderException::noViewProvider('some_class');
 
-        $this->assertSame(
+        self::assertSame(
             'No view providers found for "some_class" value.',
             $exception->getMessage()
         );
@@ -42,7 +42,7 @@ final class ViewProviderExceptionTest extends TestCase
     {
         $exception = ViewProviderException::noParameter('block', 'param');
 
-        $this->assertSame(
+        self::assertSame(
             'To build the block view, "param" parameter needs to be provided.',
             $exception->getMessage()
         );
@@ -55,7 +55,7 @@ final class ViewProviderExceptionTest extends TestCase
     {
         $exception = ViewProviderException::invalidParameter('block', 'param', 'string');
 
-        $this->assertSame(
+        self::assertSame(
             'To build the block view, "param" parameter needs to be of "string" type.',
             $exception->getMessage()
         );

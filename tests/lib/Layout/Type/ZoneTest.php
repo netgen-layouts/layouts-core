@@ -30,7 +30,7 @@ final class ZoneTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('left', $this->zone->getIdentifier());
+        self::assertSame('left', $this->zone->getIdentifier());
     }
 
     /**
@@ -38,7 +38,7 @@ final class ZoneTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Left', $this->zone->getName());
+        self::assertSame('Left', $this->zone->getName());
     }
 
     /**
@@ -46,6 +46,6 @@ final class ZoneTest extends TestCase
      */
     public function testGetAllowedBlockDefinitions(): void
     {
-        $this->assertSame(['title'], $this->zone->getAllowedBlockDefinitions());
+        self::assertSame(['title'], $this->zone->getAllowedBlockDefinitions());
     }
 }

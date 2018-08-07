@@ -58,18 +58,18 @@ final class RoutePrefixTest extends FormTestCase
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
-        $this->assertInstanceOf(TextType::class, $valueFormConfig->getType()->getInnerType());
+        self::assertInstanceOf(TextType::class, $valueFormConfig->getType()->getInnerType());
 
         $form->submit($submittedData);
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame('route_prefix_', $struct->value);
+        self::assertSame('route_prefix_', $struct->value);
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('value', $formView->children);
+        self::assertArrayHasKey('value', $formView->children);
 
-        $this->assertArrayHasKey('target_type', $formView->vars);
-        $this->assertSame($this->targetType, $formView->vars['target_type']);
+        self::assertArrayHasKey('target_type', $formView->vars);
+        self::assertSame($this->targetType, $formView->vars['target_type']);
     }
 }

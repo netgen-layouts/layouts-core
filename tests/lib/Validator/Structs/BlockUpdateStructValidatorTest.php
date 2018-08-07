@@ -63,7 +63,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         $blockUpdateStruct = new BlockUpdateStruct();
         (new Hydrator())->hydrate($value, $blockUpdateStruct);
 
-        $this->assertValid($isValid, $blockUpdateStruct);
+        self::assertValid($isValid, $blockUpdateStruct);
     }
 
     /**
@@ -74,7 +74,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        $this->assertValid(true, new BlockUpdateStruct());
+        self::assertValid(true, new BlockUpdateStruct());
     }
 
     /**
@@ -85,7 +85,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->constraint->payload = new stdClass();
-        $this->assertValid(true, new BlockUpdateStruct());
+        self::assertValid(true, new BlockUpdateStruct());
     }
 
     /**
@@ -96,7 +96,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->constraint->payload = new Block();
-        $this->assertValid(true, 42);
+        self::assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

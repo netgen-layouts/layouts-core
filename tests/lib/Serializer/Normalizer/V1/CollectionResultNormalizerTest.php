@@ -71,18 +71,18 @@ final class CollectionResultNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
-            ->will($this->returnValue($serializedConfig));
+            ->will(self::returnValue($serializedConfig));
 
         $result = new Result(3, new ManualItem($collectionItem));
         $this->urlGeneratorMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('generate')
-            ->with($this->identicalTo($collectionItem->getCmsItem()))
-            ->will($this->returnValue('/some/url'));
+            ->with(self::identicalTo($collectionItem->getCmsItem()))
+            ->will(self::returnValue('/some/url'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
@@ -117,17 +117,17 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, $item);
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
         $this->urlGeneratorMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('generate')
-            ->with($this->identicalTo($item))
-            ->will($this->returnValue('/some/url'));
+            ->with(self::identicalTo($item))
+            ->will(self::returnValue('/some/url'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => null,
                 'collection_id' => null,
@@ -175,23 +175,23 @@ final class CollectionResultNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('normalize')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
         $this->normalizerMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('normalize')
-            ->will($this->returnValue($serializedConfig));
+            ->will(self::returnValue($serializedConfig));
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
         $this->urlGeneratorMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('generate')
-            ->with($this->identicalTo($collectionItem->getCmsItem()))
-            ->will($this->returnValue('/some/url'));
+            ->with(self::identicalTo($collectionItem->getCmsItem()))
+            ->will(self::returnValue('/some/url'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => null,
                 'collection_id' => null,
@@ -230,7 +230,7 @@ final class CollectionResultNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

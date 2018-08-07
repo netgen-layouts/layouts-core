@@ -60,15 +60,15 @@ final class RouteGeneratorTest extends TestCase
             ]
         );
 
-        $this->contextMock->expects($this->once())
+        $this->contextMock->expects(self::once())
             ->method('all')
-            ->will($this->returnValue(['var' => 'value']));
+            ->will(self::returnValue(['var' => 'value']));
 
-        $this->urlGeneratorMock->expects($this->once())
+        $this->urlGeneratorMock->expects(self::once())
             ->method('generate')
             ->with(
-                $this->identicalTo('ngbm_ajax_block'),
-                $this->identicalTo(
+                self::identicalTo('ngbm_ajax_block'),
+                self::identicalTo(
                     [
                         'blockId' => 42,
                         'locale' => 'en',
@@ -77,16 +77,16 @@ final class RouteGeneratorTest extends TestCase
                     ]
                 )
             )
-            ->will($this->returnValue('/generated/uri'));
+            ->will(self::returnValue('/generated/uri'));
 
-        $this->uriSignerMock->expects($this->once())
+        $this->uriSignerMock->expects(self::once())
             ->method('sign')
-            ->with($this->identicalTo('/generated/uri'))
-            ->will($this->returnValue($signedUri));
+            ->with(self::identicalTo('/generated/uri'))
+            ->will(self::returnValue($signedUri));
 
         $url = call_user_func($this->routeGenerator, $block, 'default', $page);
 
-        $this->assertSame($signedUri . $signedUriSuffix, $url);
+        self::assertSame($signedUri . $signedUriSuffix, $url);
     }
 
     public function invokeProvider(): array

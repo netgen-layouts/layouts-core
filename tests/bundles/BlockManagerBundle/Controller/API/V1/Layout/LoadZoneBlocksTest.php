@@ -18,7 +18,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_zone_blocks',
             Response::HTTP_OK
@@ -32,7 +32,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_published_zone_blocks',
             Response::HTTP_OK
@@ -46,7 +46,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/unknown/blocks');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "unknown"'
@@ -60,7 +60,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/zones/right/blocks');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "right"'
@@ -74,7 +74,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/zones/right/blocks');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find layout with identifier "1"'

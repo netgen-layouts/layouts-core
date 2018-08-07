@@ -23,11 +23,11 @@ final class ZoneTest extends TestCase
             ]
         );
 
-        $this->assertSame('left', $zone->identifier);
-        $this->assertSame(84, $zone->layoutId);
-        $this->assertSame(Value::STATUS_PUBLISHED, $zone->status);
-        $this->assertSame(42, $zone->rootBlockId);
-        $this->assertSame(24, $zone->linkedLayoutId);
-        $this->assertSame('top', $zone->linkedZoneIdentifier);
+        self::assertSame('left', $zone->identifier);
+        self::assertSame(84, $zone->layoutId);
+        self::assertSame(Value::STATUS_PUBLISHED, $zone->status);
+        self::assertSame(42, $zone->rootBlockId);
+        self::assertSame(24, $zone->linkedLayoutId);
+        self::assertSame('top', $zone->linkedZoneIdentifier);
     }
 }

@@ -71,7 +71,7 @@ abstract class BlockTest extends ServiceTestCase
             $createdParameters[$parameterName] = $parameter->getValue();
         }
 
-        $this->assertEquals($expectedParameters, $createdParameters);
+        self::assertEquals($expectedParameters, $createdParameters);
     }
 
     /**

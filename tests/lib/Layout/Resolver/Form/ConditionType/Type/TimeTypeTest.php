@@ -46,14 +46,14 @@ final class TimeTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame($processedData, $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame($processedData, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 
@@ -62,6 +62,6 @@ final class TimeTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngbm_condition_type_time', $this->formType->getBlockPrefix());
+        self::assertSame('ngbm_condition_type_time', $this->formType->getBlockPrefix());
     }
 }

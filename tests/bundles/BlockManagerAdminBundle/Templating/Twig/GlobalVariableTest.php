@@ -25,7 +25,7 @@ final class GlobalVariableTest extends TestCase
      */
     public function testGetPageLayoutTemplate(): void
     {
-        $this->assertSame('default.html.twig', $this->globalVariable->getPageLayoutTemplate());
+        self::assertSame('default.html.twig', $this->globalVariable->getPageLayoutTemplate());
     }
 
     /**
@@ -36,6 +36,6 @@ final class GlobalVariableTest extends TestCase
     {
         $this->globalVariable->setPageLayoutTemplate('template.html.twig');
 
-        $this->assertSame('template.html.twig', $this->globalVariable->getPageLayoutTemplate());
+        self::assertSame('template.html.twig', $this->globalVariable->getPageLayoutTemplate());
     }
 }

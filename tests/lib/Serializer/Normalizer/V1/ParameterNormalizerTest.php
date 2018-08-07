@@ -40,7 +40,7 @@ final class ParameterNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             'some text',
             $this->normalizer->normalize(new VersionedValue($parameter, 1))
         );
@@ -55,7 +55,7 @@ final class ParameterNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

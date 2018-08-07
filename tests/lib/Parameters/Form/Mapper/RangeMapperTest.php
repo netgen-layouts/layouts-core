@@ -27,7 +27,7 @@ final class RangeMapperTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(RangeType::class, $this->mapper->getFormType());
+        self::assertSame(RangeType::class, $this->mapper->getFormType());
     }
 
     /**
@@ -43,7 +43,7 @@ final class RangeMapperTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'attr' => [
                     'min' => 3,

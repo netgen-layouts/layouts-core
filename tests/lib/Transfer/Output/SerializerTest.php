@@ -61,30 +61,30 @@ final class SerializerTest extends TestCase
         $layout2 = Layout::fromArray(['id' => 24]);
 
         $this->layoutServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($layout1));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($layout1));
 
         $this->layoutServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayout')
-            ->with($this->identicalTo(24))
-            ->will($this->returnValue($layout2));
+            ->with(self::identicalTo(24))
+            ->will(self::returnValue($layout2));
 
         $this->visitorMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('visit')
-            ->with($this->identicalTo($layout1))
-            ->will($this->returnValue('serialized_layout_42'));
+            ->with(self::identicalTo($layout1))
+            ->will(self::returnValue('serialized_layout_42'));
 
         $this->visitorMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('visit')
-            ->with($this->identicalTo($layout2))
-            ->will($this->returnValue('serialized_layout_24'));
+            ->with(self::identicalTo($layout2))
+            ->will(self::returnValue('serialized_layout_24'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
@@ -106,24 +106,24 @@ final class SerializerTest extends TestCase
         $layout = Layout::fromArray(['id' => 42]);
 
         $this->layoutServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLayout')
-            ->with($this->identicalTo(24))
-            ->will($this->throwException(new NotFoundException('layout', 24)));
+            ->with(self::identicalTo(24))
+            ->will(self::throwException(new NotFoundException('layout', 24)));
 
         $this->layoutServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLayout')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($layout));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($layout));
 
         $this->visitorMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('visit')
-            ->with($this->identicalTo($layout))
-            ->will($this->returnValue('serialized_layout_42'));
+            ->with(self::identicalTo($layout))
+            ->will(self::returnValue('serialized_layout_42'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
@@ -145,30 +145,30 @@ final class SerializerTest extends TestCase
         $rule2 = Rule::fromArray(['id' => 24]);
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadRule')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($rule1));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($rule1));
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadRule')
-            ->with($this->identicalTo(24))
-            ->will($this->returnValue($rule2));
+            ->with(self::identicalTo(24))
+            ->will(self::returnValue($rule2));
 
         $this->visitorMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('visit')
-            ->with($this->identicalTo($rule1))
-            ->will($this->returnValue('serialized_rule_42'));
+            ->with(self::identicalTo($rule1))
+            ->will(self::returnValue('serialized_rule_42'));
 
         $this->visitorMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('visit')
-            ->with($this->identicalTo($rule2))
-            ->will($this->returnValue('serialized_rule_24'));
+            ->with(self::identicalTo($rule2))
+            ->will(self::returnValue('serialized_rule_24'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
@@ -190,24 +190,24 @@ final class SerializerTest extends TestCase
         $rule = Rule::fromArray(['id' => 42]);
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadRule')
-            ->with($this->identicalTo(24))
-            ->will($this->throwException(new NotFoundException('rule', 24)));
+            ->with(self::identicalTo(24))
+            ->will(self::throwException(new NotFoundException('rule', 24)));
 
         $this->layoutResolverServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadRule')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($rule));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($rule));
 
         $this->visitorMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('visit')
-            ->with($this->identicalTo($rule))
-            ->will($this->returnValue('serialized_rule_42'));
+            ->with(self::identicalTo($rule))
+            ->will(self::returnValue('serialized_rule_42'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [

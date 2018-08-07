@@ -15,6 +15,6 @@ final class ItemLinkTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new ItemLink();
-        $this->assertSame('ngbm_item_link', $constraint->validatedBy());
+        self::assertSame('ngbm_item_link', $constraint->validatedBy());
     }
 }

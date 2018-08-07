@@ -35,7 +35,7 @@ final class TargetParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['targetId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['targetId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class TargetParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('target', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('target', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class TargetParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APITarget::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APITarget::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class TargetParamConverterTest extends TestCase
         $target = new Target();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadTarget')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($target));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($target));
 
-        $this->assertSame(
+        self::assertSame(
             $target,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class TargetParamConverterTest extends TestCase
         $target = new Target();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadTargetDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($target));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($target));
 
-        $this->assertSame(
+        self::assertSame(
             $target,
             $this->paramConverter->loadValue(
                 [

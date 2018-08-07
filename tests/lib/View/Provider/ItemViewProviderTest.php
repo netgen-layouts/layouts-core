@@ -30,14 +30,13 @@ final class ItemViewProviderTest extends TestCase
     {
         $item = new CmsItem();
 
-        /** @var \Netgen\BlockManager\View\View\ItemViewInterface $view */
         $view = $this->itemViewProvider->provideView($item, ['view_type' => 'view_type']);
 
-        $this->assertInstanceOf(ItemViewInterface::class, $view);
+        self::assertInstanceOf(ItemViewInterface::class, $view);
 
-        $this->assertSame($item, $view->getItem());
-        $this->assertNull($view->getTemplate());
-        $this->assertSame(
+        self::assertSame($item, $view->getItem());
+        self::assertNull($view->getTemplate());
+        self::assertSame(
             [
                 'item' => $item,
                 'view_type' => 'view_type',
@@ -75,7 +74,7 @@ final class ItemViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        $this->assertSame($supports, $this->itemViewProvider->supports($value));
+        self::assertSame($supports, $this->itemViewProvider->supports($value));
     }
 
     public function supportsProvider(): array

@@ -52,7 +52,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('link', $this->type::getIdentifier());
+        self::assertSame('link', $this->type::getIdentifier());
     }
 
     /**
@@ -62,7 +62,7 @@ final class LinkTypeTest extends TestCase
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
-        $this->assertSame($resolvedOptions, $parameter->getOptions());
+        self::assertSame($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -141,7 +141,7 @@ final class LinkTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
-        $this->assertSame($isValid, $errors->count() === 0);
+        self::assertSame($isValid, $errors->count() === 0);
     }
 
     public function validationProvider(): array
@@ -204,7 +204,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue): void
     {
-        $this->assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
+        self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
     public function toHashProvider(): array
@@ -244,8 +244,8 @@ final class LinkTypeTest extends TestCase
     {
         $convertedValue = $this->type->fromHash($this->getParameterDefinition(), $value);
 
-        $this->assertInstanceOf(LinkValue::class, $convertedValue);
-        $this->assertSame($expectedValue, $this->exportObject($convertedValue));
+        self::assertInstanceOf(LinkValue::class, $convertedValue);
+        self::assertSame($expectedValue, $this->exportObject($convertedValue));
     }
 
     public function fromHashProvider(): array
@@ -310,11 +310,11 @@ final class LinkTypeTest extends TestCase
     public function testExport($value, $convertedValue): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
-            ->with($this->identicalTo('42'), $this->identicalTo('my_value_type'))
+            ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     CmsItem::fromArray(
                         [
                             'value' => 42,
@@ -324,7 +324,7 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertSame($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
+        self::assertSame($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
     }
 
     /**
@@ -334,12 +334,12 @@ final class LinkTypeTest extends TestCase
     public function testExportWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('load')
-            ->with($this->identicalTo('24'), $this->identicalTo('my_value_type'))
-            ->will($this->returnValue(new NullCmsItem('my_value_type')));
+            ->with(self::identicalTo('24'), self::identicalTo('my_value_type'))
+            ->will(self::returnValue(new NullCmsItem('my_value_type')));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'link_type' => 'internal',
                 'link' => 'null://0',
@@ -430,11 +430,11 @@ final class LinkTypeTest extends TestCase
     public function testImport($value, array $expectedValue): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('loadByRemoteId')
-            ->with($this->identicalTo('abc'), $this->identicalTo('my_value_type'))
+            ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     CmsItem::fromArray(
                         [
                             'value' => 42,
@@ -446,8 +446,8 @@ final class LinkTypeTest extends TestCase
 
         $convertedValue = $this->type->import($this->getParameterDefinition(), $value);
 
-        $this->assertInstanceOf(LinkValue::class, $convertedValue);
-        $this->assertSame($expectedValue, $this->exportObject($convertedValue));
+        self::assertInstanceOf(LinkValue::class, $convertedValue);
+        self::assertSame($expectedValue, $this->exportObject($convertedValue));
     }
 
     /**
@@ -457,10 +457,10 @@ final class LinkTypeTest extends TestCase
     public function testImportWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('loadByRemoteId')
-            ->with($this->identicalTo('def'), $this->identicalTo('my_value_type'))
-            ->will($this->returnValue(new NullCmsItem('my_value_type')));
+            ->with(self::identicalTo('def'), self::identicalTo('my_value_type'))
+            ->will(self::returnValue(new NullCmsItem('my_value_type')));
 
         $importedValue = $this->type->import(
             $this->getParameterDefinition(),
@@ -472,9 +472,9 @@ final class LinkTypeTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(LinkValue::class, $importedValue);
+        self::assertInstanceOf(LinkValue::class, $importedValue);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'linkType' => 'internal',
                 'link' => 'null://0',
@@ -583,7 +583,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
-        $this->assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     public function emptyProvider(): array

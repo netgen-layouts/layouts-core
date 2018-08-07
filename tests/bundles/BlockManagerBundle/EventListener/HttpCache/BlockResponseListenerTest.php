@@ -39,7 +39,7 @@ final class BlockResponseListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::RESPONSE => ['onKernelResponse', -255]],
             $this->listener::getSubscribedEvents()
         );
@@ -66,9 +66,9 @@ final class BlockResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('tagBlock')
-            ->with($this->identicalTo($response), $this->identicalTo($block));
+            ->with(self::identicalTo($response), self::identicalTo($block));
 
         $this->listener->onKernelResponse($event);
     }
@@ -91,7 +91,7 @@ final class BlockResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('tagBlock');
 
         $this->listener->onKernelResponse($event);
@@ -115,7 +115,7 @@ final class BlockResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('tagBlock');
 
         $this->listener->onKernelResponse($event);

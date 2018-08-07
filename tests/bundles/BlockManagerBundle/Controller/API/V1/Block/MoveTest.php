@@ -33,7 +33,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        self::assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -58,7 +58,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        self::assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -83,7 +83,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        self::assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -102,7 +102,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -131,7 +131,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -160,7 +160,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
@@ -189,7 +189,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "targetBlock" has an invalid state. Target block is not a container.'
@@ -218,7 +218,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'
@@ -247,7 +247,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "block" has an invalid state. Containers cannot be placed inside containers.'
@@ -276,7 +276,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "blockId": This value should be of type scalar.'
@@ -304,7 +304,7 @@ final class MoveTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "blockId": This value should not be blank.'

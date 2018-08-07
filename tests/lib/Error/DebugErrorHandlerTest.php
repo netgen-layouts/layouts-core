@@ -38,11 +38,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo('Test message'),
-                $this->identicalTo(['error' => $exception])
+                self::identicalTo('Test message'),
+                self::identicalTo(['error' => $exception])
             );
 
         $this->errorHandler->handleError($exception);
@@ -57,11 +57,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo('Custom message'),
-                $this->identicalTo(['error' => $exception])
+                self::identicalTo('Custom message'),
+                self::identicalTo(['error' => $exception])
             );
 
         $this->errorHandler->handleError($exception, 'Custom message');
@@ -76,11 +76,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo(''),
-                $this->identicalTo(['error' => $exception])
+                self::identicalTo(''),
+                self::identicalTo(['error' => $exception])
             );
 
         $this->errorHandler->handleError($exception, '');
@@ -95,11 +95,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo('Test message'),
-                $this->identicalTo(['value' => 42, 'error' => $exception])
+                self::identicalTo('Test message'),
+                self::identicalTo(['value' => 42, 'error' => $exception])
             );
 
         $this->errorHandler->handleError($exception, null, ['value' => 42]);
@@ -118,11 +118,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo('Test message'),
-                $this->identicalTo(['error' => $exception])
+                self::identicalTo('Test message'),
+                self::identicalTo(['error' => $exception])
             );
 
         $this->errorHandler->handleError($exception);
@@ -141,11 +141,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo('Custom message'),
-                $this->identicalTo(['error' => $exception])
+                self::identicalTo('Custom message'),
+                self::identicalTo(['error' => $exception])
             );
 
         $this->errorHandler->handleError($exception, 'Custom message');
@@ -164,11 +164,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo(''),
-                $this->identicalTo(['error' => $exception])
+                self::identicalTo(''),
+                self::identicalTo(['error' => $exception])
             );
 
         $this->errorHandler->handleError($exception, '');
@@ -188,11 +188,11 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical')
             ->with(
-                $this->identicalTo('Test message'),
-                $this->identicalTo(['value' => 42, 'error' => $exception])
+                self::identicalTo('Test message'),
+                self::identicalTo(['value' => 42, 'error' => $exception])
             );
 
         $this->errorHandler->handleError($exception, null, ['value' => 42]);

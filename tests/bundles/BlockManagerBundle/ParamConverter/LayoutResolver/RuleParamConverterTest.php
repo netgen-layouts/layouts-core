@@ -35,7 +35,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName(): void
     {
-        $this->assertSame(['ruleId'], $this->paramConverter->getSourceAttributeNames());
+        self::assertSame(['ruleId'], $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -43,7 +43,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName(): void
     {
-        $this->assertSame('rule', $this->paramConverter->getDestinationAttributeName());
+        self::assertSame('rule', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -51,7 +51,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        $this->assertSame(APIRule::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(APIRule::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -62,12 +62,12 @@ final class RuleParamConverterTest extends TestCase
         $rule = new Rule();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRule')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($rule));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($rule));
 
-        $this->assertSame(
+        self::assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
@@ -86,12 +86,12 @@ final class RuleParamConverterTest extends TestCase
         $rule = new Rule();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRuleArchive')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($rule));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($rule));
 
-        $this->assertSame(
+        self::assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
@@ -110,12 +110,12 @@ final class RuleParamConverterTest extends TestCase
         $rule = new Rule();
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRuleDraft')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($rule));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($rule));
 
-        $this->assertSame(
+        self::assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [

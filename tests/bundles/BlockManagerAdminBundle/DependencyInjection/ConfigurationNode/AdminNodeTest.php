@@ -38,7 +38,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'admin.javascripts'
@@ -62,7 +62,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'admin.javascripts'
@@ -82,7 +82,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config);
+        self::assertConfigurationIsInvalid($config);
     }
 
     /**
@@ -100,7 +100,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'The value should be a string');
+        self::assertConfigurationIsInvalid($config, 'The value should be a string');
     }
 
     /**
@@ -126,7 +126,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'admin.stylesheets'
@@ -150,7 +150,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertProcessedConfigurationEquals(
+        self::assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'admin.stylesheets'
@@ -170,7 +170,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config);
+        self::assertConfigurationIsInvalid($config);
     }
 
     /**
@@ -188,7 +188,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'The value should be a string');
+        self::assertConfigurationIsInvalid($config, 'The value should be a string');
     }
 
     protected function getConfiguration(): ConfigurationInterface

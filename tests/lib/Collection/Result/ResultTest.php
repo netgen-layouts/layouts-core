@@ -23,8 +23,8 @@ final class ResultTest extends TestCase
 
         $result = new Result(0, $item1, $item2);
 
-        $this->assertSame(0, $result->getPosition());
-        $this->assertSame($item1, $result->getItem());
-        $this->assertSame($item2, $result->getSubItem());
+        self::assertSame(0, $result->getPosition());
+        self::assertSame($item1, $result->getItem());
+        self::assertSame($item2, $result->getSubItem());
     }
 }

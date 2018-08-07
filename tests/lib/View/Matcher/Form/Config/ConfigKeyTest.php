@@ -46,7 +46,7 @@ final class ConfigKeyTest extends TestCase
             ]
         );
 
-        $this->assertSame($expected, $this->matcher->match(new FormView($form), $config));
+        self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
     public function matchProvider(): array
@@ -65,7 +65,7 @@ final class ConfigKeyTest extends TestCase
      */
     public function testMatchWithNoFormView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
     /**
@@ -75,7 +75,7 @@ final class ConfigKeyTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['test']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
     /**
@@ -85,6 +85,6 @@ final class ConfigKeyTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, ['config_key' => 'type']);
 
-        $this->assertFalse($this->matcher->match(new FormView($form), ['test']));
+        self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 }

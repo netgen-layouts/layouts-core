@@ -13,7 +13,7 @@ final class ConditionTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Condition());
+        self::assertInstanceOf(Value::class, new Condition());
     }
 
     /**
@@ -35,9 +35,9 @@ final class ConditionTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $condition->getId());
-        $this->assertSame(30, $condition->getRuleId());
-        $this->assertSame($conditionType, $condition->getConditionType());
-        $this->assertSame(32, $condition->getValue());
+        self::assertSame(42, $condition->getId());
+        self::assertSame(30, $condition->getRuleId());
+        self::assertSame($conditionType, $condition->getConditionType());
+        self::assertSame(32, $condition->getValue());
     }
 }

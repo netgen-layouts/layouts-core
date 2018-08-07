@@ -38,7 +38,7 @@ final class HandlerTest extends TestCase
      */
     public function testGetLayoutHandler(): void
     {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             LayoutHandler::class,
             $this->handler->getLayoutHandler()
         );
@@ -49,7 +49,7 @@ final class HandlerTest extends TestCase
      */
     public function testGetBlockHandler(): void
     {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             BlockHandler::class,
             $this->handler->getBlockHandler()
         );
@@ -60,7 +60,7 @@ final class HandlerTest extends TestCase
      */
     public function testGetCollectionHandler(): void
     {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             CollectionHandler::class,
             $this->handler->getCollectionHandler()
         );
@@ -71,7 +71,7 @@ final class HandlerTest extends TestCase
      */
     public function testGetLayoutResolverHandler(): void
     {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             LayoutResolverHandler::class,
             $this->handler->getLayoutResolverHandler()
         );
@@ -83,7 +83,7 @@ final class HandlerTest extends TestCase
     public function testBeginTransaction(): void
     {
         $this->connectionMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('beginTransaction');
 
         $this->handler->beginTransaction();
@@ -95,7 +95,7 @@ final class HandlerTest extends TestCase
     public function testCommitTransaction(): void
     {
         $this->connectionMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('commit');
 
         $this->handler->commitTransaction();
@@ -107,7 +107,7 @@ final class HandlerTest extends TestCase
     public function testRollbackTransaction(): void
     {
         $this->connectionMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('rollback');
 
         $this->handler->rollbackTransaction();

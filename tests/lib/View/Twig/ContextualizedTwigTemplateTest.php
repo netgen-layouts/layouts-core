@@ -20,17 +20,17 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $templateMock = $this->createMock(Template::class);
 
         $templateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('hasBlock')
-            ->with($this->identicalTo('block_name'))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo('block_name'))
+            ->will(self::returnValue(true));
 
         $templateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('displayBlock')
-            ->with($this->identicalTo('block_name'))
+            ->with(self::identicalTo('block_name'))
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     function (string $blockName): void {
                         echo 'rendered';
                     }
@@ -39,7 +39,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $template = new ContextualizedTwigTemplate($templateMock);
 
-        $this->assertSame('rendered', $template->renderBlock('block_name'));
+        self::assertSame('rendered', $template->renderBlock('block_name'));
     }
 
     /**
@@ -51,18 +51,18 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $templateMock = $this->createMock(Template::class);
 
         $templateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('hasBlock')
-            ->with($this->identicalTo('block_name'))
-            ->will($this->returnValue(false));
+            ->with(self::identicalTo('block_name'))
+            ->will(self::returnValue(false));
 
         $templateMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('displayBlock');
 
         $template = new ContextualizedTwigTemplate($templateMock);
 
-        $this->assertSame('', $template->renderBlock('block_name'));
+        self::assertSame('', $template->renderBlock('block_name'));
     }
 
     /**
@@ -75,16 +75,16 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $templateMock = $this->createMock(Template::class);
 
         $templateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('hasBlock')
-            ->with($this->identicalTo('block_name'))
-            ->will($this->returnValue(true));
+            ->with(self::identicalTo('block_name'))
+            ->will(self::returnValue(true));
 
         $templateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('displayBlock')
-            ->with($this->identicalTo('block_name'))
-            ->will($this->throwException(new Exception('Test exception text')));
+            ->with(self::identicalTo('block_name'))
+            ->will(self::throwException(new Exception('Test exception text')));
 
         $template = new ContextualizedTwigTemplate($templateMock);
         $template->renderBlock('block_name');

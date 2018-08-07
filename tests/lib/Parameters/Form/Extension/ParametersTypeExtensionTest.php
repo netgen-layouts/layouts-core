@@ -29,7 +29,7 @@ final class ParametersTypeExtensionTest extends TestCase
      */
     public function testGetExtendedType(): void
     {
-        $this->assertSame(FormType::class, $this->formTypeExtension->getExtendedType());
+        self::assertSame(FormType::class, $this->formTypeExtension->getExtendedType());
     }
 
     /**
@@ -47,8 +47,8 @@ final class ParametersTypeExtensionTest extends TestCase
             ['ngbm_parameter_definition' => $parameterDefinition]
         );
 
-        $this->assertArrayHasKey('ngbm_parameter_definition', $view->vars);
-        $this->assertSame($parameterDefinition, $view->vars['ngbm_parameter_definition']);
+        self::assertArrayHasKey('ngbm_parameter_definition', $view->vars);
+        self::assertSame($parameterDefinition, $view->vars['ngbm_parameter_definition']);
     }
 
     /**
@@ -64,7 +64,7 @@ final class ParametersTypeExtensionTest extends TestCase
             []
         );
 
-        $this->assertArrayNotHasKey('ngbm_parameter_definition', $view->vars);
+        self::assertArrayNotHasKey('ngbm_parameter_definition', $view->vars);
     }
 
     /**
@@ -83,7 +83,7 @@ final class ParametersTypeExtensionTest extends TestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'ngbm_parameter_definition' => $parameterDefinition,
             ],
@@ -100,7 +100,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->configureOptions($optionsResolver);
         $resolvedOptions = $optionsResolver->resolve();
 
-        $this->assertSame([], $resolvedOptions);
+        self::assertSame([], $resolvedOptions);
     }
 
     /**

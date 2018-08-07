@@ -49,26 +49,26 @@ final class ViewNormalizerTest extends TestCase
     {
         $value = new Value();
         $this->normalizerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('normalize')
-            ->with($this->equalTo(new VersionedValue($value, 1)))
-            ->will($this->returnValue(['id' => 42]));
+            ->with(self::equalTo(new VersionedValue($value, 1)))
+            ->will(self::returnValue(['id' => 42]));
 
         $this->viewRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($value),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['api_version' => 1])
+                self::identicalTo($value),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['api_version' => 1])
             )
-            ->will($this->returnValue('rendered view'));
+            ->will(self::returnValue('rendered view'));
 
         $view = new View($value, 1);
 
         $data = $this->normalizer->normalize($view);
 
-        $this->assertSame(['id' => 42, 'html' => 'rendered view'], $data);
+        self::assertSame(['id' => 42, 'html' => 'rendered view'], $data);
     }
 
     /**
@@ -80,20 +80,20 @@ final class ViewNormalizerTest extends TestCase
     {
         $value = new Value();
         $this->normalizerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('normalize')
-            ->with($this->equalTo(new VersionedValue($value, 1)))
-            ->will($this->returnValue(['id' => 42]));
+            ->with(self::equalTo(new VersionedValue($value, 1)))
+            ->will(self::returnValue(['id' => 42]));
 
         $this->viewRendererMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('renderValue');
 
         $view = new View($value, 1);
 
         $data = $this->normalizer->normalize($view, null, ['disable_html' => true]);
 
-        $this->assertSame(['id' => 42], $data);
+        self::assertSame(['id' => 42], $data);
     }
 
     /**
@@ -106,26 +106,26 @@ final class ViewNormalizerTest extends TestCase
         $value = new Value();
 
         $this->normalizerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('normalize')
-            ->with($this->equalTo(new VersionedValue($value, 1)))
-            ->will($this->returnValue(['id' => 42]));
+            ->with(self::equalTo(new VersionedValue($value, 1)))
+            ->will(self::returnValue(['id' => 42]));
 
         $this->viewRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderValue')
             ->with(
-                $this->identicalTo($value),
-                $this->identicalTo(ViewInterface::CONTEXT_API),
-                $this->identicalTo(['api_version' => 1])
+                self::identicalTo($value),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['api_version' => 1])
             )
-            ->will($this->returnValue('rendered view'));
+            ->will(self::returnValue('rendered view'));
 
         $view = new View($value, 1);
 
         $data = $this->normalizer->normalize($view, null, ['disable_html' => 'true']);
 
-        $this->assertSame(['id' => 42, 'html' => 'rendered view'], $data);
+        self::assertSame(['id' => 42, 'html' => 'rendered view'], $data);
     }
 
     /**
@@ -137,7 +137,7 @@ final class ViewNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

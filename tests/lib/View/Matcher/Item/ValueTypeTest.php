@@ -32,7 +32,7 @@ final class ValueTypeTest extends TestCase
     {
         $view = new ItemView(CmsItem::fromArray(['valueType' => 'value']), 'view_type');
 
-        $this->assertSame($expected, $this->matcher->match($view, $config));
+        self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -42,7 +42,7 @@ final class ValueTypeTest extends TestCase
     {
         $view = new ItemView(new NullCmsItem('value'), 'view_type');
 
-        $this->assertTrue($this->matcher->match($view, ['null']));
+        self::assertTrue($this->matcher->match($view, ['null']));
     }
 
     /**
@@ -52,7 +52,7 @@ final class ValueTypeTest extends TestCase
     {
         $view = new ItemView(new NullCmsItem('value'), 'view_type');
 
-        $this->assertFalse($this->matcher->match($view, ['test']));
+        self::assertFalse($this->matcher->match($view, ['test']));
     }
 
     public function matchProvider(): array
@@ -71,6 +71,6 @@ final class ValueTypeTest extends TestCase
      */
     public function testMatchWithNoItemView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

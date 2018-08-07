@@ -64,9 +64,7 @@ final class BlockHandlerTest extends TestCase
     {
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -115,7 +113,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockExists(): void
     {
-        $this->assertTrue($this->blockHandler->blockExists(31, Value::STATUS_PUBLISHED));
+        self::assertTrue($this->blockHandler->blockExists(31, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -124,7 +122,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExists(): void
     {
-        $this->assertFalse($this->blockHandler->blockExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->blockHandler->blockExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -133,7 +131,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExistsInStatus(): void
     {
-        $this->assertFalse($this->blockHandler->blockExists(36, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->blockHandler->blockExists(36, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -146,7 +144,7 @@ final class BlockHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(7, $blocks);
+        self::assertCount(7, $blocks);
     }
 
     /**
@@ -159,7 +157,7 @@ final class BlockHandlerTest extends TestCase
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'right')
         );
 
-        $this->assertCount(3, $blocks);
+        self::assertCount(3, $blocks);
     }
 
     /**
@@ -172,11 +170,9 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED)
         );
 
-        foreach ($blocks as $block) {
-            $this->assertInstanceOf(Block::class, $block);
-        }
+        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 31,
@@ -245,11 +241,9 @@ final class BlockHandlerTest extends TestCase
             'left'
         );
 
-        foreach ($blocks as $block) {
-            $this->assertInstanceOf(Block::class, $block);
-        }
+        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'id' => 37,
@@ -286,7 +280,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadChildBlocksWithUnknownPlaceholder(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
                 'unknown'
@@ -305,9 +299,7 @@ final class BlockHandlerTest extends TestCase
             'default'
         );
 
-        $this->assertInstanceOf(CollectionReference::class, $reference);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'blockId' => 31,
                 'blockStatus' => Value::STATUS_DRAFT,
@@ -343,11 +335,9 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
         );
 
-        foreach ($references as $reference) {
-            $this->assertInstanceOf(CollectionReference::class, $reference);
-        }
+        self::assertContainsOnlyInstancesOf(CollectionReference::class, $references);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'blockId' => 31,
@@ -401,9 +391,7 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertInstanceOf(Block::class, $createdBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -437,7 +425,7 @@ final class BlockHandlerTest extends TestCase
         );
 
         $secondBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->assertSame(1, $secondBlock->position);
+        self::assertSame(1, $secondBlock->position);
     }
 
     /**
@@ -452,9 +440,7 @@ final class BlockHandlerTest extends TestCase
             'en'
         );
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -506,9 +492,7 @@ final class BlockHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -607,9 +591,7 @@ final class BlockHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
         );
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -671,9 +653,7 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -812,9 +792,7 @@ final class BlockHandlerTest extends TestCase
             'new'
         );
 
-        $this->assertInstanceOf(CollectionReference::class, $reference);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'blockId' => $block->id,
                 'blockStatus' => $block->status,
@@ -846,9 +824,7 @@ final class BlockHandlerTest extends TestCase
             $blockUpdateStruct
         );
 
-        $this->assertInstanceOf(Block::class, $updatedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -896,9 +872,7 @@ final class BlockHandlerTest extends TestCase
             $blockUpdateStruct
         );
 
-        $this->assertInstanceOf(Block::class, $updatedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -952,9 +926,7 @@ final class BlockHandlerTest extends TestCase
             $translationUpdateStruct
         );
 
-        $this->assertInstanceOf(Block::class, $updatedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -1002,9 +974,7 @@ final class BlockHandlerTest extends TestCase
             $translationUpdateStruct
         );
 
-        $this->assertInstanceOf(Block::class, $updatedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -1063,7 +1033,7 @@ final class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
         $block = $this->blockHandler->setMainTranslation($block, 'hr');
 
-        $this->assertSame('hr', $block->mainLocale);
+        self::assertSame('hr', $block->mainLocale);
     }
 
     /**
@@ -1092,9 +1062,7 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -1128,7 +1096,7 @@ final class BlockHandlerTest extends TestCase
             $this->exportObject($copiedBlock)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'blockId' => 39,
@@ -1167,9 +1135,7 @@ final class BlockHandlerTest extends TestCase
             1
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -1220,9 +1186,7 @@ final class BlockHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -1273,9 +1237,7 @@ final class BlockHandlerTest extends TestCase
             2
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -1326,9 +1288,7 @@ final class BlockHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 1,
@@ -1402,9 +1362,7 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 2,
@@ -1432,7 +1390,7 @@ final class BlockHandlerTest extends TestCase
 
         $copiedSubBlock = $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 40,
                 'layoutId' => 2,
@@ -1460,7 +1418,7 @@ final class BlockHandlerTest extends TestCase
             $this->exportObject($copiedSubBlock)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'blockId' => 40,
@@ -1491,9 +1449,7 @@ final class BlockHandlerTest extends TestCase
             'root'
         );
 
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 39,
                 'layoutId' => 2,
@@ -1527,7 +1483,7 @@ final class BlockHandlerTest extends TestCase
             $this->exportObject($copiedBlock)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 [
                     'blockId' => 39,
@@ -1590,9 +1546,7 @@ final class BlockHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Block::class, $movedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 33,
                 'layoutId' => 1,
@@ -1618,7 +1572,7 @@ final class BlockHandlerTest extends TestCase
             $this->exportObject($movedBlock)
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 37,
                 'layoutId' => 1,
@@ -1734,9 +1688,7 @@ final class BlockHandlerTest extends TestCase
             1
         );
 
-        $this->assertInstanceOf(Block::class, $movedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -1771,7 +1723,7 @@ final class BlockHandlerTest extends TestCase
         );
 
         $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-        $this->assertSame(0, $firstBlock->position);
+        self::assertSame(0, $firstBlock->position);
     }
 
     /**
@@ -1786,9 +1738,7 @@ final class BlockHandlerTest extends TestCase
             0
         );
 
-        $this->assertInstanceOf(Block::class, $movedBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 35,
                 'layoutId' => 1,
@@ -1817,7 +1767,7 @@ final class BlockHandlerTest extends TestCase
         );
 
         $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->assertSame(1, $firstBlock->position);
+        self::assertSame(1, $firstBlock->position);
     }
 
     /**
@@ -1879,9 +1829,7 @@ final class BlockHandlerTest extends TestCase
             Value::STATUS_DRAFT
         );
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -1914,15 +1862,15 @@ final class BlockHandlerTest extends TestCase
 
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
-        $this->assertCount(2, $collectionReferences);
+        self::assertCount(2, $collectionReferences);
 
         $collectionIds = [
             $collectionReferences[0]->collectionId,
             $collectionReferences[1]->collectionId,
         ];
 
-        $this->assertContains(2, $collectionIds);
-        $this->assertContains(3, $collectionIds);
+        self::assertContains(2, $collectionIds);
+        self::assertContains(3, $collectionIds);
     }
 
     /**
@@ -1941,9 +1889,7 @@ final class BlockHandlerTest extends TestCase
 
         $restoredBlock = $this->blockHandler->restoreBlock($movedBlock, Value::STATUS_PUBLISHED);
 
-        $this->assertInstanceOf(Block::class, $restoredBlock);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -2000,7 +1946,7 @@ final class BlockHandlerTest extends TestCase
         );
 
         $secondBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-        $this->assertSame(0, $secondBlock->position);
+        self::assertSame(0, $secondBlock->position);
 
         try {
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -2065,9 +2011,7 @@ final class BlockHandlerTest extends TestCase
             'hr'
         );
 
-        $this->assertInstanceOf(Block::class, $block);
-
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 31,
                 'layoutId' => 1,
@@ -2154,7 +2098,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->deleteLayoutBlocks($layout->id, $layout->status);
 
-        $this->assertEmpty($this->blockHandler->loadLayoutBlocks($layout));
+        self::assertEmpty($this->blockHandler->loadLayoutBlocks($layout));
     }
 
     /**
@@ -2171,7 +2115,7 @@ final class BlockHandlerTest extends TestCase
 
         try {
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-            $this->fail(
+            self::fail(
                 sprintf(
                     'Draft block %d still available after deleting',
                     31
@@ -2183,7 +2127,7 @@ final class BlockHandlerTest extends TestCase
 
         try {
             $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-            $this->fail(
+            self::fail(
                 sprintf(
                     'Draft block %d still available after deleting',
                     32
@@ -2195,7 +2139,7 @@ final class BlockHandlerTest extends TestCase
 
         try {
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
-            $this->fail(
+            self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
                     31
@@ -2207,7 +2151,7 @@ final class BlockHandlerTest extends TestCase
 
         try {
             $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED);
-            $this->fail(
+            self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
                     32
@@ -2229,15 +2173,12 @@ final class BlockHandlerTest extends TestCase
     {
         $this->blockHandler->deleteBlocks([31, 32], Value::STATUS_PUBLISHED);
 
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->assertInstanceOf(Block::class, $block);
-
-        $block = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-        $this->assertInstanceOf(Block::class, $block);
+        $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
 
         try {
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
-            $this->fail(
+            self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
                     31
@@ -2249,7 +2190,7 @@ final class BlockHandlerTest extends TestCase
 
         try {
             $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED);
-            $this->fail(
+            self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
                     32
@@ -2258,5 +2199,8 @@ final class BlockHandlerTest extends TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+
+        // Fake assertion to disable risky warning
+        self::assertTrue(true);
     }
 }

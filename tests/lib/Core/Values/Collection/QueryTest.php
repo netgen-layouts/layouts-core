@@ -13,7 +13,7 @@ final class QueryTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Query());
+        self::assertInstanceOf(Value::class, new Query());
     }
 
     /**
@@ -23,7 +23,7 @@ final class QueryTest extends TestCase
     {
         $query = new Query();
 
-        $this->assertSame([], $query->getAvailableLocales());
+        self::assertSame([], $query->getAvailableLocales());
     }
 
     /**
@@ -54,14 +54,14 @@ final class QueryTest extends TestCase
             ]
         );
 
-        $this->assertSame(42, $query->getId());
-        $this->assertSame(30, $query->getCollectionId());
-        $this->assertSame($queryType, $query->getQueryType());
-        $this->assertTrue($query->isTranslatable());
-        $this->assertSame('en', $query->getMainLocale());
-        $this->assertTrue($query->isAlwaysAvailable());
-        $this->assertSame(['en'], $query->getAvailableLocales());
-        $this->assertSame('en', $query->getLocale());
+        self::assertSame(42, $query->getId());
+        self::assertSame(30, $query->getCollectionId());
+        self::assertSame($queryType, $query->getQueryType());
+        self::assertTrue($query->isTranslatable());
+        self::assertSame('en', $query->getMainLocale());
+        self::assertTrue($query->isAlwaysAvailable());
+        self::assertSame(['en'], $query->getAvailableLocales());
+        self::assertSame('en', $query->getLocale());
     }
 
     /**
@@ -75,6 +75,6 @@ final class QueryTest extends TestCase
             ]
         );
 
-        $this->assertFalse($query->isContextual());
+        self::assertFalse($query->isContextual());
     }
 }

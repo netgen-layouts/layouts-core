@@ -12,7 +12,7 @@ final class ZoneTest extends TestCase
 {
     public function testInstance(): void
     {
-        $this->assertInstanceOf(Value::class, new Zone());
+        self::assertInstanceOf(Value::class, new Zone());
     }
 
     /**
@@ -33,9 +33,9 @@ final class ZoneTest extends TestCase
             ]
         );
 
-        $this->assertSame('left', $zone->getIdentifier());
-        $this->assertSame(84, $zone->getLayoutId());
-        $this->assertTrue($zone->hasLinkedZone());
-        $this->assertSame($linkedZone, $zone->getLinkedZone());
+        self::assertSame('left', $zone->getIdentifier());
+        self::assertSame(84, $zone->getLayoutId());
+        self::assertTrue($zone->hasLinkedZone());
+        self::assertSame($linkedZone, $zone->getLinkedZone());
     }
 }

@@ -33,7 +33,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('query_type', $this->queryType->getType());
+        self::assertSame('query_type', $this->queryType->getType());
     }
 
     /**
@@ -41,7 +41,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testIsEnabled(): void
     {
-        $this->assertFalse($this->queryType->isEnabled());
+        self::assertFalse($this->queryType->isEnabled());
     }
 
     /**
@@ -49,7 +49,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Query type', $this->queryType->getName());
+        self::assertSame('Query type', $this->queryType->getName());
     }
 
     /**
@@ -57,7 +57,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetValues(): void
     {
-        $this->assertSame(['val1', 'val2'], $this->queryType->getValues(new Query()));
+        self::assertSame(['val1', 'val2'], $this->queryType->getValues(new Query()));
     }
 
     /**
@@ -65,7 +65,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetCount(): void
     {
-        $this->assertSame(2, $this->queryType->getCount(new Query()));
+        self::assertSame(2, $this->queryType->getCount(new Query()));
     }
 
     /**
@@ -73,6 +73,6 @@ final class QueryTypeTest extends TestCase
      */
     public function testIsContextual(): void
     {
-        $this->assertFalse($this->queryType->isContextual(new Query()));
+        self::assertFalse($this->queryType->isContextual(new Query()));
     }
 }

@@ -13,6 +13,6 @@ final class RuleCreateStructTest extends TestCase
     {
         $ruleCreateStruct = new RuleCreateStruct();
 
-        $this->assertFalse($ruleCreateStruct->enabled);
+        self::assertFalse($ruleCreateStruct->enabled);
     }
 }

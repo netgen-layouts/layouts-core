@@ -47,31 +47,31 @@ final class ParameterMapperTest extends TestCase
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $blockDefinition->getParameterDefinition('compound');
 
-        $this->assertCount(4, $mappedParameters);
-        $this->assertArrayHasKey('css_class', $mappedParameters);
-        $this->assertArrayHasKey('css_id', $mappedParameters);
-        $this->assertArrayHasKey('compound', $mappedParameters);
-        $this->assertArrayHasKey('inner', $mappedParameters);
+        self::assertCount(4, $mappedParameters);
+        self::assertArrayHasKey('css_class', $mappedParameters);
+        self::assertArrayHasKey('css_id', $mappedParameters);
+        self::assertArrayHasKey('compound', $mappedParameters);
+        self::assertArrayHasKey('inner', $mappedParameters);
 
-        $this->assertInstanceOf(Parameter::class, $mappedParameters['css_class']);
-        $this->assertSame($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->getParameterDefinition());
-        $this->assertSame('some-class', $mappedParameters['css_class']->getValue());
-        $this->assertFalse($mappedParameters['css_class']->isEmpty());
+        self::assertInstanceOf(Parameter::class, $mappedParameters['css_class']);
+        self::assertSame($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->getParameterDefinition());
+        self::assertSame('some-class', $mappedParameters['css_class']->getValue());
+        self::assertFalse($mappedParameters['css_class']->isEmpty());
 
-        $this->assertInstanceOf(Parameter::class, $mappedParameters['css_id']);
-        $this->assertSame($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->getParameterDefinition());
-        $this->assertSame('some-id', $mappedParameters['css_id']->getValue());
-        $this->assertFalse($mappedParameters['css_id']->isEmpty());
+        self::assertInstanceOf(Parameter::class, $mappedParameters['css_id']);
+        self::assertSame($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->getParameterDefinition());
+        self::assertSame('some-id', $mappedParameters['css_id']->getValue());
+        self::assertFalse($mappedParameters['css_id']->isEmpty());
 
-        $this->assertInstanceOf(Parameter::class, $mappedParameters['compound']);
-        $this->assertSame($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->getParameterDefinition());
-        $this->assertTrue($mappedParameters['compound']->getValue());
-        $this->assertFalse($mappedParameters['compound']->isEmpty());
+        self::assertInstanceOf(Parameter::class, $mappedParameters['compound']);
+        self::assertSame($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->getParameterDefinition());
+        self::assertTrue($mappedParameters['compound']->getValue());
+        self::assertFalse($mappedParameters['compound']->isEmpty());
 
-        $this->assertInstanceOf(Parameter::class, $mappedParameters['inner']);
-        $this->assertSame($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
-        $this->assertSame('inner-value', $mappedParameters['inner']->getValue());
-        $this->assertFalse($mappedParameters['inner']->isEmpty());
+        self::assertInstanceOf(Parameter::class, $mappedParameters['inner']);
+        self::assertSame($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
+        self::assertSame('inner-value', $mappedParameters['inner']->getValue());
+        self::assertFalse($mappedParameters['inner']->isEmpty());
     }
 
     /**
@@ -95,7 +95,7 @@ final class ParameterMapperTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'css_class' => 'some-class',
                 'compound' => true,
@@ -127,7 +127,7 @@ final class ParameterMapperTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'other' => null,
                 'css_id' => 'some-id',

@@ -25,6 +25,6 @@ final class RoutePrefixTest extends TestCase
      */
     public function testGetFormType(): void
     {
-        $this->assertSame(TextType::class, $this->mapper->getFormType());
+        self::assertSame(TextType::class, $this->mapper->getFormType());
     }
 }

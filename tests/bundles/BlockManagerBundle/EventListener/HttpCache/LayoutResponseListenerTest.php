@@ -41,7 +41,7 @@ final class LayoutResponseListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 KernelEvents::RESPONSE => 'onKernelResponse',
                 KernelEvents::EXCEPTION => 'onKernelException',
@@ -72,9 +72,9 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('tagLayout')
-            ->with($this->identicalTo($response), $this->identicalTo($layout));
+            ->with(self::identicalTo($response), self::identicalTo($layout));
 
         $this->listener->onKernelResponse($event);
     }
@@ -97,7 +97,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
@@ -121,7 +121,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
@@ -148,9 +148,9 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('tagLayout')
-            ->with($this->identicalTo($response), $this->identicalTo($layout));
+            ->with(self::identicalTo($response), self::identicalTo($layout));
 
         $this->listener->onKernelException(
             new GetResponseForExceptionEvent(
@@ -183,7 +183,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('tagLayout');
 
         $this->listener->onKernelException(
@@ -217,7 +217,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('tagLayout');
 
         $this->listener->onKernelException(

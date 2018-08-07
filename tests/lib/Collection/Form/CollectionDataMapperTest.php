@@ -39,8 +39,8 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($data, $forms);
 
-        $this->assertSame('10', $forms['offset']->getData());
-        $this->assertSame('5', $forms['limit']->getData());
+        self::assertSame('10', $forms['offset']->getData());
+        self::assertSame('5', $forms['limit']->getData());
     }
 
     /**
@@ -61,8 +61,8 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($data, $forms);
 
-        $this->assertSame('10', $forms['offset']->getData());
-        $this->assertNull($forms['limit']->getData());
+        self::assertSame('10', $forms['offset']->getData());
+        self::assertNull($forms['limit']->getData());
     }
 
     /**
@@ -81,8 +81,8 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertSame('10', $data->offset);
-        $this->assertSame('5', $data->limit);
+        self::assertSame('10', $data->offset);
+        self::assertSame('5', $data->limit);
     }
 
     /**
@@ -101,7 +101,7 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        $this->assertSame('10', $data->offset);
-        $this->assertSame(0, $data->limit);
+        self::assertSame('10', $data->offset);
+        self::assertSame(0, $data->limit);
     }
 }

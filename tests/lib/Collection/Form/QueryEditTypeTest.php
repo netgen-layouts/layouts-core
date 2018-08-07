@@ -79,23 +79,23 @@ final class QueryEditTypeTest extends FormTestCase
 
         $form->submit($submittedData);
 
-        $this->assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSynchronized());
 
-        $this->assertSame(['param' => 'Param value'], $struct->getParameterValues());
+        self::assertSame(['param' => 'Param value'], $struct->getParameterValues());
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
 
         foreach (array_keys($submittedData['parameters']) as $key) {
-            $this->assertArrayHasKey($key, $children['parameters']);
+            self::assertArrayHasKey($key, $children['parameters']);
         }
 
-        $this->assertArrayHasKey('query', $view->vars);
-        $this->assertSame($this->query, $view->vars['query']);
+        self::assertArrayHasKey('query', $view->vars);
+        self::assertSame($this->query, $view->vars['query']);
     }
 
     /**
@@ -120,9 +120,9 @@ final class QueryEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertFalse($form->get('parameters')->isDisabled());
-        $this->assertTrue($form->get('parameters')->get('param')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('param2')->isDisabled());
+        self::assertFalse($form->get('parameters')->isDisabled());
+        self::assertTrue($form->get('parameters')->get('param')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('param2')->isDisabled());
     }
 
     /**
@@ -147,9 +147,9 @@ final class QueryEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertFalse($form->get('parameters')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('param')->isDisabled());
-        $this->assertFalse($form->get('parameters')->get('param2')->isDisabled());
+        self::assertFalse($form->get('parameters')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('param')->isDisabled());
+        self::assertFalse($form->get('parameters')->get('param2')->isDisabled());
     }
 
     /**
@@ -171,8 +171,8 @@ final class QueryEditTypeTest extends FormTestCase
             ]
         );
 
-        $this->assertSame($this->query, $options['query']);
-        $this->assertSame($struct, $options['data']);
+        self::assertSame($this->query, $options['query']);
+        self::assertSame($struct, $options['data']);
     }
 
     /**

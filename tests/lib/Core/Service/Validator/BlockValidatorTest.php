@@ -65,7 +65,7 @@ final class BlockValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $blockCreateStruct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
     }
@@ -84,7 +84,7 @@ final class BlockValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $blockUpdateStruct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->blockValidator->validateBlockUpdateStruct(
             Block::fromArray(

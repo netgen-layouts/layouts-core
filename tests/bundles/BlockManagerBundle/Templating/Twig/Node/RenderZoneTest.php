@@ -25,8 +25,8 @@ final class RenderZoneTest extends NodeTest
         $context = new NameExpression('context', 1);
         $node = new RenderZone($zone, $context, 1);
 
-        $this->assertSame($zone, $node->getNode('zone'));
-        $this->assertSame($context, $node->getNode('context'));
+        self::assertSame($zone, $node->getNode('zone'));
+        self::assertSame($context, $node->getNode('context'));
     }
 
     /**
@@ -37,8 +37,8 @@ final class RenderZoneTest extends NodeTest
         $zone = new NameExpression('zone', 1);
         $node = new RenderZone($zone, null, 1);
 
-        $this->assertSame($zone, $node->getNode('zone'));
-        $this->assertFalse($node->hasNode('context'));
+        self::assertSame($zone, $node->getNode('zone'));
+        self::assertFalse($node->hasNode('context'));
     }
 
     public function getTests(): array

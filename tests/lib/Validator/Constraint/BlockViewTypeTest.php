@@ -15,6 +15,6 @@ final class BlockViewTypeTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new BlockViewType();
-        $this->assertSame('ngbm_block_view_type', $constraint->validatedBy());
+        self::assertSame('ngbm_block_view_type', $constraint->validatedBy());
     }
 }

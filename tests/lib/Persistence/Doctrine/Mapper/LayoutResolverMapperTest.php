@@ -71,11 +71,8 @@ final class LayoutResolverMapperTest extends TestCase
 
         $rules = $this->mapper->mapRules($data);
 
-        foreach ($rules as $rule) {
-            $this->assertInstanceOf(Rule::class, $rule);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($rules));
+        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
+        self::assertSame($expectedData, $this->exportObjectList($rules));
     }
 
     /**
@@ -119,11 +116,8 @@ final class LayoutResolverMapperTest extends TestCase
 
         $targets = $this->mapper->mapTargets($data);
 
-        foreach ($targets as $target) {
-            $this->assertInstanceOf(Target::class, $target);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($targets));
+        self::assertContainsOnlyInstancesOf(Target::class, $targets);
+        self::assertSame($expectedData, $this->exportObjectList($targets));
     }
 
     /**
@@ -169,10 +163,7 @@ final class LayoutResolverMapperTest extends TestCase
 
         $conditions = $this->mapper->mapConditions($data);
 
-        foreach ($conditions as $condition) {
-            $this->assertInstanceOf(Condition::class, $condition);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($conditions));
+        self::assertContainsOnlyInstancesOf(Condition::class, $conditions);
+        self::assertSame($expectedData, $this->exportObjectList($conditions));
     }
 }

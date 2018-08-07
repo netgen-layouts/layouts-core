@@ -66,9 +66,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'main_checkbox' => true,
                 'css_class' => 'Some CSS class',
@@ -80,10 +80,10 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+            self::assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -133,9 +133,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'main_checkbox' => false,
             ],
@@ -145,10 +145,10 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+            self::assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -195,9 +195,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'main_checkbox' => false,
             ],
@@ -207,10 +207,10 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+            self::assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -262,9 +262,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'main_checkbox' => true,
             ],
@@ -274,10 +274,10 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+            self::assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -328,9 +328,9 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm->submit($submittedData);
 
-        $this->assertTrue($parentForm->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'main_checkbox' => false,
                 'css_class' => 'Some CSS class',
@@ -342,10 +342,10 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+            self::assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -364,8 +364,8 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        $this->assertTrue($resolvedOptions['inherit_data']);
-        $this->assertTrue($resolvedOptions['reverse']);
+        self::assertTrue($resolvedOptions['inherit_data']);
+        self::assertTrue($resolvedOptions['reverse']);
     }
 
     /**
@@ -373,6 +373,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngbm_compound_boolean', $this->formType->getBlockPrefix());
+        self::assertSame('ngbm_compound_boolean', $this->formType->getBlockPrefix());
     }
 }

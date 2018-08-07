@@ -48,7 +48,7 @@ final class LayoutTypeNormalizerTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => '4_zones_a',
                 'name' => 'Layout type',
@@ -79,7 +79,7 @@ final class LayoutTypeNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
-        $this->assertSame($expected, $this->normalizer->supportsNormalization($data));
+        self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
     public function supportsNormalizationProvider(): array

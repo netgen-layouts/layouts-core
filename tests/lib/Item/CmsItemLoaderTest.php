@@ -52,11 +52,11 @@ final class CmsItemLoaderTest extends TestCase
         );
 
         $this->cmsItemBuilderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('build')
-            ->will($this->returnValue($item));
+            ->will(self::returnValue($item));
 
-        $this->assertSame($item, $this->cmsItemLoader->load(42, 'value'));
+        self::assertSame($item, $this->cmsItemLoader->load(42, 'value'));
     }
 
     /**
@@ -71,8 +71,8 @@ final class CmsItemLoaderTest extends TestCase
 
         $loadedValue = $this->cmsItemLoader->load(42, 'value');
 
-        $this->assertInstanceOf(NullCmsItem::class, $loadedValue);
-        $this->assertSame('value', $loadedValue->getValueType());
+        self::assertInstanceOf(NullCmsItem::class, $loadedValue);
+        self::assertSame('value', $loadedValue->getValueType());
     }
 
     /**
@@ -109,11 +109,11 @@ final class CmsItemLoaderTest extends TestCase
         );
 
         $this->cmsItemBuilderMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('build')
-            ->will($this->returnValue($item));
+            ->will(self::returnValue($item));
 
-        $this->assertSame($item, $this->cmsItemLoader->loadByRemoteId(42, 'value'));
+        self::assertSame($item, $this->cmsItemLoader->loadByRemoteId(42, 'value'));
     }
 
     /**
@@ -128,8 +128,8 @@ final class CmsItemLoaderTest extends TestCase
 
         $loadedValue = $this->cmsItemLoader->loadByRemoteId(42, 'value');
 
-        $this->assertInstanceOf(NullCmsItem::class, $loadedValue);
-        $this->assertSame('value', $loadedValue->getValueType());
+        self::assertInstanceOf(NullCmsItem::class, $loadedValue);
+        self::assertSame('value', $loadedValue->getValueType());
     }
 
     /**

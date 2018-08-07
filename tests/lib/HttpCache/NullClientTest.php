@@ -27,7 +27,7 @@ final class NullClientTest extends TestCase
         $this->client->invalidateLayouts([24, 42]);
 
         // Fake assertion to disable risky warning
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -38,7 +38,7 @@ final class NullClientTest extends TestCase
         $this->client->invalidateAllLayouts();
 
         // Fake assertion to disable risky warning
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -49,7 +49,7 @@ final class NullClientTest extends TestCase
         $this->client->invalidateBlocks([24, 42]);
 
         // Fake assertion to disable risky warning
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -60,7 +60,7 @@ final class NullClientTest extends TestCase
         $this->client->invalidateLayoutBlocks([24, 42]);
 
         // Fake assertion to disable risky warning
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -71,7 +71,7 @@ final class NullClientTest extends TestCase
         $this->client->invalidateAllBlocks();
 
         // Fake assertion to disable risky warning
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -79,6 +79,6 @@ final class NullClientTest extends TestCase
      */
     public function testCommit(): void
     {
-        $this->assertTrue($this->client->commit());
+        self::assertTrue($this->client->commit());
     }
 }

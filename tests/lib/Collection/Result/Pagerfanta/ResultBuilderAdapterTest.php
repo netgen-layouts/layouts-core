@@ -30,19 +30,19 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects($this->once())
+        $this->resultBuilderMock->expects(self::once())
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 3])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 3])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
-        $this->assertSame(3, $adapter->getNbResults());
+        self::assertSame(3, $adapter->getNbResults());
     }
 
     /**
@@ -53,19 +53,19 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResultsWithMaxTotalCount(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects($this->once())
+        $this->resultBuilderMock->expects(self::once())
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 50])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 50])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 0, 10);
 
-        $this->assertSame(10, $adapter->getNbResults());
+        self::assertSame(10, $adapter->getNbResults());
     }
 
     /**
@@ -75,19 +75,19 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResultsWithStartingOffset(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects($this->once())
+        $this->resultBuilderMock->expects(self::once())
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 6])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 6])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 
-        $this->assertSame(3, $adapter->getNbResults());
+        self::assertSame(3, $adapter->getNbResults());
     }
 
     /**
@@ -97,19 +97,19 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResultsWithStartingOffsetAndMaxTotalCount(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects($this->once())
+        $this->resultBuilderMock->expects(self::once())
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(0),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(0),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue(ResultSet::fromArray(['totalCount' => 10])));
+            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 10])));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3, 5);
 
-        $this->assertSame(5, $adapter->getNbResults());
+        self::assertSame(5, $adapter->getNbResults());
     }
 
     /**
@@ -121,19 +121,19 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $resultSet = ResultSet::fromArray(['results' => [1, 2, 3], 'totalCount' => 3]);
 
-        $this->resultBuilderMock->expects($this->once())
+        $this->resultBuilderMock->expects(self::once())
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(0),
-                $this->identicalTo(10),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(0),
+                self::identicalTo(10),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue($resultSet));
+            ->will(self::returnValue($resultSet));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
-        $this->assertSame($resultSet, $adapter->getSlice(0, 10));
+        self::assertSame($resultSet, $adapter->getSlice(0, 10));
     }
 
     /**
@@ -145,18 +145,18 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $resultSet = ResultSet::fromArray(['results' => [1, 2, 3], 'totalCount' => 3]);
 
-        $this->resultBuilderMock->expects($this->once())
+        $this->resultBuilderMock->expects(self::once())
             ->method('build')
             ->with(
-                $this->identicalTo($collection),
-                $this->identicalTo(3),
-                $this->identicalTo(10),
-                $this->identicalTo(0)
+                self::identicalTo($collection),
+                self::identicalTo(3),
+                self::identicalTo(10),
+                self::identicalTo(0)
             )
-            ->will($this->returnValue($resultSet));
+            ->will(self::returnValue($resultSet));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 
-        $this->assertSame($resultSet, $adapter->getSlice(0, 10));
+        self::assertSame($resultSet, $adapter->getSlice(0, 10));
     }
 }

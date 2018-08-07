@@ -57,7 +57,7 @@ final class LayoutValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->layoutValidator->validateLayoutCreateStruct($struct);
     }
@@ -76,7 +76,7 @@ final class LayoutValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->layoutValidator->validateLayoutUpdateStruct($struct);
     }
@@ -95,7 +95,7 @@ final class LayoutValidatorTest extends TestCase
         (new Hydrator())->hydrate($params, $struct);
 
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->layoutValidator->validateLayoutCopyStruct($struct);
     }
@@ -107,7 +107,7 @@ final class LayoutValidatorTest extends TestCase
     public function testValidateChangeLayoutType(array $zoneMapping): void
     {
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -122,7 +122,7 @@ final class LayoutValidatorTest extends TestCase
     public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones(): void
     {
         // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
+        self::assertTrue(true);
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),

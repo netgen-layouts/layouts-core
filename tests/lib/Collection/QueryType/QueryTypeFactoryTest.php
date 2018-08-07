@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Tests\Collection\QueryType;
 
 use Netgen\BlockManager\Collection\QueryType\QueryTypeFactory;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
@@ -27,10 +26,10 @@ final class QueryTypeFactoryTest extends TestCase
     {
         $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
         $this->parameterBuilderFactoryMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('createParameterBuilder')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     $this->createMock(ParameterBuilderInterface::class)
                 )
             );
@@ -53,11 +52,10 @@ final class QueryTypeFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
-        $this->assertSame('type', $queryType->getType());
+        self::assertSame('type', $queryType->getType());
 
-        $this->assertFalse($queryType->isEnabled());
-        $this->assertSame('Query type', $queryType->getName());
+        self::assertFalse($queryType->isEnabled());
+        self::assertSame('Query type', $queryType->getName());
     }
 
     /**
@@ -74,10 +72,9 @@ final class QueryTypeFactoryTest extends TestCase
             ]
         );
 
-        $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
-        $this->assertSame('type', $queryType->getType());
+        self::assertSame('type', $queryType->getType());
 
-        $this->assertTrue($queryType->isEnabled());
-        $this->assertSame('', $queryType->getName());
+        self::assertTrue($queryType->isEnabled());
+        self::assertSame('', $queryType->getName());
     }
 }

@@ -21,7 +21,7 @@ final class VisibilityResolverTest extends TestCase
         $VisibilityResolver = new VisibilityResolver();
         $VisibilityResolver->setVoters($voters);
 
-        $this->assertSame($result, $VisibilityResolver->isVisible(new Item()));
+        self::assertSame($result, $VisibilityResolver->isVisible(new Item()));
     }
 
     public function isVisibleProvider(): array

@@ -31,7 +31,7 @@ final class ViewTypeTest extends TestCase
     {
         $view = new ItemView(new CmsItem(), 'view_type');
 
-        $this->assertSame($expected, $this->matcher->match($view, $config));
+        self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
     public function matchProvider(): array
@@ -50,6 +50,6 @@ final class ViewTypeTest extends TestCase
      */
     public function testMatchWithNoItemView(): void
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), []));
+        self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 }

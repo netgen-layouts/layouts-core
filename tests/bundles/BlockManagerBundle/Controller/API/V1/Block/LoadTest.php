@@ -17,7 +17,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/view_block',
             Response::HTTP_OK
@@ -31,7 +31,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?published=true&html=false');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/blocks/view_published_block',
             Response::HTTP_OK
@@ -45,7 +45,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'

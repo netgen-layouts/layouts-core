@@ -16,7 +16,7 @@ final class ConfigDefinitionExceptionTest extends TestCase
     {
         $exception = ConfigDefinitionException::noConfigDefinition('key');
 
-        $this->assertSame(
+        self::assertSame(
             'Config definition with "key" config key does not exist.',
             $exception->getMessage()
         );

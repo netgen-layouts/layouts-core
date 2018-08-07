@@ -30,7 +30,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('collection', $this->collection->getIdentifier());
+        self::assertSame('collection', $this->collection->getIdentifier());
     }
 
     /**
@@ -38,7 +38,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetValidQueryTypes(): void
     {
-        $this->assertSame(['query'], $this->collection->getValidQueryTypes());
+        self::assertSame(['query'], $this->collection->getValidQueryTypes());
     }
 
     /**
@@ -46,8 +46,8 @@ final class CollectionTest extends TestCase
      */
     public function testIsValidQueryType(): void
     {
-        $this->assertTrue($this->collection->isValidQueryType('query'));
-        $this->assertFalse($this->collection->isValidQueryType('query2'));
+        self::assertTrue($this->collection->isValidQueryType('query'));
+        self::assertFalse($this->collection->isValidQueryType('query2'));
     }
 
     /**
@@ -61,8 +61,8 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->collection->isValidQueryType('query'));
-        $this->assertTrue($this->collection->isValidQueryType('query2'));
+        self::assertTrue($this->collection->isValidQueryType('query'));
+        self::assertTrue($this->collection->isValidQueryType('query2'));
     }
 
     /**
@@ -76,8 +76,8 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertFalse($this->collection->isValidQueryType('query'));
-        $this->assertFalse($this->collection->isValidQueryType('query2'));
+        self::assertFalse($this->collection->isValidQueryType('query'));
+        self::assertFalse($this->collection->isValidQueryType('query2'));
     }
 
     /**
@@ -85,7 +85,7 @@ final class CollectionTest extends TestCase
      */
     public function testGetValidItemTypes(): void
     {
-        $this->assertSame(['item'], $this->collection->getValidItemTypes());
+        self::assertSame(['item'], $this->collection->getValidItemTypes());
     }
 
     /**
@@ -93,8 +93,8 @@ final class CollectionTest extends TestCase
      */
     public function testIsValidItemType(): void
     {
-        $this->assertTrue($this->collection->isValidItemType('item'));
-        $this->assertFalse($this->collection->isValidItemType('item2'));
+        self::assertTrue($this->collection->isValidItemType('item'));
+        self::assertFalse($this->collection->isValidItemType('item2'));
     }
 
     /**
@@ -108,8 +108,8 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertTrue($this->collection->isValidItemType('item'));
-        $this->assertTrue($this->collection->isValidItemType('item2'));
+        self::assertTrue($this->collection->isValidItemType('item'));
+        self::assertTrue($this->collection->isValidItemType('item2'));
     }
 
     /**
@@ -123,7 +123,7 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        $this->assertFalse($this->collection->isValidItemType('item'));
-        $this->assertFalse($this->collection->isValidItemType('item2'));
+        self::assertFalse($this->collection->isValidItemType('item'));
+        self::assertFalse($this->collection->isValidItemType('item2'));
     }
 }

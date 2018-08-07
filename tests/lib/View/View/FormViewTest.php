@@ -8,7 +8,6 @@ use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Forms;
-use Symfony\Component\Form\FormView as SymfonyFormView;
 
 final class FormViewTest extends TestCase
 {
@@ -43,12 +42,11 @@ final class FormViewTest extends TestCase
      */
     public function testGetForm(): void
     {
-        $this->assertSame($this->form, $this->view->getForm());
-        $this->assertSame(FormType::class, $this->view->getFormType());
-        $this->assertInstanceOf(SymfonyFormView::class, $this->view->getFormView());
+        self::assertSame($this->form, $this->view->getForm());
+        self::assertSame(FormType::class, $this->view->getFormType());
 
-        $this->assertSame('value', $this->view->getParameter('param'));
-        $this->assertInstanceOf(SymfonyFormView::class, $this->view->getParameter('form'));
+        self::assertSame($this->view->getFormView(), $this->view->getParameter('form'));
+        self::assertSame('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -56,6 +54,6 @@ final class FormViewTest extends TestCase
      */
     public function testGetIdentifier(): void
     {
-        $this->assertSame('form', $this->view::getIdentifier());
+        self::assertSame('form', $this->view::getIdentifier());
     }
 }

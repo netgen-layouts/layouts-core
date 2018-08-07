@@ -45,31 +45,31 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertSame($collection, $result->getCollection());
-        $this->assertSame([$resultItem], $result->getResults());
-        $this->assertFalse($result->isContextual());
-        $this->assertSame(15, $result->getTotalCount());
-        $this->assertSame(3, $result->getOffset());
-        $this->assertSame(5, $result->getLimit());
+        self::assertSame($collection, $result->getCollection());
+        self::assertSame([$resultItem], $result->getResults());
+        self::assertFalse($result->isContextual());
+        self::assertSame(15, $result->getTotalCount());
+        self::assertSame(3, $result->getOffset());
+        self::assertSame(5, $result->getLimit());
 
-        $this->assertInstanceOf(Traversable::class, $result->getIterator());
-        $this->assertSame([$resultItem], iterator_to_array($result->getIterator()));
+        self::assertInstanceOf(Traversable::class, $result->getIterator());
+        self::assertSame([$resultItem], iterator_to_array($result->getIterator()));
 
-        $this->assertCount(1, $result);
+        self::assertCount(1, $result);
 
-        $this->assertTrue(isset($result[0]));
-        $this->assertSame($resultItem, $result[0]);
+        self::assertTrue(isset($result[0]));
+        self::assertSame($resultItem, $result[0]);
 
         try {
             $result[0] = 'new';
-            $this->fail('Succeeded in setting a new value to result set.');
+            self::fail('Succeeded in setting a new value to result set.');
         } catch (RuntimeException $e) {
             // Do nothing
         }
 
         try {
             unset($result[0]);
-            $this->fail('Succeeded in unsetting a value in result set.');
+            self::fail('Succeeded in unsetting a value in result set.');
         } catch (RuntimeException $e) {
             // Do nothing
         }
@@ -90,7 +90,7 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertTrue($result->isDynamic());
+        self::assertTrue($result->isDynamic());
     }
 
     /**
@@ -104,7 +104,7 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertFalse($result->isDynamic());
+        self::assertFalse($result->isDynamic());
     }
 
     /**
@@ -126,7 +126,7 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertFalse($result->isContextual());
+        self::assertFalse($result->isContextual());
     }
 
     /**
@@ -140,7 +140,7 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertFalse($result->isContextual());
+        self::assertFalse($result->isContextual());
     }
 
     /**
@@ -162,6 +162,6 @@ final class ResultSetTest extends TestCase
             ]
         );
 
-        $this->assertTrue($result->isContextual());
+        self::assertTrue($result->isContextual());
     }
 }

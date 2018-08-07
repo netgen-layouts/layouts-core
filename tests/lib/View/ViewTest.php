@@ -36,7 +36,7 @@ final class ViewTest extends TestCase
     {
         $this->view->setContext('context');
 
-        $this->assertSame('context', $this->view->getContext());
+        self::assertSame('context', $this->view->getContext());
     }
 
     /**
@@ -47,7 +47,7 @@ final class ViewTest extends TestCase
     {
         $this->view->setTemplate('template.html.twig');
 
-        $this->assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertSame('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -55,7 +55,7 @@ final class ViewTest extends TestCase
      */
     public function testGetFallbackContext(): void
     {
-        $this->assertNull($this->view->getFallbackContext());
+        self::assertNull($this->view->getFallbackContext());
     }
 
     /**
@@ -65,7 +65,7 @@ final class ViewTest extends TestCase
     {
         $this->view->setFallbackContext('fallback');
 
-        $this->assertSame('fallback', $this->view->getFallbackContext());
+        self::assertSame('fallback', $this->view->getFallbackContext());
     }
 
     /**
@@ -73,7 +73,7 @@ final class ViewTest extends TestCase
      */
     public function testGetDefaultResponse(): void
     {
-        $this->assertNull($this->view->getResponse());
+        self::assertNull($this->view->getResponse());
     }
 
     /**
@@ -86,7 +86,7 @@ final class ViewTest extends TestCase
 
         $this->view->setResponse($response);
 
-        $this->assertSame($response, $this->view->getResponse());
+        self::assertSame($response, $this->view->getResponse());
     }
 
     /**
@@ -97,7 +97,7 @@ final class ViewTest extends TestCase
     {
         $this->view->addParameter('param', 'value');
 
-        $this->assertTrue($this->view->hasParameter('param'));
+        self::assertTrue($this->view->hasParameter('param'));
     }
 
     /**
@@ -108,7 +108,7 @@ final class ViewTest extends TestCase
     {
         $this->view->addParameter('param', 'value');
 
-        $this->assertFalse($this->view->hasParameter('other_param'));
+        self::assertFalse($this->view->hasParameter('other_param'));
     }
 
     /**
@@ -119,7 +119,7 @@ final class ViewTest extends TestCase
     {
         $this->view->addParameter('param', 'value');
 
-        $this->assertSame('value', $this->view->getParameter('param'));
+        self::assertSame('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -154,7 +154,7 @@ final class ViewTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'value' => $this->value,
                 'some_param' => 'new_value',

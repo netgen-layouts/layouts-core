@@ -16,7 +16,7 @@ final class ValidationExceptionTest extends TestCase
     {
         $exception = ValidationException::validationFailed('param', 'Some error');
 
-        $this->assertSame(
+        self::assertSame(
             'There was an error validating "param": Some error',
             $exception->getMessage()
         );

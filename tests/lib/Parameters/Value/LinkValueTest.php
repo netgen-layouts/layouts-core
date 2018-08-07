@@ -26,9 +26,9 @@ final class LinkValueTest extends TestCase
             ]
         );
 
-        $this->assertSame(LinkValue::LINK_TYPE_EMAIL, $linkValue->getLinkType());
-        $this->assertSame('mail@example.com', $linkValue->getLink());
-        $this->assertSame('?suffix', $linkValue->getLinkSuffix());
-        $this->assertTrue($linkValue->getNewWindow());
+        self::assertSame(LinkValue::LINK_TYPE_EMAIL, $linkValue->getLinkType());
+        self::assertSame('mail@example.com', $linkValue->getLink());
+        self::assertSame('?suffix', $linkValue->getLinkSuffix());
+        self::assertTrue($linkValue->getNewWindow());
     }
 }

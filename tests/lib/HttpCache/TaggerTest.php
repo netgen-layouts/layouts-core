@@ -33,11 +33,11 @@ final class TaggerTest extends TestCase
 
         $this->tagger->tagLayout($response, $layout);
 
-        $this->assertTrue($response->headers->has('X-Layout-Id'));
-        $this->assertSame('42', $response->headers->get('X-Layout-Id'));
+        self::assertTrue($response->headers->has('X-Layout-Id'));
+        self::assertSame('42', $response->headers->get('X-Layout-Id'));
 
-        $this->assertTrue($response->hasVary());
-        $this->assertSame(['Cookie', 'X-Layout-Id'], $response->getVary());
+        self::assertTrue($response->hasVary());
+        self::assertSame(['Cookie', 'X-Layout-Id'], $response->getVary());
     }
 
     /**
@@ -50,10 +50,10 @@ final class TaggerTest extends TestCase
 
         $this->tagger->tagBlock($response, $block);
 
-        $this->assertTrue($response->headers->has('X-Block-Id'));
-        $this->assertSame('42', $response->headers->get('X-Block-Id'));
+        self::assertTrue($response->headers->has('X-Block-Id'));
+        self::assertSame('42', $response->headers->get('X-Block-Id'));
 
-        $this->assertTrue($response->headers->has('X-Origin-Layout-Id'));
-        $this->assertSame('24', $response->headers->get('X-Origin-Layout-Id'));
+        self::assertTrue($response->headers->has('X-Origin-Layout-Id'));
+        self::assertSame('24', $response->headers->get('X-Origin-Layout-Id'));
     }
 }

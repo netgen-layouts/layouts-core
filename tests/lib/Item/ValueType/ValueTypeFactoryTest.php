@@ -25,7 +25,7 @@ final class ValueTypeFactoryTest extends TestCase
             ]
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'identifier' => 'value',
                 'isEnabled' => false,

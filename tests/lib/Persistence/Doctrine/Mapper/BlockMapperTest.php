@@ -131,11 +131,8 @@ final class BlockMapperTest extends TestCase
 
         $blocks = $this->mapper->mapBlocks($data);
 
-        foreach ($blocks as $block) {
-            $this->assertInstanceOf(Block::class, $block);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($blocks));
+        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
+        self::assertSame($expectedData, $this->exportObjectList($blocks));
     }
 
     /**
@@ -179,10 +176,7 @@ final class BlockMapperTest extends TestCase
 
         $collectionReferences = $this->mapper->mapCollectionReferences($data);
 
-        foreach ($collectionReferences as $collectionReference) {
-            $this->assertInstanceOf(CollectionReference::class, $collectionReference);
-        }
-
-        $this->assertSame($expectedData, $this->exportObjectList($collectionReferences));
+        self::assertContainsOnlyInstancesOf(CollectionReference::class, $collectionReferences);
+        self::assertSame($expectedData, $this->exportObjectList($collectionReferences));
     }
 }
