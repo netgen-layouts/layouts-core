@@ -84,7 +84,7 @@ final class BlockDefinitionFactory
         TwigBlockDefinitionHandlerInterface $handler,
         array $config,
         array $configDefinitionHandlers
-    ): BlockDefinitionInterface {
+    ): TwigBlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
@@ -110,7 +110,7 @@ final class BlockDefinitionFactory
         ContainerDefinitionHandlerInterface $handler,
         array $config,
         array $configDefinitionHandlers
-    ): BlockDefinitionInterface {
+    ): ContainerDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
