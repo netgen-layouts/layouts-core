@@ -20,14 +20,14 @@ final class ZoneCreateStruct
     /**
      * Identifier of the zone that will be linked to the new zone.
      *
-     * @var string
+     * @var string|null
      */
     public $linkedZoneIdentifier;
 
     /**
      * ID of the layout where the linked zone is located.
      *
-     * @var int|string
+     * @var int|string|null
      */
     public $linkedLayoutId;
 }

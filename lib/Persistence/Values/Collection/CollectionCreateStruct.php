@@ -27,7 +27,7 @@ final class CollectionCreateStruct
     /**
      * Starting limit for the collection results.
      *
-     * @var int
+     * @var int|null
      */
     public $limit;
 

@@ -27,7 +27,7 @@ final class LayoutCreateStruct
     /**
      * Human readable description of the new layout.
      *
-     * @var string
+     * @var string|null
      */
     public $description;
 

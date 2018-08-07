@@ -13,14 +13,14 @@ final class RuleCreateStruct
     /**
      * ID of the layout mapped to new rule.
      *
-     * @var int|string
+     * @var int|string|null
      */
     public $layoutId;
 
     /**
      * Priority of the new rule.
      *
-     * @var int
+     * @var int|null
      */
     public $priority;
 
@@ -34,7 +34,7 @@ final class RuleCreateStruct
     /**
      * Human readable comment of the rule.
      *
-     * @var string
+     * @var string|null
      */
     public $comment;
 

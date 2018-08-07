@@ -13,14 +13,14 @@ final class RuleMetadataUpdateStruct
     /**
      * Flag indicating if the rule will be enabled or not.
      *
-     * @var bool
+     * @var bool|null
      */
     public $enabled;
 
     /**
      * Priority of the rule.
      *
-     * @var int
+     * @var int|null
      */
     public $priority;
 }

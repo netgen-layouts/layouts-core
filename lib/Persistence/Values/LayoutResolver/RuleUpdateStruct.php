@@ -13,14 +13,14 @@ final class RuleUpdateStruct
     /**
      * ID of the mapped layout. Set to 0 to remove the existing mapping.
      *
-     * @var int|string
+     * @var int|string|null
      */
     public $layoutId;
 
     /**
      * Human readable comment of the rule.
      *
-     * @var string
+     * @var string|null
      */
     public $comment;
 }
