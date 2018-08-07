@@ -293,10 +293,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $currentTimeStamp = time();
         $copiedLayout->created = $currentTimeStamp;
         $copiedLayout->modified = $currentTimeStamp;
-
-        if (is_string($layoutCopyStruct->name)) {
-            $copiedLayout->name = trim($layoutCopyStruct->name);
-        }
+        $copiedLayout->name = trim($layoutCopyStruct->name);
 
         if (is_string($layoutCopyStruct->description)) {
             $copiedLayout->description = trim($layoutCopyStruct->description);
