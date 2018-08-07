@@ -178,15 +178,11 @@ final class BlockManagerDataCollector extends DataCollector
      */
     private function formatVar($var)
     {
-        if (method_exists($this, 'cloneVar')) {
-            return $this->cloneVar($var);
-        }
-
         if (method_exists($this, 'varToString')) {
             // @deprecated Remove when support for Symfony 2.8 ends
             return $this->varToString($var);
         }
 
-        return $var;
+        return $this->cloneVar($var);
     }
 }
