@@ -47,7 +47,7 @@ final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasParameter(
+        $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.view',
             [
                 'test_view' => [

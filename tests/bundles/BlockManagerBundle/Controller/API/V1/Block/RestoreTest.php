@@ -50,7 +50,7 @@ final class RestoreTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'

@@ -46,7 +46,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
      */
     public function testValidate(string $value, bool $isValid): void
     {
-        self::assertValid($isValid, $value);
+        $this->assertValid($isValid, $value);
     }
 
     /**
@@ -57,7 +57,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, 'large');
+        $this->assertValid(true, 'large');
     }
 
     /**
@@ -68,7 +68,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
     {
         $this->constraint->definition = new stdClass();
-        self::assertValid(true, 'large');
+        $this->assertValid(true, 'large');
     }
 
     /**
@@ -78,7 +78,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

@@ -32,7 +32,7 @@ final class VisibilityResolverPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.collection.item_visibility_resolver',
             'setVoters',
             [

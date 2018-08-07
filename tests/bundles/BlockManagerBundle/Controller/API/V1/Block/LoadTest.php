@@ -45,7 +45,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'

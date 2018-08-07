@@ -35,7 +35,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
      */
     public function testValidate(string $value, bool $isValid): void
     {
-        self::assertValid($isValid, $value);
+        $this->assertValid($isValid, $value);
     }
 
     /**
@@ -46,7 +46,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, 'value');
+        $this->assertValid(true, 'value');
     }
 
     /**
@@ -56,7 +56,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

@@ -31,7 +31,7 @@ final class LoadItemsTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/collections/9999/items');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find collection with identifier "9999"'

@@ -47,7 +47,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
                 ->will(self::returnValue(!$isValid));
         }
 
-        self::assertValid($isValid, $value);
+        $this->assertValid($isValid, $value);
     }
 
     /**
@@ -58,7 +58,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, 'My layout');
+        $this->assertValid(true, 'My layout');
     }
 
     /**
@@ -68,7 +68,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

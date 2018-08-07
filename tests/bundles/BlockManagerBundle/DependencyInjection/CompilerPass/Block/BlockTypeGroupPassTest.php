@@ -36,8 +36,8 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_type_group',
             0,
             [
@@ -76,8 +76,8 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.block_type_group.test',
             2,
             [

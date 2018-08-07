@@ -70,7 +70,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function assertEmptyResponse(Response $response): void
     {
         self::assertEmpty($response->getContent());
-        self::assertResponseCode($response, Response::HTTP_NO_CONTENT);
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -83,9 +83,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
             $this->showErrorInBrowserIfOccurred($response);
         }
 
-        self::assertResponseCode($response, $statusCode);
-        self::assertHeader($response, 'application/json');
-        self::assertExceptionResponse($response, $statusCode, $message);
+        $this->assertResponseCode($response, $statusCode);
+        $this->assertHeader($response, 'application/json');
+        $this->assertExceptionResponse($response, $statusCode, $message);
     }
 
     /**

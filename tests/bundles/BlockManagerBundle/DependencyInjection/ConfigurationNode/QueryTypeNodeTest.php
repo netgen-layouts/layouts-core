@@ -43,7 +43,7 @@ final class QueryTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'query_types'
@@ -71,7 +71,7 @@ final class QueryTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'query_types.*.handler'
@@ -88,7 +88,7 @@ final class QueryTypeNodeTest extends TestCase
             'query_types' => [],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -103,7 +103,7 @@ final class QueryTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -120,7 +120,7 @@ final class QueryTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

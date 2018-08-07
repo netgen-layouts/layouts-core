@@ -24,7 +24,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.http_cache.fos.cache_manager',
             0,
             new Reference('fos_http_cache.proxy_client.varnish')
@@ -43,7 +43,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasAlias(
+        $this->assertContainerBuilderHasAlias(
             'netgen_block_manager.http_cache.client',
             'netgen_block_manager.http_cache.client.null'
         );
@@ -58,7 +58,7 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasAlias(
+        $this->assertContainerBuilderHasAlias(
             'netgen_block_manager.http_cache.client',
             'netgen_block_manager.http_cache.client.null'
         );

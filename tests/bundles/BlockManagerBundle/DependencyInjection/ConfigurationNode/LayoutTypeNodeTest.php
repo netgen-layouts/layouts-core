@@ -54,7 +54,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'layout_types'
@@ -84,7 +84,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'layout_types.*.icon'
@@ -116,7 +116,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'layout_types.*.icon'
@@ -179,7 +179,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'layout_types.*.zones'
@@ -220,7 +220,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'layout_types.*.zones.*.allowed_block_definitions'
@@ -261,7 +261,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'layout_types.*.zones.*.allowed_block_definitions'
@@ -275,7 +275,7 @@ final class LayoutTypeNodeTest extends TestCase
     public function testLayoutTypeSettingsWithEmptyLayouts(): void
     {
         $config = ['layout_types' => []];
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -285,7 +285,7 @@ final class LayoutTypeNodeTest extends TestCase
     public function testLayoutTypeSettingsWithNoName(): void
     {
         $config = ['layout_types' => ['layout' => []]];
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -302,7 +302,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -320,7 +320,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -338,7 +338,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
+        $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
     /**
@@ -356,7 +356,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -374,7 +374,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -395,7 +395,7 @@ final class LayoutTypeNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

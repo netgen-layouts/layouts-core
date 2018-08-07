@@ -32,7 +32,7 @@ final class DebugNodeTest extends TestCase
             'debug' => true,
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'debug'
@@ -55,7 +55,7 @@ final class DebugNodeTest extends TestCase
             'debug' => false,
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'debug'
@@ -73,7 +73,7 @@ final class DebugNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.debug". Expected boolean, but got array.');
+        $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.debug". Expected boolean, but got array.');
     }
 
     protected function getConfiguration(): ConfigurationInterface

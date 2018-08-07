@@ -30,7 +30,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
      */
     public function testValidate(?string $value, bool $isValid): void
     {
-        self::assertValid($isValid, $value);
+        $this->assertValid($isValid, $value);
     }
 
     /**
@@ -41,7 +41,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, 'hr_HR');
+        $this->assertValid(true, 'hr_HR');
     }
 
     /**
@@ -51,7 +51,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

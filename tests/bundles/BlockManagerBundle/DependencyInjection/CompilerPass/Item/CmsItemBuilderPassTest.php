@@ -33,7 +33,7 @@ final class CmsItemBuilderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.item.item_builder',
             0,
             [

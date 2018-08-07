@@ -30,13 +30,13 @@ final class ParameterTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.parameters.registry.parameter_type',
             0,
             new Reference('netgen_block_manager.parameters.parameter_type.test1')
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.parameters.registry.parameter_type',
             1,
             new Reference('netgen_block_manager.parameters.parameter_type.test2')

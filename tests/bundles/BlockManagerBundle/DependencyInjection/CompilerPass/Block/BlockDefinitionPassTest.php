@@ -53,12 +53,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService(
+        $this->assertContainerBuilderHasService(
             'netgen_block_manager.block.block_definition.block_definition',
             $definitionClass
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.block_definition.block_definition',
             3,
             [
@@ -66,7 +66,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_definition',
             0,
             [
@@ -104,12 +104,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService(
+        $this->assertContainerBuilderHasService(
             'netgen_block_manager.block.block_definition.block_definition',
             $definitionClass
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.block.registry.block_definition',
             0,
             [

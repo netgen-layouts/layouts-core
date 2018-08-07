@@ -27,7 +27,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -46,7 +46,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "unknown"'
@@ -69,7 +69,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "right"'

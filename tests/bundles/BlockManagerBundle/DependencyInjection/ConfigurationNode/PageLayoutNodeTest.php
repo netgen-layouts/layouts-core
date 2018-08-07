@@ -32,7 +32,7 @@ final class PageLayoutNodeTest extends TestCase
             'pagelayout' => 'pagelayout.html.twig',
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'pagelayout'

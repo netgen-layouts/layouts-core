@@ -38,12 +38,12 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService(
+        $this->assertContainerBuilderHasService(
             'netgen_block_manager.collection.item_definition.value_type',
             ItemDefinition::class
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.item_definition.value_type',
             1,
             [
@@ -51,7 +51,7 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.item_definition',
             0,
             [

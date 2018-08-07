@@ -40,7 +40,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'default_view_templates'
@@ -61,7 +61,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -80,7 +80,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     /**
@@ -99,7 +99,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

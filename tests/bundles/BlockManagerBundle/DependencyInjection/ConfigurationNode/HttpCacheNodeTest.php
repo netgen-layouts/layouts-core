@@ -38,7 +38,7 @@ final class HttpCacheNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'http_cache.invalidation'
@@ -70,7 +70,7 @@ final class HttpCacheNodeTest extends TestCase
             ],
         ];
 
-        self::assertProcessedConfigurationEquals(
+        $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
             'http_cache.invalidation.enabled'
@@ -91,7 +91,7 @@ final class HttpCacheNodeTest extends TestCase
             ],
         ];
 
-        self::assertConfigurationIsInvalid([$config]);
+        $this->assertConfigurationIsInvalid([$config]);
     }
 
     protected function getConfiguration(): ConfigurationInterface

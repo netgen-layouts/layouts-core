@@ -28,7 +28,7 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.resolver.form.target_type',
             0,
             [

@@ -27,7 +27,7 @@ final class DeleteItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -46,7 +46,7 @@ final class DeleteItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find collection with identifier "9999"'

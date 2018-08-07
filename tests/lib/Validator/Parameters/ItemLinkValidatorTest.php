@@ -50,7 +50,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
                 ->will(self::returnValue(new CmsItem()));
         }
 
-        self::assertValid($isValid, $value);
+        $this->assertValid($isValid, $value);
     }
 
     /**
@@ -63,7 +63,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
             ->method('load')
             ->will(self::returnValue(new NullCmsItem('value')));
 
-        self::assertValid(false, 'value://42');
+        $this->assertValid(false, 'value://42');
     }
 
     /**
@@ -74,7 +74,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, 'value://42');
+        $this->assertValid(true, 'value://42');
     }
 
     /**
@@ -84,7 +84,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

@@ -55,7 +55,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -83,7 +83,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -111,7 +111,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
@@ -139,7 +139,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "targetBlock" has an invalid state. Target block is not a container.'
@@ -167,7 +167,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "block" has an invalid state. Containers cannot be placed inside containers.'
@@ -195,7 +195,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "blockId": This value should be of type scalar.'
@@ -222,7 +222,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "blockId": This value should not be blank.'

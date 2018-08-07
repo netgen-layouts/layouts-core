@@ -84,7 +84,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         foreach ($designList as $designName => $themes) {
             foreach ($themes as $theme) {
                 foreach ($themeDirs[$theme] as $themeDir) {
-                    self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
+                    $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'ngbm_' . $designName],
@@ -149,7 +149,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         foreach ($designList as $designName => $themes) {
             foreach ($themes as $theme) {
                 foreach ($themeDirs[$theme] as $themeDir) {
-                    self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
+                    $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'ngbm_' . $designName],
@@ -214,7 +214,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         foreach ($designList as $designName => $themes) {
             foreach ($themes as $theme) {
                 foreach ($themeDirs[$theme] as $themeDir) {
-                    self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
+                    $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'ngbm_' . $designName],

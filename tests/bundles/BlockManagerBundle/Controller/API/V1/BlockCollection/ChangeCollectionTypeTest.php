@@ -32,7 +32,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -57,7 +57,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -81,7 +81,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -106,6 +106,6 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 }

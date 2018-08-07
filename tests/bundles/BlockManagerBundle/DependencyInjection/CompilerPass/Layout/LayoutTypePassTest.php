@@ -35,8 +35,8 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.layout.registry.layout_type',
             0,
             [

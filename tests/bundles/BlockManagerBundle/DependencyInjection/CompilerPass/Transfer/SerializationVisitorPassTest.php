@@ -32,7 +32,7 @@ final class SerializationVisitorPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.transfer.serializer.visitor.aggregate',
             0,
             [

@@ -34,7 +34,7 @@ final class LinkValidatorTest extends ValidatorTestCase
         $this->constraint->required = $required;
         $this->constraint->valueTypes = $valueTypes;
 
-        self::assertValid($isValid, $value);
+        $this->assertValid($isValid, $value);
     }
 
     /**
@@ -45,7 +45,7 @@ final class LinkValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, new LinkValue());
+        $this->assertValid(true, new LinkValue());
     }
 
     /**
@@ -55,7 +55,7 @@ final class LinkValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

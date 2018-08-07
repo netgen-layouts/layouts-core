@@ -43,7 +43,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         $blockCreateStruct = new BlockCreateStruct($value['definition']);
         (new Hydrator())->hydrate($value, $blockCreateStruct);
 
-        self::assertValid($isValid, $blockCreateStruct);
+        $this->assertValid($isValid, $blockCreateStruct);
     }
 
     /**
@@ -54,7 +54,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new NotBlank();
-        self::assertValid(true, new BlockCreateStruct(new BlockDefinition()));
+        $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
     /**
@@ -64,7 +64,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array

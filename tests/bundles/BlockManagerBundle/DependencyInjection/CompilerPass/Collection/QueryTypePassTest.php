@@ -29,11 +29,11 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService(
+        $this->assertContainerBuilderHasService(
             'netgen_block_manager.collection.query_type.query_type'
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.query_type',
             0,
             [
@@ -58,11 +58,11 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasService(
+        $this->assertContainerBuilderHasService(
             'netgen_block_manager.collection.query_type.query_type'
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.registry.query_type',
             0,
             [

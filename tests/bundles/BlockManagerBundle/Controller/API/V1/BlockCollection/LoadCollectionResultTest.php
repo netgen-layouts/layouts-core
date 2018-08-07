@@ -32,7 +32,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999/collections/default/result');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -46,7 +46,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31/collections/unknown/result');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'Collection with "unknown" identifier does not exist in the block.'

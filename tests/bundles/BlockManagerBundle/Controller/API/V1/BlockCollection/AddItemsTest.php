@@ -42,7 +42,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertEmptyResponse($this->client->getResponse());
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**
@@ -76,7 +76,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find block with identifier "9999"'
@@ -114,7 +114,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'Collection with "unknown" identifier does not exist in the block.'
@@ -142,7 +142,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "items": This value should not be blank.'
@@ -170,7 +170,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "items": Expected argument of type "array or Traversable", "integer" given'
@@ -194,7 +194,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "items": This value should not be blank.'
@@ -228,7 +228,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "[0][value]": This value should be of type scalar.'
@@ -261,7 +261,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "[0][value]": This field is missing.'
@@ -295,7 +295,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "[0][value_type]": This value should be of type string.'
@@ -328,7 +328,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "[0][value_type]": This field is missing.'
@@ -362,7 +362,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "[0][position]": This value should be of type int.'
@@ -395,7 +395,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "position": This value should not be blank.'
@@ -429,7 +429,7 @@ final class AddItemsTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'

@@ -36,7 +36,7 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler',
             2,
             [

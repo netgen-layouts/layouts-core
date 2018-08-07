@@ -30,14 +30,14 @@ final class ContextBuilderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.context.builder',
             'registerProvider',
             [new Reference('netgen_block_manager.context.provider.test')],
             0
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.context.builder',
             'registerProvider',
             [new Reference('netgen_block_manager.context.provider.test2')],

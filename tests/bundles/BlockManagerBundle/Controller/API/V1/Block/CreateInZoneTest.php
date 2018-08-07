@@ -98,7 +98,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "block_type": This value should be of type string.'
@@ -128,7 +128,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "block_type": This value should not be blank.'
@@ -159,7 +159,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should be of type scalar.'
@@ -189,7 +189,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "layoutId": This value should not be blank.'
@@ -220,7 +220,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "block_type" has an invalid state. Block type does not exist.'
@@ -251,7 +251,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "bottom"'
@@ -282,7 +282,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "unknown"'
@@ -313,7 +313,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'
@@ -344,7 +344,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "zone" has an invalid state. Block is not allowed in specified zone.'

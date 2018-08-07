@@ -55,7 +55,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         $blockUpdateStruct = new BlockUpdateStruct();
         (new Hydrator())->hydrate($value, $blockUpdateStruct);
 
-        self::assertValid($isValid, $blockUpdateStruct);
+        $this->assertValid($isValid, $blockUpdateStruct);
     }
 
     /**
@@ -66,7 +66,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->constraint = new ParameterStruct();
-        self::assertValid(true, new BlockUpdateStruct());
+        $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
@@ -77,7 +77,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidPayload(): void
     {
         $this->constraint->payload = new stdClass();
-        self::assertValid(true, new BlockUpdateStruct());
+        $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
@@ -88,7 +88,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->constraint->payload = new BlockDefinition();
-        self::assertValid(true, 42);
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider(): array
