@@ -26,9 +26,6 @@ final class CollectionPagerExtensionTest extends TestCase
     public function testGetFunctions(): void
     {
         self::assertNotEmpty($this->extension->getFunctions());
-
-        foreach ($this->extension->getFunctions() as $function) {
-            self::assertInstanceOf(TwigFunction::class, $function);
-        }
+        self::assertContainsOnlyInstancesOf(TwigFunction::class, $this->extension->getFunctions());
     }
 }

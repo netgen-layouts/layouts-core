@@ -80,9 +80,7 @@ final class CollectionTest extends TestCase
         self::assertFalse($collection->isAlwaysAvailable());
         self::assertSame('en', $collection->getLocale());
         self::assertCount(2, $collection->getItems());
-
-        self::assertInstanceOf(Item::class, $collection->getItem(3));
-        self::assertInstanceOf(Item::class, $collection->getItem(5));
+        self::assertContainsOnlyInstancesOf(Item::class, $collection->getItems());
 
         self::assertSame($query, $collection->getQuery());
         self::assertTrue($collection->hasQuery());

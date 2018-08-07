@@ -59,9 +59,9 @@ final class ResultBuilderTest extends TestCase
         self::assertSame($collection, $resultSet->getCollection());
         self::assertSame(0, $resultSet->getOffset());
         self::assertSame(5, $resultSet->getLimit());
+        self::assertContainsOnlyInstancesOf(Result::class, $resultSet->getResults());
 
         foreach ($resultSet as $index => $result) {
-            self::assertInstanceOf(Result::class, $result);
             self::assertInstanceOf(ManualItem::class, $result->getItem());
             self::assertSame($index, $result->getPosition());
         }
@@ -84,9 +84,9 @@ final class ResultBuilderTest extends TestCase
         self::assertSame($collection, $resultSet->getCollection());
         self::assertSame(0, $resultSet->getOffset());
         self::assertSame(3, $resultSet->getLimit());
+        self::assertContainsOnlyInstancesOf(Result::class, $resultSet->getResults());
 
         foreach ($resultSet as $index => $result) {
-            self::assertInstanceOf(Result::class, $result);
             self::assertInstanceOf(ManualItem::class, $result->getItem());
             self::assertSame($index, $result->getPosition());
         }

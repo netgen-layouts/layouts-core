@@ -48,9 +48,9 @@ final class QueryRunnerTest extends TestCase
         $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
 
         $items = iterator_to_array($queryRunner->runQuery($query));
+        self::assertContainsOnlyInstancesOf(CmsItemInterface::class, $items);
 
         foreach ($items as $item) {
-            self::assertInstanceOf(CmsItemInterface::class, $item);
             self::assertTrue($item->isVisible());
         }
 

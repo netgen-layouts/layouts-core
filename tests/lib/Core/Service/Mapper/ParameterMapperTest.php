@@ -53,22 +53,20 @@ final class ParameterMapperTest extends TestCase
         self::assertArrayHasKey('compound', $mappedParameters);
         self::assertArrayHasKey('inner', $mappedParameters);
 
-        self::assertInstanceOf(Parameter::class, $mappedParameters['css_class']);
+        self::assertContainsOnlyInstancesOf(Parameter::class, $mappedParameters);
+
         self::assertSame($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->getParameterDefinition());
         self::assertSame('some-class', $mappedParameters['css_class']->getValue());
         self::assertFalse($mappedParameters['css_class']->isEmpty());
 
-        self::assertInstanceOf(Parameter::class, $mappedParameters['css_id']);
         self::assertSame($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->getParameterDefinition());
         self::assertSame('some-id', $mappedParameters['css_id']->getValue());
         self::assertFalse($mappedParameters['css_id']->isEmpty());
 
-        self::assertInstanceOf(Parameter::class, $mappedParameters['compound']);
         self::assertSame($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->getParameterDefinition());
         self::assertTrue($mappedParameters['compound']->getValue());
         self::assertFalse($mappedParameters['compound']->isEmpty());
 
-        self::assertInstanceOf(Parameter::class, $mappedParameters['inner']);
         self::assertSame($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
         self::assertSame('inner-value', $mappedParameters['inner']->getValue());
         self::assertFalse($mappedParameters['inner']->isEmpty());

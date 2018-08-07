@@ -76,10 +76,8 @@ final class LayoutBackendTest extends TestCase
             ->with(self::identicalTo(1))
             ->will(self::returnValue($layout));
 
-        /** @var \Netgen\BlockManager\Browser\Item\Layout\LayoutInterface $item */
         $item = $this->backend->loadItem(1);
 
-        self::assertInstanceOf(ItemInterface::class, $item);
         self::assertInstanceOf(LayoutInterface::class, $item);
         self::assertSame($layout, $item->getLayout());
     }
@@ -140,9 +138,7 @@ final class LayoutBackendTest extends TestCase
         $items = $this->backend->getSubItems(new RootLocation());
 
         self::assertCount(2, $items);
-        foreach ($items as $item) {
-            self::assertInstanceOf(ItemInterface::class, $item);
-        }
+        self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
     }
 
     /**
@@ -169,9 +165,7 @@ final class LayoutBackendTest extends TestCase
         );
 
         self::assertCount(2, $items);
-        foreach ($items as $item) {
-            self::assertInstanceOf(ItemInterface::class, $item);
-        }
+        self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
     }
 
     /**

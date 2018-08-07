@@ -26,9 +26,6 @@ final class HelpersExtensionTest extends TestCase
     public function testGetFilters(): void
     {
         self::assertNotEmpty($this->extension->getFilters());
-
-        foreach ($this->extension->getFilters() as $filter) {
-            self::assertInstanceOf(TwigFilter::class, $filter);
-        }
+        self::assertContainsOnlyInstancesOf(TwigFilter::class, $this->extension->getFilters());
     }
 }
