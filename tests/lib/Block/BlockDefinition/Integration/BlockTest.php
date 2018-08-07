@@ -101,8 +101,6 @@ abstract class BlockTest extends ServiceTestCase
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 
-    abstract public function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
-
     public function hasCollection(): bool
     {
         return false;
@@ -111,6 +109,8 @@ abstract class BlockTest extends ServiceTestCase
     abstract public function parametersDataProvider(): array;
 
     abstract public function invalidParametersDataProvider(): array;
+
+    abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 
     protected function getValidator(): ValidatorInterface
     {
