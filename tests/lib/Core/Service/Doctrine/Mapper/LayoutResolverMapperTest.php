@@ -19,7 +19,7 @@ final class LayoutResolverMapperTest extends BaseLayoutResolverMapperTest
     /**
      * Prepares the prerequisites for using services in tests.
      */
-    public function preparePersistence(): void
+    protected function preparePersistence(): void
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
     }

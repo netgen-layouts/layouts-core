@@ -14,11 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CompoundBooleanTypeTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return new CompoundBooleanType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
@@ -374,5 +369,10 @@ final class CompoundBooleanTypeTest extends FormTestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngbm_compound_boolean', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new CompoundBooleanType();
     }
 }

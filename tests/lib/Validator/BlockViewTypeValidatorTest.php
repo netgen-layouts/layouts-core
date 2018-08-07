@@ -35,11 +35,6 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new BlockViewTypeValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
      * @dataProvider validateDataProvider
@@ -88,5 +83,10 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
             ['small', false],
             ['', false],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new BlockViewTypeValidator();
     }
 }

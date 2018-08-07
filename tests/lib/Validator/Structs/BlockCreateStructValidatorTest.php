@@ -29,11 +29,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new BlockCreateStructValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
      * @dataProvider validateDataProvider
@@ -426,6 +421,11 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                 true,
             ],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new BlockCreateStructValidator();
     }
 
     private function getBlockDefinition(): BlockDefinitionInterface

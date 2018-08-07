@@ -26,11 +26,6 @@ final class TargetTypeTest extends FormTestCase
         $this->targetType = new TargetType1(42);
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new TargetTypeForm(['other_type' => new TargetTypeMapper()]);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
@@ -121,5 +116,10 @@ final class TargetTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new TargetTypeForm(['other_type' => new TargetTypeMapper()]);
     }
 }

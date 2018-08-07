@@ -14,11 +14,6 @@ use Symfony\Component\Validator\Constraints;
 
 final class KeyValuesTypeTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return new KeyValuesType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Form\KeyValuesType::buildForm
      * @covers \Netgen\BlockManager\Form\KeyValuesType::buildView
@@ -129,5 +124,10 @@ final class KeyValuesTypeTest extends FormTestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngbm_key_values', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new KeyValuesType();
     }
 }

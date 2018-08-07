@@ -26,15 +26,6 @@ final class PathInfoTest extends FormTestCase
         $this->targetType = new PathInfo();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new TargetType(
-            [
-                'path_info' => new PathInfoMapper(),
-            ]
-        );
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildView
@@ -71,5 +62,14 @@ final class PathInfoTest extends FormTestCase
 
         self::assertArrayHasKey('target_type', $formView->vars);
         self::assertSame($this->targetType, $formView->vars['target_type']);
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new TargetType(
+            [
+                'path_info' => new PathInfoMapper(),
+            ]
+        );
     }
 }

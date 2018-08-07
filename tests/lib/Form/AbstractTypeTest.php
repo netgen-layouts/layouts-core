@@ -11,11 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class AbstractTypeTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return $this->getMockForAbstractClass(AbstractType::class);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Form\AbstractType::configureOptions
      */
@@ -30,5 +25,10 @@ final class AbstractTypeTest extends FormTestCase
             'ngbm_forms',
             $resolvedOptions['translation_domain']
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return $this->getMockForAbstractClass(AbstractType::class);
     }
 }

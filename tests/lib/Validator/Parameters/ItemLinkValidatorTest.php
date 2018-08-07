@@ -27,13 +27,6 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
-
-        return new ItemLinkValidator($this->cmsItemLoaderMock);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::__construct
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
@@ -121,5 +114,12 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
             [null, ['value'], true],
             [null, ['other'], true],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+
+        return new ItemLinkValidator($this->cmsItemLoaderMock);
     }
 }

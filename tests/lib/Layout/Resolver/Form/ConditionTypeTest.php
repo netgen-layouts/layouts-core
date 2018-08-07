@@ -26,11 +26,6 @@ final class ConditionTypeTest extends FormTestCase
         $this->conditionType = new ConditionType1();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new ConditionTypeForm(['other_type' => new ConditionTypeMapper()]);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
@@ -121,5 +116,10 @@ final class ConditionTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new ConditionTypeForm(['other_type' => new ConditionTypeMapper()]);
     }
 }

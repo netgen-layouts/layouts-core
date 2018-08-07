@@ -25,13 +25,6 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
-
-        return new LayoutNameValidator($this->layoutServiceMock);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::__construct
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
@@ -78,5 +71,12 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
             ['My layout', false],
             [null, true],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+
+        return new LayoutNameValidator($this->layoutServiceMock);
     }
 }

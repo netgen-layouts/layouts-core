@@ -112,7 +112,7 @@ abstract class BlockTest extends ServiceTestCase
 
     abstract public function invalidParametersDataProvider(): array;
 
-    public function getValidator(): ValidatorInterface
+    protected function getValidator(): ValidatorInterface
     {
         return Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))

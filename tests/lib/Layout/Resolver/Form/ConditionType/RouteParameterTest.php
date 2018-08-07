@@ -26,15 +26,6 @@ final class RouteParameterTest extends FormTestCase
         $this->conditionType = new RouteParameter();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new ConditionType(
-            [
-                'route_parameter' => new RouteParameterMapper(),
-            ]
-        );
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildView
@@ -80,5 +71,14 @@ final class RouteParameterTest extends FormTestCase
 
         self::assertArrayHasKey('condition_type', $formView->vars);
         self::assertSame($this->conditionType, $formView->vars['condition_type']);
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new ConditionType(
+            [
+                'route_parameter' => new RouteParameterMapper(),
+            ]
+        );
     }
 }

@@ -19,11 +19,6 @@ final class LocaleValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new LocaleValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
      * @dataProvider validateDataProvider
@@ -73,5 +68,10 @@ final class LocaleValidatorTest extends ValidatorTestCase
             // Invalid locales
             ['foobar', false],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new LocaleValidator();
     }
 }

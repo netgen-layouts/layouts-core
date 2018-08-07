@@ -25,11 +25,6 @@ final class CopyTypeTest extends FormTestCase
         $this->layout = new Layout();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new CopyType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CopyType::buildForm
      */
@@ -140,5 +135,10 @@ final class CopyTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new CopyType();
     }
 }

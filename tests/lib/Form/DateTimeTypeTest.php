@@ -12,11 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeTypeTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return new DateTimeType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Form\DateTimeType::buildForm
      * @covers \Netgen\BlockManager\Form\DateTimeType::getTimeZoneList
@@ -135,5 +130,10 @@ final class DateTimeTypeTest extends FormTestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngbm_datetime', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new DateTimeType();
     }
 }

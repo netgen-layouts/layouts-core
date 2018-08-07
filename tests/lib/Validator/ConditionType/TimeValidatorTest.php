@@ -20,11 +20,6 @@ final class TimeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new TimeValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\ConditionType\TimeValidator::validate
      * @dataProvider validateDataProvider
@@ -82,5 +77,10 @@ final class TimeValidatorTest extends ValidatorTestCase
             [[], false],
             [null, true],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new TimeValidator();
     }
 }

@@ -22,21 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersTypeTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return new ParametersType(
-            [
-                'text_line' => new TextLineMapper(),
-                'compound_boolean' => new BooleanMapper(),
-            ]
-        );
-    }
-
-    public function getTypeExtensions(): array
-    {
-        return [new ParametersTypeExtension()];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper::handleForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::__construct
@@ -337,5 +322,20 @@ final class ParametersTypeTest extends FormTestCase
                 'groups' => [42],
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new ParametersType(
+            [
+                'text_line' => new TextLineMapper(),
+                'compound_boolean' => new BooleanMapper(),
+            ]
+        );
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
     }
 }

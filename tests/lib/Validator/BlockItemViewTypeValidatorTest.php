@@ -42,11 +42,6 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new BlockItemViewTypeValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
      * @dataProvider validateDataProvider
@@ -115,5 +110,10 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
             ['', 'unknown', false],
             ['', '', false],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new BlockItemViewTypeValidator();
     }
 }

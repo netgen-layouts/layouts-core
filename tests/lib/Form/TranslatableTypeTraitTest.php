@@ -18,26 +18,6 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class TranslatableTypeTraitTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return new TranslatableTypeStub();
-    }
-
-    public function getTypeExtensions(): array
-    {
-        return [new ParametersTypeExtension()];
-    }
-
-    public function getTypes(): array
-    {
-        $formMappers = [
-            'text_line' => new FormMapper(),
-            'compound_boolean' => new FormMapper(true),
-        ];
-
-        return [new ParametersType($formMappers)];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Form\TranslatableTypeTrait::disableUntranslatableForms
      */
@@ -105,5 +85,25 @@ final class TranslatableTypeTraitTest extends FormTestCase
         self::assertFalse($paramsForm->get('css_class')->isDisabled());
         self::assertTrue($paramsForm->get('css_id')->isDisabled());
         self::assertTrue($paramsForm->get('other')->isDisabled());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new TranslatableTypeStub();
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
+    }
+
+    protected function getTypes(): array
+    {
+        $formMappers = [
+            'text_line' => new FormMapper(),
+            'compound_boolean' => new FormMapper(true),
+        ];
+
+        return [new ParametersType($formMappers)];
     }
 }

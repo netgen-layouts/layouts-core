@@ -36,26 +36,6 @@ final class QueryEditTypeTest extends FormTestCase
         $this->query = Query::fromArray(['queryType' => $this->queryType, 'mainLocale' => 'en']);
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new QueryEditType();
-    }
-
-    public function getTypeExtensions(): array
-    {
-        return [new ParametersTypeExtension()];
-    }
-
-    public function getTypes(): array
-    {
-        $formMappers = [
-            'text_line' => new Mapper\TextLineMapper(),
-            'integer' => new Mapper\IntegerMapper(),
-        ];
-
-        return [new ParametersType($formMappers)];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
@@ -227,5 +207,25 @@ final class QueryEditTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new QueryEditType();
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
+    }
+
+    protected function getTypes(): array
+    {
+        $formMappers = [
+            'text_line' => new Mapper\TextLineMapper(),
+            'integer' => new Mapper\IntegerMapper(),
+        ];
+
+        return [new ParametersType($formMappers)];
     }
 }

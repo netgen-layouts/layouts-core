@@ -46,7 +46,7 @@ abstract class ValidatorTestCase extends TestCase
      * @param bool $isValid
      * @param mixed $value
      */
-    public function assertValid(bool $isValid, $value): void
+    protected function assertValid(bool $isValid, $value): void
     {
         $this->executionContext->setConstraint($this->constraint);
         $this->validator->validate($value, $this->constraint);
@@ -56,5 +56,5 @@ abstract class ValidatorTestCase extends TestCase
             self::assertNotCount(0, $this->executionContext->getViolations());
     }
 
-    abstract public function getValidator(): ConstraintValidatorInterface;
+    abstract protected function getValidator(): ConstraintValidatorInterface;
 }

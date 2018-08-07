@@ -26,15 +26,6 @@ final class RoutePrefixTest extends FormTestCase
         $this->targetType = new RoutePrefix();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new TargetType(
-            [
-                'route_prefix' => new RoutePrefixMapper(),
-            ]
-        );
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildView
@@ -71,5 +62,14 @@ final class RoutePrefixTest extends FormTestCase
 
         self::assertArrayHasKey('target_type', $formView->vars);
         self::assertSame($this->targetType, $formView->vars['target_type']);
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new TargetType(
+            [
+                'route_prefix' => new RoutePrefixMapper(),
+            ]
+        );
     }
 }

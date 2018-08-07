@@ -66,12 +66,12 @@ abstract class FormTestCase extends TestCase
         $this->builder = new FormBuilder(null, null, $this->dispatcherMock, $this->factory);
     }
 
-    abstract public function getMainType(): FormTypeInterface;
+    abstract protected function getMainType(): FormTypeInterface;
 
     /**
      * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
      */
-    public function getTypeExtensions(): array
+    protected function getTypeExtensions(): array
     {
         return [];
     }
@@ -79,7 +79,7 @@ abstract class FormTestCase extends TestCase
     /**
      * @return \Symfony\Component\Form\FormTypeInterface[]
      */
-    public function getTypes(): array
+    protected function getTypes(): array
     {
         return [];
     }

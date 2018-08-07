@@ -22,7 +22,7 @@ final class CollectionVisitorTest extends BaseCollectionVisitorTest
     /**
      * Prepares the persistence handler used in tests.
      */
-    public function preparePersistence(): void
+    protected function preparePersistence(): void
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
     }

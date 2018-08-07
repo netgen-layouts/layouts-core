@@ -140,7 +140,7 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Prepares the persistence handler used in tests.
      */
-    abstract public function preparePersistence(): void;
+    abstract protected function preparePersistence(): void;
 
     /**
      * Prepares the registries used in tests.

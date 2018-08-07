@@ -86,21 +86,6 @@ final class ContentEditTypeTest extends FormTestCase
         $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new ContentEditType();
-    }
-
-    public function getTypeExtensions(): array
-    {
-        return [new ParametersTypeExtension()];
-    }
-
-    public function getTypes(): array
-    {
-        return [new ParametersType(['text_line' => new TextLineMapper()])];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Block\Form\ContentEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
@@ -284,5 +269,20 @@ final class ContentEditTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new ContentEditType();
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
+    }
+
+    protected function getTypes(): array
+    {
+        return [new ParametersType(['text_line' => new TextLineMapper()])];
     }
 }

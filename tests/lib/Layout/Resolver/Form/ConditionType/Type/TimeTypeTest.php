@@ -10,11 +10,6 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class TimeTypeTest extends FormTestCase
 {
-    public function getMainType(): FormTypeInterface
-    {
-        return new TimeType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType::buildForm
      */
@@ -63,5 +58,10 @@ final class TimeTypeTest extends FormTestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngbm_condition_type_time', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new TimeType();
     }
 }

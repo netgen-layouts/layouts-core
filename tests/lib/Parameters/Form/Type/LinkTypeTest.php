@@ -42,21 +42,6 @@ final class LinkTypeTest extends FormTestCase
         parent::setUp();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new LinkType();
-    }
-
-    public function getTypes(): array
-    {
-        $backendRegistry = new BackendRegistry(['value' => $this->createMock(BackendInterface::class)]);
-        $configRegistry = new ConfigRegistry(['value' => new Configuration('value', 'Value', [])]);
-
-        return [
-            new ContentBrowserDynamicType($backendRegistry, $configRegistry),
-        ];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildForm
      */
@@ -302,5 +287,20 @@ final class LinkTypeTest extends FormTestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngbm_link', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new LinkType();
+    }
+
+    protected function getTypes(): array
+    {
+        $backendRegistry = new BackendRegistry(['value' => $this->createMock(BackendInterface::class)]);
+        $configRegistry = new ConfigRegistry(['value' => new Configuration('value', 'Value', [])]);
+
+        return [
+            new ContentBrowserDynamicType($backendRegistry, $configRegistry),
+        ];
     }
 }

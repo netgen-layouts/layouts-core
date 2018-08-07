@@ -26,11 +26,6 @@ final class CollectionEditTypeTest extends FormTestCase
         $this->collection = new Collection();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new CollectionEditType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
      * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
@@ -182,5 +177,10 @@ final class CollectionEditTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new CollectionEditType();
     }
 }

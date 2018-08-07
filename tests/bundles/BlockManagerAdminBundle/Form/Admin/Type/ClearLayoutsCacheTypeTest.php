@@ -27,11 +27,6 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         ];
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new ClearLayoutsCacheType();
-    }
-
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildForm
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::finishView
@@ -119,5 +114,10 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
                 'layouts' => 42,
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new ClearLayoutsCacheType();
     }
 }

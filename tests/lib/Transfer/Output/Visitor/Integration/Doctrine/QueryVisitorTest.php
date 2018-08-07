@@ -22,7 +22,7 @@ final class QueryVisitorTest extends BaseQueryVisitorTest
     /**
      * Prepares the persistence handler used in tests.
      */
-    public function preparePersistence(): void
+    protected function preparePersistence(): void
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
     }

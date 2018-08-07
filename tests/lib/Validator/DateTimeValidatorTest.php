@@ -22,11 +22,6 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new DateTimeValidator();
-    }
-
     /**
      * @param mixed $value
      * @param bool $isValid
@@ -105,5 +100,10 @@ final class DateTimeValidatorTest extends ValidatorTestCase
             [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'CAST'], false],
             [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], true],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new DateTimeValidator();
     }
 }

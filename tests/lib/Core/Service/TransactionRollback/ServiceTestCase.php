@@ -41,7 +41,7 @@ abstract class ServiceTestCase extends BaseServiceTestCase
     /**
      * Prepares the prerequisites for using services in tests.
      */
-    public function preparePersistence(): void
+    protected function preparePersistence(): void
     {
         $this->persistenceHandler = $this->createMock(HandlerInterface::class);
 

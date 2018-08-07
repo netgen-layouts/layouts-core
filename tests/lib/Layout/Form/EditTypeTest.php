@@ -25,11 +25,6 @@ final class EditTypeTest extends FormTestCase
         $this->layout = new Layout();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new EditType();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Form\EditType::buildForm
      */
@@ -140,5 +135,10 @@ final class EditTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new EditType();
     }
 }

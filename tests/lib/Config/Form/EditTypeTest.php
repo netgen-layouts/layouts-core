@@ -48,21 +48,6 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new EditType();
-    }
-
-    public function getTypeExtensions(): array
-    {
-        return [new ParametersTypeExtension()];
-    }
-
-    public function getTypes(): array
-    {
-        return [new ParametersType(['text_line' => new FormMapper()])];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
      * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
@@ -310,5 +295,20 @@ final class EditTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new EditType();
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
+    }
+
+    protected function getTypes(): array
+    {
+        return [new ParametersType(['text_line' => new FormMapper()])];
     }
 }

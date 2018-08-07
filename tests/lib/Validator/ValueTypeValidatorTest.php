@@ -21,13 +21,6 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        $valueTypeRegistry = new ValueTypeRegistry(['value' => ValueType::fromArray(['isEnabled' => true])]);
-
-        return new ValueTypeValidator($valueTypeRegistry);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::__construct
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
@@ -66,5 +59,12 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
             ['other', false],
             ['', false],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        $valueTypeRegistry = new ValueTypeRegistry(['value' => ValueType::fromArray(['isEnabled' => true])]);
+
+        return new ValueTypeValidator($valueTypeRegistry);
     }
 }

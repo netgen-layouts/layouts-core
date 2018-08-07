@@ -26,15 +26,6 @@ final class RequestUriTest extends FormTestCase
         $this->targetType = new RequestUri();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new TargetType(
-            [
-                'request_uri' => new RequestUriMapper(),
-            ]
-        );
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildView
@@ -71,5 +62,14 @@ final class RequestUriTest extends FormTestCase
 
         self::assertArrayHasKey('target_type', $formView->vars);
         self::assertSame($this->targetType, $formView->vars['target_type']);
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new TargetType(
+            [
+                'request_uri' => new RequestUriMapper(),
+            ]
+        );
     }
 }

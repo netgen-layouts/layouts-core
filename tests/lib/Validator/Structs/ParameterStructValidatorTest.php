@@ -59,11 +59,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new ParameterStructValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getAllValues
@@ -227,5 +222,10 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             [['css_id' => 'fooooooo'], false, false],
             [['css_id' => ''], false, false],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new ParameterStructValidator();
     }
 }

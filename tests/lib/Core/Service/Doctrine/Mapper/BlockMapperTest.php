@@ -19,7 +19,7 @@ final class BlockMapperTest extends BaseBlockMapperTest
     /**
      * Prepares the prerequisites for using services in tests.
      */
-    public function preparePersistence(): void
+    protected function preparePersistence(): void
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
     }

@@ -47,11 +47,6 @@ final class CreateTypeTest extends FormTestCase
         parent::setUp();
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new CreateType($this->layoutTypeRegistry);
-    }
-
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::__construct
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildForm
@@ -135,5 +130,10 @@ final class CreateTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new CreateType($this->layoutTypeRegistry);
     }
 }

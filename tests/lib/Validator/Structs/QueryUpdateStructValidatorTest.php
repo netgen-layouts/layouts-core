@@ -30,11 +30,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new QueryUpdateStructValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator::validate
      * @dataProvider validateDataProvider
@@ -171,5 +166,10 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
                 true,
             ],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new QueryUpdateStructValidator();
     }
 }

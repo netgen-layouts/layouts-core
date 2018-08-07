@@ -41,11 +41,6 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new ConfigAwareStructValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator::validate
      * @dataProvider validateDataProvider
@@ -176,5 +171,10 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                 true,
             ],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new ConfigAwareStructValidator();
     }
 }

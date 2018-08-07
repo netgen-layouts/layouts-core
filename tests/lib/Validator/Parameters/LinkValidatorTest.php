@@ -20,11 +20,6 @@ final class LinkValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    public function getValidator(): ConstraintValidatorInterface
-    {
-        return new LinkValidator();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
      * @dataProvider validateDataProvider
@@ -105,5 +100,10 @@ final class LinkValidatorTest extends ValidatorTestCase
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, ['other'], false],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, ['other'], false],
         ];
+    }
+
+    protected function getValidator(): ConstraintValidatorInterface
+    {
+        return new LinkValidator();
     }
 }

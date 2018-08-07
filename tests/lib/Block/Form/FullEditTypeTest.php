@@ -75,21 +75,6 @@ final class FullEditTypeTest extends FormTestCase
         $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
-    public function getMainType(): FormTypeInterface
-    {
-        return new FullEditType();
-    }
-
-    public function getTypeExtensions(): array
-    {
-        return [new ParametersTypeExtension()];
-    }
-
-    public function getTypes(): array
-    {
-        return [new ParametersType(['text_line' => new TextLineMapper()])];
-    }
-
     /**
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
@@ -294,5 +279,20 @@ final class FullEditTypeTest extends FormTestCase
                 'data' => '',
             ]
         );
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        return new FullEditType();
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
+    }
+
+    protected function getTypes(): array
+    {
+        return [new ParametersType(['text_line' => new TextLineMapper()])];
     }
 }
