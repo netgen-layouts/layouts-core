@@ -36,6 +36,14 @@ final class ContextualizedTwigTemplate
     }
 
     /**
+     * Returns the context for this template.
+     */
+    public function getContext(): array
+    {
+        return $this->context;
+    }
+
+    /**
      * Renders the provided block. If block does not exist, an empty string will be returned.
      *
      * @throws \Throwable

@@ -13,6 +13,19 @@ final class ContextualizedTwigTemplateTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::__construct
+     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::getContext
+     */
+    public function testGetContext(): void
+    {
+        $template = new ContextualizedTwigTemplate(
+            $this->createMock(Template::class),
+            ['param' => 'value']
+        );
+
+        self::assertSame(['param' => 'value'], $template->getContext());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
     public function testRenderBlock(): void
@@ -43,7 +56,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::__construct
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
     public function testRenderBlockNonExistingBlock(): void
