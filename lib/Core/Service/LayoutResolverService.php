@@ -136,12 +136,12 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             $limit
         );
 
-        $rules = [];
-        foreach ($persistenceRules as $persistenceRule) {
-            $rules[] = $this->mapper->mapRule($persistenceRule);
-        }
-
-        return $rules;
+        return array_map(
+            function (PersistenceRule $rule): Rule {
+                return $this->mapper->mapRule($rule);
+            },
+            $persistenceRules
+        );
     }
 
     public function getRuleCount(?Layout $layout = null): int
@@ -163,14 +163,12 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
     public function matchRules(string $targetType, $targetValue): array
     {
-        $persistenceRules = $this->handler->matchRules($targetType, $targetValue);
-
-        $rules = [];
-        foreach ($persistenceRules as $persistenceRule) {
-            $rules[] = $this->mapper->mapRule($persistenceRule);
-        }
-
-        return $rules;
+        return array_map(
+            function (PersistenceRule $rule): Rule {
+                return $this->mapper->mapRule($rule);
+            },
+            $this->handler->matchRules($targetType, $targetValue)
+        );
     }
 
     public function loadTarget($targetId): Target

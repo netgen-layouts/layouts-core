@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Generator;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
@@ -141,18 +142,13 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceZone->status
         );
 
-        $persistenceBlocks = $this->blockHandler->loadChildBlocks($rootBlock);
-
-        $blocks = [];
-        foreach ($persistenceBlocks as $persistenceBlock) {
-            try {
-                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useMainLocale);
-            } catch (NotFoundException $e) {
-                // Block does not have the translation, skip it
-            }
-        }
-
-        return $blocks;
+        return iterator_to_array(
+            $this->filterUntranslatedBlocks(
+                $this->blockHandler->loadChildBlocks($rootBlock),
+                $locales,
+                $useMainLocale
+            )
+        );
     }
 
     public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): array
@@ -170,16 +166,13 @@ final class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        $blocks = [];
-        foreach ($persistenceBlocks as $persistenceBlock) {
-            try {
-                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useMainLocale);
-            } catch (NotFoundException $e) {
-                // Block does not have the translation, skip it
-            }
-        }
-
-        return $blocks;
+        return iterator_to_array(
+            $this->filterUntranslatedBlocks(
+                $persistenceBlocks,
+                $locales,
+                $useMainLocale
+            )
+        );
     }
 
     public function hasPublishedState(Block $block): bool
@@ -579,6 +572,20 @@ final class BlockService extends Service implements BlockServiceInterface
     public function newBlockUpdateStruct(string $locale, ?Block $block = null): APIBlockUpdateStruct
     {
         return $this->structBuilder->newBlockUpdateStruct($locale, $block);
+    }
+
+    /**
+     * Returns all blocks from provided input, with all untranslated blocks filtered out.
+     */
+    private function filterUntranslatedBlocks(iterable $blocks, ?array $locales, bool $useMainLocale): Generator
+    {
+        foreach ($blocks as $block) {
+            try {
+                yield $this->mapper->mapBlock($block, $locales, $useMainLocale);
+            } catch (NotFoundException $e) {
+                // Block does not have the translation, skip it
+            }
+        }
     }
 
     /**

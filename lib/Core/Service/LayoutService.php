@@ -109,12 +109,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        $layouts = [];
-        foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->mapper->mapLayout($persistenceLayout);
-        }
-
-        return $layouts;
+        return array_map(
+            function (PersistenceLayout $layout): Layout {
+                return $this->mapper->mapLayout($layout);
+            },
+            $persistenceLayouts
+        );
     }
 
     public function getLayoutsCount(bool $includeDrafts = false): int
@@ -132,12 +132,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        $layouts = [];
-        foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->mapper->mapLayout($persistenceLayout);
-        }
-
-        return $layouts;
+        return array_map(
+            function (PersistenceLayout $layout): Layout {
+                return $this->mapper->mapLayout($layout);
+            },
+            $persistenceLayouts
+        );
     }
 
     public function getSharedLayoutsCount(bool $includeDrafts = false): int
@@ -157,14 +157,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->getId(), $sharedLayout->getStatus());
 
-        $relatedPersistenceLayouts = $this->layoutHandler->loadRelatedLayouts($persistenceLayout);
-
-        $relatedLayouts = [];
-        foreach ($relatedPersistenceLayouts as $relatedPersistenceLayout) {
-            $relatedLayouts[] = $this->mapper->mapLayout($relatedPersistenceLayout);
-        }
-
-        return $relatedLayouts;
+        return array_map(
+            function (PersistenceLayout $relatedLayout): Layout {
+                return $this->mapper->mapLayout($relatedLayout);
+            },
+            $this->layoutHandler->loadRelatedLayouts($persistenceLayout)
+        );
     }
 
     public function getRelatedLayoutsCount(Layout $sharedLayout): int
