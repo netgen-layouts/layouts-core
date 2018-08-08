@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleList;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
@@ -57,10 +58,8 @@ interface LayoutResolverService extends Service
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): array;
+    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList;
 
     /**
      * Returns the number of published rules.
@@ -77,9 +76,9 @@ interface LayoutResolverService extends Service
      * @param string $targetType
      * @param int|string $targetValue
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleList
      */
-    public function matchRules(string $targetType, $targetValue): array;
+    public function matchRules(string $targetType, $targetValue): RuleList;
 
     /**
      * Loads a target by its' ID.

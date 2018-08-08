@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct as APICo
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleList;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
@@ -113,7 +114,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): array
+    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
@@ -136,11 +137,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             $limit
         );
 
-        return array_map(
-            function (PersistenceRule $rule): Rule {
-                return $this->mapper->mapRule($rule);
-            },
-            $persistenceRules
+        return new RuleList(
+            array_map(
+                function (PersistenceRule $rule): Rule {
+                    return $this->mapper->mapRule($rule);
+                },
+                $persistenceRules
+            )
         );
     }
 
@@ -161,13 +164,15 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         return $this->handler->getRuleCount($persistenceLayout);
     }
 
-    public function matchRules(string $targetType, $targetValue): array
+    public function matchRules(string $targetType, $targetValue): RuleList
     {
-        return array_map(
-            function (PersistenceRule $rule): Rule {
-                return $this->mapper->mapRule($rule);
-            },
-            $this->handler->matchRules($targetType, $targetValue)
+        return new RuleList(
+            array_map(
+                function (PersistenceRule $rule): Rule {
+                    return $this->mapper->mapRule($rule);
+                },
+                $this->handler->matchRules($targetType, $targetValue)
+            )
         );
     }
 
