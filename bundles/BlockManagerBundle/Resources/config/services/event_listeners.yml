@@ -2,7 +2,6 @@ parameters:
     netgen_block_manager.event_listener.twig_extensions.extensions:
         - Twig\Extensions\IntlExtension
         - EdiModric\Twig\VersionExtension
-        - Twig\Extension\StringLoaderExtension
 
 services:
     netgen_block_manager.event_listener.exception_conversion:

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
+use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -16,6 +17,9 @@ use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Throwable;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
+use Twig\Template;
 
 final class RenderingRuntime
 {
@@ -185,6 +189,24 @@ final class RenderingRuntime
     }
 
     /**
+     * Renders the provided template, with a reduced set of variables from the provided
+     * parameters list. Variables included are only those which can be safely printed.
+     */
+    public function renderStringTemplate(string $templateName, array $parameters = []): string
+    {
+        try {
+            $parameters = iterator_to_array($this->getTemplateVariables($parameters));
+
+            $environment = new Environment(new ArrayLoader());
+            $template = $environment->createTemplate($templateName);
+
+            return $environment->resolveTemplate($template)->render($parameters);
+        } catch (Throwable $t) {
+            return '';
+        }
+    }
+
+    /**
      * Returns the correct view context based on provided Twig context and view context
      * provided through function call.
      */
@@ -199,5 +221,31 @@ final class RenderingRuntime
         }
 
         return ViewInterface::CONTEXT_DEFAULT;
+    }
+
+    /**
+     * Returns all safely printable variables: scalars and objects with __toString method.
+     *
+     * If the context has an instance of ContextualizedTwigTemplate, its context is also
+     * included in the output. Any variables from the main context will override variables
+     * from ContextualizedTwigTemplate objects.
+     */
+    private function getTemplateVariables(array $parameters): Generator
+    {
+        foreach ($parameters as $name => $value) {
+            if ($value instanceof ContextualizedTwigTemplate) {
+                yield from $this->getTemplateVariables($value->getContext());
+            }
+        }
+
+        foreach ($parameters as $name => $value) {
+            if ($value instanceof Template) {
+                continue;
+            }
+
+            if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
+                yield $name => $value;
+            }
+        }
     }
 }

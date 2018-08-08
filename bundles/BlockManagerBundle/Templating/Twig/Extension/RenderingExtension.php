@@ -86,6 +86,10 @@ final class RenderingExtension extends AbstractExtension
                     'is_safe' => ['html'],
                 ]
             ),
+            new TwigFunction(
+                'ngbm_render_template',
+                [RenderingRuntime::class, 'renderStringTemplate']
+            ),
         ];
     }
 
