@@ -1,0 +1,111 @@
+@import "../../../../node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker";
+
+.material-icon-left {
+  &::before {
+    content: 'keyboard_arrow_left';
+  }
+}
+.material-icon-right {
+  &::before {
+    content: 'keyboard_arrow_right';
+  }
+}
+.material-icon-up {
+  &::before {
+    content: 'keyboard_arrow_up';
+  }
+}
+.material-icon-down {
+  &::before {
+    content: 'keyboard_arrow_down';
+  }
+}
+.material-icon-time {
+  &::before {
+    content: 'access_time';
+  }
+}
+.material-icon-calendar {
+  &::before {
+    content: 'today';
+  }
+}
+.material-icon-down {
+  &::before {
+    content: 'keyboard_arrow_down';
+  }
+}
+.material-icon-trash {
+  &::before {
+    content: 'delete';
+  }
+}
+.material-icon-close {
+  &::before {
+    content: 'close';
+  }
+}
+.material-icon-today {
+  &::before {
+    content: 'my_location';
+  }
+}
+
+.datetimepicker {
+  padding-right: 2rem;
+  position: relative;
+  .input-group {
+    flex: 1;
+  }
+  .js-clear-input {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    width: 2rem;
+    top: 50%;
+    height: 2rem;
+    margin-top: -1rem;
+    border: 0;
+    background: transparent;
+    pointer-events: none;
+    transition: opacity .25s;
+    color: #d0021b;
+    i {
+      vertical-align: middle;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .datetime {
+    position: relative;
+    margin: 0 0 .5em;
+    input[type="text"] {
+      margin: 0;
+      padding-right: 3em;
+      cursor: pointer;
+    }
+    .input-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: .25em .5em;
+      pointer-events: none;
+    }
+  }
+  .datetime-formatted {
+    position: absolute;
+    left: -999em;
+    top: -999em;
+    width: 0px !important;
+    height: 0px !important;
+    visibility: hidden;
+  }
+  &.date-entered {
+    .js-clear-input {
+      opacity: 1;
+      pointer-events: initial;
+    }
+  }
+}

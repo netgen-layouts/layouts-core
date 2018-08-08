@@ -22,8 +22,9 @@
         "uglifyify": "^5.0.1"
     },
     "dependencies": {
-        "@netgen/layouts-core-ui": "~0.12.0",
         "@netgen/content-browser-ui": "~0.12.0",
+        "@netgen/layouts-core-ui": "~0.12.0",
+        "eonasdan-bootstrap-datetimepicker": "^4.17.47",
         "file-saver": "^1.3.8",
         "normalize-scss": "^7.0.1"
     }
