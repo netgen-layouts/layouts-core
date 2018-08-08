@@ -10,6 +10,7 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 final class LayoutTypeNormalizerTest extends TestCase
 {
@@ -21,6 +22,7 @@ final class LayoutTypeNormalizerTest extends TestCase
     public function setUp(): void
     {
         $this->normalizer = new LayoutTypeNormalizer();
+        $this->normalizer->setNormalizer(new Serializer());
     }
 
     /**

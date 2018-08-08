@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
@@ -31,22 +32,14 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
         $block = $object->getValue();
         $blockDefinition = $block->getDefinition();
 
-        $parameters = [];
-        foreach ($block->getParameters() as $parameter) {
-            $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
-        }
+        $parameters = $this->buildVersionedValues($block->getParameters(), $object->getVersion());
+        $placeholders = $this->buildVersionedValues(array_values($block->getPlaceholders()), $object->getVersion());
 
-        $configuration = [];
-        foreach ($block->getConfigs() as $configKey => $config) {
-            foreach ($config->getParameters() as $parameter) {
-                $configuration[$configKey][$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
+        $configuration = (function () use ($block, $object): Generator {
+            foreach ($block->getConfigs() as $configKey => $config) {
+                yield $configKey => $this->buildVersionedValues($config->getParameters(), $object->getVersion());
             }
-        }
-
-        $placeholders = [];
-        foreach ($block->getPlaceholders() as $placeholder) {
-            $placeholders[] = new VersionedValue($placeholder, $object->getVersion());
-        }
+        })();
 
         $data = [
             'id' => $block->getId(),
@@ -64,7 +57,7 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
             'always_available' => $block->isAlwaysAvailable(),
             'is_container' => false,
             'placeholders' => $this->normalizer->normalize($placeholders, $format, $context),
-            'collections' => $this->normalizeBlockCollections($block),
+            'collections' => $this->normalizer->normalize($this->getBlockCollections($block), $format, $context),
             'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];
 
@@ -84,12 +77,10 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
         return $data->getValue() instanceof Block && $data->getVersion() === Version::API_V1;
     }
 
-    private function normalizeBlockCollections(Block $block): array
+    private function getBlockCollections(Block $block): Generator
     {
-        $data = [];
-
         foreach ($block->getCollections() as $identifier => $collection) {
-            $data[] = [
+            yield [
                 'identifier' => $identifier,
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
@@ -97,7 +88,15 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
                 'limit' => $collection->getLimit(),
             ];
         }
+    }
 
-        return $data;
+    /**
+     * Builds the list of VersionedValue objects for provided list of values.
+     */
+    private function buildVersionedValues(iterable $values, int $version): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new VersionedValue($value, $version);
+        }
     }
 }

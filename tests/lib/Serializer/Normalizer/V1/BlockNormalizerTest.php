@@ -11,12 +11,16 @@ use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Config\Config;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
 
 final class BlockNormalizerTest extends TestCase
 {
@@ -41,14 +45,14 @@ final class BlockNormalizerTest extends TestCase
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new BlockNormalizer($this->blockServiceMock);
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::getBlockCollections
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalizeBlockCollections
      */
     public function testNormalize(): void
     {
@@ -84,36 +88,20 @@ final class BlockNormalizerTest extends TestCase
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',
+                'parameters' => [
+                    'param' => new Parameter(),
+                ],
+                'configs' => [
+                    'config_key' => Config::fromArray(
+                        [
+                            'parameters' => [
+                                'param' => new Parameter(),
+                            ],
+                        ]
+                    ),
+                ],
             ]
         );
-
-        $serializedParams = [
-            'some_param' => 'some_value',
-            'some_other_param' => 'some_other_value',
-        ];
-
-        $this->normalizerMock
-            ->expects(self::at(0))
-            ->method('normalize')
-            ->will(self::returnValue($serializedParams));
-
-        $this->normalizerMock
-            ->expects(self::at(1))
-            ->method('normalize')
-            ->with(self::equalTo([new VersionedValue($placeholder, 1)]))
-            ->will(self::returnValue(['normalized placeholders']));
-
-        $serializedConfig = [
-            'key' => [
-                'param1' => 'value1',
-                'param2' => 'value2',
-            ],
-        ];
-
-        $this->normalizerMock
-            ->expects(self::at(2))
-            ->method('normalize')
-            ->will(self::returnValue($serializedConfig));
 
         $this->blockServiceMock
             ->expects(self::once())
@@ -128,7 +116,7 @@ final class BlockNormalizerTest extends TestCase
                 'definition_identifier' => $block->getDefinition()->getIdentifier(),
                 'name' => $block->getName(),
                 'parent_position' => $block->getParentPosition(),
-                'parameters' => $serializedParams,
+                'parameters' => ['param' => 'data'],
                 'view_type' => $block->getViewType(),
                 'item_view_type' => $block->getItemViewType(),
                 'published' => true,
@@ -137,7 +125,7 @@ final class BlockNormalizerTest extends TestCase
                 'is_translatable' => $block->isTranslatable(),
                 'always_available' => $block->isAlwaysAvailable(),
                 'is_container' => false,
-                'placeholders' => ['normalized placeholders'],
+                'placeholders' => ['data'],
                 'collections' => [
                     [
                         'identifier' => 'default',
@@ -147,7 +135,7 @@ final class BlockNormalizerTest extends TestCase
                         'limit' => $collection->getLimit(),
                     ],
                 ],
-                'config' => $serializedConfig,
+                'config' => ['config_key' => ['param' => 'data']],
             ],
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Validator\Structs;
 
 use Closure;
+use Generator;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
@@ -39,13 +40,15 @@ final class ParameterStructValidator extends ConstraintValidator
             $value->getParameterValues(),
             new Constraints\Collection(
                 [
-                    'fields' => $this->buildConstraintFields($value, $constraint),
+                    'fields' => iterator_to_array($this->buildConstraintFields($value, $constraint)),
                     'allowMissingFields' => $constraint->allowMissingFields,
                 ]
             )
         );
 
-        $allParameterValues = $this->getAllValues($constraint->parameterDefinitions, $value);
+        $allParameterValues = iterator_to_array(
+            $this->getAllValues($constraint->parameterDefinitions, $value)
+        );
 
         // Then we validate with runtime constraints coming from parameter definition
         // allowing for validation of values dependent on other parameter struct values
@@ -54,10 +57,12 @@ final class ParameterStructValidator extends ConstraintValidator
 
             $validator->atPath('[' . $parameterDefinition->getName() . ']')->validate(
                 $parameterValue,
-                $this->getRuntimeParameterConstraints(
-                    $parameterDefinition,
-                    $parameterValue,
-                    $allParameterValues
+                iterator_to_array(
+                    $this->getRuntimeParameterConstraints(
+                        $parameterDefinition,
+                        $parameterValue,
+                        $allParameterValues
+                    )
                 )
             );
         }
@@ -70,9 +75,7 @@ final class ParameterStructValidator extends ConstraintValidator
     private function buildConstraintFields(
         ParameterStruct $parameterStruct,
         ParameterStructConstraint $constraint
-    ): array {
-        $fields = [];
-
+    ): Generator {
         foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $constraints = $this->getParameterConstraints($parameterDefinition, $parameterStruct);
 
@@ -80,11 +83,11 @@ final class ParameterStructValidator extends ConstraintValidator
                 $constraints = new Constraints\Optional($constraints);
             }
 
-            $fields[$parameterDefinition->getName()] = $constraints;
+            yield $parameterDefinition->getName() => $constraints;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
-                    $fields[$subParameterDefinition->getName()] = new Constraints\Optional(
+                    yield $subParameterDefinition->getName() => new Constraints\Optional(
                         // Sub parameter values are always optional (either missing or set to null)
                         // so we don't have to validate empty values
                         $this->getParameterConstraints($subParameterDefinition, $parameterStruct, false)
@@ -92,8 +95,6 @@ final class ParameterStructValidator extends ConstraintValidator
                 }
             }
         }
-
-        return $fields;
     }
 
     /**
@@ -130,38 +131,32 @@ final class ParameterStructValidator extends ConstraintValidator
         ParameterDefinition $parameterDefinition,
         $parameterValue,
         array $allParameterValues
-    ): array {
-        $constraints = [];
-
+    ): Generator {
         foreach ($parameterDefinition->getConstraints() as $constraint) {
             if ($constraint instanceof Closure) {
                 $constraint = $constraint($parameterValue, $allParameterValues, $parameterDefinition);
             }
 
             if ($constraint instanceof Constraint) {
-                $constraints[] = $constraint;
+                yield $constraint;
             }
         }
-
-        return $constraints;
     }
 
     private function getAllValues(
         ParameterDefinitionCollectionInterface $definitions,
         ParameterStruct $parameterStruct
-    ): array {
-        $emptyValues = [];
-
+    ): Generator {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            $emptyValues[$parameterDefinition->getName()] = null;
+            yield $parameterDefinition->getName() => null;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
-                    $emptyValues[$subParameterDefinition->getName()] = null;
+                    yield $subParameterDefinition->getName() => null;
                 }
             }
         }
 
-        return $parameterStruct->getParameterValues() + $emptyValues;
+        yield from $parameterStruct->getParameterValues();
     }
 }

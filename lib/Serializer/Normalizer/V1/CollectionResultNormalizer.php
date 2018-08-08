@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
@@ -74,14 +75,12 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
             $isDynamic = false;
         }
 
-        $configuration = [];
-        if ($collectionItem !== null) {
-            foreach ($collectionItem->getConfigs() as $configKey => $config) {
-                foreach ($config->getParameters() as $parameter) {
-                    $configuration[$configKey][$parameter->getName()] = new VersionedValue($parameter, $version);
-                }
+        $configuration = (function () use ($collectionItem, $version): Generator {
+            $itemConfigs = $collectionItem !== null ? $collectionItem->getConfigs() : [];
+            foreach ($itemConfigs as $configKey => $config) {
+                yield $configKey => $this->buildVersionedValues($config->getParameters(), $version);
             }
-        }
+        })();
 
         return [
             'id' => $collectionItem !== null ? $collectionItem->getId() : null,
@@ -97,5 +96,15 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
             'cms_url' => $this->urlGenerator->generate($cmsItem),
             'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];
+    }
+
+    /**
+     * Builds the list of VersionedValue objects for provided list of values.
+     */
+    private function buildVersionedValues(iterable $values, int $version): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new VersionedValue($value, $version);
+        }
     }
 }

@@ -55,6 +55,7 @@ services:
     netgen_block_manager.normalizer.v1.layout:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
         public: false
+        parent: netgen_block_manager.normalizer.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.block"
@@ -116,5 +117,6 @@ services:
     netgen_block_manager.normalizer.v1.layout_type:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer
         public: false
+        parent: netgen_block_manager.normalizer.base
         tags:
             - { name: serializer.normalizer }

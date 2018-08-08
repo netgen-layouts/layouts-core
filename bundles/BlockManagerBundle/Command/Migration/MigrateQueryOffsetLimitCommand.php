@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
+use Generator;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
@@ -127,7 +128,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             }
 
             do {
-                $mapping = $this->askForOffsetAndLimitParameter($queryType);
+                $mapping = iterator_to_array($this->askForOffsetAndLimitParameter($queryType));
             } while (
                 !$this->io->confirm(
                     sprintf(
@@ -174,11 +175,9 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * Each of those can be `null` to indicate that the query type does not have an offset
      * or a limit parameter.
      */
-    private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): array
+    private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): Generator
     {
-        $mapping = [];
-
-        $queryTypeParameters = $this->getQueryTypeParameters($queryType);
+        $queryTypeParameters = iterator_to_array($this->getQueryTypeParameters($queryType));
         $queryTypeParameters[] = 'NO PARAMETER';
 
         foreach (['offset', 'limit'] as $parameter) {
@@ -192,10 +191,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 $queryTypeParameters
             );
 
-            $mapping[$parameter] = $parameterName !== 'NO PARAMETER' ? $parameterName : null;
+            yield $parameter => $parameterName !== 'NO PARAMETER' ? $parameterName : null;
         }
-
-        return $mapping;
     }
 
     /**
@@ -203,23 +200,19 @@ final class MigrateQueryOffsetLimitCommand extends Command
      *
      * Considers if the parameter is a compound and includes it's sub-parameters too.
      */
-    private function getQueryTypeParameters(QueryTypeInterface $queryType): array
+    private function getQueryTypeParameters(QueryTypeInterface $queryType): Generator
     {
-        $parameters = [];
-
         foreach ($queryType->getParameterDefinitions() as $parameterDefinition) {
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 foreach ($parameterDefinition->getParameterDefinitions() as $innerParameterDefinition) {
-                    $parameters[] = $innerParameterDefinition->getName();
+                    yield $innerParameterDefinition->getName();
                 }
 
                 continue;
             }
 
-            $parameters[] = $parameterDefinition->getName();
+            yield $parameterDefinition->getName();
         }
-
-        return $parameters;
     }
 
     private function migrateOffsetAndLimit(array $queryTypeParameters): void

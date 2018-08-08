@@ -282,10 +282,12 @@ final class BlockService extends Service implements BlockServiceInterface
                             'itemViewType' => $blockUpdateStruct->itemViewType,
                             'name' => $blockUpdateStruct->name,
                             'alwaysAvailable' => $blockUpdateStruct->alwaysAvailable,
-                            'config' => $this->configMapper->serializeValues(
-                                $blockUpdateStruct->getConfigStructs(),
-                                $blockDefinition->getConfigDefinitions(),
-                                $persistenceBlock->config
+                            'config' => iterator_to_array(
+                                $this->configMapper->serializeValues(
+                                    $blockUpdateStruct->getConfigStructs(),
+                                    $blockDefinition->getConfigDefinitions(),
+                                    $persistenceBlock->config
+                                )
                             ),
                         ]
                     )
@@ -609,13 +611,17 @@ final class BlockService extends Service implements BlockServiceInterface
                             'name' => $blockCreateStruct->name,
                             'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                             'isTranslatable' => $blockCreateStruct->isTranslatable,
-                            'parameters' => $this->parameterMapper->serializeValues(
-                                $blockDefinition,
-                                $blockCreateStruct->getParameterValues()
+                            'parameters' => iterator_to_array(
+                                $this->parameterMapper->serializeValues(
+                                    $blockDefinition,
+                                    $blockCreateStruct->getParameterValues()
+                                )
                             ),
-                            'config' => $this->configMapper->serializeValues(
-                                $blockCreateStruct->getConfigStructs(),
-                                $blockDefinition->getConfigDefinitions()
+                            'config' => iterator_to_array(
+                                $this->configMapper->serializeValues(
+                                    $blockCreateStruct->getConfigStructs(),
+                                    $blockDefinition->getConfigDefinitions()
+                                )
                             ),
                         ]
                     ),
@@ -647,9 +653,11 @@ final class BlockService extends Service implements BlockServiceInterface
                                 QueryCreateStruct::fromArray(
                                     [
                                         'type' => $queryType->getType(),
-                                        'parameters' => $this->parameterMapper->serializeValues(
-                                            $queryType,
-                                            $collectionCreateStruct->queryCreateStruct->getParameterValues()
+                                        'parameters' => iterator_to_array(
+                                            $this->parameterMapper->serializeValues(
+                                                $queryType,
+                                                $collectionCreateStruct->queryCreateStruct->getParameterValues()
+                                            )
                                         ),
                                     ]
                                 )
@@ -757,19 +765,23 @@ final class BlockService extends Service implements BlockServiceInterface
                 $blockUpdateStruct->locale,
                 BlockTranslationUpdateStruct::fromArray(
                     [
-                        'parameters' => $this->parameterMapper->serializeValues(
-                            $blockDefinition,
-                            $blockUpdateStruct->getParameterValues(),
-                            $persistenceBlock->parameters[$persistenceBlock->mainLocale]
+                        'parameters' => iterator_to_array(
+                            $this->parameterMapper->serializeValues(
+                                $blockDefinition,
+                                $blockUpdateStruct->getParameterValues(),
+                                $persistenceBlock->parameters[$persistenceBlock->mainLocale]
+                            )
                         ),
                     ]
                 )
             );
         }
 
-        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $blockDefinition,
-            $persistenceBlock->parameters[$persistenceBlock->mainLocale]
+        $untranslatableParams = iterator_to_array(
+            $this->parameterMapper->extractUntranslatableParameters(
+                $blockDefinition,
+                $persistenceBlock->parameters[$persistenceBlock->mainLocale]
+            )
         );
 
         $localesToUpdate = [$blockUpdateStruct->locale];
@@ -787,10 +799,12 @@ final class BlockService extends Service implements BlockServiceInterface
             $params = $persistenceBlock->parameters[$locale];
 
             if ($locale === $blockUpdateStruct->locale) {
-                $params = $this->parameterMapper->serializeValues(
-                    $blockDefinition,
-                    $blockUpdateStruct->getParameterValues(),
-                    $params
+                $params = iterator_to_array(
+                    $this->parameterMapper->serializeValues(
+                        $blockDefinition,
+                        $blockUpdateStruct->getParameterValues(),
+                        $params
+                    )
                 );
             }
 

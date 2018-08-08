@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use DateTime;
+use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
@@ -12,12 +13,13 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class LayoutNormalizer implements NormalizerInterface
+final class LayoutNormalizer extends Normalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
@@ -62,7 +64,7 @@ final class LayoutNormalizer implements NormalizerInterface
             'description' => $layout->getDescription(),
             'main_locale' => $layout->getMainLocale(),
             'available_locales' => $availableLocales,
-            'zones' => $this->getZones($layout, $layoutType),
+            'zones' => $this->normalizer->normalize($this->getZones($layout, $layoutType), $format, $context),
         ];
 
         try {
@@ -90,14 +92,12 @@ final class LayoutNormalizer implements NormalizerInterface
     /**
      * Returns the array with layout zones.
      */
-    private function getZones(Layout $layout, LayoutTypeInterface $layoutType): array
+    private function getZones(Layout $layout, LayoutTypeInterface $layoutType): Generator
     {
-        $zones = [];
-
         foreach ($layout as $zoneIdentifier => $zone) {
             $linkedZone = $zone->getLinkedZone();
 
-            $zones[] = [
+            yield [
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
                 'block_ids' => array_map(
@@ -114,8 +114,6 @@ final class LayoutNormalizer implements NormalizerInterface
                 'linked_zone_identifier' => $linkedZone ? $linkedZone->getIdentifier() : null,
             ];
         }
-
-        return $zones;
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -17,10 +18,7 @@ final class CollectionQueryNormalizer extends Normalizer implements NormalizerIn
         /** @var \Netgen\BlockManager\API\Values\Collection\Query $query */
         $query = $object->getValue();
 
-        $parameters = [];
-        foreach ($query->getParameters() as $parameter) {
-            $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
-        }
+        $parameters = $this->buildVersionedValues($query->getParameters(), $object->getVersion());
 
         return [
             'id' => $query->getId(),
@@ -40,5 +38,15 @@ final class CollectionQueryNormalizer extends Normalizer implements NormalizerIn
         }
 
         return $data->getValue() instanceof Query && $data->getVersion() === Version::API_V1;
+    }
+
+    /**
+     * Builds the list of VersionedValue objects for provided list of values.
+     */
+    private function buildVersionedValues(iterable $values, int $version): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new VersionedValue($value, $version);
+        }
     }
 }

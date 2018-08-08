@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout;
 
+use Generator;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
@@ -25,7 +26,7 @@ final class LayoutTypePass implements CompilerPassInterface
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
 
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
-        $layoutTypeServices = $this->buildLayoutTypes($container, $layoutTypes);
+        $layoutTypeServices = iterator_to_array($this->buildLayoutTypes($container, $layoutTypes));
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
@@ -35,10 +36,8 @@ final class LayoutTypePass implements CompilerPassInterface
     /**
      * Builds the layout type objects from provided configuration.
      */
-    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes): array
+    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes): Generator
     {
-        $layoutTypeServices = [];
-
         foreach ($layoutTypes as $identifier => $layoutType) {
             $serviceIdentifier = sprintf('netgen_block_manager.layout.layout_type.%s', $identifier);
 
@@ -48,10 +47,8 @@ final class LayoutTypePass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([LayoutTypeFactory::class, 'buildLayoutType']);
 
-            $layoutTypeServices[$identifier] = new Reference($serviceIdentifier);
+            yield $identifier => new Reference($serviceIdentifier);
         }
-
-        return $layoutTypeServices;
     }
 
     /**

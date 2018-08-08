@@ -35,13 +35,15 @@ final class ParameterMapperTest extends TestCase
             ]
         );
 
-        $mappedParameters = $this->mapper->mapParameters(
-            $blockDefinition,
-            [
-                'css_id' => 'some-id',
-                'compound' => true,
-                'inner' => 'inner-value',
-            ]
+        $mappedParameters = iterator_to_array(
+            $this->mapper->mapParameters(
+                $blockDefinition,
+                [
+                    'css_id' => 'some-id',
+                    'compound' => true,
+                    'inner' => 'inner-value',
+                ]
+            )
         );
 
         /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
@@ -90,16 +92,21 @@ final class ParameterMapperTest extends TestCase
                 'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
+            ],
+            [
+                'css_class' => null,
+                'unknown' => 'value',
             ]
         );
 
         self::assertSame(
             [
                 'css_class' => 'some-class',
+                'unknown' => 'value',
                 'compound' => true,
                 'inner' => 'inner-value',
             ],
-            $serializedParameters
+            iterator_to_array($serializedParameters)
         );
     }
 
@@ -132,7 +139,7 @@ final class ParameterMapperTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner-value',
             ],
-            $untranslatableParams
+            iterator_to_array($untranslatableParams)
         );
     }
 }

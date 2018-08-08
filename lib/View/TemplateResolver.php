@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\View;
 
+use Generator;
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
@@ -61,7 +62,11 @@ class TemplateResolver implements TemplateResolverInterface
                 }
 
                 $view->setTemplate($config['template']);
-                $view->addParameters($this->evaluateParameters($view, $config['parameters']));
+                $view->addParameters(
+                    iterator_to_array(
+                        $this->evaluateParameters($view, $config['parameters'])
+                    )
+                );
 
                 return;
             }
@@ -93,10 +98,8 @@ class TemplateResolver implements TemplateResolverInterface
      * Iterates over all provided parameters and evaluates the values with expression
      * engine if the parameter value specifies so.
      */
-    private function evaluateParameters(ViewInterface $view, array $parameters): array
+    private function evaluateParameters(ViewInterface $view, array $parameters): Generator
     {
-        $evaluatedParameters = [];
-
         foreach ($parameters as $key => $value) {
             if (is_string($value) && mb_strpos($value, '@=') === 0) {
                 $expressionLanguage = new ExpressionLanguage();
@@ -108,9 +111,7 @@ class TemplateResolver implements TemplateResolverInterface
                 );
             }
 
-            $evaluatedParameters[$key] = $value;
+            yield $key => $value;
         }
-
-        return $evaluatedParameters;
     }
 }

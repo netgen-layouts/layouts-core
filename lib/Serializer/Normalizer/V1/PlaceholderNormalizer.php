@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -18,10 +19,7 @@ final class PlaceholderNormalizer extends Normalizer implements NormalizerInterf
         /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
 
-        $blocks = [];
-        foreach ($placeholder as $block) {
-            $blocks[] = new View($block, $object->getVersion());
-        }
+        $blocks = $this->buildViewValues($placeholder, $object->getVersion());
 
         return [
             'identifier' => $placeholder->getIdentifier(),
@@ -36,5 +34,15 @@ final class PlaceholderNormalizer extends Normalizer implements NormalizerInterf
         }
 
         return $data->getValue() instanceof Placeholder && $data->getVersion() === Version::API_V1;
+    }
+
+    /**
+     * Builds the list of View objects for provided list of values.
+     */
+    private function buildViewValues(iterable $values, int $version): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new View($value, $version);
+        }
     }
 }

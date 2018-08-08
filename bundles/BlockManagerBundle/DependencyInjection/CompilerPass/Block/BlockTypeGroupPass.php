@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
+use Generator;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -26,7 +27,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
         $blockTypeGroups = $this->generateBlockTypeGroupConfig($blockTypeGroups, $blockTypes);
         $container->setParameter('netgen_block_manager.block_type_groups', $blockTypeGroups);
 
-        $blockTypeGroupServices = $this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes);
+        $blockTypeGroupServices = iterator_to_array($this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes));
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
@@ -65,10 +66,8 @@ final class BlockTypeGroupPass implements CompilerPassInterface
     /**
      * Builds the block type group objects from provided configuration.
      */
-    private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes): array
+    private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes): Generator
     {
-        $blockTypeGroupServices = [];
-
         foreach ($blockTypeGroups as $identifier => $blockTypeGroup) {
             $serviceIdentifier = sprintf('netgen_block_manager.block.block_type_group.%s', $identifier);
 
@@ -90,9 +89,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([BlockTypeGroupFactory::class, 'buildBlockTypeGroup']);
 
-            $blockTypeGroupServices[$identifier] = new Reference($serviceIdentifier);
+            yield $identifier => new Reference($serviceIdentifier);
         }
-
-        return $blockTypeGroupServices;
     }
 }

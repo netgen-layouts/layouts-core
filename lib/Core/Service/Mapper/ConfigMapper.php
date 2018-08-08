@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Generator;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Core\Values\Config\Config;
 
@@ -25,28 +26,24 @@ final class ConfigMapper
      * @param array $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      *
-     * @return \Netgen\BlockManager\API\Values\Config\Config[]
+     * @return \Generator
      */
-    public function mapConfig(array $config, array $configDefinitions): array
+    public function mapConfig(array $config, array $configDefinitions): Generator
     {
-        $configs = [];
-
         foreach ($configDefinitions as $configKey => $configDefinition) {
-            $parameters = $this->parameterMapper->mapParameters(
-                $configDefinition,
-                $config[$configKey] ?? []
-            );
-
-            $configs[$configKey] = Config::fromArray(
+            yield $configKey => Config::fromArray(
                 [
                     'configKey' => $configKey,
                     'definition' => $configDefinition,
-                    'parameters' => $parameters,
+                    'parameters' => iterator_to_array(
+                        $this->parameterMapper->mapParameters(
+                            $configDefinition,
+                            $config[$configKey] ?? []
+                        )
+                    ),
                 ]
             );
         }
-
-        return $configs;
     }
 
     /**
@@ -56,12 +53,10 @@ final class ConfigMapper
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      * @param array $fallbackValues
      *
-     * @return array
+     * @return \Generator
      */
-    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = []): array
+    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = []): Generator
     {
-        $configs = [];
-
         foreach ($configDefinitions as $configKey => $configDefinition) {
             $configValues = [];
 
@@ -72,13 +67,13 @@ final class ConfigMapper
                 $configValues = $configStructs[$configKey]->getParameterValues();
             }
 
-            $configs[$configKey] = $this->parameterMapper->serializeValues(
-                $configDefinition,
-                $configValues,
-                $fallbackValues[$configKey] ?? []
+            yield $configKey => iterator_to_array(
+                $this->parameterMapper->serializeValues(
+                    $configDefinition,
+                    $configValues,
+                    $fallbackValues[$configKey] ?? []
+                )
             );
         }
-
-        return $configs;
     }
 }

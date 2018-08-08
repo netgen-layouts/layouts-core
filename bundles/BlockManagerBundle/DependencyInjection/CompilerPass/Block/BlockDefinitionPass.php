@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
+use Generator;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
@@ -86,7 +87,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument($blockDefinition);
-            $blockDefinitionService->addArgument($this->getConfigHandlers($container));
+            $blockDefinitionService->addArgument(iterator_to_array($this->getConfigHandlers($container)));
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 
@@ -96,10 +97,8 @@ final class BlockDefinitionPass implements CompilerPassInterface
         $blockDefinitionRegistry->replaceArgument(0, $blockDefinitionServices);
     }
 
-    private function getConfigHandlers(ContainerBuilder $container): array
+    private function getConfigHandlers(ContainerBuilder $container): Generator
     {
-        $configHandlers = [];
-
         $configHandlerServices = $container->findTaggedServiceIds('netgen_block_manager.block.block_config_handler');
         foreach ($configHandlerServices as $configHandlerService => $tags) {
             foreach ($tags as $tag) {
@@ -109,10 +108,8 @@ final class BlockDefinitionPass implements CompilerPassInterface
                     );
                 }
 
-                $configHandlers[$tag['config_key']] = new Reference($configHandlerService);
+                yield $tag['config_key'] => new Reference($configHandlerService);
             }
         }
-
-        return $configHandlers;
     }
 }

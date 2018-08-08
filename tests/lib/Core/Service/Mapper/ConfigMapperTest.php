@@ -54,6 +54,8 @@ final class ConfigMapperTest extends TestCase
             ]
         );
 
+        $mappedConfig = iterator_to_array($mappedConfig);
+
         self::assertArrayHasKey('config_key', $mappedConfig);
         self::assertContainsOnlyInstancesOf(Config::class, $mappedConfig);
 
@@ -72,6 +74,7 @@ final class ConfigMapperTest extends TestCase
     {
         $configStruct = new ConfigStruct();
         $configStruct->setParameterValue('param', 'new_value');
+        $configStruct->setParameterValue('param2', 'new_value2');
 
         $serializedConfig = $this->mapper->serializeValues(
             [
@@ -83,6 +86,7 @@ final class ConfigMapperTest extends TestCase
             [
                 'config_key' => [
                     'param2' => 'value2',
+                    'param3' => 'value3',
                 ],
             ]
         );
@@ -90,11 +94,12 @@ final class ConfigMapperTest extends TestCase
         self::assertSame(
             [
                 'config_key' => [
+                    'param2' => 'new_value2',
+                    'param3' => 'value3',
                     'param' => 'new_value',
-                    'param2' => 'value2',
                 ],
             ],
-            $serializedConfig
+            iterator_to_array($serializedConfig)
         );
     }
 }

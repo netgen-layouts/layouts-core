@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
@@ -100,9 +101,11 @@ final class BlockMapper
         }
 
         $blockLocale = array_values($validLocales)[0];
-        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $blockDefinition,
-            $block->parameters[$block->mainLocale]
+        $untranslatableParams = iterator_to_array(
+            $this->parameterMapper->extractUntranslatableParameters(
+                $blockDefinition,
+                $block->parameters[$block->mainLocale]
+            )
         );
 
         $blockData = [
@@ -114,26 +117,33 @@ final class BlockMapper
             'name' => $block->name,
             'parentPosition' => $block->position,
             'status' => $block->status,
-            'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locales),
+            'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
             'collections' => new LazyCollection(
                 function () use ($block, $locales): array {
                     return array_map(
                         function (PersistenceCollection $collection) use ($locales): Collection {
                             return $this->collectionMapper->mapCollection($collection, $locales);
                         },
-                        $this->loadCollections($block)
+                        iterator_to_array($this->loadCollections($block))
                     );
                 }
             ),
-            'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
+            'configs' => iterator_to_array(
+                $this->configMapper->mapConfig(
+                    $block->config,
+                    $blockDefinition->getConfigDefinitions()
+                )
+            ),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
             'alwaysAvailable' => $block->alwaysAvailable,
             'availableLocales' => $block->availableLocales,
             'locale' => $blockLocale,
-            'parameters' => $this->parameterMapper->mapParameters(
-                $blockDefinition,
-                $untranslatableParams + $block->parameters[$blockLocale]
+            'parameters' => iterator_to_array(
+                $this->parameterMapper->mapParameters(
+                    $blockDefinition,
+                    $untranslatableParams + $block->parameters[$blockLocale]
+                )
             ),
         ];
 
@@ -142,39 +152,30 @@ final class BlockMapper
 
     /**
      * Loads all persistence collections belonging to the provided block.
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    private function loadCollections(PersistenceBlock $block): array
+    private function loadCollections(PersistenceBlock $block): Generator
     {
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
-        $collections = [];
-
         foreach ($collectionReferences as $collectionReference) {
-            $collections[$collectionReference->identifier] = $this->collectionHandler->loadCollection(
+            yield $collectionReference->identifier => $this->collectionHandler->loadCollection(
                 $collectionReference->collectionId,
                 $collectionReference->collectionStatus
             );
         }
-
-        return $collections;
     }
 
     /**
      * Maps the placeholder from persistence parameters.
-     *
-     * @return \Netgen\BlockManager\Core\Values\Block\Placeholder[]
      */
-    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, ?array $locales = null): array
+    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, ?array $locales = null): Generator
     {
         if (!$blockDefinition instanceof ContainerDefinitionInterface) {
-            return [];
+            return;
         }
 
-        $placeholders = [];
         foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {
-            $placeholders[$placeholderIdentifier] = Placeholder::fromArray(
+            yield $placeholderIdentifier => Placeholder::fromArray(
                 [
                     'identifier' => $placeholderIdentifier,
                     'blocks' => new LazyCollection(
@@ -190,7 +191,5 @@ final class BlockMapper
                 ]
             );
         }
-
-        return $placeholders;
     }
 }

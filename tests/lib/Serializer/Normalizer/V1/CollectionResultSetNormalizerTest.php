@@ -11,18 +11,15 @@ use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
 
 final class CollectionResultSetNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
-
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer
      */
@@ -30,10 +27,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
-
         $this->normalizer = new CollectionResultSetNormalizer();
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setNormalizer(new Serializer([new ValueNormalizer(), new NormalizerStub()]));
     }
 
     /**
@@ -48,8 +43,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
         $item3 = Item::fromArray(['position' => 2]);
         $item4 = Item::fromArray(['position' => 3]);
 
-        $result1 = new Result(1, new ManualItem($item2));
-        $result2 = new Result(2, new ManualItem($item3));
+        $result1 = new Result(0, new ManualItem($item2));
+        $result2 = new Result(1, new ManualItem($item3));
 
         $result = ResultSet::fromArray(
             [
@@ -62,36 +57,10 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ]
         );
 
-        $this->normalizerMock
-            ->expects(self::at(0))
-            ->method('normalize')
-            ->with(
-                self::equalTo(
-                    [
-                        new VersionedValue($result1, 1),
-                        new VersionedValue($result2, 1),
-                    ]
-                )
-            )
-            ->will(self::returnValue(['items']));
-
-        $this->normalizerMock
-            ->expects(self::at(1))
-            ->method('normalize')
-            ->with(
-                self::equalTo(
-                    [
-                        new VersionedValue($item1, 1),
-                        new VersionedValue($item4, 1),
-                    ]
-                )
-            )
-            ->will(self::returnValue(['overflow_items']));
-
         self::assertSame(
             [
-                'items' => ['items'],
-                'overflow_items' => ['overflow_items'],
+                'items' => ['data', 'data'],
+                'overflow_items' => ['data', 'data'],
             ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

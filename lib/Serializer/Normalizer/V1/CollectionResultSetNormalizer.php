@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\Normalizer;
@@ -18,15 +19,8 @@ final class CollectionResultSetNormalizer extends Normalizer implements Normaliz
         /** @var \Netgen\BlockManager\Collection\Result\ResultSet $resultSet */
         $resultSet = $object->getValue();
 
-        $results = [];
-        foreach ($resultSet as $result) {
-            $results[] = new VersionedValue($result, $object->getVersion());
-        }
-
-        $overflowItems = [];
-        foreach ($this->getOverflowItems($resultSet) as $overflowItem) {
-            $overflowItems[] = new VersionedValue($overflowItem, $object->getVersion());
-        }
+        $results = $this->buildVersionedValues($resultSet, $object->getVersion());
+        $overflowItems = $this->buildVersionedValues($this->getOverflowItems($resultSet), $object->getVersion());
 
         return [
             'items' => $this->normalizer->normalize($results, $format, $context),
@@ -47,12 +41,8 @@ final class CollectionResultSetNormalizer extends Normalizer implements Normaliz
      * Returns all items from the collection which are overflown. Overflown items
      * are those NOT included in the provided result set, as defined by collection
      * offset and limit.
-     *
-     * @param \Netgen\BlockManager\Collection\Result\ResultSet $resultSet
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    private function getOverflowItems(ResultSet $resultSet): array
+    private function getOverflowItems(ResultSet $resultSet): Generator
     {
         $includedPositions = [];
         foreach ($resultSet->getResults() as $result) {
@@ -65,13 +55,20 @@ final class CollectionResultSetNormalizer extends Normalizer implements Normaliz
             }
         }
 
-        $overflowItems = [];
         foreach ($resultSet->getCollection()->getItems() as $item) {
             if (!in_array($item->getPosition(), $includedPositions, true)) {
-                $overflowItems[] = $item;
+                yield $item;
             }
         }
+    }
 
-        return $overflowItems;
+    /**
+     * Builds the list of VersionedValue objects for provided list of values.
+     */
+    private function buildVersionedValues(iterable $values, int $version): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new VersionedValue($value, $version);
+        }
     }
 }

@@ -18,6 +18,7 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 final class LayoutNormalizerTest extends TestCase
 {
@@ -65,10 +66,8 @@ final class LayoutNormalizerTest extends TestCase
             ]
         );
 
-        $this->normalizer = new LayoutNormalizer(
-            $this->layoutServiceMock,
-            $this->blockServiceMock
-        );
+        $this->normalizer = new LayoutNormalizer($this->layoutServiceMock, $this->blockServiceMock);
+        $this->normalizer->setNormalizer(new Serializer());
     }
 
     /**

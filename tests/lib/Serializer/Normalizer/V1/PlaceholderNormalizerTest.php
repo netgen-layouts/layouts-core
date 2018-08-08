@@ -9,18 +9,13 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Serializer;
 
 final class PlaceholderNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
-
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
      */
@@ -28,10 +23,8 @@ final class PlaceholderNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
-
         $this->normalizer = new PlaceholderNormalizer();
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
     /**
@@ -48,16 +41,10 @@ final class PlaceholderNormalizerTest extends TestCase
             ]
         );
 
-        $this->normalizerMock
-            ->expects(self::at(0))
-            ->method('normalize')
-            ->with(self::equalTo([new View($block, 1)]))
-            ->will(self::returnValue(['normalized blocks']));
-
         self::assertSame(
             [
                 'identifier' => 'main',
-                'blocks' => ['normalized blocks'],
+                'blocks' => ['data'],
             ],
             $this->normalizer->normalize(new VersionedValue($placeholder, 1))
         );

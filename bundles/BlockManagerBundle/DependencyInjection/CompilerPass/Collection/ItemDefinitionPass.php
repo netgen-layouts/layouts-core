@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection;
 
+use Generator;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -34,7 +35,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
             $itemDefinitionService->setLazy(true);
             $itemDefinitionService->setPublic(true);
             $itemDefinitionService->addArgument($valueType);
-            $itemDefinitionService->addArgument($this->getConfigHandlers($container));
+            $itemDefinitionService->addArgument(iterator_to_array($this->getConfigHandlers($container)));
 
             $container->setDefinition($itemDefinitionServiceName, $itemDefinitionService);
 
@@ -44,10 +45,8 @@ final class ItemDefinitionPass implements CompilerPassInterface
         $itemDefinitionRegistry->replaceArgument(0, $itemDefinitions);
     }
 
-    private function getConfigHandlers(ContainerBuilder $container): array
+    private function getConfigHandlers(ContainerBuilder $container): Generator
     {
-        $configHandlers = [];
-
         $configHandlerServices = $container->findTaggedServiceIds('netgen_block_manager.collection.item_config_handler');
         foreach ($configHandlerServices as $configHandlerService => $tags) {
             foreach ($tags as $tag) {
@@ -57,10 +56,8 @@ final class ItemDefinitionPass implements CompilerPassInterface
                     );
                 }
 
-                $configHandlers[$tag['config_key']] = new Reference($configHandlerService);
+                yield $tag['config_key'] => new Reference($configHandlerService);
             }
         }
-
-        return $configHandlers;
     }
 }

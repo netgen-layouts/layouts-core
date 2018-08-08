@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
@@ -36,12 +37,11 @@ final class CollectionItemNormalizer extends Normalizer implements NormalizerInt
         $collectionItem = $object->getValue();
         $cmsItem = $collectionItem->getCmsItem();
 
-        $configuration = [];
-        foreach ($collectionItem->getConfigs() as $configKey => $config) {
-            foreach ($config->getParameters() as $parameter) {
-                $configuration[$configKey][$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
+        $configuration = (function () use ($collectionItem, $object): Generator {
+            foreach ($collectionItem->getConfigs() as $configKey => $config) {
+                yield $configKey => $this->buildVersionedValues($config->getParameters(), $object->getVersion());
             }
-        }
+        })();
 
         return [
             'id' => $collectionItem->getId(),
@@ -64,5 +64,15 @@ final class CollectionItemNormalizer extends Normalizer implements NormalizerInt
         }
 
         return $data->getValue() instanceof Item && $data->getVersion() === Version::API_V1;
+    }
+
+    /**
+     * Builds the list of VersionedValue objects for provided list of values.
+     */
+    private function buildVersionedValues(iterable $values, int $version): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new VersionedValue($value, $version);
+        }
     }
 }

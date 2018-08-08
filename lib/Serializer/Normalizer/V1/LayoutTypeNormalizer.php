@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Generator;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class LayoutTypeNormalizer implements NormalizerInterface
+final class LayoutTypeNormalizer extends Normalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = [])
     {
@@ -20,7 +22,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface
             'identifier' => $layoutType->getIdentifier(),
             'name' => $layoutType->getName(),
             'icon' => $layoutType->getIcon(),
-            'zones' => $this->getZones($layoutType),
+            'zones' => $this->normalizer->normalize($this->getZones($layoutType), $format, $context),
         ];
     }
 
@@ -36,12 +38,10 @@ final class LayoutTypeNormalizer implements NormalizerInterface
     /**
      * Returns the array with layout type zones.
      */
-    private function getZones(LayoutTypeInterface $layoutType): array
+    private function getZones(LayoutTypeInterface $layoutType): Generator
     {
-        $zones = [];
-
         foreach ($layoutType->getZones() as $zone) {
-            $zones[] = [
+            yield [
                 'identifier' => $zone->getIdentifier(),
                 'name' => $zone->getName(),
                 'allowed_block_definitions' => !empty($zone->getAllowedBlockDefinitions()) ?
@@ -49,7 +49,5 @@ final class LayoutTypeNormalizer implements NormalizerInterface
                     true,
             ];
         }
-
-        return $zones;
     }
 }

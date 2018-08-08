@@ -148,7 +148,12 @@ final class CollectionMapper
             'collectionId' => $item->collectionId,
             'position' => $item->position,
             'value' => $item->value,
-            'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
+            'configs' => iterator_to_array(
+                $this->configMapper->mapConfig(
+                    $item->config,
+                    $itemDefinition->getConfigDefinitions()
+                )
+            ),
             'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
                 $valueType = $itemDefinition instanceof NullItemDefinition ? 'null' : $itemDefinition->getValueType();
 
@@ -189,9 +194,11 @@ final class CollectionMapper
         }
 
         $queryLocale = array_values($validLocales)[0];
-        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $queryType,
-            $query->parameters[$query->mainLocale]
+        $untranslatableParams = iterator_to_array(
+            $this->parameterMapper->extractUntranslatableParameters(
+                $queryType,
+                $query->parameters[$query->mainLocale]
+            )
         );
 
         $queryData = [
@@ -204,9 +211,11 @@ final class CollectionMapper
             'alwaysAvailable' => $query->alwaysAvailable,
             'availableLocales' => $query->availableLocales,
             'locale' => $queryLocale,
-            'parameters' => $this->parameterMapper->mapParameters(
-                $queryType,
-                $untranslatableParams + $query->parameters[$queryLocale]
+            'parameters' => iterator_to_array(
+                $this->parameterMapper->mapParameters(
+                    $queryType,
+                    $untranslatableParams + $query->parameters[$queryLocale]
+                )
             ),
         ];
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Browser\Backend;
 
+use Generator;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
@@ -65,7 +66,7 @@ final class LayoutBackend implements BackendInterface
     {
         $layouts = $this->layoutService->loadLayouts(false, $offset, $limit);
 
-        return $this->buildItems($layouts);
+        return iterator_to_array($this->buildItems($layouts));
     }
 
     public function getSubItemsCount(LocationInterface $location): int
@@ -93,18 +94,11 @@ final class LayoutBackend implements BackendInterface
 
     /**
      * Builds the items from provided layouts.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout[] $layouts
-     *
-     * @return \Netgen\BlockManager\Browser\Item\Layout\Item[]
      */
-    private function buildItems(array $layouts): array
+    private function buildItems(iterable $layouts): Generator
     {
-        return array_map(
-            function (Layout $layout): Item {
-                return $this->buildItem($layout);
-            },
-            $layouts
-        );
+        foreach ($layouts as $layout) {
+            yield $this->buildItem($layout);
+        }
     }
 }

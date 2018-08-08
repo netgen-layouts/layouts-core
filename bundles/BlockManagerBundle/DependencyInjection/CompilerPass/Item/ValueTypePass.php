@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item;
 
+use Generator;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Item\ValueType\ValueTypeFactory;
@@ -22,7 +23,7 @@ final class ValueTypePass implements CompilerPassInterface
         }
 
         $valueTypes = $container->getParameter('netgen_block_manager.value_types');
-        $valueTypeServices = $this->buildValueTypes($container, $valueTypes);
+        $valueTypeServices = iterator_to_array($this->buildValueTypes($container, $valueTypes));
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
@@ -32,10 +33,8 @@ final class ValueTypePass implements CompilerPassInterface
     /**
      * Builds the value type objects from provided configuration.
      */
-    private function buildValueTypes(ContainerBuilder $container, array $valueTypes): array
+    private function buildValueTypes(ContainerBuilder $container, array $valueTypes): Generator
     {
-        $valueTypeServices = [];
-
         foreach ($valueTypes as $identifier => $valueType) {
             $this->validateBrowserType($container, $identifier);
 
@@ -47,10 +46,8 @@ final class ValueTypePass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([ValueTypeFactory::class, 'buildValueType']);
 
-            $valueTypeServices[$identifier] = new Reference($serviceIdentifier);
+            yield $identifier => new Reference($serviceIdentifier);
         }
-
-        return $valueTypeServices;
     }
 
     /**

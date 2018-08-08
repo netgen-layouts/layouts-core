@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
+use Generator;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -28,7 +29,7 @@ final class BlockTypePass implements CompilerPassInterface
         $container->setParameter('netgen_block_manager.block_types', $blockTypes);
 
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
-        $blockTypeServices = $this->buildBlockTypes($container, $blockTypes);
+        $blockTypeServices = iterator_to_array($this->buildBlockTypes($container, $blockTypes));
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
@@ -93,10 +94,8 @@ final class BlockTypePass implements CompilerPassInterface
     /**
      * Builds the block type objects from provided configuration.
      */
-    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): array
+    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): Generator
     {
-        $blockTypeServices = [];
-
         foreach ($blockTypes as $identifier => $blockType) {
             $serviceIdentifier = sprintf('netgen_block_manager.block.block_type.%s', $identifier);
 
@@ -117,10 +116,8 @@ final class BlockTypePass implements CompilerPassInterface
                 ->setPublic(true)
                 ->setFactory([BlockTypeFactory::class, 'buildBlockType']);
 
-            $blockTypeServices[$identifier] = new Reference($serviceIdentifier);
+            yield $identifier => new Reference($serviceIdentifier);
         }
-
-        return $blockTypeServices;
     }
 
     /**

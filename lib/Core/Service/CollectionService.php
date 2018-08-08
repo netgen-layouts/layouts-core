@@ -232,9 +232,11 @@ final class CollectionService extends Service implements APICollectionService
                         QueryCreateStruct::fromArray(
                             [
                                 'type' => $queryType->getType(),
-                                'parameters' => $this->parameterMapper->serializeValues(
-                                    $queryType,
-                                    $queryCreateStruct->getParameterValues()
+                                'parameters' => iterator_to_array(
+                                    $this->parameterMapper->serializeValues(
+                                        $queryType,
+                                        $queryCreateStruct->getParameterValues()
+                                    )
                                 ),
                             ]
                         )
@@ -273,9 +275,11 @@ final class CollectionService extends Service implements APICollectionService
                             'position' => $position,
                             'value' => $itemCreateStruct->value,
                             'valueType' => $itemCreateStruct->definition->getValueType(),
-                            'config' => $this->configMapper->serializeValues(
-                                $itemCreateStruct->getConfigStructs(),
-                                $itemCreateStruct->definition->getConfigDefinitions()
+                            'config' => iterator_to_array(
+                                $this->configMapper->serializeValues(
+                                    $itemCreateStruct->getConfigStructs(),
+                                    $itemCreateStruct->definition->getConfigDefinitions()
+                                )
                             ),
                         ]
                     )
@@ -304,10 +308,12 @@ final class CollectionService extends Service implements APICollectionService
                     $persistenceItem,
                     ItemUpdateStruct::fromArray(
                         [
-                            'config' => $this->configMapper->serializeValues(
-                                $itemUpdateStruct->getConfigStructs(),
-                                $itemDefinition->getConfigDefinitions(),
-                                $persistenceItem->config
+                            'config' => iterator_to_array(
+                                $this->configMapper->serializeValues(
+                                    $itemUpdateStruct->getConfigStructs(),
+                                    $itemDefinition->getConfigDefinitions(),
+                                    $persistenceItem->config
+                                )
                             ),
                         ]
                     )
@@ -448,19 +454,23 @@ final class CollectionService extends Service implements APICollectionService
                 $queryUpdateStruct->locale,
                 QueryTranslationUpdateStruct::fromArray(
                     [
-                        'parameters' => $this->parameterMapper->serializeValues(
-                            $queryType,
-                            $queryUpdateStruct->getParameterValues(),
-                            $persistenceQuery->parameters[$persistenceQuery->mainLocale]
+                        'parameters' => iterator_to_array(
+                            $this->parameterMapper->serializeValues(
+                                $queryType,
+                                $queryUpdateStruct->getParameterValues(),
+                                $persistenceQuery->parameters[$persistenceQuery->mainLocale]
+                            )
                         ),
                     ]
                 )
             );
         }
 
-        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $queryType,
-            $persistenceQuery->parameters[$persistenceQuery->mainLocale]
+        $untranslatableParams = iterator_to_array(
+            $this->parameterMapper->extractUntranslatableParameters(
+                $queryType,
+                $persistenceQuery->parameters[$persistenceQuery->mainLocale]
+            )
         );
 
         $localesToUpdate = [$queryUpdateStruct->locale];
@@ -478,10 +488,12 @@ final class CollectionService extends Service implements APICollectionService
             $params = $persistenceQuery->parameters[$locale];
 
             if ($locale === $queryUpdateStruct->locale) {
-                $params = $this->parameterMapper->serializeValues(
-                    $queryType,
-                    $queryUpdateStruct->getParameterValues(),
-                    $params
+                $params = iterator_to_array(
+                    $this->parameterMapper->serializeValues(
+                        $queryType,
+                        $queryUpdateStruct->getParameterValues(),
+                        $params
+                    )
                 );
             }
 
