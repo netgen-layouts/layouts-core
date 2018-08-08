@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\Layout;
@@ -129,7 +130,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($block, $locales, $useMainLocale);
     }
 
-    public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): array
+    public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): BlockList
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
@@ -142,16 +143,20 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceZone->status
         );
 
-        return iterator_to_array(
-            $this->filterUntranslatedBlocks(
-                $this->blockHandler->loadChildBlocks($rootBlock),
-                $locales,
-                $useMainLocale
+        return new BlockList(
+            array_values(
+                iterator_to_array(
+                    $this->filterUntranslatedBlocks(
+                        $this->blockHandler->loadChildBlocks($rootBlock),
+                        $locales,
+                        $useMainLocale
+                    )
+                )
             )
         );
     }
 
-    public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): array
+    public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): BlockList
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
@@ -166,11 +171,15 @@ final class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return iterator_to_array(
-            $this->filterUntranslatedBlocks(
-                $persistenceBlocks,
-                $locales,
-                $useMainLocale
+        return new BlockList(
+            array_values(
+                iterator_to_array(
+                    $this->filterUntranslatedBlocks(
+                        $persistenceBlocks,
+                        $locales,
+                        $useMainLocale
+                    )
+                )
             )
         );
     }

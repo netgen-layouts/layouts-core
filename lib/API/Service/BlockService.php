@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -62,10 +63,8 @@ interface BlockService extends Service
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): array;
+    public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): BlockList;
 
     /**
      * Loads all blocks belonging to provided layout.
@@ -76,10 +75,8 @@ interface BlockService extends Service
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): array;
+    public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): BlockList;
 
     /**
      * Returns if provided block has a published status.

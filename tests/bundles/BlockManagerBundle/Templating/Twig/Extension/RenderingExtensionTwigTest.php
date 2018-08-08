@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -156,45 +157,47 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             )
             ->will(
                 self::returnValue(
-                    [
-                        Block::fromArray(
-                            [
-                                'definition' => BlockDefinition::fromArray(
-                                    [
-                                        'identifier' => 'block_definition',
-                                    ]
-                                ),
-                            ]
-                        ),
-                        Block::fromArray(
-                            [
-                                'definition' => BlockDefinition::fromArray(
-                                    [
-                                        'identifier' => 'twig_block',
-                                    ]
-                                ),
-                                'availableLocales' => ['en'],
-                                'locale' => 'en',
-                                'parameters' => [
-                                    'block_name' => Parameter::fromArray(
+                    new BlockList(
+                        [
+                            Block::fromArray(
+                                [
+                                    'definition' => BlockDefinition::fromArray(
                                         [
-                                            'name' => 'block_name',
-                                            'value' => 'my_block',
+                                            'identifier' => 'block_definition',
                                         ]
                                     ),
-                                ],
-                            ]
-                        ),
-                        Block::fromArray(
-                            [
-                                'definition' => BlockDefinition::fromArray(
-                                    [
-                                        'identifier' => 'block_definition',
-                                    ]
-                                ),
-                            ]
-                        ),
-                    ]
+                                ]
+                            ),
+                            Block::fromArray(
+                                [
+                                    'definition' => BlockDefinition::fromArray(
+                                        [
+                                            'identifier' => 'twig_block',
+                                        ]
+                                    ),
+                                    'availableLocales' => ['en'],
+                                    'locale' => 'en',
+                                    'parameters' => [
+                                        'block_name' => Parameter::fromArray(
+                                            [
+                                                'name' => 'block_name',
+                                                'value' => 'my_block',
+                                            ]
+                                        ),
+                                    ],
+                                ]
+                            ),
+                            Block::fromArray(
+                                [
+                                    'definition' => BlockDefinition::fromArray(
+                                        [
+                                            'identifier' => 'block_definition',
+                                        ]
+                                    ),
+                                ]
+                            ),
+                        ]
+                    )
                 )
             );
 

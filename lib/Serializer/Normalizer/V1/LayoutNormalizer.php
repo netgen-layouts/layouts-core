@@ -8,7 +8,6 @@ use DateTime;
 use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -100,12 +99,7 @@ final class LayoutNormalizer extends Normalizer implements NormalizerInterface
             yield [
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
-                'block_ids' => array_map(
-                    function (Block $block) {
-                        return $block->getId();
-                    },
-                    $this->blockService->loadZoneBlocks($zone)
-                ),
+                'block_ids' => $this->blockService->loadZoneBlocks($zone)->getBlockIds(),
                 'allowed_block_definitions' => $this->getAllowedBlocks(
                     $zone,
                     $layoutType

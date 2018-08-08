@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
@@ -131,17 +132,17 @@ final class LayoutNormalizerTest extends TestCase
         $this->blockServiceMock
             ->expects(self::at(0))
             ->method('loadZoneBlocks')
-            ->will(self::returnValue([$block]));
+            ->will(self::returnValue(new BlockList([$block])));
 
         $this->blockServiceMock
             ->expects(self::at(1))
             ->method('loadZoneBlocks')
-            ->will(self::returnValue([]));
+            ->will(self::returnValue(new BlockList()));
 
         $this->blockServiceMock
             ->expects(self::at(2))
             ->method('loadZoneBlocks')
-            ->will(self::returnValue([]));
+            ->will(self::returnValue(new BlockList()));
 
         $this->layoutServiceMock
             ->expects(self::at(0))
