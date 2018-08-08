@@ -44,6 +44,8 @@ final class ClearLayoutsCacheType extends AbstractType
                 'constraints' => [new NotBlank()],
             ] + $this->getChoicesAsValuesOption()
         );
+
+        $builder->get('layouts')->addModelTransformer(new LayoutListTransformer());
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void

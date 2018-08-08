@@ -58,17 +58,10 @@ final class ClearRelatedLayoutsCache extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var \Netgen\BlockManager\API\Values\Layout\LayoutList $selectedLayouts */
             $selectedLayouts = $form->get('layouts')->getData();
 
-            $this->httpCacheClient->invalidateLayouts(
-                array_map(
-                    function (Layout $layout) {
-                        return $layout->getId();
-                    },
-                    $selectedLayouts
-                )
-            );
-
+            $this->httpCacheClient->invalidateLayouts($selectedLayouts->getLayoutIds());
             $cacheCleared = $this->httpCacheClient->commit();
 
             if ($cacheCleared) {
