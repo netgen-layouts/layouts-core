@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
@@ -36,7 +37,7 @@ final class CollectionVisitor implements VisitorInterface
             'is_always_available' => $collection->isAlwaysAvailable(),
             'main_locale' => $collection->getMainLocale(),
             'available_locales' => $collection->getAvailableLocales(),
-            'items' => $this->visitItems($collection->getItems(), $subVisitor),
+            'items' => iterator_to_array($this->visitItems($collection->getItems(), $subVisitor)),
             'query' => $this->visitQuery($collection, $subVisitor),
         ];
     }
@@ -44,17 +45,11 @@ final class CollectionVisitor implements VisitorInterface
     /**
      * Visit the given collection $items into hash representation.
      */
-    private function visitItems(array $items, VisitorInterface $subVisitor): array
+    private function visitItems(array $items, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($items as $item) {
-            $hash[$item->getPosition()] = $subVisitor->visit($item);
+            yield $subVisitor->visit($item);
         }
-
-        ksort($hash);
-
-        return array_values($hash);
     }
 
     /**

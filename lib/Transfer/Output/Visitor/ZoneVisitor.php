@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -42,7 +43,7 @@ final class ZoneVisitor implements VisitorInterface
         return [
             'identifier' => $zone->getIdentifier(),
             'linked_zone' => $this->visitLinkedZone($zone),
-            'blocks' => $this->visitBlocks($zone, $subVisitor),
+            'blocks' => iterator_to_array($this->visitBlocks($zone, $subVisitor)),
         ];
     }
 
@@ -68,15 +69,10 @@ final class ZoneVisitor implements VisitorInterface
      *
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
      */
-    private function visitBlocks(Zone $zone, VisitorInterface $subVisitor): array
+    private function visitBlocks(Zone $zone, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-        $blocks = $this->blockService->loadZoneBlocks($zone);
-
-        foreach ($blocks as $block) {
-            $hash[] = $subVisitor->visit($block, $subVisitor);
+        foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
+            yield $subVisitor->visit($block, $subVisitor);
         }
-
-        return $hash;
     }
 }

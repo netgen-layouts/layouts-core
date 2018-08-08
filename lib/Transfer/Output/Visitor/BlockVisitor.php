@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -49,25 +50,21 @@ final class BlockVisitor implements VisitorInterface
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
             'name' => $block->getName(),
-            'placeholders' => $this->visitPlaceholders($block, $subVisitor),
+            'placeholders' => iterator_to_array($this->visitPlaceholders($block, $subVisitor)),
             'parameters' => $this->visitParameters($block, $subVisitor),
-            'configuration' => $this->visitConfiguration($block, $subVisitor),
-            'collections' => $this->visitCollections($block, $subVisitor),
+            'configuration' => iterator_to_array($this->visitConfiguration($block, $subVisitor)),
+            'collections' => iterator_to_array($this->visitCollections($block, $subVisitor)),
         ];
     }
 
     /**
      * Visit the given $block placeholders into hash representation.
      */
-    private function visitPlaceholders(Block $block, VisitorInterface $subVisitor): array
+    private function visitPlaceholders(Block $block, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($block->getPlaceholders() as $placeholder) {
-            $hash[$placeholder->getIdentifier()] = $subVisitor->visit($placeholder);
+            yield $placeholder->getIdentifier() => $subVisitor->visit($placeholder);
         }
-
-        return $hash;
     }
 
     /**
@@ -76,7 +73,9 @@ final class BlockVisitor implements VisitorInterface
     private function visitParameters(Block $block, VisitorInterface $subVisitor): array
     {
         $parametersByLanguage = [
-            $block->getLocale() => $this->visitTranslationParameters($block, $subVisitor),
+            $block->getLocale() => iterator_to_array(
+                $this->visitTranslationParameters($block, $subVisitor)
+            ),
         ];
 
         foreach ($block->getAvailableLocales() as $availableLocale) {
@@ -90,9 +89,11 @@ final class BlockVisitor implements VisitorInterface
                 false
             );
 
-            $parametersByLanguage[$availableLocale] = $this->visitTranslationParameters(
-                $translatedBlock,
-                $subVisitor
+            $parametersByLanguage[$availableLocale] = iterator_to_array(
+                $this->visitTranslationParameters(
+                    $translatedBlock,
+                    $subVisitor
+                )
             );
         }
 
@@ -104,42 +105,30 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Return parameters for the given $block.
      */
-    private function visitTranslationParameters(Block $block, VisitorInterface $subVisitor): array
+    private function visitTranslationParameters(Block $block, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($block->getParameters() as $parameter) {
-            $hash[$parameter->getName()] = $subVisitor->visit($parameter);
+            yield $parameter->getName() => $subVisitor->visit($parameter);
         }
-
-        return $hash;
     }
 
     /**
      * Visit the given $block configuration into hash representation.
      */
-    private function visitConfiguration(Block $block, VisitorInterface $subVisitor): array
+    private function visitConfiguration(Block $block, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($block->getConfigs() as $config) {
-            $hash[$config->getConfigKey()] = $subVisitor->visit($config);
+            yield $config->getConfigKey() => $subVisitor->visit($config);
         }
-
-        return $hash;
     }
 
     /**
      * Visit the given $block collections into hash representation.
      */
-    private function visitCollections(Block $block, VisitorInterface $subVisitor): array
+    private function visitCollections(Block $block, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($block->getCollections() as $identifier => $collection) {
-            $hash[$identifier] = $subVisitor->visit($collection);
+            yield $identifier => $subVisitor->visit($collection);
         }
-
-        return $hash;
     }
 }

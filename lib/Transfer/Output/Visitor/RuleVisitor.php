@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -40,36 +41,28 @@ final class RuleVisitor implements VisitorInterface
             'is_enabled' => $rule->isEnabled(),
             'priority' => $rule->getPriority(),
             'comment' => $rule->getComment(),
-            'targets' => $this->visitTargets($rule, $subVisitor),
-            'conditions' => $this->visitConditions($rule, $subVisitor),
+            'targets' => iterator_to_array($this->visitTargets($rule, $subVisitor)),
+            'conditions' => iterator_to_array($this->visitConditions($rule, $subVisitor)),
         ];
     }
 
     /**
      * Visit the given $rule targets into hash representation.
      */
-    private function visitTargets(Rule $rule, VisitorInterface $subVisitor): array
+    private function visitTargets(Rule $rule, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($rule->getTargets() as $target) {
-            $hash[$target->getId()] = $subVisitor->visit($target);
+            yield $target->getId() => $subVisitor->visit($target);
         }
-
-        return $hash;
     }
 
     /**
      * Visit the given $rule conditions into hash representation.
      */
-    private function visitConditions(Rule $rule, VisitorInterface $subVisitor): array
+    private function visitConditions(Rule $rule, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($rule->getConditions() as $condition) {
-            $hash[$condition->getId()] = $subVisitor->visit($condition);
+            yield $condition->getId() => $subVisitor->visit($condition);
         }
-
-        return $hash;
     }
 }

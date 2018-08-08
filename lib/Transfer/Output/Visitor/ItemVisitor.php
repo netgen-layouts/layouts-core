@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
@@ -33,21 +34,17 @@ final class ItemVisitor implements VisitorInterface
             'position' => $collectionItem->getPosition(),
             'value' => $collectionItem->getCmsItem()->getRemoteId(),
             'value_type' => $collectionItem->getDefinition()->getValueType(),
-            'configuration' => $this->visitConfiguration($collectionItem, $subVisitor),
+            'configuration' => iterator_to_array($this->visitConfiguration($collectionItem, $subVisitor)),
         ];
     }
 
     /**
      * Visit the given $item configuration into hash representation.
      */
-    private function visitConfiguration(Item $item, VisitorInterface $subVisitor): array
+    private function visitConfiguration(Item $item, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($item->getConfigs() as $config) {
-            $hash[$config->getConfigKey()] = $subVisitor->visit($config);
+            yield $config->getConfigKey() => $subVisitor->visit($config);
         }
-
-        return $hash;
     }
 }

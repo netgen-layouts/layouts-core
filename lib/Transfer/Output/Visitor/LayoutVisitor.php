@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\StatusStringTrait;
@@ -43,21 +44,17 @@ final class LayoutVisitor implements VisitorInterface
             'creation_date' => $layout->getCreated()->getTimestamp(),
             'modification_date' => $layout->getModified()->getTimestamp(),
             'is_shared' => $layout->isShared(),
-            'zones' => $this->visitZones($layout, $subVisitor),
+            'zones' => iterator_to_array($this->visitZones($layout, $subVisitor)),
         ];
     }
 
     /**
      * Visit the given $layout zones into hash representation.
      */
-    private function visitZones(Layout $layout, VisitorInterface $subVisitor): array
+    private function visitZones(Layout $layout, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($layout->getZones() as $zone) {
-            $hash[$zone->getIdentifier()] = $subVisitor->visit($zone, $subVisitor);
+            yield $zone->getIdentifier() => $subVisitor->visit($zone, $subVisitor);
         }
-
-        return $hash;
     }
 }

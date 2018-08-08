@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -56,7 +57,9 @@ final class QueryVisitor implements VisitorInterface
     private function visitParameters(Query $query, VisitorInterface $subVisitor): array
     {
         $parametersByLanguage = [
-            $query->getLocale() => $this->visitTranslationParameters($query, $subVisitor),
+            $query->getLocale() => iterator_to_array(
+                $this->visitTranslationParameters($query, $subVisitor)
+            ),
         ];
 
         foreach ($query->getAvailableLocales() as $availableLocale) {
@@ -70,9 +73,11 @@ final class QueryVisitor implements VisitorInterface
                 false
             );
 
-            $parametersByLanguage[$availableLocale] = $this->visitTranslationParameters(
-                $translatedQuery,
-                $subVisitor
+            $parametersByLanguage[$availableLocale] = iterator_to_array(
+                $this->visitTranslationParameters(
+                    $translatedQuery,
+                    $subVisitor
+                )
             );
         }
 
@@ -84,14 +89,10 @@ final class QueryVisitor implements VisitorInterface
     /**
      * Return parameters for the given $query.
      */
-    private function visitTranslationParameters(Query $query, VisitorInterface $subVisitor): array
+    private function visitTranslationParameters(Query $query, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($query->getParameters() as $parameter) {
-            $hash[$parameter->getName()] = $subVisitor->visit($parameter);
+            yield $parameter->getName() => $subVisitor->visit($parameter);
         }
-
-        return $hash;
     }
 }

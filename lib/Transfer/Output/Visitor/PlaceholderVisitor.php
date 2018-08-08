@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Generator;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
@@ -30,21 +31,17 @@ final class PlaceholderVisitor implements VisitorInterface
 
         return [
             'identifier' => $placeholder->getIdentifier(),
-            'blocks' => $this->visitBlocks($placeholder, $subVisitor),
+            'blocks' => iterator_to_array($this->visitBlocks($placeholder, $subVisitor)),
         ];
     }
 
     /**
      * Visit the given $placeholder blocks into hash representation.
      */
-    private function visitBlocks(Placeholder $placeholder, VisitorInterface $subVisitor): array
+    private function visitBlocks(Placeholder $placeholder, VisitorInterface $subVisitor): Generator
     {
-        $hash = [];
-
         foreach ($placeholder as $block) {
-            $hash[] = $subVisitor->visit($block);
+            yield $subVisitor->visit($block);
         }
-
-        return $hash;
     }
 }

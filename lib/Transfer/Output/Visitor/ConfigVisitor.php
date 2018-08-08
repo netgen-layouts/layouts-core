@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
@@ -26,13 +27,13 @@ final class ConfigVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Config\Config $config */
-        $hash = [];
+        /* @var \Netgen\BlockManager\API\Values\Config\Config $config */
 
-        foreach ($config->getParameters() as $parameter) {
-            $hash[$parameter->getName()] = $subVisitor->visit($parameter);
-        }
-
-        return $hash;
+        return array_map(
+            function (Parameter $parameter) use ($subVisitor) {
+                return $subVisitor->visit($parameter);
+            },
+            $config->getParameters()
+        );
     }
 }
