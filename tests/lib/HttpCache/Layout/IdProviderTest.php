@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\HttpCache\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\HttpCache\Layout\IdProvider;
@@ -99,18 +100,20 @@ final class IdProviderTest extends TestCase
             ->with(self::identicalTo($sharedLayout))
             ->will(
                 self::returnValue(
-                    [
-                        Layout::fromArray(
-                            [
-                                'id' => 43,
-                            ]
-                        ),
-                        Layout::fromArray(
-                            [
-                                'id' => 44,
-                            ]
-                        ),
-                    ]
+                    new LayoutList(
+                        [
+                            Layout::fromArray(
+                                [
+                                    'id' => 43,
+                                ]
+                            ),
+                            Layout::fromArray(
+                                [
+                                    'id' => 44,
+                                ]
+                            ),
+                        ]
+                    )
                 )
             );
 

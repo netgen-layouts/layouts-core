@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\API\Service;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
@@ -49,10 +50,8 @@ interface LayoutService extends Service
     /**
      * Loads all published layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList;
 
     /**
      * Returns the count of all published layouts. If $includeDrafts is set to true, drafts which have no
@@ -63,10 +62,8 @@ interface LayoutService extends Service
     /**
      * Loads all published shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList;
 
     /**
      * Returns the count of all published shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -79,10 +76,8 @@ interface LayoutService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
-    public function loadRelatedLayouts(Layout $sharedLayout): array;
+    public function loadRelatedLayouts(Layout $sharedLayout): LayoutList;
 
     /**
      * Returns the count of published layouts related to provided shared layout.

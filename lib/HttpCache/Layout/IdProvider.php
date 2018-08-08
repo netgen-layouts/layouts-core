@@ -40,9 +40,7 @@ final class IdProvider implements IdProviderInterface
         }
 
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
-        foreach ($relatedLayouts as $relatedLayout) {
-            $layoutIds[] = $relatedLayout->getId();
-        }
+        $layoutIds = array_merge($layoutIds, $relatedLayouts->getLayoutIds());
 
         return $layoutIds;
     }

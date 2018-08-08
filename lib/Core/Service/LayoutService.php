@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct as APILayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
@@ -99,7 +100,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
+    public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
@@ -109,11 +110,13 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        return array_map(
-            function (PersistenceLayout $layout): Layout {
-                return $this->mapper->mapLayout($layout);
-            },
-            $persistenceLayouts
+        return new LayoutList(
+            array_map(
+                function (PersistenceLayout $layout): Layout {
+                    return $this->mapper->mapLayout($layout);
+                },
+                $persistenceLayouts
+            )
         );
     }
 
@@ -122,7 +125,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->getLayoutsCount($includeDrafts);
     }
 
-    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
+    public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
@@ -132,11 +135,13 @@ final class LayoutService extends Service implements LayoutServiceInterface
             $limit
         );
 
-        return array_map(
-            function (PersistenceLayout $layout): Layout {
-                return $this->mapper->mapLayout($layout);
-            },
-            $persistenceLayouts
+        return new LayoutList(
+            array_map(
+                function (PersistenceLayout $layout): Layout {
+                    return $this->mapper->mapLayout($layout);
+                },
+                $persistenceLayouts
+            )
         );
     }
 
@@ -145,7 +150,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->getSharedLayoutsCount($includeDrafts);
     }
 
-    public function loadRelatedLayouts(Layout $sharedLayout): array
+    public function loadRelatedLayouts(Layout $sharedLayout): LayoutList
     {
         if (!$sharedLayout->isPublished()) {
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
@@ -157,11 +162,13 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->getId(), $sharedLayout->getStatus());
 
-        return array_map(
-            function (PersistenceLayout $relatedLayout): Layout {
-                return $this->mapper->mapLayout($relatedLayout);
-            },
-            $this->layoutHandler->loadRelatedLayouts($persistenceLayout)
+        return new LayoutList(
+            array_map(
+                function (PersistenceLayout $relatedLayout): Layout {
+                    return $this->mapper->mapLayout($relatedLayout);
+                },
+                $this->layoutHandler->loadRelatedLayouts($persistenceLayout)
+            )
         );
     }
 

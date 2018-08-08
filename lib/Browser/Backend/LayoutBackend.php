@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Browser\Backend;
 use Generator;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
@@ -95,7 +96,7 @@ final class LayoutBackend implements BackendInterface
     /**
      * Builds the items from provided layouts.
      */
-    private function buildItems(iterable $layouts): Generator
+    private function buildItems(LayoutList $layouts): Generator
     {
         foreach ($layouts as $layout) {
             yield $this->buildItem($layout);

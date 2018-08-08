@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Browser\Backend\LayoutBackend;
 use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
@@ -133,7 +134,7 @@ final class LayoutBackendTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(25)
             )
-            ->will(self::returnValue([new Layout(), new Layout()]));
+            ->will(self::returnValue(new LayoutList([new Layout(), new Layout()])));
 
         $items = $this->backend->getSubItems(new RootLocation());
 
@@ -156,7 +157,7 @@ final class LayoutBackendTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(10)
             )
-            ->will(self::returnValue([new Layout(), new Layout()]));
+            ->will(self::returnValue(new LayoutList([new Layout(), new Layout()])));
 
         $items = $this->backend->getSubItems(
             new RootLocation(),

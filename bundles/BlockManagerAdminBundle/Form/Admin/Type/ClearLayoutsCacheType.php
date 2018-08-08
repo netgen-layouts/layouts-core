@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,21 +23,7 @@ final class ClearLayoutsCacheType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setRequired(['layouts']);
-        $resolver->setAllowedTypes('layouts', 'array');
-
-        // @deprecated Replace with "Layout[]" allowed type when support for Symfony 2.8 ends
-        $resolver->setAllowedValues(
-            'layouts',
-            function (array $layouts): bool {
-                foreach ($layouts as $layout) {
-                    if (!$layout instanceof Layout) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        );
+        $resolver->setAllowedTypes('layouts', LayoutList::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

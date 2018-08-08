@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 
+use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
@@ -13,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ClearLayoutsCacheTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout[]
+     * @var \Netgen\BlockManager\API\Values\Layout\LayoutList
      */
     private $layouts;
 
@@ -21,10 +22,12 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->layouts = [
-            42 => Layout::fromArray(['id' => 42, 'name' => 'Layout 42']),
-            24 => Layout::fromArray(['id' => 24, 'name' => 'Layout 24']),
-        ];
+        $this->layouts = new LayoutList(
+            [
+                Layout::fromArray(['id' => 42, 'name' => 'Layout 42']),
+                Layout::fromArray(['id' => 24, 'name' => 'Layout 24']),
+            ]
+        );
     }
 
     /**
@@ -46,7 +49,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         self::assertTrue($form->isSynchronized());
-        self::assertSame(['layouts' => [$this->layouts[42]]], $form->getData());
+        self::assertSame(['layouts' => [$this->layouts[0]]], $form->getData());
 
         $view = $form->createView();
 
@@ -54,11 +57,11 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
 
         self::assertCount(2, $childViews);
 
-        foreach ($this->layouts as $id => $layout) {
-            self::assertArrayHasKey($id, $childViews);
+        foreach ($this->layouts as $layout) {
+            self::assertArrayHasKey($layout->getId(), $childViews);
 
-            self::assertArrayHasKey('layout', $childViews[$id]->vars);
-            self::assertSame($layout, $childViews[$id]->vars['layout']);
+            self::assertArrayHasKey('layout', $childViews[$layout->getId()]->vars);
+            self::assertSame($layout, $childViews[$layout->getId()]->vars['layout']);
         }
     }
 
@@ -83,25 +86,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "layouts" with value array is invalid.
-     */
-    public function testConfigureOptionsWithInvalidLayout(): void
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve(
-            [
-                'layouts' => [42],
-            ]
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "layouts" with value 42 is expected to be of type "array", but is of type "integer".
+     * @expectedExceptionMessage The option "layouts" with value 42 is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutList", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidLayouts(): void
     {
