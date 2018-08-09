@@ -192,13 +192,13 @@ final class RenderingRuntime
      * Renders the provided template, with a reduced set of variables from the provided
      * parameters list. Variables included are only those which can be safely printed.
      */
-    public function renderStringTemplate(string $templateName, array $parameters = []): string
+    public function renderStringTemplate(string $string, array $parameters = []): string
     {
         try {
             $parameters = iterator_to_array($this->getTemplateVariables($parameters));
 
             $environment = new Environment(new ArrayLoader());
-            $template = $environment->createTemplate($templateName);
+            $template = $environment->createTemplate($string);
 
             return $environment->resolveTemplate($template)->render($parameters);
         } catch (Throwable $t) {
