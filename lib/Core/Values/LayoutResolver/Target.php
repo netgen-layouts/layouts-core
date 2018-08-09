@@ -30,7 +30,7 @@ final class Target implements APITarget
     private $targetType;
 
     /**
-     * @var int|string|float
+     * @var mixed
      */
     private $value;
 
