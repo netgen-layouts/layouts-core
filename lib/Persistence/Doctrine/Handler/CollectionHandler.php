@@ -467,21 +467,19 @@ final class CollectionHandler implements CollectionHandlerInterface
             // Do nothing
         }
 
-        $queryParameters = [];
-        foreach ($collection->availableLocales as $collectionLocale) {
-            $queryParameters[$collectionLocale] = $queryCreateStruct->parameters;
-        }
-
         $newQuery = Query::fromArray(
             [
                 'collectionId' => $collection->id,
                 'type' => $queryCreateStruct->type,
-                'parameters' => $queryParameters,
                 'status' => $collection->status,
                 'isTranslatable' => $collection->isTranslatable,
                 'alwaysAvailable' => $collection->alwaysAvailable,
                 'mainLocale' => $collection->mainLocale,
                 'availableLocales' => $collection->availableLocales,
+                'parameters' => array_fill_keys(
+                    $collection->availableLocales,
+                    $queryCreateStruct->parameters
+                ),
             ]
         );
 
