@@ -7,7 +7,9 @@ namespace Netgen\BlockManager\Core\Values\Block;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
+use Netgen\BlockManager\API\Values\Block\PlaceholderList;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionList;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
@@ -137,9 +139,9 @@ final class Block implements APIBlock
         return $this->parentPosition;
     }
 
-    public function getPlaceholders(): array
+    public function getPlaceholders(): PlaceholderList
     {
-        return $this->placeholders;
+        return new PlaceholderList($this->placeholders);
     }
 
     public function getPlaceholder(string $identifier): APIPlaceholder
@@ -156,9 +158,9 @@ final class Block implements APIBlock
         return isset($this->placeholders[$identifier]);
     }
 
-    public function getCollections(): array
+    public function getCollections(): CollectionList
     {
-        return $this->collections->toArray();
+        return new CollectionList($this->collections->toArray());
     }
 
     public function getCollection(string $identifier): Collection

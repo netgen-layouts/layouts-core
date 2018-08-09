@@ -31,8 +31,8 @@ final class BlockTest extends TestCase
     {
         $block = new Block();
 
-        self::assertSame([], $block->getPlaceholders());
-        self::assertSame([], $block->getCollections());
+        self::assertCount(0, $block->getPlaceholders());
+        self::assertCount(0, $block->getCollections());
         self::assertSame([], $block->getAvailableLocales());
     }
 
@@ -106,12 +106,8 @@ final class BlockTest extends TestCase
         self::assertSame(['en'], $block->getAvailableLocales());
         self::assertSame('en', $block->getLocale());
 
-        self::assertSame(
-            [
-                'main' => $placeholder,
-            ],
-            $block->getPlaceholders()
-        );
+        self::assertCount(1, $block->getPlaceholders());
+        self::assertSame($placeholder, $block->getPlaceholders()['main']);
 
         try {
             $block->getPlaceholder('test');
@@ -119,12 +115,8 @@ final class BlockTest extends TestCase
             // Do nothing
         }
 
-        self::assertSame(
-            [
-                'default' => $collection,
-            ],
-            $block->getCollections()
-        );
+        self::assertCount(1, $block->getCollections());
+        self::assertSame($collection, $block->getCollections()['default']);
 
         try {
             $block->getCollection('test');

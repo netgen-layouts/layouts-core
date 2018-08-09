@@ -9,9 +9,9 @@ interface ConfigAwareValue
     /**
      * Returns all available configs.
      *
-     * @return \Netgen\BlockManager\API\Values\Config\Config[]
+     * @return \Netgen\BlockManager\API\Values\Config\ConfigList
      */
-    public function getConfigs(): array;
+    public function getConfigs(): ConfigList;
 
     /**
      * Returns the config with specified config key.

@@ -133,9 +133,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
         self::assertSame(1447065813, $layout->getModified()->getTimestamp());
         self::assertTrue($layout->isPublished());
         self::assertTrue($layout->isShared());
-
-        self::assertNotEmpty($layout->getZones());
-        self::assertContainsOnlyInstancesOf(APIZone::class, $layout->getZones());
+        self::assertCount(4, $layout->getZones());
     }
 
     /**
@@ -167,8 +165,6 @@ abstract class LayoutMapperTest extends ServiceTestCase
         self::assertSame(1447065813, $layout->getModified()->getTimestamp());
         self::assertTrue($layout->isPublished());
         self::assertTrue($layout->isShared());
-
-        self::assertNotEmpty($layout->getZones());
-        self::assertContainsOnlyInstancesOf(APIZone::class, $layout->getZones());
+        self::assertCount(4, $layout->getZones());
     }
 }

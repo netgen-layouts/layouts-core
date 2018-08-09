@@ -21,7 +21,7 @@ final class PlaceholderTest extends TestCase
     {
         $placeholder = new Placeholder();
 
-        self::assertSame([], $placeholder->getBlocks());
+        self::assertCount(0, $placeholder->getBlocks());
     }
 
     /**
@@ -47,7 +47,9 @@ final class PlaceholderTest extends TestCase
         );
 
         self::assertSame('placeholder', $placeholder->getIdentifier());
-        self::assertSame([$block], $placeholder->getBlocks());
+
+        self::assertCount(1, $placeholder->getBlocks());
+        self::assertSame($block, $placeholder->getBlocks()[0]);
 
         self::assertInstanceOf(Traversable::class, $placeholder->getIterator());
         self::assertSame([$block], iterator_to_array($placeholder->getIterator()));

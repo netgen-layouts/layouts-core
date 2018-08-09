@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\ItemList;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -45,7 +46,7 @@ final class CollectionVisitor implements VisitorInterface
     /**
      * Visit the given collection $items into hash representation.
      */
-    private function visitItems(array $items, VisitorInterface $subVisitor): Generator
+    private function visitItems(ItemList $items, VisitorInterface $subVisitor): Generator
     {
         foreach ($items as $item) {
             yield $subVisitor->visit($item);

@@ -30,7 +30,7 @@ final class LayoutTest extends TestCase
     {
         $layout = new Layout();
 
-        self::assertSame([], $layout->getZones());
+        self::assertCount(0, $layout->getZones());
         self::assertSame([], $layout->getAvailableLocales());
     }
 
@@ -93,7 +93,6 @@ final class LayoutTest extends TestCase
         self::assertSame($createdDate, $layout->getCreated());
         self::assertSame($modifiedDate, $layout->getModified());
         self::assertTrue($layout->isShared());
-        self::assertSame($zones, $layout->getZones());
         self::assertNull($layout->getZone('test'));
         self::assertFalse($layout->hasZone('test'));
         self::assertSame($zones['right']->getLinkedZone(), $layout->getZone('right'));
@@ -103,6 +102,10 @@ final class LayoutTest extends TestCase
         self::assertSame(['en'], $layout->getAvailableLocales());
         self::assertTrue($layout->hasLocale('en'));
         self::assertFalse($layout->hasLocale('hr'));
+
+        self::assertCount(2, $layout->getZones());
+        self::assertSame($zones['left'], $layout->getZones()['left']);
+        self::assertSame($zones['right'], $layout->getZones()['right']);
 
         self::assertInstanceOf(Traversable::class, $layout->getIterator());
         self::assertSame($zones, iterator_to_array($layout->getIterator()));

@@ -95,7 +95,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadLayouts();
 
         self::assertCount(3, $layouts);
-        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
             self::assertFalse($layout->isShared());
@@ -111,7 +110,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadLayouts(true);
 
         self::assertCount(5, $layouts);
-        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
             self::assertFalse($layout->isShared());
@@ -151,7 +149,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadSharedLayouts();
 
         self::assertCount(2, $layouts);
-        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
             self::assertTrue($layout->isShared());
@@ -176,7 +173,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadRelatedLayouts($sharedLayout);
 
         self::assertCount(1, $layouts);
-        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
 
         foreach ($layouts as $layout) {
             self::assertFalse($layout->isShared());

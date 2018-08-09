@@ -48,9 +48,9 @@ interface Collection extends Value
     /**
      * Returns all collection items.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
+     * @return \Netgen\BlockManager\API\Values\Collection\ItemList
      */
-    public function getItems(): array;
+    public function getItems(): ItemList;
 
     /**
      * Returns the query from the collection or null if no query exists.

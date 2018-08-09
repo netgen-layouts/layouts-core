@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
@@ -56,11 +54,8 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         self::assertSame(12, $rule->getPriority());
         self::assertSame('Comment', $rule->getComment());
 
-        self::assertNotEmpty($rule->getTargets());
-        self::assertContainsOnlyInstancesOf(APITarget::class, $rule->getTargets());
-
-        self::assertNotEmpty($rule->getConditions());
-        self::assertContainsOnlyInstancesOf(APICondition::class, $rule->getConditions());
+        self::assertCount(2, $rule->getTargets());
+        self::assertCount(2, $rule->getConditions());
     }
 
     /**

@@ -98,7 +98,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         self::assertCount(2, $blocks);
-        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
     }
 
     /**
@@ -111,7 +110,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         self::assertCount(3, $blocks);
-        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
     }
 
     /**

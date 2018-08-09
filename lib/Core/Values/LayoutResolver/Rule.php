@@ -6,7 +6,9 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionList;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetList;
 use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Utils\HydratorTrait;
@@ -83,14 +85,14 @@ final class Rule implements APIRule
         return $this->comment;
     }
 
-    public function getTargets(): array
+    public function getTargets(): TargetList
     {
-        return $this->targets->toArray();
+        return new TargetList($this->targets->toArray());
     }
 
-    public function getConditions(): array
+    public function getConditions(): ConditionList
     {
-        return $this->conditions->toArray();
+        return new ConditionList($this->conditions->toArray());
     }
 
     public function canBeEnabled(): bool

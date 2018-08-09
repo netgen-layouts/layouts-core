@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
+use Netgen\BlockManager\API\Values\Config\ConfigList;
 use Netgen\BlockManager\Exception\Core\ConfigException;
 
 trait ConfigAwareValueTrait
@@ -17,11 +18,11 @@ trait ConfigAwareValueTrait
     /**
      * Returns all available configs.
      *
-     * @return \Netgen\BlockManager\API\Values\Config\Config[]
+     * @return \Netgen\BlockManager\API\Values\Config\ConfigList
      */
-    public function getConfigs(): array
+    public function getConfigs(): ConfigList
     {
-        return $this->configs;
+        return new ConfigList($this->configs);
     }
 
     /**

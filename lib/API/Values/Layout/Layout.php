@@ -70,9 +70,9 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns all zones from the layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone[]
+     * @return \Netgen\BlockManager\API\Values\Layout\ZoneList
      */
-    public function getZones(): array;
+    public function getZones(): ZoneList;
 
     /**
      * Returns the specified zone or null if zone does not exist.

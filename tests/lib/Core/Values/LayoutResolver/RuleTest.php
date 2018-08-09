@@ -28,8 +28,8 @@ final class RuleTest extends TestCase
     {
         $rule = new Rule();
 
-        self::assertSame([], $rule->getTargets());
-        self::assertSame([], $rule->getConditions());
+        self::assertCount(0, $rule->getTargets());
+        self::assertCount(0, $rule->getConditions());
     }
 
     /**
@@ -44,6 +44,11 @@ final class RuleTest extends TestCase
      */
     public function testSetProperties(): void
     {
+        $target1 = new Target();
+        $target2 = new Target();
+
+        $condition = new Condition();
+
         $layout = Layout::fromArray(['id' => 24]);
 
         $rule = Rule::fromArray(
@@ -53,8 +58,8 @@ final class RuleTest extends TestCase
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
-                'targets' => new ArrayCollection([new Target(), new Target()]),
-                'conditions' => new ArrayCollection([new Condition()]),
+                'targets' => new ArrayCollection([$target1, $target2]),
+                'conditions' => new ArrayCollection([$condition]),
             ]
         );
 
@@ -63,8 +68,14 @@ final class RuleTest extends TestCase
         self::assertSame(13, $rule->getPriority());
         self::assertTrue($rule->isEnabled());
         self::assertSame('Comment', $rule->getComment());
+
         self::assertCount(2, $rule->getTargets());
         self::assertCount(1, $rule->getConditions());
+
+        self::assertSame($target1, $rule->getTargets()[0]);
+        self::assertSame($target2, $rule->getTargets()[1]);
+
+        self::assertSame($condition, $rule->getConditions()[0]);
     }
 
     /**

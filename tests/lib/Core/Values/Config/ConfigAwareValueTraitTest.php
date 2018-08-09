@@ -18,7 +18,7 @@ final class ConfigAwareValueTraitTest extends TestCase
     {
         $value = new ConfigAwareValue();
 
-        self::assertSame([], $value->getConfigs());
+        self::assertCount(0, $value->getConfigs());
     }
 
     /**
@@ -38,7 +38,8 @@ final class ConfigAwareValueTraitTest extends TestCase
             ]
         );
 
-        self::assertSame(['config' => $config], $value->getConfigs());
+        self::assertCount(1, $value->getConfigs());
+        self::assertSame($config, $value->getConfigs()['config']);
         self::assertTrue($value->hasConfig('config'));
         self::assertFalse($value->hasConfig('unknown'));
         self::assertSame($config, $value->getConfig('config'));

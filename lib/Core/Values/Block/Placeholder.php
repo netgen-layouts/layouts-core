@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Utils\HydratorTrait;
@@ -39,9 +40,9 @@ final class Placeholder implements APIPlaceholder
         return $this->identifier;
     }
 
-    public function getBlocks(): array
+    public function getBlocks(): BlockList
     {
-        return $this->blocks->toArray();
+        return new BlockList($this->blocks->toArray());
     }
 
     public function getIterator()

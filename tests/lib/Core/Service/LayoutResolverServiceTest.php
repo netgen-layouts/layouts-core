@@ -97,7 +97,6 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $rules = $this->layoutResolverService->loadRules();
 
         self::assertCount(12, $rules);
-        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
 
         foreach ($rules as $rule) {
             self::assertTrue($rule->isPublished());
@@ -114,7 +113,6 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         );
 
         self::assertCount(2, $rules);
-        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
 
         foreach ($rules as $rule) {
             self::assertTrue($rule->isPublished());
@@ -175,7 +173,6 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $rules = $this->layoutResolverService->matchRules('route', 'my_cool_route');
 
         self::assertNotEmpty($rules);
-        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
 
         foreach ($rules as $rule) {
             self::assertTrue($rule->isPublished());

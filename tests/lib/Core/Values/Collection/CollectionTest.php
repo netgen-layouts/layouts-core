@@ -28,7 +28,7 @@ final class CollectionTest extends TestCase
         $collection = new Collection();
 
         self::assertSame([], $collection->getAvailableLocales());
-        self::assertSame([], $collection->getItems());
+        self::assertCount(0, $collection->getItems());
     }
 
     /**
@@ -79,8 +79,10 @@ final class CollectionTest extends TestCase
         self::assertTrue($collection->isTranslatable());
         self::assertFalse($collection->isAlwaysAvailable());
         self::assertSame('en', $collection->getLocale());
+
         self::assertCount(2, $collection->getItems());
-        self::assertContainsOnlyInstancesOf(Item::class, $collection->getItems());
+        self::assertSame($items[0], $collection->getItems()[0]);
+        self::assertSame($items[1], $collection->getItems()[1]);
 
         self::assertSame($query, $collection->getQuery());
         self::assertTrue($collection->hasQuery());

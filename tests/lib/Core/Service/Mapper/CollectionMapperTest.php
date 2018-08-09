@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
@@ -60,7 +59,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         self::assertFalse($collection->isAlwaysAvailable());
         self::assertSame(['en'], $collection->getAvailableLocales());
 
-        self::assertContainsOnlyInstancesOf(APIItem::class, $collection->getItems());
+        self::assertCount(3, $collection->getItems());
         self::assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
@@ -191,7 +190,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         self::assertFalse($collection->isAlwaysAvailable());
         self::assertSame(['en'], $collection->getAvailableLocales());
 
-        self::assertContainsOnlyInstancesOf(APIItem::class, $collection->getItems());
+        self::assertEmpty($collection->getItems());
         self::assertNull($collection->getQuery());
     }
 

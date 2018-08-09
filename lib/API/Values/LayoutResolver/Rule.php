@@ -39,16 +39,16 @@ interface Rule extends Value
     /**
      * Returns all the targets in the rule.
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target[]
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetList
      */
-    public function getTargets(): array;
+    public function getTargets(): TargetList;
 
     /**
      * Returns all conditions in the rule.
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionList
      */
-    public function getConditions(): array;
+    public function getConditions(): ConditionList;
 
     /**
      * Returns if the rule can be enabled.

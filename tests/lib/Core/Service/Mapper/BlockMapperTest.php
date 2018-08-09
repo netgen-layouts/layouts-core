@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
@@ -309,7 +308,6 @@ abstract class BlockMapperTest extends ServiceTestCase
         $placeholder = $block->getPlaceholder('left');
         self::assertSame('left', $placeholder->getIdentifier());
         self::assertCount(1, $placeholder->getBlocks());
-        self::assertContainsOnlyInstancesOf(APIBlock::class, $placeholder->getBlocks());
         self::assertTrue($block->hasPlaceholder('right'));
 
         $placeholder = $block->getPlaceholder('right');

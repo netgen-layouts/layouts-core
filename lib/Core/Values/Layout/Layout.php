@@ -8,6 +8,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
+use Netgen\BlockManager\API\Values\Layout\ZoneList;
 use Netgen\BlockManager\Core\Values\ValueStatusTrait;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
@@ -123,9 +124,9 @@ final class Layout implements APILayout
         return in_array($locale, $this->availableLocales, true);
     }
 
-    public function getZones(): array
+    public function getZones(): ZoneList
     {
-        return $this->zones->toArray();
+        return new ZoneList($this->zones->toArray());
     }
 
     public function getZone(string $zoneIdentifier, bool $ignoreLinkedZone = false): ?APIZone

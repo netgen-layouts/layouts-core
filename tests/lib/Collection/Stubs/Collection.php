@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\API\Values\Collection\ItemList;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -90,9 +91,9 @@ final class Collection implements APICollection
         return null;
     }
 
-    public function getItems(): array
+    public function getItems(): ItemList
     {
-        return $this->items;
+        return new ItemList($this->items);
     }
 
     public function getQuery(): ?APIQuery

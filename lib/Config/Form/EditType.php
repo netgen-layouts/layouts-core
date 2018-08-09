@@ -39,7 +39,7 @@ final class EditType extends AbstractType
                             function (Config $config): ConfigDefinitionInterface {
                                 return $config->getDefinition();
                             },
-                            $options['configurable']->getConfigs()
+                            $options['configurable']->getConfigs()->toArray()
                         ),
                     ]
                 ),

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionList;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
@@ -54,9 +55,9 @@ interface Block extends Value, ParameterCollectionInterface, ConfigAwareValue
     /**
      * Returns all placeholders from this block.
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
+     * @return \Netgen\BlockManager\API\Values\Block\PlaceholderList
      */
-    public function getPlaceholders(): array;
+    public function getPlaceholders(): PlaceholderList;
 
     /**
      * Returns the specified placeholder.
@@ -73,9 +74,9 @@ interface Block extends Value, ParameterCollectionInterface, ConfigAwareValue
     /**
      * Returns all collections from this block.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionList
      */
-    public function getCollections(): array;
+    public function getCollections(): CollectionList;
 
     /**
      * Returns the specified block collection.
