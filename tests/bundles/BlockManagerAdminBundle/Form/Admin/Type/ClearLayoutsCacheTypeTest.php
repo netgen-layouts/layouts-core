@@ -49,7 +49,13 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $form->submit($submittedData);
 
         self::assertTrue($form->isSynchronized());
-        self::assertSame(['layouts' => [$this->layouts[0]]], $form->getData());
+
+        self::assertInternalType('array', $form->getData());
+        self::assertArrayHasKey('layouts', $form->getData());
+
+        self::assertInstanceOf(LayoutList::class, $form->getData()['layouts']);
+        self::assertCount(1, $form->getData()['layouts']);
+        self::assertSame($this->layouts[0], $form->getData()['layouts'][0]);
 
         $view = $form->createView();
 
