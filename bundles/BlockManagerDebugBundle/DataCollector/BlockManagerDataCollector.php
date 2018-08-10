@@ -35,7 +35,7 @@ final class BlockManagerDataCollector extends DataCollector
         $this->globalVariable = $globalVariable;
         $this->twig = $twig;
 
-        $this->data['version'] = PrettyVersions::getVersion('netgen/block-manager')->getPrettyVersion();
+        $this->data['version'] = PrettyVersions::getVersion('netgen/layouts-core')->getPrettyVersion();
         $this->data['docs_version'] = 'latest';
 
         try {

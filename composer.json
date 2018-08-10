@@ -1,6 +1,6 @@
 {
-    "name": "netgen/block-manager",
-    "description": "Netgen Layouts core",
+    "name": "netgen/layouts-core",
+    "description": "Netgen Layouts is an easy and flexible way of managing all page layouts on your website. This is the core of Netgen Layouts, its heart and soul.",
     "license": "proprietary",
     "authors": [
         {
@@ -12,7 +12,7 @@
         "php": "^7.1",
         "ext-intl": "*",
         "ext-mbstring": "*",
-        "netgen/block-manager-ui": "~0.12.0",
+        "netgen/layouts-ui": "~0.12.0",
         "netgen/content-browser": "~0.12.0",
         "symfony/symfony": "^2.8.16 || ^3.4.4 || ^4.1.1",
         "twig/twig": "^1.35.2 || ^2.4.6",
@@ -34,7 +34,7 @@
         "nikolaposa/version": "^3.0.2"
     },
     "require-dev": {
-        "netgen/block-manager-standard": "~0.12.0",
+        "netgen/layouts-standard": "~0.12.0",
         "phpunit/phpunit": "^5.7 || ^7.3",
         "symfony/phpunit-bridge": "^4.1",
         "phpstan/phpstan": "^0.10",
@@ -71,9 +71,6 @@
         "phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon --level=7 --ansi lib bundles migrations",
         "phpstan-tests": "@php vendor/bin/phpstan analyse -c phpstan.tests.neon --level=7 --ansi tests"
     },
-    "repositories": [
-        { "type": "composer", "url": "https://packagist.netgen.biz" }
-    ],
     "autoload": {
         "psr-4": {
             "Netgen\\BlockManager\\": "lib/",

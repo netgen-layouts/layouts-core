@@ -7,7 +7,7 @@ Use Composer
 Run the following command to install Netgen Layouts:
 
 ```
-composer require netgen/block-manager:^1.0
+composer require netgen/layouts-core
 ```
 
 Activate the bundles
@@ -47,7 +47,7 @@ Import database schema
 Run the following command to create the database schema:
 
 ```
-php app/console doctrine:migrations:migrate --configuration=vendor/netgen/block-manager/migrations/doctrine.yml
+php bin/console doctrine:migrations:migrate --configuration=vendor/netgen/layouts-core/migrations/doctrine.yml
 ```
 
 Install assets
@@ -56,7 +56,7 @@ Install assets
 Run the following from your repo root to install assets:
 
 ```
-php app/console assets:install --symlink --relative
+php bin/console assets:install --symlink --relative
 ```
 
 Activate the routes
