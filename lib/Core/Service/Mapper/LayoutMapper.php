@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
-use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\Layout\Zone;
-use Netgen\BlockManager\Core\Values\LazyCollection;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\API\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
@@ -40,13 +38,13 @@ final class LayoutMapper
     /**
      * Builds the API zone value from persistence one.
      */
-    public function mapZone(PersistenceZone $zone): APIZone
+    public function mapZone(PersistenceZone $zone): Zone
     {
         $zoneData = [
             'identifier' => $zone->identifier,
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
-            'linkedZone' => function () use ($zone): ?APIZone {
+            'linkedZone' => function () use ($zone): ?Zone {
                 if ($zone->linkedLayoutId === null || $zone->linkedZoneIdentifier === null) {
                     return null;
                 }
@@ -72,7 +70,7 @@ final class LayoutMapper
     /**
      * Builds the API layout value from persistence one.
      */
-    public function mapLayout(PersistenceLayout $layout): APILayout
+    public function mapLayout(PersistenceLayout $layout): Layout
     {
         try {
             $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->type);
@@ -94,7 +92,7 @@ final class LayoutMapper
             'zones' => new LazyCollection(
                 function () use ($layout): array {
                     return array_map(
-                        function (PersistenceZone $zone): APIZone {
+                        function (PersistenceZone $zone): Zone {
                             return $this->mapZone($zone);
                         },
                         $this->layoutHandler->loadLayoutZones($layout)

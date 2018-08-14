@@ -26,7 +26,7 @@ interface ConfigAwareStruct
     /**
      * Gets the config struct with provided config key.
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config struct does not exist
+     * @throws \Netgen\BlockManager\Exception\API\ConfigException If config struct does not exist
      */
     public function getConfigStruct(string $configKey): ConfigStruct;
 }

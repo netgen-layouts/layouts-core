@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\QueryType;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryType;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 

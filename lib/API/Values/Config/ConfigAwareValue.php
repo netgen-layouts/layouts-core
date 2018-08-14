@@ -16,7 +16,7 @@ interface ConfigAwareValue
     /**
      * Returns the config with specified config key.
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If the config does not exist
+     * @throws \Netgen\BlockManager\Exception\API\ConfigException If the config does not exist
      */
     public function getConfig(string $configKey): Config;
 

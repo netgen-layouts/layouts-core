@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Config\Form;
 
+use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Config\Form\EditType;
-use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareStruct;
+use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareValue;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
-use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;

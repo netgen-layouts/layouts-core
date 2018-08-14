@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class CollectionParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APICollection::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Collection::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

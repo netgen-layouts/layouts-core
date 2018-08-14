@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Transfer\Output\Visitor\ItemVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
@@ -52,8 +51,8 @@ abstract class ItemVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): APIItem { return $this->collectionService->loadItem(4); }, 'item/item_4.json'],
-            [function (): APIItem { return $this->collectionService->loadItem(5); }, 'item/item_5.json'],
+            [function (): Item { return $this->collectionService->loadItem(4); }, 'item/item_4.json'],
+            [function (): Item { return $this->collectionService->loadItem(5); }, 'item/item_5.json'],
         ];
     }
 }

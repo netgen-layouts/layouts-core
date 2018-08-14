@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
 
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\RuleCondition\Type;

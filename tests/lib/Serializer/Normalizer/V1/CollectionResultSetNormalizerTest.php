@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
 use Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;

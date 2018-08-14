@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Browser\Item\Layout;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase

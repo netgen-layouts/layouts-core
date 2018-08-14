@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ final class AggregateVisitorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::visit
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage No visitor available for value of type 'Netgen\BlockManager\Core\Values\Block\Block'
+     * @expectedExceptionMessage No visitor available for value of type 'Netgen\BlockManager\API\Values\Block\Block'
      */
     public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException(): void
     {

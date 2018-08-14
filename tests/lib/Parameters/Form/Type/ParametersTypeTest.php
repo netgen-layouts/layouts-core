@@ -12,7 +12,7 @@ use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Core\Stubs\ParameterStruct;
+use Netgen\BlockManager\Tests\API\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;

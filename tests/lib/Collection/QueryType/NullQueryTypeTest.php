@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\QueryType;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
 
 final class NullQueryTypeTest extends TestCase

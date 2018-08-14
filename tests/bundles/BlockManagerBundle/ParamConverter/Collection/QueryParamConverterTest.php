@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class QueryParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APIQuery::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Query::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

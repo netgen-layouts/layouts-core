@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Event;
 
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 

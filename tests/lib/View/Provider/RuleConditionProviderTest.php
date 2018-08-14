@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\View\Provider\RuleConditionViewProvider;
 use Netgen\BlockManager\View\View\RuleConditionViewInterface;
 use PHPUnit\Framework\TestCase;

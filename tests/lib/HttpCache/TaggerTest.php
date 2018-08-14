@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\HttpCache;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;

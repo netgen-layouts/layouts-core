@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Input\Result;
 
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ final class SuccessResultTest extends TestCase
     private $result;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
      */
     private $entity;
 

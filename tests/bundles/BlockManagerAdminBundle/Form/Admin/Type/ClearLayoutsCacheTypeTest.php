@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Symfony\Component\Form\FormTypeInterface;

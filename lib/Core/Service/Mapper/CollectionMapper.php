@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\LazyCollection;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -84,7 +81,7 @@ final class CollectionMapper
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
      */
-    public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): APICollection
+    public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): Collection
     {
         $locales = !empty($locales) ? $locales : [$collection->mainLocale];
         if ($useMainLocale && $collection->alwaysAvailable) {
@@ -104,14 +101,14 @@ final class CollectionMapper
             'items' => new LazyCollection(
                 function () use ($collection): array {
                     return array_map(
-                        function (PersistenceItem $item): APIItem {
+                        function (PersistenceItem $item): Item {
                             return $this->mapItem($item);
                         },
                         $this->collectionHandler->loadCollectionItems($collection)
                     );
                 }
             ),
-            'query' => function () use ($collection, $locales): ?APIQuery {
+            'query' => function () use ($collection, $locales): ?Query {
                 try {
                     $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
                 } catch (NotFoundException $e) {
@@ -133,7 +130,7 @@ final class CollectionMapper
     /**
      * Builds the API item value from persistence one.
      */
-    public function mapItem(PersistenceItem $item): APIItem
+    public function mapItem(PersistenceItem $item): Item
     {
         try {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
@@ -175,7 +172,7 @@ final class CollectionMapper
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales
      */
-    public function mapQuery(PersistenceQuery $query, ?array $locales = null, bool $useMainLocale = true): APIQuery
+    public function mapQuery(PersistenceQuery $query, ?array $locales = null, bool $useMainLocale = true): Query
     {
         try {
             $queryType = $this->queryTypeRegistry->getQueryType($query->type);

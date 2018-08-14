@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\NullBlockDefinition;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Block\Definition;
 use Netgen\BlockManager\View\View\BlockView;

@@ -6,15 +6,15 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 

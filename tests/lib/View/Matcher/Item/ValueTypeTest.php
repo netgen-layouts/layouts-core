@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Item;
 
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Item\ValueType;
 use Netgen\BlockManager\View\View\ItemView;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
@@ -13,9 +15,6 @@ use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilder;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilder;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -183,7 +182,7 @@ final class ResultBuilderTest extends TestCase
         array $queryValues = [],
         int $queryCount = 0,
         bool $contextual = false
-    ): APICollection {
+    ): Collection {
         $items = [];
 
         foreach ($itemIds as $position => $id) {

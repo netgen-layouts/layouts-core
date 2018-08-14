@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin;
 use Netgen\BlockManager\Block\DynamicParameters;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;

@@ -6,8 +6,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Netgen\BlockManager\Exception\API\ConfigException;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\Validation\ValidationException;

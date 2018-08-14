@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\API\Values\Collection;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;

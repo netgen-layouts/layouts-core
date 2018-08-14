@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\API\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
+use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareStruct;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigAwareStructTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct
+     * @var \Netgen\BlockManager\Tests\API\Stubs\ConfigAwareStruct
      */
     private $struct;
 
@@ -36,7 +36,7 @@ final class ConfigAwareStructTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
-     * @expectedException \Netgen\BlockManager\Exception\Core\ConfigException
+     * @expectedException \Netgen\BlockManager\Exception\API\ConfigException
      * @expectedExceptionMessage Config struct with config key "unknown" does not exist.
      */
     public function testGetConfigStructThrowsConfigException(): void

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionNormalizerTest extends TestCase

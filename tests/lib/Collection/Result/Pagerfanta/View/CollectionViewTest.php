@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result\Pagerfanta\View;
 
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;

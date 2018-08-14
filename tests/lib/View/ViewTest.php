@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ final class ViewTest extends TestCase
     private $view;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
      */
     private $value;
 

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\RuleView;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\RuleView;
 use Netgen\BlockManager\View\ViewInterface;

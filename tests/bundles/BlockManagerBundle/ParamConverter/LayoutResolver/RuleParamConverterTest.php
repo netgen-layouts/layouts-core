@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class RuleParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APIRule::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Rule::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

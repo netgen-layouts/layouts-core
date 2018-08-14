@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\PlaceholderViewProvider;
 use Netgen\BlockManager\View\View\PlaceholderViewInterface;
 use PHPUnit\Framework\TestCase;

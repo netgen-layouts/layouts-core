@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener;

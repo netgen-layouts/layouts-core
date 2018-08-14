@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Item;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Core\Values\Collection\Item;
 use PHPUnit\Framework\TestCase;
 
 final class VisibilityResolverTest extends TestCase

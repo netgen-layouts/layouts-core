@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
+use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -50,7 +53,7 @@ final class DynamicCollectionRunnerTest extends TestCase
      * @dataProvider dynamicCollectionProvider
      */
     public function testCollectionResult(
-        array $items,
+        array $itemValues,
         array $queryItems,
         int $queryCount,
         array $expected,
@@ -58,8 +61,21 @@ final class DynamicCollectionRunnerTest extends TestCase
         int $offset = 0,
         int $limit = 200
     ): void {
+        $items = [];
+        foreach ($itemValues as $position => $itemValue) {
+            $items[$position] = Item::fromArray(
+                [
+                    'value' => $itemValue,
+                    'cmsItem' => $itemValue !== null ?
+                        CmsItem::fromArray(['value' => $itemValue, 'isVisible' => true]) :
+                        new NullCmsItem('value'),
+                    'position' => $position,
+                ]
+            );
+        }
+
         $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
-        $collection = new Collection($items, $query);
+        $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'query' => $query]);
 
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);

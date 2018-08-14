@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
-use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
+use Netgen\BlockManager\Item\NullCmsItem;
 use PHPUnit\Framework\TestCase;
 
 final class ManualCollectionRunnerTest extends TestCase
@@ -31,9 +35,22 @@ final class ManualCollectionRunnerTest extends TestCase
      *
      * @dataProvider manualCollectionProvider
      */
-    public function testCollectionResult(array $collectionItems, array $expected, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
+    public function testCollectionResult(array $itemValues, array $expected, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
-        $collection = new Collection($collectionItems);
+        $items = [];
+        foreach ($itemValues as $position => $itemValue) {
+            $items[$position] = Item::fromArray(
+                [
+                    'value' => $itemValue,
+                    'cmsItem' => $itemValue !== null ?
+                        CmsItem::fromArray(['value' => $itemValue, 'isVisible' => true]) :
+                        new NullCmsItem('value'),
+                    'position' => $position,
+                ]
+            );
+        }
+
+        $collection = Collection::fromArray(['items' => new ArrayCollection($items)]);
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
         $collectionRunner = $factory->getCollectionRunner($collection);
 

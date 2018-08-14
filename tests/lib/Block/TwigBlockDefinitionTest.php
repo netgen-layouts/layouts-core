@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Block;
 
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 

@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterNormalizerTest extends TestCase

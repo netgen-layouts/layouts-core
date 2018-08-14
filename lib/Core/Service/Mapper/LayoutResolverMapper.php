@@ -6,13 +6,10 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Core\Values\LazyCollection;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
+use Netgen\BlockManager\API\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -62,7 +59,7 @@ final class LayoutResolverMapper
     /**
      * Builds the API rule value from persistence one.
      */
-    public function mapRule(PersistenceRule $rule): APIRule
+    public function mapRule(PersistenceRule $rule): Rule
     {
         $ruleData = [
             'id' => $rule->id,
@@ -81,7 +78,7 @@ final class LayoutResolverMapper
             'targets' => new LazyCollection(
                 function () use ($rule): array {
                     return array_map(
-                        function (PersistenceTarget $target): APITarget {
+                        function (PersistenceTarget $target): Target {
                             return $this->mapTarget($target);
                         },
                         $this->layoutResolverHandler->loadRuleTargets($rule)
@@ -91,7 +88,7 @@ final class LayoutResolverMapper
             'conditions' => new LazyCollection(
                 function () use ($rule): array {
                     return array_map(
-                        function (PersistenceCondition $condition): APICondition {
+                        function (PersistenceCondition $condition): Condition {
                             return $this->mapCondition($condition);
                         },
                         $this->layoutResolverHandler->loadRuleConditions($rule)
@@ -106,7 +103,7 @@ final class LayoutResolverMapper
     /**
      * Builds the API target value from persistence one.
      */
-    public function mapTarget(PersistenceTarget $target): APITarget
+    public function mapTarget(PersistenceTarget $target): Target
     {
         try {
             $targetType = $this->targetTypeRegistry->getTargetType(
@@ -130,7 +127,7 @@ final class LayoutResolverMapper
     /**
      * Builds the API condition value from persistence one.
      */
-    public function mapCondition(PersistenceCondition $condition): APICondition
+    public function mapCondition(PersistenceCondition $condition): Condition
     {
         try {
             $conditionType = $this->conditionTypeRegistry->getConditionType(

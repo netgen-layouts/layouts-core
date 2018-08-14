@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -47,7 +47,7 @@ final class CollectionItemNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $item = CollectionItem::fromArray(
+        $item = Item::fromArray(
             [
                 'id' => 42,
                 'collectionId' => 24,
@@ -122,11 +122,11 @@ final class CollectionItemNormalizerTest extends TestCase
             [[], false],
             [42, false],
             [42.12, false],
-            [new APIValue(), false],
-            [new CollectionItem(), false],
-            [new VersionedValue(new APIValue(), 1), false],
-            [new VersionedValue(new CollectionItem(), 2), false],
-            [new VersionedValue(new CollectionItem(), 1), true],
+            [new Value(), false],
+            [new Item(), false],
+            [new VersionedValue(new Value(), 1), false],
+            [new VersionedValue(new Item(), 2), false],
+            [new VersionedValue(new Item(), 1), true],
         ];
     }
 }

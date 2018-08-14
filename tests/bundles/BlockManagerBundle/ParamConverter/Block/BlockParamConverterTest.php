@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class BlockParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APIBlock::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Block::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

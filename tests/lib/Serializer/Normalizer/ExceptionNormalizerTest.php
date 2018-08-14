@@ -6,7 +6,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
 use Exception;
 use Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

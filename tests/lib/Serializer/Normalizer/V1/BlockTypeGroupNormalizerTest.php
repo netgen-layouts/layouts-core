@@ -8,7 +8,7 @@ use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupNormalizerTest extends TestCase

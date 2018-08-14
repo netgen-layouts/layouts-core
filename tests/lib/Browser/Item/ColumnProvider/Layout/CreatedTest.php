@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
 
 use DateTimeImmutable;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 

@@ -6,8 +6,8 @@ namespace Netgen\BlockManager\Tests\Transfer\Output;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Transfer\Descriptor;
 use Netgen\BlockManager\Transfer\Output\Serializer;

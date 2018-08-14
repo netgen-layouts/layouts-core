@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 use stdClass;

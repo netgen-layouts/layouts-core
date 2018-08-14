@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewRendererInterface;

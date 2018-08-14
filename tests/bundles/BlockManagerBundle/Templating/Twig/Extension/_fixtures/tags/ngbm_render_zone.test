@@ -7,7 +7,7 @@
 {% ngbm_render_zone zone %}
 --DATA--
 return [
-    'zone' => new \Netgen\BlockManager\Core\Values\Layout\Zone(),
+    'zone' => new \Netgen\BlockManager\API\Values\Layout\Zone(),
 ]
 --CONFIG--
 return []

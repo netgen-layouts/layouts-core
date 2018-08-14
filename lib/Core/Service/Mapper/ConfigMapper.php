@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Generator;
+use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Core\Values\Config\Config;
 
 final class ConfigMapper
 {

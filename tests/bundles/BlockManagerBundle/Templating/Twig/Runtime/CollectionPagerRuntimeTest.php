@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
@@ -30,7 +29,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->routeGenerator = function (APIBlock $block, string $collectionIdentifier, int $page): string {
+        $this->routeGenerator = function (Block $block, string $collectionIdentifier, int $page): string {
             return '/generated/uri' . '?page=' . $page;
         };
 

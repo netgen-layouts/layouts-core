@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;

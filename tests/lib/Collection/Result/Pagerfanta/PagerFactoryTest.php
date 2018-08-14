@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Collection\Result\Pagerfanta;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase

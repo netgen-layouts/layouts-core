@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class LayoutParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APILayout::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Layout::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

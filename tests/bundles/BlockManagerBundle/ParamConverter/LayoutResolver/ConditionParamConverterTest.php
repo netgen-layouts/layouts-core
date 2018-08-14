@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class ConditionParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APICondition::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Condition::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

@@ -6,10 +6,10 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;

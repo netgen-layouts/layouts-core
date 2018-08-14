@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
@@ -488,7 +487,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    private function getLayout(): APILayout
+    private function getLayout(): Layout
     {
         return Layout::fromArray(
             [

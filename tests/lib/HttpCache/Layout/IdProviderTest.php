@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\HttpCache\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\TestCase;

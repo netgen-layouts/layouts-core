@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime\CollectionPager;
 
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Context\ContextInterface;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\UriSigner;

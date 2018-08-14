@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\Core\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class ItemParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APIItem::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Item::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

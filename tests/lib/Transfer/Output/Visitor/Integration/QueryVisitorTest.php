@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Transfer\Output\Visitor\QueryVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -46,9 +45,9 @@ abstract class QueryVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): APIQuery { return $this->collectionService->loadQuery(1); }, 'query/query_1.json'],
-            [function (): APIQuery { return $this->collectionService->loadQuery(2); }, 'query/query_2.json'],
-            [function (): APIQuery { return $this->collectionService->loadQuery(4); }, 'query/query_4.json'],
+            [function (): Query { return $this->collectionService->loadQuery(1); }, 'query/query_1.json'],
+            [function (): Query { return $this->collectionService->loadQuery(2); }, 'query/query_2.json'],
+            [function (): Query { return $this->collectionService->loadQuery(4); }, 'query/query_4.json'],
         ];
     }
 }

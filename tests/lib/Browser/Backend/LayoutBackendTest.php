@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Browser\Backend\LayoutBackend;
 use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use PHPUnit\Framework\TestCase;

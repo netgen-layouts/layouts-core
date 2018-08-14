@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\TemplateResolver;
@@ -18,7 +18,7 @@ final class TemplateResolverTest extends TestCase
     private $view;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
      */
     private $value;
 

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Config\Config;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Transfer\Output\Visitor\ConfigVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -46,7 +45,7 @@ abstract class ConfigVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): APIConfig { return $this->blockService->loadBlock(31)->getConfig('key'); }, 'config/block_31.json'],
+            [function (): Config { return $this->blockService->loadBlock(31)->getConfig('key'); }, 'config/block_31.json'],
         ];
     }
 }

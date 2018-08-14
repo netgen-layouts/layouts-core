@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Transfer\Output\Visitor\RuleVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -46,8 +45,8 @@ abstract class RuleVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): APIRule { return $this->layoutResolverService->loadRule(2); }, 'rule/rule_2.json'],
-            [function (): APIRule { return $this->layoutResolverService->loadRule(11); }, 'rule/rule_11.json'],
+            [function (): Rule { return $this->layoutResolverService->loadRule(2); }, 'rule/rule_2.json'],
+            [function (): Rule { return $this->layoutResolverService->loadRule(11); }, 'rule/rule_11.json'],
         ];
     }
 }

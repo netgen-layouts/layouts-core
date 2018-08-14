@@ -16,7 +16,7 @@ final class ValueTest extends TestCase
     private $value;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Core\Stubs\Value
+     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
      */
     private $innerValue;
 

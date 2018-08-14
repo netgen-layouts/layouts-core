@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class ZoneParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APIZone::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Zone::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

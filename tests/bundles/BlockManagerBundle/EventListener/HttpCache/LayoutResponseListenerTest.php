@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
 use Exception;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output;
 
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
 use PHPUnit\Framework\TestCase;
 

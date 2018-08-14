@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;

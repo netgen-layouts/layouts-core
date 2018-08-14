@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\Placeholder;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;

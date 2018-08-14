@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\FormViewProvider;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use PHPUnit\Framework\TestCase;

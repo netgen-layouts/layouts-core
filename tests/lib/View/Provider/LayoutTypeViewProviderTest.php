@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\LayoutTypeViewProvider;
 use Netgen\BlockManager\View\View\LayoutTypeViewInterface;
 use PHPUnit\Framework\TestCase;

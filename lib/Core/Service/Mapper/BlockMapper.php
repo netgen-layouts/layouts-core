@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\LazyCollection;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\NullBlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
@@ -80,7 +79,7 @@ final class BlockMapper
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any requested translations
      */
-    public function mapBlock(PersistenceBlock $block, ?array $locales = null, bool $useMainLocale = true): APIBlock
+    public function mapBlock(PersistenceBlock $block, ?array $locales = null, bool $useMainLocale = true): Block
     {
         try {
             $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
@@ -181,7 +180,7 @@ final class BlockMapper
                     'blocks' => new LazyCollection(
                         function () use ($block, $placeholderIdentifier, $locales): array {
                             return array_map(
-                                function (PersistenceBlock $childBlock) use ($locales): APIBlock {
+                                function (PersistenceBlock $childBlock) use ($locales): Block {
                                     return $this->mapBlock($childBlock, $locales, false);
                                 },
                                 $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier)

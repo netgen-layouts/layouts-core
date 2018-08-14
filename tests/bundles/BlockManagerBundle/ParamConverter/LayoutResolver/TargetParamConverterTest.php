@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +50,7 @@ final class TargetParamConverterTest extends TestCase
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(APITarget::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(Target::class, $this->paramConverter->getSupportedClass());
     }
 
     /**

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
 
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\RuleTarget\Type;

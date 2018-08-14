@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\API\Values\Config;
 
-use Netgen\BlockManager\Exception\Core\ConfigException;
+use Netgen\BlockManager\Exception\API\ConfigException;
 
 trait ConfigAwareStructTrait
 {
@@ -32,7 +32,7 @@ trait ConfigAwareStructTrait
     /**
      * Gets the config struct with provided config key.
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config struct does not exist
+     * @throws \Netgen\BlockManager\Exception\API\ConfigException If config struct does not exist
      */
     public function getConfigStruct(string $configKey): ConfigStruct
     {

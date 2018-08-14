@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
-use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Transfer\Output\Visitor\PlaceholderVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -46,8 +45,8 @@ abstract class PlaceholderVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): APIPlaceholder { return $this->blockService->loadBlock(33)->getPlaceholder('left'); }, 'placeholder/block_33_left.json'],
-            [function (): APIPlaceholder { return $this->blockService->loadBlock(33)->getPlaceholder('right'); }, 'placeholder/block_33_right.json'],
+            [function (): Placeholder { return $this->blockService->loadBlock(33)->getPlaceholder('left'); }, 'placeholder/block_33_left.json'],
+            [function (): Placeholder { return $this->blockService->loadBlock(33)->getPlaceholder('right'); }, 'placeholder/block_33_right.json'],
         ];
     }
 }
