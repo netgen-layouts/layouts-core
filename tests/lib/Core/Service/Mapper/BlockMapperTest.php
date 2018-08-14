@@ -71,7 +71,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         self::assertSame('default', $block->getViewType());
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
-        self::assertSame(3, $block->getParentPosition());
+        self::assertSame(3, $block->getPosition());
         self::assertTrue($block->isPublished());
         self::assertSame('test', $block->getParameter('css_class')->getValue());
         self::assertNull($block->getParameter('css_id')->getValue());
@@ -254,7 +254,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         self::assertSame('default', $block->getViewType());
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
-        self::assertSame(3, $block->getParentPosition());
+        self::assertSame(3, $block->getPosition());
         self::assertTrue($block->isPublished());
 
         self::assertFalse($block->hasParameter('css_class'));

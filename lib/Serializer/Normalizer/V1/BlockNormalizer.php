@@ -46,7 +46,7 @@ final class BlockNormalizer extends Normalizer implements NormalizerInterface
             'layout_id' => $block->getLayoutId(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'name' => $block->getName(),
-            'parent_position' => $block->getParentPosition(),
+            'parent_position' => $block->getPosition(),
             'parameters' => $this->normalizer->normalize($parameters, $format, $context),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),

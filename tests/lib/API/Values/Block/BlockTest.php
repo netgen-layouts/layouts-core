@@ -71,7 +71,7 @@ final class BlockTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
-                'parentPosition' => 3,
+                'position' => 3,
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -99,7 +99,7 @@ final class BlockTest extends TestCase
         self::assertSame('default', $block->getViewType());
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
-        self::assertSame(3, $block->getParentPosition());
+        self::assertSame(3, $block->getPosition());
         self::assertTrue($block->isTranslatable());
         self::assertSame('en', $block->getMainLocale());
         self::assertTrue($block->isAlwaysAvailable());

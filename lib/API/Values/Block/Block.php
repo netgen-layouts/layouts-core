@@ -58,7 +58,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     /**
      * @var int
      */
-    private $parentPosition;
+    private $position;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
@@ -160,9 +160,9 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     /**
      * Returns the position of the block in the parent block or zone.
      */
-    public function getParentPosition(): int
+    public function getPosition(): int
     {
-        return $this->parentPosition;
+        return $this->position;
     }
 
     /**

@@ -836,11 +836,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(34);
-        self::assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(1, $copiedBlock->getParentPosition());
+        self::assertSame(1, $copiedBlock->getPosition());
     }
 
     /**
@@ -856,11 +856,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(34);
-        self::assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(1, $copiedBlock->getParentPosition());
+        self::assertSame(1, $copiedBlock->getPosition());
     }
 
     /**
@@ -876,11 +876,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(37);
-        self::assertSame(1, $firstBlockInTargetBlock->getParentPosition());
+        self::assertSame(1, $firstBlockInTargetBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(0, $copiedBlock->getParentPosition());
+        self::assertSame(0, $copiedBlock->getPosition());
     }
 
     /**
@@ -993,14 +993,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        self::assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        self::assertSame(1, $secondBlock->getParentPosition());
+        self::assertSame(1, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(2, $copiedBlock->getParentPosition());
+        self::assertSame(2, $copiedBlock->getPosition());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(7);
         self::assertTrue($copiedCollection->isDraft());
@@ -1021,14 +1021,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        self::assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        self::assertSame(2, $secondBlock->getParentPosition());
+        self::assertSame(2, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(1, $copiedBlock->getParentPosition());
+        self::assertSame(1, $copiedBlock->getPosition());
     }
 
     /**
@@ -1043,14 +1043,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        self::assertSame(1, $originalBlock->getParentPosition());
+        self::assertSame(1, $originalBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        self::assertSame(2, $secondBlock->getParentPosition());
+        self::assertSame(2, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(0, $copiedBlock->getParentPosition());
+        self::assertSame(0, $copiedBlock->getPosition());
     }
 
     /**
@@ -1065,14 +1065,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        self::assertSame(0, $originalBlock->getParentPosition());
+        self::assertSame(0, $originalBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        self::assertSame(1, $secondBlock->getParentPosition());
+        self::assertSame(1, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(2, $copiedBlock->getParentPosition());
+        self::assertSame(2, $copiedBlock->getPosition());
     }
 
     /**
@@ -1087,14 +1087,14 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
-        self::assertSame(1, $originalBlock->getParentPosition());
+        self::assertSame(1, $originalBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(35);
-        self::assertSame(2, $secondBlock->getParentPosition());
+        self::assertSame(2, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
         self::assertSame(39, $copiedBlock->getId());
-        self::assertSame(0, $copiedBlock->getParentPosition());
+        self::assertSame(0, $copiedBlock->getPosition());
     }
 
     /**
