@@ -24,6 +24,7 @@ final class PluginRendererPass implements CompilerPassInterface
         $pluginServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $pluginsByName = [];
+        $sortedPlugins = [];
 
         foreach ($pluginServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
@@ -40,9 +41,9 @@ final class PluginRendererPass implements CompilerPassInterface
 
         foreach ($pluginsByName as $pluginName => $plugins) {
             krsort($plugins);
-            $pluginsByName[$pluginName] = array_merge(...$plugins);
+            $sortedPlugins[$pluginName] = array_merge(...$plugins);
         }
 
-        $pluginRenderer->replaceArgument(1, $pluginsByName);
+        $pluginRenderer->replaceArgument(1, $sortedPlugins);
     }
 }

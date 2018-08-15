@@ -131,18 +131,13 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 $mapping = iterator_to_array($this->askForOffsetAndLimitParameter($queryType));
             } while (
                 !$this->io->confirm(
-                    sprintf(
-                        ($mapping['offset'] !== null ?
-                            "Your '%1\$s' query type has an offset parameter named '%2\$s'\n" :
-                            "Your '%1\$s' query type DOES NOT have an offset parameter\n") .
-                        ($mapping['limit'] !== null ?
-                            "Your '%1\$s' query type has a limit parameter named '%3\$s'\n" :
-                            "Your '%1\$s' query type DOES NOT have a limit parameter\n") .
-                        'Is this correct?',
-                        $queryTypeIdentifier,
-                        $mapping['offset'],
-                        $mapping['limit']
-                    ),
+                    ($mapping['offset'] !== null ?
+                        "Your '{$queryTypeIdentifier}' query type has an offset parameter named '{$mapping['offset']}'.\n" :
+                        "Your '{$queryTypeIdentifier}' query type DOES NOT have an offset parameter.\n") .
+                    ($mapping['limit'] !== null ?
+                        " Your '{$queryTypeIdentifier}' query type has a limit parameter named '{$mapping['limit']}'.\n" :
+                        " Your '{$queryTypeIdentifier}' query type DOES NOT have a limit parameter.\n") .
+                    ' Is this correct?',
                     true
                 )
             );
