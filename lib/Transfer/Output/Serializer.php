@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Transfer\Output;
 
+use Generator;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -68,7 +69,7 @@ final class Serializer implements SerializerInterface
     /**
      * Loads the layouts for provided IDs.
      */
-    private function loadLayouts(array $layoutIds): iterable
+    private function loadLayouts(array $layoutIds): Generator
     {
         foreach ($layoutIds as $layoutId) {
             try {
@@ -82,7 +83,7 @@ final class Serializer implements SerializerInterface
     /**
      * Loads the rules for provided IDs.
      */
-    private function loadRules(array $ruleIds): iterable
+    private function loadRules(array $ruleIds): Generator
     {
         foreach ($ruleIds as $ruleId) {
             try {
