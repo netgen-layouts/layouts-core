@@ -249,6 +249,7 @@ INSERT INTO `ngbm_migration_versions` VALUES ('000800');
 INSERT INTO `ngbm_migration_versions` VALUES ('000900');
 INSERT INTO `ngbm_migration_versions` VALUES ('001000');
 INSERT INTO `ngbm_migration_versions` VALUES ('001100');
+INSERT INTO `ngbm_migration_versions` VALUES ('001200');
 /*!40000 ALTER TABLE `ngbm_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
