@@ -14,14 +14,14 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Core\Validator\LayoutValidator;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 
-final class BlockServiceTest extends ServiceTestCase
+final class BlockServiceTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

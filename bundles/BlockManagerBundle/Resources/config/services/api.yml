@@ -110,21 +110,21 @@ services:
 
     # Layout related APIs
 
-    netgen_block_manager.core.service.layout.validator:
-        class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
+    netgen_block_manager.core.validator.layout:
+        class: Netgen\BlockManager\Core\Validator\LayoutValidator
         public: false
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.core.service.layout.mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+    netgen_block_manager.core.mapper.layout:
+        class: Netgen\BlockManager\Core\Mapper\LayoutMapper
         public: false
         arguments:
             - "@netgen_block_manager.persistence.layout.handler"
             - "@netgen_block_manager.layout.registry.layout_type"
 
-    netgen_block_manager.core.service.layout.struct_builder:
-        class: Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
+    netgen_block_manager.core.struct_builder.layout:
+        class: Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder
         public: false
 
     netgen_block_manager.core.service.layout:
@@ -132,33 +132,33 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.persistence.handler"
-            - "@netgen_block_manager.core.service.layout.validator"
-            - "@netgen_block_manager.core.service.layout.mapper"
-            - "@netgen_block_manager.core.service.layout.struct_builder"
+            - "@netgen_block_manager.core.validator.layout"
+            - "@netgen_block_manager.core.mapper.layout"
+            - "@netgen_block_manager.core.struct_builder.layout"
 
     # Block related APIs
 
-    netgen_block_manager.core.service.block.validator:
-        class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
+    netgen_block_manager.core.validator.block:
+        class: Netgen\BlockManager\Core\Validator\BlockValidator
         public: false
         arguments:
-            - "@netgen_block_manager.core.service.collection.validator"
+            - "@netgen_block_manager.core.validator.collection"
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.core.service.block.mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
+    netgen_block_manager.core.mapper.block:
+        class: Netgen\BlockManager\Core\Mapper\BlockMapper
         public: false
         arguments:
             - "@netgen_block_manager.persistence.block.handler"
             - "@netgen_block_manager.persistence.collection.handler"
-            - "@netgen_block_manager.core.service.collection.mapper"
-            - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.core.mapper.collection"
+            - "@netgen_block_manager.core.mapper.parameter"
+            - "@netgen_block_manager.core.mapper.config"
             - "@netgen_block_manager.block.registry.block_definition"
 
-    netgen_block_manager.core.service.block.struct_builder:
-        class: Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
+    netgen_block_manager.core.struct_builder.block:
+        class: Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder
         public: false
         arguments:
             - "@netgen_block_manager.core.struct_builder.config"
@@ -168,34 +168,34 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.persistence.handler"
-            - "@netgen_block_manager.core.service.block.validator"
-            - "@netgen_block_manager.core.service.block.mapper"
-            - "@netgen_block_manager.core.service.block.struct_builder"
-            - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.core.validator.block"
+            - "@netgen_block_manager.core.mapper.block"
+            - "@netgen_block_manager.core.struct_builder.block"
+            - "@netgen_block_manager.core.mapper.parameter"
+            - "@netgen_block_manager.core.mapper.config"
             - "@netgen_block_manager.core.service.layout"
 
     # Collection related APIs
 
-    netgen_block_manager.core.service.collection.validator:
-        class: Netgen\BlockManager\Core\Service\Validator\CollectionValidator
+    netgen_block_manager.core.validator.collection:
+        class: Netgen\BlockManager\Core\Validator\CollectionValidator
         public: false
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.core.service.collection.mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
+    netgen_block_manager.core.mapper.collection:
+        class: Netgen\BlockManager\Core\Mapper\CollectionMapper
         public: false
         arguments:
             - "@netgen_block_manager.persistence.collection.handler"
-            - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.core.mapper.parameter"
+            - "@netgen_block_manager.core.mapper.config"
             - "@netgen_block_manager.collection.registry.item_definition"
             - "@netgen_block_manager.collection.registry.query_type"
             - "@netgen_block_manager.item.item_loader"
 
-    netgen_block_manager.core.service.collection.struct_builder:
-        class: Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
+    netgen_block_manager.core.struct_builder.collection:
+        class: Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder
         public: false
         arguments:
             - "@netgen_block_manager.core.struct_builder.config"
@@ -205,16 +205,16 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.persistence.handler"
-            - "@netgen_block_manager.core.service.collection.validator"
-            - "@netgen_block_manager.core.service.collection.mapper"
-            - "@netgen_block_manager.core.service.collection.struct_builder"
-            - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.core.validator.collection"
+            - "@netgen_block_manager.core.mapper.collection"
+            - "@netgen_block_manager.core.struct_builder.collection"
+            - "@netgen_block_manager.core.mapper.parameter"
+            - "@netgen_block_manager.core.mapper.config"
 
     # Layout resolver related APIs
 
-    netgen_block_manager.core.service.layout_resolver.validator:
-        class: Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
+    netgen_block_manager.core.validator.layout_resolver:
+        class: Netgen\BlockManager\Core\Validator\LayoutResolverValidator
         public: false
         arguments:
             - "@netgen_block_manager.layout.resolver.registry.target_type"
@@ -222,8 +222,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.core.service.layout_resolver.mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
+    netgen_block_manager.core.mapper.layout_resolver:
+        class: Netgen\BlockManager\Core\Mapper\LayoutResolverMapper
         public: false
         arguments:
             - "@netgen_block_manager.persistence.layout_resolver.handler"
@@ -231,8 +231,8 @@ services:
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
             - "@netgen_block_manager.core.service.layout"
 
-    netgen_block_manager.core.service.layout_resolver.struct_builder:
-        class: Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder
+    netgen_block_manager.core.struct_builder.layout_resolver:
+        class: Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder
         public: false
 
     netgen_block_manager.core.service.layout_resolver:
@@ -240,26 +240,26 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.persistence.handler"
-            - "@netgen_block_manager.core.service.layout_resolver.validator"
-            - "@netgen_block_manager.core.service.layout_resolver.mapper"
-            - "@netgen_block_manager.core.service.layout_resolver.struct_builder"
+            - "@netgen_block_manager.core.validator.layout_resolver"
+            - "@netgen_block_manager.core.mapper.layout_resolver"
+            - "@netgen_block_manager.core.struct_builder.layout_resolver"
 
     # Config API services
 
     netgen_block_manager.core.struct_builder.config:
-        class: Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder
+        class: Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder
         public: false
 
-    netgen_block_manager.core.service.config_mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+    netgen_block_manager.core.mapper.config:
+        class: Netgen\BlockManager\Core\Mapper\ConfigMapper
         public: false
         arguments:
-            - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.core.mapper.parameter"
 
     # Parameter API services
 
-    netgen_block_manager.core.service.parameter_mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+    netgen_block_manager.core.mapper.parameter:
+        class: Netgen\BlockManager\Core\Mapper\ParameterMapper
         public: false
 
     # Service aliases

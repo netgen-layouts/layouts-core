@@ -18,7 +18,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
-final class CollectionServiceTest extends ServiceTestCase
+final class CollectionServiceTest extends TestCase
 {
     public function setUp(): void
     {

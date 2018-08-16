@@ -10,9 +10,10 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
-abstract class LayoutServiceTest extends ServiceTestCase
+abstract class LayoutServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 

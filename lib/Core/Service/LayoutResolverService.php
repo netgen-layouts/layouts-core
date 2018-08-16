@@ -18,9 +18,9 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
-use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
+use Netgen\BlockManager\Core\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder;
+use Netgen\BlockManager\Core\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
@@ -38,17 +38,17 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 final class LayoutResolverService extends Service implements APILayoutResolverService
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
+     * @var \Netgen\BlockManager\Core\Validator\LayoutResolverValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
+     * @var \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder
+     * @var \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder
      */
     private $structBuilder;
 

@@ -17,11 +17,11 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
-use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
-use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
-use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Mapper\ConfigMapper;
+use Netgen\BlockManager\Core\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder;
+use Netgen\BlockManager\Core\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
@@ -35,27 +35,27 @@ use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 final class BlockService extends Service implements BlockServiceInterface
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
+     * @var \Netgen\BlockManager\Core\Validator\BlockValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
+     * @var \Netgen\BlockManager\Core\Mapper\BlockMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
+     * @var \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder
      */
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
      */
     private $configMapper;
 

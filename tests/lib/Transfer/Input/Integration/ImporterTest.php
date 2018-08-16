@@ -25,7 +25,7 @@ use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\ListHandler;
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TextHandler;
 use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler;
-use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\BlockManager\Transfer\Input\Importer;
 use Netgen\BlockManager\Transfer\Input\JsonValidator;
@@ -34,7 +34,7 @@ use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
 use Netgen\BlockManager\Transfer\Output\Serializer;
 use Netgen\BlockManager\Transfer\Output\Visitor;
 
-abstract class ImporterTest extends ServiceTestCase
+abstract class ImporterTest extends CoreTestCase
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Input\ImporterInterface

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
-abstract class BlockServiceTest extends ServiceTestCase
+abstract class BlockServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 

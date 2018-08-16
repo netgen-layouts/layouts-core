@@ -12,9 +12,9 @@ use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
-use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Core\Mapper\LayoutMapper;
+use Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder;
+use Netgen\BlockManager\Core\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
@@ -30,17 +30,17 @@ use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 final class LayoutService extends Service implements LayoutServiceInterface
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
+     * @var \Netgen\BlockManager\Core\Validator\LayoutValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+     * @var \Netgen\BlockManager\Core\Mapper\LayoutMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
+     * @var \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder
      */
     private $structBuilder;
 

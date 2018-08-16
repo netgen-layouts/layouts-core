@@ -11,20 +11,20 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Core\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Validator\CollectionValidator;
+use Netgen\BlockManager\Core\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
-use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-abstract class BlockTest extends ServiceTestCase
+abstract class BlockTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
+     * @var \Netgen\BlockManager\Core\Validator\BlockValidator
      */
     private $blockValidator;
 

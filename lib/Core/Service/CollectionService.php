@@ -17,11 +17,11 @@ use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct as APIQueryUpdat
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
-use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
-use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\Core\Mapper\CollectionMapper;
+use Netgen\BlockManager\Core\Mapper\ConfigMapper;
+use Netgen\BlockManager\Core\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder;
+use Netgen\BlockManager\Core\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
@@ -36,27 +36,27 @@ use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStru
 final class CollectionService extends Service implements APICollectionService
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
+     * @var \Netgen\BlockManager\Core\Validator\CollectionValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
+     * @var \Netgen\BlockManager\Core\Mapper\CollectionMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
+     * @var \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder
      */
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
      */
     private $configMapper;
 

@@ -11,9 +11,10 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
-abstract class CollectionServiceTest extends ServiceTestCase
+abstract class CollectionServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 

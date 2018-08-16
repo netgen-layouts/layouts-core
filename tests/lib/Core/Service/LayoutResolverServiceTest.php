@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
-abstract class LayoutResolverServiceTest extends ServiceTestCase
+abstract class LayoutResolverServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 

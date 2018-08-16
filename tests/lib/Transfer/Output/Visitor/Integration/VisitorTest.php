@@ -9,10 +9,10 @@ use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Diff;
 use Diff_Renderer_Text_Unified;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
+use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
-abstract class VisitorTest extends ServiceTestCase
+abstract class VisitorTest extends CoreTestCase
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface&\PHPUnit\Framework\MockObject\MockObject
