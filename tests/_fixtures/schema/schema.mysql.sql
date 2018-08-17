@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_layout_translation` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
-  PRIMARY KEY (`layout_id`, `status`, `locale`),
+  PRIMARY KEY (`layout_id`, `status`, `locale`(191)),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB;
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_block_translation` (
   `status` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`block_id`, `status`, `locale`),
+  PRIMARY KEY (`block_id`, `status`, `locale`(191)),
   FOREIGN KEY (`block_id`, `status`)
     REFERENCES ngbm_block (`id`, `status`)
 ) ENGINE=InnoDB;
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_zone` (
   `root_block_id` int(11) NOT NULL,
   `linked_layout_id` int(11),
   `linked_zone_identifier` varchar(255),
-  PRIMARY KEY (`identifier`, `layout_id`, `status`),
+  PRIMARY KEY (`identifier`(191), `layout_id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`),
   FOREIGN KEY (`root_block_id`, `status`)
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_translation` (
   `collection_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
-  PRIMARY KEY (`collection_id`, `status`, `locale`),
+  PRIMARY KEY (`collection_id`, `status`, `locale`(191)),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB;
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_collection_query_translation` (
   `status` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`query_id`, `status`, `locale`),
+  PRIMARY KEY (`query_id`, `status`, `locale`(191)),
   FOREIGN KEY (`query_id`, `status`)
     REFERENCES ngbm_collection_query (`id`, `status`)
 ) ENGINE=InnoDB;
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_block_collection` (
   `collection_id` int(11) NOT NULL,
   `collection_status` int(11) NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  PRIMARY KEY (`block_id`, `block_status`, `identifier`),
+  PRIMARY KEY (`block_id`, `block_status`, `identifier`(191)),
   FOREIGN KEY (`block_id`, `block_status`)
     REFERENCES ngbm_block (`id`, `status`),
   FOREIGN KEY (`collection_id`, `collection_status`)
