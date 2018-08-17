@@ -1,0 +1,108 @@
+dist: trusty
+sudo: required
+
+language: php
+
+services:
+  - mysql
+  - postgresql
+
+addons:
+  postgresql: "9.6"
+  chrome: stable
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  fast_finish: true
+  include:
+    # PHP 7.1
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
+    - php: 7.1
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
+    # PHP 7.2
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="dev-master"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="dev-master"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
+    - php: 7.2
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
+    # PHPStan
+    - php: 7.2
+      env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~4.1.0"
+  allow_failures:
+    # Behat
+    - php: 7.2
+      env: RUN_BEHAT="yes" SYMFONY_VERSION="~4.1.0"
+
+branches:
+  only:
+    - master
+    - /^\d.\d+-release$/
+
+before_script:
+  - if [ "$DB" = "mysql" ] ; then mysql -e "CREATE DATABASE IF NOT EXISTS testdb DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_520_ci;" -uroot ; fi
+  - if [ "$DB" = "postgresql" ] ; then psql -c "CREATE DATABASE testdb;" -U postgres ; fi
+
+  - phpenv config-rm xdebug.ini
+  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+  # Read-only OAuth token to work around GitHub API rate limits
+  - composer config -g github-oauth.github.com "4b3b0a83ea27d9544d3608a384c7a14625a98804"
+
+  - if [ "$SYMFONY_VERSION" != "" ] ; then composer require --no-update symfony/symfony:$SYMFONY_VERSION ; fi
+
+  # PHPStan cannot be installed on Symfony 2.8
+  - if [ "$SYMFONY_VERSION" = "~2.8.0" ] ; then composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit ; fi
+
+  - |
+    if [ "$DEPS" = "low" ] ; then
+      composer update --prefer-dist --prefer-lowest --prefer-stable
+    else
+      composer update --prefer-dist
+    fi
+
+  - |
+    if [ "$RUN_BEHAT" = "yes" ] ; then
+      sudo apt-get install -y default-jre
+      ./tests/run_selenium.sh > /dev/null 2>&1 &
+      # Sleep to allow the script to download Selenium and Chrome WebDriver
+      sleep 30
+    fi
+
+script:
+  - if [ "$PHPUNIT_CONFIG" != "" ] ; then vendor/bin/phpunit -c $PHPUNIT_CONFIG ; fi
+  - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan ; fi
+  - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan-tests ; fi
+  - if [ "$RUN_BEHAT" != "" ] ; then composer behat-headless ; fi
+
+notifications:
+  email: false
+
+git:
+  depth: 30
