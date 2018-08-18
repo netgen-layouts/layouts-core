@@ -185,6 +185,6 @@ CREATE TABLE `ngbm_rule` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `layout_id` integer DEFAULT NULL,
-  `comment` text(255) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
   PRIMARY KEY (`id`, `status`)
 );

@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS "ngbm_rule" (
     "id" integer NOT NULL,
     "status" integer NOT NULL,
     "layout_id" integer,
-    "comment" character varying(255),
+    "comment" text,
     PRIMARY KEY ("id", "status")
 );
 

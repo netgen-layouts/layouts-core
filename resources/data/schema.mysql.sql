@@ -264,7 +264,7 @@ CREATE TABLE `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
-  `comment` varchar(255) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_related_layout` (`layout_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
