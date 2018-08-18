@@ -11,14 +11,16 @@ final class Version000700 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
         // ngbm_layout table
 
         $layoutTable = $schema->createTable('ngbm_layout');
 
         $layoutTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $layoutTable->addColumn('status', 'integer');
-        $layoutTable->addColumn('type', 'string', ['length' => 255]);
-        $layoutTable->addColumn('name', 'string', ['length' => 255]);
+        $layoutTable->addColumn('type', 'string', ['length' => 191]);
+        $layoutTable->addColumn('name', 'string', ['length' => 191]);
         $layoutTable->addColumn('created', 'integer');
         $layoutTable->addColumn('modified', 'integer');
         $layoutTable->addColumn('shared', 'boolean');
@@ -35,14 +37,14 @@ final class Version000700 extends AbstractMigration
         $blockTable->addColumn('status', 'integer');
         $blockTable->addColumn('layout_id', 'integer');
         $blockTable->addColumn('depth', 'integer');
-        $blockTable->addColumn('path', 'string', ['length' => 255]);
+        $blockTable->addColumn('path', 'string', ['length' => 191]);
         $blockTable->addColumn('parent_id', 'integer', ['notnull' => false]);
-        $blockTable->addColumn('placeholder', 'string', ['length' => 255, 'notnull' => false]);
+        $blockTable->addColumn('placeholder', 'string', ['length' => 191, 'notnull' => false]);
         $blockTable->addColumn('position', 'integer', ['notnull' => false]);
-        $blockTable->addColumn('definition_identifier', 'string', ['length' => 255]);
-        $blockTable->addColumn('view_type', 'string', ['length' => 255]);
-        $blockTable->addColumn('item_view_type', 'string', ['length' => 255]);
-        $blockTable->addColumn('name', 'string', ['length' => 255]);
+        $blockTable->addColumn('definition_identifier', 'string', ['length' => 191]);
+        $blockTable->addColumn('view_type', 'string', ['length' => 191]);
+        $blockTable->addColumn('item_view_type', 'string', ['length' => 191]);
+        $blockTable->addColumn('name', 'string', ['length' => 191]);
         $blockTable->addColumn('placeholder_parameters', 'text', ['length' => 65535]);
         $blockTable->addColumn('parameters', 'text', ['length' => 65535]);
 
@@ -56,12 +58,12 @@ final class Version000700 extends AbstractMigration
 
         $zoneTable = $schema->createTable('ngbm_zone');
 
-        $zoneTable->addColumn('identifier', 'string', ['length' => 255]);
+        $zoneTable->addColumn('identifier', 'string', ['length' => 191]);
         $zoneTable->addColumn('layout_id', 'integer');
         $zoneTable->addColumn('status', 'integer');
         $zoneTable->addColumn('root_block_id', 'integer');
         $zoneTable->addColumn('linked_layout_id', 'integer', ['notnull' => false]);
-        $zoneTable->addColumn('linked_zone_identifier', 'string', ['length' => 255, 'notnull' => false]);
+        $zoneTable->addColumn('linked_zone_identifier', 'string', ['length' => 191, 'notnull' => false]);
 
         $zoneTable->setPrimaryKey(['identifier', 'layout_id', 'status']);
         $zoneTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status'], [], 'fk_ngl_zone_layout');
@@ -77,7 +79,7 @@ final class Version000700 extends AbstractMigration
         $ruleTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $ruleTable->addColumn('status', 'integer');
         $ruleTable->addColumn('layout_id', 'integer', ['notnull' => false]);
-        $ruleTable->addColumn('comment', 'string', ['length' => 255, 'notnull' => false]);
+        $ruleTable->addColumn('comment', 'string', ['length' => 191, 'notnull' => false]);
 
         $ruleTable->setPrimaryKey(['id', 'status']);
 
@@ -100,7 +102,7 @@ final class Version000700 extends AbstractMigration
         $ruleTargetTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $ruleTargetTable->addColumn('status', 'integer');
         $ruleTargetTable->addColumn('rule_id', 'integer');
-        $ruleTargetTable->addColumn('type', 'string', ['length' => 255]);
+        $ruleTargetTable->addColumn('type', 'string', ['length' => 191]);
         $ruleTargetTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
 
         $ruleTargetTable->setPrimaryKey(['id', 'status']);
@@ -116,7 +118,7 @@ final class Version000700 extends AbstractMigration
         $ruleConditionTable->addColumn('id', 'integer', ['autoincrement' => true]);
         $ruleConditionTable->addColumn('status', 'integer');
         $ruleConditionTable->addColumn('rule_id', 'integer');
-        $ruleConditionTable->addColumn('type', 'string', ['length' => 255]);
+        $ruleConditionTable->addColumn('type', 'string', ['length' => 191]);
         $ruleConditionTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
 
         $ruleConditionTable->setPrimaryKey(['id', 'status']);
@@ -132,7 +134,7 @@ final class Version000700 extends AbstractMigration
         $collectionTable->addColumn('status', 'integer');
         $collectionTable->addColumn('type', 'integer');
         $collectionTable->addColumn('shared', 'boolean');
-        $collectionTable->addColumn('name', 'string', ['length' => 255, 'notnull' => false]);
+        $collectionTable->addColumn('name', 'string', ['length' => 191, 'notnull' => false]);
 
         $collectionTable->setPrimaryKey(['id', 'status']);
 
@@ -147,8 +149,8 @@ final class Version000700 extends AbstractMigration
         $collectionItemTable->addColumn('collection_id', 'integer');
         $collectionItemTable->addColumn('position', 'integer');
         $collectionItemTable->addColumn('type', 'integer');
-        $collectionItemTable->addColumn('value_id', 'string', ['length' => 255]);
-        $collectionItemTable->addColumn('value_type', 'string', ['length' => 255]);
+        $collectionItemTable->addColumn('value_id', 'string', ['length' => 191]);
+        $collectionItemTable->addColumn('value_type', 'string', ['length' => 191]);
 
         $collectionItemTable->setPrimaryKey(['id', 'status']);
         $collectionItemTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status'], [], 'fk_ngl_item_collection');
@@ -163,8 +165,8 @@ final class Version000700 extends AbstractMigration
         $collectionQueryTable->addColumn('status', 'integer');
         $collectionQueryTable->addColumn('collection_id', 'integer');
         $collectionQueryTable->addColumn('position', 'integer');
-        $collectionQueryTable->addColumn('identifier', 'string', ['length' => 255]);
-        $collectionQueryTable->addColumn('type', 'string', ['length' => 255]);
+        $collectionQueryTable->addColumn('identifier', 'string', ['length' => 191]);
+        $collectionQueryTable->addColumn('type', 'string', ['length' => 191]);
         $collectionQueryTable->addColumn('parameters', 'text', ['length' => 65535]);
 
         $collectionQueryTable->setPrimaryKey(['id', 'status']);
@@ -181,7 +183,7 @@ final class Version000700 extends AbstractMigration
         $blockCollectionTable->addColumn('block_status', 'integer');
         $blockCollectionTable->addColumn('collection_id', 'integer');
         $blockCollectionTable->addColumn('collection_status', 'integer');
-        $blockCollectionTable->addColumn('identifier', 'string', ['length' => 255]);
+        $blockCollectionTable->addColumn('identifier', 'string', ['length' => 191]);
         $blockCollectionTable->addColumn('start', 'integer');
         $blockCollectionTable->addColumn('length', 'integer', ['notnull' => false]);
 
@@ -195,6 +197,8 @@ final class Version000700 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
         $schema->dropTable('ngbm_block_collection');
         $schema->dropTable('ngbm_collection_item');
         $schema->dropTable('ngbm_collection_query');

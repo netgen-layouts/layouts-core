@@ -21,7 +21,7 @@ final class Version001100 extends AbstractMigration
         $zoneTable->addIndex(['linked_layout_id', 'linked_zone_identifier'], 'idx_ngl_linked_zone');
 
         $this->addSql('ALTER TABLE ngbm_collection_item ADD COLUMN config text NOT NULL');
-        $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value_id value varchar(255)');
+        $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value_id value varchar(191)');
     }
 
     public function down(Schema $schema): void
@@ -29,6 +29,6 @@ final class Version001100 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('ALTER TABLE ngbm_collection_item DROP COLUMN config');
-        $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value value_id varchar(255)');
+        $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value value_id varchar(191)');
     }
 }

@@ -27,21 +27,21 @@ CREATE TABLE `ngbm_block` (
   `status` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `depth` int(11) NOT NULL,
-  `path` varchar(255) NOT NULL,
+  `path` varchar(191) NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `placeholder` varchar(255) DEFAULT NULL,
+  `placeholder` varchar(191) DEFAULT NULL,
   `position` int(11) DEFAULT NULL,
-  `definition_identifier` varchar(255) NOT NULL,
-  `view_type` varchar(255) NOT NULL,
-  `item_view_type` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `definition_identifier` varchar(191) NOT NULL,
+  `view_type` varchar(191) NOT NULL,
+  `item_view_type` varchar(191) NOT NULL,
+  `name` varchar(191) NOT NULL,
   `config` text NOT NULL,
   `translatable` tinyint(4) NOT NULL,
-  `main_locale` varchar(255) NOT NULL,
+  `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_layout` (`layout_id`,`status`),
-  KEY `idx_ngl_parent_block` (`parent_id`,`placeholder`(191),`status`),
+  KEY `idx_ngl_parent_block` (`parent_id`,`placeholder`,`status`),
   CONSTRAINT `fk_ngl_block_layout` FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `ngbm_layout` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -57,10 +57,10 @@ DROP TABLE IF EXISTS `ngbm_block_collection`;
 CREATE TABLE `ngbm_block_collection` (
   `block_id` int(11) NOT NULL,
   `block_status` int(11) NOT NULL,
-  `identifier` varchar(255) NOT NULL,
+  `identifier` varchar(191) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `collection_status` int(11) NOT NULL,
-  PRIMARY KEY (`block_id`,`block_status`,`identifier`(191)),
+  PRIMARY KEY (`block_id`,`block_status`,`identifier`),
   KEY `idx_ngl_block` (`block_id`,`block_status`),
   KEY `idx_ngl_collection` (`collection_id`,`collection_status`),
   CONSTRAINT `fk_ngl_block_collection_block` FOREIGN KEY (`block_id`, `block_status`)
@@ -80,9 +80,9 @@ DROP TABLE IF EXISTS `ngbm_block_translation`;
 CREATE TABLE `ngbm_block_translation` (
   `block_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`block_id`,`status`,`locale`(191)),
+  PRIMARY KEY (`block_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_block_translation_block` FOREIGN KEY (`block_id`, `status`)
     REFERENCES `ngbm_block` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -101,7 +101,7 @@ CREATE TABLE `ngbm_collection` (
   `start` int(11) NOT NULL,
   `length` int(11) DEFAULT NULL,
   `translatable` tinyint(4) NOT NULL,
-  `main_locale` varchar(255) NOT NULL,
+  `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`,`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -119,8 +119,8 @@ CREATE TABLE `ngbm_collection_item` (
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `position` int(11) NOT NULL,
-  `value` varchar(255) DEFAULT NULL,
-  `value_type` varchar(255) NOT NULL,
+  `value` varchar(191) DEFAULT NULL,
+  `value_type` varchar(191) NOT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_collection` (`collection_id`,`status`),
@@ -140,7 +140,7 @@ CREATE TABLE `ngbm_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `type` varchar(191) NOT NULL,
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_collection` (`collection_id`,`status`),
   KEY `idx_ngl_collection_identifier` (`collection_id`,`status`),
@@ -159,9 +159,9 @@ DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
 CREATE TABLE `ngbm_collection_query_translation` (
   `query_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`query_id`,`status`,`locale`(191)),
+  PRIMARY KEY (`query_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_query_translation_query` FOREIGN KEY (`query_id`, `status`)
     REFERENCES `ngbm_collection_query` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -177,8 +177,8 @@ DROP TABLE IF EXISTS `ngbm_collection_translation`;
 CREATE TABLE `ngbm_collection_translation` (
   `collection_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
-  PRIMARY KEY (`collection_id`,`status`,`locale`(191)),
+  `locale` varchar(191) NOT NULL,
+  PRIMARY KEY (`collection_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_collection_translation_collection` FOREIGN KEY (`collection_id`, `status`)
     REFERENCES `ngbm_collection` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -194,16 +194,16 @@ DROP TABLE IF EXISTS `ngbm_layout`;
 CREATE TABLE `ngbm_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `type` varchar(191) NOT NULL,
+  `name` varchar(191) NOT NULL,
   `description` text NOT NULL,
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   `shared` tinyint(1) NOT NULL,
-  `main_locale` varchar(255) NOT NULL,
+  `main_locale` varchar(191) NOT NULL,
   PRIMARY KEY (`id`,`status`),
-  KEY `idx_ngl_layout_name` (`name`(191)),
-  KEY `idx_ngl_layout_type` (`type`(191)),
+  KEY `idx_ngl_layout_name` (`name`),
+  KEY `idx_ngl_layout_type` (`type`),
   KEY `idx_ngl_layout_shared` (`shared`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -218,8 +218,8 @@ DROP TABLE IF EXISTS `ngbm_layout_translation`;
 CREATE TABLE `ngbm_layout_translation` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
-  PRIMARY KEY (`layout_id`,`status`,`locale`(191)),
+  `locale` varchar(191) NOT NULL,
+  PRIMARY KEY (`layout_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_layout_translation_layout` FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `ngbm_layout` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -233,8 +233,8 @@ DROP TABLE IF EXISTS `ngbm_migration_versions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ngbm_migration_versions` (
-  `version` varchar(255) NOT NULL,
-  PRIMARY KEY (`version`(191))
+  `version` varchar(191) NOT NULL,
+  PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -281,7 +281,7 @@ CREATE TABLE `ngbm_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `type` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_rule` (`rule_id`,`status`),
@@ -316,11 +316,11 @@ CREATE TABLE `ngbm_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL,
+  `type` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_rule` (`rule_id`,`status`),
-  KEY `idx_ngl_target_type` (`type`(191)),
+  KEY `idx_ngl_target_type` (`type`),
   CONSTRAINT `fk_ngl_target_rule` FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `ngbm_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -334,16 +334,16 @@ DROP TABLE IF EXISTS `ngbm_zone`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ngbm_zone` (
-  `identifier` varchar(255) NOT NULL,
+  `identifier` varchar(191) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `root_block_id` int(11) NOT NULL,
   `linked_layout_id` int(11) DEFAULT NULL,
-  `linked_zone_identifier` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`identifier`(191),`layout_id`,`status`),
+  `linked_zone_identifier` varchar(191) DEFAULT NULL,
+  PRIMARY KEY (`identifier`,`layout_id`,`status`),
   KEY `idx_ngl_layout` (`layout_id`,`status`),
   KEY `idx_ngl_root_block` (`root_block_id`,`status`),
-  KEY `idx_ngl_linked_zone` (`linked_layout_id`,`linked_zone_identifier`(191)),
+  KEY `idx_ngl_linked_zone` (`linked_layout_id`,`linked_zone_identifier`),
   CONSTRAINT `fk_ngl_zone_block` FOREIGN KEY (`root_block_id`, `status`)
     REFERENCES `ngbm_block` (`id`, `status`),
   CONSTRAINT `fk_ngl_zone_layout` FOREIGN KEY (`layout_id`, `status`)
