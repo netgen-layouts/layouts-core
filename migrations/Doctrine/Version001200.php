@@ -24,6 +24,6 @@ final class Version001200 extends AbstractMigration
         $this->addSql('ALTER TABLE ngbm_collection_item ADD COLUMN type int(11) NOT NULL');
         $this->addSql('UPDATE ngbm_collection_item SET type = 0');
 
-        $this->addSql('ALTER TABLE ngbm_rule MODIFY COLUMN comment varchar(255)');
+        $this->addSql('ALTER TABLE ngbm_rule MODIFY COLUMN comment varchar(191)');
     }
 }

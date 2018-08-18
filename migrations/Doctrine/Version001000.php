@@ -29,7 +29,7 @@ EOT
         $this->addSql('ALTER TABLE ngbm_block_collection DROP COLUMN start');
         $this->addSql('ALTER TABLE ngbm_block_collection DROP COLUMN length');
 
-        $this->addSql('ALTER TABLE ngbm_collection_item MODIFY COLUMN value_id varchar(255)');
+        $this->addSql('ALTER TABLE ngbm_collection_item MODIFY COLUMN value_id varchar(191)');
     }
 
     public function down(Schema $schema): void
@@ -53,6 +53,6 @@ EOT
         $this->addSql('ALTER TABLE ngbm_collection DROP COLUMN length');
 
         $this->addSql('UPDATE ngbm_collection_item SET value_id = "(INVALID)" WHERE value_id IS NULL');
-        $this->addSql('ALTER TABLE ngbm_collection_item MODIFY COLUMN value_id varchar(255) NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_collection_item MODIFY COLUMN value_id varchar(191) NOT NULL');
     }
 }
