@@ -30,14 +30,14 @@ final class Version000900 extends AbstractMigration
 
         // Layout table translations
 
-        $this->addSql('ALTER TABLE ngbm_layout ADD COLUMN main_locale varchar(255) NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_layout ADD COLUMN main_locale varchar(191) NOT NULL');
 
         $this->addSql(
             <<<'EOT'
 CREATE TABLE `ngbm_layout_translation` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`layout_id`, `status`, `locale`),
   CONSTRAINT `fk_ngl_layout_translation_layout` FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
@@ -51,7 +51,7 @@ EOT
         // Block table translations
 
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN translatable tinyint NOT NULL');
-        $this->addSql('ALTER TABLE ngbm_block ADD COLUMN main_locale varchar(255) NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_block ADD COLUMN main_locale varchar(191) NOT NULL');
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN always_available tinyint NOT NULL');
 
         $this->addSql(
@@ -59,7 +59,7 @@ EOT
 CREATE TABLE `ngbm_block_translation` (
   `block_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`block_id`, `status`, `locale`),
   CONSTRAINT `fk_ngl_block_translation_block` FOREIGN KEY (`block_id`, `status`)
@@ -77,7 +77,7 @@ EOT
         // Collection table translations
 
         $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN translatable tinyint NOT NULL');
-        $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN main_locale varchar(255) NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN main_locale varchar(191) NOT NULL');
         $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN always_available tinyint NOT NULL');
 
         $this->addSql(
@@ -85,7 +85,7 @@ EOT
 CREATE TABLE `ngbm_collection_translation` (
   `collection_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`collection_id`, `status`, `locale`),
   CONSTRAINT `fk_ngl_collection_translation_collection` FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
@@ -104,7 +104,7 @@ EOT
 CREATE TABLE `ngbm_collection_query_translation` (
   `query_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`query_id`, `status`, `locale`),
   CONSTRAINT `fk_ngl_query_translation_query` FOREIGN KEY (`query_id`, `status`)
