@@ -3,6 +3,10 @@ sudo: false
 
 language: php
 
+php:
+  - 7.1
+  - 7.2
+
 services:
   - mysql
   - postgresql
@@ -15,49 +19,27 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
+env:
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0" DB="postgresql"
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="^4.2@dev"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0" DB="postgresql"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="^4.2@dev"
+
 matrix:
-  fast_finish: true
   include:
-    # PHP 7.1
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.1
+    -
+      php: 7.1
       env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.1
+    -
+      php: 7.1
       env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
-    # PHP 7.2
+    -
+      php: 7.2
+      env: RUN_PHPSTAN="yes"
     - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="dev-master"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="dev-master"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0" DB="mysql" DATABASE="mysql://root@localhost/testdb"
-    # PHPStan
-    - php: 7.2
-      env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~4.1.0"
-    # Behat
-    - php: 7.2
-      env: RUN_BEHAT="yes" SYMFONY_VERSION="~4.1.0"
+      env: RUN_BEHAT="yes"
 
 branches:
   only:
@@ -65,8 +47,14 @@ branches:
     - /^\d.\d+-release$/
 
 before_script:
-  - if [ "$DB" = "mysql" ] ; then mysql -e "CREATE DATABASE IF NOT EXISTS testdb DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_520_ci;" -uroot ; fi
-  - if [ "$DB" = "postgresql" ] ; then psql -c "CREATE DATABASE testdb;" -U postgres ; fi
+  - |
+    if [ "$DB" = "mysql" ] ; then
+      mysql -e "CREATE DATABASE IF NOT EXISTS testdb DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_520_ci;" -uroot
+      export DATABASE=mysql://root@localhost/testdb
+    elif [ "$DB" = "postgresql" ] ; then
+      psql -c "CREATE DATABASE testdb;" -U postgres
+      export DATABASE=pgsql://postgres@localhost/testdb
+    fi
 
   - phpenv config-rm xdebug.ini
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -81,9 +69,9 @@ before_script:
 
   - |
     if [ "$DEPS" = "low" ] ; then
-      composer update --prefer-dist --prefer-lowest --prefer-stable
+      composer update --no-suggest --prefer-dist --prefer-lowest --prefer-stable
     else
-      composer update --prefer-dist
+      composer update --no-suggest --prefer-dist
     fi
 
   - |
@@ -94,13 +82,19 @@ before_script:
     fi
 
 script:
-  - if [ "$PHPUNIT_CONFIG" != "" ] ; then vendor/bin/phpunit -c $PHPUNIT_CONFIG ; fi
+  - composer validate --strict
+  - if [ "$PHPUNIT_CONFIG" != "" ] ; then vendor/bin/phpunit -c $PHPUNIT_CONFIG --colors=always ; fi
   - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan ; fi
   - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan-tests ; fi
   - if [ "$RUN_BEHAT" != "" ] ; then composer behat-headless ; fi
 
 notifications:
   email: false
+  slack:
+    secure: ZKHTCwTD6JVtHKWoEifTHqxb2WxYajg4byBzqJa6NqDmzKBzShDsGrb6H26pT3yhnV2aeHyz9swK8DU8u+fArVKYftuGcn4nuQ1g5KDEumyPh8x3HFQGhEz+ZKbkNcoBCL0vlp+Rz82DciwZ3KRsuQgk3T2u87AyRbXFPs9urTCgLV2TvsHxpDCSoJOUIN72d7GtFvfcKR+9W2YYDU0OkIwk1HYNVUqArUAnWC4Vxd7GXnVTBL6oPvGlbrzqLxSIftxjF9VOgqiItob3rBwpOKEl4ax6wXIMtVY9Qs/iAO8O+JquPNl/qCID5gLmC1eiatavFUmtdfqBQ1X4WhoKGFnwXeVNwAAFbKL2IFe+2kZ+2X/smG1zI58tRuRXBFcE9b0TFeAC7rWYFsArfz0kGBIi0HbmXDOg8DsV4siTqD4LqGU4ongqMXtuSVwK1oe/w9X1y5ZVY84qkE2WcOQRQhfvLEOvxSwyrlEKrtK5xV6EknIRV1HOeIOp6Qo8KiHCdDSfO6Tck7/Nn4A4Iib5Fn2kZf7ASQsEVFwRSw2zGsdfzTjInYMLyccG1Cf4Ljqdqq++9hpnK4OemCnFhnJkzP/2b3NT0A0PbdoGNdV15LbsmgmadPbyl/qlV+iri7Wa9N40hMEIINegt7d89BuyjjnZ7XQ9doEALu0Tja57uOE=
+    on_success: change
+    on_failure: always
+    on_pull_requests: false
 
 git:
-  depth: 30
+  depth: 1
