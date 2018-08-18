@@ -55,7 +55,6 @@ matrix:
     # PHPStan
     - php: 7.2
       env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~4.1.0"
-  allow_failures:
     # Behat
     - php: 7.2
       env: RUN_BEHAT="yes" SYMFONY_VERSION="~4.1.0"
@@ -89,10 +88,9 @@ before_script:
 
   - |
     if [ "$RUN_BEHAT" = "yes" ] ; then
-      sudo apt-get install -y default-jre
-      ./tests/run_selenium.sh > /dev/null 2>&1 &
-      # Sleep to allow the script to download Selenium and Chrome WebDriver
-      sleep 30
+      ./tests/run_chrome.sh > /dev/null 2>&1 &
+      # Sleep to allow the script to download Chrome WebDriver
+      sleep 15
     fi
 
 script:
