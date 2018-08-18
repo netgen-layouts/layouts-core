@@ -105,7 +105,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Return human readable description of the layout.
      */
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }

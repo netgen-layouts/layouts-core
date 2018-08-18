@@ -98,6 +98,7 @@ final class LayoutNormalizerTest extends TestCase
                 'modified' => $date1,
                 'shared' => true,
                 'name' => 'My layout',
+                'description' => 'My layout description',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr'],
                 'zones' => new ArrayCollection(
@@ -226,6 +227,7 @@ final class LayoutNormalizerTest extends TestCase
                 'modified' => $date1,
                 'shared' => true,
                 'name' => 'My layout',
+                'description' => 'My layout description',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'zones' => new ArrayCollection(),
@@ -241,6 +243,7 @@ final class LayoutNormalizerTest extends TestCase
                 'modified' => $date2,
                 'shared' => true,
                 'name' => 'My layout',
+                'description' => 'My layout description',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'zones' => new ArrayCollection(),
