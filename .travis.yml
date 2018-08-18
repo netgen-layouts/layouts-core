@@ -40,6 +40,8 @@ matrix:
       env: RUN_PHPSTAN="yes"
     - php: 7.2
       env: RUN_BEHAT="yes"
+    - php: 7.2
+      env: RUN_MIGRATIONS="yes" DB="mysql"
 
 branches:
   only:
@@ -87,6 +89,11 @@ script:
   - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan ; fi
   - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan-tests ; fi
   - if [ "$RUN_BEHAT" != "" ] ; then composer behat-headless ; fi
+  - |
+    if [ "$RUN_MIGRATIONS" != "" ] ; then
+      php tests/application/bin/console doctrine:migrations:migrate \
+      --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yml --ansi
+    fi
 
 notifications:
   email: false

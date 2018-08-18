@@ -25,6 +25,7 @@ final class AppKernel extends Kernel
 
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             // Netgen Layouts
