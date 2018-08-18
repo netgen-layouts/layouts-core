@@ -450,16 +450,14 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testUpdateRuleWithDefaultValues(): void
     {
+        $rule = $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
         $ruleUpdateStruct = new RuleUpdateStruct();
 
-        $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-            $ruleUpdateStruct
-        );
+        $updatedRule = $this->handler->updateRule($rule, $ruleUpdateStruct);
 
         self::assertSame(3, $updatedRule->id);
         self::assertSame(3, $updatedRule->layoutId);
-        self::assertNull($updatedRule->comment);
+        self::assertSame($rule->comment, $updatedRule->comment);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
@@ -511,16 +509,15 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCopyRule(): void
     {
-        $copiedRule = $this->handler->copyRule(
-            $this->handler->loadRule(5, Value::STATUS_PUBLISHED)
-        );
+        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+        $copiedRule = $this->handler->copyRule($rule);
 
         self::assertSame(13, $copiedRule->id);
-        self::assertSame(2, $copiedRule->layoutId);
-        self::assertSame(5, $copiedRule->priority);
-        self::assertTrue($copiedRule->enabled);
-        self::assertNull($copiedRule->comment);
-        self::assertSame(Value::STATUS_PUBLISHED, $copiedRule->status);
+        self::assertSame($rule->layoutId, $copiedRule->layoutId);
+        self::assertSame($rule->priority, $copiedRule->priority);
+        self::assertSame($rule->enabled, $copiedRule->enabled);
+        self::assertSame($rule->comment, $copiedRule->comment);
+        self::assertSame($rule->status, $copiedRule->status);
 
         self::assertSame(
             [
@@ -571,16 +568,14 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCreateRuleStatus(): void
     {
-        $copiedRule = $this->handler->createRuleStatus(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-            Value::STATUS_ARCHIVED
-        );
+        $rule = $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
+        $copiedRule = $this->handler->createRuleStatus($rule, Value::STATUS_ARCHIVED);
 
-        self::assertSame(3, $copiedRule->id);
-        self::assertSame(3, $copiedRule->layoutId);
-        self::assertSame(7, $copiedRule->priority);
-        self::assertTrue($copiedRule->enabled);
-        self::assertNull($copiedRule->comment);
+        self::assertSame($rule->id, $copiedRule->id);
+        self::assertSame($rule->layoutId, $copiedRule->layoutId);
+        self::assertSame($rule->priority, $copiedRule->priority);
+        self::assertSame($rule->enabled, $copiedRule->enabled);
+        self::assertSame($rule->comment, $copiedRule->comment);
         self::assertSame(Value::STATUS_ARCHIVED, $copiedRule->status);
 
         self::assertSame(

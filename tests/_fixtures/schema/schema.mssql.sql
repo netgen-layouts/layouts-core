@@ -152,7 +152,7 @@ CREATE TABLE ngbm_rule (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   layout_id int DEFAULT NULL,
-  comment nvarchar(max) DEFAULT NULL,
+  comment nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status)
 );
 

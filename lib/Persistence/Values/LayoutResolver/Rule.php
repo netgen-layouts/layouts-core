@@ -42,7 +42,7 @@ final class Rule extends Value
     /**
      * Human readable comment of the rule.
      *
-     * @var string|null
+     * @var string
      */
     public $comment;
 }

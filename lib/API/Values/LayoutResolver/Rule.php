@@ -95,7 +95,7 @@ final class Rule implements Value
     /**
      * Returns the rule comment.
      */
-    public function getComment(): ?string
+    public function getComment(): string
     {
         return $this->comment;
     }

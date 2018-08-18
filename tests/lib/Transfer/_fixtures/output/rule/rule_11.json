@@ -4,7 +4,7 @@
     "layout_id": null,
     "is_enabled": false,
     "priority": -1,
-    "comment": null,
+    "comment": "",
     "targets": [],
     "conditions": []
 }

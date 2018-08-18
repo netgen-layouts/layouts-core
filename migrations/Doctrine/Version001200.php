@@ -14,7 +14,9 @@ final class Version001200 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('ALTER TABLE ngbm_collection_item DROP COLUMN type');
-        $this->addSql('ALTER TABLE ngbm_rule MODIFY COLUMN comment text');
+
+        $this->addSql('UPDATE ngbm_rule SET comment = "" WHERE comment IS NULL');
+        $this->addSql('ALTER TABLE ngbm_rule MODIFY COLUMN comment text NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -24,6 +26,6 @@ final class Version001200 extends AbstractMigration
         $this->addSql('ALTER TABLE ngbm_collection_item ADD COLUMN type int(11) NOT NULL');
         $this->addSql('UPDATE ngbm_collection_item SET type = 0');
 
-        $this->addSql('ALTER TABLE ngbm_rule MODIFY COLUMN comment varchar(191)');
+        $this->addSql('ALTER TABLE ngbm_rule MODIFY COLUMN comment varchar(191) DEFAULT NULL');
     }
 }

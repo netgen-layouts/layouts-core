@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
-  `comment` text DEFAULT NULL,
+  `comment` text NOT NULL,
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB;
 
