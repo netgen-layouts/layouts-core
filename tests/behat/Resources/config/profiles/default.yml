@@ -18,6 +18,7 @@ default:
                             version: ""
                             chrome:
                                 switches:
+                                    - "no-sandbox"
                                     - "disable-extensions"
                                     - "disable-infobars"
                                     - "start-fullscreen"
