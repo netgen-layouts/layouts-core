@@ -42,6 +42,16 @@ matrix:
       env: RUN_BEHAT="yes"
     - php: 7.2
       env: RUN_MIGRATIONS="yes" DB="mysql"
+    -
+      env: ~
+      php: ~
+      cache: ~
+      language: node_js
+      node_js: node
+      before_script: npm install -g grunt-cli
+      script:
+        - grunt build --gruntfile=bundles/BlockManagerBundle/Gruntfile.js
+        - grunt build --gruntfile=bundles/BlockManagerAdminBundle/Gruntfile.js
 
 branches:
   only:
