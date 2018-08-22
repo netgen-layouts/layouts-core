@@ -51,8 +51,8 @@ final class Result
     }
 
     /**
-     * Returns the item that was overriden by item returned by self::getItem or null
-     * if no item was overriden.
+     * Returns the item that was overridden by item returned by self::getItem or null
+     * if no item was overridden.
      *
      * E.g. This can be the manual item that is not visible or is invalid and thus
      * replaced by a dynamic item for display purposes.

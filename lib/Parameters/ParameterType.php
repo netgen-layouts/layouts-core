@@ -68,7 +68,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * but as remote IDs.
      *
      * This is a trivial implementation that returns the value in the same format as
-     * self::toHash(). Overriden implementations should take care to retain this behaviour.
+     * self::toHash(). Overridden implementations should take care to retain this behaviour.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
@@ -88,7 +88,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * in contrast to some kind of remote ID which would be stored in the export.
      *
      * This is a trivial implementation that returns the value in the same format as
-     * self::fromHash(). Overriden implementations should take care to retain this behaviour.
+     * self::fromHash(). Overridden implementations should take care to retain this behaviour.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
@@ -107,10 +107,10 @@ abstract class ParameterType implements ParameterTypeInterface
 
     /**
      * Returns constraints that will be used when checking if the parameter value exists
-     * or not. Usually, this method will not be overriden for most of the parameter types,
+     * or not. Usually, this method will not be overridden for most of the parameter types,
      * since for most of them, checking for a blank value is enough.
      *
-     * Boolean parameter types have this overriden due to `false` value being a valid value
+     * Boolean parameter types have this overridden due to `false` value being a valid value
      * which would not validated by a `NotBlank` constraint.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition

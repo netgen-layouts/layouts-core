@@ -75,7 +75,7 @@ final class CollectionViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
      */
-    public function testRenderWithOverridenTemplate(): void
+    public function testRenderWithOverriddenTemplate(): void
     {
         $block = new Block();
         $pagerMock = $this->createMock(Pagerfanta::class);
