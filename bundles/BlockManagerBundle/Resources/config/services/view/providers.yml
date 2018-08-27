@@ -5,6 +5,12 @@ services:
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
+    netgen_block_manager.view.provider.zone:
+        class: Netgen\BlockManager\View\Provider\ZoneViewProvider
+        public: false
+        tags:
+            - { name: netgen_block_manager.view.provider, priority: 0 }
+
     netgen_block_manager.view.provider.block:
         class: Netgen\BlockManager\View\Provider\BlockViewProvider
         public: false

@@ -12,6 +12,4 @@ return [
 --CONFIG--
 return []
 --EXPECT--
-{"block_id": 5}
-rendered twig block
-{"block_id": 5}
+{"blocks":[{"id":1},{"id":2}]}

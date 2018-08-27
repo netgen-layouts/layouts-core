@@ -12,6 +12,5 @@ return [
 --CONFIG--
 return []
 --EXPECT--
-rendered block
-rendered twig block
-rendered block
+block1
+block2

@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,71 +151,19 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 self::isInstanceOf(Zone::class),
                 self::identicalTo($request instanceof Request ? ['en'] : null)
             )
-            ->will(
-                self::returnValue(
-                    new BlockList(
-                        [
-                            Block::fromArray(
-                                [
-                                    'definition' => BlockDefinition::fromArray(
-                                        [
-                                            'identifier' => 'block_definition',
-                                        ]
-                                    ),
-                                ]
-                            ),
-                            Block::fromArray(
-                                [
-                                    'definition' => BlockDefinition::fromArray(
-                                        [
-                                            'identifier' => 'twig_block',
-                                        ]
-                                    ),
-                                    'availableLocales' => ['en'],
-                                    'locale' => 'en',
-                                    'parameters' => [
-                                        'block_name' => Parameter::fromArray(
-                                            [
-                                                'name' => 'block_name',
-                                                'value' => 'my_block',
-                                            ]
-                                        ),
-                                    ],
-                                ]
-                            ),
-                            Block::fromArray(
-                                [
-                                    'definition' => BlockDefinition::fromArray(
-                                        [
-                                            'identifier' => 'block_definition',
-                                        ]
-                                    ),
-                                ]
-                            ),
-                        ]
-                    )
-                )
-            );
+            ->will(self::returnValue(new BlockList()));
 
         $this->rendererMock
             ->expects(self::any())
             ->method('renderValue')
             ->will(
                 self::returnCallback(
-                    function (Block $block, string $context): string {
-                        if ($block->getDefinition()->getIdentifier() === 'twig_block') {
-                            return 'rendered twig block' . PHP_EOL;
-                        }
-
-                        if ($context === ViewInterface::CONTEXT_DEFAULT) {
-                            return 'rendered block' . PHP_EOL;
-                        }
-
+                    function (Zone $zone, string $context): string {
                         if ($context === 'json') {
-                            return '{"block_id": 5}' . PHP_EOL;
+                            return '{"blocks":[{"id":1},{"id":2}]}';
                         }
 
-                        return '';
+                        return 'block1' . PHP_EOL . 'block2';
                     }
                 )
             );

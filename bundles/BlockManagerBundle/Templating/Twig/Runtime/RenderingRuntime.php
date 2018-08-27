@@ -128,15 +128,15 @@ final class RenderingRuntime
             $locales = $this->localeProvider->getRequestLocales($request);
         }
 
-        foreach ($this->blockService->loadZoneBlocks($zone, $locales) as $block) {
-            echo $this->renderBlock(
-                [
-                    'twig_template' => $twigTemplate,
-                    'view_context' => $viewContext,
-                ],
-                $block
-            );
-        }
+        echo $this->renderValue(
+            [],
+            $zone,
+            [
+                'blocks' => $this->blockService->loadZoneBlocks($zone, $locales),
+                'twig_template' => $twigTemplate,
+            ],
+            $viewContext
+        );
     }
 
     /**
