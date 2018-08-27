@@ -128,11 +128,18 @@ final class RenderingRuntime
             $locales = $this->localeProvider->getRequestLocales($request);
         }
 
+        $linkedZone = $zone->getLinkedZone();
+
+        $blocks = $this->blockService->loadZoneBlocks(
+            $linkedZone instanceof Zone ? $linkedZone : $zone,
+            $locales
+        );
+
         echo $this->renderValue(
             [],
             $zone,
             [
-                'blocks' => $this->blockService->loadZoneBlocks($zone, $locales),
+                'blocks' => $blocks,
                 'twig_template' => $twigTemplate,
             ],
             $viewContext

@@ -174,19 +174,8 @@ final class LayoutValidator extends Validator
                     );
                 }
 
-                $layoutZone = $layout->getZone($oldZone, true);
-                if (!$layoutZone instanceof Zone) {
-                    throw ValidationException::validationFailed(
-                        'zoneMappings',
-                        sprintf(
-                            'Zone "%s" does not exist in specified layout.',
-                            $oldZone
-                        )
-                    );
-                }
-
                 $seenZones[] = $oldZone;
-                $oldLayoutZones[] = $layoutZone;
+                $oldLayoutZones[] = $layout->getZone($oldZone);
             }
 
             if ($preserveSharedZones && count($oldLayoutZones) > 1) {

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Exception\API\LayoutException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
@@ -93,10 +94,8 @@ final class LayoutTest extends TestCase
         self::assertSame($createdDate, $layout->getCreated());
         self::assertSame($modifiedDate, $layout->getModified());
         self::assertTrue($layout->isShared());
-        self::assertNull($layout->getZone('test'));
         self::assertFalse($layout->hasZone('test'));
-        self::assertSame($zones['right']->getLinkedZone(), $layout->getZone('right'));
-        self::assertSame($zones['right'], $layout->getZone('right', true));
+        self::assertSame($zones['right'], $layout->getZone('right'));
         self::assertTrue($layout->hasZone('right'));
         self::assertSame('en', $layout->getMainLocale());
         self::assertSame(['en'], $layout->getAvailableLocales());
@@ -114,6 +113,12 @@ final class LayoutTest extends TestCase
 
         self::assertTrue(isset($layout['left']));
         self::assertSame($zones['left'], $layout['left']);
+
+        try {
+            $layout->getZone('test');
+        } catch (LayoutException $e) {
+            // Do nothing
+        }
 
         try {
             $layout['left'] = new Zone();

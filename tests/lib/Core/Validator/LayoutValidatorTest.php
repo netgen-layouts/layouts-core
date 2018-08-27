@@ -175,8 +175,8 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage Zone "unknown" does not exist in specified layout.
+     * @expectedException \Netgen\BlockManager\Exception\API\LayoutException
+     * @expectedExceptionMessage Zone with "unknown" identifier does not exist in the layout.
      */
     public function testValidateChangeLayoutTypeWithNonExistingLayoutZone(): void
     {

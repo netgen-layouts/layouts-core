@@ -12,6 +12,7 @@ use IteratorAggregate;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\ValueStatusTrait;
+use Netgen\BlockManager\Exception\API\LayoutException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Utils\HydratorTrait;
@@ -171,23 +172,17 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     }
 
     /**
-     * Returns the specified zone or null if zone does not exist.
+     * Returns the specified zone.
      *
-     * By default, this method will return the linked zone if the
-     * requested zone has one. Set $ignoreLinkedZone to true to
-     * always return the original zone.
+     * @throws \Netgen\BlockManager\Exception\API\LayoutException If the zone does not exist
      */
-    public function getZone(string $zoneIdentifier, bool $ignoreLinkedZone = false): ?APIZone
+    public function getZone(string $zoneIdentifier): APIZone
     {
         if ($this->hasZone($zoneIdentifier)) {
-            if (!$ignoreLinkedZone && $this->zones->get($zoneIdentifier)->hasLinkedZone()) {
-                return $this->zones->get($zoneIdentifier)->getLinkedZone();
-            }
-
             return $this->zones->get($zoneIdentifier);
         }
 
-        return null;
+        throw LayoutException::noZone($zoneIdentifier);
     }
 
     /**
