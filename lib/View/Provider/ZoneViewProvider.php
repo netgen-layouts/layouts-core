@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\View\ZoneView;
+use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
 use Netgen\BlockManager\View\ViewInterface;
 
 final class ZoneViewProvider implements ViewProviderInterface
@@ -27,6 +27,6 @@ final class ZoneViewProvider implements ViewProviderInterface
 
     public function supports($value): bool
     {
-        return $value instanceof Zone;
+        return $value instanceof ZoneReference;
     }
 }

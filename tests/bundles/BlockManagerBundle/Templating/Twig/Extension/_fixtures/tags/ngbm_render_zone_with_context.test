@@ -1,15 +1,20 @@
 --TEST--
 "ngbm_render_zone" tag
---TEMPLATE(base.html.twig)--
 --TEMPLATE--
-{% extends 'base.html.twig' %}
-
 {% ngbm_render_zone zone context='json' %}
+{% ngbm_render_zone 'zone' context='json' %}
 --DATA--
 return [
-    'zone' => new \Netgen\BlockManager\API\Values\Layout\Zone(),
+    'ngbm' => new \Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension\Stubs\GlobalVariable(
+        \Netgen\BlockManager\API\Values\Layout\Layout::fromArray([
+            'zones' => new \Doctrine\Common\Collections\ArrayCollection([
+                'zone' => \Netgen\BlockManager\API\Values\Layout\Zone::fromArray(['identifier' => 'zone']),
+            ])
+        ])
+    ),
+    'zone' => \Netgen\BlockManager\API\Values\Layout\Zone::fromArray(['identifier' => 'zone']),
 ]
 --CONFIG--
 return []
 --EXPECT--
-{"blocks":[{"id":1},{"id":2}]}
+{"blocks":[{"id":1},{"id":2}]}{"blocks":[{"id":1},{"id":2}]}

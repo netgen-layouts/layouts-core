@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ZoneViewProvider;
+use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
 use Netgen\BlockManager\View\View\ZoneViewInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -29,17 +31,29 @@ final class ZoneViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $zone = new Zone();
+        $zone = Zone::fromArray(['identifier' => 'zone']);
+        $layout = Layout::fromArray(
+            [
+                'zones' => new ArrayCollection(
+                    [
+                        'zone' => $zone,
+                    ]
+                ),
+            ]
+        );
+
         $blocks = new BlockList();
 
-        $view = $this->ZoneViewProvider->provideView($zone, ['blocks' => $blocks]);
+        $view = $this->ZoneViewProvider->provideView(new ZoneReference($layout, 'zone'), ['blocks' => $blocks]);
 
         self::assertInstanceOf(ZoneViewInterface::class, $view);
 
+        self::assertSame($layout, $view->getLayout());
         self::assertSame($zone, $view->getZone());
         self::assertNull($view->getTemplate());
         self::assertSame(
             [
+                'layout' => $layout,
                 'zone' => $zone,
                 'blocks' => $blocks,
             ],
@@ -54,7 +68,7 @@ final class ZoneViewProviderTest extends TestCase
      */
     public function testProvideViewThrowsViewProviderExceptionOnMissingBlocks(): void
     {
-        $this->ZoneViewProvider->provideView(new Zone());
+        $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'));
     }
 
     /**
@@ -64,7 +78,7 @@ final class ZoneViewProviderTest extends TestCase
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidBlocks(): void
     {
-        $this->ZoneViewProvider->provideView(new Zone(), ['blocks' => 42]);
+        $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'), ['blocks' => 42]);
     }
 
     /**
@@ -83,7 +97,8 @@ final class ZoneViewProviderTest extends TestCase
     {
         return [
             [new Value(), false],
-            [new Zone(), true],
+            [new Zone(), false],
+            [new ZoneReference(new Layout(), 'zone'), true],
             [new Layout(), false],
         ];
     }

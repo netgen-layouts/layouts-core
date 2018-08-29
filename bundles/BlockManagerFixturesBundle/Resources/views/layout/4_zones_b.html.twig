@@ -3,23 +3,23 @@
 {% block layout %}
     <div class="row">
         <div class="col-md-12">
-            {% ngbm_render_zone ngbm.layout.zone('top') %}
+            {% ngbm_render_zone 'top' %}
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-8">
-            {% ngbm_render_zone ngbm.layout.zone('left') %}
+            {% ngbm_render_zone 'left' %}
         </div>
 
         <div class="col-md-4">
-            {% ngbm_render_zone ngbm.layout.zone('right') %}
+            {% ngbm_render_zone 'right' %}
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            {% ngbm_render_zone ngbm.layout.zone('bottom') %}
+            {% ngbm_render_zone 'bottom' %}
         </div>
     </div>
 {% endblock %}

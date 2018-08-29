@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Symfony\Component\HttpFoundation\Request;
@@ -158,12 +159,12 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->method('renderValue')
             ->will(
                 self::returnCallback(
-                    function (Zone $zone, string $context): string {
+                    function (ZoneReference $zoneReference, string $context): string {
                         if ($context === 'json') {
                             return '{"blocks":[{"id":1},{"id":2}]}';
                         }
 
-                        return 'block1' . PHP_EOL . 'block2';
+                        return 'block1 block2';
                     }
                 )
             );

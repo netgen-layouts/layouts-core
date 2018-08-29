@@ -7,12 +7,14 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 use Generator;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
+use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -119,7 +121,7 @@ final class RenderingRuntime
     /**
      * Displays the provided zone.
      */
-    public function displayZone(Zone $zone, string $viewContext, ContextualizedTwigTemplate $twigTemplate): void
+    public function displayZone(Layout $layout, string $zoneIdentifier, string $viewContext, ContextualizedTwigTemplate $twigTemplate): void
     {
         $locales = null;
 
@@ -128,6 +130,7 @@ final class RenderingRuntime
             $locales = $this->localeProvider->getRequestLocales($request);
         }
 
+        $zone = $layout->getZone($zoneIdentifier);
         $linkedZone = $zone->getLinkedZone();
 
         $blocks = $this->blockService->loadZoneBlocks(
@@ -137,7 +140,7 @@ final class RenderingRuntime
 
         echo $this->renderValue(
             [],
-            $zone,
+            new ZoneReference($layout, $zoneIdentifier),
             [
                 'blocks' => $blocks,
                 'twig_template' => $twigTemplate,
