@@ -91,6 +91,6 @@ final class DefaultContext extends AbstractNodeVisitor
 
     private function getVarName(): string
     {
-        return sprintf('__internal_%s', hash('sha256', uniqid(mt_rand(), true), false));
+        return sprintf('__internal_%s', hash('sha256', uniqid((string) mt_rand(), true), false));
     }
 }
