@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\NodeVisitor\DefaultContext as DefaultContextVisitor;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\DefaultContext as DefaultContextParser;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone as RenderZoneParser;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -96,8 +98,13 @@ final class RenderingExtension extends AbstractExtension
         ];
     }
 
+    public function getNodeVisitors(): array
+    {
+        return [new DefaultContextVisitor()];
+    }
+
     public function getTokenParsers(): array
     {
-        return [new RenderZone()];
+        return [new RenderZoneParser(), new DefaultContextParser()];
     }
 }
