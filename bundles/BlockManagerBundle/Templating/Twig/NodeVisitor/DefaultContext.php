@@ -20,7 +20,7 @@ use Twig\NodeVisitor\AbstractNodeVisitor;
 final class DefaultContext extends AbstractNodeVisitor
 {
     /**
-     * @var \Symfony\Bridge\Twig\NodeVisitor\Scope
+     * @var \Symfony\Bridge\Twig\NodeVisitor\Scope|null
      */
     private $scope;
 
@@ -36,6 +36,10 @@ final class DefaultContext extends AbstractNodeVisitor
 
     protected function doEnterNode(Node $node, Environment $env): Node
     {
+        if (!$this->scope instanceof Scope) {
+            return $node;
+        }
+
         if ($node instanceof BlockNode || $node instanceof ModuleNode) {
             $this->scope = $this->scope->enter();
         }
@@ -71,22 +75,11 @@ final class DefaultContext extends AbstractNodeVisitor
             return false;
         }
 
-        if ($node instanceof BlockNode || $node instanceof ModuleNode) {
+        if ($this->scope instanceof Scope && ($node instanceof BlockNode || $node instanceof ModuleNode)) {
             $this->scope = $this->scope->leave();
         }
 
         return $node;
-    }
-
-    private function isNamedArguments(iterable $arguments): bool
-    {
-        foreach ($arguments as $name => $node) {
-            if (!is_int($name)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private function getVarName(): string
