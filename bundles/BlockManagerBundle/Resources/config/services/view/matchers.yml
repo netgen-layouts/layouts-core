@@ -53,6 +53,18 @@ services:
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: parameter\type }
 
+    netgen_block_manager.view.matcher.zone.identifier:
+        class: Netgen\BlockManager\View\Matcher\Zone\Identifier
+        public: false
+        tags:
+        - { name: netgen_block_manager.view.template_matcher, identifier: zone\identifier }
+
+    netgen_block_manager.view.matcher.zone.layout_type:
+        class: Netgen\BlockManager\View\Matcher\Zone\LayoutType
+        public: false
+        tags:
+        - { name: netgen_block_manager.view.template_matcher, identifier: zone\layout_type }
+
     netgen_block_manager.view.matcher.layout.type:
         class: Netgen\BlockManager\View\Matcher\Layout\Type
         public: false
