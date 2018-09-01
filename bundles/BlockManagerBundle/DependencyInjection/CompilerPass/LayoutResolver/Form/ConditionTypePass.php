@@ -35,7 +35,7 @@ final class ConditionTypePass implements CompilerPassInterface
             }
 
             $mapperClass = $this->getDefinitionClass($container, $mapperService);
-            if (property_exists($mapperClass, 'defaultConditionType')) {
+            if (isset($mapperClass::$defaultConditionType)) {
                 $mappers[$mapperClass::$defaultConditionType] = new Reference($mapperService);
                 continue;
             }

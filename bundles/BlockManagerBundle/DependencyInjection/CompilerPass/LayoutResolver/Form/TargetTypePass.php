@@ -35,7 +35,7 @@ final class TargetTypePass implements CompilerPassInterface
             }
 
             $mapperClass = $this->getDefinitionClass($container, $mapperService);
-            if (property_exists($mapperClass, 'defaultTargetType')) {
+            if (isset($mapperClass::$defaultTargetType)) {
                 $mappers[$mapperClass::$defaultTargetType] = new Reference($mapperService);
                 continue;
             }

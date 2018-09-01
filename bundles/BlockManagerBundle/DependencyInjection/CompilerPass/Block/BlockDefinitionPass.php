@@ -51,7 +51,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
                     }
                 }
 
-                if (property_exists($handlerClass, 'defaultIdentifier')) {
+                if (isset($handlerClass::$defaultIdentifier)) {
                     if ($handlerClass::$defaultIdentifier === $handlerIdentifier) {
                         $foundHandler = $blockDefinitionHandler;
                         break;

@@ -44,7 +44,7 @@ final class QueryTypePass implements CompilerPassInterface
                     }
                 }
 
-                if (property_exists($handlerClass, 'defaultType')) {
+                if (isset($handlerClass::$defaultType)) {
                     if ($handlerClass::$defaultType === $handlerIdentifier) {
                         $foundHandler = $queryTypeHandler;
                         break;
