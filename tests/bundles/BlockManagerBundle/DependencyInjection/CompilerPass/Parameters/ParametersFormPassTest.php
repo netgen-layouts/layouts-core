@@ -41,22 +41,6 @@ final class ParametersFormPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Parameter form mapper service definition must have a 'type' attribute in its' tag.
-     */
-    public function testProcessThrowsRuntimeExceptionWithNoTagType(): void
-    {
-        $this->setDefinition('netgen_block_manager.parameters.form.parameters', new Definition());
-
-        $formMapper = new Definition();
-        $formMapper->addTag('netgen_block_manager.parameters.form.mapper');
-        $this->setDefinition('netgen_block_manager.parameters.form.mapper.test', $formMapper);
-
-        $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass::process
      */
     public function testProcessWithEmptyContainer(): void
     {

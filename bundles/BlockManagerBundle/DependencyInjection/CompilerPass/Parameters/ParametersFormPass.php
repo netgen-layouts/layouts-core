@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class ParametersFormPass implements CompilerPassInterface
 {
+    use DefinitionClassTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.parameters.form.parameters';
     private const TAG_NAME = 'netgen_block_manager.parameters.form.mapper';
 
@@ -26,13 +28,16 @@ final class ParametersFormPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $formMapper => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['type'])) {
-                    throw new RuntimeException(
-                        "Parameter form mapper service definition must have a 'type' attribute in its' tag."
-                    );
+                if (isset($tag['type'])) {
+                    $mappers[$tag['type']] = new Reference($formMapper);
+                    continue 2;
                 }
+            }
 
-                $mappers[$tag['type']] = new Reference($formMapper);
+            $mapperClass = $this->getDefinitionClass($container, $formMapper);
+            if (isset($mapperClass::$defaultParameterType)) {
+                $mappers[$mapperClass::$defaultParameterType] = new Reference($formMapper);
+                continue;
             }
         }
 
