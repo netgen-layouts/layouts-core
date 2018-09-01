@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\Form;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class TargetTypePass implements CompilerPassInterface
 {
+    use DefinitionClassCacheTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.target_type';
     private const TAG_NAME = 'netgen_block_manager.layout.resolver.form.target_type.mapper';
 
@@ -26,11 +28,16 @@ final class TargetTypePass implements CompilerPassInterface
         $mappers = [];
         foreach ($mapperServices as $mapperService => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['target_type'])) {
-                    throw new RuntimeException('Target type form mapper service tags should have an "target_type" attribute.');
+                if (isset($tag['target_type'])) {
+                    $mappers[$tag['target_type']] = new Reference($mapperService);
+                    continue 2;
                 }
+            }
 
-                $mappers[$tag['target_type']] = new Reference($mapperService);
+            $mapperClass = $this->getDefinitionClass($container, $mapperService);
+            if (property_exists($mapperClass, 'defaultTargetType')) {
+                $mappers[$mapperClass::$defaultTargetType] = new Reference($mapperService);
+                continue;
             }
         }
 

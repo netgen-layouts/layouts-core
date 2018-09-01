@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\Form;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class ConditionTypePass implements CompilerPassInterface
 {
+    use DefinitionClassCacheTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.condition_type';
     private const TAG_NAME = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';
 
@@ -26,11 +28,16 @@ final class ConditionTypePass implements CompilerPassInterface
         $mappers = [];
         foreach ($mapperServices as $mapperService => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['condition_type'])) {
-                    throw new RuntimeException('Condition type form mapper service tags should have an "condition_type" attribute.');
+                if (isset($tag['condition_type'])) {
+                    $mappers[$tag['condition_type']] = new Reference($mapperService);
+                    continue 2;
                 }
+            }
 
-                $mappers[$tag['condition_type']] = new Reference($mapperService);
+            $mapperClass = $this->getDefinitionClass($container, $mapperService);
+            if (property_exists($mapperClass, 'defaultConditionType')) {
+                $mappers[$mapperClass::$defaultConditionType] = new Reference($mapperService);
+                continue;
             }
         }
 

@@ -11,6 +11,8 @@ use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Context\ContextProviderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper as ConditionTypeFormMapper;
+use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper as TargetTypeFormMapper;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -128,6 +130,14 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             $container
                 ->registerForAutoconfiguration(QueryTypeHandlerInterface::class)
                 ->addTag('netgen_block_manager.collection.query_type_handler');
+
+            $container
+                ->registerForAutoconfiguration(TargetTypeFormMapper::class)
+                ->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper');
+
+            $container
+                ->registerForAutoconfiguration(ConditionTypeFormMapper::class)
+                ->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper');
         }
     }
 
