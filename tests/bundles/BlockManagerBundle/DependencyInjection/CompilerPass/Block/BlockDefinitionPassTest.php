@@ -12,6 +12,7 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass;
+use stdClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -132,7 +133,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
-        $blockDefinitionHandler = new Definition('class');
+        $blockDefinitionHandler = new Definition(stdClass::class);
         $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler');
         $this->setDefinition('netgen_block_manager.block.block_definition.handler.test', $blockDefinitionHandler);
 
@@ -154,7 +155,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
 
-        $blockDefinitionHandler = new Definition('class');
+        $blockDefinitionHandler = new Definition(stdClass::class);
         $blockDefinitionHandler->addTag(
             'netgen_block_manager.block.block_definition_handler',
             ['identifier' => 'block_definition']

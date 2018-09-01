@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass;
+use stdClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -17,7 +18,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
+        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition(stdClass::class));
         $this->setParameter('session.storage.options', []);
 
         $this->setParameter(
@@ -33,7 +34,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasService(
             'netgen_block_manager.http_cache.client',
-            'class'
+            stdClass::class
         );
     }
 
@@ -42,7 +43,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithDisabledInvalidation(): void
     {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
+        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition(stdClass::class));
         $this->setParameter('session.storage.options', []);
 
         $this->setParameter(
