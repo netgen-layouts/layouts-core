@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-trait DefinitionClassCacheTrait
+trait DefinitionClassTrait
 {
     /**
      * @var string[]

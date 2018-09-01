@@ -11,7 +11,7 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockDefinitionPass implements CompilerPassInterface
 {
-    use DefinitionClassCacheTrait;
+    use DefinitionClassTrait;
 
     private const SERVICE_NAME = 'netgen_block_manager.block.registry.block_definition';
     private const TAG_NAME = 'netgen_block_manager.block.block_definition_handler';

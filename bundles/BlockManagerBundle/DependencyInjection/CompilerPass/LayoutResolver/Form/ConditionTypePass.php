@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\Form;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class ConditionTypePass implements CompilerPassInterface
 {
-    use DefinitionClassCacheTrait;
+    use DefinitionClassTrait;
 
     private const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.condition_type';
     private const TAG_NAME = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';

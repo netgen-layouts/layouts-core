@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Coll
 
 use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class QueryTypePass implements CompilerPassInterface
 {
-    use DefinitionClassCacheTrait;
+    use DefinitionClassTrait;
 
     private const SERVICE_NAME = 'netgen_block_manager.collection.registry.query_type';
     private const TAG_NAME = 'netgen_block_manager.collection.query_type_handler';
