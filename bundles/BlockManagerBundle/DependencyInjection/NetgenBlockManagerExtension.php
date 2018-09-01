@@ -12,8 +12,8 @@ use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Context\ContextProviderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper as ConditionTypeFormMapper;
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper as TargetTypeFormMapper;
+use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface as ConditionTypeFormMapperInterface;
+use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface as TargetTypeFormMapperInterface;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Parameters\Form\MapperInterface as ParameterTypeFormMapperInterface;
 use Netgen\BlockManager\Parameters\ParameterTypeInterface;
@@ -139,7 +139,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
                 ->addTag('netgen_block_manager.collection.query_type_handler');
 
             $container
-                ->registerForAutoconfiguration(TargetTypeFormMapper::class)
+                ->registerForAutoconfiguration(TargetTypeFormMapperInterface::class)
                 ->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper');
 
             $container
@@ -147,7 +147,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
                 ->addTag('netgen_block_manager.layout.resolver.target_handler.doctrine');
 
             $container
-                ->registerForAutoconfiguration(ConditionTypeFormMapper::class)
+                ->registerForAutoconfiguration(ConditionTypeFormMapperInterface::class)
                 ->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper');
 
             $container
