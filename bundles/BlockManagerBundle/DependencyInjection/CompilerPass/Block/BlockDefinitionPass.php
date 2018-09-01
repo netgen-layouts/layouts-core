@@ -11,6 +11,7 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -18,6 +19,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockDefinitionPass implements CompilerPassInterface
 {
+    use DefinitionClassCacheTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.block.registry.block_definition';
     private const TAG_NAME = 'netgen_block_manager.block.block_definition_handler';
 
@@ -33,28 +36,30 @@ final class BlockDefinitionPass implements CompilerPassInterface
 
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
-            $handlerIdentifier = $identifier;
-            if (!empty($blockDefinition['handler'])) {
-                $handlerIdentifier = $blockDefinition['handler'];
-            }
+            $handlerIdentifier = $blockDefinition['handler'] ?? $identifier;
 
             $foundHandler = null;
-            foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tags) {
-                foreach ($tags as $tag) {
-                    if (!isset($tag['identifier'])) {
-                        throw new RuntimeException(
-                            "Block definition handler definition must have an 'identifier' attribute in its' tag."
-                        );
-                    }
+            $handlerClass = null;
 
-                    if ($tag['identifier'] === $handlerIdentifier) {
+            foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tags) {
+                $handlerClass = $this->getDefinitionClass($container, $blockDefinitionHandler);
+
+                foreach ($tags as $tag) {
+                    if (isset($tag['identifier']) && $tag['identifier'] === $handlerIdentifier) {
                         $foundHandler = $blockDefinitionHandler;
                         break 2;
                     }
                 }
+
+                if (property_exists($handlerClass, 'defaultIdentifier')) {
+                    if ($handlerClass::$defaultIdentifier === $handlerIdentifier) {
+                        $foundHandler = $blockDefinitionHandler;
+                        break;
+                    }
+                }
             }
 
-            if (!is_string($foundHandler)) {
+            if (!is_string($foundHandler) || !is_string($handlerClass)) {
                 throw new RuntimeException(
                     sprintf(
                         'Block definition handler for "%s" block definition does not exist.',
@@ -62,9 +67,6 @@ final class BlockDefinitionPass implements CompilerPassInterface
                     )
                 );
             }
-
-            $handlerClass = $container->findDefinition($foundHandler)->getClass();
-            $handlerClass = $container->getParameterBag()->resolveValue($handlerClass);
 
             $factoryMethod = 'buildBlockDefinition';
             $definitionClass = BlockDefinition::class;

@@ -121,7 +121,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block definition handler definition must have an 'identifier' attribute in its' tag.
+     * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier(): void
     {
@@ -132,7 +132,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
-        $blockDefinitionHandler = new Definition();
+        $blockDefinitionHandler = new Definition('class');
         $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler');
         $this->setDefinition('netgen_block_manager.block.block_definition.handler.test', $blockDefinitionHandler);
 
@@ -154,7 +154,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
 
-        $blockDefinitionHandler = new Definition();
+        $blockDefinitionHandler = new Definition('class');
         $blockDefinitionHandler->addTag(
             'netgen_block_manager.block.block_definition_handler',
             ['identifier' => 'block_definition']

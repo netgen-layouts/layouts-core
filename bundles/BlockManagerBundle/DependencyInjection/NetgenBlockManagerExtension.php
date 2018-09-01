@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
 use Jean85\PrettyVersions;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
 use Netgen\BlockManager\Context\ContextProviderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -118,6 +119,10 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             $container
                 ->registerForAutoconfiguration(PluginInterface::class)
                 ->addTag('netgen_block_manager.block.block_definition_handler.plugin');
+
+            $container
+                ->registerForAutoconfiguration(BlockDefinitionHandlerInterface::class)
+                ->addTag('netgen_block_manager.block.block_definition_handler');
         }
     }
 
