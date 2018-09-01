@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 use Jean85\PrettyVersions;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
+use Netgen\BlockManager\Collection\Item\VisibilityVoterInterface;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Context\ContextProviderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -143,6 +144,10 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             $container
                 ->registerForAutoconfiguration(ConditionTypeFormMapper::class)
                 ->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper');
+
+            $container
+                ->registerForAutoconfiguration(VisibilityVoterInterface::class)
+                ->addTag('netgen_block_manager.collection.item_visibility_resolver.voter');
         }
     }
 
