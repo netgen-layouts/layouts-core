@@ -18,6 +18,8 @@ use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Parameters\Form\MapperInterface as ParameterTypeFormMapperInterface;
 use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
@@ -153,6 +155,14 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             $container
                 ->registerForAutoconfiguration(VisibilityVoterInterface::class)
                 ->addTag('netgen_block_manager.collection.item_visibility_resolver.voter');
+
+            $container
+                ->registerForAutoconfiguration(ViewProviderInterface::class)
+                ->addTag('netgen_block_manager.view.provider');
+
+            $container
+                ->registerForAutoconfiguration(VisitorInterface::class)
+                ->addTag('netgen_block_manager.transfer.serializer.visitor');
         }
     }
 
