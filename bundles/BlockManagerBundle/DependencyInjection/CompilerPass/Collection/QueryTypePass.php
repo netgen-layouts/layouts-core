@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Coll
 
 use Netgen\BlockManager\Collection\QueryType\QueryType;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\DefinitionClassCacheTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -13,6 +14,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class QueryTypePass implements CompilerPassInterface
 {
+    use DefinitionClassCacheTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.collection.registry.query_type';
     private const TAG_NAME = 'netgen_block_manager.collection.query_type_handler';
 
@@ -28,23 +31,23 @@ final class QueryTypePass implements CompilerPassInterface
 
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
         foreach ($queryTypes as $type => $queryType) {
-            $handlerIdentifier = $type;
-            if (!empty($queryType['handler'])) {
-                $handlerIdentifier = $queryType['handler'];
-            }
-
+            $handlerIdentifier = $queryType['handler'] ?? $type;
             $foundHandler = null;
-            foreach ($queryTypeHandlers as $queryTypeHandler => $tags) {
-                foreach ($tags as $tag) {
-                    if (!isset($tag['type'])) {
-                        throw new RuntimeException(
-                            "Query type handler definition must have a 'type' attribute in its' tag."
-                        );
-                    }
 
-                    if ($tag['type'] === $handlerIdentifier) {
+            foreach ($queryTypeHandlers as $queryTypeHandler => $tags) {
+                $handlerClass = $this->getDefinitionClass($container, $queryTypeHandler);
+
+                foreach ($tags as $tag) {
+                    if (isset($tag['type']) && $tag['type'] === $handlerIdentifier) {
                         $foundHandler = $queryTypeHandler;
                         break 2;
+                    }
+                }
+
+                if (property_exists($handlerClass, 'defaultType')) {
+                    if ($handlerClass::$defaultType === $handlerIdentifier) {
+                        $foundHandler = $queryTypeHandler;
+                        break;
                     }
                 }
             }

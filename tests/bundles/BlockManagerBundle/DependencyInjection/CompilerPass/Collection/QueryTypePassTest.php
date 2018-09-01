@@ -23,7 +23,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition(null, [[]]));
 
-        $queryTypeHandler = new Definition();
+        $queryTypeHandler = new Definition('class');
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'query_type']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
@@ -52,7 +52,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition(null, [[]]));
 
-        $queryTypeHandler = new Definition();
+        $queryTypeHandler = new Definition('class');
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'custom']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
@@ -74,7 +74,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Query type handler definition must have a 'type' attribute in its' tag.
+     * @expectedExceptionMessage Query type handler for "query_type" query type does not exist.
      */
     public function testProcessThrowsExceptionWithNoTagType(): void
     {
@@ -83,7 +83,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
-        $queryTypeHandler = new Definition();
+        $queryTypeHandler = new Definition('class');
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler');
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
@@ -102,7 +102,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
-        $queryTypeHandler = new Definition();
+        $queryTypeHandler = new Definition('class');
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'other']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
@@ -121,7 +121,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
-        $queryTypeHandler = new Definition();
+        $queryTypeHandler = new Definition('class');
         $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'other']);
         $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
 
