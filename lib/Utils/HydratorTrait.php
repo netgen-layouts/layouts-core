@@ -23,7 +23,7 @@ trait HydratorTrait
     {
         self::initHydrator();
 
-        return self::$__hydrator->hydrate($data, new self());
+        return self::$__hydrator->hydrate($data, new static());
     }
 
     /**
