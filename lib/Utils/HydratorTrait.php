@@ -17,7 +17,7 @@ trait HydratorTrait
      *
      * @param array $data
      *
-     * @return self
+     * @return static
      */
     public static function fromArray(array $data)
     {
@@ -31,7 +31,7 @@ trait HydratorTrait
      *
      * @param array $data
      *
-     * @return self
+     * @return static
      */
     public function hydrate(array $data)
     {
