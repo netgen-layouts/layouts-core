@@ -10,11 +10,11 @@ use Symfony\Component\Validator\Constraints;
 
 abstract class ParameterType implements ParameterTypeInterface
 {
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
     }
 
-    public function getConstraints(ParameterDefinition $parameterDefinition, $value)
+    public function getConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         if ($parameterDefinition->getType()::getIdentifier() !== $this::getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(
@@ -100,7 +100,7 @@ abstract class ParameterType implements ParameterTypeInterface
         return $this->fromHash($parameterDefinition, $value);
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value)
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
         return empty($value);
     }
@@ -118,7 +118,7 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value)
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         if ($parameterDefinition->isRequired()) {
             return [
@@ -143,5 +143,5 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    abstract protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value);
+    abstract protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array;
 }

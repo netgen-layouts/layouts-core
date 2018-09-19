@@ -36,7 +36,7 @@ final class NullQueryType implements QueryTypeInterface
         return 'Invalid query type';
     }
 
-    public function getValues(Query $query, $offset = 0, $limit = null)
+    public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable
     {
         return [];
     }

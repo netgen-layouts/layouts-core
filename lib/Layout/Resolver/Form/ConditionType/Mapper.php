@@ -8,12 +8,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class Mapper implements MapperInterface
 {
-    public function getFormOptions()
+    public function getFormOptions(): array
     {
         return [];
     }
 
-    public function handleForm(FormBuilderInterface $builder)
+    public function handleForm(FormBuilderInterface $builder): void
     {
     }
 }

@@ -29,15 +29,15 @@ interface PluginInterface
      *
      * @return string[]
      */
-    public static function getExtendedHandlers();
+    public static function getExtendedHandlers(): array;
 
     /**
      * Builds the parameters by using provided parameter builder.
      */
-    public function buildParameters(ParameterBuilderInterface $builder);
+    public function buildParameters(ParameterBuilderInterface $builder): void;
 
     /**
      * Adds the dynamic parameters to the $params object for the provided block.
      */
-    public function getDynamicParameters(DynamicParameters $params, Block $block);
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void;
 }

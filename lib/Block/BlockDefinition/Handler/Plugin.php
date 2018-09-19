@@ -10,11 +10,11 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 abstract class Plugin implements PluginInterface
 {
-    public function buildParameters(ParameterBuilderInterface $builder)
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
     }
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
     }
 }

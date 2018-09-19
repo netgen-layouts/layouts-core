@@ -15,7 +15,7 @@ interface ContainerDefinitionHandlerInterface extends BlockDefinitionHandlerInte
     /**
      * Returns all placeholder identifiers for this container definition.
      *
-     * @return array
+     * @return string[]
      */
-    public function getPlaceholderIdentifiers();
+    public function getPlaceholderIdentifiers(): array;
 }

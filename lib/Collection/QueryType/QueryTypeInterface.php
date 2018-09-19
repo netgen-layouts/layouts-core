@@ -30,14 +30,8 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
 
     /**
      * Returns the values from the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return mixed[]
      */
-    public function getValues(Query $query, $offset = 0, $limit = null);
+    public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable;
 
     /**
      * Returns the value count from the query.

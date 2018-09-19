@@ -19,10 +19,8 @@ interface TargetTypeInterface
 {
     /**
      * Returns the target type identifier.
-     *
-     * @return string
      */
-    public static function getType();
+    public static function getType(): string;
 
     /**
      * Returns the constraints that will be used to validate the value of
@@ -30,7 +28,7 @@ interface TargetTypeInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints();
+    public function getConstraints(): array;
 
     /**
      * Provides the value for the target to be used in matching process.

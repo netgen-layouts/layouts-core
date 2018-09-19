@@ -21,5 +21,5 @@ interface ValueUrlGeneratorInterface
      *
      * @return string|null
      */
-    public function generate($object);
+    public function generate($object): ?string;
 }

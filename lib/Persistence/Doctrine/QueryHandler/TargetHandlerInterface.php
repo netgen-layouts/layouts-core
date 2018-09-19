@@ -21,5 +21,5 @@ interface TargetHandlerInterface
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
      * @param mixed $value
      */
-    public function handleQuery(QueryBuilder $query, $value);
+    public function handleQuery(QueryBuilder $query, $value): void;
 }

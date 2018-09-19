@@ -19,17 +19,15 @@ interface ConditionTypeInterface
 {
     /**
      * Returns the condition type identifier.
-     *
-     * @return string
      */
-    public static function getType();
+    public static function getType(): string;
 
     /**
      * Returns the constraints that will be used to validate the condition value.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints();
+    public function getConstraints(): array;
 
     /**
      * Returns if this request matches the provided value.
@@ -39,5 +37,5 @@ interface ConditionTypeInterface
      *
      * @return bool
      */
-    public function matches(Request $request, $value);
+    public function matches(Request $request, $value): bool;
 }

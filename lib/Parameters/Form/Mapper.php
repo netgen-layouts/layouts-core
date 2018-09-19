@@ -9,12 +9,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class Mapper implements MapperInterface
 {
-    public function mapOptions(ParameterDefinition $parameterDefinition)
+    public function mapOptions(ParameterDefinition $parameterDefinition): array
     {
         return [];
     }
 
-    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition)
+    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition): void
     {
     }
 }

@@ -14,20 +14,16 @@ interface MapperInterface
 {
     /**
      * Returns the form type for the parameter.
-     *
-     * @return string
      */
-    public function getFormType();
+    public function getFormType(): string;
 
     /**
      * Maps parameter options to Symfony form options.
-     *
-     * @return array
      */
-    public function mapOptions(ParameterDefinition $parameterDefinition);
+    public function mapOptions(ParameterDefinition $parameterDefinition): array;
 
     /**
      * Allows the mapper to do any kind of processing to created form.
      */
-    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition);
+    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition): void;
 }

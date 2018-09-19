@@ -51,7 +51,7 @@ class QueryType implements QueryTypeInterface
         return $this->name;
     }
 
-    public function getValues(Query $query, $offset = 0, $limit = null)
+    public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable
     {
         return $this->handler->getValues($query, $offset, $limit);
     }

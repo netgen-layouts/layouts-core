@@ -10,15 +10,13 @@ interface ParameterTypeInterface
 {
     /**
      * Returns the parameter type identifier.
-     *
-     * @return string
      */
-    public static function getIdentifier();
+    public static function getIdentifier(): string;
 
     /**
      * Configures the options for this parameter.
      */
-    public function configureOptions(OptionsResolver $optionsResolver);
+    public function configureOptions(OptionsResolver $optionsResolver): void;
 
     /**
      * Returns the parameter constraints.
@@ -28,7 +26,7 @@ interface ParameterTypeInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints(ParameterDefinition $parameterDefinition, $value);
+    public function getConstraints(ParameterDefinition $parameterDefinition, $value): array;
 
     /**
      * Converts the parameter value from a domain format to scalar/hash format.
@@ -86,5 +84,5 @@ interface ParameterTypeInterface
      *
      * @return bool
      */
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value);
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool;
 }

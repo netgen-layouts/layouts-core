@@ -18,7 +18,7 @@ interface ValueConverterInterface
      *
      * @return bool
      */
-    public function supports($object);
+    public function supports($object): bool;
 
     /**
      * Returns the value type for this object.
@@ -27,7 +27,7 @@ interface ValueConverterInterface
      *
      * @return string
      */
-    public function getValueType($object);
+    public function getValueType($object): string;
 
     /**
      * Returns the object ID.
@@ -54,7 +54,7 @@ interface ValueConverterInterface
      *
      * @return string
      */
-    public function getName($object);
+    public function getName($object): string;
 
     /**
      * Returns if the object is visible.
@@ -63,7 +63,7 @@ interface ValueConverterInterface
      *
      * @return bool
      */
-    public function getIsVisible($object);
+    public function getIsVisible($object): bool;
 
     /**
      * Returns the object itself.

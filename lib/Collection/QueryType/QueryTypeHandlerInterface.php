@@ -24,34 +24,20 @@ interface QueryTypeHandlerInterface
     /**
      * Builds the parameters by using provided parameter builder.
      */
-    public function buildParameters(ParameterBuilderInterface $builder);
+    public function buildParameters(ParameterBuilderInterface $builder): void;
 
     /**
      * Returns the values from the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return mixed[]
      */
-    public function getValues(Query $query, $offset = 0, $limit = null);
+    public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable;
 
     /**
      * Returns the value count from the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
      */
-    public function getCount(Query $query);
+    public function getCount(Query $query): int;
 
     /**
      * Returns if the provided query is dependent on a context, i.e. currently displayed page.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return bool
      */
-    public function isContextual(Query $query);
+    public function isContextual(Query $query): bool;
 }

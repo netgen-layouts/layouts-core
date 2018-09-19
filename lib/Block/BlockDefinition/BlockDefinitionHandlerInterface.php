@@ -31,19 +31,15 @@ interface BlockDefinitionHandlerInterface
     /**
      * Builds the parameters by using provided parameter builder.
      */
-    public function buildParameters(ParameterBuilderInterface $builder);
+    public function buildParameters(ParameterBuilderInterface $builder): void;
 
     /**
      * Adds the dynamic parameters to the $params object for the provided block.
      */
-    public function getDynamicParameters(DynamicParameters $params, Block $block);
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void;
 
     /**
      * Returns if the provided block is dependent on a context, i.e. currently displayed page.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
      */
-    public function isContextual(Block $block);
+    public function isContextual(Block $block): bool;
 }
