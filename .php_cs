@@ -22,6 +22,7 @@ return PhpCsFixer\Config::create()
         'list_syntax' => ['syntax' => 'long'],
         'mb_str_functions' => true,
         'multiline_comment_opening_closing' => true,
+        'native_function_invocation' => false,
         'no_alternative_syntax' => true,
         'no_null_property_initialization' => true,
         'no_superfluous_elseif' => true,
