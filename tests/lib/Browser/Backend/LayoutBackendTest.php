@@ -46,7 +46,7 @@ final class LayoutBackendTest extends TestCase
         $locations = $this->backend->getSections();
 
         self::assertCount(1, $locations);
-        self::assertInstanceOf(RootLocation::class, $locations[0]);
+        self::assertContainsOnlyInstancesOf(RootLocation::class, $locations);
     }
 
     /**
@@ -106,7 +106,8 @@ final class LayoutBackendTest extends TestCase
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
-        self::assertSame([], $locations);
+        self::assertInternalType('array', $locations);
+        self::assertEmpty($locations);
     }
 
     /**
@@ -191,7 +192,8 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test');
 
-        self::assertSame([], $items);
+        self::assertInternalType('array', $items);
+        self::assertEmpty($items);
     }
 
     /**
@@ -201,7 +203,8 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test', 5, 10);
 
-        self::assertSame([], $items);
+        self::assertInternalType('array', $items);
+        self::assertEmpty($items);
     }
 
     /**
