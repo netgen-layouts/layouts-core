@@ -50,7 +50,10 @@ final class NullQueryTypeTest extends TestCase
      */
     public function testGetValues(): void
     {
-        self::assertSame([], $this->queryType->getValues(new Query()));
+        $values = $this->queryType->getValues(new Query());
+
+        self::assertInternalType('array', $values);
+        self::assertEmpty($values);
     }
 
     /**
