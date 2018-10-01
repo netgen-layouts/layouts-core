@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Command;
 
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Input\ImporterInterface;
 use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
 use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
@@ -51,6 +52,9 @@ final class ImportCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
 
         $file = $input->getArgument('file');
+        if (!is_string($file) || !file_exists($file)) {
+            throw new RuntimeException('Provided file does not exist.');
+        }
 
         $errorCount = $this->importData((string) file_get_contents($file));
 

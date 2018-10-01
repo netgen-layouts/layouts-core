@@ -10,7 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Command to export Netgen Layouts entities.
@@ -23,14 +23,13 @@ final class ExportCommand extends Command
     private $serializer;
 
     /**
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
-    private $fileSystem;
+    private $io;
 
-    public function __construct(SerializerInterface $serializer, Filesystem $fileSystem)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        $this->fileSystem = $fileSystem;
 
         // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
@@ -43,14 +42,22 @@ final class ExportCommand extends Command
             ->setDescription('Exports Netgen Layouts entities')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to export')
             ->addArgument('ids', InputArgument::REQUIRED, 'Comma-separated list of IDs of the entities to export')
-            ->addArgument('file', InputArgument::OPTIONAL, 'If specified, exported entities will be written to provided file')
             ->setHelp('The command <info>%command.name%</info> exports Netgen Layouts entities.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        $this->io = new SymfonyStyle($input, $output);
+
         $type = $input->getArgument('type');
-        $ids = explode(',', $input->getArgument('ids'));
+        if (!is_string($type)) {
+            throw new RuntimeException('Invalid import type.');
+        }
+
+        $ids = $input->getArgument('ids');
+        if (!is_array($ids)) {
+            $ids = explode(',', $ids ?? '');
+        }
 
         switch ($type) {
             case 'layout':
@@ -68,11 +75,7 @@ final class ExportCommand extends Command
             throw new RuntimeException('Serialization failed.');
         }
 
-        $file = $input->getArgument('file');
-
-        $file !== null ?
-            $this->fileSystem->dumpFile(trim($file), $json) :
-            $output->writeln($json);
+        $this->io->writeln($json);
 
         return 0;
     }

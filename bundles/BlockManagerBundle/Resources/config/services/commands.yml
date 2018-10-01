@@ -13,7 +13,6 @@ services:
         # public: false
         arguments:
             - "@netgen_block_manager.transfer.serializer"
-            - "@filesystem"
         tags:
             - { name: console.command, command: ngbm:export }
 
