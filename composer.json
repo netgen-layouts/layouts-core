@@ -14,7 +14,31 @@
         "ext-mbstring": "*",
         "netgen/layouts-ui": "~0.12.0",
         "netgen/content-browser": "~0.12.0",
-        "symfony/symfony": "^2.8 || ^3.4 || ^4.1",
+        "symfony/asset": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/config": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/console": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/debug": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/dependency-injection": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/doctrine-bridge": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/event-dispatcher": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/expression-language": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/form": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/framework-bundle": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/http-foundation": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/http-kernel": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/intl": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/monolog-bundle": "^3.3",
+        "symfony/options-resolver": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/proxy-manager-bridge": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/routing": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/security": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/security-bundle": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/serializer": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/translation": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/twig-bridge": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/twig-bundle": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/validator": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/yaml": "^2.8.16 || ^3.4.4 || ^4.1.1",
         "twig/twig": "^2.5",
         "twig/extensions": "^1.5.1",
         "sensio/framework-extra-bundle": "^3.0.12 || ^5.2",
@@ -37,9 +61,10 @@
         "netgen/layouts-standard": "~0.12.0",
         "phpunit/phpunit": "^5.7 || ^7.3",
         "symfony/phpunit-bridge": "^4.1",
+        "symfony/var-dumper": "^2.8.16 || ^3.4.4 || ^4.1.1",
+        "symfony/web-server-bundle": "^3.4.4 || ^4.1.1",
         "phpstan/phpstan": "^0.10",
         "phpstan/phpstan-phpunit": "^0.10",
-        "symfony/monolog-bundle": "^3.3",
         "coduo/php-matcher": "^2.4 || ^3.1",
         "phpspec/php-diff": "^1.1",
         "matthiasnoback/symfony-dependency-injection-test": "^1.2 || ^3.0",
@@ -59,7 +84,6 @@
         "franzl/studio": "*"
     },
     "conflict": {
-        "symfony/symfony": "<2.8.16 || >=3.4.0,<3.4.4 || >=4.1.0,<4.1.1",
         "phpunit/phpunit-mock-objects": "<3.4.2"
     },
     "config": {
@@ -97,7 +121,7 @@
             "Netgen\\ContentBrowser\\Tests\\": "vendor/netgen/content-browser/tests/lib/"
         },
         "files": [
-            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+            "vendor/symfony/var-dumper/Resources/functions/dump.php"
         ]
     },
     "minimum-stability": "dev",
