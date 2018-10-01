@@ -84,7 +84,8 @@
         "franzl/studio": "*"
     },
     "conflict": {
-        "phpunit/phpunit-mock-objects": "<3.4.2"
+        "phpunit/phpunit-mock-objects": "<3.4.2",
+        "ocramius/proxy-manager": "<2.1"
     },
     "config": {
         "process-timeout": 3600
