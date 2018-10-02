@@ -86,11 +86,11 @@ before_script:
       composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit symfony/web-server-bundle
     fi
 
+  - composer update --no-suggest --prefer-dist
+
   - |
     if [ "$DEPS" = "low" ] ; then
       composer update --no-suggest --prefer-dist --prefer-lowest --prefer-stable
-    else
-      composer update --no-suggest --prefer-dist
     fi
 
   - |
