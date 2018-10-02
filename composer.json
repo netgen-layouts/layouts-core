@@ -87,7 +87,8 @@
     },
     "conflict": {
         "phpunit/phpunit-mock-objects": "<3.4.2",
-        "ocramius/proxy-manager": "<2.1"
+        "ocramius/proxy-manager": "<2.1",
+        "symfony/dependency-injection": "3.4.16"
     },
     "config": {
         "process-timeout": 3600
