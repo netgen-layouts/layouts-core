@@ -68,7 +68,7 @@ final class LayoutNormalizerTest extends TestCase
         );
 
         $this->normalizer = new LayoutNormalizer($this->layoutServiceMock, $this->blockServiceMock);
-        $this->normalizer->setNormalizer(new Serializer());
+        $this->normalizer->setSerializer(new Serializer());
     }
 
     /**

@@ -28,11 +28,11 @@ final class CollectionResultSetNormalizerTest extends TestCase
     public function setUp(): void
     {
         $this->normalizer = new CollectionResultSetNormalizer();
-        $this->normalizer->setNormalizer(new Serializer([new ValueNormalizer(), new NormalizerStub()]));
+        $this->normalizer->setSerializer(new Serializer([new ValueNormalizer(), new NormalizerStub()]));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::getOverflowItems
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::normalize
      */

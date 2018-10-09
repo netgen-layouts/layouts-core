@@ -9,8 +9,8 @@ use Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value as StubValue;
+use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ValueNormalizerTest extends TestCase
 {
@@ -26,14 +26,14 @@ final class ValueNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
+        $this->normalizerMock = $this->createMock(SerializerInterface::class);
 
         $this->normalizer = new ValueNormalizer();
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setSerializer($this->normalizerMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setNormalizer
+     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer::normalize
      */
     public function testNormalize(): void

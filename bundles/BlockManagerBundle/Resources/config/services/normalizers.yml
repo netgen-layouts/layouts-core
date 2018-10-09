@@ -3,8 +3,6 @@ services:
         class: Netgen\BlockManager\Serializer\Normalizer
         public: false
         abstract: true
-        calls:
-            - [setNormalizer, ["@serializer"]]
 
     netgen_block_manager.normalizer.value:
         class: Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer
