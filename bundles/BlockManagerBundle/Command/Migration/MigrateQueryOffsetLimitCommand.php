@@ -79,8 +79,12 @@ final class MigrateQueryOffsetLimitCommand extends Command
     {
         $this
             ->setName('ngbm:migration:query_offset_limit')
-            ->setDescription('Migrates the query offset and limit parameters to collection offset and limit after upgrade to version 0.10.')
-            ->setHidden(true);
+            ->setDescription('Migrates the query offset and limit parameters to collection offset and limit after upgrade to version 0.10.');
+
+        if (method_exists($this, 'setHidden')) {
+            // BC for Symfony 2.8, which does not have the setHidden method
+            $this->setHidden(true);
+        }
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
