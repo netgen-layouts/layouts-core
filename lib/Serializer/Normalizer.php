@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Serializer;
 
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerAwareInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @deprecated Replace with NormalizerAwareTrait from Symfony when support for Symfony 2.8 ends.
  */
-abstract class Normalizer
+abstract class Normalizer implements SerializerAwareInterface
 {
     /**
      * @var \Symfony\Component\Serializer\Normalizer\NormalizerInterface
@@ -19,8 +20,8 @@ abstract class Normalizer
     /**
      * Sets the serializer.
      */
-    public function setNormalizer(NormalizerInterface $normalizer): void
+    public function setSerializer(SerializerInterface $serializer): void
     {
-        $this->normalizer = $normalizer;
+        $this->normalizer = $serializer;
     }
 }

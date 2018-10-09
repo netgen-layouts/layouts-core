@@ -12,8 +12,8 @@ use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionItemNormalizerTest extends TestCase
 {
@@ -34,11 +34,11 @@ final class CollectionItemNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
+        $this->normalizerMock = $this->createMock(SerializerInterface::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
         $this->normalizer = new CollectionItemNormalizer($this->urlGeneratorMock, new VisibilityResolver());
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setSerializer($this->normalizerMock);
     }
 
     /**

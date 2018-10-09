@@ -56,7 +56,7 @@ matrix:
 branches:
   only:
     - master
-    - /^\d.\d+-release$/
+    - /^\d.\d+$/
 
 before_script:
   - |

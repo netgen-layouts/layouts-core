@@ -22,7 +22,7 @@ final class LayoutTypeNormalizerTest extends TestCase
     public function setUp(): void
     {
         $this->normalizer = new LayoutTypeNormalizer();
-        $this->normalizer->setNormalizer(new Serializer());
+        $this->normalizer->setSerializer(new Serializer());
     }
 
     /**
