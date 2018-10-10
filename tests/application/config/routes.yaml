@@ -1,6 +1,6 @@
-netgen_block_manager:
+netgen_layouts:
     resource: '@NetgenBlockManagerBundle/Resources/config/routing.yml'
-    prefix: '%netgen_block_manager.route_prefix%'
+    prefix: '%netgen_layouts.route_prefix%'
 
 netgen_content_browser:
     resource: '@NetgenContentBrowserBundle/Resources/config/routing.yml'

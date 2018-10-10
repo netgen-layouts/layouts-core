@@ -1,0 +1,4 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE)%'
+        charset: '%database_charset%'
