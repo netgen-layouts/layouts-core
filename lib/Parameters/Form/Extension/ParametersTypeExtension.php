@@ -22,6 +22,11 @@ final class ParametersTypeExtension extends AbstractTypeExtension
         return FormType::class;
     }
 
+    public static function getExtendedTypes(): iterable
+    {
+        return [FormType::class];
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefined('ngbm_parameter_definition');
