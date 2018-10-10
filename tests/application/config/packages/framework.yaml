@@ -1,0 +1,9 @@
+framework:
+    secret: secret
+    translator: { fallbacks: [en] }
+    session:
+        storage_id: session.storage.mock_file
+    form: ~
+    csrf_protection: ~
+    validation: ~
+    test: ~
