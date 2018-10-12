@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerFixturesBundle\Item;
+namespace Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item;
 
 final class Value
 {

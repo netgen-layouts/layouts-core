@@ -14,8 +14,8 @@
         "css_id": null,
         "set_container": null
     },
-    "view_type": "test_grid",
-    "item_view_type": "test_item",
+    "view_type": "other_grid",
+    "item_view_type": "other_item",
     "published": false,
     "has_published_state": false,
     "locale": "en",

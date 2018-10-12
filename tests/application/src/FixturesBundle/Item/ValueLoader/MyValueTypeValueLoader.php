@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueLoader;
+namespace Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\ValueLoader;
 
 use Netgen\BlockManager\Item\ValueLoaderInterface;
-use Netgen\Bundle\BlockManagerFixturesBundle\Item\Value;
+use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
 
 final class MyValueTypeValueLoader implements ValueLoaderInterface
 {

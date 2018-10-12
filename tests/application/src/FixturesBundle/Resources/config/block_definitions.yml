@@ -6,6 +6,11 @@ block_definitions:
                 item_view_types:
                     test_item:
                         name: 'Test item'
+            other_grid:
+                name: 'Other grid'
+                item_view_types:
+                    other_item:
+                        name: 'Other item'
 
     list_without_value_types:
         name: 'List without value types'
