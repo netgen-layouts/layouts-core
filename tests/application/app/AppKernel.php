@@ -35,8 +35,11 @@ final class AppKernel extends Kernel
             new \Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle(),
             new \Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle(),
             new \Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBundle(),
-            new \Netgen\Bundle\BlockManagerFixturesBundle\NetgenBlockManagerFixturesBundle(),
             new \Netgen\Bundle\BlockManagerStandardBundle\NetgenBlockManagerStandardBundle(),
+
+            // Test bundles
+
+            new \Netgen\BlockManager\Tests\Bundle\FixturesBundle\FixturesBundle(),
         ];
 
         // @deprecated Remove class_exists check when support for Symfony 2.8 ends

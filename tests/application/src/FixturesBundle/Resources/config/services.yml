@@ -1,30 +1,30 @@
 services:
     netgen_block_manager.fixtures.brower.my_value_type:
-        class: Netgen\Bundle\BlockManagerFixturesBundle\Browser\MyValueTypeBackend
+        class: Netgen\BlockManager\Tests\Bundle\FixturesBundle\Browser\MyValueTypeBackend
         public: false
         tags:
             - { name: netgen_content_browser.backend, item_type: my_value_type }
 
     netgen_block_manager.fixtures.item.value_converter.my_value_type:
-        class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueConverter\MyValueTypeValueConverter
+        class: Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\ValueConverter\MyValueTypeValueConverter
         public: false
         tags:
             - { name: netgen_block_manager.item.value_converter }
 
     netgen_block_manager.fixtures.item.value_loader.my_value_type:
-        class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueLoader\MyValueTypeValueLoader
+        class: Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\ValueLoader\MyValueTypeValueLoader
         public: false
         tags:
             - { name: netgen_block_manager.item.value_loader, value_type: "my_value_type" }
 
     netgen_block_manager.fixtures.item.value_url_generator.my_value_type:
-        class: Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueUrlGenerator\MyValueTypeValueUrlGenerator
+        class: Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\ValueUrlGenerator\MyValueTypeValueUrlGenerator
         public: false
         tags:
             - { name: netgen_block_manager.item.value_url_generator, value_type: "my_value_type" }
 
     netgen_block_manager.fixtures.collection.query_type.my_query_type:
-        class: Netgen\Bundle\BlockManagerFixturesBundle\Collection\QueryType\Handler\MyQueryType
+        class: Netgen\BlockManager\Tests\Bundle\FixturesBundle\Collection\QueryType\Handler\MyQueryType
         public: false
         tags:
             - { name: netgen_block_manager.collection.query_type_handler, type: my_query_type }

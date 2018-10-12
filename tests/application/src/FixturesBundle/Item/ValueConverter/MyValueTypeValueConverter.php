@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueConverter;
+namespace Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\ValueConverter;
 
 use Netgen\BlockManager\Item\ValueConverterInterface;
-use Netgen\Bundle\BlockManagerFixturesBundle\Item\Value;
+use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
 
 final class MyValueTypeValueConverter implements ValueConverterInterface
 {
@@ -20,7 +20,7 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
     }
 
     /**
-     * @param \Netgen\Bundle\BlockManagerFixturesBundle\Item\Value $object
+     * @param \Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value $object
      *
      * @return int|string
      */
@@ -30,7 +30,7 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
     }
 
     /**
-     * @param \Netgen\Bundle\BlockManagerFixturesBundle\Item\Value $object
+     * @param \Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value $object
      *
      * @return int|string
      */
@@ -40,7 +40,7 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
     }
 
     /**
-     * @param \Netgen\Bundle\BlockManagerFixturesBundle\Item\Value $object
+     * @param \Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value $object
      *
      * @return string
      */

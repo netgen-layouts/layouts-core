@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerFixturesBundle\Item\ValueUrlGenerator;
+namespace Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\ValueUrlGenerator;
 
 use Netgen\BlockManager\Item\ValueUrlGeneratorInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerFixturesBundle\Browser;
+namespace Netgen\BlockManager\Tests\Bundle\FixturesBundle\Browser;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;

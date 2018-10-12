@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerFixturesBundle\Collection\QueryType\Handler;
+namespace Netgen\BlockManager\Tests\Bundle\FixturesBundle\Collection\QueryType\Handler;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
