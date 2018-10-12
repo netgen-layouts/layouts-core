@@ -95,7 +95,7 @@ before_script:
 
   - |
     if [ "$RUN_BEHAT" = "yes" ] ; then
-      ./tests/run_chrome.sh > /dev/null 2>&1 &
+      ./tests/prepare_behat.sh > /dev/null 2>&1 &
       # Sleep to allow the script to download Chrome WebDriver
       sleep 15
     fi
