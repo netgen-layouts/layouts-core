@@ -110,12 +110,12 @@
 
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
             "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/",
-            "Netgen\\Bundle\\BlockManagerDebugBundle\\": "bundles/BlockManagerDebugBundle/",
-            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/"
+            "Netgen\\Bundle\\BlockManagerDebugBundle\\": "bundles/BlockManagerDebugBundle/"
         }
     },
     "autoload-dev": {
         "psr-4": {
+            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/",
             "Netgen\\BlockManager\\Tests\\": "tests/lib/",
             "Netgen\\BlockManager\\Behat\\": "tests/behat/",
             "Netgen\\BlockManager\\Tests\\Kernel\\": "tests/application/app/",
