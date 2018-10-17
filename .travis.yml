@@ -6,6 +6,7 @@ language: php
 php:
   - 7.1
   - 7.2
+  - 7.3
 
 services:
   - mysql
@@ -68,7 +69,7 @@ before_script:
       export DATABASE=pgsql://postgres@localhost/testdb
     fi
 
-  - phpenv config-rm xdebug.ini
+  - phpenv config-rm xdebug.ini || true
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
   # Read-only OAuth token to work around GitHub API rate limits
