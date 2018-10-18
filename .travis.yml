@@ -43,6 +43,8 @@ matrix:
       env: RUN_BEHAT="yes"
     - php: 7.2
       env: RUN_MIGRATIONS="yes" DB="mysql"
+    - php: 7.2
+      env: RUN_COVERAGE="yes"
     -
       env: ~
       php: ~
@@ -53,6 +55,10 @@ matrix:
       script:
         - grunt build --gruntfile=bundles/BlockManagerBundle/Gruntfile.js
         - grunt build --gruntfile=bundles/BlockManagerAdminBundle/Gruntfile.js
+  allow_failures:
+    -
+      env: RUN_COVERAGE="yes"
+  fast_finish: true
 
 branches:
   only:
@@ -111,6 +117,12 @@ script:
     if [ "$RUN_MIGRATIONS" != "" ] ; then
       php tests/application/bin/console doctrine:migrations:migrate \
       --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yml --ansi
+    fi
+  - |
+    if [ "$RUN_COVERAGE" != "" ] ; then
+      composer coverage-clover
+      composer coverage-clover-api
+      bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     fi
 
 notifications:
