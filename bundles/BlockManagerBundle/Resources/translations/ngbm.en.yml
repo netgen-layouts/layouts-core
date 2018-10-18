@@ -2,8 +2,8 @@ block.plugin.common_params.css_class: 'CSS class'
 block.plugin.common_params.css_id: 'CSS ID'
 block.plugin.common_params.set_container: 'Wrap in container'
 
-block.plugin.paged_collections.enabled: 'Enable paging'
-block.plugin.paged_collections.type: 'Paging type'
+block.plugin.paged_collections.enabled: 'Enable pagination'
+block.plugin.paged_collections.type: 'Pagination type'
 block.plugin.paged_collections.ajax_first: 'Load first page via AJAX'
 block.plugin.paged_collections.max_pages: 'Maximum number of pages'
 
