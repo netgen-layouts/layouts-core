@@ -236,7 +236,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                     $limit = isset($parameters[$limitParameter]) ? (int) $parameters[$limitParameter] : null;
                 }
 
-                $this->updateCollection($queryDataItem['id'], $queryDataItem['status'], $offset, $limit);
+                $this->updateCollection($queryDataItem['id'], (int) $queryDataItem['status'], $offset, $limit);
 
                 $this->io->progressAdvance();
             }
